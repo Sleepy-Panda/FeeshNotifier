@@ -4,7 +4,6 @@ trackAuctionPrices();
 register('step', () => trackAuctionPrices()).setDelay(60);
 
 let auctionPrices = {};
-const trackedItemIds = [ 'GEMSTONE_CHAMBER' ];
 
 export function getAuctionItemPrices(itemId) {
     if (!itemId) {
@@ -24,7 +23,7 @@ function trackAuctionPrices() {
                 throw new Error('[FeeshNotifier] Error loading auctions data: response is empty.');
             }
 
-            trackedItemIds.forEach(itemId => {
+            Object.keys(response).forEach(itemId => {
                 const itemLowestBin = response[itemId] || 0;
                 if (itemLowestBin) {
                     auctionPrices[itemId] = {

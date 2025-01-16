@@ -10,4 +10,5 @@ export const overlayCoordsData = new PogObject("FeeshNotifier", {
     "crimsonIsleTrackerOverlay": { "x": 10, "y": 200, "scale": 1 },
     "jerryWorkshopTrackerOverlay": { "x": 10, "y": 200, "scale": 1 },
     "wormProfitTrackerOverlay": { "x": 10, "y": 200, "scale": 1 },
+    "magmaCoreProfitTrackerOverlay": { "x": 10, "y": 200, "scale": 1 },
 }, 'config/overlayCoords.json');
