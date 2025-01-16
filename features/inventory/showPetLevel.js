@@ -1,4 +1,3 @@
-import { GOLD, GREEN } from "../../constants/formatting";
 import settings from "../../settings";
 import { isInSkyblock } from "../../utils/playerState";
 
@@ -15,13 +14,9 @@ function showPetLevel(item, x, y) {
         return;
     }
 
-    const name = item.getName()?.removeFormatting();
+    const displayName = item.getName();
+    const name = displayName?.removeFormatting();
     if (!name || !name.includes('[Lvl')) {
-        return;
-    }
-
-    const loreLines = item.getLore();
-    if (!loreLines) {
         return;
     }
 
@@ -31,7 +26,7 @@ function showPetLevel(item, x, y) {
     }
 
     const level = name.split('[')[1].split(']')[0].slice(4);
-    const color = loreLines.some(line => line.includes('MAX LEVEL')) ? GREEN : GOLD;
+    const color = displayName?.split('] ').pop().slice(0, 2);
     Renderer.translate(x, y, 275); // z coord = 275 to be on top of the item icon and below the tooltip
     Renderer.scale(0.7, 0.7);
     Renderer.drawString(color + level, 0, 16, true);

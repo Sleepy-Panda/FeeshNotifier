@@ -15,6 +15,7 @@ class Settings {
         this.setCategoryDescription("General", `${AQUA}FeeshNotifier ${WHITE}v${JSON.parse(FileLib.read("FeeshNotifier", "metadata.json")).version}\nBy ${AQUA}MoonTheSadFisher\nTry /ct load or reach out to m00nlight_sky in Discord if the module doesn't function properly!`);
 
         this.setSubcategoryDescription("Chat", "Rare Catches", `${GRAY}Sends a message to the ${BLUE}party chat ${GRAY}when a rare sea creature has caught. It enables the alerts for your party members.\n\n${DARK_GRAY}For this to work, make sure to enable Skyblock setting which sends sea creatures to the chat: Settings -> Personal -> Fishing Settings -> Sea Creature Chat.`);
+        this.setSubcategoryDescription("Chat", "Rare Catches - All Chat", `${GRAY}Sends your coords to the ${WHITE}all chat ${GRAY}when a rare sea creature has caught. It enables the waypoints for the entire server.\n\n${DARK_GRAY}For this to work, make sure to enable Skyblock setting which sends sea creatures to the chat: Settings -> Personal -> Fishing Settings -> Sea Creature Chat.`);
         this.setSubcategoryDescription("Chat", "Rare Drops", `${GRAY}Sends a message to the ${BLUE}party chat ${GRAY}when a rare item has dropped. It enables the alerts for your party members.`);
         this.setSubcategoryDescription("Alerts", "Rare Catches", `Shows a title and plays a sound when a rare sea creature has caught by you or your party members.\n\n${DARK_GRAY}For this to work, make sure to enable Skyblock setting which sends sea creatures to the chat: Settings -> Personal -> Fishing Settings -> Sea Creature Chat.`);
         this.setSubcategoryDescription("Alerts", "Rare Drops", "Shows a title and plays a sound when a rare item has dropped by you or your party members.");
@@ -154,6 +155,29 @@ class Settings {
     })
     messageOnPlhlegblastCatch = true;
 
+    // ******* CHAT - Rare Catches - All Chat ******* //
+
+    @SwitchProperty({
+        name: "Share the location to ALL chat on THUNDER catch",
+        category: "Chat",
+        subcategory: "Rare Catches - All Chat"
+    })
+    announceToAllChatOnThunderCatch = false;
+
+    @SwitchProperty({
+        name: "Share the location to ALL chat on LORD JAWBUS catch",
+        category: "Chat",
+        subcategory: "Rare Catches - All Chat"
+    })
+    announceToAllChatOnLordJawbusCatch = false;
+
+    @SwitchProperty({
+        name: "Share the location to ALL chat on VANQUISHER spawn",
+        category: "Chat",
+        subcategory: "Rare Catches - All Chat"
+    })
+    announceToAllChatOnVanquisherCatch = false;
+
     // ******* CHAT - Rare Drops ******* //
 
     @SwitchProperty({
@@ -163,6 +187,14 @@ class Settings {
         subcategory: "Rare Drops"
     })
     includeMagicFindIntoDropMessage = true;
+
+    @SwitchProperty({
+        name: "Include drop number",
+        description: `Show dropped item's ordinal number for the current session in the party chat message. Works for the items which drop relatively often per fishing session, so makes sense to track their count.\n${RED}Requires Fishing Profit Tracker to be enabled! ${GRAY}Drop numbers are reset when Fishing Profit Tracker is reset.`,
+        category: "Chat",
+        subcategory: "Rare Drops"
+    })
+    includeDropNumberIntoDropMessage = true;
 
     @SwitchProperty({
         name: "Send a message on BABY YETI PET drop",
@@ -247,6 +279,20 @@ class Settings {
         subcategory: "Rare Drops"
     })
     messageOnMusicRuneDrop = true;
+
+    @SwitchProperty({
+        name: "Send a message on SQUID PET drop",
+        category: "Chat",
+        subcategory: "Rare Drops"
+    })
+    messageOnSquidPetDrop = true;
+
+    @SwitchProperty({
+        name: "Send a message on GUARDIAN PET drop",
+        category: "Chat",
+        subcategory: "Rare Drops"
+    })
+    messageOnGuardianPetDrop = true;
 
     // ******* CHAT - Player's death ******* //
 
@@ -592,6 +638,20 @@ class Settings {
     })
     alertOnMusicRuneDrop = true;
 
+    @SwitchProperty({
+        name: "Alert on SQUID PET drop",
+        category: "Alerts",
+        subcategory: "Rare Drops"
+    })
+    alertOnSquidPetDrop = true;
+
+    @SwitchProperty({
+        name: "Alert on GUARDIAN PET drop",
+        category: "Alerts",
+        subcategory: "Rare Drops"
+    })
+    alertOnGuardianPetDrop = true;
+
     // ******* OVERLAYS - Totem ******* //
 
     @SwitchProperty({
@@ -673,7 +733,7 @@ class Settings {
 
     @SwitchProperty({
         name: "Sea creatures HP",
-        description: `Shows an overlay with the HP of nearby Thunder / Lord Jawbus. ${RED}Hidden if you have no fishing rod in your hotbar!`,
+        description: `Shows an overlay with the HP of nearby Thunder / Lord Jawbus / Reindrake / Yeti. ${RED}Hidden if you have no fishing rod in your hotbar!`,
         category: "Overlays",
         subcategory: "Sea creatures HP"
     })
@@ -813,7 +873,7 @@ Example: /feeshSetRadioactiveVials 5 2024-03-18T14:05:00Z`,
 
     @SwitchProperty({
         name: "Worm profit tracker",
-        description: `Shows an overlay with the worm fishing statistics - total and per hour, when in Crystal Hollows.\nDo ${AQUA}/feeshResetWormProfit${GRAY} to reset.\n${RED}Hidden if you have no fishing rod in your hotbar!`,
+        description: `Shows an overlay with the worm fishing statistics - total and per hour, when in Crystal Hollows. Not persistent - resets on MC restart.\nDo ${AQUA}/feeshResetWormProfit${GRAY} to reset.\n${RED}Hidden if you have no fishing rod in your hotbar!`,
         category: "Overlays",
         subcategory: "Worm profit tracker"
     })
@@ -855,7 +915,7 @@ Example: /feeshSetRadioactiveVials 5 2024-03-18T14:05:00Z`,
 
     @SwitchProperty({
         name: "Magma Core profit tracker",
-        description: `Shows an overlay with the Magma Core fishing statistics - total and per hour, when in Crystal Hollows.\nDo ${AQUA}/feeshResetMagmaCoreProfit${GRAY} to reset.\n${RED}Hidden if you have no fishing rod in your hotbar!`,
+        description: `Shows an overlay with the Magma Core fishing statistics - total and per hour, when in Crystal Hollows. Not persistent - resets on MC restart. \nDo ${AQUA}/feeshResetMagmaCoreProfit${GRAY} to reset.\n${RED}Hidden if you have no fishing rod in your hotbar!`,
         category: "Overlays",
         subcategory: "Magma Core profit tracker"
     })
@@ -930,6 +990,24 @@ ${RED}Hidden if you have no fishing rod in your hotbar!`,
     })
     fishingProfitTrackerMode = 0;
 
+    @TextProperty({
+        name: "Hide cheap items",
+        description: `Items which are cheaper than the specified threshold in coins will be hidden in the fishing profit tracker. They will be grouped under 'Cheap items' section. Set to 0 to show all items.`,
+        category: "Overlays",
+        subcategory: "Fishing profit tracker"
+    })
+    fishingProfitTracker_hideCheaperThan = '20000';
+
+    @SliderProperty({
+        name: "Maximum items count",
+        description: `Show top N lines for the most expensive items. Other cheaper items will be grouped under 'Cheap items' section.`,
+        category: "Overlays",
+        subcategory: "Fishing profit tracker",
+        min: 1,
+        max: 50
+    })
+    fishingProfitTracker_showTop = 20;
+
     @SwitchProperty({
         name: "Show profits in crimson essence",
         description: "Calculate price in crimson essence for crimson fishing items e.g. Slug Boots, Moogma Leggings, Flaming Chestplate, Blade of the Volcano, Staff of the Volcano.",
@@ -952,7 +1030,7 @@ ${RED}Hidden if you have no fishing rod in your hotbar!`,
 
     @SwitchProperty({
         name: "Thunder bottle charge progress",
-        description: `Render empty thunder bottle charge progress (percentage) as a stack size.`,
+        description: `Render empty thunder bottle charge progress (percentage)`,
         category: "Inventory",
         subcategory: "Item tooltip"
     })
@@ -960,11 +1038,19 @@ ${RED}Hidden if you have no fishing rod in your hotbar!`,
 
     @SwitchProperty({
         name: "Pet level",
-        description: `Render pet level as a stack size.`,
+        description: `Render pet rarity and level.`,
         category: "Inventory",
         subcategory: "Item tooltip"
     })
     showPetLevel = false;
+
+    @SwitchProperty({
+        name: "Rarity upgrade",
+        description: `Render rarity upgrade for recombobulated fishing items (autorecombobulator).`,
+        category: "Inventory",
+        subcategory: "Item tooltip"
+    })
+    showRarityUpgrade = false;
 
     // ******* INVENTORY - Armor attributes ******* //
 

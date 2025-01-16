@@ -1,4 +1,4 @@
-import { AQUA, BOLD, DARK_GREEN, GOLD, GREEN, WHITE } from "../../constants/formatting";
+import { BOLD, GREEN, WHITE } from "../../constants/formatting";
 import settings from "../../settings";
 import { isInSkyblock } from "../../utils/playerState";
 

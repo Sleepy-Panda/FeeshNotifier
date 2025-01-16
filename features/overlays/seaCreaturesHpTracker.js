@@ -25,7 +25,7 @@ function trackSeaCreaturesHp() {
         const name = entity?.getName();
         const plainName = entity?.getName()?.removeFormatting();
 
-        if (plainName.includes('[Lv') && (plainName.includes('Lord Jawbus') || plainName.includes('Thunder') || plainName.includes('Reindrake'))) {
+        if (plainName.includes('[Lv') && (plainName.includes('Lord Jawbus') || plainName.includes('Thunder') || plainName.includes('Reindrake') || plainName.includes('Yeti'))) {
             mobs.push(name);
         }
     })	

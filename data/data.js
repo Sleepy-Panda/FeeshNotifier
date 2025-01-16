@@ -48,5 +48,8 @@ export const persistentData = new PogObject("FeeshNotifier", {
         "profitTrackerItems": {},
         "totalProfit": 0,
         "elapsedSeconds": 0
+    },
+    "rareDropNotifications": {
+        "items": {}
     }
 }, 'config/data.json');

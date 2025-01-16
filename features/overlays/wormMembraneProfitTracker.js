@@ -3,7 +3,7 @@ import { AQUA, BOLD, DARK_PURPLE, GOLD, GRAY, GREEN, RED, WHITE, YELLOW } from "
 import { getBazaarItemPrices } from "../../utils/bazaarPrices";
 import { formatElapsedTime, formatNumberWithSpaces, getItemsAddedToSacks, isDoubleHook, isInChatOrInventoryGui, isInSacksGui, toShortNumber } from "../../utils/common";
 import * as triggers from '../../constants/triggers';
-import { getWorldName, hasFishingRodInHotbar, isInSkyblock } from "../../utils/playerState";
+import { getLastSacksGuiClosedAt, getWorldName, hasFishingRodInHotbar, isInSkyblock } from "../../utils/playerState";
 import { CRYSTAL_HOLLOWS } from "../../constants/areas";
 import { overlayCoordsData } from "../../data/overlayCoords";
 import { getAuctionItemPrices } from "../../utils/auctionPrices";
@@ -24,7 +24,6 @@ var chamberCoinsPerHour = 0;
 var lastWormCaughtAt = null;
 var lastMembraneDroppedAt = null;
 var isSessionActive = false;
-var lastSacksGuiClosedAt = null;
 
 var previousInventory = [];
 var previousInventoryTotal = 0;
@@ -50,21 +49,6 @@ register('step', () => detectInventoryChanges()).setFps(5);
 register("worldUnload", () => {
     isSessionActive = false;
 });
-
-register("guiClosed", (gui) => {
-    if (!gui) {
-        return;
-    }
-
-    const chestName = gui.field_147002_h?.func_85151_d()?.func_145748_c_()?.text;
-    if (!chestName) {
-        return;
-    }
-
-    if (chestName.includes('Sack')) {
-        lastSacksGuiClosedAt = new Date();
-    }
-}); 
 
 
 // DisplayLine is initialized once in order to avoid multiple method calls on click.
@@ -113,7 +97,6 @@ export function resetWormMembraneProfitTracker(isConfirmed) {
         lastWormCaughtAt = null;
         lastMembraneDroppedAt = null;
         isSessionActive = false;
-        lastSacksGuiClosedAt = null;
 
         previousInventory = [];
         previousInventoryTotal = 0;
@@ -131,7 +114,7 @@ function onAddedToSacks(event) {
             return;
         }
     
-        if (isInSacksGui() || new Date() - lastSacksGuiClosedAt < 10 * 1000) { // Sacks closed < 10 seconds ago
+        if (isInSacksGui() || new Date() - getLastSacksGuiClosedAt() < 15 * 1000) { // Sacks closed < 15 seconds ago
             return;
         }
 

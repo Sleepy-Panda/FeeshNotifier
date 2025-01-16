@@ -4,6 +4,11 @@ var hasDirtRodInHand = false;
 var worldName = null;
 var isInHunterArmor = false;
 
+var lastSacksGuiClosedAt = null;
+var lastSupercraftGuiClosedAt = null;
+var lastOdgerGuiClosedAt = null;
+var lastAuctionGuiClosedAt = null;
+
 register('step', () => trackPlayerState()).setFps(2);
 
 function trackPlayerState() {
@@ -18,6 +23,27 @@ function trackPlayerState() {
 		console.log(`[FeeshNotifier] Failed to track player's state.`);
 	}
 }
+
+register("guiClosed", (gui) => {
+    if (!gui) {
+        return;
+    }
+
+    const chestName = gui.field_147002_h?.func_85151_d()?.func_145748_c_()?.text;
+    if (!chestName) {
+        return;
+    }
+
+    if (chestName.includes('Sack')) {
+        lastSacksGuiClosedAt = new Date();
+    } else if (chestName.includes('Trophy Fishing')) {
+        lastOdgerGuiClosedAt = new Date();
+    } else if (chestName.includes('Manage Auctions') || chestName.includes('Confirm Purchase') || chestName.includes('BIN Auction View') || chestName.includes('Your Bids')) {
+        lastAuctionGuiClosedAt = new Date();
+    } else if (chestName.endsWith('Recipe')) {
+        lastSupercraftGuiClosedAt = new Date();
+    }
+});
 
 export function isInSkyblock() {
 	return isInSkyblock;
@@ -37,6 +63,22 @@ export function hasDirtRodInHand() {
 
 export function isInHunterArmor() {
 	return isInHunterArmor;
+}
+
+export function getLastSacksGuiClosedAt() {
+	return lastSacksGuiClosedAt;
+}
+
+export function getLastOdgerGuiClosedAt() {
+	return lastOdgerGuiClosedAt;
+}
+
+export function getLastAuctionGuiClosedAt() {
+	return lastAuctionGuiClosedAt;
+}
+
+export function getLastSupercraftGuiClosedAt() {
+	return lastSupercraftGuiClosedAt;
 }
 
 function setIsInSkyblock() {
