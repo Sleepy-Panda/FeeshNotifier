@@ -1,5 +1,29 @@
 # Releases
 
+## v1.18.0
+
+Released: 2024-10-19
+
+Features:
+- Added possibility to delete an item from Fishing Profit Tracker (open chat/inventory and Ctrl + Middle mouse click a line).
+- Added possibility to increase / decrease amount of item in Fishing Profit Tracker (open chat/inventory and Ctrl + Left/Right mouse click a line).
+- Calculate price of Orb of Energy as amount of Pulse Rings in Fishing Profit Tracker, if there's enough to craft.
+- Items displayed by /feeshGearCraftPrices command now open Supercraft GUI on click.
+- Slightly changed look of /feeshPetLevelUpPrices chat output.
+- Send party chat message on Revenant Horror boss spawn [disabled by default].
+
+Bugfixes:
+- Renamed sound assets, to not mess up with other modules (as they are copied to the shared folder by CT, and replace files if name is the same).
+- Fixed Grinch not counting in sea creatures count overlay and alert. 
+- Count Rider of the Deep as 2 entities for sea creatures count overlay and alert (so it should calculate cap more correctly).
+- Fixed pets claimed from Kat being added to Fishing profit tracker.
+- Made not possible to zoom out the overlays to 0 or negative values (so it gets flipped).
+- Fixed enchanted books / attribute shards not being counted in Fishing profit tracker if they are displayed with numbers (e.g. Flash 1 instead of Flash I).
+
+Other:
+- Changed a lot of internals in Fishing profit tracker, and changed it to use clickable DisplayLine.
+- Alert on Worm the Fish caught - changed trigger to run the check less often.
+
 ## v1.17.0
 
 Released: 2024-09-17

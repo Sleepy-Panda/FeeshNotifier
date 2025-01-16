@@ -14,15 +14,7 @@ function highlightCheapBooks(slot, gui) {
         return;
     }
 
-    // if (gui instanceof net.minecraft.client.gui.inventory.GuiChest) {
-    //     const chestName = gui.field_147002_h.func_85151_d().func_145748_c_().text; // inventorySlots -> getLowerChestInventory() -> getDisplayName()
-    //     if (!chestName.includes('SkyBlock Menu') && !chestName.includes('Ender Chest') && !chestName.includes('Storage') && !chestName.includes('Backpack') && !chestName.includes('Chest') && !chestName.includes('Bazaar')) {
-    //         return;
-    //     }
-    // }
-
     const item = slot.getItem();
-
     if (!item) {
         return;
     }

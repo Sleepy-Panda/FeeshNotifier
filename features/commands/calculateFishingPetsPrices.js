@@ -1,6 +1,7 @@
-import { BOLD, COMMON, EPIC, GOLD, GREEN, LEGENDARY, MYTHIC, RARE, RESET, UNCOMMON } from "../../constants/formatting";
+import { BOLD, COMMON, DARK_GRAY, EPIC, GOLD, GREEN, LEGENDARY, MYTHIC, RARE, RESET, UNCOMMON } from "../../constants/formatting";
 import { getAuctionItemPrices } from "../../utils/auctionPrices";
 import { toShortNumber } from "../../utils/common";
+import { isInSkyblock } from "../../utils/playerState";
 
 const PETS_TO_CHECK = [
     `${LEGENDARY}Blue Whale`,
@@ -17,6 +18,10 @@ const PETS_TO_CHECK = [
 
 export function calculateFishingPetPrices() {
     try {
+        if (!isInSkyblock()) {
+            return;
+        }
+        
         const prices = PETS_TO_CHECK.map(petDisplayName => {
             const petName = petDisplayName.removeFormatting();
             const rarityColorCode = petDisplayName.substring(0, 2);
@@ -48,9 +53,10 @@ export function calculateFishingPetPrices() {
             };       
         }).sort((a, b) => b.diff - a.diff);
 
-        let message = `${GREEN}${BOLD}Profits for leveling up the fishing pets:\n`;
+        let message = `${GREEN}${BOLD}Pets level up prices:\n`;
+        message += `${DARK_GRAY}Profits for leveling up the fishing pets from level 1 to level 100\n`;
         for (let petInfo of prices) {
-            message += `${petInfo.petDisplayName}${RESET}: ${GREEN}+${toShortNumber(petInfo.diff) || 'N/A'}${RESET} (${GOLD}${toShortNumber(petInfo.level1Price) || 'N/A'}${RESET} -> ${GOLD}${toShortNumber(petInfo.level100Price) || 'N/A'}${RESET})\n`;
+            message += ` - ${petInfo.petDisplayName}${RESET}: ${GREEN}+${toShortNumber(petInfo.diff) || 'N/A'}${RESET} (${GOLD}${toShortNumber(petInfo.level1Price) || 'N/A'}${RESET} -> ${GOLD}${toShortNumber(petInfo.level100Price) || 'N/A'}${RESET})\n`;
         }
         ChatLib.chat(message);
     } catch (e) {

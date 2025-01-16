@@ -6,7 +6,7 @@ import { OFF_SOUND_MODE } from "../../constants/sounds";
 
 let wormTheFishCount = 0;
 
-register('renderWorld', () => alertOnWormTheFishCatch());
+register("step", () => alertOnWormTheFishCatch()).setFps(2);
 
 function alertOnWormTheFishCatch() {
     if (!settings.alertOnWormTheFishCaught ||
@@ -17,8 +17,7 @@ function alertOnWormTheFishCatch() {
     }
 
     const items = World.getAllEntitiesOfType(EntityItem);
-
-    var currentWormTheFishCount = items.filter(entity => new Item(entity).getName()?.removeFormatting()?.includes('Worm the Fish')).length;
+    const currentWormTheFishCount = items.filter(entity => new Item(entity).getName()?.removeFormatting()?.includes('Worm the Fish')).length;
 
     if (currentWormTheFishCount > wormTheFishCount) { // Alert only when a new item has spawned
         Client.showTitle(`${RED}Pickup Worm the Fish!`, '', 1, 45, 1);

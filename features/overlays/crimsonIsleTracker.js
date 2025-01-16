@@ -62,6 +62,10 @@ export function resetCrimsonIsleTracker(isConfirmed) {
 
 export function setRadioactiveVials(count, lastOn) {
     try {
+        if (!isInSkyblock()) {
+            return;
+        }
+        
         if (typeof count !== 'number' || count < 0 || !Number.isInteger(count)) {
             ChatLib.chat(`${GOLD}[FeeshNotifier] ${RED}Please specify correct Radioactive Vials count.`);
             return;
