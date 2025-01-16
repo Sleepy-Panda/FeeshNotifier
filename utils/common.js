@@ -101,6 +101,40 @@ export function pluralize(str) {
 	return `${str}s`;
 }
 
+// Date to '2024-04-12 01:15:25' format
+export function formatDate(date) {
+    if (!date) {
+        return date;
+    }
+
+	const year = date.getFullYear();
+	const month = date.getMonth() + 1;
+	const day = date.getDate();
+	const formattedDate = [ year, month < 10 ? `0${month}` : month, day < 10 ? `0${day}` : day ].join('-');
+    const hours = date.getHours();
+    const minutes = date.getMinutes();
+    const seconds = date.getSeconds();
+    const formattedTime = [
+        hours < 10 ? `0${hours}` : hours,
+        minutes < 10 ? `0${minutes}` : minutes,
+        seconds < 10 ? `0${seconds}` : seconds
+    ].join(':');
+    const formattedDateTime = formattedDate + ' ' + formattedTime;
+    return formattedDateTime;
+}
+
+// Number to format with spaces: 10500 => "10 500"
+export function formatNumberWithSpaces(number) {
+	if (!number) {
+		return number;
+	}
+    return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ");
+}
+
+export function isInChatOrInventoryGui() {
+	return Client.Companion.isInGui() && (Client.currentGui?.getClassName() === 'GuiInventory' || Client.currentGui?.getClassName() === 'GuiChatOF');
+}
+
 function getArticle(str) {
     const isFirstLetterVowel = ['a', 'e', 'i', 'o', 'u'].indexOf(str[0].toLowerCase()) !== -1;
 	return isFirstLetterVowel ? 'An' : 'A';

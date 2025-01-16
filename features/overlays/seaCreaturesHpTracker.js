@@ -3,11 +3,15 @@ import { BOLD, YELLOW } from "../../constants/formatting";
 import { EntityArmorStand } from "../../constants/javaTypes";
 import { overlayCoordsData } from "../../data/overlayCoords";
 import { getWorldName, hasFishingRodInHotbar, isInSkyblock } from "../../utils/playerState";
+import { CRIMSON_ISLE, JERRY_WORKSHOP } from "../../constants/areas";
 
 let mobs = [];
 
 export function trackSeaCreaturesHp() {
-    if (!settings.seaCreaturesHpOverlay || !isInSkyblock() || !hasFishingRodInHotbar()) {
+    if (!settings.seaCreaturesHpOverlay ||
+        !isInSkyblock() ||
+        (getWorldName() !== CRIMSON_ISLE && getWorldName() !== JERRY_WORKSHOP) ||
+        !hasFishingRodInHotbar()) {
         return;
     }
 
@@ -25,7 +29,11 @@ export function trackSeaCreaturesHp() {
 }
 
 export function renderHpOverlay() {
-    if (!settings.seaCreaturesHpOverlay || !mobs.length || !isInSkyblock() || getWorldName() === 'Kuudra' || !hasFishingRodInHotbar()) {
+    if (!settings.seaCreaturesHpOverlay ||
+        !mobs.length ||
+        !isInSkyblock() ||
+        (getWorldName() !== CRIMSON_ISLE && getWorldName() !== JERRY_WORKSHOP) ||
+        !hasFishingRodInHotbar()) {
         return;
     }
 

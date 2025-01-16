@@ -2,10 +2,11 @@ import settings from "../../settings";
 import * as seaCreatures from '../../constants/seaCreatures';
 import { persistentData } from "../../data/data";
 import { overlayCoordsData } from "../../data/overlayCoords";
-import { fromUppercaseToCapitalizedFirstLetters, pluralize } from '../../utils/common';
+import { formatNumberWithSpaces, fromUppercaseToCapitalizedFirstLetters, isInChatOrInventoryGui, pluralize } from '../../utils/common';
 import { WHITE, GOLD, BOLD, YELLOW, GRAY, RED, UNDERLINE } from "../../constants/formatting";
 import { RARE_CATCH_TRIGGERS } from "../../constants/triggers";
 import { getWorldName, hasFishingRodInHotbar, isInSkyblock } from "../../utils/playerState";
+import { KUUDRA } from "../../constants/areas";
 
 // DisplayLine is initialized once in order to avoid multiple method calls on click.
 let resetTrackerDisplay = new Display().hide();
@@ -97,7 +98,7 @@ export function renderRareCatchTrackerOverlay() {
     if (!settings.rareCatchesTrackerOverlay ||
         !Object.entries(persistentData.rareCatches).length ||
         !isInSkyblock() ||
-        getWorldName() === 'Kuudra' ||
+        getWorldName() === KUUDRA ||
         !hasFishingRodInHotbar()
     ) {
         resetTrackerDisplay.hide();
@@ -114,7 +115,7 @@ export function renderRareCatchTrackerOverlay() {
 
     entries.forEach((entry) => {
         const rarityColorCode = RARE_CATCH_TRIGGERS.find(t => t.seaCreature === entry.seaCreature).rarityColorCode;
-        overlayText += ` ${rarityColorCode}${fromUppercaseToCapitalizedFirstLetters(entry.seaCreature)}: ${WHITE}${entry.amount} ${GRAY}(${entry.percent}%)\n`;
+        overlayText += ` ${rarityColorCode}${fromUppercaseToCapitalizedFirstLetters(entry.seaCreature)}: ${WHITE}${formatNumberWithSpaces(entry.amount)} ${GRAY}(${entry.percent}%)\n`;
     });
 
     overlayText += `${YELLOW}Total: ${WHITE}${persistentData.totalRareCatches}`;
@@ -124,13 +125,12 @@ export function renderRareCatchTrackerOverlay() {
         .setScale(overlayCoordsData.rareCatchesTrackerOverlay.scale);
     overlay.draw();
 
-    const isInChatOrInventoryGui = Client.Companion.isInGui() && (Client.currentGui?.getClassName() === 'GuiInventory' || Client.currentGui?.getClassName() === 'GuiChatOF');
-    if (isInChatOrInventoryGui) {
+    const shouldShowReset = isInChatOrInventoryGui();
+    if (shouldShowReset) {
         resetTrackerDisplayLine.setScale(overlayCoordsData.rareCatchesTrackerOverlay.scale - 0.2);
         resetTrackerDisplay
             .setRenderX(overlayCoordsData.rareCatchesTrackerOverlay.x)
-            .setRenderY(overlayCoordsData.rareCatchesTrackerOverlay.y + overlay.getHeight() + 2).show();
-    
+            .setRenderY(overlayCoordsData.rareCatchesTrackerOverlay.y + overlay.getHeight() + 2).show(); 
     } else {
         resetTrackerDisplay.hide();
     }

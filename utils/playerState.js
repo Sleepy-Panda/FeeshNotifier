@@ -3,6 +3,7 @@ var hasFishingRodInHotbar = false;
 var hasFishingRodInHand = false;
 var hasDirtRodInHand = false;
 var worldName = null;
+var isInHunterArmor = false;
 
 export function trackPlayerState() {
 	setIsInSkyblock();
@@ -10,6 +11,7 @@ export function trackPlayerState() {
 	setHasFishingRodInHotbar();
     setHasFishingRodInHand();
 	setHasDirtRodInHand();
+	setIsInHunterArmor();
 }
 
 export function isInSkyblock() {
@@ -30,6 +32,10 @@ export function hasFishingRodInHand() {
 
 export function hasDirtRodInHand() {
 	return hasDirtRodInHand;
+}
+
+export function isInHunterArmor() {
+	return isInHunterArmor;
 }
 
 function setIsInSkyblock() {
@@ -95,5 +101,30 @@ function setHasDirtRodInHand() {
 		const loreLines = heldItem.getLore();
 		const isDirtRod = loreLines[0].includes('Dirt Rod');
 		hasDirtRodInHand = isDirtRod;
+	}
+}
+
+function setIsInHunterArmor() {
+	if (!isInSkyblock) {
+		isInHunterArmor = false;
+		return;
+	}
+
+	const armor = Player.armor;
+	const helmetLoreLines = armor.getHelmet()?.getLore();
+	const chestplateLoreLines = armor.getChestplate()?.getLore();
+	const leggingsLoreLines = armor.getLeggings()?.getLore();
+	const bootsLoreLines = armor.getBoots()?.getLore();
+	const hunter = 'Hunter';
+
+	if (!helmetLoreLines || !chestplateLoreLines || !leggingsLoreLines || !bootsLoreLines) {
+		isInHunterArmor = false;
+		return;
+	}
+
+	if (helmetLoreLines[0].includes(hunter) && chestplateLoreLines[0].includes(hunter) && leggingsLoreLines[0].includes(hunter) && bootsLoreLines[0].includes(hunter)) {
+		isInHunterArmor = true;
+	} else {
+		isInHunterArmor = false;
 	}
 }

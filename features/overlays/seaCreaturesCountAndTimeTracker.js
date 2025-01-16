@@ -1,10 +1,11 @@
 import settings from "../../settings";
-import { GOLD, RED, DARK_GRAY, WHITE } from "../../constants/formatting";
+import { GOLD, RED, DARK_GRAY, WHITE, GRAY } from "../../constants/formatting";
 import { TIMER_SOUND_SOURCE, OFF_SOUND_MODE } from "../../constants/sounds";
 import { ALL_SEA_CREATURES_NAMES } from "../../constants/seaCreatures";
 import { EntityArmorStand } from "../../constants/javaTypes";
 import { overlayCoordsData } from "../../data/overlayCoords";
-import { getWorldName, hasFishingRodInHotbar, isInSkyblock } from "../../utils/playerState";
+import { getWorldName, hasFishingRodInHotbar, isInHunterArmor, isInSkyblock } from "../../utils/playerState";
+import { CRIMSON_ISLE, CRYSTAL_HOLLOWS, HUB, KUUDRA } from "../../constants/areas";
 
 const TIMER_THRESHOLD_IN_MINUTES = 5;
 
@@ -14,7 +15,7 @@ let killMobsCountNotificationShown = false;
 let killMobsTimerNotificationShown = false;
 
 export function trackSeaCreaturesCount() {
-    if ((!settings.alertOnSeaCreaturesCountThreshold && !settings.seaCreaturesCountOverlay) || !isInSkyblock()) {
+    if ((!settings.alertOnSeaCreaturesCountThreshold && !settings.alertOnSeaCreaturesTimerThreshold && !settings.seaCreaturesCountOverlay) || !isInSkyblock()) {
         return;
     }
 
@@ -42,7 +43,8 @@ export function trackSeaCreaturesCount() {
 export function alertOnSeaCreaturesCountThreshold() {
     if (!settings.alertOnSeaCreaturesCountThreshold ||
         !isInSkyblock() ||
-        getWorldName() === 'Kuudra' ||
+        isInHunterArmor() ||
+        getWorldName() === KUUDRA ||
         !hasFishingRodInHotbar()
     ) {
         return;
@@ -67,7 +69,8 @@ export function alertOnSeaCreaturesTimerThreshold() {
     if (!startTime ||
         !settings.alertOnSeaCreaturesTimerThreshold ||
         !isInSkyblock() ||
-        getWorldName() === 'Kuudra' ||
+        isInHunterArmor() ||
+        getWorldName() === KUUDRA ||
         !hasFishingRodInHotbar()
     ) {
         return;
@@ -94,7 +97,8 @@ export function renderCountOverlay() {
         !mobsCount ||
         !startTime ||
         !isInSkyblock() ||
-        getWorldName() === 'Kuudra' ||
+        isInHunterArmor() ||
+        getWorldName() === KUUDRA ||
         !hasFishingRodInHotbar()) {
         return;
     }
@@ -113,7 +117,7 @@ export function renderCountOverlay() {
     const seaCreaturesText = mobsCount > 1 ? 'sea creatures' : 'sea creature';
     const seaCreaturesColor = mobsCount >= getSeaCreaturesCountThreshold() ? RED : GOLD;
 
-    const overlayText = `${seaCreaturesColor}${mobsCount} ${WHITE}${seaCreaturesText} ${DARK_GRAY}(${timerColor}${timerText}${DARK_GRAY})`;
+    const overlayText = `${seaCreaturesColor}${mobsCount} ${GRAY}${seaCreaturesText} ${DARK_GRAY}(${timerColor}${timerText}${DARK_GRAY})`;
     const overlay = new Text(overlayText, overlayCoordsData.seaCreaturesCountOverlay.x, overlayCoordsData.seaCreaturesCountOverlay.y)
         .setShadow(true)
         .setScale(overlayCoordsData.seaCreaturesCountOverlay.scale);
@@ -125,9 +129,9 @@ function getSeaCreaturesCountThreshold() {
 
     switch (worldName)
     {
-        case 'Hub': return settings.seaCreaturesCountThreshold_Hub;
-        case 'Crimson Isle': return settings.seaCreaturesCountThreshold_CrimsonIsle;
-        case 'Crystal Hollows': return settings.seaCreaturesCountThreshold_CrystalHollows;
+        case HUB: return settings.seaCreaturesCountThreshold_Hub;
+        case CRIMSON_ISLE: return settings.seaCreaturesCountThreshold_CrimsonIsle;
+        case CRYSTAL_HOLLOWS: return settings.seaCreaturesCountThreshold_CrystalHollows;
         default: return settings.seaCreaturesCountThreshold_Default;
     }
 }
