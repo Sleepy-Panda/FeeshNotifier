@@ -30,6 +30,10 @@ function alertOnNonFishingArmor(action, pos, event) {
             return;
         }
 
+        if (heldItem.getName()?.includes('Carnival Rod')) {
+            return;
+        }
+
         const bobber = Player.getPlayer().field_71104_cf; // field_71104_cf = fishEntity
         if (!bobber) 
         {

@@ -30,6 +30,7 @@ class Settings {
     jerryWorkshopTrackerOverlayGui = new Gui();
     wormProfitTrackerOverlayGui = new Gui();
     magmaCoreProfitTrackerOverlayGui = new Gui();
+    fishingProfitTrackerOverlayGui = new Gui();
 
     // ******* GENERAL ******* //
 
@@ -878,6 +879,48 @@ class Settings {
     resetMagmaCoreProfitTracker() {
         ChatLib.command("feeshResetMagmaCoreProfit noconfirm", true);
     }
+
+    // ******* OVERLAYS - Fishing profit tracker ******* //
+
+    @SwitchProperty({
+        name: "Fishing profit tracker",
+        description: `Shows an overlay with your profits per fishing session.\nDo ${AQUA}/feeshResetProfitTracker${GRAY} to reset.\n${RED}WIP - expect bugs!\n${RED}Hidden if you have no fishing rod in your hotbar!`,
+        category: "Overlays",
+        subcategory: "Fishing profit tracker"
+    })
+    fishingProfitTrackerOverlay = false;
+
+    @ButtonProperty({
+        name: "Move fishing profit tracker",
+        description: "Moves the overlay text.",
+        category: "Overlays",
+        subcategory: "Fishing profit tracker",
+        placeholder: "Move"
+    })
+    moveFishingProfitTrackerOverlay() {
+        showOverlayMoveHelp();
+        this.fishingProfitTrackerOverlayGui.open();
+    };
+
+    @ButtonProperty({
+        name: "Reset fishing profit tracker",
+        description: `Resets tracking for fishing profit tracker. Executes ${AQUA}/feeshResetProfitTracker`,
+        category: "Overlays",
+        subcategory: "Fishing profit tracker",
+        placeholder: "Reset"
+    })
+    resetFishingProfitTracker() {
+        ChatLib.command("feeshResetProfitTracker noconfirm", true);
+    }
+
+    @SelectorProperty({
+        name: "Fishing profit tracker display mode",
+        description: "How to calculate price for the bazaar items.",
+        category: "Overlays",
+        subcategory: "Fishing profit tracker",
+        options: ["Sell offer", "Insta-sell"]
+    })
+    fishingProfitTrackerMode = 0;
 
     // ******* INVENTORY - Highlight ******* //
 

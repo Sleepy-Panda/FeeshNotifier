@@ -1,12 +1,24 @@
 # Releases
 
+## v1.14.0
+
+Released: 2024-07-21
+
+- Hide "Equip Fishing Armor" alert when being in the "Catch the fish" carnival game.
+- First prototype of profit tracker - still W.I.P. - can contain bugs so disabled by default.
+- Fixed pet level displaying incorrectly for favorite pets.
+
 ## v1.13.0
+
+Released: 2024-07-07
 
 - Magma Core profit tracker overlay.
 - Added alert on Spirit Mask used.
 - Added small delay for Thunder Bottle Full alert (so it should appear after Thunder spawn alert).
 
 ## v1.12.0
+
+Released: 2024-06-26
 
 - Magic find shown in the drop messages sent to the party chat (toggleable) - [!] requres your party to update the module /ct load [!].
 - Alert on Music Rune I caught.
@@ -18,6 +30,8 @@
 
 ## v1.11.0
 
+Released: 2024-05-30
+
 - Added flare timer overlay + alert when it expires soon.
 - Added button to reset barn fishing timer when in chat/inventory.
 - Hide Worm profit tracker overlay when it contains no data.
@@ -27,6 +41,8 @@
 
 ## v1.10.0
 
+Released: 2024-05-02
+
 - Worm profit tracker overlay
 - Fishing armor / fishing rod attributes rendered in the inventory / storages / AH (disabled by default)
 - Changed renderSlot on renderItemIntoGui for all places where additional items info is rendered (so now it renders in hotbar and when you move items)
@@ -35,6 +51,8 @@
 - Crimson Isle tracker overlay: Track amount of Lord Jawbus catches since the last vial
 
 ## v1.9.0
+
+Released: 2024-04-14
 
 - Crimson Isle tracker overlay, which includes:
   - Amount of times you caught a sea creature after the last Thunder / Lord Jawbus
@@ -57,6 +75,8 @@
 
 ## v1.8.0
 
+Released: 2024-03-27
+
 - Legion & Bobbing Time counter overlay (disabled by default)
 - Legion counter shows other players within 30 blocks excluding you
 - Bobbing Time counter shows fishing hooks within 30 blocks including your own (as it also buffs the stats)
@@ -68,6 +88,8 @@
 - Do not count vanquisher in catch tracker when no fishing rod in hotbar
 
 ## v1.7.0
+
+Released: 2024-03-13
 
 - Toggleable alert when you/your party member died from Thunder/Jawbus (so party can wait before killing)
 - Alert on worm the fish caught (Dirt Rod)
@@ -81,6 +103,8 @@
 
 ## v1.6.1
 
+Released: 2024-03-04
+
 Post-release 1.6.0 hotfixes:
 
 - Disabled "equip fishing armor" alert and some overlays in Kuudra
@@ -88,6 +112,8 @@ Post-release 1.6.0 hotfixes:
 - Made sea creatures count alert disabled by default
 
 ## v1.6.0
+
+Released: 2024-03-01
 
 - Added Reindrake to Sea creatures HP overlay
 - Created overlay for nearby sea creatures count and timer (for barn fishing)
@@ -100,24 +126,34 @@ Post-release 1.6.0 hotfixes:
 
 ## v1.5.0
 
+Released: 2024-02-19
+
 - Added overlay for rare catches statistics (how much rare sea creatures you caught per session).
 - Added overlay for totem of corruption timer.
 - Added overlay for nearby Jawbus/Thunder HP (appears only when you are close to it).
 
 ## v1.4.1
 
+Released: 2024-02-17
+
 - Fixed alerts and party messages being sent even if they are disabled in the settings.
 
 ## v1.4.0
+
+Released: 2024-01-11
 
 - Changed titles colors for catches and drops, now color matches mob/drop rarity
 - Added Magma Core drop alert
 
 ## v1.3.1
 
+Released: 2023-12-29
+
 - Fixed rare catch/rare drop titles not showing when game language is not English ("Party" word is shown in another language).
 
 ## v1.3.0
+
+Released: 2023-12-26
 
 - Added notifications for Phleglblast, Abyssal Miner
 - Notification owner (player name) is now shown in the titles when in a party
@@ -127,11 +163,15 @@ Post-release 1.6.0 hotfixes:
 
 ## v1.2.0
 
+Released: 2023-12-20
+
 - Added notification when a player's totem expires soon (can be disabled in settings)
 - Added sound modes (meme, normal, off) - meme plays funny sounds on rare drops, normal plays calm bell sound, off - no sounds at all
 - Hidden message about mod loaded when hoping between servers
 
 ## v1.1.0
+
+Released: 2023-12-17
 
 - Added settings to enable/disable every notification (/feesh)
 - Added more sounds for different drops
@@ -140,5 +180,7 @@ Post-release 1.6.0 hotfixes:
 - Fixed title not showing for the 1st time
 
 ## v1.0.0
+
+Released: 2023-12-03
 
 - Party alerts for rare sea creatures and rare drops
