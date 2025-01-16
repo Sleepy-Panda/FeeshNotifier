@@ -2,6 +2,7 @@ import settings from "./settings"
 import { resetRareCatchesTracker } from './features/overlays/rareCatchesTracker';
 import { resetCrimsonIsleTracker } from "./features/overlays/crimsonIsleTracker";
 import { resetJerryWorkshopTracker } from "./features/overlays/jerryWorkshopTracker";
+import { resetWormMembraneProfitTracker } from "./features/overlays/wormMembraneProfitTracker";
 
 register("command", (...args) => {
     settings.openGUI();
@@ -25,3 +26,9 @@ register("command", (...args) => {
     resetJerryWorkshopTracker(!!isConfirmed);
     return;
 }).setName("feeshResetJerryWorkshop");
+
+register("command", (...args) => {
+    const isConfirmed = args[0] && args[0] === "noconfirm";
+    resetWormMembraneProfitTracker(!!isConfirmed);
+    return;
+}).setName("feeshResetWormProfit");

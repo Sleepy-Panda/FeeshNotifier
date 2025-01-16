@@ -1,7 +1,11 @@
 import settings from "../../settings";
 import { isInSkyblock } from "../../utils/playerState";
 
-export function highlightCheapBooks(slot, gui) {
+register('renderSlot', (slot, gui, event) => {
+    highlightCheapBooks(slot, gui);
+});
+
+function highlightCheapBooks(slot, gui) {
     if (!settings.highlightCheapBooks || !isInSkyblock()) {
         return;
     }

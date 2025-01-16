@@ -18,6 +18,7 @@ export const persistentData = new PogObject("FeeshNotifier", {
         },
         "radioactiveVials": {
             "count": 0,
+            "lordJawbusCatchesSinceLast": 0,
             "dropsHistory": []
         }
      },

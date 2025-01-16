@@ -2,16 +2,15 @@ import { AQUA } from "../../constants/formatting";
 import settings from "../../settings";
 import { isInSkyblock } from "../../utils/playerState";
 
-export function showThunderBottleProgress(slot, gui) {
+register('renderItemIntoGui', (item, x, y, event) => {
+    showThunderBottleProgress(item, x, y);
+});
+
+function showThunderBottleProgress(item, x, y) {
     if (!settings.showThunderBottleProgress || !isInSkyblock()) {
         return;
     }
 
-    if (!(gui instanceof net.minecraft.client.gui.inventory.GuiChest) && !(gui instanceof net.minecraft.client.gui.inventory.GuiInventory)) {
-        return;
-    }
-
-    const item = slot.getItem();
     if (!item) {
         return;
     }
@@ -29,7 +28,7 @@ export function showThunderBottleProgress(slot, gui) {
     const maxCharge = 50000;
     const displayString = Math.trunc(charge / maxCharge * 100) + '%';
 
-    Renderer.translate(slot.getDisplayX(), slot.getDisplayY(), 275); // z coord = 275 to be on top of the item icon and below the tooltip
+    Renderer.translate(x, y, 275); // z coord = 275 to be on top of the item icon and below the tooltip
     Renderer.scale(0.7, 0.7);
     Renderer.drawString(AQUA + displayString, 0, 16, true);
 }

@@ -131,6 +131,24 @@ export function formatNumberWithSpaces(number) {
     return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ");
 }
 
+// Elapsed seconds to format: "1:05" or "2:03:49" or "27:03:17"
+export function formatElapsedTime(elapsedSeconds) {
+    const hours = ~~(elapsedSeconds / 3600);
+    const minutes = ~~((elapsedSeconds % 3600) / 60);
+    const seconds = ~~elapsedSeconds % 60;
+  
+    let result = '';
+  
+    if (hours > 0) {
+        result += hours + ':' + (minutes < 10 ? '0' : '');
+    }
+  
+    result += minutes + ':' + (seconds < 10 ? '0' : '');
+    result += seconds;
+  
+    return result;
+}
+
 export function isInChatOrInventoryGui() {
 	return Client.Companion.isInGui() && (Client.currentGui?.getClassName() === 'GuiInventory' || Client.currentGui?.getClassName() === 'GuiChatOF');
 }

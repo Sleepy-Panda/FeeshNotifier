@@ -7,7 +7,10 @@ import { CRIMSON_ISLE, JERRY_WORKSHOP } from "../../constants/areas";
 
 let mobs = [];
 
-export function trackSeaCreaturesHp() {
+register('step', () => trackSeaCreaturesHp()).setFps(4);
+register('renderOverlay', () => renderHpOverlay());
+
+function trackSeaCreaturesHp() {
     if (!settings.seaCreaturesHpOverlay ||
         !isInSkyblock() ||
         (getWorldName() !== CRIMSON_ISLE && getWorldName() !== JERRY_WORKSHOP) ||
@@ -28,7 +31,7 @@ export function trackSeaCreaturesHp() {
     })	
 }
 
-export function renderHpOverlay() {
+function renderHpOverlay() {
     if (!settings.seaCreaturesHpOverlay ||
         !mobs.length ||
         !isInSkyblock() ||

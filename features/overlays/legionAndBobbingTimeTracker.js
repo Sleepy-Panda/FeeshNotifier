@@ -11,7 +11,10 @@ let fishingHooksCount = 0;
 const legionDistance = 30;
 const bobbingTimeDistance = 30;
 
-export function trackPlayersAndFishingHooksNearby() {
+register('step', () => trackPlayersAndFishingHooksNearby()).setFps(2);
+register('renderOverlay', () => renderLegionAndBobbingTimeOverlay());
+
+function trackPlayersAndFishingHooksNearby() {
     if (!settings.legionAndBobbingTimeOverlay ||
         !isInSkyblock() ||
         !hasFishingRodInHotbar() ||
@@ -41,7 +44,7 @@ export function trackPlayersAndFishingHooksNearby() {
     playersCount = players.length;
 }
 
-export function renderLegionAndBobbingTimeOverlay() {
+function renderLegionAndBobbingTimeOverlay() {
     if (!settings.legionAndBobbingTimeOverlay ||
         !isInSkyblock() ||
         !hasFishingRodInHotbar() ||

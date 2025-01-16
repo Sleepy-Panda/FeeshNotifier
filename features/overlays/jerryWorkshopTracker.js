@@ -1,10 +1,28 @@
 import settings from "../../settings";
+import * as triggers from '../../constants/triggers';
+import * as seaCreatures from '../../constants/seaCreatures';
 import { persistentData } from "../../data/data";
 import { overlayCoordsData } from "../../data/overlayCoords";
 import { BOLD, GOLD, RED, WHITE, UNDERLINE, DARK_PURPLE, GRAY, AQUA, DARK_GRAY } from "../../constants/formatting";
 import { getWorldName, hasFishingRodInHotbar, isInSkyblock } from "../../utils/playerState";
 import { formatDate, formatNumberWithSpaces, isInChatOrInventoryGui } from "../../utils/common";
 import { JERRY_WORKSHOP } from "../../constants/areas";
+
+triggers.REGULAR_JERRY_WORKSHOP_CATCH_TRIGGERS.forEach(entry => {
+    register("Chat", (event) => trackRegularJerryWorkshopSeaCreatureCatch()).setCriteria(entry.trigger).setContains();
+});
+
+const yetiTrigger = triggers.RARE_CATCH_TRIGGERS.find(entry => entry.seaCreature === seaCreatures.YETI);
+const reindrakeTrigger = triggers.RARE_CATCH_TRIGGERS.find(entry => entry.seaCreature === seaCreatures.REINDRAKE);
+register("Chat", (event) => trackYetiCatch()).setCriteria(yetiTrigger.trigger).setContains();
+register("Chat", (event) => trackReindrakeCatch()).setCriteria(reindrakeTrigger.trigger).setContains();
+
+const babyYetiPetEpicTrigger = triggers.RARE_DROP_TRIGGERS.find(entry => entry.trigger === triggers.BABY_YETI_PET_EPIC_MESSAGE);
+const babyYetiPetLegendaryTrigger = triggers.RARE_DROP_TRIGGERS.find(entry => entry.trigger === triggers.BABY_YETI_PET_LEG_MESSAGE);
+register("Chat", (event) => trackEpicBabyYetiPetDrop()).setCriteria(babyYetiPetEpicTrigger.trigger).setContains();
+register("Chat", (event) => trackLegendaryBabyYetiPetDrop()).setCriteria(babyYetiPetLegendaryTrigger.trigger).setContains();
+
+register('renderOverlay', () => renderJerryWorkshopOverlay());
 
 // DisplayLine is initialized once in order to avoid multiple method calls on click.
 let resetTrackerDisplay = new Display().hide();
@@ -43,7 +61,7 @@ export function resetJerryWorkshopTracker(isConfirmed) {
 	}
 }
 
-export function trackYetiCatch() {
+function trackYetiCatch() {
     try {
         if (!settings.jerryWorkshopTrackerOverlay || !isInSkyblock() || getWorldName() !== JERRY_WORKSHOP) {
             return;
@@ -64,13 +82,15 @@ export function trackYetiCatch() {
         persistentData.jerryWorkshop.reindrake.catchesSinceLast += 1;
 
         persistentData.save();
+
+        ChatLib.chat(`${GOLD}[FeeshNotifier] ${GRAY}It took ${WHITE}${catchesSinceLast} ${GRAY}${catchesSinceLast === 1 ? 'catch' : 'catches'} to get the ${GOLD}Yeti${GRAY}.`);
     } catch (e) {
 		console.error(e);
 		console.log(`[FeeshNotifier] Failed to track Yeti catch.`);
 	}
 }
 
-export function trackReindrakeCatch() {
+function trackReindrakeCatch() {
     try {
         if (!settings.jerryWorkshopTrackerOverlay || !isInSkyblock() || getWorldName() !== JERRY_WORKSHOP) {
             return;
@@ -91,13 +111,15 @@ export function trackReindrakeCatch() {
         persistentData.jerryWorkshop.yeti.catchesSinceLast += 1;
 
         persistentData.save();
+
+        ChatLib.chat(`${GOLD}[FeeshNotifier] ${GRAY}It took ${WHITE}${catchesSinceLast} ${GRAY}${catchesSinceLast === 1 ? 'catch' : 'catches'} to get the ${GOLD}Reindrake${GRAY}.`);
     } catch (e) {
 		console.error(e);
 		console.log(`[FeeshNotifier] Failed to track Reindrake catch.`);
 	}
 }
 
-export function trackRegularJerryWorkshopSeaCreatureCatch() {
+function trackRegularJerryWorkshopSeaCreatureCatch() {
     try {
         if (!settings.jerryWorkshopTrackerOverlay || !isInSkyblock() || getWorldName() !== JERRY_WORKSHOP) {
             return;
@@ -112,7 +134,7 @@ export function trackRegularJerryWorkshopSeaCreatureCatch() {
 	}
 }
 
-export function trackEpicBabyYetiPetDrop() {
+function trackEpicBabyYetiPetDrop() {
     try {
         if (!settings.jerryWorkshopTrackerOverlay || !isInSkyblock() || getWorldName() !== JERRY_WORKSHOP) {
             return;
@@ -126,7 +148,7 @@ export function trackEpicBabyYetiPetDrop() {
 	}
 }
 
-export function trackLegendaryBabyYetiPetDrop() {
+function trackLegendaryBabyYetiPetDrop() {
     try {
         if (!settings.jerryWorkshopTrackerOverlay || !isInSkyblock() || getWorldName() !== JERRY_WORKSHOP) {
             return;
@@ -140,7 +162,7 @@ export function trackLegendaryBabyYetiPetDrop() {
 	}
 }
 
-export function renderJerryWorkshopOverlay() {
+function renderJerryWorkshopOverlay() {
     if (!settings.jerryWorkshopTrackerOverlay ||
         !persistentData.jerryWorkshop ||
         (

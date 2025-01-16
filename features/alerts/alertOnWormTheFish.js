@@ -6,7 +6,9 @@ import { OFF_SOUND_MODE } from "../../constants/sounds";
 
 let wormTheFishCount = 0;
 
-export function alertOnWormTheFishCatch() {
+register('renderWorld', () => alertOnWormTheFishCatch());
+
+function alertOnWormTheFishCatch() {
     if (!isInSkyblock() ||
         !hasDirtRodInHand()
     ) {

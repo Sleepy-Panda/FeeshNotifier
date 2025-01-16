@@ -9,6 +9,7 @@
 ## Features
 
 1. Movable GUI overlays for:
+  - Worm profit tracker.
   - Rare sea creatures per session (reset session via the settings or **/feeshResetRareCatches**):
     - ![alt](https://i.imgur.com/cosR7No.png)
   - Count of sea creatures nearby and barn fishing timer:
