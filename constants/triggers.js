@@ -38,99 +38,99 @@ export const RARE_CATCH_TRIGGERS = [
     {
         trigger: YETI_MESSAGE,
         seaCreature: seaCreatures.YETI,
-        isMessageEnabled: settings.messageOnYetiCatch,
-        isAlertEnabled: settings.alertOnYetiCatch,
+        isMessageEnabledSettingKey: 'messageOnYetiCatch',
+        isAlertEnabledSettingKey: 'alertOnYetiCatch',
         rarityColorCode: LEGENDARY
     },
     {
         trigger: REINDRAKE_MESSAGE,
         seaCreature: seaCreatures.REINDRAKE,
-        isMessageEnabled: settings.messageOnReindrakeCatch,
-        isAlertEnabled: settings.alertOnReindrakeCatch,
+        isMessageEnabledSettingKey: 'messageOnReindrakeCatch',
+        isAlertEnabledSettingKey: 'alertOnReindrakeCatch',
         rarityColorCode: LEGENDARY
     },
     {
         trigger: NUTCRACKER_MESSAGE,
         seaCreature: seaCreatures.NUTCRACKER,
-        isMessageEnabled: settings.messageOnNutcrackerCatch,
-        isAlertEnabled: settings.alertOnNutcrackerCatch,
+        isMessageEnabledSettingKey: 'messageOnNutcrackerCatch',
+        isAlertEnabledSettingKey: 'alertOnNutcrackerCatch',
         rarityColorCode: RARE
     },
     {
         trigger: WATER_HYDRA_MESSAGE,
         seaCreature: seaCreatures.WATER_HYDRA,
-        isMessageEnabled: settings.messageOnWaterHydraCatch,
-        isAlertEnabled: settings.alertOnWaterHydraCatch,
+        isMessageEnabledSettingKey: 'messageOnWaterHydraCatch',
+        isAlertEnabledSettingKey: 'alertOnWaterHydraCatch',
         rarityColorCode: LEGENDARY
     },
     {
         trigger: SEA_EMPEROR_MESSAGE,
         seaCreature: seaCreatures.SEA_EMPEROR,
-        isMessageEnabled: settings.messageOnSeaEmperorCatch,
-        isAlertEnabled: settings.alertOnSeaEmperorCatch,
+        isMessageEnabledSettingKey: 'messageOnSeaEmperorCatch',
+        isAlertEnabledSettingKey: 'alertOnSeaEmperorCatch',
         rarityColorCode: LEGENDARY
     },
     {
         trigger: CARROT_KING_MESSAGE,
         seaCreature: seaCreatures.CARROT_KING,
-        isMessageEnabled: settings.messageOnCarrotKingCatch,
-        isAlertEnabled: settings.alertOnCarrotKingCatch,
+        isMessageEnabledSettingKey: 'messageOnCarrotKingCatch',
+        isAlertEnabledSettingKey: 'alertOnCarrotKingCatch',
         rarityColorCode: RARE
     },
     {
         trigger: GREAT_WHITE_SHARK_MESSAGE,
         seaCreature: seaCreatures.GREAT_WHITE_SHARK,
-        isMessageEnabled: settings.messageOnGreatWhiteSharkCatch,
-        isAlertEnabled: settings.alertOnGreatWhiteSharkCatch,
+        isMessageEnabledSettingKey: 'messageOnGreatWhiteSharkCatch',
+        isAlertEnabledSettingKey: 'alertOnGreatWhiteSharkCatch',
         rarityColorCode: LEGENDARY
     },
     {
         trigger: PHANTOM_FISHER_MESSAGE,
         seaCreature: seaCreatures.PHANTOM_FISHER,
-        isMessageEnabled: settings.messageOnPhantomFisherCatch,
-        isAlertEnabled: settings.alertOnPhantomFisherCatch,
+        isMessageEnabledSettingKey: 'messageOnPhantomFisherCatch',
+        isAlertEnabledSettingKey: 'alertOnPhantomFisherCatch',
         rarityColorCode: LEGENDARY
     },
     {
         trigger: GRIM_REAPER_MESSAGE,
         seaCreature: seaCreatures.GRIM_REAPER,
-        isMessageEnabled: settings.messageOnGrimReaperCatch,
-        isAlertEnabled: settings.alertOnGrimReaperCatch,
+        isMessageEnabledSettingKey: 'messageOnGrimReaperCatch',
+        isAlertEnabledSettingKey: 'alertOnGrimReaperCatch',
         rarityColorCode: LEGENDARY
     },
     {
         trigger: ABYSSAL_MINER_MESSAGE,
         seaCreature: seaCreatures.ABYSSAL_MINER,
-        isMessageEnabled: settings.messageOnAbyssalMinerCatch,
-        isAlertEnabled: settings.alertOnAbyssalMinerCatch,
+        isMessageEnabledSettingKey: 'messageOnAbyssalMinerCatch',
+        isAlertEnabledSettingKey: 'alertOnAbyssalMinerCatch',
         rarityColorCode: LEGENDARY
     },
     {
         trigger: THUNDER_MESSAGE,
         seaCreature: seaCreatures.THUNDER,
-        isMessageEnabled: settings.messageOnThunderCatch,
-        isAlertEnabled: settings.alertOnThunderCatch,
+        isMessageEnabledSettingKey: 'messageOnThunderCatch',
+        isAlertEnabledSettingKey: 'alertOnThunderCatch',
         rarityColorCode: MYTHIC
     },
     {
         trigger: LORD_JAWBUS_MESSAGE,
         seaCreature: seaCreatures.LORD_JAWBUS,
-        isMessageEnabled: settings.messageOnLordJawbusCatch,
-        isAlertEnabled: settings.alertOnLordJawbusCatch,
+        isMessageEnabledSettingKey: 'messageOnLordJawbusCatch',
+        isAlertEnabledSettingKey: 'alertOnLordJawbusCatch',
         rarityColorCode: MYTHIC
     },
     {
         trigger: PLHLEGBLAST_MESSAGE,
         seaCreature: seaCreatures.PLHLEGBLAST,
-        isMessageEnabled: settings.messageOnPlhlegblastCatch,
-        isAlertEnabled: settings.alertOnPlhlegblastCatch,
+        isMessageEnabledSettingKey: 'messageOnPlhlegblastCatch',
+        isAlertEnabledSettingKey: 'alertOnPlhlegblastCatch',
         rarityColorCode: COMMON
     },
     {
         trigger: VANQUISHER_MESSAGE,
         seaCreature: seaCreatures.VANQUISHER,
-        isMessageEnabled: settings.messageOnVanquisherCatch,
-        isAlertEnabled: settings.alertOnVanquisherCatch,
+        isMessageEnabledSettingKey: 'messageOnVanquisherCatch',
+        isAlertEnabledSettingKey: 'alertOnVanquisherCatch',
         rarityColorCode: EPIC
     },
 ];
@@ -140,96 +140,96 @@ export const RARE_DROP_TRIGGERS = [
         trigger: BABY_YETI_PET_LEG_MESSAGE,
         itemName: drops.BABY_YETI_PET + ' (Legendary)',
         sound: sounds.SHEESH_SOUND,
-        isMessageEnabled: settings.messageOnBabyYetiPetDrop,
-        isAlertEnabled: settings.alertOnBabyYetiPetDrop,
+        isMessageEnabledSettingKey: 'messageOnBabyYetiPetDrop',
+        isAlertEnabledSettingKey: 'alertOnBabyYetiPetDrop',
         rarityColorCode: LEGENDARY
     },
     {
         trigger: BABY_YETI_PET_EPIC_MESSAGE,
         itemName: drops.BABY_YETI_PET + ' (Epic)',
         sound: sounds.AUGH_SOUND,
-        isMessageEnabled: settings.messageOnBabyYetiPetDrop,
-        isAlertEnabled: settings.alertOnBabyYetiPetDrop,
+        isMessageEnabledSettingKey: 'messageOnBabyYetiPetDrop',
+        isAlertEnabledSettingKey: 'alertOnBabyYetiPetDrop',
         rarityColorCode: EPIC
     },
     {
         trigger: FLYING_FISH_PET_LEG_MESSAGE,
         itemName: drops.FLYING_FISH_PET + ' (Legendary)',
         sound: sounds.WOW_SOUND,
-        isMessageEnabled: settings.messageOnFlyingFishPetDrop,
-        isAlertEnabled: settings.alertOnFlyingFishPetDrop,
+        isMessageEnabledSettingKey: 'messageOnFlyingFishPetDrop',
+        isAlertEnabledSettingKey: 'alertOnFlyingFishPetDrop',
         rarityColorCode: LEGENDARY
     },
     {
         trigger: FLYING_FISH_PET_EPIC_MESSAGE,
         itemName: drops.FLYING_FISH_PET + ' (Epic)',
         sound: sounds.AUGH_SOUND,
-        isMessageEnabled: settings.messageOnFlyingFishPetDrop,
-        isAlertEnabled: settings.alertOnFlyingFishPetDrop,
+        isMessageEnabledSettingKey: 'messageOnFlyingFishPetDrop',
+        isAlertEnabledSettingKey: 'alertOnFlyingFishPetDrop',
         rarityColorCode: EPIC
     },
     {
         trigger: FLYING_FISH_PET_RARE_MESSAGE,
         itemName: drops.FLYING_FISH_PET + ' (Rare)',
         sound: sounds.GOOFY_LAUGH_SOUND,
-        isMessageEnabled: settings.messageOnFlyingFishPetDrop,
-        isAlertEnabled: settings.alertOnFlyingFishPetDrop,
+        isMessageEnabledSettingKey: 'messageOnFlyingFishPetDrop',
+        isAlertEnabledSettingKey: 'alertOnFlyingFishPetDrop',
         rarityColorCode: RARE
     },
     {
         trigger: LUCKY_CLOVER_CORE_MESSAGE,
         itemName: drops.LUCKY_CLOVER_CORE,
         sound: sounds.OH_MY_GOD_SOUND,
-        isMessageEnabled: settings.messageOnLuckyCloverCoreDrop,
-        isAlertEnabled: settings.alertOnLuckyCloverCoreDrop,
+        isMessageEnabledSettingKey: 'messageOnLuckyCloverCoreDrop',
+        isAlertEnabledSettingKey: 'alertOnLuckyCloverCoreDrop',
         rarityColorCode: EPIC
     },
     {
         trigger: MEGALODON_PET_LEG_MESSAGE,
         itemName: drops.MEGALODON_PET + ' (Legendary)',
         sound: sounds.WOW_SOUND,
-        isMessageEnabled: settings.messageOnMegalodonPetDrop,
-        isAlertEnabled: settings.alertOnMegalodonPetDrop,
+        isMessageEnabledSettingKey: 'messageOnMegalodonPetDrop',
+        isAlertEnabledSettingKey: 'alertOnMegalodonPetDrop',
         rarityColorCode: LEGENDARY
     },
     {
         trigger: MEGALODON_PET_EPIC_MESSAGE,
         itemName: drops.MEGALODON_PET + ' (Epic)',
         sound: sounds.AUGH_SOUND,
-        isMessageEnabled: settings.messageOnMegalodonPetDrop,
-        isAlertEnabled: settings.alertOnMegalodonPetDrop,
+        isMessageEnabledSettingKey: 'messageOnMegalodonPetDrop',
+        isAlertEnabledSettingKey: 'alertOnMegalodonPetDrop',
         rarityColorCode: EPIC
     },
     {
         trigger: DEEP_SEA_ORB_MESSAGE,
         itemName: drops.DEEP_SEA_ORB,
         sound: sounds.OH_MY_GOD_SOUND,
-        isMessageEnabled: settings.messageOnDeepSeaOrbDrop,
-        isAlertEnabled: settings.alertOnDeepSeaOrbDrop,
+        isMessageEnabledSettingKey: 'messageOnDeepSeaOrbDrop',
+        isAlertEnabledSettingKey: 'alertOnDeepSeaOrbDrop',
         rarityColorCode: EPIC
     },
     {
         trigger: RADIOACTIVE_VIAL_MESSAGE,
         itemName: drops.RADIOACTIVE_VIAL,
         sound: sounds.INSANE_SOUND,
-        isMessageEnabled: settings.messageOnRadioactiveVialDrop,
-        isAlertEnabled: settings.alertOnRadioactiveVialDrop,
+        isMessageEnabledSettingKey: 'messageOnRadioactiveVialDrop',
+        isAlertEnabledSettingKey: 'alertOnRadioactiveVialDrop',
         rarityColorCode: MYTHIC
     },
     {
         trigger: CARMINE_DYE_MESSAGE,
         itemName: drops.CARMINE_DYE,
         sound: sounds.INSANE_SOUND,
-        isMessageEnabled: settings.messageOnCarmineDyeDrop,
-        isAlertEnabled: settings.alertOnCarmineDyeDrop,
+        isMessageEnabledSettingKey: 'messageOnCarmineDyeDrop',
+        isAlertEnabledSettingKey: 'alertOnCarmineDyeDrop',
         rarityColorCode: EPIC
     },
     {
         trigger: MAGMA_CORE_MESSAGE,
         itemName: drops.MAGMA_CORE,
         sound: sounds.OH_MY_GOD_SOUND,
-        isMessageEnabled: settings.messageOnMagmaCoreDrop,
-        isAlertEnabled: settings.alertOnMagmaCoreDrop,
+        isMessageEnabledSettingKey: 'messageOnMagmaCoreDrop',
+        isAlertEnabledSettingKey: 'alertOnMagmaCoreDrop',
         rarityColorCode: RARE
     },
 ]
