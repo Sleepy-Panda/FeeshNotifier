@@ -16,7 +16,7 @@ export function playAlertOnCatch(options) {
 		}
 		
 		const title = options.isDoubleHook ? getDoubleHookCatchTitle(options.seaCreature, options.rarityColorCode) : getCatchTitle(options.seaCreature, options.rarityColorCode);
-		Client.showTitle(title, options.player || '', 1, 60, 1);
+		Client.showTitle(title, options.player || '', 1, 45, 1);
 	
 		if (settings.soundMode !== OFF_SOUND_MODE) {
 			new Sound(NOTIFICATION_SOUND_SOURCE).play();

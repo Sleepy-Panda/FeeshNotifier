@@ -18,7 +18,7 @@ export function alertOnWormTheFishCatch() {
     var currentWormTheFishCount = items.filter(entity => new Item(entity).getName()?.removeFormatting()?.includes('Worm the Fish')).length;
 
     if (currentWormTheFishCount > wormTheFishCount) { // Alert only when a new item has spawned
-        Client.showTitle(`${RED}Pickup Worm the Fish!`, '', 1, 30, 1);
+        Client.showTitle(`${RED}Pickup Worm the Fish!`, '', 1, 45, 1);
         
         if (settings.soundMode !== OFF_SOUND_MODE) {
             World.playSound('random.splash', 1, 1);

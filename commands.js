@@ -7,7 +7,8 @@ register("command", (...args) => {
 }).setName("feesh").setAliases(["feeshnotifier"]);
 
 register("command", (...args) => {
-    resetRareCatchesTracker();
+    const isConfirmed = args[0] && args[0] === "noconfirm";
+    resetRareCatchesTracker(!!isConfirmed);
     return;
 }).setName("feeshResetRareCatches");
 

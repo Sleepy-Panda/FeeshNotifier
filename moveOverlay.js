@@ -14,6 +14,9 @@ register("dragged", (mx, my, x, y) => {
     } else if (settings.seaCreaturesCountOverlayGui.isOpen()) {
         overlayCoordsData.seaCreaturesCountOverlay.x = x;
         overlayCoordsData.seaCreaturesCountOverlay.y = y;
+    }  else if (settings.legionAndBobbingTimeOverlayGui.isOpen()) {
+        overlayCoordsData.legionAndBobbingTimeOverlay.x = x;
+        overlayCoordsData.legionAndBobbingTimeOverlay.y = y;
     }
     overlayCoordsData.save();
 });
@@ -26,6 +29,10 @@ register("guiKey", (char, keyCode, gui, event) => {
             overlayCoordsData.rareCatchesTrackerOverlay.scale += 0.1;
         } else if (settings.seaCreaturesHpOverlayGui.isOpen()) {
             overlayCoordsData.seaCreaturesHpOverlay.scale += 0.1;
+        } else if (settings.seaCreaturesCountOverlayGui.isOpen()) {
+            overlayCoordsData.seaCreaturesCountOverlay.scale += 0.1;
+        } else if (settings.legionAndBobbingTimeOverlayGui.isOpen()) {
+            overlayCoordsData.legionAndBobbingTimeOverlay.scale += 0.1;
         }
     } else if (keyCode == 12) { // "-" character
         if (settings.totemRemainingTimeOverlayGui.isOpen()) {
@@ -36,6 +43,8 @@ register("guiKey", (char, keyCode, gui, event) => {
             overlayCoordsData.seaCreaturesHpOverlay.scale -= 0.1;
         } else if (settings.seaCreaturesCountOverlayGui.isOpen()) {
             overlayCoordsData.seaCreaturesCountOverlay.scale -= 0.1;
+        } else if (settings.legionAndBobbingTimeOverlayGui.isOpen()) {
+            overlayCoordsData.legionAndBobbingTimeOverlay.scale -= 0.1;
         }
     }
     overlayCoordsData.save();

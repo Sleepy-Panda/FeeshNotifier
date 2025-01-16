@@ -38,7 +38,7 @@ export function trackTotemStatus() {
                 remainingTotemTime = name.split('Remaining: ').pop();
 
                 if (settings.alertOnTotemExpiresSoon && remainingTotemTime && remainingTotemTime === `${secondsBeforeExpiration}s`) {
-                    Client.showTitle(`&cYour totem expires in ${secondsBeforeExpiration} seconds`, '', 1, 60, 1);
+                    Client.showTitle(`&cYour totem expires soon`, '', 1, 45, 1);
 
                     if (settings.soundMode !== OFF_SOUND_MODE)
                     {

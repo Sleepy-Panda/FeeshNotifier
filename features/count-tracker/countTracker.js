@@ -6,9 +6,12 @@ import { EntityArmorStand } from "../../constants/javaTypes";
 import { overlayCoordsData } from "../../data/overlayCoords";
 import { getWorldName, hasFishingRodInHotbar, isInSkyblock } from "../../utils/playerState";
 
+const TIMER_THRESHOLD_IN_MINUTES = 5;
+
 let mobsCount = 0;
 let startTime = null;
-let killMobsNotificationShown = false;
+let killMobsCountNotificationShown = false;
+let killMobsTimerNotificationShown = false;
 
 export function trackSeaCreaturesCount() {
     if ((!settings.alertOnSeaCreaturesCountThreshold && !settings.seaCreaturesCountOverlay) || !isInSkyblock()) {
@@ -47,16 +50,42 @@ export function alertOnSeaCreaturesCountThreshold() {
 
     const seaCreaturesCountThreshold = getSeaCreaturesCountThreshold();
 
-    if (mobsCount >= seaCreaturesCountThreshold && !killMobsNotificationShown) {
-        killMobsNotificationShown = true;
-        Client.showTitle(`${RED}Kill sea creatures`, `${WHITE}${seaCreaturesCountThreshold}+ mobs`, 1, 60, 1);
+    if (mobsCount >= seaCreaturesCountThreshold && !killMobsCountNotificationShown) {
+        killMobsCountNotificationShown = true;
+        Client.showTitle(`${RED}Kill sea creatures`, `${WHITE}${seaCreaturesCountThreshold}+ mobs`, 1, 45, 1);
 
         if (settings.soundMode !== OFF_SOUND_MODE)
         {
             new Sound(TIMER_SOUND_SOURCE).play();
         }
-    } else if (mobsCount < seaCreaturesCountThreshold && killMobsNotificationShown) {
-        killMobsNotificationShown = false;
+    } else if (mobsCount < seaCreaturesCountThreshold && killMobsCountNotificationShown) {
+        killMobsCountNotificationShown = false;
+    }
+}
+
+export function alertOnSeaCreaturesTimerThreshold() {
+    if (!startTime ||
+        !settings.alertOnSeaCreaturesTimerThreshold ||
+        !isInSkyblock() ||
+        getWorldName() === 'Kuudra' ||
+        !hasFishingRodInHotbar()
+    ) {
+        return;
+    }
+
+    const deltaInSeconds = Math.ceil(Math.abs(new Date().getTime() - startTime) / 1000);
+    const thresholdInSeconds = TIMER_THRESHOLD_IN_MINUTES * 60;
+
+    if (deltaInSeconds >= thresholdInSeconds && !killMobsTimerNotificationShown) {
+        killMobsTimerNotificationShown = true;
+        Client.showTitle(`${RED}Kill sea creatures`, `${WHITE}${TIMER_THRESHOLD_IN_MINUTES}+ minutes`, 1, 45, 1);
+
+        if (settings.soundMode !== OFF_SOUND_MODE)
+        {
+            new Sound(TIMER_SOUND_SOURCE).play();
+        }
+    } else if (deltaInSeconds < thresholdInSeconds && killMobsTimerNotificationShown) {
+        killMobsTimerNotificationShown = false;
     }
 }
 
@@ -80,7 +109,7 @@ export function renderCountOverlay() {
     }
 
     const timerText = `${minutes > 0 ? minutes + 'm ' : ''}${seconds > 0 || minutes > 0 ? seconds + 's' : ''}`;
-    const timerColor = minutes >= 5 ? RED : GOLD;
+    const timerColor = minutes >= TIMER_THRESHOLD_IN_MINUTES ? RED : GOLD;
     const seaCreaturesText = mobsCount > 1 ? 'sea creatures' : 'sea creature';
     const seaCreaturesColor = mobsCount >= getSeaCreaturesCountThreshold() ? RED : GOLD;
 

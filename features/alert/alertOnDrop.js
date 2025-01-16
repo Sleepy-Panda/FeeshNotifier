@@ -16,7 +16,7 @@ export function playAlertOnDrop(options) {
 		}
 	
 		const title = getDropTitle(options.itemName, options.rarityColorCode);
-		Client.showTitle(title, options.player || '', 1, 60, 1);
+		Client.showTitle(title, options.player || '', 1, 45, 1);
 	
 		switch (settings.soundMode) {
 			case MEME_SOUND_MODE:
