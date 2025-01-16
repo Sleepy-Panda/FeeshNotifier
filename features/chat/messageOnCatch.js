@@ -18,7 +18,7 @@ export function sendMessageOnCatch(options) {
 	
 	// Play alert if you aren't in the party so automated message is not sent
 	if (options.isAlertEnabled) {
-		const title = isDoubleHook ? getDoubleHookTitle(options.seaCreature) : getTitle(options.seaCreature);
+		const title = isDoubleHook ? getDoubleHookTitle(options.seaCreature, options.rarityColorCode) : getTitle(options.seaCreature, options.rarityColorCode);
 		Client.showTitle(title, '', 1, 60, 1);
 		
 		if (settings.soundMode !== OFF_SOUND_MODE) {

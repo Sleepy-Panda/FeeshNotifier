@@ -14,20 +14,20 @@ export function getDoubleHookMessage(seaCreature) {
 	return `--> DOUBLE HOOK! Two ${seaCreature}s have spawned <--`;
 }
 
-export function getTitle(seaCreature) {
-	return `${GOLD}${BOLD}${seaCreature}`;
+export function getTitle(seaCreature, rarityColorCode) {
+	return `${rarityColorCode}${BOLD}${seaCreature}`;
 }
 
-export function getDoubleHookTitle(seaCreature) {
-	return `${LIGHT_PURPLE}${BOLD}${seaCreature} x2`;
+export function getDoubleHookTitle(seaCreature, rarityColorCode) {
+	return `${rarityColorCode}${BOLD}${seaCreature} ${RED}${BOLD}X2`;
 }
 
 export function getDropMessage(item) {
 	return `--> ${getArticle(item)} ${item} has dropped <--`;
 }
 
-export function getDropTitle(item) {
-	return `${RED}${BOLD}${item}`;
+export function getDropTitle(item, rarityColorCode) {
+	return `${rarityColorCode}${BOLD}${item}`;
 }
 
 // Messages have the following format:
