@@ -1,4 +1,4 @@
-import { AQUA, GOLD, GRAY, RED, WHITE, BLUE, DARK_GRAY } from "./constants/formatting";
+import { AQUA, GOLD, GRAY, RED, WHITE, BLUE, DARK_GRAY, RESET } from "./constants/formatting";
 import { @Vigilant, @ButtonProperty, @SwitchProperty, @SelectorProperty, @SliderProperty, @TextProperty } from "../Vigilance/index"
 
 @Vigilant("FeeshNotifier/config", "FeeshNotifier Settings", {
@@ -155,6 +155,14 @@ class Settings {
     // ******* CHAT - Rare Drops ******* //
 
     @SwitchProperty({
+        name: "Include magic find",
+        description: `Show drop's ${AQUA}✯ Magic Find ${RESET}in the party chat message.`,
+        category: "Chat",
+        subcategory: "Rare Drops"
+    })
+    includeMagicFindIntoDropMessage = true;
+
+    @SwitchProperty({
         name: "Send a message on BABY YETI PET drop",
         category: "Chat",
         subcategory: "Rare Drops"
@@ -238,6 +246,13 @@ class Settings {
     })
     messageOnMagmaCoreDrop = true;
 
+    @SwitchProperty({
+        name: "Send a message on MUSIC RUNE I drop",
+        category: "Chat",
+        subcategory: "Rare Drops"
+    })
+    messageOnMusicRuneDrop = true;
+
     // ******* CHAT - Player's death ******* //
 
     @SwitchProperty({
@@ -298,6 +313,16 @@ class Settings {
     })
     alertOnThunderBottleCharged = true;
 
+    // ******* ALERTS - Chum bucket ******* //
+
+    @SwitchProperty({
+        name: "Alert when a Chum / Chumcap bucket is automatically picked up",
+        description: `Shows a title when your Chum / Chumcap bucket is automatically picked up because you want too far away.`,
+        category: "Alerts",
+        subcategory: "Chum bucket"
+    })
+    alertOnChumBucketAutoPickedUp = true;
+
     // ******* ALERTS - Sea creatures count ******* //
 
     @SwitchProperty({
@@ -313,7 +338,7 @@ class Settings {
         description: "Count of sea creatures nearby required to see the alert when you are in the hub. Ignored if the sea creatures count alert is disabled.",
         category: "Alerts",
         subcategory: "Sea creatures count",
-        min: 10,
+        min: 5,
         max: 60
     })
     seaCreaturesCountThreshold_Hub = 50;
@@ -323,7 +348,7 @@ class Settings {
         description: "Count of sea creatures nearby required to see the alert when you are in the Crimson Isle. Ignored if the sea creatures count alert is disabled.",
         category: "Alerts",
         subcategory: "Sea creatures count",
-        min: 10,
+        min: 5,
         max: 60
     })
     seaCreaturesCountThreshold_CrimsonIsle = 30;
@@ -333,7 +358,7 @@ class Settings {
         description: "Count of sea creatures nearby required to see the alert when you are in the Crystal Hollows. Ignored if the sea creatures count alert is disabled.",
         category: "Alerts",
         subcategory: "Sea creatures count",
-        min: 10,
+        min: 5,
         max: 60
     })
     seaCreaturesCountThreshold_CrystalHollows = 60;
@@ -343,7 +368,7 @@ class Settings {
         description: "Count of sea creatures nearby required to see the alert when you are in other locations. Ignored if the sea creatures count alert is disabled.",
         category: "Alerts",
         subcategory: "Sea creatures count",
-        min: 10,
+        min: 5,
         max: 60
     })
     seaCreaturesCountThreshold_Default = 50;
@@ -551,6 +576,13 @@ class Settings {
         subcategory: "Rare Drops"
     })
     alertOnMagmaCoreDrop = true;
+
+    @SwitchProperty({
+        name: "Alert on MUSIC RUNE I drop",
+        category: "Alerts",
+        subcategory: "Rare Drops"
+    })
+    alertOnMusicRuneDrop = true;
 
     // ******* OVERLAYS - Totem ******* //
 

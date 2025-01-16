@@ -10,3 +10,4 @@ export const FLAME_DYE = "Flame Dye";
 export const AQUAMARINE_DYE = "Aquamarine Dye";
 export const ICEBERG_DYE = "Iceberg Dye";
 export const NADESHIKO_DYE = "Nadeshiko Dye";
+export const MUSIC_RUNE = "Music Rune I";

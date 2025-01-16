@@ -1,6 +1,6 @@
 import settings from "../../settings";
 import { RED } from "../../constants/formatting";
-import { getWorldName, hasFishingRodInHand, isInSkyblock } from "../../utils/playerState";
+import { getWorldName, isInSkyblock } from "../../utils/playerState";
 import { OFF_SOUND_MODE } from "../../constants/sounds";
 import { KUUDRA } from "../../constants/areas";
 
@@ -15,12 +15,21 @@ function alertOnNonFishingArmor(action, pos, event) {
         if (!settings.alertOnNonFishingArmor ||
             !isInSkyblock() ||
             getWorldName() === KUUDRA ||
-            !hasFishingRodInHand() ||
             !action.toString().includes('RIGHT_CLICK') // RIGHT_CLICK_BLOCK, RIGHT_CLICK_EMPTY
         ) {
             return;
         }
     
+        const heldItem = Player.getHeldItem();
+	    if (!heldItem) {
+	    	return;
+	    }
+	    
+        const isFishingRod = heldItem.getLore().some(loreLine => loreLine.includes('FISHING ROD') || loreLine.includes('FISHING WEAPON'));
+	    if (!isFishingRod) {
+            return;
+        }
+
         const bobber = Player.getPlayer().field_71104_cf; // field_71104_cf = fishEntity
         if (!bobber) 
         {

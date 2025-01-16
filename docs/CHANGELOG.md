@@ -1,5 +1,13 @@
 # Releases
 
+- Magic find shown in the drop messages sent to the party chat (toggleable) - [!] requres your party to update the module /ct load [!].
+- Alert on Music Rune I caught.
+- Changed Radiactive Vial drop sound to more satisfying.
+- Alert on Chum bucket automatically picked up when you moved away from it.
+- Added button to pause worm profit tracker (it still pauses automatically after 1 minute of inactivity as before).
+- Set minimal amount of sea creatures cap to 5 (settings)
+- Random fixes in different areas.
+
 ## v1.11.0
 
 - Added flare timer overlay + alert when it expires soon.

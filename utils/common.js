@@ -1,4 +1,4 @@
-import { RED, DARK_GRAY, BLUE, WHITE, BOLD, RESET } from '../constants/formatting';
+import { RED, DARK_GRAY, BLUE, WHITE, BOLD, RESET, AQUA } from '../constants/formatting';
 
 export function hasDoubleHookInMessage() {
 	const doubleHookMessages = [ '&r&eIt\'s a &r&aDouble Hook&r&e! Woot woot!&r', '&r&eIt\'s a &r&aDouble Hook&r&e!&r' ];
@@ -47,8 +47,14 @@ export function getDoubleHookCatchTitle(seaCreature, rarityColorCode) {
 	return `${rarityColorCode}${BOLD}${seaCreature} ${RED}${BOLD}X2`;
 }
 
-export function getDropMessage(item) {
-	return `--> ${getArticle(item)} ${item} has dropped <--`;
+export function getDropMessage(item, magicFind) {
+	return magicFind
+		? `--> ${getArticle(item)} ${item} has dropped (+${magicFind}% ✯ Magic Find) <--`
+		: `--> ${getArticle(item)} ${item} has dropped <--`;
+}
+
+export function getDropMessagePattern(item) {
+	return `--> ${getArticle(item)} ${item} has dropped` + "${*}" + `<--`;
 }
 
 export function getDropTitle(item, rarityColorCode) {
@@ -69,7 +75,7 @@ export function getColoredPlayerNameFromPartyChat(playerAndRank) { // &r&9Party 
 	return `${color}${nameWithoutRank}`;
 }
 
-export function getPlayerNameFromPartyChat(playerAndRank) { // &b[MVP&d+&b] DeadlyMetal
+export function getPlayerNameFromPartyChat(playerAndRank) { // Input: &b[MVP&d+&b] DeadlyMetal
 	if (!playerAndRank) return '';
 	const nameWithoutRank = playerAndRank.split('] ').pop().removeFormatting();
 	return nameWithoutRank;
@@ -80,6 +86,8 @@ export function getPlayerNameFromPartyChat(playerAndRank) { // &b[MVP&d+&b] Dead
 // &r&9Компания &8> &b[MVP] PivoTheSadFisher&f: &r--> A Deep Sea Orb has dropped <--&r
 export function getPartyChatMessage(baseMessage) {
 	return `${RESET}${BLUE}` + "${*}" + ` ${DARK_GRAY}> ` + "${rankAndPlayer}" + `${WHITE}: ${RESET}${baseMessage}${RESET}`;
+	// To test using Co-op chat:
+	// return `${RESET}${AQUA}Co-op > ` + "${rankAndPlayer}" + `${WHITE}: ${RESET}${baseMessage}${RESET}`;
 }
 
 // Transforms UPPERCASE TEXT to a Regular Text With Capitalized First Letters.

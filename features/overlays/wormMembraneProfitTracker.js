@@ -1,5 +1,5 @@
 import settings from "../../settings";
-import { AQUA, BOLD, DARK_PURPLE, GOLD, GRAY, GREEN, RED, UNDERLINE, WHITE, YELLOW } from "../../constants/formatting";
+import { AQUA, BOLD, DARK_PURPLE, GOLD, GRAY, GREEN, RED, WHITE, YELLOW } from "../../constants/formatting";
 import { getBazaarItemPrices } from "../../utils/bazaarPrices";
 import { formatElapsedTime, formatNumberWithSpaces, hasDoubleHookInMessage, isInChatOrInventoryGui } from "../../utils/common";
 import * as triggers from '../../constants/triggers';
@@ -46,16 +46,23 @@ register('step', () => refreshValuesPerHour()).setDelay(5);
 register('step', () => comparePreviousAndCurrentInventory()).setFps(5);
 
 // DisplayLine is initialized once in order to avoid multiple method calls on click.
-let resetTrackerDisplay = new Display().hide();
+let buttonsDisplay = new Display().hide();
+
+let pauseTrackerDisplayLine = new DisplayLine(`${YELLOW}[Click to pause]`).setShadow(true);
+pauseTrackerDisplayLine.registerClicked((x, y, mouseButton, buttonState) => {
+    if (mouseButton === 0 && buttonState === false) { // When left mouse button is UP. 0 is left mouse button, false is UP, true is DOWN. 
+        pauseWormMembraneProfitTracker();
+    }
+});
+buttonsDisplay.addLine(pauseTrackerDisplayLine);
+
 let resetTrackerDisplayLine = new DisplayLine(`${RED}[Click to reset]`).setShadow(true);
 resetTrackerDisplayLine.registerClicked((x, y, mouseButton, buttonState) => {
     if (mouseButton === 0 && buttonState === false) { // When left mouse button is UP. 0 is left mouse button, false is UP, true is DOWN. 
         resetWormMembraneProfitTracker(false);
     }
 });
-resetTrackerDisplayLine.registerHovered(() => resetTrackerDisplayLine.setText(`${RED}${UNDERLINE}[Click to reset]`).setShadow(true));
-resetTrackerDisplayLine.registerMouseLeave(() => resetTrackerDisplayLine.setText(`${RED}[Click to reset]`).setShadow(true));
-resetTrackerDisplay.addLine(resetTrackerDisplayLine);
+buttonsDisplay.addLine(resetTrackerDisplayLine);
 
 export function resetWormMembraneProfitTracker(isConfirmed) {
     try {
@@ -171,6 +178,20 @@ function comparePreviousAndCurrentInventory() {
     }
 }
 
+function pauseWormMembraneProfitTracker() {
+    try {
+        if (!settings.wormProfitTrackerOverlay || !isInSkyblock() || !hasFishingRodInHotbar() || getWorldName() !== CRYSTAL_HOLLOWS || !isSessionActive) {
+            return;
+        }
+    
+        isSessionActive = false;
+        ChatLib.chat(`${GOLD}[FeeshNotifier] ${WHITE}Worm profit tracker is paused. Continue fishing to resume it.`);       
+    } catch (e) {
+        console.error(e);
+		console.log(`[FeeshNotifier] Failed to pause worm profit tracker.`);
+    }
+}
+
 function trackWormCatch(isDoubleHooked) {
     try {
         if (!settings.wormProfitTrackerOverlay || !isInSkyblock() || !hasFishingRodInHotbar() || getWorldName() !== CRYSTAL_HOLLOWS) {
@@ -190,7 +211,7 @@ function trackWormCatch(isDoubleHooked) {
 
 function refreshElapsedTime() {
     try {
-        if (!settings.wormProfitTrackerOverlay || !isInSkyblock() || !hasFishingRodInHotbar() || getWorldName() !== CRYSTAL_HOLLOWS) {
+        if (!settings.wormProfitTrackerOverlay || !isInSkyblock() || !hasFishingRodInHotbar() || getWorldName() !== CRYSTAL_HOLLOWS || !isSessionActive) {
             return;
         }
 
@@ -248,7 +269,7 @@ function renderWormMembraneProfitTrackerOverlay() {
         getWorldName() !== CRYSTAL_HOLLOWS ||
         (!totalWormsCount && !totalMembranesCount)
     ) {
-        resetTrackerDisplay.hide();
+        buttonsDisplay.hide();
         return;
     }
 
@@ -298,14 +319,15 @@ function renderWormMembraneProfitTrackerOverlay() {
         .setScale(overlayCoordsData.wormProfitTrackerOverlay.scale);
     overlay.draw();
 
-    const shouldShowReset = isInChatOrInventoryGui();
-    if (shouldShowReset) {
+    const shouldShowButtons = isInChatOrInventoryGui();
+    if (shouldShowButtons) {
         resetTrackerDisplayLine.setScale(overlayCoordsData.wormProfitTrackerOverlay.scale - 0.2);
-        resetTrackerDisplay
+        pauseTrackerDisplayLine.setScale(overlayCoordsData.wormProfitTrackerOverlay.scale - 0.2);
+        buttonsDisplay
             .setRenderX(overlayCoordsData.wormProfitTrackerOverlay.x)
             .setRenderY(overlayCoordsData.wormProfitTrackerOverlay.y + overlay.getHeight() + 2).show();
     } else {
-        resetTrackerDisplay.hide();
+        buttonsDisplay.hide();
     }
 }
 

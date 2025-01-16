@@ -10,7 +10,7 @@ import { sendMessageOnCatch } from './features/chat/messageOnCatch';
 import { sendMessageOnDrop } from './features/chat/messageOnDrop';
 import { playAlertOnCatch } from './features/alerts/alertOnCatch';
 import { playAlertOnDrop } from './features/alerts/alertOnDrop';
-import { getCatchMessage, getColoredPlayerNameFromDisplayName, getColoredPlayerNameFromPartyChat, getDoubleHookCatchMessage, getDropMessage, getPartyChatMessage, getPlayerDeathMessage, hasDoubleHookInMessage, hasDoubleHookInMessage_Reindrake } from './utils/common';
+import { getCatchMessage, getColoredPlayerNameFromDisplayName, getColoredPlayerNameFromPartyChat, getDoubleHookCatchMessage, getDropMessagePattern, getPartyChatMessage, getPlayerDeathMessage, hasDoubleHookInMessage, hasDoubleHookInMessage_Reindrake } from './utils/common';
 import { trackCatch, renderRareCatchTrackerOverlay } from './features/overlays/rareCatchesTracker';
 import { sendMessageOnPlayerDeath } from "./features/chat/messageOnPlayerDeath";
 import { playAlertOnPlayerDeath } from "./features/alerts/alertOnPlayerDeath";
@@ -21,6 +21,7 @@ import "./features/overlays/seaCreaturesCountAndTimeTracker";
 import "./features/alerts/alertOnNonFishingArmor";
 import "./features/alerts/alertOnWormTheFish";
 import "./features/alerts/alertOnReindrake";
+import "./features/alerts/alertOnChumBucketAutopickup";
 import "./features/inventory/highlightCheapBooks";
 import "./features/overlays/legionAndBobbingTimeTracker";
 import "./features/overlays/crimsonIsleTracker";
@@ -120,7 +121,7 @@ triggers.RARE_DROP_TRIGGERS.forEach(entry => {
     // Triggers on original "all chat" drop message sent by Hypixel.
     register(
         "Chat",
-        (event) => {
+        (magicFind, event) => {
             playAlertOnDrop({
                 itemName: entry.itemName,
                 rarityColorCode: entry.rarityColorCode,
@@ -133,6 +134,7 @@ triggers.RARE_DROP_TRIGGERS.forEach(entry => {
             sendMessageOnDrop({
                 itemName: entry.itemName,
                 rarityColorCode: entry.rarityColorCode,
+                magicFind: magicFind,
                 sound: entry.sound,
                 isEnabled: settings[entry.isMessageEnabledSettingKey]
             });
@@ -150,5 +152,44 @@ triggers.RARE_DROP_TRIGGERS.forEach(entry => {
             player: getColoredPlayerNameFromPartyChat(rankAndPlayer),
             suppressIfSamePlayer: true
         })
-    ).setCriteria(getPartyChatMessage(getDropMessage(entry.itemName)));
+    ).setCriteria(getPartyChatMessage(getDropMessagePattern(entry.itemName)));
+});
+
+// Great/Outstanding catch messages do not have magic find in the message
+triggers.OUTSTANDING_CATCH_TRIGGERS.forEach(entry => {
+    // Triggers on original "all chat" drop message sent by Hypixel.
+    register(
+        "Chat",
+        (event) => {
+            playAlertOnDrop({
+                itemName: entry.itemName,
+                rarityColorCode: entry.rarityColorCode,
+                sound: entry.sound,
+                isEnabled: settings[entry.isAlertEnabledSettingKey],
+                player: getColoredPlayerNameFromDisplayName(),
+                suppressIfSamePlayer: false
+            });
+
+            sendMessageOnDrop({
+                itemName: entry.itemName,
+                rarityColorCode: entry.rarityColorCode,
+                magicFind: null,
+                sound: entry.sound,
+                isEnabled: settings[entry.isMessageEnabledSettingKey]
+            });
+        }
+    ).setCriteria(entry.trigger).setContains();
+
+    // Triggers on automated party chat message sent by the module.
+    register(
+        "Chat",
+        (rankAndPlayer, event) => playAlertOnDrop({
+            itemName: entry.itemName,
+            rarityColorCode: entry.rarityColorCode,
+            sound: entry.sound,
+            isEnabled: settings[entry.isAlertEnabledSettingKey],
+            player: getColoredPlayerNameFromPartyChat(rankAndPlayer),
+            suppressIfSamePlayer: true
+        })
+    ).setCriteria(getPartyChatMessage(getDropMessagePattern(entry.itemName)));
 });
