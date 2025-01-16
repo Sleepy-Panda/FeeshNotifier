@@ -1,13 +1,13 @@
 import settings from "../../settings";
 import { BOLD, YELLOW } from "../../constants/formatting";
-import { isInSkyblock } from "../../utils/common";
 import { EntityArmorStand } from "../../constants/javaTypes";
 import { overlayCoordsData } from "../../data/overlayCoords";
+import { hasFishingRodInHotbar, isInSkyblock } from "../../utils/playerState";
 
 let mobs = [];
 
-export function trackJawbusAndThunderHp() {
-    if (!settings.seaCreaturesHpOverlay || !isInSkyblock()) {
+export function trackSeaCreaturesHp() {
+    if (!settings.seaCreaturesHpOverlay || !isInSkyblock() || !hasFishingRodInHotbar()) {
         return;
     }
 
@@ -16,15 +16,16 @@ export function trackJawbusAndThunderHp() {
 
 	entities.forEach(entity => {
         const name = entity?.getName();
+        const plainName = entity?.getName()?.removeFormatting();
 
-        if (name.includes('Lord Jawbus') || name.includes('Thunder')) {
+        if (plainName.includes('[Lv') && (plainName.includes('Lord Jawbus') || plainName.includes('Thunder') || plainName.includes('Reindrake'))) {
             mobs.push(name);
         }
     })	
 }
 
 export function renderHpOverlay() {
-    if (!settings.seaCreaturesHpOverlay || !mobs.length || !isInSkyblock()) {
+    if (!settings.seaCreaturesHpOverlay || !mobs.length || !isInSkyblock() || !hasFishingRodInHotbar()) {
         return;
     }
 
