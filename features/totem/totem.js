@@ -1,7 +1,7 @@
 import settings from "../../settings";
 import { overlayCoordsData } from "../../data/overlayCoords";
 import { EntityArmorStand } from "../../constants/javaTypes";
-import { TIMER_SOUND, OFF_SOUND_MODE } from "../../constants/sounds";
+import { TIMER_SOUND_SOURCE, OFF_SOUND_MODE } from "../../constants/sounds";
 import { WHITE, GOLD, RED } from "../../constants/formatting";
 import { isInSkyblock } from "../../utils/playerState";
 
@@ -42,7 +42,7 @@ export function trackTotemStatus() {
 
                     if (settings.soundMode !== OFF_SOUND_MODE)
                     {
-                        TIMER_SOUND.play();
+                        new Sound(TIMER_SOUND_SOURCE).play();
                     }
                 }
             }

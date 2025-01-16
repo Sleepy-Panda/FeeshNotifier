@@ -57,10 +57,10 @@ function isFishingArmor(item) {
         return false;
     }
 
-    if (itemLore[0].includes("Hunter")) {
+    if (itemLore[0].includes("Hunter") || itemLore[0].includes("Squid Hat")) {
         return true;
     }
 
-    const isFishingArmor = itemLore.slice(1).some(loreLine => loreLine.includes("Sea Creature Chance"));
+    const isFishingArmor = itemLore.slice(1).some(loreLine => loreLine.includes("Sea Creature Chance:"));
     return isFishingArmor;
 }

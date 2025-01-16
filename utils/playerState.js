@@ -1,6 +1,7 @@
 var isInSkyblock = false;
 var hasFishingRodInHotbar = false;
 var hasFishingRodInHand = false;
+var hasDirtRodInHand = false;
 var worldName = null;
 
 export function trackPlayerState() {
@@ -8,6 +9,7 @@ export function trackPlayerState() {
 	setWorldName();
 	setHasFishingRodInHotbar();
     setHasFishingRodInHand();
+	setHasDirtRodInHand();
 }
 
 export function isInSkyblock() {
@@ -24,6 +26,10 @@ export function hasFishingRodInHotbar() {
 
 export function hasFishingRodInHand() {
 	return hasFishingRodInHand;
+}
+
+export function hasDirtRodInHand() {
+	return hasDirtRodInHand;
 }
 
 function setIsInSkyblock() {
@@ -73,5 +79,21 @@ function setHasFishingRodInHand() {
 	} else {
 		const isRod = heldItem.getLore().some(loreLine => loreLine.includes('FISHING ROD') || loreLine.includes('FISHING WEAPON'));
 		hasFishingRodInHand = isRod;
+	}
+}
+
+function setHasDirtRodInHand() {
+	if (!isInSkyblock) {
+		hasDirtRodInHand = false;
+		return;
+	}
+
+	const heldItem = Player.getHeldItem();
+	if (!heldItem) {
+		hasDirtRodInHand = false;
+	} else {
+		const loreLines = heldItem.getLore();
+		const isDirtRod = loreLines[0].includes('Dirt Rod');
+		hasDirtRodInHand = isDirtRod;
 	}
 }
