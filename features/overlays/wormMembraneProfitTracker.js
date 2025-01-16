@@ -1,7 +1,7 @@
 import settings from "../../settings";
 import { AQUA, BOLD, DARK_PURPLE, GOLD, GRAY, GREEN, RED, WHITE, YELLOW } from "../../constants/formatting";
 import { getBazaarItemPrices } from "../../utils/bazaarPrices";
-import { formatElapsedTime, formatNumberWithSpaces, hasDoubleHookInMessage, isInChatOrInventoryGui } from "../../utils/common";
+import { formatElapsedTime, formatNumberWithSpaces, getItemsAddedToSacks, isDoubleHook, isInChatOrInventoryGui, isInSacksGui, toShortNumber } from "../../utils/common";
 import * as triggers from '../../constants/triggers';
 import { getWorldName, hasFishingRodInHotbar, isInSkyblock } from "../../utils/playerState";
 import { CRYSTAL_HOLLOWS } from "../../constants/areas";
@@ -24,6 +24,7 @@ var chamberCoinsPerHour = 0;
 var lastWormCaughtAt = null;
 var lastMembraneDroppedAt = null;
 var isSessionActive = false;
+var lastSacksGuiClosedAt = null;
 
 var previousInventory = [];
 var previousInventoryTotal = 0;
@@ -33,7 +34,7 @@ const GEMSTONE_CHAMBERS_MODE = 1;
 
 triggers.WORM_CATCH_TRIGGERS.forEach(trigger => {
     register("Chat", (event) => {
-        isDoubleHooked = hasDoubleHookInMessage();
+        const isDoubleHooked = isDoubleHook();
         trackWormCatch(isDoubleHooked);
     }).setCriteria(trigger.trigger).setContains();
 });
@@ -43,11 +44,28 @@ register('renderOverlay', () => renderWormMembraneProfitTrackerOverlay());
 register('step', () => refreshElapsedTime()).setDelay(1);
 register('step', () => refreshValuesPerHour()).setDelay(5);
 
+register("Chat", (event) => onAddedToSacks(event)).setCriteria('&6[Sacks] &r&a+').setStart();
 register('step', () => detectInventoryChanges()).setFps(5);
 
 register("worldUnload", () => {
     isSessionActive = false;
 });
+
+register("guiClosed", (gui) => {
+    if (!gui) {
+        return;
+    }
+
+    const chestName = gui.field_147002_h?.func_85151_d()?.func_145748_c_()?.text;
+    if (!chestName) {
+        return;
+    }
+
+    if (chestName.includes('Sack')) {
+        lastSacksGuiClosedAt = new Date();
+    }
+}); 
+
 
 // DisplayLine is initialized once in order to avoid multiple method calls on click.
 let buttonsDisplay = new Display().hide();
@@ -95,6 +113,7 @@ export function resetWormMembraneProfitTracker(isConfirmed) {
         lastWormCaughtAt = null;
         lastMembraneDroppedAt = null;
         isSessionActive = false;
+        lastSacksGuiClosedAt = null;
 
         previousInventory = [];
         previousInventoryTotal = 0;
@@ -103,6 +122,48 @@ export function resetWormMembraneProfitTracker(isConfirmed) {
     } catch (e) {
 		console.error(e);
 		console.log(`[FeeshNotifier] Failed to reset Worm profit tracker.`);
+	}
+}
+
+function onAddedToSacks(event) {
+    try {
+        if (!isSessionActive || !settings.wormProfitTrackerOverlay || !isInSkyblock() || !hasFishingRodInHotbar() || getWorldName() !== CRYSTAL_HOLLOWS) {
+            return;
+        }
+    
+        if (isInSacksGui() || new Date() - lastSacksGuiClosedAt < 10 * 1000) { // Sacks closed < 10 seconds ago
+            return;
+        }
+
+        const itemsAddedToSacks = getItemsAddedToSacks(EventLib.getMessage(event));
+        for (let itemAddedToSack of itemsAddedToSacks) {
+            const itemName = itemAddedToSack.itemName?.removeFormatting();
+
+            if (!itemAddedToSack.difference || !itemName) {
+                continue;
+            }
+
+            if (itemName !== 'Worm Membrane') {
+                continue;
+            }
+
+            totalMembranesCount += itemAddedToSack.difference;
+            totalChambersCount = Math.floor(totalMembranesCount / 100);
+
+            const now = new Date();
+
+            if (now - lastMembraneDroppedAt < 15 * 1000) { // If players kill a cap slowly, the membranes are added a few times nearly at the same time
+                lastAddedMembranesCount += itemAddedToSack.difference;
+            } else {
+                lastAddedMembranesCount = itemAddedToSack.difference;
+            }
+
+            lastMembraneDroppedAt = now;
+            refreshValuesPerHour();
+        }
+    } catch (e) {
+		console.error(e);
+		console.log(`[FeeshNotifier] [ProfitTracker] Failed to handle adding to the sacks.`);
 	}
 }
 
@@ -120,8 +181,6 @@ function detectInventoryChanges() {
             previousInventoryTotal = previousInventory.reduce((partialSum, a) => partialSum + a, 0);
         }
 
-        let isInStorageOrBaazar = false;
-
         var heldItem = Player.getPlayer()?.field_71071_by?.func_70445_o();
         if (heldItem) {
             var item = new Item(heldItem);
@@ -133,20 +192,8 @@ function detectInventoryChanges() {
         const currentInventory = getInventoryMembranes();
         const currentInventoryTotal = currentInventory.reduce((partialSum, a) => partialSum + a, 0);
 
-        if (Client.Companion.isInGui() && Client.currentGui?.getClassName() === 'GuiChest') {
-            const chestName = Client.currentGui?.get()?.field_147002_h?.func_85151_d()?.func_145748_c_()?.text;
-            if (chestName && (
-                chestName.includes('Ender Chest') ||
-                chestName.includes('Backpack') ||
-                chestName.includes('Bazaar Orders') ||
-                chestName.includes('Order options') || // When we cancel sell offer
-                chestName.includes('Worm Membrane ➜ Instant Buy')
-            )) {
-                isInStorageOrBaazar = true;
-            }
-        }
-
-        if (currentInventoryTotal > previousInventoryTotal && !isInStorageOrBaazar) {
+        let isInChest = Client.isInGui() && Client.currentGui?.getClassName() === 'GuiChest';
+        if (!isInChest && currentInventoryTotal > previousInventoryTotal) {
             onWormMembranesAddedToInventory(previousInventoryTotal, currentInventoryTotal);
         }
 
@@ -170,7 +217,7 @@ function detectInventoryChanges() {
             totalMembranesCount += difference;
             totalChambersCount = Math.floor(totalMembranesCount / 100);
 
-            if (now - lastMembraneDroppedAt < 10 * 1000) { // If players kill a cap slowly, the membranes are added a few times nearly at the same time
+            if (now - lastMembraneDroppedAt < 15 * 1000) { // If players kill a cap slowly, the membranes are added a few times nearly at the same time
                 lastAddedMembranesCount += difference;
             } else {
                 lastAddedMembranesCount = difference;
@@ -287,13 +334,13 @@ function renderWormMembraneProfitTrackerOverlay() {
         
             text += `${GREEN}Total worms: ${WHITE}${formatNumberWithSpaces(totalWormsCount)}\n`;
             text += `${GREEN}Total membranes: ${WHITE}${formatNumberWithSpaces(totalMembranesCount)} ${GRAY}[+${formatNumberWithSpaces(lastAddedMembranesCount)} last added]\n`;
-            text += `${GOLD}Total coins (sell offer): ${WHITE}${formatNumberWithSpaces(wormMembraneTotalCoinsSellOffer)}\n`;
-            text += `${GOLD}Total coins (insta-sell): ${WHITE}${formatNumberWithSpaces(wormMembraneTotalCoinsInstaSell)}\n`;
+            text += `${GOLD}Total coins (sell offer): ${WHITE}${toShortNumber(wormMembraneTotalCoinsSellOffer)}\n`;
+            text += `${GOLD}Total coins (insta-sell): ${WHITE}${toShortNumber(wormMembraneTotalCoinsInstaSell)}\n`;
             text += `\n`;
             text += `${GREEN}Worms/h: ${WHITE}${formatNumberWithSpaces(wormsPerHour)}\n`;
             text += `${GREEN}Membranes/h: ${WHITE}${formatNumberWithSpaces(membranesPerHour)}\n`;
-            text += `${GOLD}Coins/h (sell offer): ${WHITE}${formatNumberWithSpaces(membraneCoinsPerHourSellOffer)}\n`;
-            text += `${GOLD}Coins/h (insta-sell): ${WHITE}${formatNumberWithSpaces(membraneCoinsPerHourInstaSell)}\n`;
+            text += `${GOLD}Coins/h (sell offer): ${WHITE}${toShortNumber(membraneCoinsPerHourSellOffer)}\n`;
+            text += `${GOLD}Coins/h (insta-sell): ${WHITE}${toShortNumber(membraneCoinsPerHourInstaSell)}\n`;
             text += `\n`;
             text += `${AQUA}Elapsed time: ${WHITE}${formatElapsedTime(elapsedSeconds)}`;        
             break;
@@ -305,12 +352,12 @@ function renderWormMembraneProfitTrackerOverlay() {
             text += `${GREEN}Total worms: ${WHITE}${formatNumberWithSpaces(totalWormsCount)}\n`;
             text += `${GREEN}Total membranes: ${WHITE}${formatNumberWithSpaces(totalMembranesCount)} ${GRAY}[+${formatNumberWithSpaces(lastAddedMembranesCount)} last added]\n`;
             text += `${DARK_PURPLE}Total chambers: ${WHITE}${formatNumberWithSpaces(totalChambersCount)}\n`;
-            text += `${GOLD}Total coins: ${WHITE}${formatNumberWithSpaces(gemstoneChamberTotalCoins)}\n`;
+            text += `${GOLD}Total coins: ${WHITE}${toShortNumber(gemstoneChamberTotalCoins)}\n`;
             text += `\n`;
             text += `${GREEN}Worms/h: ${WHITE}${formatNumberWithSpaces(wormsPerHour)}\n`;
             text += `${GREEN}Membranes/h: ${WHITE}${formatNumberWithSpaces(membranesPerHour)}\n`;
             text += `${DARK_PURPLE}Chambers/h: ${WHITE}${formatNumberWithSpaces(chambersPerHour)}\n`;
-            text += `${GOLD}Coins/h: ${WHITE}${formatNumberWithSpaces(chamberCoinsPerHour)}\n`;
+            text += `${GOLD}Coins/h: ${WHITE}${toShortNumber(chamberCoinsPerHour)}\n`;
             text += `\n`;
             text += `${AQUA}Elapsed time: ${WHITE}${formatElapsedTime(elapsedSeconds)}`;     
             break;

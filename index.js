@@ -1,6 +1,5 @@
 import settings from "./settings";
 import * as triggers from './constants/triggers';
-import * as seaCreatures from './constants/seaCreatures';
 import "./commands";
 import "./moveOverlay";
 import "./utils/playerState";
@@ -10,10 +9,10 @@ import { sendMessageOnCatch } from './features/chat/messageOnCatch';
 import { sendMessageOnDrop } from './features/chat/messageOnDrop';
 import { playAlertOnCatch } from './features/alerts/alertOnCatch';
 import { playAlertOnDrop } from './features/alerts/alertOnDrop';
-import { getCatchMessage, getColoredPlayerNameFromDisplayName, getColoredPlayerNameFromPartyChat, getDoubleHookCatchMessage, getDropMessagePattern, getPartyChatMessage, getPlayerDeathMessage, hasDoubleHookInMessage, hasDoubleHookInMessage_Reindrake } from './utils/common';
+import { getCatchMessage, getColoredPlayerNameFromDisplayName, getColoredPlayerNameFromPartyChat, getDoubleHookCatchMessage, getDropMessagePattern, getPartyChatMessage, getPlayerDeathMessage, isDoubleHook } from './utils/common';
 import { trackCatch, renderRareCatchTrackerOverlay } from './features/overlays/rareCatchesTracker';
-import { sendMessageOnPlayerDeath } from "./features/chat/messageOnPlayerDeath";
-import { playAlertOnPlayerDeath } from "./features/alerts/alertOnPlayerDeath";
+import "./features/chat/messageOnPlayerDeath";
+import "./features/alerts/alertOnPlayerDeath";
 import "./features/overlays/totemTracker";
 import "./features/overlays/flareTracker";
 import "./features/overlays/seaCreaturesHpTracker";
@@ -40,27 +39,6 @@ register('worldLoad', () => {
     Client.showTitle('', '', 1, 1, 1); // Shitty fix for a title not showing for the 1st time
 });
 
-// Party member's death (Jawbus, Thunder)
-
-triggers.KILLED_BY_TRIGGERS.forEach(entry => {
-    register(
-        "Chat",
-        (event) => {
-            sendMessageOnPlayerDeath({
-                isEnabled: settings.messageOnDeath
-            });
-        }
-    ).setCriteria(entry.trigger).setContains();
-
-    register(
-        "Chat",
-        (rankAndPlayer, event) => playAlertOnPlayerDeath({
-            isEnabled: settings.alertOnPartyMemberDeath,
-            player: getColoredPlayerNameFromPartyChat(rankAndPlayer)
-        })
-    ).setCriteria(getPartyChatMessage(getPlayerDeathMessage()));
-});
-
 // Rare catches overlay
 
 register('renderOverlay', () => renderRareCatchTrackerOverlay());
@@ -70,7 +48,7 @@ triggers.RARE_CATCH_TRIGGERS.forEach(entry => {
     register(
         "Chat",
         (event) => {
-            const isDoubleHooked = entry.seaCreature != seaCreatures.REINDRAKE ? hasDoubleHookInMessage() : hasDoubleHookInMessage_Reindrake();
+            const isDoubleHooked = isDoubleHook();
             playAlertOnCatch({ // Play alert immediately before sending to the party (in case when you're fishing solo)
                 seaCreature: entry.seaCreature,
                 rarityColorCode: entry.rarityColorCode,
@@ -164,6 +142,48 @@ triggers.OUTSTANDING_CATCH_TRIGGERS.forEach(entry => {
     register(
         "Chat",
         (event) => {
+            playAlertOnDrop({
+                itemName: entry.itemName,
+                rarityColorCode: entry.rarityColorCode,
+                sound: entry.sound,
+                isEnabled: settings[entry.isAlertEnabledSettingKey],
+                player: getColoredPlayerNameFromDisplayName(),
+                suppressIfSamePlayer: false
+            });
+
+            sendMessageOnDrop({
+                itemName: entry.itemName,
+                rarityColorCode: entry.rarityColorCode,
+                magicFind: null,
+                sound: entry.sound,
+                isEnabled: settings[entry.isMessageEnabledSettingKey]
+            });
+        }
+    ).setCriteria(entry.trigger).setContains();
+
+    // Triggers on automated party chat message sent by the module.
+    register(
+        "Chat",
+        (rankAndPlayer, event) => playAlertOnDrop({
+            itemName: entry.itemName,
+            rarityColorCode: entry.rarityColorCode,
+            sound: entry.sound,
+            isEnabled: settings[entry.isAlertEnabledSettingKey],
+            player: getColoredPlayerNameFromPartyChat(rankAndPlayer),
+            suppressIfSamePlayer: true
+        })
+    ).setCriteria(getPartyChatMessage(getDropMessagePattern(entry.itemName)));
+});
+
+triggers.DYE_TRIGGERS.forEach(entry => {
+    // Triggers on original "all chat" drop message sent by Hypixel.
+    register(
+        "Chat",
+        (playerNameAndRank, event) => {
+            if (!playerNameAndRank || !playerNameAndRank.removeFormatting().includes(Player.getName())) {
+                return;
+            }
+
             playAlertOnDrop({
                 itemName: entry.itemName,
                 rarityColorCode: entry.rarityColorCode,

@@ -1,6 +1,6 @@
 import settings from "./settings"
 import { resetRareCatchesTracker } from './features/overlays/rareCatchesTracker';
-import { resetCrimsonIsleTracker } from "./features/overlays/crimsonIsleTracker";
+import { resetCrimsonIsleTracker, setRadioactiveVials } from "./features/overlays/crimsonIsleTracker";
 import { resetJerryWorkshopTracker } from "./features/overlays/jerryWorkshopTracker";
 import { resetWormMembraneProfitTracker } from "./features/overlays/wormMembraneProfitTracker";
 import { resetMagmaCoreProfitTracker } from "./features/overlays/magmaCoreProfitTracker";
@@ -46,3 +46,10 @@ register("command", (...args) => {
     resetFishingProfitTracker(!!isConfirmed);
     return;
 }).setName("feeshResetProfitTracker");
+
+register("command", (...args) => {
+    const count = args[0];
+    const lastOn = args[1];
+    setRadioactiveVials(+count, lastOn);
+    return;
+}).setName("feeshSetRadioactiveVials");

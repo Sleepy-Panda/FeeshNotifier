@@ -5,7 +5,7 @@ import { persistentData } from "../../data/data";
 import { overlayCoordsData } from "../../data/overlayCoords";
 import { BOLD, GOLD, LIGHT_PURPLE, RED, WHITE, UNDERLINE, GRAY, DARK_RED, DARK_GRAY, RESET } from "../../constants/formatting";
 import { getWorldName, hasFishingRodInHotbar, isInSkyblock } from "../../utils/playerState";
-import { formatDate, formatNumberWithSpaces, hasDoubleHookInMessage, isInChatOrInventoryGui } from "../../utils/common";
+import { formatDate, formatNumberWithSpaces, isDoubleHook, isInChatOrInventoryGui } from "../../utils/common";
 import { CRIMSON_ISLE } from "../../constants/areas";
 import { MEME_SOUND_MODE, NORMAL_SOUND_MODE, SAD_TROMBONE_SOUND_SOURCE } from "../../constants/sounds";
 
@@ -60,6 +60,46 @@ export function resetCrimsonIsleTracker(isConfirmed) {
 	}
 }
 
+export function setRadioactiveVials(count, lastOn) {
+    try {
+        if (typeof count !== 'number' || count < 0 || !Number.isInteger(count)) {
+            ChatLib.chat(`${GOLD}[FeeshNotifier] ${RED}Please specify correct Radioactive Vials count.`);
+            return;
+        }
+        persistentData.crimsonIsle.radioactiveVials.count = count;
+
+        if (lastOn) {
+            if (!isIsoDate(lastOn)) {
+                ChatLib.chat(`${GOLD}[FeeshNotifier] ${RED}Please specify correct Last On UTC date in format YYYY-MM-DDThh:mm:ssZ, e.g. 2024-03-18T14:05:00Z`);
+                return;
+            }
+
+            const dropsHistory = (persistentData.crimsonIsle.radioactiveVials.dropsHistory || []);
+            const dateIso = new Date(lastOn);
+            if (dropsHistory.length) {
+                dropsHistory[0].time = dateIso;
+            } else {
+                dropsHistory.unshift({
+                    time: dateIso,
+                });
+            }
+        }
+
+        persistentData.save();
+
+        ChatLib.chat(`${GOLD}[FeeshNotifier] ${GRAY}Successfully changed Radioactive Vials count to ${count} for the Crimson Isle tracker.`);   
+    } catch (e) {
+        console.error(e);
+		console.log(`[FeeshNotifier] Failed to set Radioactive Vials.`);
+    }
+
+    function isIsoDate(dateString) {
+        if (!/\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}Z/.test(dateString)) return false;
+        const d = new Date(dateString); 
+        return d instanceof Date && !isNaN(d.getTime());
+    }
+}
+
 function trackThunderCatch() {
     try {
         if (!isInSkyblock() || getWorldName() !== CRIMSON_ISLE || !settings.crimsonIsleTrackerOverlay) {
@@ -95,7 +135,7 @@ function trackLordJawbusCatch() {
             return;
         }
 
-        const isDoubleHooked = hasDoubleHookInMessage();
+        const isDoubleHooked = isDoubleHook();
 
         const catchesSinceLast = persistentData.crimsonIsle.lordJawbus.catchesSinceLast;
         let catchesHistory = persistentData.crimsonIsle.lordJawbus.catchesHistory || [];

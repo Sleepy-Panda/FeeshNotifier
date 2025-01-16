@@ -1,10 +1,22 @@
 import settings from "../../settings";
+import * as triggers from '../../constants/triggers';
 import { OFF_SOUND_MODE } from "../../constants/sounds";
 import { RED } from "../../constants/formatting";
 import { isInSkyblock } from "../../utils/playerState";
+import { getColoredPlayerNameFromPartyChat, getPartyChatMessage, getPlayerDeathMessage } from "../../utils/common";
+
+triggers.KILLED_BY_TRIGGERS.forEach(entry => {
+    register(
+        "Chat",
+        (rankAndPlayer, event) => playAlertOnPlayerDeath({
+            isEnabled: settings.alertOnPartyMemberDeath,
+            player: getColoredPlayerNameFromPartyChat(rankAndPlayer)
+        })
+    ).setCriteria(getPartyChatMessage(getPlayerDeathMessage()));
+});
 
 // Shows a title and plays a sound on automated player death message sent by this module.
-export function playAlertOnPlayerDeath(options) {
+function playAlertOnPlayerDeath(options) {
 	try {
 		if (!options.isEnabled || !isInSkyblock()) {
 			return;

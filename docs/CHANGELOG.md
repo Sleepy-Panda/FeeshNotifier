@@ -1,5 +1,24 @@
 # Releases
 
+## v1.15.0
+
+Released: 2024-08-16
+
+- Improved Fishing Profit Tracker:
+  - Fixed known bugs.
+  - Added setting to calculate profits in crimson essence for crimson fishing drops - search for "Show profits in crimson essence".
+  - Enabled by default.
+- Fixed Worm Profit Tracker - now it should work with fishing sack after latest SB update.
+- Applied shorter numbers format in Magma Core Profit Tracker and Worm Profit Tracker.
+- Dye alerts fixed:
+  - Removed Nadishiko Dye and Flame Dye alert and do not track them in profit tracker since they're not related to fishing anymore.
+  - Added Midnight Dye alert and track it in profit tracker as it now drops from spooky sea creatures.
+- Added /feeshSetRadioactiveVials COUNT LAST_ON_UTC_DATE command to initialize vials count and last drop date for the Crimson Isle Tracker.
+- Do not show the overlays when in "Catch the fish" carnival game while holding a carnival rod.
+- Fixed double hooked thunders not detected sometimes (when empty thunder bottle gets fully charged at the same time).
+- Added setting for Worm the Fish alert to be toggleable.
+- Internal refactoring for player death alerts.
+
 ## v1.14.0
 
 Released: 2024-07-21

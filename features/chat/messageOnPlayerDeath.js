@@ -1,9 +1,22 @@
+import settings from "../../settings";
+import * as triggers from '../../constants/triggers';
 import { getPlayerDeathMessage } from '../../utils/common';
 import { isInSkyblock } from '../../utils/playerState';
 
 const chatCommand = 'pc';
 
-export function sendMessageOnPlayerDeath(options) {
+triggers.KILLED_BY_TRIGGERS.forEach(entry => {
+    register(
+        "Chat",
+        (event) => {
+            sendMessageOnPlayerDeath({
+                isEnabled: settings.messageOnDeath
+            });
+        }
+    ).setCriteria(entry.trigger).setContains();
+});
+
+function sendMessageOnPlayerDeath(options) {
 	try {
 		if (!options.isEnabled || !isInSkyblock()) {
 			return;

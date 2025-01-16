@@ -3,7 +3,7 @@ import * as triggers from '../../constants/triggers';
 import { overlayCoordsData } from "../../data/overlayCoords";
 import { BOLD, GOLD, RED, WHITE, BLUE, YELLOW, GREEN, AQUA, GRAY } from "../../constants/formatting";
 import { getWorldName, hasFishingRodInHotbar, isInSkyblock } from "../../utils/playerState";
-import {  formatElapsedTime, formatNumberWithSpaces, hasDoubleHookInMessage, isInChatOrInventoryGui } from "../../utils/common";
+import {  formatElapsedTime, formatNumberWithSpaces, isDoubleHook, isInChatOrInventoryGui, toShortNumber } from "../../utils/common";
 import { CRYSTAL_HOLLOWS } from "../../constants/areas";
 import { getBazaarItemPrices } from "../../utils/bazaarPrices";
 
@@ -25,7 +25,7 @@ var lastMagmaCoreDroppedAt = null;
 
 triggers.MAGMA_FIELDS_TRIGGERS.forEach(trigger => {
     register("Chat", (event) => {
-        isDoubleHooked = hasDoubleHookInMessage();
+        const isDoubleHooked = isDoubleHook();
         trackSeaCreatureCatch(isDoubleHooked);
     }).setCriteria(trigger.trigger).setContains();
 });
@@ -218,13 +218,13 @@ function renderMagmaCoreTrackerOverlay() {
     let text = `${YELLOW}${BOLD}Magma Core profit tracker\n`;
     text += `${GREEN}Total sea creatures caught: ${WHITE}${formatNumberWithSpaces(totalSeaCreaturesCaughtCount)}\n`;
     text += `${BLUE}Total magma cores: ${WHITE}${formatNumberWithSpaces(totalMagmaCoresCount)} ${GRAY}[+${formatNumberWithSpaces(lastAddedMagmaCoresCount)} last added]\n`;
-    text += `${GOLD}Total coins (sell offer): ${WHITE}${formatNumberWithSpaces(magmaCoreTotalCoinsSellOffer)}\n`;
-    text += `${GOLD}Total coins (insta-sell): ${WHITE}${formatNumberWithSpaces(magmaCoreTotalCoinsInstaSell)}\n`;
+    text += `${GOLD}Total coins (sell offer): ${WHITE}${toShortNumber(magmaCoreTotalCoinsSellOffer)}\n`;
+    text += `${GOLD}Total coins (insta-sell): ${WHITE}${toShortNumber(magmaCoreTotalCoinsInstaSell)}\n`;
     text += `\n`;
     text += `${GREEN}Sea creatures caught/h: ${WHITE}${formatNumberWithSpaces(seaCreaturesPerHour)}\n`;
     text += `${BLUE}Magma cores/h: ${WHITE}${formatNumberWithSpaces(magmaCoresPerHour)}\n`;
-    text += `${GOLD}Coins/h (sell offer): ${WHITE}${formatNumberWithSpaces(magmaCoreCoinsPerHourSellOffer)}\n`;
-    text += `${GOLD}Coins/h (insta-sell): ${WHITE}${formatNumberWithSpaces(magmaCoreCoinsPerHourInstaSell)}\n`;
+    text += `${GOLD}Coins/h (sell offer): ${WHITE}${toShortNumber(magmaCoreCoinsPerHourSellOffer)}\n`;
+    text += `${GOLD}Coins/h (insta-sell): ${WHITE}${toShortNumber(magmaCoreCoinsPerHourInstaSell)}\n`;
     text += `\n`;
     text += `${AQUA}Elapsed time: ${WHITE}${formatElapsedTime(elapsedSeconds)}`; 
 
