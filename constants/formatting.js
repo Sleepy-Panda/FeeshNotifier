@@ -22,3 +22,10 @@ export const STRIKETHROUGH = '&m';
 export const UNDERLINE = '&n';
 export const ITALIC = '&o';
 export const OBFUSCATED = '&k';
+
+export const COMMON = WHITE;
+export const UNCOMMON = GREEN;
+export const RARE = BLUE;
+export const EPIC = DARK_PURPLE;
+export const LEGENDARY = GOLD;
+export const MYTHIC = LIGHT_PURPLE;

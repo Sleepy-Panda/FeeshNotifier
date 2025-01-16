@@ -5,3 +5,4 @@ export const LUCKY_CLOVER_CORE = "Lucky Clover Core";
 export const DEEP_SEA_ORB = "Deep Sea Orb";
 export const RADIOACTIVE_VIAL = "Radioactive Vial";
 export const CARMINE_DYE = "Carmine Dye";
+export const MAGMA_CORE = "Magma Core";

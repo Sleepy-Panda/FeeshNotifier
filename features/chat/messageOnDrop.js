@@ -17,7 +17,7 @@ export function sendMessageOnDrop(options) {
 	
 	// Play alert if you aren't in the party so automated message is not sent
 	if (options.isAlertEnabled) {
-		const title = getDropTitle(options.itemName);
+		const title = getDropTitle(options.itemName, options.rarityColorCode);
 		Client.showTitle(title, '', 1, 60, 1);
 
 		switch (settings.soundMode) {

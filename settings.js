@@ -208,6 +208,14 @@ class Settings {
     })
     messageOnCarmineDyeDrop = true;
 
+    @SwitchProperty({
+        name: "Send a message on MAGMA CORE drop",
+        description: "Sends a message to the party chat when a MAGMA CORE has dropped.",
+        category: "Chat",
+        subcategory: "Rare Drops"
+    })
+    messageOnMagmaCoreDrop = true;
+
     // ******* ALERTS - Totem ******* //
 
     @SwitchProperty({
@@ -389,6 +397,14 @@ class Settings {
         subcategory: "Rare Drops"
     })
     alertOnCarmineDyeDrop = true;
+
+    @SwitchProperty({
+        name: "Alert on MAGMA CORE drop",
+        description: "Shows a title and plays a sound when a MAGMA CORE has dropped.",
+        category: "Alerts",
+        subcategory: "Rare Drops"
+    })
+    alertOnMagmaCoreDrop = true;
 }
 
 export default new Settings()

@@ -8,7 +8,7 @@ export function playAlertOnCatch(options) {
 		return;
 	}
 	
-	const title = options.isDoubleHook ? getDoubleHookTitle(options.seaCreature) : getTitle(options.seaCreature);
+	const title = options.isDoubleHook ? getDoubleHookTitle(options.seaCreature, options.rarityColorCode) : getTitle(options.seaCreature, options.rarityColorCode);
 	Client.showTitle(title, options.player || '', 1, 60, 1);
 
 	if (settings.soundMode !== OFF_SOUND_MODE) {
