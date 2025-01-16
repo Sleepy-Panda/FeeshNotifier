@@ -1,0 +1,12 @@
+export const YETI = "YETI";
+export const REINDRAKE = "REINDRAKE";
+export const NUTCRACKER = "NUTCRACKER";
+export const WATER_HYDRA = "WATER HYDRA";
+export const SEA_EMPEROR = "SEA EMPEROR";
+export const CARROT_KING = "CARROT KING";
+export const GREAT_WHITE_SHARK = "GREAT WHITE SHARK";
+export const PHANTOM_FISHER = "PHANTOM FISHER";
+export const GRIM_REAPER = "GRIM REAPER";
+export const THUNDER = "THUNDER";
+export const LORD_JAWBUS = "LORD JAWBUS";
+export const VANQUISHER = "VANQUISHER";
