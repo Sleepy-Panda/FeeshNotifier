@@ -1,13 +1,15 @@
 import settings from "../../settings";
 import { RED } from "../../constants/formatting";
 import { getWorldName, hasFishingRodInHand, isInSkyblock } from "../../utils/playerState";
+import { OFF_SOUND_MODE } from "../../constants/sounds";
+import { KUUDRA } from "../../constants/areas";
 
 // This module is made with help of ruki_tryuki, praises!
 
 export function alertOnNonFishingArmor(action, pos, event) {
     if (!settings.alertOnNonFishingArmor ||
         !isInSkyblock() ||
-        getWorldName() === 'Kuudra' ||
+        getWorldName() === KUUDRA ||
         !hasFishingRodInHand() ||
         !action.toString().includes('RIGHT_CLICK') // RIGHT_CLICK_BLOCK, RIGHT_CLICK_EMPTY
     ) {
@@ -43,7 +45,11 @@ export function alertOnNonFishingArmor(action, pos, event) {
     }
 
     if (fishingArmorCount < 2) {
-        Client.showTitle(`${RED}Equip fishing armor!`, '', 1, 30, 1);
+        Client.showTitle(`${RED}Equip fishing armor!`, '', 1, 25, 1);
+
+        if (settings.soundMode !== OFF_SOUND_MODE) {
+            World.playSound('random.orb', 1, 1);
+        }
     }
 }
 

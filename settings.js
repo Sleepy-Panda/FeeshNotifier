@@ -25,6 +25,8 @@ class Settings {
     seaCreaturesHpOverlayGui = new Gui();
     seaCreaturesCountOverlayGui = new Gui();
     legionAndBobbingTimeOverlayGui = new Gui();
+    crimsonIsleTrackerOverlayGui = new Gui();
+    jerryWorkshopTrackerOverlayGui = new Gui();
 
     // ******* GENERAL ******* //
 
@@ -200,6 +202,34 @@ class Settings {
     messageOnCarmineDyeDrop = true;
 
     @SwitchProperty({
+        name: "Send a message on FLAME DYE drop",
+        category: "Chat",
+        subcategory: "Rare Drops"
+    })
+    messageOnFlameDyeDrop = true;
+
+    @SwitchProperty({
+        name: "Send a message on AQUAMARINE DYE drop",
+        category: "Chat",
+        subcategory: "Rare Drops"
+    })
+    messageOnAqumarineDyeDrop = true;
+
+    @SwitchProperty({
+        name: "Send a message on ICEBERG DYE drop",
+        category: "Chat",
+        subcategory: "Rare Drops"
+    })
+    messageOnIcebergDyeDrop = true;
+
+    @SwitchProperty({
+        name: "Send a message on NADESHIKO DYE drop",
+        category: "Chat",
+        subcategory: "Rare Drops"
+    })
+    messageOnNadeshikoDyeDrop = true;
+
+    @SwitchProperty({
         name: "Send a message on MAGMA CORE drop",
         category: "Chat",
         subcategory: "Rare Drops"
@@ -245,6 +275,16 @@ class Settings {
         subcategory: "Fishing armor"
     })
     alertOnNonFishingArmor = true;
+
+    // ******* ALERTS - Thunder bottle ******* //
+
+    @SwitchProperty({
+        name: "Alert when a thunder bottle has fully charged",
+        description: `Shows a title when a thunder bottle has fully charged and became Thunder in a bottle.`,
+        category: "Alerts",
+        subcategory: "Thunder bottle"
+    })
+    alertOnThunderBottleCharged = true;
 
     // ******* ALERTS - Sea creatures count ******* //
 
@@ -458,6 +498,34 @@ class Settings {
     alertOnCarmineDyeDrop = true;
 
     @SwitchProperty({
+        name: "Alert on FLAME DYE drop",
+        category: "Alerts",
+        subcategory: "Rare Drops"
+    })
+    alertOnFlameDyeDrop = true;
+
+    @SwitchProperty({
+        name: "Alert on AQUAMARINE DYE drop",
+        category: "Alerts",
+        subcategory: "Rare Drops"
+    })
+    alertOnAqumarineDyeDrop = true;
+
+    @SwitchProperty({
+        name: "Alert on ICEBERG DYE drop",
+        category: "Alerts",
+        subcategory: "Rare Drops"
+    })
+    alertOnIcebergDyeDrop = true;
+
+    @SwitchProperty({
+        name: "Alert on NADESHIKO DYE drop",
+        category: "Alerts",
+        subcategory: "Rare Drops"
+    })
+    alertOnNadeshikoDyeDrop = true;
+
+    @SwitchProperty({
         name: "Alert on MAGMA CORE drop",
         category: "Alerts",
         subcategory: "Rare Drops"
@@ -490,7 +558,7 @@ class Settings {
 
     @SwitchProperty({
         name: "Rare catches tracker",
-        description: `Shows an overlay with the statistics of rare sea creatures caught per session. Do ${AQUA}/feeshResetRareCatches${GRAY} to reset. ${RED}Hidden if you have no fishing rod in your hotbar!`,
+        description: `Shows an overlay with the statistics of rare sea creatures caught per session.\nDo ${AQUA}/feeshResetRareCatches${GRAY} to reset.\n${RED}Hidden if you have no fishing rod in your hotbar!`,
         category: "Overlays",
         subcategory: "Rare catches"
     })
@@ -545,7 +613,7 @@ class Settings {
 
     @SwitchProperty({
         name: "Sea creatures count",
-        description: `Shows an overlay with the count of nearby sea creatures, and timer for how long they are alive. ${RED}Hidden if you have no fishing rod in your hotbar!`,
+        description: `Shows an overlay with the count of nearby sea creatures, and timer for how long they are alive. Useful for barn fishing. ${RED}Hidden if you have no fishing rod in your hotbar!`,
         category: "Overlays",
         subcategory: "Sea creatures count"
     })
@@ -585,6 +653,72 @@ class Settings {
         this.legionAndBobbingTimeOverlayGui.open();
     };
 
+    // ******* OVERLAYS - Jerry Workshop tracker ******* //
+
+    @SwitchProperty({
+        name: "Jerry Workshop tracker",
+        description: `Shows an overlay with Yeti / Reindrake catch statistics and Baby Yeti pet drops statistics while in the Jerry Workshop.\nDo ${AQUA}/feeshResetJerryWorkshop${GRAY} to reset.\n${RED}Hidden if you have no fishing rod in your hotbar!`,
+        category: "Overlays",
+        subcategory: "Jerry Workshop tracker"
+    })
+    jerryWorkshopTrackerOverlay = true;
+
+    @ButtonProperty({
+        name: "Move Jerry Workshop tracker",
+        description: "Moves the overlay text.",
+        category: "Overlays",
+        subcategory: "Jerry Workshop tracker",
+        placeholder: "Move"
+    })
+    moveJerryWorkshopTrackerOverlay() {
+        showOverlayMoveHelp();
+        this.jerryWorkshopTrackerOverlayGui.open();
+    };
+
+    @ButtonProperty({
+        name: "Reset Jerry Workshop tracker",
+        description: `Resets tracking for Jerry Workshop tracker. Executes ${AQUA}/feeshResetJerryWorkshop`,
+        category: "Overlays",
+        subcategory: "Jerry Workshop tracker",
+        placeholder: "Reset"
+    })
+    resetJerryWorkshopTracker() {
+        ChatLib.command("feeshResetJerryWorkshop noconfirm", true);
+    }
+
+    // ******* OVERLAYS - Crimson Isle tracker ******* //
+
+    @SwitchProperty({
+        name: "Crimson Isle tracker",
+        description: `Shows an overlay with Thunder / Lord Jawbus catch statistics and Radioactive Vial drop statistics while in the Crimson Isle.\nDo ${AQUA}/feeshResetCrimsonIsle${GRAY} to reset.\n${RED}Hidden if you have no fishing rod in your hotbar!`,
+        category: "Overlays",
+        subcategory: "Crimson Isle tracker"
+    })
+    crimsonIsleTrackerOverlay = true;
+
+    @ButtonProperty({
+        name: "Move Crimson Isle tracker",
+        description: "Moves the overlay text.",
+        category: "Overlays",
+        subcategory: "Crimson Isle tracker",
+        placeholder: "Move"
+    })
+    moveCrimsonIsleTrackerOverlay() {
+        showOverlayMoveHelp();
+        this.crimsonIsleTrackerOverlayGui.open();
+    };
+
+    @ButtonProperty({
+        name: "Reset Crimson Isle tracker",
+        description: `Resets tracking for Crimson Isle tracker. Executes ${AQUA}/feeshResetCrimsonIsle`,
+        category: "Overlays",
+        subcategory: "Crimson Isle tracker",
+        placeholder: "Reset"
+    })
+    resetCrimsonIsleTracker() {
+        ChatLib.command("feeshResetCrimsonIsle noconfirm", true);
+    }
+
     // ******* INVENTORY - Highlight ******* //
 
     @SwitchProperty({
@@ -594,10 +728,28 @@ class Settings {
         subcategory: "Highlight"
     })
     highlightCheapBooks = false;
+
+    // ******* INVENTORY - Item tooltip ******* //
+
+    @SwitchProperty({
+        name: "Thunder bottle charge progress",
+        description: `Render empty thunder bottle charge progress (percentage) as a stack size.`,
+        category: "Inventory",
+        subcategory: "Item tooltip"
+    })
+    showThunderBottleProgress = false;
+
+    @SwitchProperty({
+        name: "Pet level",
+        description: `Render pet level as a stack size.`,
+        category: "Inventory",
+        subcategory: "Item tooltip"
+    })
+    showPetLevel = false;
 }
 
 export default new Settings()
 
 function showOverlayMoveHelp() {
-    ChatLib.chat(`${GOLD}[FeeshNotifier] ${WHITE}Drag the overlay to move it. Press +/- to increase/decrease size.`);
+    ChatLib.chat(`${GOLD}[FeeshNotifier] ${WHITE}Drag the overlay to move it. Press +/- to increase/decrease size. Press ESC when you're done.`);
 }
