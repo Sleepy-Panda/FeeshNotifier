@@ -27,6 +27,15 @@ class Settings {
         java.awt.Desktop.getDesktop().browse(new java.net.URI("https://www.chattriggers.com/modules/v/FeeshNotifier"));
     }
 
+    @SelectorProperty({
+        name: "Sound mode",
+        description: "Setups sounds played on rare catches and rare drops.",
+        category: "General",
+        subcategory: "Sounds",
+        options: ["Meme", "Normal", "Off"]
+    })
+    soundMode = 0;
+
     // ******* CHAT - Rare Catches ******* //
 
     @SwitchProperty({
@@ -182,6 +191,16 @@ class Settings {
         subcategory: "Rare Drops"
     })
     messageOnCarmineDyeDrop = true;
+
+    // ******* ALERTS - Totem ******* //
+
+    @SwitchProperty({
+        name: "Alert when player's totem expires soon",
+        description: "Shows a title and plays a sound when current player's totem expires in 10 seconds.",
+        category: "Alerts",
+        subcategory: "Totem"
+    })
+    alertOnTotemExpiresSoon = true;
 
     // ******* ALERTS - Rare Catches ******* //
 

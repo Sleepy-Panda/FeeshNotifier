@@ -7,12 +7,16 @@ import { sendMessageOnCatch } from './features/chat/messageOnCatch';
 import { sendMessageOnDrop } from './features/chat/messageOnDrop';
 import { playAlertOnCatch } from './features/alert/alertOnCatch';
 import { playAlertOnDrop } from './features/alert/alertOnDrop';
-import { getMessage, getDoubleHookMessage, getDropMessage } from './utils/common'
+import { getMessage, getDoubleHookMessage, getDropMessage } from './utils/common';
+import { notifyOnPlayersTotemExpiration } from './features/totem/totem';
 
-register("worldLoad", () => {
+register('worldLoad', () => {
     Client.showTitle('', '', 1, 1, 1); // Shitty fix for a title not showing for the 1st time
-    ChatLib.chat('&7FeeshNotifier loaded.');
 });
+
+// TOTEM
+
+register('step', () => notifyOnPlayersTotemExpiration({ isAlertEnabled: settings.alertOnTotemExpiresSoon })).setFps(1);
 
 // YETI
 

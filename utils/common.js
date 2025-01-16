@@ -1,6 +1,6 @@
 export function hasDoubleHookInMessage() {
 	const history = ChatLib.getChatLines();
-	const isDoubleHook = (!!history && history.length > 1) ? history[1].includes("Double Hook") : false;
+	const isDoubleHook = (!!history && history.length > 1) ? history[1].includes("Double Hook") : false; // Original message is &r&eIt's a &r&aDouble Hook&r&e! Woot woot!&r OR &r&eIt's a &r&aDouble Hook&r&e!&r
 	return isDoubleHook;
 }
 
