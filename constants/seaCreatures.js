@@ -63,5 +63,6 @@ export const ALL_SEA_CREATURES_NAMES = [
     'Taurus',
     'Thunder',
     'Lord Jawbus',
+    'Jawbus Follower',
     'Plhlegblast'
 ];

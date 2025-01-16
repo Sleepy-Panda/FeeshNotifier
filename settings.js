@@ -12,7 +12,7 @@ import { @Vigilant, @ButtonProperty, @SwitchProperty, @SelectorProperty, @Slider
 class Settings {
     constructor() {
         this.initialize(this);
-        this.setCategoryDescription("General", `${AQUA}FeeshNotifier ${WHITE}v${JSON.parse(FileLib.read("FeeshNotifier", "metadata.json")).version}\nBy ${AQUA}MoonTheSadFisher\nTry /ct load or reach out to m00nlight_sky in Discord if the module doesn't function properly!`);
+        this.setCategoryDescription("General", `${AQUA}FeeshNotifier ${WHITE}v${JSON.parse(FileLib.read("FeeshNotifier", "metadata.json")).version}\nBy ${AQUA}MoonTheSadFisher ${WHITE}with ${RED}❤\nTry ${AQUA}/ct load ${WHITE}or reach out to ${AQUA}m00nlight_sky ${WHITE}in Discord if the module doesn't function properly!`);
 
         this.setSubcategoryDescription("Chat", "Rare Catches", `${GRAY}Sends a message to the ${BLUE}party chat ${GRAY}when a rare sea creature has caught. It enables the alerts for your party members.\n\n${DARK_GRAY}For this to work, make sure to enable Skyblock setting which sends sea creatures to the chat: Settings -> Personal -> Fishing Settings -> Sea Creature Chat.`);
         this.setSubcategoryDescription("Chat", "Rare Catches - All Chat", `${GRAY}Sends your coords to the ${WHITE}all chat ${GRAY}when a rare sea creature has caught. It enables the waypoints for the entire server.\n\n${DARK_GRAY}For this to work, make sure to enable Skyblock setting which sends sea creatures to the chat: Settings -> Personal -> Fishing Settings -> Sea Creature Chat.`);
@@ -20,6 +20,8 @@ class Settings {
         this.setSubcategoryDescription("Alerts", "Rare Catches", `Shows a title and plays a sound when a rare sea creature has caught by you or your party members.\n\n${DARK_GRAY}For this to work, make sure to enable Skyblock setting which sends sea creatures to the chat: Settings -> Personal -> Fishing Settings -> Sea Creature Chat.`);
         this.setSubcategoryDescription("Alerts", "Rare Drops", "Shows a title and plays a sound when a rare item has dropped by you or your party members.");
     }
+
+    allOverlaysGui = new Gui(); // Sample overlays GUI to move/resize them all at once
 
     totemRemainingTimeOverlayGui = new Gui();
     flareRemainingTimeOverlayGui = new Gui();
@@ -37,14 +39,25 @@ class Settings {
 
     @ButtonProperty({
         name: "FeeshNotifier on ChatTriggers",
-        description: "Releases, contact details and README here.",
+        description: "Find latest releases notes, contact details and README here.",
         category: "General",
-        subcategory: "General",
+        subcategory: "ChatTriggers",
         placeholder: "FeeshNotifier"
     })
     discordLink() {
         java.awt.Desktop.getDesktop().browse(new java.net.URI("https://www.chattriggers.com/modules/v/FeeshNotifier"));
     }
+
+    @ButtonProperty({
+        name: "Move GUIs",
+        description: `Allows to move and resize all GUIs enabled in the settings. Executes ${AQUA}/feeshMoveAllGuis`,
+        category: "General",
+        subcategory: "GUI",
+        placeholder: "Move GUIs"
+    })
+    moveAllOverlays() {
+        ChatLib.command("feeshMoveAllGuis", true);
+    };
 
     @SelectorProperty({
         name: "Sound mode",
@@ -1058,7 +1071,7 @@ ${RED}Hidden if you have no fishing rod in your hotbar!`,
 
     @SwitchProperty({
         name: "Thunder bottle charge progress",
-        description: `Render empty thunder bottle charge progress (percentage)`,
+        description: `Render empty thunder / storm / hurricane bottle charge progress (percentage)`,
         category: "Inventory",
         subcategory: "Item tooltip"
     })

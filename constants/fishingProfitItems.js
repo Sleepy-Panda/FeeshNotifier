@@ -11,12 +11,6 @@ export const FISHING_PROFIT_ITEMS = [
     // Water & Lava items
 
     {
-        itemId: 'BOBBIN_SCRIPTURES',
-        itemName: 'Bobbin\' Scriptures',
-        itemDisplayName: `${RARE}Bobbin\' Scriptures`,
-        npcPrice: 35000,
-    },
-    {
         itemId: 'TITANIC_EXP_BOTTLE',
         itemName: 'Titanic Experience Bottle',
         itemDisplayName: `${RARE}Titanic Experience Bottle`,
@@ -59,10 +53,82 @@ export const FISHING_PROFIT_ITEMS = [
         npcPrice: 320,
     },
     {
+        itemId: 'MYCEL',
+        itemName: 'Mycelium',
+        itemDisplayName: `${COMMON}Mycelium`,
+        npcPrice: 5,
+    },
+    {
+        itemId: 'ENCHANTED_MYCELIUM',
+        itemName: 'Enchanted Mycelium',
+        itemDisplayName: `${UNCOMMON}Enchanted Mycelium`,
+        npcPrice: 800,
+    },
+    {
+        itemId: 'SAND:1',
+        itemName: 'Red Sand',
+        itemDisplayName: `${COMMON}Red Sand`,
+        npcPrice: 5,
+    },
+    {
+        itemId: 'ENCHANTED_RED_SAND',
+        itemName: 'Enchanted Red Sand',
+        itemDisplayName: `${UNCOMMON}Enchanted Red Sand`,
+        npcPrice: 800,
+    },
+    {
+        itemId: 'GLOWSTONE_DUST',
+        itemName: 'Glowstone Dust',
+        itemDisplayName: `${COMMON}Glowstone Dust`,
+        npcPrice: 2,
+    },
+    {
+        itemId: 'ENCHANTED_GLOWSTONE_DUST',
+        itemName: 'Enchanted Glowstone Dust',
+        itemDisplayName: `${UNCOMMON}Enchanted Glowstone Dust`,
+        npcPrice: 320,
+    },
+    {
+        itemId: 'QUARTZ',
+        itemName: 'Nether Quartz',
+        itemDisplayName: `${COMMON}Nether Quartz`,
+        npcPrice: 4,
+    },
+    {
+        itemId: 'ENCHANTED_QUARTZ',
+        itemName: 'Enchanted Quartz',
+        itemDisplayName: `${UNCOMMON}Enchanted Quartz`,
+        npcPrice: 640,
+    },
+    {
+        itemId: 'BLAZE_ROD',
+        itemName: 'Blaze Rod',
+        itemDisplayName: `${COMMON}Blaze Rod`,
+        npcPrice: 9,
+    },
+    {
+        itemId: 'ENCHANTED_BLAZE_ROD',
+        itemName: 'Enchanted Blaze Rod',
+        itemDisplayName: `${UNCOMMON}Enchanted Blaze Rod`,
+        npcPrice: 230400,
+    },
+    {
         itemId: 'ENCHANTED_NETHER_STALK',
         itemName: 'Enchanted Nether Wart',
         itemDisplayName: `${UNCOMMON}Enchanted Nether Wart`,
         npcPrice: 640,
+    },
+    {
+        itemId: 'SULPHUR_ORE',
+        itemName: 'Sulphur',
+        itemDisplayName: `${UNCOMMON}Sulphur`,
+        npcPrice: 10,
+    },
+    {
+        itemId: 'ENCHANTED_SULPHUR',
+        itemName: 'Enchanted Sulphur',
+        itemDisplayName: `${RARE}Enchanted Sulphur`,
+        npcPrice: 1600,
     },
     {
         itemId: 'BLAZE_POWDER',
@@ -89,16 +155,166 @@ export const FISHING_PROFIT_ITEMS = [
         npcPrice: 8,
     },
     {
-        itemId: 'MAGMA_CREAM',
-        itemName: 'Magma Cream',
-        itemDisplayName: `${COMMON}Magma Cream`,
-        npcPrice: 8,
-    },
-    {
         itemId: 'ENCHANTED_MAGMA_CREAM',
         itemName: 'Enchanted Magma Cream',
         itemDisplayName: `${UNCOMMON}Enchanted Magma Cream`,
         npcPrice: 1280,
+    },
+    {
+        itemId: 'WHIPPED_MAGMA_CREAM',
+        itemName: 'Whipped Magma Cream',
+        itemDisplayName: `${RARE}Whipped Magma Cream`,
+        npcPrice: 204800,
+    },
+    {
+        itemId: 'GAZING_PEARL',
+        itemName: 'Gazing Pearl',
+        itemDisplayName: `${RARE}Gazing Pearl`,
+        npcPrice: 200,
+    },
+    {
+        itemId: 'TENTACLE_MEAT',
+        itemName: 'Tentacle Meat',
+        itemDisplayName: `${RARE}Tentacle Meat`,
+        npcPrice: 200,
+    },
+    {
+        itemId: 'REKINDLED_EMBER_FRAGMENT',
+        itemName: 'Rekindled Ember Fragment',
+        itemDisplayName: `${EPIC}Rekindled Ember Fragment`,
+        npcPrice: 0,
+    },
+    {
+        itemId: 'SPELL_POWDER',
+        itemName: 'Spell Powder',
+        itemDisplayName: `${EPIC}Spell Powder`,
+        npcPrice: 500,
+    },
+    {
+        itemId: 'LUMINO_FIBER',
+        itemName: 'Lumino Fiber',
+        itemDisplayName: `${EPIC}Lumino Fiber`,
+        npcPrice: 500,
+    },
+    {
+        itemId: 'LEATHER_CLOTH',
+        itemName: 'Leather Cloth',
+        itemDisplayName: `${EPIC}Leather Cloth`,
+        npcPrice: 500,
+    },
+    {
+        itemId: 'HALLOWED_SKULL',
+        itemName: 'Hallowed Skull',
+        itemDisplayName: `${EPIC}Hallowed Skull`,
+        npcPrice: 500,
+    },
+    {
+        itemId: 'CORRUPTED_FRAGMENT',
+        itemName: 'Corrupted Fragment',
+        itemDisplayName: `${EPIC}Corrupted Fragment`,
+        npcPrice: 20,
+    },
+    {
+        itemId: 'FLAMES',
+        itemName: 'Flames',
+        itemDisplayName: `${RARE}Flames`,
+        npcPrice: 200,
+    },
+    {
+        itemId: 'BLAZE_ASHES',
+        itemName: 'Blaze Ashes',
+        itemDisplayName: `${UNCOMMON}Blaze Ashes`,
+        npcPrice: 50,
+    },
+    {
+        itemId: 'BURNING_EYE',
+        itemName: 'Burning Eye',
+        itemDisplayName: `${UNCOMMON}Burning Eye`,
+        npcPrice: 1000,
+    },
+    {
+        itemId: 'MUTATED_BLAZE_ASHES',
+        itemName: 'Mutated Blaze Ashes',
+        itemDisplayName: `${RARE}Mutated Blaze Ashes`,
+        npcPrice: 200,
+    },
+    {
+        itemId: 'WITHER_SOUL',
+        itemName: 'Wither Soul',
+        itemDisplayName: `${UNCOMMON}Wither Soul`,
+        npcPrice: 50,
+    },
+    {
+        itemId: 'MAGMA_CHUNK',
+        itemName: 'Magma Chunk',
+        itemDisplayName: `${UNCOMMON}Magma Chunk`,
+        npcPrice: 50,
+    },
+    {
+        itemId: 'SPECTRE_DUST',
+        itemName: 'Spectre Dust',
+        itemDisplayName: `${UNCOMMON}Spectre Dust`,
+        npcPrice: 50,
+    },
+    {
+        itemId: 'MAGMAG',
+        itemName: 'Magmag',
+        itemDisplayName: `${UNCOMMON}Magmag`,
+        npcPrice: 50,
+    },
+    {
+        itemId: 'BEZOS',
+        itemName: 'Bezos',
+        itemDisplayName: `${RARE}Bezos`,
+        npcPrice: 200,
+    },
+    {
+        itemId: 'DIGESTED_MUSHROOMS',
+        itemName: 'Digested Mushrooms',
+        itemDisplayName: `${UNCOMMON}Digested Mushrooms`,
+        npcPrice: 50,
+    },
+    {
+        itemId: 'HEAVY_PEARL',
+        itemName: 'Heavy Pearl',
+        itemDisplayName: `${LEGENDARY}Heavy Pearl`,
+        npcPrice: 0,
+    },
+    {
+        itemId: 'KADA_LEAD',
+        itemName: 'Kada Lead',
+        itemDisplayName: `${UNCOMMON}Kada Lead`,
+        npcPrice: 50,
+    },
+    {
+        itemId: 'KUUDRA_TIER_KEY',
+        itemName: 'Kuudra Key',
+        itemDisplayName: `${RARE}Kuudra Key`,
+        npcPrice: 0,
+    },
+    {
+        itemId: 'KUUDRA_HOT_TIER_KEY',
+        itemName: 'Hot Kuudra Key',
+        itemDisplayName: `${EPIC}Hot Kuudra Key`,
+        npcPrice: 0,
+    },
+    {
+        itemId: 'KUUDRA_BURNING_TIER_KEY',
+        itemName: 'Burning Kuudra Key',
+        itemDisplayName: `${EPIC}Burning Kuudra Key`,
+        npcPrice: 0,
+    },
+    {
+        itemId: 'KUUDRA_FIERY_TIER_KEY',
+        itemName: 'Fiery Kuudra Key',
+        itemDisplayName: `${EPIC}Fiery Kuudra Key`,
+        npcPrice: 0,
+    },
+    {
+        itemId: 'KUUDRA_INFERNAL_TIER_KEY',
+        itemName: 'Infernal Kuudra Key',
+        itemDisplayName: `${LEGENDARY}Infernal Kuudra Key`,
+        npcPrice: 0,
     },
     {
         itemId: 'LAVA_SHELL',
@@ -277,6 +493,12 @@ export const FISHING_PROFIT_ITEMS = [
 
     // Water
 
+    {
+        itemId: 'BOBBIN_SCRIPTURES',
+        itemName: 'Bobbin\' Scriptures',
+        itemDisplayName: `${RARE}Bobbin\' Scriptures`,
+        npcPrice: 35000,
+    },
     {
         itemId: 'CHUM',
         itemName: 'Chum',
@@ -805,7 +1027,7 @@ export const FISHING_PROFIT_ITEMS = [
         npcPrice: 1600,
     },
     {
-        itemId: 'NETHER_STAR',
+        itemId: 'CORRUPTED_NETHER_STAR',
         itemName: 'Nether Star',
         itemDisplayName: `${UNCOMMON}Nether Star`,
         npcPrice: 10000,
@@ -895,6 +1117,18 @@ export const FISHING_PROFIT_ITEMS = [
         npcPrice: 5000,
     },
     {
+        itemId: 'STORM_IN_A_BOTTLE',
+        itemName: 'Storm in a Bottle',
+        itemDisplayName: `${EPIC}Storm in a Bottle`,
+        npcPrice: 5000,
+    },
+    {
+        itemId: 'HURRICANE_IN_A_BOTTLE',
+        itemName: 'Hurricane in a Bottle',
+        itemDisplayName: `${LEGENDARY}Hurricane in a Bottle`,
+        npcPrice: 5000,
+    },
+    {
         itemId: 'ENCHANTMENT_CHARM_1',
         itemName: 'Enchanted Book (Charm I)',
         itemDisplayName: `${RARE}Charm I ${WHITE}Book`,
@@ -971,12 +1205,6 @@ export const FISHING_PROFIT_ITEMS = [
         itemName: 'Hard Stone',
         itemDisplayName: `${RARE}Hard Stone`,
         npcPrice: 1,
-    },
-    {
-        itemId: 'BLAZE_ROD',
-        itemName: 'Blaze Rod',
-        itemDisplayName: `${COMMON}Blaze Rod`,
-        npcPrice: 9,
     },
     {
         itemId: 'MAGMA_CORE',

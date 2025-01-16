@@ -43,7 +43,8 @@ function renderLegionAndBobbingTimeOverlay() {
     if (!settings.legionAndBobbingTimeOverlay ||
         !isInSkyblock() ||
         !hasFishingRodInHotbar() ||
-        getWorldName() === KUUDRA
+        getWorldName() === KUUDRA ||
+        settings.allOverlaysGui.isOpen()
     ) {
         return;
     }

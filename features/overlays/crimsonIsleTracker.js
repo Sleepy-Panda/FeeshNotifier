@@ -240,7 +240,8 @@ function renderCrimsonIsleTrackerOverlay() {
         ) ||
         !isInSkyblock() ||
         getWorldName() !== CRIMSON_ISLE ||
-        !hasFishingRodInHotbar()
+        !hasFishingRodInHotbar() ||
+        settings.allOverlaysGui.isOpen()
     ) {
         resetTrackerDisplay.hide();
         return;

@@ -8,6 +8,9 @@ import { getWorldName, hasFishingRodInHotbar, isInSkyblock } from "../../utils/p
 import { formatDate, formatNumberWithSpaces, isInChatOrInventoryGui } from "../../utils/common";
 import { JERRY_WORKSHOP } from "../../constants/areas";
 
+let remainingWorkshopTime = null;
+let sawWorkshopClosingMessage = false;
+
 triggers.REGULAR_JERRY_WORKSHOP_CATCH_TRIGGERS.forEach(entry => {
     register("Chat", (event) => trackRegularJerryWorkshopSeaCreatureCatch()).setCriteria(entry.trigger).setContains();
 });
@@ -22,7 +25,14 @@ const babyYetiPetLegendaryTrigger = triggers.RARE_DROP_TRIGGERS.find(entry => en
 register("Chat", (magicFind, event) => trackEpicBabyYetiPetDrop()).setCriteria(babyYetiPetEpicTrigger.trigger).setContains();
 register("Chat", (magicFind, event) => trackLegendaryBabyYetiPetDrop()).setCriteria(babyYetiPetLegendaryTrigger.trigger).setContains();
 
+register("Chat", (event) => { sawWorkshopClosingMessage = true; }).setCriteria(triggers.WORKSHOP_CLOSING_MESSAGE).setContains();
+
+register('step', () => trackRemainingWorkshopTime()).setFps(1);
 register('renderOverlay', () => renderJerryWorkshopOverlay());
+register("worldUnload", () => {
+    remainingWorkshopTime = null;
+    sawWorkshopClosingMessage = false;
+});
 
 // DisplayLine is initialized once in order to avoid multiple method calls on click.
 let resetTrackerDisplay = new Display().hide();
@@ -162,6 +172,29 @@ function trackLegendaryBabyYetiPetDrop() {
 	}
 }
 
+function trackRemainingWorkshopTime() {
+    if (!settings.jerryWorkshopTrackerOverlay || !isInSkyblock() || getWorldName() !== JERRY_WORKSHOP) {
+        return;
+    }
+    
+    if (new Date().getMonth() === 11) { // Workshop is open permanently in December
+        remainingWorkshopTime = null;
+        return;
+    }
+
+    if (sawWorkshopClosingMessage) {
+        remainingWorkshopTime = `${RED}${BOLD}Soon`;
+        return;
+    }
+
+    const tabListLine = TabList?.getNames()?.find(tab => tab.includes("Island closes in: "));
+    if (tabListLine) {
+        remainingWorkshopTime = tabListLine.split(': ')[1];
+    } else {
+        remainingWorkshopTime = null;
+    }
+}
+
 function renderJerryWorkshopOverlay() {
     if (!settings.jerryWorkshopTrackerOverlay ||
         !persistentData.jerryWorkshop ||
@@ -175,7 +208,8 @@ function renderJerryWorkshopOverlay() {
         ) ||
         !isInSkyblock() ||
         getWorldName() !== JERRY_WORKSHOP ||
-        !hasFishingRodInHotbar()
+        !hasFishingRodInHotbar() ||
+        settings.allOverlaysGui.isOpen()
     ) {
         resetTrackerDisplay.hide();
         return;
@@ -186,12 +220,16 @@ function renderJerryWorkshopOverlay() {
     const averageYeti = formatNumberWithSpaces(persistentData.jerryWorkshop.yeti.averageCatches) || 'N/A';
     const averageReindrake = formatNumberWithSpaces(persistentData.jerryWorkshop.reindrake.averageCatches) || 'N/A';
 
-    let overlayText = `${AQUA}${BOLD}Jerry Workshop tracker\n`;
-    overlayText += `${GOLD}Yeti: ${WHITE}${formatNumberWithSpaces(persistentData.jerryWorkshop.yeti.catchesSinceLast)} ${GRAY}${persistentData.jerryWorkshop.yeti.catchesSinceLast !== 1 ? 'catches' : 'catch'} ago ${DARK_GRAY}(${GRAY}avg: ${WHITE}${averageYeti}${DARK_GRAY})\n`;
-    overlayText += `${GRAY}Last on: ${WHITE}${lastCatchTimeYeti}\n`;
-    overlayText += `${GOLD}Reindrake: ${WHITE}${formatNumberWithSpaces(persistentData.jerryWorkshop.reindrake.catchesSinceLast)} ${GRAY}${persistentData.jerryWorkshop.reindrake.catchesSinceLast !== 1 ? 'catches' : 'catch'} ago ${DARK_GRAY}(${GRAY}avg: ${WHITE}${averageReindrake}${DARK_GRAY})\n`;
-    overlayText += `${GRAY}Last on: ${WHITE}${lastCatchTimeReindrake}\n`;
-    overlayText += `${GRAY}Baby Yeti pets: ${GOLD}${formatNumberWithSpaces(persistentData.jerryWorkshop.babyYetiPets.legendary.count)} ${DARK_PURPLE}${formatNumberWithSpaces(persistentData.jerryWorkshop.babyYetiPets.epic.count)}`;
+    let overlayText = `${AQUA}${BOLD}Jerry Workshop tracker`;
+    overlayText += `\n${GOLD}Yeti: ${WHITE}${formatNumberWithSpaces(persistentData.jerryWorkshop.yeti.catchesSinceLast)} ${GRAY}${persistentData.jerryWorkshop.yeti.catchesSinceLast !== 1 ? 'catches' : 'catch'} ago ${DARK_GRAY}(${GRAY}avg: ${WHITE}${averageYeti}${DARK_GRAY})`;
+    overlayText += `\n${GRAY}Last on: ${WHITE}${lastCatchTimeYeti}`;
+    overlayText += `\n${GOLD}Reindrake: ${WHITE}${formatNumberWithSpaces(persistentData.jerryWorkshop.reindrake.catchesSinceLast)} ${GRAY}${persistentData.jerryWorkshop.reindrake.catchesSinceLast !== 1 ? 'catches' : 'catch'} ago ${DARK_GRAY}(${GRAY}avg: ${WHITE}${averageReindrake}${DARK_GRAY})`;
+    overlayText += `\n${GRAY}Last on: ${WHITE}${lastCatchTimeReindrake}`;
+    overlayText += `\n${GRAY}Baby Yeti pets: ${GOLD}${formatNumberWithSpaces(persistentData.jerryWorkshop.babyYetiPets.legendary.count)} ${DARK_PURPLE}${formatNumberWithSpaces(persistentData.jerryWorkshop.babyYetiPets.epic.count)}`;
+
+    if (remainingWorkshopTime) {
+        overlayText += `\n\n${GRAY}Closes in: ${remainingWorkshopTime}`;
+    }
 
     const overlay = new Text(overlayText, overlayCoordsData.jerryWorkshopTrackerOverlay.x, overlayCoordsData.jerryWorkshopTrackerOverlay.y)
         .setShadow(true)

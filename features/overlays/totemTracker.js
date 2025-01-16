@@ -57,7 +57,7 @@ function trackTotemStatus() {
 }
 
 function renderTotemOverlay() {
-    if (!settings.totemRemainingTimeOverlay || !remainingTotemTime || remainingTotemTime === '00s' || !isInSkyblock()) {
+    if (!settings.totemRemainingTimeOverlay || !remainingTotemTime || remainingTotemTime === '00s' || !isInSkyblock() || settings.allOverlaysGui.isOpen()) {
         return;
     }
 

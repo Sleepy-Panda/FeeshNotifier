@@ -9,7 +9,7 @@ import { EntityFishHook } from "../../constants/javaTypes";
 import { getAuctionItemPrices, getPetRarityCode } from "../../utils/auctionPrices";
 import { getBazaarItemPrices } from "../../utils/bazaarPrices";
 import { formatElapsedTime, getCleanItemName, getItemsAddedToSacks, isInChatOrInventoryGui, isInSacksGui, isInSupercraftGui, splitArray, toShortNumber } from "../../utils/common";
-import { getLastAuctionGuiClosedAt, getLastKatUpgrade, getLastOdgerGuiClosedAt, getLastSacksGuiClosedAt, getLastSupercraftGuiClosedAt, getWorldName, hasFishingRodInHotbar, isInSkyblock } from "../../utils/playerState";
+import { getLastAuctionGuiClosedAt, getLastCraftGuiClosedAt, getLastKatUpgrade, getLastOdgerGuiClosedAt, getLastSacksGuiClosedAt, getLastSupercraftGuiClosedAt, getWorldName, hasFishingRodInHotbar, isInSkyblock } from "../../utils/playerState";
 
 let isVisible = false;
 let areActionsVisible = false;
@@ -116,7 +116,8 @@ function refreshIsVisible() {
         (!persistentData.fishingProfit.totalProfit && !persistentData.fishingProfit.profitTrackerItems.length && !persistentData.fishingProfit.elapsedSeconds) ||
         !isInSkyblock() ||
         getWorldName() === KUUDRA ||
-        !hasFishingRodInHotbar()
+        !hasFishingRodInHotbar() ||
+        settings.allOverlaysGui.isOpen()
     ) {
         isVisible = false;
         pause();
@@ -325,7 +326,7 @@ function onAddedToSacks(event) {
         }
 
         const lastSupercraftGuiClosedAt = getLastSupercraftGuiClosedAt();
-        if (isInSupercraftGui() || new Date() - lastSupercraftGuiClosedAt < 15 * 1000) { // Supercraft closed < 10 seconds ago
+        if (isInSupercraftGui() || new Date() - lastSupercraftGuiClosedAt < 15 * 1000) { // Supercraft closed < 15 seconds ago
             return;
         }
 
@@ -549,6 +550,11 @@ function detectInventoryChanges() {
             return;
         }
 
+        const lastCraftGuiClosedAt = getLastCraftGuiClosedAt();
+        if (lastCraftGuiClosedAt && new Date() - lastCraftGuiClosedAt < 1000) { // Something is probably claimed from crafting table
+            return;
+        }
+
         const item = FISHING_PROFIT_ITEMS.find(i => i.itemId === itemId);
         if (!item) {
             return;
@@ -615,8 +621,8 @@ function refreshTrackerDisplayData() {
         const MIN_PRICE = +settings.fishingProfitTracker_hideCheaperThan || 0;
         const TOP_N = settings.fishingProfitTracker_showTop || 50;
     
-        const expensiveEntries = entries.filter(e => e.profit >= MIN_PRICE || e.item.includes('Dye'));
-        const cheapEntries = entries.filter(e => e.profit < MIN_PRICE && !e.item.includes('Dye'));
+        const expensiveEntries = entries.filter(e => e.profit >= MIN_PRICE || e.item.includes('Kuudra Key')); // Kuudra keys can't be sold but they're valuable to show in tracker
+        const cheapEntries = entries.filter(e => e.profit < MIN_PRICE && !e.item.includes('Kuudra Key'));
         const [toShow, toHide] = splitArray(expensiveEntries, TOP_N);
     
         displayTrackerData.entriesToShow = toShow;

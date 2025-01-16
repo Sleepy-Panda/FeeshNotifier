@@ -1,5 +1,3 @@
-import { HUB } from "../constants/areas";
-
 var isInSkyblock = false;
 var hasFishingRodInHotbar = false;
 var hasDirtRodInHand = false;
@@ -15,6 +13,7 @@ var lastSacksGuiClosedAt = null;
 var lastSupercraftGuiClosedAt = null;
 var lastOdgerGuiClosedAt = null;
 var lastAuctionGuiClosedAt = null;
+var lastCraftGuiClosedAt = null;
 
 register('step', () => trackPlayerState()).setFps(2);
 
@@ -49,6 +48,8 @@ register("guiClosed", (gui) => {
         lastAuctionGuiClosedAt = new Date();
     } else if (chestName.endsWith('Recipe')) {
         lastSupercraftGuiClosedAt = new Date();
+    } else if (chestName.includes('Craft Item')) {
+        lastCraftGuiClosedAt = new Date();
     }
 });
 
@@ -96,6 +97,10 @@ export function getLastAuctionGuiClosedAt() {
 	return lastAuctionGuiClosedAt;
 }
 
+export function getLastCraftGuiClosedAt() {
+	return lastCraftGuiClosedAt;
+}
+
 export function getLastSupercraftGuiClosedAt() {
 	return lastSupercraftGuiClosedAt;
 }
@@ -114,7 +119,7 @@ function setWorldName() {
 		worldName = null;
 		return;
 	}
-
+	
 	const world = TabList.getNames().find(tab => tab.includes("Area: "));
 	if (!world) {
 		worldName = null;

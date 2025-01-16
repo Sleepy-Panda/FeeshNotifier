@@ -209,7 +209,8 @@ function renderMagmaCoreTrackerOverlay() {
         !isInSkyblock() ||
         !hasFishingRodInHotbar() ||
         getWorldName() !== CRYSTAL_HOLLOWS ||
-        (!totalMagmaCoresCount && !totalSeaCreaturesCaughtCount)
+        (!totalMagmaCoresCount && !totalSeaCreaturesCaughtCount) ||
+        settings.allOverlaysGui.isOpen()
     ) {
         buttonsDisplay.hide();
         return;
