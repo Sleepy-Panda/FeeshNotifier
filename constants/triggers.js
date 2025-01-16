@@ -88,10 +88,10 @@ export const DEEP_SEA_ORB_MESSAGE = `RARE DROP! ${RESET}${DARK_PURPLE}Deep Sea O
 export const RADIOACTIVE_VIAL_MESSAGE = `RARE DROP! ${RESET}${LIGHT_PURPLE}Radioactive Vial ${MAGIC_FIND_MESSAGE_PATTERN}`; // RARE DROP! &r&dRadioactive Vial &r&b(+&r&b236% &r&b✯ Magic Find&r&b)
 export const MAGMA_CORE_MESSAGE = `RARE DROP! ${RESET}${BLUE}Magma Core ${MAGIC_FIND_MESSAGE_PATTERN}`; // RARE DROP! &r&9Magma Core &r&b(+&r&b236% &r&b✯ Magic Find&r&b)
 
-export const AQUAMARINE_DYE_MESSAGE = `${RESET}${LIGHT_PURPLE}${BOLD}WOW! ` + '${playerNameAndRank}' + ` ${RESET}${GOLD}found ${RESET}${AQUA}Aquamarine Dye${RESET}`; // &r&d&lWOW! &r&b[MVP&r&c+&r&b] &5MoonTheSadFisher&r&r&f &r&6found &r&bAquamarine Dye&r
-export const ICEBERG_DYE_MESSAGE = `${RESET}${LIGHT_PURPLE}${BOLD}WOW! ` + '${playerNameAndRank}' + ` ${RESET}${GOLD}found ${RESET}${DARK_AQUA}Iceberg Dye${RESET}`; // &r&d&lWOW! &r&b[MVP&r&c+&r&b] &5MoonTheSadFisher&r&r&f &r&6found &r&3Iceberg Dye&r
-export const CARMINE_DYE_MESSAGE = `${RESET}${LIGHT_PURPLE}${BOLD}WOW! ` + '${playerNameAndRank}' + ` ${RESET}${GOLD}found ${RESET}${DARK_RED}Carmine Dye${RESET}`; // &r&d&lWOW! &r&b[MVP&r&c+&r&b] &5MoonTheSadFisher&r&r&f &r&6found &r&4Carmine Dye&r
-export const MIDNIGHT_DYE_MESSAGE = `${RESET}${LIGHT_PURPLE}${BOLD}WOW! ` + '${playerNameAndRank}' + ` ${RESET}${GOLD}found ${RESET}${DARK_PURPLE}Midnight Dye${RESET}`; // &r&d&lWOW! &r&b[MVP&r&c+&r&b] &5MoonTheSadFisher&r&r&f &r&6found &r&5Midnight Dye&r
+export const AQUAMARINE_DYE_MESSAGE = `${RESET}${LIGHT_PURPLE}${BOLD}WOW! ` + '${playerNameAndRank}' + ` ${RESET}${GOLD}found ${RESET}${AQUA}Aquamarine Dye`; // &r&d&lWOW! &r&b[MVP&r&c+&r&b] &bMoonTheSadFisher&r&r&f &r&6found &r&bAquamarine Dye &r&8#95&r&6!&r
+export const ICEBERG_DYE_MESSAGE = `${RESET}${LIGHT_PURPLE}${BOLD}WOW! ` + '${playerNameAndRank}' + ` ${RESET}${GOLD}found ${RESET}${DARK_AQUA}Iceberg Dye`; // &r&d&lWOW! &r&b[MVP&r&c+&r&b] &bMoonTheSadFisher&r&r&f &r&6found &r&3Iceberg Dye&r
+export const CARMINE_DYE_MESSAGE = `${RESET}${LIGHT_PURPLE}${BOLD}WOW! ` + '${playerNameAndRank}' + ` ${RESET}${GOLD}found ${RESET}${DARK_RED}Carmine Dye`; // &r&d&lWOW! &r&b[MVP&r&c+&r&b] &bMoonTheSadFisher&r&r&f &r&6found &r&4Carmine Dye&r
+export const MIDNIGHT_DYE_MESSAGE = `${RESET}${LIGHT_PURPLE}${BOLD}WOW! ` + '${playerNameAndRank}' + ` ${RESET}${GOLD}found ${RESET}${DARK_PURPLE}Midnight Dye`; // &r&d&lWOW! &r&b[MVP&r&c+&r&b] &bMoonTheSadFisher&r&r&f &r&6found &r&5Midnight Dye&r
 
 export const MUSIC_RUNE_MESSAGE = `${RESET}${DARK_PURPLE}${BOLD}GREAT CATCH! ${RESET}${AQUA}You found a ${RESET}${AQUA}◆ Music Rune I${RESET}${AQUA}.${RESET}`; // &r&5&lGREAT CATCH! &r&bYou found a &r&b◆ Music Rune I&r&b.&r
 
@@ -118,6 +118,7 @@ export const CHUM_BUCKET_AUTO_PICKED_UP_MESSAGE = `${RESET}${YELLOW}Automaticall
 export const SPIRIT_MASK_USED_MESSAGE = `${RESET}${GOLD}Second Wind Activated${RESET}${GREEN}! ${RESET}${GREEN}Your Spirit Mask saved your life!${RESET}`; // &r&6Second Wind Activated&r&a! &r&aYour Spirit Mask saved your life!&r
 export const GOOD_CATCH_COINS_MESSAGE = `${RESET}${GOLD}${BOLD}GOOD CATCH! ${RESET}${AQUA}You found ${RESET}${GOLD}` + "${coins}" + ` Coins${RESET}${AQUA}.${RESET}`;
 export const GREAT_CATCH_COINS_MESSAGE = `${RESET}${DARK_PURPLE}${BOLD}GREAT CATCH! ${RESET}${AQUA}You found ${RESET}${GOLD}` + "${coins}" + ` Coins${RESET}${AQUA}.${RESET}`;
+export const GOLDEN_FISH_MESSAGE = `${RESET}${BLUE}You spot a ${RESET}${GOLD}Golden Fish ${RESET}${BLUE}surface from beneath the lava!${RESET}`; // &r&9You spot a &r&6Golden Fish &r&9surface from beneath the lava!&r
 
 export const RARE_CATCH_TRIGGERS = [
     {

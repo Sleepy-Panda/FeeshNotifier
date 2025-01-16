@@ -24,11 +24,6 @@ function showFishingRodAttributes(item, x, y) {
         return;
     }
 
-    const loreLines = item.getLore();
-    if (!loreLines) {
-        return;
-    }
-
     const attributes = item.getNBT()?.getCompoundTag('tag')?.getCompoundTag('ExtraAttributes')?.getCompoundTag('attributes')?.toObject();
     if (!attributes) {
         return;

@@ -14,6 +14,10 @@ const bobbingTimeDistance = 30;
 
 register('step', () => trackPlayersAndFishingHooksNearby()).setFps(2);
 register('renderOverlay', () => renderLegionAndBobbingTimeOverlay());
+register("worldUnload", () => {
+    playersCount = 0;
+    fishingHooksCount = 0;
+});
 
 function trackPlayersAndFishingHooksNearby() {
     if (!settings.legionAndBobbingTimeOverlay ||

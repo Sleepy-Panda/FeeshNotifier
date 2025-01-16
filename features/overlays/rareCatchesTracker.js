@@ -1,12 +1,22 @@
 import settings from "../../settings";
+import * as triggers from '../../constants/triggers';
 import * as seaCreatures from '../../constants/seaCreatures';
 import { persistentData } from "../../data/data";
 import { overlayCoordsData } from "../../data/overlayCoords";
-import { formatNumberWithSpaces, fromUppercaseToCapitalizedFirstLetters, isInChatOrInventoryGui, pluralize } from '../../utils/common';
+import { formatNumberWithSpaces, fromUppercaseToCapitalizedFirstLetters, isDoubleHook, isInChatOrInventoryGui, pluralize } from '../../utils/common';
 import { WHITE, GOLD, BOLD, YELLOW, GRAY, RED, UNDERLINE } from "../../constants/formatting";
 import { RARE_CATCH_TRIGGERS } from "../../constants/triggers";
 import { getWorldName, hasFishingRodInHotbar, isInSkyblock } from "../../utils/playerState";
 import { KUUDRA } from "../../constants/areas";
+
+triggers.RARE_CATCH_TRIGGERS.forEach(entry => {
+    register("Chat", (event) => {
+        const isDoubleHooked = isDoubleHook();
+        trackCatch({ seaCreature: entry.seaCreature, rarityColorCode: entry.rarityColorCode, isDoubleHook: isDoubleHooked });
+    }).setCriteria(entry.trigger).setContains();
+});
+
+register('renderOverlay', () => renderRareCatchTrackerOverlay());
 
 // DisplayLine is initialized once in order to avoid multiple method calls on click.
 let resetTrackerDisplay = new Display().hide();
@@ -58,7 +68,7 @@ export function resetRareCatchesTracker(isConfirmed) {
 	}
 }
 
-export function trackCatch(options) {
+function trackCatch(options) {
     try {
         if (!settings.rareCatchesTrackerOverlay || !isInSkyblock()) {
             return;
@@ -94,7 +104,7 @@ export function trackCatch(options) {
 	}
 }
 
-export function renderRareCatchTrackerOverlay() {
+function renderRareCatchTrackerOverlay() {
     if (!settings.rareCatchesTrackerOverlay ||
         !Object.entries(persistentData.rareCatches).length ||
         !isInSkyblock() ||
