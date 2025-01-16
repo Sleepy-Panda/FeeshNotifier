@@ -21,17 +21,34 @@ register('step', () => notifyOnPlayersTotemExpiration({ isAlertEnabled: settings
 triggers.RARE_CATCH_TRIGGERS.forEach(entry => {
     register(
         "Chat",
-        (event) => sendMessageOnCatch({ seaCreature: entry.seaCreature, rarityColorCode: entry.rarityColorCode, isMessageEnabled: entry.isMessageEnabled, isAlertEnabled: entry.isAlertEnabled })
+        (event) => sendMessageOnCatch({
+            seaCreature: entry.seaCreature,
+            rarityColorCode: entry.rarityColorCode,
+            isMessageEnabled: settings[entry.isMessageEnabledSettingKey],
+            isAlertEnabled: settings[entry.isAlertEnabledSettingKey]
+        })
     ).setCriteria(entry.trigger).setContains();
 
     register(
         "Chat",
-        (rankAndPlayer, event) => playAlertOnCatch({ seaCreature: entry.seaCreature, rarityColorCode: entry.rarityColorCode, isEnabled: entry.isAlertEnabled, isDoubleHook: false, player: rankAndPlayer })
+        (rankAndPlayer, event) => playAlertOnCatch({
+            seaCreature: entry.seaCreature,
+            rarityColorCode: entry.rarityColorCode,
+            isEnabled: settings[entry.isAlertEnabledSettingKey],
+            isDoubleHook: false,
+            player: rankAndPlayer
+        })
     ).setCriteria(getPartyChatMessage(getMessage(entry.seaCreature)));
 
     register(
         "Chat",
-        (rankAndPlayer, event) => playAlertOnCatch({ seaCreature: entry.seaCreature, rarityColorCode: entry.rarityColorCode, isEnabled: entry.isAlertEnabled, isDoubleHook: true, player: rankAndPlayer })
+        (rankAndPlayer, event) => playAlertOnCatch({
+            seaCreature: entry.seaCreature,
+            rarityColorCode: entry.rarityColorCode,
+            isEnabled: settings[entry.isAlertEnabledSettingKey],
+            isDoubleHook: true,
+            player: rankAndPlayer
+        })
     ).setCriteria(getPartyChatMessage(getDoubleHookMessage(entry.seaCreature)));
 });
 
@@ -40,11 +57,23 @@ triggers.RARE_CATCH_TRIGGERS.forEach(entry => {
 triggers.RARE_DROP_TRIGGERS.forEach(entry => {
     register(
         "Chat",
-        (event) => sendMessageOnDrop({ itemName: entry.itemName, rarityColorCode: entry.rarityColorCode, sound: entry.sound, isMessageEnabled: entry.isMessageEnabled, isAlertEnabled: entry.isAlertEnabled })
+        (event) => sendMessageOnDrop({
+            itemName: entry.itemName,
+            rarityColorCode: entry.rarityColorCode,
+            sound: entry.sound,
+            isMessageEnabled: settings[entry.isMessageEnabledSettingKey],
+            isAlertEnabled: settings[entry.isAlertEnabledSettingKey]
+        })
     ).setCriteria(entry.trigger).setContains();
 
     register(
         "Chat",
-        (rankAndPlayer, event) => playAlertOnDrop({ itemName: entry.itemName, rarityColorCode: entry.rarityColorCode, sound: entry.sound, isEnabled: entry.isAlertEnabled, player: rankAndPlayer })
+        (rankAndPlayer, event) => playAlertOnDrop({
+            itemName: entry.itemName,
+            rarityColorCode: entry.rarityColorCode,
+            sound: entry.sound,
+            isEnabled: settings[entry.isAlertEnabledSettingKey],
+            player: rankAndPlayer
+        })
     ).setCriteria(getPartyChatMessage(getDropMessage(entry.itemName)));
 });
