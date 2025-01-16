@@ -43,7 +43,11 @@ register('renderOverlay', () => renderWormMembraneProfitTrackerOverlay());
 register('step', () => refreshElapsedTime()).setDelay(1);
 register('step', () => refreshValuesPerHour()).setDelay(5);
 
-register('step', () => comparePreviousAndCurrentInventory()).setFps(5);
+register('step', () => detectInventoryChanges()).setFps(5);
+
+register("worldUnload", () => {
+    isSessionActive = false;
+});
 
 // DisplayLine is initialized once in order to avoid multiple method calls on click.
 let buttonsDisplay = new Display().hide();
@@ -102,7 +106,7 @@ export function resetWormMembraneProfitTracker(isConfirmed) {
 	}
 }
 
-function comparePreviousAndCurrentInventory() {
+function detectInventoryChanges() {
     try {
         if (!isSessionActive || !settings.wormProfitTrackerOverlay || !isInSkyblock() || !hasFishingRodInHotbar() || getWorldName() !== CRYSTAL_HOLLOWS) {
             previousInventory = [];

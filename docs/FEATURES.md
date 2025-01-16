@@ -18,6 +18,8 @@ Some of the features are disabled by default, please explore the settings to tog
   - Worm profit tracker:
     - Calculates total profit per session, and average profit per hour.
     - You can choose between worm membranes / gemstone chambers display mode.
+  - Magma Core profit tracker overlay:
+    - Calculates total profit per session, and average profit per hour.
   - Totem of corruption remaining time.
   - Warning flare / Alert flare / SOS flare remaining time.
   - HP of nearby Jawbus/Thunder/Reindrake (appears only when you are close to it):
@@ -79,6 +81,7 @@ Some of the features are disabled by default, please explore the settings to tog
   - Ping when a player is fishing with no fishing armor equipped (made by ruki_tryuki).
   - Ping when catching a Worm the Fish (Dirt rod).
   - Ping when Chum bucket is automatically picked up because you moved away from it.
+  - Ping when Spirit Mask is used.
 3. Inventory features:
   - Highlight cheap fishing books (e.g. Corruption) in inventory and storages, using red background.
   - Empty Thunder Bottle charging progress rendered in the inventory / storages / AH.

@@ -29,3 +29,4 @@ export const RARE = BLUE;
 export const EPIC = DARK_PURPLE;
 export const LEGENDARY = GOLD;
 export const MYTHIC = LIGHT_PURPLE;
+export const SPECIAL = RED;

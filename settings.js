@@ -12,7 +12,7 @@ import { @Vigilant, @ButtonProperty, @SwitchProperty, @SelectorProperty, @Slider
 class Settings {
     constructor() {
         this.initialize(this);
-        this.setCategoryDescription("General", `${AQUA}FeeshNotifier ${WHITE}v${JSON.parse(FileLib.read("FeeshNotifier", "metadata.json")).version}\nBy ${AQUA}MoonTheSadFisher\nTry /ct load if the mod doesn't function properly!`);
+        this.setCategoryDescription("General", `${AQUA}FeeshNotifier ${WHITE}v${JSON.parse(FileLib.read("FeeshNotifier", "metadata.json")).version}\nBy ${AQUA}MoonTheSadFisher\nTry /ct load or reach out to m00nlight_sky in Discord if the module doesn't function properly!`);
 
         this.setSubcategoryDescription("Chat", "Rare Catches", `${GRAY}Sends a message to the ${BLUE}party chat ${GRAY}when a rare sea creature has caught. It enables the alerts for your party members.\n\n${DARK_GRAY}For this to work, make sure to enable Skyblock setting which sends sea creatures to the chat: Settings -> Personal -> Fishing Settings -> Sea Creature Chat.`);
         this.setSubcategoryDescription("Chat", "Rare Drops", `${GRAY}Sends a message to the ${BLUE}party chat ${GRAY}when a rare item has dropped. It enables the alerts for your party members.`);
@@ -29,6 +29,7 @@ class Settings {
     crimsonIsleTrackerOverlayGui = new Gui();
     jerryWorkshopTrackerOverlayGui = new Gui();
     wormProfitTrackerOverlayGui = new Gui();
+    magmaCoreProfitTrackerOverlayGui = new Gui();
 
     // ******* GENERAL ******* //
 
@@ -322,6 +323,16 @@ class Settings {
         subcategory: "Chum bucket"
     })
     alertOnChumBucketAutoPickedUp = true;
+
+    // ******* ALERTS - Spirit Mask ******* //
+
+    @SwitchProperty({
+        name: "Alert when a Spirit Mask is used",
+        description: `Shows a title when your Spirit Mask's Second Wind ability is activated.`,
+        category: "Alerts",
+        subcategory: "Spirit Mask"
+    })
+    alertOnSpiritMaskUsed = true;
 
     // ******* ALERTS - Sea creatures count ******* //
 
@@ -833,6 +844,39 @@ class Settings {
     })
     resetWormProfitTracker() {
         ChatLib.command("feeshResetWormProfit noconfirm", true);
+    }
+
+    // ******* OVERLAYS - Magma Core profit tracker ******* //
+
+    @SwitchProperty({
+        name: "Magma Core profit tracker",
+        description: `Shows an overlay with the Magma Core fishing statistics - total and per hour, when in Crystal Hollows.\nDo ${AQUA}/feeshResetMagmaCoreProfit${GRAY} to reset.\n${RED}Hidden if you have no fishing rod in your hotbar!`,
+        category: "Overlays",
+        subcategory: "Magma Core profit tracker"
+    })
+    magmaCoreProfitTrackerOverlay = true;
+
+    @ButtonProperty({
+        name: "Move Magma Core profit tracker",
+        description: "Moves the overlay text.",
+        category: "Overlays",
+        subcategory: "Magma Core profit tracker",
+        placeholder: "Move"
+    })
+    moveMagmaCoreProfitTrackerOverlay() {
+        showOverlayMoveHelp();
+        this.magmaCoreProfitTrackerOverlayGui.open();
+    };
+
+    @ButtonProperty({
+        name: "Reset Magma Core profit tracker",
+        description: `Resets tracking for Magma Core profit tracker. Executes ${AQUA}/feeshResetMagmaCoreProfit`,
+        category: "Overlays",
+        subcategory: "Magma Core profit tracker",
+        placeholder: "Reset"
+    })
+    resetMagmaCoreProfitTracker() {
+        ChatLib.command("feeshResetMagmaCoreProfit noconfirm", true);
     }
 
     // ******* INVENTORY - Highlight ******* //

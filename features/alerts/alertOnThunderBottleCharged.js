@@ -4,7 +4,10 @@ import { OFF_SOUND_MODE } from "../../constants/sounds";
 import { AQUA } from "../../constants/formatting";
 import { isInSkyblock } from "../../utils/playerState";
 
-register("Chat", (event) => playAlertOnThunderBottleCharged()).setCriteria(triggers.THUNDER_BOTTLE_CHARGED_MESSAGE).setContains();
+register(
+	"Chat",
+	(event) => setTimeout(playAlertOnThunderBottleCharged, 1000) // Delay because the alert is often overriden by the Thunder spawn alert
+).setCriteria(triggers.THUNDER_BOTTLE_CHARGED_MESSAGE).setContains();
 
 function playAlertOnThunderBottleCharged() {
 	try {

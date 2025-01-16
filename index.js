@@ -30,8 +30,10 @@ import "./features/inventory/showPetLevel";
 import "./features/inventory/showArmorAttributes";
 import "./features/inventory/showFishingRodAttributes";
 import "./features/alerts/alertOnThunderBottleCharged";
+import "./features/alerts/alertOnSpiritMaskUsed";
 import "./features/overlays/jerryWorkshopTracker";
 import "./features/overlays/wormMembraneProfitTracker";
+import "./features/overlays/magmaCoreProfitTracker";
 
 register('worldLoad', () => {
     Client.showTitle('', '', 1, 1, 1); // Shitty fix for a title not showing for the 1st time

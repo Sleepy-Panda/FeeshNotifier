@@ -4,7 +4,6 @@ trackBazaarPrices();
 register('step', () => trackBazaarPrices()).setDelay(60);
 
 let bazaarPrices = {};
-const trackedItemIds = [ 'WORM_MEMBRANE' ];
 
 export function getBazaarItemPrices(itemId) {
     if (!itemId) {
@@ -24,7 +23,7 @@ function trackBazaarPrices() {
                 throw new Error('[FeeshNotifier] Error loading bazaar data: response contains success = false.');
             }
 
-            trackedItemIds.forEach(itemId => {
+            Object.keys(response.products).forEach(itemId => {
                 const itemSellSummary = response.products[itemId].sell_summary || [];
                 const itemBuySummary = response.products[itemId].buy_summary || [];
                 const itemQuickStatus = response.products[itemId].quick_status;
