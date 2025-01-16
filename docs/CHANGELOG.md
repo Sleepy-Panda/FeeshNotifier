@@ -1,12 +1,24 @@
 # Releases
 
+## v1.17.0
+
+Released: 2024-09-17
+
+- Added Blazen Sphere to profit tracker.
+- Added possibility to use mouse scroll to resize the overlays.
+- Added command /feeshGearCraftPrices. It calculates the profits for leveling up the fishing pets from level 1 to level 100, and displays the statistics in the chat.
+You can also run it from the Commands settings section.
+- Added command /feeshPetLevelUpPrices. It calculates the profits for crafting different Magma Lord / Thunder / Nutcracker / Diver armor pieces, and displays the statistics in the chat.
+You can also run it from the Commands settings section.
+- Adjusted triggers to detect Aquamarine Dye and Iceberg Dye drop, because they now drop from the sea creatures and should have the standard dye drop message rather than Outstanding Catch!
+
 ## v1.16.0
 
 Released: 2024-08-30
 
 - Added setting to show dropped item's ordinal number for the current session in the party chat message. This requires Fishing Profit Tracker to be enabled. Search for "Include drop number" setting.
 - Added settings to share the location to ALL chat on Thunder / Lord Jawbus / Vanquisher spawn. Search for "Rare Catches - All Chat" settings section. Disabled by default.
-- Added limitations for displayed lines in the fishing profit tracker - now you can hide entries cheaper than the specified threshold, and to limit maximum amount of lines.
+- Added limitations for displayed lines in the Fishing Profit Tracker - now you can hide entries cheaper than the specified threshold, and to limit maximum amount of lines.
 Search for "Hide cheap items" and "Maximum items count" settings to configure.
 - Added Guardian pet and Squid pet drop alerts & party pings.
 - Added setting to show if an item has rarity upgrade (autorecombobulated fishing items). Disabled by default, search for "Rarity upgrade".

@@ -3,7 +3,7 @@ import { @Vigilant, @ButtonProperty, @SwitchProperty, @SelectorProperty, @Slider
 
 @Vigilant("FeeshNotifier/config", "FeeshNotifier Settings", {
     getCategoryComparator: () => (a, b) => {
-        const categories = ["General", "Chat", "Alerts", "Overlays", "Inventory"];
+        const categories = ["General", "Chat", "Alerts", "Overlays", "Inventory", "Commands"];
 
         return categories.indexOf(a.name) - categories.indexOf(b.name);
     }
@@ -664,7 +664,7 @@ class Settings {
 
     @ButtonProperty({
         name: "Move remaining totem time",
-        description: "Moves the overlay text.",
+        description: "Allows to move and resize the overlay text.",
         category: "Overlays",
         subcategory: "Totem",
         placeholder: "Move"
@@ -686,7 +686,7 @@ class Settings {
 
     @ButtonProperty({
         name: "Move remaining flare time",
-        description: "Moves the overlay text.",
+        description: "Allows to move and resize the overlay text.",
         category: "Overlays",
         subcategory: "Flare",
         placeholder: "Move"
@@ -708,7 +708,7 @@ class Settings {
 
     @ButtonProperty({
         name: "Move rare catches tracker",
-        description: "Moves the overlay text.",
+        description: "Allows to move and resize the overlay text.",
         category: "Overlays",
         subcategory: "Rare catches",
         placeholder: "Move"
@@ -741,7 +741,7 @@ class Settings {
 
     @ButtonProperty({
         name: "Move sea creatures HP",
-        description: "Moves the overlay text.",
+        description: "Allows to move and resize the overlay text.",
         category: "Overlays",
         subcategory: "Sea creatures HP",
         placeholder: "Move"
@@ -763,7 +763,7 @@ class Settings {
 
     @ButtonProperty({
         name: "Move sea creatures count",
-        description: "Moves the overlay text.",
+        description: "Allows to move and resize the overlay text.",
         category: "Overlays",
         subcategory: "Sea creatures count",
         placeholder: "Move"
@@ -785,7 +785,7 @@ class Settings {
 
     @ButtonProperty({
         name: "Move Legion & Bobbing Time",
-        description: "Moves the overlay text.",
+        description: "Allows to move and resize the overlay text.",
         category: "Overlays",
         subcategory: "Legion & Bobbing Time",
         placeholder: "Move"
@@ -807,7 +807,7 @@ class Settings {
 
     @ButtonProperty({
         name: "Move Jerry Workshop tracker",
-        description: "Moves the overlay text.",
+        description: "Allows to move and resize the overlay text.",
         category: "Overlays",
         subcategory: "Jerry Workshop tracker",
         placeholder: "Move"
@@ -848,7 +848,7 @@ Example: /feeshSetRadioactiveVials 5 2024-03-18T14:05:00Z`,
 
     @ButtonProperty({
         name: "Move Crimson Isle tracker",
-        description: "Moves the overlay text.",
+        description: "Allows to move and resize the overlay text.",
         category: "Overlays",
         subcategory: "Crimson Isle tracker",
         placeholder: "Move"
@@ -890,7 +890,7 @@ Example: /feeshSetRadioactiveVials 5 2024-03-18T14:05:00Z`,
 
     @ButtonProperty({
         name: "Move Worm profit tracker",
-        description: "Moves the overlay text.",
+        description: "Allows to move and resize the overlay text.",
         category: "Overlays",
         subcategory: "Worm profit tracker",
         placeholder: "Move"
@@ -923,7 +923,7 @@ Example: /feeshSetRadioactiveVials 5 2024-03-18T14:05:00Z`,
 
     @ButtonProperty({
         name: "Move Magma Core profit tracker",
-        description: "Moves the overlay text.",
+        description: "Allows to move and resize the overlay text.",
         category: "Overlays",
         subcategory: "Magma Core profit tracker",
         placeholder: "Move"
@@ -960,7 +960,7 @@ ${RED}Hidden if you have no fishing rod in your hotbar!`,
 
     @ButtonProperty({
         name: "Move fishing profit tracker",
-        description: "Moves the overlay text.",
+        description: "Allows to move and resize the overlay text.",
         category: "Overlays",
         subcategory: "Fishing profit tracker",
         placeholder: "Move"
@@ -1087,10 +1087,34 @@ ${RED}Hidden if you have no fishing rod in your hotbar!`,
         subcategory: "Fishing rod attributes"
     })
     accentedFishingRodAttributes = 'double_hook,fishing_speed,trophy_hunter';
+
+    // ******* COMMANDS ******* //
+
+    @ButtonProperty({
+        name: "Pets level up prices",
+        description: `Calculates the profits for leveling up the fishing pets from level 1 to level 100, and displays the statistics in the chat. Executes ${AQUA}/feeshPetLevelUpPrices`,
+        category: "Commands",
+        subcategory: "Pet prices",
+        placeholder: "Calculate"
+    })
+    calculateFishingPetsPrices() {
+        ChatLib.command("feeshPetLevelUpPrices", true);
+    }
+
+    @ButtonProperty({
+        name: "Gear craft prices",
+        description: `Calculates the profits for crafting different Magma Lord / Thunder / Nutcracker / Diver armor pieces, and displays the statistics in the chat. Executes ${AQUA}/feeshGearCraftPrices`,
+        category: "Commands",
+        subcategory: "Gear craft prices",
+        placeholder: "Calculate"
+    })
+    calculateGearCraftPrices() {
+        ChatLib.command("feeshGearCraftPrices", true);
+    }
 }
 
 export default new Settings()
 
 function showOverlayMoveHelp() {
-    ChatLib.chat(`${GOLD}[FeeshNotifier] ${WHITE}Make sure the overlay is visible before moving! Then drag the overlay to move it. Press +/- to increase/decrease size. Press ESC when you're done.`);
+    ChatLib.chat(`${GOLD}[FeeshNotifier] ${WHITE}Make sure the overlay is visible before moving! Then drag the overlay to move it. Press +/- or mouse scroll to increase/decrease size. Press ESC when you're done.`);
 }

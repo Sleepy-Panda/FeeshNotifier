@@ -967,6 +967,12 @@ export const FISHING_PROFIT_ITEMS = [
         npcPrice: 0,
     },
     {
+        itemId: 'BLAZEN_SPHERE',
+        itemName: 'Blazen Sphere',
+        itemDisplayName: `${RARE}Blazen Sphere`,
+        npcPrice: 0,
+    },
+    {
         itemId: 'ENCHANTMENT_PISCARY_6',
         itemName: 'Enchanted Book (Piscary VI)',
         itemDisplayName: `${RARE}Piscary VI ${WHITE}Book`,

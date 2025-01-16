@@ -6,6 +6,8 @@ import { resetWormMembraneProfitTracker } from "./features/overlays/wormMembrane
 import { resetMagmaCoreProfitTracker } from "./features/overlays/magmaCoreProfitTracker";
 import { resetFishingProfitTracker } from "./features/overlays/fishingProfitTracker";
 import { resetDropNumbers } from "./features/chat/messageOnDrop";
+import { calculateFishingPetPrices } from "./features/commands/calculateFishingPetsPrices";
+import { calculateGearCraftPrices } from "./features/commands/calculateGearCraftPrices";
 
 register("command", (...args) => {
     settings.openGUI();
@@ -57,3 +59,13 @@ register("command", (...args) => {
     setRadioactiveVials(+count, lastOn);
     return;
 }).setName("feeshSetRadioactiveVials");
+
+register("command", (...args) => {
+    calculateFishingPetPrices();
+    return;
+}).setName("feeshPetLevelUpPrices");
+
+register("command", (...args) => {
+    calculateGearCraftPrices();
+    return;
+}).setName("feeshGearCraftPrices");
