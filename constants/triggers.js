@@ -450,3 +450,15 @@ export const REGULAR_JERRY_WORKSHOP_CATCH_TRIGGERS = [
         trigger: GRIM_REAPER_MESSAGE
     },
 ];
+
+export const WORM_CATCH_TRIGGERS = [
+    {
+        trigger: FLAMING_WORM_MESSAGE
+    },
+    {
+        trigger: WATER_WORM_MESSAGE
+    },
+    {
+        trigger: POISONED_WATER_WORM_MESSAGE
+    },
+];

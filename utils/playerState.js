@@ -5,13 +5,20 @@ var hasDirtRodInHand = false;
 var worldName = null;
 var isInHunterArmor = false;
 
-export function trackPlayerState() {
-	setIsInSkyblock();
-	setWorldName();
-	setHasFishingRodInHotbar();
-    setHasFishingRodInHand();
-	setHasDirtRodInHand();
-	setIsInHunterArmor();
+register('step', () => trackPlayerState()).setFps(2);
+
+function trackPlayerState() {
+	try {
+		setIsInSkyblock();
+		setWorldName();
+		setHasFishingRodInHotbar();
+		setHasFishingRodInHand();
+		setHasDirtRodInHand();
+		setIsInHunterArmor();	
+	} catch (e) {
+		console.error(e);
+		console.log(`[FeeshNotifier] Failed to track player's state.`);
+	}
 }
 
 export function isInSkyblock() {
@@ -49,7 +56,7 @@ function setWorldName() {
 		return;
 	}
 
-	const world = TabList.getNames().find(tab => tab.includes("Area"));
+	const world = TabList.getNames().find(tab => tab.includes("Area: "));
 	if (!world) {
 		worldName = null;
 	} else {
@@ -99,7 +106,7 @@ function setHasDirtRodInHand() {
 		hasDirtRodInHand = false;
 	} else {
 		const loreLines = heldItem.getLore();
-		const isDirtRod = loreLines[0].includes('Dirt Rod');
+		const isDirtRod = loreLines.length ? loreLines[0].includes('Dirt Rod') : false;
 		hasDirtRodInHand = isDirtRod;
 	}
 }
@@ -117,7 +124,11 @@ function setIsInHunterArmor() {
 	const bootsLoreLines = armor.getBoots()?.getLore();
 	const hunter = 'Hunter';
 
-	if (!helmetLoreLines || !chestplateLoreLines || !leggingsLoreLines || !bootsLoreLines) {
+	if (!helmetLoreLines || !helmetLoreLines.length ||
+		!chestplateLoreLines || !chestplateLoreLines.length ||
+		!leggingsLoreLines || !leggingsLoreLines.length ||
+		!bootsLoreLines || !bootsLoreLines.length
+	) {
 		isInHunterArmor = false;
 		return;
 	}

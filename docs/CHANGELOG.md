@@ -1,10 +1,16 @@
 # Releases
 
+## v1.10.0
+
+- Worm profit tracker overlay
+- Fishing armor / fishing rod attributes rendered in the inventory / storages / AH (disabled by default)
+- Changed renderSlot on renderItemIntoGui for all places where additional items info is rendered (so now it renders in hotbar and when you move items)
+- Crimson Isle tracker: display in the chat the amount of sea creatures caught before you've got a Thunder / Lord Jawbus
+- Jerry Workshop tracker: display in the chat the amount of sea creatures caught before you've got a Yeti / Reindrake
+- Crimson Isle tracker overlay: Track amount of Lord Jawbus catches since the last vial
+
 ## v1.9.0
 
-- Empty Thunder Bottle charging progress rendered in the inventory / storages / AH (disabled by default)
-- Alert when Thunder Bottle has fully charged
-- Pet level rendered in the inventory / storages / AH (disabled by default)
 - Crimson Isle tracker overlay, which includes:
   - Amount of times you caught a sea creature after the last Thunder / Lord Jawbus
   - Average catches between Thunder / Lord Jawbus
@@ -17,6 +23,9 @@
   - Timestamp when the last Yeti / Reindrake was caught
   - Amount of Baby Yeti pets dropped
 - Added alerts for Flame dye, Aquamarine dye, Iceberg dye, Nadeshiko dye
+- Empty Thunder Bottle charging progress rendered in the inventory / storages / AH (disabled by default)
+- Alert when Thunder Bottle has fully charged
+- Pet level rendered in the inventory / storages / AH (disabled by default)
 - Phantom Fisher's hooks excluded from the Bobbin' time overlay
 - "Ghost" players excluded from the Legion counter
 - Hide Sea creatures count/barn fishing timer and suppress "Kill sea creatures" alerts when Trophy Hunter Armor is equipped

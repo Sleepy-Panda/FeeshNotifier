@@ -14,7 +14,12 @@ let startTime = null;
 let killMobsCountNotificationShown = false;
 let killMobsTimerNotificationShown = false;
 
-export function trackSeaCreaturesCount() {
+register('step', () => trackSeaCreaturesCount()).setFps(2);
+register('step', () => alertOnSeaCreaturesCountThreshold()).setFps(1);
+register('step', () => alertOnSeaCreaturesTimerThreshold()).setFps(1);
+register('renderOverlay', () => renderCountOverlay());
+
+function trackSeaCreaturesCount() {
     if ((!settings.alertOnSeaCreaturesCountThreshold && !settings.alertOnSeaCreaturesTimerThreshold && !settings.seaCreaturesCountOverlay) || !isInSkyblock()) {
         return;
     }
@@ -40,7 +45,7 @@ export function trackSeaCreaturesCount() {
     mobsCount = newMobsCount;
 }
 
-export function alertOnSeaCreaturesCountThreshold() {
+function alertOnSeaCreaturesCountThreshold() {
     if (!settings.alertOnSeaCreaturesCountThreshold ||
         !isInSkyblock() ||
         isInHunterArmor() ||
@@ -65,7 +70,7 @@ export function alertOnSeaCreaturesCountThreshold() {
     }
 }
 
-export function alertOnSeaCreaturesTimerThreshold() {
+function alertOnSeaCreaturesTimerThreshold() {
     if (!startTime ||
         !settings.alertOnSeaCreaturesTimerThreshold ||
         !isInSkyblock() ||
@@ -92,7 +97,7 @@ export function alertOnSeaCreaturesTimerThreshold() {
     }
 }
 
-export function renderCountOverlay() {
+function renderCountOverlay() {
     if (!settings.seaCreaturesCountOverlay ||
         !mobsCount ||
         !startTime ||

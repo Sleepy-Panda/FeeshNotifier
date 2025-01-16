@@ -1,5 +1,5 @@
 import { AQUA, GOLD, GRAY, RED, WHITE, BLUE, DARK_GRAY } from "./constants/formatting";
-import { @Vigilant, @ButtonProperty, @SwitchProperty, @SelectorProperty, @SliderProperty } from "../Vigilance/index"
+import { @Vigilant, @ButtonProperty, @SwitchProperty, @SelectorProperty, @SliderProperty, @TextProperty } from "../Vigilance/index"
 
 @Vigilant("FeeshNotifier/config", "FeeshNotifier Settings", {
     getCategoryComparator: () => (a, b) => {
@@ -12,11 +12,11 @@ import { @Vigilant, @ButtonProperty, @SwitchProperty, @SelectorProperty, @Slider
 class Settings {
     constructor() {
         this.initialize(this);
-        this.setCategoryDescription("General", `${AQUA}FeeshNotifier ${WHITE}v${JSON.parse(FileLib.read("FeeshNotifier", "metadata.json")).version}\nTry /ct load if the mod doesn't function properly!`);
+        this.setCategoryDescription("General", `${AQUA}FeeshNotifier ${WHITE}v${JSON.parse(FileLib.read("FeeshNotifier", "metadata.json")).version}\nBy ${AQUA}MoonTheSadFisher\nTry /ct load if the mod doesn't function properly!`);
 
-        this.setSubcategoryDescription("Chat", "Rare Catches", `${GRAY}Sends a message to the ${BLUE}party chat ${GRAY}when a rare sea creature has caught. It enables the alerts for your party members.`);
+        this.setSubcategoryDescription("Chat", "Rare Catches", `${GRAY}Sends a message to the ${BLUE}party chat ${GRAY}when a rare sea creature has caught. It enables the alerts for your party members.\n\n${DARK_GRAY}For this to work, make sure to enable Skyblock setting which sends sea creatures to the chat: Settings -> Personal -> Fishing Settings -> Sea Creature Chat.`);
         this.setSubcategoryDescription("Chat", "Rare Drops", `${GRAY}Sends a message to the ${BLUE}party chat ${GRAY}when a rare item has dropped. It enables the alerts for your party members.`);
-        this.setSubcategoryDescription("Alerts", "Rare Catches", `Shows a title and plays a sound when a rare sea creature has caught by you or your party members.`);
+        this.setSubcategoryDescription("Alerts", "Rare Catches", `Shows a title and plays a sound when a rare sea creature has caught by you or your party members.\n\n${DARK_GRAY}For this to work, make sure to enable Skyblock setting which sends sea creatures to the chat: Settings -> Personal -> Fishing Settings -> Sea Creature Chat.`);
         this.setSubcategoryDescription("Alerts", "Rare Drops", "Shows a title and plays a sound when a rare item has dropped by you or your party members.");
     }
 
@@ -27,6 +27,7 @@ class Settings {
     legionAndBobbingTimeOverlayGui = new Gui();
     crimsonIsleTrackerOverlayGui = new Gui();
     jerryWorkshopTrackerOverlayGui = new Gui();
+    wormProfitTrackerOverlayGui = new Gui();
 
     // ******* GENERAL ******* //
 
@@ -719,6 +720,48 @@ class Settings {
         ChatLib.command("feeshResetCrimsonIsle noconfirm", true);
     }
 
+    // ******* OVERLAYS - Worm profit tracker ******* //
+
+    @SwitchProperty({
+        name: "Worm profit tracker",
+        description: `Shows an overlay with the worm fishing statistics - total and per hour, when in Crystal Hollows.\nDo ${AQUA}/feeshResetWormProfit${GRAY} to reset.\n${RED}Hidden if you have no fishing rod in your hotbar!`,
+        category: "Overlays",
+        subcategory: "Worm profit tracker"
+    })
+    wormProfitTrackerOverlay = true;
+
+    @SelectorProperty({
+        name: "Worm profit tracker display mode",
+        description: "How to calculate total profit and profit per hour.",
+        category: "Overlays",
+        subcategory: "Worm profit tracker",
+        options: ["Worm membranes", "Gemstone chambers"]
+    })
+    wormProfitTrackerMode = 0;
+
+    @ButtonProperty({
+        name: "Move Worm profit tracker",
+        description: "Moves the overlay text.",
+        category: "Overlays",
+        subcategory: "Worm profit tracker",
+        placeholder: "Move"
+    })
+    moveWormProfitTrackerOverlay() {
+        showOverlayMoveHelp();
+        this.wormProfitTrackerOverlayGui.open();
+    };
+
+    @ButtonProperty({
+        name: "Reset Worm profit tracker",
+        description: `Resets tracking for Worm profit tracker. Executes ${AQUA}/feeshResetWormProfit`,
+        category: "Overlays",
+        subcategory: "Worm profit tracker",
+        placeholder: "Reset"
+    })
+    resetWormProfitTracker() {
+        ChatLib.command("feeshResetWormProfit noconfirm", true);
+    }
+
     // ******* INVENTORY - Highlight ******* //
 
     @SwitchProperty({
@@ -746,6 +789,42 @@ class Settings {
         subcategory: "Item tooltip"
     })
     showPetLevel = false;
+
+    // ******* INVENTORY - Armor attributes ******* //
+
+    @SwitchProperty({
+        name: "Armor attributes",
+        description: `Render fishing armor attribute name and level as short abbreviations.`,
+        category: "Inventory",
+        subcategory: "Armor attributes"
+    })
+    showArmorAttributes = false;
+
+    @TextProperty({
+        name: "Accented armor attributes",
+        description: `Render attributes from this list using another color. Use camel_case to specify an attribute code, and comma as a separator to specify multiple.`,
+        category: "Inventory",
+        subcategory: "Armor attributes"
+    })
+    accentedArmorAttributes = 'blazing_fortune,magic_find,fishing_experience';
+
+    // ******* INVENTORY - Fishing rod attributes ******* //
+
+    @SwitchProperty({
+        name: "Fishing rod attributes",
+        description: `Render fishing rod attribute name and level as short abbreviations.`,
+        category: "Inventory",
+        subcategory: "Fishing rod attributes"
+    })
+    showFishingRodAttributes = false;
+
+    @TextProperty({
+        name: "Accented fishing rod attributes",
+        description: `Render attributes from this list using another color. Use camel_case to specify an attribute code, and comma as a separator to specify multiple.`,
+        category: "Inventory",
+        subcategory: "Fishing rod attributes"
+    })
+    accentedFishingRodAttributes = 'double_hook,fishing_speed,trophy_hunter';
 }
 
 export default new Settings()

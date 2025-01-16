@@ -10,7 +10,10 @@ let playerTotemPosition;
 const currentPlayer = Player.getName();
 const secondsBeforeExpiration = 10;
 
-export function trackTotemStatus() {
+register('step', () => trackTotemStatus()).setFps(1);
+register('renderOverlay', () => renderTotemOverlay());
+
+function trackTotemStatus() {
     if ((!settings.alertOnTotemExpiresSoon && !settings.totemRemainingTimeOverlay) || !isInSkyblock()) {
         return;
     }
@@ -50,7 +53,7 @@ export function trackTotemStatus() {
     })	
 }
 
-export function renderTotemOverlay() {
+function renderTotemOverlay() {
     if (!settings.totemRemainingTimeOverlay || !remainingTotemTime || !isInSkyblock()) {
         return;
     }

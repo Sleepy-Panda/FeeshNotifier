@@ -1,9 +1,12 @@
 import settings from "../../settings";
+import * as triggers from '../../constants/triggers';
 import { OFF_SOUND_MODE } from "../../constants/sounds";
 import { AQUA } from "../../constants/formatting";
 import { isInSkyblock } from "../../utils/playerState";
 
-export function playAlertOnThunderBottleCharged() {
+register("Chat", (event) => playAlertOnThunderBottleCharged()).setCriteria(triggers.THUNDER_BOTTLE_CHARGED_MESSAGE).setContains();
+
+function playAlertOnThunderBottleCharged() {
 	try {
 		if (!settings.alertOnThunderBottleCharged || !isInSkyblock()) {
 			return;
