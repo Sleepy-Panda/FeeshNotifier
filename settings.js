@@ -1,5 +1,5 @@
-import { GOLD, WHITE } from "./constants/formatting";
-import { @Vigilant, @ButtonProperty, @SwitchProperty, @SelectorProperty } from "../Vigilance/index"
+import { AQUA, GOLD, GRAY, RED, WHITE, BLUE } from "./constants/formatting";
+import { @Vigilant, @ButtonProperty, @SwitchProperty, @SelectorProperty, @SliderProperty } from "../Vigilance/index"
 
 @Vigilant("FeeshNotifier/config", "FeeshNotifier Settings", {
     getCategoryComparator: () => (a, b) => {
@@ -12,18 +12,24 @@ import { @Vigilant, @ButtonProperty, @SwitchProperty, @SelectorProperty } from "
 class Settings {
     constructor() {
         this.initialize(this);
-        this.setCategoryDescription("General", `FeeshNotifier &bv${JSON.parse(FileLib.read("FeeshNotifier", "metadata.json")).version}`)
+        this.setCategoryDescription("General", `${AQUA}FeeshNotifier ${WHITE}v${JSON.parse(FileLib.read("FeeshNotifier", "metadata.json")).version}\nTry /ct load if the mod doesn't function properly!`);
+
+        this.setSubcategoryDescription("Chat", "Rare Catches", `${GRAY}Sends a message to the ${BLUE}party chat ${GRAY}when a rare sea creature has caught. It enables the alerts for your party members.`);
+        this.setSubcategoryDescription("Chat", "Rare Drops", `${GRAY}Sends a message to the ${BLUE}party chat ${GRAY}when a rare item has dropped. It enables the alerts for your party members.`);
+        this.setSubcategoryDescription("Alerts", "Rare Catches", `Shows a title and plays a sound when a rare sea creature has caught by you or your party members.`);
+        this.setSubcategoryDescription("Alerts", "Rare Drops", "Shows a title and plays a sound when a rare item has dropped by you or your party members.");
     }
 
     totemRemainingTimeOverlayGui = new Gui();
     rareCatchesTrackerOverlayGui = new Gui();
     seaCreaturesHpOverlayGui = new Gui();
+    seaCreaturesCountOverlayGui = new Gui();
 
     // ******* GENERAL ******* //
 
     @ButtonProperty({
         name: "FeeshNotifier on ChatTriggers",
-        description: "Posting releases and README here.",
+        description: "Releases, contact details and README here.",
         category: "General",
         subcategory: "General",
         placeholder: "FeeshNotifier"
@@ -45,7 +51,6 @@ class Settings {
 
     @SwitchProperty({
         name: "Send a message on YETI catch",
-        description: "Sends a message to the party chat when a YETI has caught.",
         category: "Chat",
         subcategory: "Rare Catches"
     })
@@ -53,7 +58,6 @@ class Settings {
 
     @SwitchProperty({
         name: "Send a message on REINDRAKE catch",
-        description: "Sends a message to the party chat when a REINDRAKE has caught.",
         category: "Chat",
         subcategory: "Rare Catches"
     })
@@ -61,7 +65,6 @@ class Settings {
 
     @SwitchProperty({
         name: "Send a message on NUTCRACKER catch",
-        description: "Sends a message to the party chat when a NUTCRACKER has caught.",
         category: "Chat",
         subcategory: "Rare Catches"
     })
@@ -69,7 +72,6 @@ class Settings {
 
     @SwitchProperty({
         name: "Send a message on WATER HYDRA catch",
-        description: "Sends a message to the party chat when a WATER HYDRA has caught.",
         category: "Chat",
         subcategory: "Rare Catches"
     })
@@ -77,7 +79,6 @@ class Settings {
 
     @SwitchProperty({
         name: "Send a message on SEA EMPEROR catch",
-        description: "Sends a message to the party chat when a SEA EMPEROR has caught.",
         category: "Chat",
         subcategory: "Rare Catches"
     })
@@ -85,7 +86,6 @@ class Settings {
 
     @SwitchProperty({
         name: "Send a message on CARROT KING catch",
-        description: "Sends a message to the party chat when a CARROT KING has caught.",
         category: "Chat",
         subcategory: "Rare Catches"
     })
@@ -93,7 +93,6 @@ class Settings {
 
     @SwitchProperty({
         name: "Send a message on GREAT WHITE SHARK catch",
-        description: "Sends a message to the party chat when a GREAT WHITE SHARK has caught.",
         category: "Chat",
         subcategory: "Rare Catches"
     })
@@ -101,7 +100,6 @@ class Settings {
 
     @SwitchProperty({
         name: "Send a message on PHANTOM FISHER catch",
-        description: "Sends a message to the party chat when a PHANTOM FISHER has caught.",
         category: "Chat",
         subcategory: "Rare Catches"
     })
@@ -109,7 +107,6 @@ class Settings {
 
     @SwitchProperty({
         name: "Send a message on GRIM REAPER catch",
-        description: "Sends a message to the party chat when a GRIM REAPER has caught.",
         category: "Chat",
         subcategory: "Rare Catches"
     })
@@ -117,7 +114,6 @@ class Settings {
 
     @SwitchProperty({
         name: "Send a message on ABYSSAL MINER catch",
-        description: "Sends a message to the party chat when a ABYSSAL MINER has caught.",
         category: "Chat",
         subcategory: "Rare Catches"
     })
@@ -125,7 +121,6 @@ class Settings {
 
     @SwitchProperty({
         name: "Send a message on THUNDER catch",
-        description: "Sends a message to the party chat when a THUNDER has caught.",
         category: "Chat",
         subcategory: "Rare Catches"
     })
@@ -133,7 +128,6 @@ class Settings {
 
     @SwitchProperty({
         name: "Send a message on LORD JAWBUS catch",
-        description: "Sends a message to the party chat when a LORD JAWBUS has caught.",
         category: "Chat",
         subcategory: "Rare Catches"
     })
@@ -141,7 +135,6 @@ class Settings {
 
     @SwitchProperty({
         name: "Send a message on VANQUISHER spawn",
-        description: "Sends a message to the party chat when a VANQUISHER has spawned.",
         category: "Chat",
         subcategory: "Rare Catches"
     })
@@ -149,7 +142,6 @@ class Settings {
 
     @SwitchProperty({
         name: "Send a message on PLHLEGBLAST catch",
-        description: "Sends a message to the party chat when a PLHLEGBLAST has caught.",
         category: "Chat",
         subcategory: "Rare Catches"
     })
@@ -159,7 +151,6 @@ class Settings {
 
     @SwitchProperty({
         name: "Send a message on BABY YETI PET drop",
-        description: "Sends a message to the party chat when a BABY YETI PET has dropped.",
         category: "Chat",
         subcategory: "Rare Drops"
     })
@@ -167,7 +158,6 @@ class Settings {
 
     @SwitchProperty({
         name: "Send a message on FLYING FISH PET drop",
-        description: "Sends a message to the party chat when a FLYING FISH PET has dropped.",
         category: "Chat",
         subcategory: "Rare Drops"
     })
@@ -175,7 +165,6 @@ class Settings {
 
     @SwitchProperty({
         name: "Send a message on LUCKY CLOVER CORE drop",
-        description: "Sends a message to the party chat when a LUCKY CLOVER CORE has dropped.",
         category: "Chat",
         subcategory: "Rare Drops"
     })
@@ -183,7 +172,6 @@ class Settings {
 
     @SwitchProperty({
         name: "Send a message on MEGALODON PET drop",
-        description: "Sends a message to the party chat when a MEGALODON PET has dropped.",
         category: "Chat",
         subcategory: "Rare Drops"
     })
@@ -191,7 +179,6 @@ class Settings {
 
     @SwitchProperty({
         name: "Send a message on DEEP SEA ORB drop",
-        description: "Sends a message to the party chat when a DEEP SEA ORB has dropped.",
         category: "Chat",
         subcategory: "Rare Drops"
     })
@@ -199,7 +186,6 @@ class Settings {
 
     @SwitchProperty({
         name: "Send a message on RADIOACTIVE VIAL drop",
-        description: "Sends a message to the party chat when a RADIOACTIVE VIAL has dropped.",
         category: "Chat",
         subcategory: "Rare Drops"
     })
@@ -207,7 +193,6 @@ class Settings {
 
     @SwitchProperty({
         name: "Send a message on CARMINE DYE drop",
-        description: "Sends a message to the party chat when a CARMINE DYE has dropped.",
         category: "Chat",
         subcategory: "Rare Drops"
     })
@@ -215,7 +200,6 @@ class Settings {
 
     @SwitchProperty({
         name: "Send a message on MAGMA CORE drop",
-        description: "Sends a message to the party chat when a MAGMA CORE has dropped.",
         category: "Chat",
         subcategory: "Rare Drops"
     })
@@ -231,11 +215,70 @@ class Settings {
     })
     alertOnTotemExpiresSoon = true;
 
+    // ******* ALERTS - Fishing armor ******* //
+
+    @SwitchProperty({
+        name: "Alert when no fishing armor equipped",
+        description: `Shows a title when current player is fishing in a non-fishing armor. [Made by ${AQUA}ruki-tryuki${GRAY}]`,
+        category: "Alerts",
+        subcategory: "Fishing armor"
+    })
+    alertOnNonFishingArmor = true;
+
+    // ******* ALERTS - Sea creatures count ******* //
+
+    @SwitchProperty({
+        name: "Alert when sea creatures count hits threshold",
+        description: `Shows a title and plays a sound when amount of sea creatures nearby hits the specified threshold. ${RED}Disabled if you have no fishing rod in your hotbar!`,
+        category: "Alerts",
+        subcategory: "Sea creatures count"
+    })
+    alertOnSeaCreaturesCountThreshold = true;
+
+    @SliderProperty({
+        name: "Sea creatures count threshold - HUB",
+        description: "Count of sea creatures nearby required to see the alert when you are in the hub. Ignored if the sea creatures count alert is disabled.",
+        category: "Alerts",
+        subcategory: "Sea creatures count",
+        min: 10,
+        max: 60
+    })
+    seaCreaturesCountThreshold_Hub = 50;
+
+    @SliderProperty({
+        name: "Sea creatures count threshold - CRIMSON ISLE",
+        description: "Count of sea creatures nearby required to see the alert when you are in the Crimson Isle. Ignored if the sea creatures count alert is disabled.",
+        category: "Alerts",
+        subcategory: "Sea creatures count",
+        min: 10,
+        max: 60
+    })
+    seaCreaturesCountThreshold_CrimsonIsle = 30;
+
+    @SliderProperty({
+        name: "Sea creatures count threshold - CRYSTAL HOLLOWS",
+        description: "Count of sea creatures nearby required to see the alert when you are in the Crystal Hollows. Ignored if the sea creatures count alert is disabled.",
+        category: "Alerts",
+        subcategory: "Sea creatures count",
+        min: 10,
+        max: 60
+    })
+    seaCreaturesCountThreshold_CrystalHollows = 60;
+
+    @SliderProperty({
+        name: "Sea creatures count threshold - Other",
+        description: "Count of sea creatures nearby required to see the alert when you are in other locations. Ignored if the sea creatures count alert is disabled.",
+        category: "Alerts",
+        subcategory: "Sea creatures count",
+        min: 10,
+        max: 60
+    })
+    seaCreaturesCountThreshold_Default = 50;
+
     // ******* ALERTS - Rare Catches ******* //
 
     @SwitchProperty({
         name: "Alert on YETI catch",
-        description: "Shows a title and plays a sound when a YETI has caught.",
         category: "Alerts",
         subcategory: "Rare Catches"
     })
@@ -243,7 +286,6 @@ class Settings {
 
     @SwitchProperty({
         name: "Alert on REINDRAKE catch",
-        description: "Shows a title and plays a sound when a REINDRAKE has caught.",
         category: "Alerts",
         subcategory: "Rare Catches"
     })
@@ -251,7 +293,6 @@ class Settings {
 
     @SwitchProperty({
         name: "Alert on NUTCRACKER catch",
-        description: "Shows a title and plays a sound when a NUTCRACKER has caught.",
         category: "Alerts",
         subcategory: "Rare Catches"
     })
@@ -259,7 +300,6 @@ class Settings {
 
     @SwitchProperty({
         name: "Alert on WATER HYDRA catch",
-        description: "Shows a title and plays a sound when a WATER HYDRA has caught.",
         category: "Alerts",
         subcategory: "Rare Catches"
     })
@@ -267,7 +307,6 @@ class Settings {
 
     @SwitchProperty({
         name: "Alert on SEA EMPEROR catch",
-        description: "Shows a title and plays a sound when a SEA EMPEROR has caught.",
         category: "Alerts",
         subcategory: "Rare Catches"
     })
@@ -275,7 +314,6 @@ class Settings {
 
     @SwitchProperty({
         name: "Alert on CARROT KING catch",
-        description: "Shows a title and plays a sound when a CARROT KING has caught.",
         category: "Alerts",
         subcategory: "Rare Catches"
     })
@@ -283,7 +321,6 @@ class Settings {
 
     @SwitchProperty({
         name: "Alert on GREAT WHITE SHARK catch",
-        description: "Shows a title and plays a sound when a GREAT WHITE SHARK has caught.",
         category: "Alerts",
         subcategory: "Rare Catches"
     })
@@ -291,7 +328,6 @@ class Settings {
 
     @SwitchProperty({
         name: "Alert on PHANTOM FISHER catch",
-        description: "Shows a title and plays a sound when a PHANTOM FISHER has caught.",
         category: "Alerts",
         subcategory: "Rare Catches"
     })
@@ -299,7 +335,6 @@ class Settings {
 
     @SwitchProperty({
         name: "Alert on GRIM REAPER catch",
-        description: "Shows a title and plays a sound when a GRIM REAPER has caught.",
         category: "Alerts",
         subcategory: "Rare Catches"
     })
@@ -307,7 +342,6 @@ class Settings {
 
     @SwitchProperty({
         name: "Alert on ABYSSAL MINER catch",
-        description: "Shows a title and plays a sound when an ABYSSAL MINER has caught.",
         category: "Alerts",
         subcategory: "Rare Catches"
     })
@@ -315,7 +349,6 @@ class Settings {
 
     @SwitchProperty({
         name: "Alert on THUNDER catch",
-        description: "Shows a title and plays a sound when a THUNDER has caught.",
         category: "Alerts",
         subcategory: "Rare Catches"
     })
@@ -323,7 +356,6 @@ class Settings {
 
     @SwitchProperty({
         name: "Alert on LORD JAWBUS catch",
-        description: "Shows a title and plays a sound when a LORD JAWBUS has caught.",
         category: "Alerts",
         subcategory: "Rare Catches"
     })
@@ -331,7 +363,6 @@ class Settings {
 
     @SwitchProperty({
         name: "Alert on VANQUISHER spawn",
-        description: "Shows a title and plays a sound when a VANQUISHER has spawned.",
         category: "Alerts",
         subcategory: "Rare Catches"
     })
@@ -339,7 +370,6 @@ class Settings {
 
     @SwitchProperty({
         name: "Alert on PLHLEGBLAST catch",
-        description: "Shows a title and plays a sound when a PLHLEGBLAST has caught.",
         category: "Alerts",
         subcategory: "Rare Catches"
     })
@@ -349,7 +379,6 @@ class Settings {
 
     @SwitchProperty({
         name: "Alert on BABY YETI PET drop",
-        description: "Shows a title and plays a sound when a BABY YETI PET has dropped.",
         category: "Alerts",
         subcategory: "Rare Drops"
     })
@@ -357,7 +386,6 @@ class Settings {
 
     @SwitchProperty({
         name: "Alert on FLYING FISH PET drop",
-        description: "Shows a title and plays a sound when a FLYING FISH PET has dropped.",
         category: "Alerts",
         subcategory: "Rare Drops"
     })
@@ -365,7 +393,6 @@ class Settings {
 
     @SwitchProperty({
         name: "Alert on LUCKY CLOVER CORE drop",
-        description: "Shows a title and plays a sound when a LUCKY CLOVER CORE has dropped.",
         category: "Alerts",
         subcategory: "Rare Drops"
     })
@@ -373,7 +400,6 @@ class Settings {
 
     @SwitchProperty({
         name: "Alert on MEGALODON PET drop",
-        description: "Shows a title and plays a sound when a MEGALODON PET has dropped.",
         category: "Alerts",
         subcategory: "Rare Drops"
     })
@@ -381,7 +407,6 @@ class Settings {
 
     @SwitchProperty({
         name: "Alert on DEEP SEA ORB drop",
-        description: "Shows a title and plays a sound when a DEEP SEA ORB has dropped.",
         category: "Alerts",
         subcategory: "Rare Drops"
     })
@@ -389,7 +414,6 @@ class Settings {
 
     @SwitchProperty({
         name: "Alert on RADIOACTIVE VIAL drop",
-        description: "Shows a title and plays a sound when a RADIOACTIVE VIAL has dropped.",
         category: "Alerts",
         subcategory: "Rare Drops"
     })
@@ -397,7 +421,6 @@ class Settings {
 
     @SwitchProperty({
         name: "Alert on CARMINE DYE drop",
-        description: "Shows a title and plays a sound when a CARMINE DYE has dropped.",
         category: "Alerts",
         subcategory: "Rare Drops"
     })
@@ -405,7 +428,6 @@ class Settings {
 
     @SwitchProperty({
         name: "Alert on MAGMA CORE drop",
-        description: "Shows a title and plays a sound when a MAGMA CORE has dropped.",
         category: "Alerts",
         subcategory: "Rare Drops"
     })
@@ -437,7 +459,7 @@ class Settings {
 
     @SwitchProperty({
         name: "Rare catches tracker",
-        description: "Shows an overlay with the statistics of rare sea creatures caught per session. Do /feeshResetRareCatches to reset.",
+        description: `Shows an overlay with the statistics of rare sea creatures caught per session. Do ${AQUA}/feeshResetRareCatches${GRAY} to reset. ${RED}Hidden if you have no fishing rod in your hotbar!`,
         category: "Overlays",
         subcategory: "Rare catches"
     })
@@ -457,7 +479,7 @@ class Settings {
 
     @ButtonProperty({
         name: "Reset rare catches tracker",
-        description: "Resets tracking for rare catches tracker. Executes /feeshResetRareCatches",
+        description: `Resets tracking for rare catches tracker. Executes ${AQUA}/feeshResetRareCatches`,
         category: "Overlays",
         subcategory: "Rare catches",
         placeholder: "Reset"
@@ -470,7 +492,7 @@ class Settings {
 
     @SwitchProperty({
         name: "Sea creatures HP",
-        description: "Shows an overlay with the HP of nearby Thunder / Lord Jawbus.",
+        description: `Shows an overlay with the HP of nearby Thunder / Lord Jawbus. ${RED}Hidden if you have no fishing rod in your hotbar!`,
         category: "Overlays",
         subcategory: "Sea creatures HP"
     })
@@ -486,6 +508,28 @@ class Settings {
     moveSeaCreaturesHpOverlay() {
         showOverlayMoveHelp();
         this.seaCreaturesHpOverlayGui.open();
+    };
+
+    // ******* OVERLAYS - Sea creatures count ******* //
+
+    @SwitchProperty({
+        name: "Sea creatures count",
+        description: `Shows an overlay with the count of nearby sea creatures, and timer for how long they are alive. ${RED}Hidden if you have no fishing rod in your hotbar!`,
+        category: "Overlays",
+        subcategory: "Sea creatures count"
+    })
+    seaCreaturesCountOverlay = true;
+
+    @ButtonProperty({
+        name: "Move sea creatures count",
+        description: "Moves the overlay text.",
+        category: "Overlays",
+        subcategory: "Sea creatures count",
+        placeholder: "Move"
+    })
+    moveSeaCreaturesCountOverlay() {
+        showOverlayMoveHelp();
+        this.seaCreaturesCountOverlayGui.open();
     };
 }
 

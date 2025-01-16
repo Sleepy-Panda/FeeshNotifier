@@ -2,16 +2,16 @@ import settings from "../../settings";
 import { overlayCoordsData } from "../../data/overlayCoords";
 import { EntityArmorStand } from "../../constants/javaTypes";
 import { TIMER_SOUND, OFF_SOUND_MODE } from "../../constants/sounds";
-import { WHITE, GOLD } from "../../constants/formatting";
-import { isInSkyblock } from "../../utils/common";
+import { WHITE, GOLD, RED } from "../../constants/formatting";
+import { isInSkyblock } from "../../utils/playerState";
 
-let remainingTotemTime;
+let remainingTotemTime; // Format examples: 01m 02s, 50s, 09s
 let playerTotemPosition;
 const currentPlayer = Player.getName();
 const secondsBeforeExpiration = 10;
 
 export function trackTotemStatus() {
-    if (!settings.alertOnTotemExpiresSoon && !settings.totemRemainingTimeOverlay || !isInSkyblock()) {
+    if ((!settings.alertOnTotemExpiresSoon && !settings.totemRemainingTimeOverlay) || !isInSkyblock()) {
         return;
     }
 
@@ -55,7 +55,8 @@ export function renderTotemOverlay() {
         return;
     }
 
-    const overlayText = `${GOLD}Remaining totem time: ${WHITE}${remainingTotemTime}`;
+    const timerColor = !remainingTotemTime.includes('m') && remainingTotemTime.slice(0, -1) <= secondsBeforeExpiration ? RED : WHITE;
+    const overlayText = `${GOLD}Remaining totem time: ${timerColor}${remainingTotemTime}`;
     const overlay = new Text(overlayText, overlayCoordsData.totemRemainingTimeOverlay.x, overlayCoordsData.totemRemainingTimeOverlay.y)
         .setShadow(true)
         .setScale(overlayCoordsData.totemRemainingTimeOverlay.scale);

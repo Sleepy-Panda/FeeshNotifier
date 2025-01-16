@@ -1,9 +1,10 @@
 import settings from "../../settings";
 import { persistentData } from "../../data/data";
 import { overlayCoordsData } from "../../data/overlayCoords";
-import { fromUppercaseToCapitalizedFirstLetters, hasDoubleHookInMessage, isInSkyblock } from '../../utils/common';
-import { WHITE, GOLD, BOLD, YELLOW } from "../../constants/formatting";
+import { fromUppercaseToCapitalizedFirstLetters, hasDoubleHookInMessage } from '../../utils/common';
+import { WHITE, GOLD, BOLD, YELLOW, GRAY } from "../../constants/formatting";
 import { RARE_CATCH_TRIGGERS } from "../../constants/triggers";
+import { hasFishingRodInHotbar, isInSkyblock } from "../../utils/playerState";
 
 export function resetRareCatchesTracker() {
     if (persistentData.totalRareCatches > 0 && persistentData.rareCatches) {
@@ -29,6 +30,10 @@ export function resetRareCatchesTracker() {
 }
 
 export function trackCatch(options) {
+    if (!settings.rareCatchesTrackerOverlay) {
+        return;
+    }
+
 	const isDoubleHook = hasDoubleHookInMessage();
     const valueToAdd = isDoubleHook ? 2 : 1;
     const currentAmount = persistentData.rareCatches[options.seaCreature] ? persistentData.rareCatches[options.seaCreature].amount : 0;
@@ -53,7 +58,10 @@ export function trackCatch(options) {
 }
 
 export function renderRareCatchTrackerOverlay() {
-    if (!settings.rareCatchesTrackerOverlay || !Object.entries(persistentData.rareCatches).length || !isInSkyblock()) {
+    if (!settings.rareCatchesTrackerOverlay ||
+        !Object.entries(persistentData.rareCatches).length ||
+        !isInSkyblock() ||
+        !hasFishingRodInHotbar()) {
         return;
     }
 
@@ -67,7 +75,7 @@ export function renderRareCatchTrackerOverlay() {
 
     entries.forEach((entry) => {
         const rarityColorCode = RARE_CATCH_TRIGGERS.find(t => t.seaCreature === entry.seaCreature).rarityColorCode;
-        overlayText += ` ${rarityColorCode}${fromUppercaseToCapitalizedFirstLetters(entry.seaCreature)}: ${WHITE}${entry.amount} (${entry.percent}%)\n`;
+        overlayText += ` ${rarityColorCode}${fromUppercaseToCapitalizedFirstLetters(entry.seaCreature)}: ${WHITE}${entry.amount} ${GRAY}(${entry.percent}%)\n`;
     });
 
     overlayText += `${YELLOW}Total: ${WHITE}${persistentData.totalRareCatches}`;

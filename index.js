@@ -9,21 +9,39 @@ import { playAlertOnDrop } from './features/alert/alertOnDrop';
 import { getMessage, getDoubleHookMessage, getDropMessage, getPartyChatMessage } from './utils/common';
 import { trackTotemStatus, renderTotemOverlay } from './features/totem/totem';
 import { trackCatch, renderRareCatchTrackerOverlay } from './features/catch-tracker/catchTracker';
-import { renderHpOverlay, trackJawbusAndThunderHp } from "./features/hp-tracker/hpTracker";
+import { renderHpOverlay, trackSeaCreaturesHp } from "./features/hp-tracker/hpTracker";
+import { renderCountOverlay, alertOnSeaCreaturesCountThreshold, trackSeaCreaturesCount } from "./features/count-tracker/countTracker";
+import { alertOnNonFishingArmor } from "./features/alert-armor/alertOnNonFishingArmor";
+import { trackPlayerState } from "./utils/playerState";
 
 register('worldLoad', () => {
     Client.showTitle('', '', 1, 1, 1); // Shitty fix for a title not showing for the 1st time
 });
 
-// TOTEM
+// Track reusable player's state (inventory, world, etc.)
+register('step', () => trackPlayerState()).setFps(2);
+
+// Totem
 
 register('step', () => trackTotemStatus()).setFps(1);
 register('renderOverlay', () => renderTotemOverlay());
 
 // Sea creatures HP
 
-register('step', () => trackJawbusAndThunderHp()).setFps(1);
+register('step', () => trackSeaCreaturesHp()).setFps(2);
 register('renderOverlay', () => renderHpOverlay());
+
+// Sea creatures count
+
+register('step', () => trackSeaCreaturesCount()).setFps(2);
+register('step', () => alertOnSeaCreaturesCountThreshold()).setFps(1);
+register('renderOverlay', () => renderCountOverlay());
+
+// Armor
+
+register("playerInteract", (action, pos, event) => {
+    alertOnNonFishingArmor(action, pos, event);
+});
 
 // Rare catch triggers
 
@@ -32,15 +50,15 @@ register('renderOverlay', () => renderRareCatchTrackerOverlay());
 triggers.RARE_CATCH_TRIGGERS.forEach(entry => {
     register(
         "Chat",
-        (event) => {
-            trackCatch({ seaCreature: entry.seaCreature, rarityColorCode: entry.rarityColorCode });
-            
+        (event) => {         
             sendMessageOnCatch({
                 seaCreature: entry.seaCreature,
                 rarityColorCode: entry.rarityColorCode,
                 isMessageEnabled: settings[entry.isMessageEnabledSettingKey],
                 isAlertEnabled: settings[entry.isAlertEnabledSettingKey]
             });
+
+            trackCatch({ seaCreature: entry.seaCreature, rarityColorCode: entry.rarityColorCode });
         }
     ).setCriteria(entry.trigger).setContains();
 
