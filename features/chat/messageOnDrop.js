@@ -1,4 +1,6 @@
+import settings from "../../settings";
 import { getDropMessage, getDropTitle } from '../../utils/common';
+import { MEME_SOUND_MODE, NORMAL_SOUND_MODE, NOTIFICATION_SOUND } from "../../constants/sounds";
 
 const chatCommand = 'pc';
 
@@ -16,7 +18,17 @@ export function sendMessageOnDrop(options) {
 	// Play alert if you aren't in the party so automated message is not sent
 	if (options.isAlertEnabled) {
 		const title = getDropTitle(options.itemName);
-		Client.showTitle(title, "", 1, 60, 1);
-		options.sound.play();
+		Client.showTitle(title, '', 1, 60, 1);
+
+		switch (settings.soundMode) {
+			case MEME_SOUND_MODE:
+				options.sound.play();
+				break;
+			case NORMAL_SOUND_MODE:
+				NOTIFICATION_SOUND.play();
+				break;
+			default:
+				break;
+		}
 	}
 }
