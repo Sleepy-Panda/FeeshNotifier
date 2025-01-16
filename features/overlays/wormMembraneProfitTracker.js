@@ -242,7 +242,12 @@ function refreshValuesPerHour() {
 }
 
 function renderWormMembraneProfitTrackerOverlay() {
-    if (!settings.wormProfitTrackerOverlay || !isInSkyblock() || !hasFishingRodInHotbar() || getWorldName() !== CRYSTAL_HOLLOWS) {
+    if (!settings.wormProfitTrackerOverlay ||
+        !isInSkyblock() ||
+        !hasFishingRodInHotbar() ||
+        getWorldName() !== CRYSTAL_HOLLOWS ||
+        (!totalWormsCount && !totalMembranesCount)
+    ) {
         resetTrackerDisplay.hide();
         return;
     }

@@ -69,6 +69,12 @@ export function getColoredPlayerNameFromPartyChat(playerAndRank) { // &r&9Party 
 	return `${color}${nameWithoutRank}`;
 }
 
+export function getPlayerNameFromPartyChat(playerAndRank) { // &b[MVP&d+&b] DeadlyMetal
+	if (!playerAndRank) return '';
+	const nameWithoutRank = playerAndRank.split('] ').pop().removeFormatting();
+	return nameWithoutRank;
+}
+
 // Messages have the following format:
 // &r&9Party &8> &b[MVP&d+&b] DeadlyMetal&f: &r--> A YETI has spawned <--&r
 // &r&9Компания &8> &b[MVP] PivoTheSadFisher&f: &r--> A Deep Sea Orb has dropped <--&r
@@ -151,6 +157,21 @@ export function formatElapsedTime(elapsedSeconds) {
 
 export function isInChatOrInventoryGui() {
 	return Client.Companion.isInGui() && (Client.currentGui?.getClassName() === 'GuiInventory' || Client.currentGui?.getClassName() === 'GuiChatOF');
+}
+
+export function getPlayerNamesInRange(distance) {
+	const players = World
+		.getAllPlayers()
+		.filter(player =>
+			(player.getUUID().version() === 4 || player.getUUID().version() === 1) && // Players and Watchdog have version 4, nicked players have version 1, this is done to exclude NPCs
+			player.ping === 1 && // -1 is watchdog and ghost players, also there is a ghost player with high ping value when joining a world
+			player.name != Player.getName() && // Exclude current player because they do not count for legion
+			player.distanceTo(Player.getPlayer()) < distance
+		)
+		.map(player => player.name)
+		.filter((x, i, a) => a.indexOf(x) == i); // Distinct, sometimes the players are duplicated in the list
+		
+	return players;
 }
 
 function getArticle(str) {

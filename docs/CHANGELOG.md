@@ -1,5 +1,14 @@
 # Releases
 
+## v1.11.0
+
+- Added flare timer overlay + alert when it expires soon.
+- Added button to reset barn fishing timer when in chat/inventory.
+- Hide Worm profit tracker overlay when it contains no data.
+- Fixed Abyssal Miner not counting towards sea creatures counter.
+- Added new alert on any reindrake spawned in a lobby (disabled by default).
+- Hide remaining totem time overlay when it shows 00s.
+
 ## v1.10.0
 
 - Worm profit tracker overlay

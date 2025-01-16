@@ -14,11 +14,13 @@ import { getCatchMessage, getColoredPlayerNameFromDisplayName, getColoredPlayerN
 import { trackCatch, renderRareCatchTrackerOverlay } from './features/overlays/rareCatchesTracker';
 import { sendMessageOnPlayerDeath } from "./features/chat/messageOnPlayerDeath";
 import { playAlertOnPlayerDeath } from "./features/alerts/alertOnPlayerDeath";
-import "./features/overlays/totem";
+import "./features/overlays/totemTracker";
+import "./features/overlays/flareTracker";
 import "./features/overlays/seaCreaturesHpTracker";
 import "./features/overlays/seaCreaturesCountAndTimeTracker";
 import "./features/alerts/alertOnNonFishingArmor";
 import "./features/alerts/alertOnWormTheFish";
+import "./features/alerts/alertOnReindrake";
 import "./features/inventory/highlightCheapBooks";
 import "./features/overlays/legionAndBobbingTimeTracker";
 import "./features/overlays/crimsonIsleTracker";
