@@ -1,8 +1,9 @@
+import { GOLD, WHITE } from "./constants/formatting";
 import { @Vigilant, @ButtonProperty, @SwitchProperty, @SelectorProperty } from "../Vigilance/index"
 
 @Vigilant("FeeshNotifier/config", "FeeshNotifier Settings", {
     getCategoryComparator: () => (a, b) => {
-        const categories = ["General", "Chat", "Alerts"];
+        const categories = ["General", "Chat", "Alerts", "Overlays"];
 
         return categories.indexOf(a.name) - categories.indexOf(b.name);
     }
@@ -13,6 +14,10 @@ class Settings {
         this.initialize(this);
         this.setCategoryDescription("General", `FeeshNotifier &bv${JSON.parse(FileLib.read("FeeshNotifier", "metadata.json")).version}`)
     }
+
+    totemRemainingTimeOverlayGui = new Gui();
+    rareCatchesTrackerOverlayGui = new Gui();
+    seaCreaturesHpOverlayGui = new Gui();
 
     // ******* GENERAL ******* //
 
@@ -405,6 +410,87 @@ class Settings {
         subcategory: "Rare Drops"
     })
     alertOnMagmaCoreDrop = true;
+
+    // ******* OVERLAYS - Totem ******* //
+
+    @SwitchProperty({
+        name: "Remaining totem time",
+        description: "Shows an overlay with the remaining time of current player's totem of corruption.",
+        category: "Overlays",
+        subcategory: "Totem"
+    })
+    totemRemainingTimeOverlay = false;
+
+    @ButtonProperty({
+        name: "Move remaining totem time",
+        description: "Moves the overlay text.",
+        category: "Overlays",
+        subcategory: "Totem",
+        placeholder: "Move"
+    })
+    moveTotemRemainingTimeOverlay() {
+        showOverlayMoveHelp();
+        this.totemRemainingTimeOverlayGui.open();
+    };
+
+    // ******* OVERLAYS - Rare catches ******* //
+
+    @SwitchProperty({
+        name: "Rare catches tracker",
+        description: "Shows an overlay with the statistics of rare sea creatures caught per session. Do /feeshResetRareCatches to reset.",
+        category: "Overlays",
+        subcategory: "Rare catches"
+    })
+    rareCatchesTrackerOverlay = true;
+
+    @ButtonProperty({
+        name: "Move rare catches tracker",
+        description: "Moves the overlay text.",
+        category: "Overlays",
+        subcategory: "Rare catches",
+        placeholder: "Move"
+    })
+    moveRareCatchesTrackerOverlay() {
+        showOverlayMoveHelp();
+        this.rareCatchesTrackerOverlayGui.open();
+    };
+
+    @ButtonProperty({
+        name: "Reset rare catches tracker",
+        description: "Resets tracking for rare catches tracker. Executes /feeshResetRareCatches",
+        category: "Overlays",
+        subcategory: "Rare catches",
+        placeholder: "Reset"
+    })
+    resetRareCatchesTracker() {
+        ChatLib.command("feeshResetRareCatches", true);
+    }
+
+    // ******* OVERLAYS - Sea creatures HP ******* //
+
+    @SwitchProperty({
+        name: "Sea creatures HP",
+        description: "Shows an overlay with the HP of nearby Thunder / Lord Jawbus.",
+        category: "Overlays",
+        subcategory: "Sea creatures HP"
+    })
+    seaCreaturesHpOverlay = true;
+
+    @ButtonProperty({
+        name: "Move sea creatures HP",
+        description: "Moves the overlay text.",
+        category: "Overlays",
+        subcategory: "Sea creatures HP",
+        placeholder: "Move"
+    })
+    moveSeaCreaturesHpOverlay() {
+        showOverlayMoveHelp();
+        this.seaCreaturesHpOverlayGui.open();
+    };
 }
 
 export default new Settings()
+
+function showOverlayMoveHelp() {
+    ChatLib.chat(`${GOLD}[FeeshNotifier] ${WHITE}Drag the overlay to move it. Press +/- to increase/decrease size.`);
+}
