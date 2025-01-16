@@ -39,6 +39,7 @@ export function trackSeaCreaturesCount() {
 export function alertOnSeaCreaturesCountThreshold() {
     if (!settings.alertOnSeaCreaturesCountThreshold ||
         !isInSkyblock() ||
+        getWorldName() === 'Kuudra' ||
         !hasFishingRodInHotbar()
     ) {
         return;
@@ -63,7 +64,8 @@ export function renderCountOverlay() {
     if (!settings.seaCreaturesCountOverlay ||
         !mobsCount ||
         !startTime ||
-        !isInSkyblock() || 
+        !isInSkyblock() ||
+        getWorldName() === 'Kuudra' ||
         !hasFishingRodInHotbar()) {
         return;
     }

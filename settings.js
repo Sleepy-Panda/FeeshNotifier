@@ -233,7 +233,7 @@ class Settings {
         category: "Alerts",
         subcategory: "Sea creatures count"
     })
-    alertOnSeaCreaturesCountThreshold = true;
+    alertOnSeaCreaturesCountThreshold = false;
 
     @SliderProperty({
         name: "Sea creatures count threshold - HUB",

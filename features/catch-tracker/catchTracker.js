@@ -4,7 +4,7 @@ import { overlayCoordsData } from "../../data/overlayCoords";
 import { fromUppercaseToCapitalizedFirstLetters, hasDoubleHookInMessage } from '../../utils/common';
 import { WHITE, GOLD, BOLD, YELLOW, GRAY } from "../../constants/formatting";
 import { RARE_CATCH_TRIGGERS } from "../../constants/triggers";
-import { hasFishingRodInHotbar, isInSkyblock } from "../../utils/playerState";
+import { getWorldName, hasFishingRodInHotbar, isInSkyblock } from "../../utils/playerState";
 
 export function resetRareCatchesTracker() {
     if (persistentData.totalRareCatches > 0 && persistentData.rareCatches) {
@@ -61,6 +61,7 @@ export function renderRareCatchTrackerOverlay() {
     if (!settings.rareCatchesTrackerOverlay ||
         !Object.entries(persistentData.rareCatches).length ||
         !isInSkyblock() ||
+        getWorldName() === 'Kuudra' ||
         !hasFishingRodInHotbar()) {
         return;
     }
