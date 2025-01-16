@@ -78,7 +78,9 @@ function renderHpOverlay() {
         !mobs.length ||
         !isInSkyblock() ||
         !TRACKED_WORLD_NAMES.some(w => w === getWorldName()) ||
-        !hasFishingRodInHotbar()) {
+        !hasFishingRodInHotbar() ||
+        settings.allOverlaysGui.isOpen()
+    ) {
         return;
     }
 

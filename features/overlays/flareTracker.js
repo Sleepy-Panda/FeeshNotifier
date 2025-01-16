@@ -119,7 +119,8 @@ function renderFlareOverlay() {
     if (!settings.flareRemainingTimeOverlay ||
         !isFlarePlaced ||
         flareTimerRemainingSeconds <= 0 ||
-        !isInSkyblock()
+        !isInSkyblock() ||
+        settings.allOverlaysGui.isOpen()
     ) {
         return;
     }

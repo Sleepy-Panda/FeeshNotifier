@@ -1,5 +1,22 @@
 # Releases
 
+## v1.20.0
+
+Released: 2024-12-03
+
+Features:
+
+- Added ability to move all enabled GUIs at once (/feeshMoveAllGuis or Settings -> General -> Gui).
+- Added Jerry's Workshop closing timer to Jerry's Workshop tracker (shows if "Island closes in" is enabled in /tablist, and if not IRL December).
+- Added new lava treasure fishing items to the Fishing Profit Tracker.
+  - TODO: Find out price calculation for Kuudra Keys
+- Added charged Storm / Hurricane Bottle to the Fishing Profit Tracker.
+- Added rendering of charge % for Storm / Hurricane Bottle.
+
+Bugfixes:
+- Fixed items crafted using Craft Item GUI added to Fishing profit tracker.
+- Fixed Jawbus Followers not counted in Sea creature count GUI.
+
 ## v1.19.0
 
 Released: 2024-11-08

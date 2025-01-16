@@ -119,6 +119,7 @@ export const SPIRIT_MASK_USED_MESSAGE = `${RESET}${GOLD}Second Wind Activated${R
 export const GOOD_CATCH_COINS_MESSAGE = `${RESET}${GOLD}${BOLD}GOOD CATCH! ${RESET}${AQUA}You found ${RESET}${GOLD}` + "${coins}" + ` Coins${RESET}${AQUA}.${RESET}`;
 export const GREAT_CATCH_COINS_MESSAGE = `${RESET}${DARK_PURPLE}${BOLD}GREAT CATCH! ${RESET}${AQUA}You found ${RESET}${GOLD}` + "${coins}" + ` Coins${RESET}${AQUA}.${RESET}`;
 export const GOLDEN_FISH_MESSAGE = `${RESET}${BLUE}You spot a ${RESET}${GOLD}Golden Fish ${RESET}${BLUE}surface from beneath the lava!${RESET}`; // &r&9You spot a &r&6Golden Fish &r&9surface from beneath the lava!&r
+export const WORKSHOP_CLOSING_MESSAGE = `${RESET}${RED}[Important] ${RESET}${YELLOW}This server will restart soon: ${RESET}${AQUA}Workshop Closing${RESET}`; // &r&c[Important] &r&eThis server will restart soon: &r&bWorkshop Closing&r
 
 export const RARE_CATCH_TRIGGERS = [
     {

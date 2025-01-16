@@ -6,6 +6,21 @@ register('renderItemIntoGui', (item, x, y, event) => {
     showThunderBottleProgress(item, x, y);
 });
 
+const BOTTLES = [
+    {
+        name: 'Empty Thunder Bottle',
+        maxCharge: 50000,
+    },
+    {
+        name: 'Empty Storm Bottle',
+        maxCharge: 500000,
+    },
+    {
+        name: 'Empty Hurricane Bottle',
+        maxCharge: 5000000,
+    },
+];
+
 function showThunderBottleProgress(item, x, y) {
     if (!settings.showThunderBottleProgress || !isInSkyblock()) {
         return;
@@ -15,8 +30,9 @@ function showThunderBottleProgress(item, x, y) {
         return;
     }
 
-    const name = item.getName();
-    if (!name.includes('Empty Thunder Bottle')) {
+    const name = item.getName()?.removeFormatting();
+
+    if (!BOTTLES.map(b => b.name).includes(name)) {
         return;
     }
 
@@ -25,7 +41,7 @@ function showThunderBottleProgress(item, x, y) {
         return;
     }
 
-    const maxCharge = 50000;
+    const maxCharge = BOTTLES.find(b => b.name === name).maxCharge;
     const displayString = Math.trunc(charge / maxCharge * 100) + '%';
 
     Renderer.translate(x, y, 275); // z coord = 275 to be on top of the item icon and below the tooltip

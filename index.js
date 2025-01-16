@@ -1,8 +1,10 @@
 import "./commands";
 import "./moveOverlay";
+import "./moveAllOverlays";
 import "./utils/playerState";
 import "./utils/bazaarPrices";
 import "./utils/auctionPrices";
+
 import "./features/alerts/alertOnCatch";
 import "./features/alerts/alertOnDrop";
 import "./features/alerts/alertOnPlayerDeath";

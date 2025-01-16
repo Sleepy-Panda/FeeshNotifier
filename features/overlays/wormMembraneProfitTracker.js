@@ -301,7 +301,8 @@ function renderWormMembraneProfitTrackerOverlay() {
         !isInSkyblock() ||
         !hasFishingRodInHotbar() ||
         getWorldName() !== CRYSTAL_HOLLOWS ||
-        (!totalWormsCount && !totalMembranesCount)
+        (!totalWormsCount && !totalMembranesCount) ||
+        settings.allOverlaysGui.isOpen()
     ) {
         buttonsDisplay.hide();
         return;

@@ -109,7 +109,8 @@ function renderRareCatchTrackerOverlay() {
         !Object.entries(persistentData.rareCatches).length ||
         !isInSkyblock() ||
         getWorldName() === KUUDRA ||
-        !hasFishingRodInHotbar()
+        !hasFishingRodInHotbar() ||
+        settings.allOverlaysGui.isOpen()
     ) {
         resetTrackerDisplay.hide();
         return;

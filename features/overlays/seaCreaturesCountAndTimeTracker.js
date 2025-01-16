@@ -134,7 +134,8 @@ function renderCountOverlay() {
         !isInSkyblock() ||
         isInHunterArmor() ||
         getWorldName() === KUUDRA ||
-        !hasFishingRodInHotbar()
+        !hasFishingRodInHotbar() ||
+        settings.allOverlaysGui.isOpen()
     ) {
         resetTrackerDisplay.hide();
         return;

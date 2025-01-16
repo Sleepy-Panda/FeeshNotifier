@@ -1,3 +1,7 @@
+- Alert when a new bottle type charged (LF message)
+- Jerry island closing timer added to Jerry widget
+  - Do not show when IRL December
+  - Can read from tablist? Island closes in: 35h
 - Achievements (ScathaPro / SBO as reference)
 - Party chat commands
   - !feeshsincejawbus
@@ -10,11 +14,15 @@
   - Commands cooldown so people do not spam
   - /feeshkdr <player> - to check myself or someone privately without sending to the party chat [requires API key and custom backend]
 - Customized sounds
-  - Sounds folder: config/custom-assets
+  - Sounds folder: assets
   - Ability to open folder from settings
   - Ability to test sound from settings
-- Allow moving overlays even if they are invisible
-- Sea creatures/hour
+  - Toggle setting to enable customization
+- Sea creatures/hour, profit/hour
+- Render mob immunity flag
+- Highlight rare sea creatures
+- Short catch messages and double hook messages
+- Total and session tracker
 - Trading with other players adds items to the profit trackers
 - Multiple drops that happen at the same time lead to "You're sending messages too fast" error.
 - Personal cap alert (20 for CH, 5 for Crimson)
@@ -24,7 +32,17 @@
 - Track all mobs caught, not only rare
 - Golden fish timer
 "can you add a golden fish timer tracker into this? i only have golden fish diamond left and i like playing other games while just having my bobber in lava, and setting a 15min timer every time is p annoying lmao"
-- "i think a feature that says im out of whale bait / fish bait / carrot bait would be cool to add because sometimes im just watching video and i realise im out of bait after like 30 mins."
+- Bait changed / Bait missing alert
+"i think a feature that says im out of whale bait / fish bait / carrot bait would be cool to add because sometimes im just watching video and i realise im out of bait after like 30 mins."
+
+Refactoring:
+
+- Do not run registers if feature is disabled.
+
+
+
+
+
 
 
 Achievements prototype:
