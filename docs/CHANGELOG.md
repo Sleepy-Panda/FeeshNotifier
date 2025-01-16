@@ -1,5 +1,25 @@
 # Releases
 
+## v1.19.0
+
+Released: 2024-11-08
+
+Features:
+- Highlight matching items with the same attribute tier, when combining the gear / attribute shards in the Attribute Fusion menu [disabled by default].
+- Render attributes and levels for crimson armor and equipment [disabled by default].
+- Added alert on Golden Fish spawn [disabled by default].
+- Sea creatures HP tracker - added Plhlegblast.
+- Sea creatures HP tracker - make a quiet sound on SC detected.
+
+Bugfixes:
+- Fixed Dye drop alert.
+- Fixed Prosperity book not being counted in Fishing profit tracker if it's displayed with numbers (Prosperity 1 instead of Prosperity I).
+- Fixed some pets counted towards Sea creatures count / Sea creatures HP due to the same name as the mob.
+
+Other:
+- Refactored code for Alert on non-fishing armor, highlight cheap books.
+- Code for catch/drop alerts is moved to the separate files, so index.js file looks more clean.
+
 ## v1.18.0
 
 Released: 2024-10-19

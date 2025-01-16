@@ -31,6 +31,6 @@ export function playAlertOnBucketAutoPickup() {
         }
 	} catch (e) {
 		console.error(e);
-		console.log(`[FeeshNotifier] Failed to play alert onChum bucket auto pickup.`);
+		console.log(`[FeeshNotifier] Failed to play alert on Chum bucket auto pickup.`);
 	}
 }

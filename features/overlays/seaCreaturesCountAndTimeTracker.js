@@ -53,8 +53,9 @@ function trackSeaCreaturesCount() {
         const plainName = entity?.getName()?.removeFormatting();
 
         // Mobs / corrupted mobs have prefix like [Lv100], only Grinch does not have it
-        // This check is needed to exclude Necromancy souls
-        if ((plainName.includes('[Lv') && ALL_SEA_CREATURES_NAMES.some(sc => plainName.includes(sc))) || plainName.includes('Grinch  ❤')) {
+        // This check is needed to exclude Necromancy souls and pets
+        if ((plainName.includes('[Lv') && plainName.includes('❤') && 
+            ALL_SEA_CREATURES_NAMES.some(sc => plainName.includes(sc))) || plainName.includes('Grinch  ❤')) {
             if (plainName.includes('Rider of the Deep')) {
                 newMobsCount += 2;
             } else {

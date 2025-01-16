@@ -348,7 +348,7 @@ class Settings {
 
     @SwitchProperty({
         name: "Alert when no fishing armor equipped",
-        description: `Shows a title when current player is fishing in a non-fishing armor. [Made by ${AQUA}ruki-tryuki${GRAY}]`,
+        description: `Shows a title when current player is fishing in a non-fishing armor.`,
         category: "Alerts",
         subcategory: "Fishing armor"
     })
@@ -384,11 +384,21 @@ class Settings {
     })
     alertOnSpiritMaskUsed = true;
 
+    // ******* ALERTS - Golden Fish ******* //
+
+    @SwitchProperty({
+        name: "Alert when a Golden Fish has spawned",
+        description: `Shows a title when a Golden Fish has spawned.`,
+        category: "Alerts",
+        subcategory: "Golden Fish"
+    })
+    alertOnGoldenFishSpawned = false;
+
     // ******* ALERTS - Worm the Fish ******* //
 
     @SwitchProperty({
         name: "Alert when a Worm the Fish is caught",
-        description: `Shows a title when a Worm the Fish is caught using (Dirt Rod fishing).`,
+        description: `Shows a title when a Worm the Fish is caught (Dirt Rod fishing).`,
         category: "Alerts",
         subcategory: "Worm the Fish"
     })
@@ -743,7 +753,7 @@ class Settings {
 
     @SwitchProperty({
         name: "Sea creatures HP",
-        description: `Shows an overlay with the HP of nearby Thunder / Lord Jawbus / Reindrake / Yeti. ${RED}Hidden if you have no fishing rod in your hotbar!`,
+        description: `Shows an overlay with the HP of nearby Thunder / Lord Jawbus / Plhlegblast / Reindrake / Yeti. ${RED}Hidden if you have no fishing rod in your hotbar!`,
         category: "Overlays",
         subcategory: "Sea creatures HP"
     })
@@ -1036,6 +1046,14 @@ ${RED}Hidden if you have no fishing rod in your hotbar!`,
     })
     highlightCheapBooks = false;
 
+    @SwitchProperty({
+        name: "Highlight matching items in Attribute Fusion",
+        description: `Highlight matching items with the same attribute tier, when combining the gear / attribute shards in the Attribute Fusion menu.`,
+        category: "Inventory",
+        subcategory: "Highlight"
+    })
+    highlightMatchingItemsInAttributeFusion = false;
+
     // ******* INVENTORY - Item tooltip ******* //
 
     @SwitchProperty({
@@ -1066,19 +1084,35 @@ ${RED}Hidden if you have no fishing rod in your hotbar!`,
 
     @SwitchProperty({
         name: "Armor attributes",
-        description: `Render fishing armor attribute name and level as short abbreviations.`,
+        description: `Render attribute name and level as short abbreviations, for Thunder/Magma Lord/Lava Sea Creature armor and equipment.`,
         category: "Inventory",
         subcategory: "Armor attributes"
     })
-    showArmorAttributes = false;
+    showFishingArmorAttributes = false;
 
     @TextProperty({
         name: "Accented armor attributes",
-        description: `Render attributes from this list using another color. Use camel_case to specify an attribute code, and comma as a separator to specify multiple.`,
+        description: `Render attributes from this list using another color. Use lower_case_with_underscore to specify an attribute code, and comma as a separator to specify multiple.`,
         category: "Inventory",
         subcategory: "Armor attributes"
     })
-    accentedArmorAttributes = 'blazing_fortune,magic_find,fishing_experience';
+    accentedFishingArmorAttributes = 'blazing_fortune,magic_find,fishing_experience';
+
+    @SwitchProperty({
+        name: "Crimson armor / equipment attributes",
+        description: `Render attribute name and level as short abbreviations, for different crimson/kuudra armors and equipment.`,
+        category: "Inventory",
+        subcategory: "Armor attributes"
+    })
+    showCrimsonArmorAttributes = false;
+
+    @TextProperty({
+        name: "Accented crimson armor / equipment attributes",
+        description: `Render attributes from this list using another color. Use lower_case_with_underscore to specify an attribute code, and comma as a separator to specify multiple.`,
+        category: "Inventory",
+        subcategory: "Armor attributes"
+    })
+    accentedCrimsonArmorAttributes = 'magic_find,veteran,vitality,dominance,mana_pool,mana_regeneration,lifeline';
 
     // ******* INVENTORY - Fishing rod attributes ******* //
 
@@ -1092,7 +1126,7 @@ ${RED}Hidden if you have no fishing rod in your hotbar!`,
 
     @TextProperty({
         name: "Accented fishing rod attributes",
-        description: `Render attributes from this list using another color. Use camel_case to specify an attribute code, and comma as a separator to specify multiple.`,
+        description: `Render attributes from this list using another color. Use lower_case_with_underscore to specify an attribute code, and comma as a separator to specify multiple.`,
         category: "Inventory",
         subcategory: "Fishing rod attributes"
     })

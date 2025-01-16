@@ -1234,6 +1234,7 @@ export const FISHING_PROFIT_ITEMS = [
     {
         itemId: 'ENCHANTMENT_PROSPERITY_1',
         itemName: 'Enchanted Book (Prosperity I)',
+        itemAlternateNames: [ 'Enchanted Book (Prosperity 1)' ],
         itemDisplayName: `${RARE}Prosperity I ${WHITE}Book`,
         npcPrice: 0,
     },
