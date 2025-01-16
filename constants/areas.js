@@ -3,3 +3,4 @@ export const HUB = 'Hub';
 export const CRYSTAL_HOLLOWS = 'Crystal Hollows';
 export const JERRY_WORKSHOP = 'Jerry\'s Workshop';
 export const KUUDRA = 'Kuudra';
+export const DUNGEONS = 'Catacombs';

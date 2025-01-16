@@ -2,6 +2,7 @@ import { AQUA, BOLD, COMMON, DARK_GRAY, EPIC, GOLD, GRAY, LEGENDARY, MYTHIC, OBF
 
 // itemId - ID of the item used by bazaar or auction APIs
 // itemName - name without formatting used to understand what item is dropped
+// itemAlternateNames - support for item name modifications made by mods
 // itemDisplayName - name with formatting
 // npcPrice - NPC price if exists, or 0
 
@@ -537,48 +538,56 @@ export const FISHING_PROFIT_ITEMS = [
     {
         itemId: 'ENCHANTMENT_MAGNET_6',
         itemName: 'Enchanted Book (Magnet VI)',
+        itemAlternateNames: [ 'Enchanted Book (Magnet 6)' ],
         itemDisplayName: `${RARE}Magnet VI ${WHITE}Book`,
         npcPrice: 0,
     },
     {
         itemId: 'ENCHANTMENT_FRAIL_6',
         itemName: 'Enchanted Book (Frail VI)',
+        itemAlternateNames: [ 'Enchanted Book (Frail 6)' ],
         itemDisplayName: `${RARE}Frail VI ${WHITE}Book`,
         npcPrice: 0,
     },
     {
         itemId: 'ENCHANTMENT_LURE_6',
         itemName: 'Enchanted Book (Lure VI)',
+        itemAlternateNames: [ 'Enchanted Book (Lure 6)' ],
         itemDisplayName: `${RARE}Lure VI ${WHITE}Book`,
         npcPrice: 0,
     },
     {
         itemId: 'ENCHANTMENT_ANGLER_6',
         itemName: 'Enchanted Book (Angler VI)',
+        itemAlternateNames: [ 'Enchanted Book (Angler 6)' ],
         itemDisplayName: `${RARE}Angler VI ${WHITE}Book`,
         npcPrice: 0,
     },
     {
         itemId: 'ENCHANTMENT_SPIKED_HOOK_6',
         itemName: 'Enchanted Book (Spiked Hook VI)',
+        itemAlternateNames: [ 'Enchanted Book (Spiked Hook 6)' ],
         itemDisplayName: `${RARE}Spiked Hook VI ${WHITE}Book`,
         npcPrice: 0,
     },
     {
         itemId: 'ENCHANTMENT_LUCK_OF_THE_SEA_6',
         itemName: 'Enchanted Book (Luck of the Sea VI)',
+        itemAlternateNames: [ 'Enchanted Book (Luck of the Sea 6)' ],
         itemDisplayName: `${RARE}Luck of the Sea VI ${WHITE}Book`,
         npcPrice: 0,
     },
     {
         itemId: 'ENCHANTMENT_CASTER_6',
         itemName: 'Enchanted Book (Caster VI)',
+        itemAlternateNames: [ 'Enchanted Book (Caster 6)' ],
         itemDisplayName: `${RARE}Caster VI ${WHITE}Book`,
         npcPrice: 0,
     },
     {
         itemId: 'ENCHANTMENT_BLESSING_6',
         itemName: 'Enchanted Book (Blessing VI)',
+        itemAlternateNames: [ 'Enchanted Book (Blessing 6)' ],
         itemDisplayName: `${RARE}Blessing VI ${WHITE}Book`,
         npcPrice: 0,
     },
@@ -894,54 +903,63 @@ export const FISHING_PROFIT_ITEMS = [
     {
         itemId: 'ENCHANTMENT_ULTIMATE_FLASH_1',
         itemName: 'Enchanted Book (Flash I)',
+        itemAlternateNames: [ 'Enchanted Book (Flash 1)' ],
         itemDisplayName: `${MYTHIC}${BOLD}Flash I ${WHITE}Book`,
         npcPrice: 0,
     },
     {
         itemId: 'ATTRIBUTE_SHARD+ATTRIBUTE_BLAZING_FORTUNE;1',
         itemName: 'Attribute Shard (Blazing Fortune I)',
+        itemAlternateNames: [ 'Attribute Shard (Blazing Fortune 1)' ],
         itemDisplayName: `${AQUA}Blazing Fortune I ${WHITE}Attribute Shard`,
         npcPrice: 0,
     },
     {
         itemId: 'ATTRIBUTE_SHARD+ATTRIBUTE_DOUBLE_HOOK;1',
         itemName: 'Attribute Shard (Double Hook I)',
+        itemAlternateNames: [ 'Attribute Shard (Double Hook 1)' ],
         itemDisplayName: `${AQUA}Double Hook I ${WHITE}Attribute Shard`,
         npcPrice: 0,
     },
     {
         itemId: 'ATTRIBUTE_SHARD+ATTRIBUTE_FISHERMAN;1',
         itemName: 'Attribute Shard (Fisherman I)',
+        itemAlternateNames: [ 'Attribute Shard (Fisherman 1)' ],
         itemDisplayName: `${AQUA}Fisherman I ${WHITE}Attribute Shard`,
         npcPrice: 0,
     },
     {
         itemId: 'ATTRIBUTE_SHARD+ATTRIBUTE_FISHING_EXPERIENCE;1',
         itemName: 'Attribute Shard (Fishing Experience I)',
+        itemAlternateNames: [ 'Attribute Shard (Fishing Experience 1)' ],
         itemDisplayName: `${AQUA}Fishing Experience I ${WHITE}Attribute Shard`,
         npcPrice: 0,
     },
     {
         itemId: 'ATTRIBUTE_SHARD+ATTRIBUTE_FISHING_SPEED;1',
         itemName: 'Attribute Shard (Fishing Speed I)',
+        itemAlternateNames: [ 'Attribute Shard (Fishing Speed 1)' ],
         itemDisplayName: `${AQUA}Fishing Speed I ${WHITE}Attribute Shard`,
         npcPrice: 0,
     },
     {
         itemId: 'ATTRIBUTE_SHARD+ATTRIBUTE_HUNTER;1',
         itemName: 'Attribute Shard (Hunter I)',
+        itemAlternateNames: [ 'Attribute Shard (Hunter 1)' ],
         itemDisplayName: `${AQUA}Hunter I ${WHITE}Attribute Shard`,
         npcPrice: 0,
     },
     {
         itemId: 'ATTRIBUTE_SHARD+ATTRIBUTE_INFECTION;1',
         itemName: 'Attribute Shard (Infection I)',
+        itemAlternateNames: [ 'Attribute Shard (Infection 1)' ],
         itemDisplayName: `${AQUA}Infection I ${WHITE}Attribute Shard`,
         npcPrice: 0,
     },
     {
         itemId: 'ATTRIBUTE_SHARD+ATTRIBUTE_TROPHY_HUNTER;1',
         itemName: 'Attribute Shard (Trophy Hunter I)',
+        itemAlternateNames: [ 'Attribute Shard (Trophy Hunter 1)' ],
         itemDisplayName: `${AQUA}Trophy Hunter I ${WHITE}Attribute Shard`,
         npcPrice: 0,
     },
@@ -975,6 +993,7 @@ export const FISHING_PROFIT_ITEMS = [
     {
         itemId: 'ENCHANTMENT_PISCARY_6',
         itemName: 'Enchanted Book (Piscary VI)',
+        itemAlternateNames: [ 'Enchanted Book (Piscary 6)' ],
         itemDisplayName: `${RARE}Piscary VI ${WHITE}Book`,
         npcPrice: 0,
     },
@@ -1281,12 +1300,14 @@ export const FISHING_PROFIT_ITEMS = [
     {
         itemId: 'TIDAL_RUNE;1',
         itemName: '◆ Tidal Rune I',
+        itemAlternateNames: [ '◆ Tidal Rune 1' ],
         itemDisplayName: `${LEGENDARY}Tidal Rune I`,
         npcPrice: 1,
     },
     {
         itemId: 'MUSIC_RUNE;1',
         itemName: '◆ Music Rune I',
+        itemAlternateNames: [ '◆ Music Rune 1' ],
         itemDisplayName: `${EPIC}Music Rune I`,
         npcPrice: 1,
     },

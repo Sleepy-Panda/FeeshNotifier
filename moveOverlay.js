@@ -1,5 +1,5 @@
 import settings from "./settings";
-import { overlayCoordsData } from "./data/overlayCoords"
+import { overlayCoordsData } from "./data/overlayCoords";
 
 register("dragged", (mx, my, x, y) => {
     moveCurrentGui(x, y);
@@ -88,27 +88,36 @@ function zoomInCurrentGui() {
 
 function zoomOutCurrentGui() {
     if (settings.totemRemainingTimeOverlayGui.isOpen()) {
-        overlayCoordsData.totemRemainingTimeOverlay.scale -= 0.1;
+        decreaseScaleOrSetToMinimal(overlayCoordsData.totemRemainingTimeOverlay);
     } else if (settings.flareRemainingTimeOverlayGui.isOpen()) {
-        overlayCoordsData.flareRemainingTimeOverlay.scale -= 0.1;
+        decreaseScaleOrSetToMinimal(overlayCoordsData.flareRemainingTimeOverlay);
     } else if (settings.rareCatchesTrackerOverlayGui.isOpen()) {
-        overlayCoordsData.rareCatchesTrackerOverlay.scale -= 0.1;
+        decreaseScaleOrSetToMinimal(overlayCoordsData.rareCatchesTrackerOverlay);
     } else if (settings.seaCreaturesHpOverlayGui.isOpen()) {
-        overlayCoordsData.seaCreaturesHpOverlay.scale -= 0.1;
+        decreaseScaleOrSetToMinimal(overlayCoordsData.seaCreaturesHpOverlay);
     } else if (settings.seaCreaturesCountOverlayGui.isOpen()) {
-        overlayCoordsData.seaCreaturesCountOverlay.scale -= 0.1;
+        decreaseScaleOrSetToMinimal(overlayCoordsData.seaCreaturesCountOverlay);
     } else if (settings.legionAndBobbingTimeOverlayGui.isOpen()) {
-        overlayCoordsData.legionAndBobbingTimeOverlay.scale -= 0.1;
+        decreaseScaleOrSetToMinimal(overlayCoordsData.legionAndBobbingTimeOverlay);
     } else if (settings.crimsonIsleTrackerOverlayGui.isOpen()) {
-        overlayCoordsData.crimsonIsleTrackerOverlay.scale -= 0.1;
+        decreaseScaleOrSetToMinimal(overlayCoordsData.crimsonIsleTrackerOverlay);
     } else if (settings.jerryWorkshopTrackerOverlayGui.isOpen()) {
-        overlayCoordsData.jerryWorkshopTrackerOverlay.scale -= 0.1;
+        decreaseScaleOrSetToMinimal(overlayCoordsData.jerryWorkshopTrackerOverlay);
     } else if (settings.wormProfitTrackerOverlayGui.isOpen()) {
-        overlayCoordsData.wormProfitTrackerOverlay.scale -= 0.1;
+        decreaseScaleOrSetToMinimal(overlayCoordsData.wormProfitTrackerOverlay);
     } else if (settings.magmaCoreProfitTrackerOverlayGui.isOpen()) {
-        overlayCoordsData.magmaCoreProfitTrackerOverlay.scale -= 0.1;
+        decreaseScaleOrSetToMinimal(overlayCoordsData.magmaCoreProfitTrackerOverlay);
     } else if (settings.fishingProfitTrackerOverlayGui.isOpen()) {
-        overlayCoordsData.fishingProfitTrackerOverlay.scale -= 0.1;
+        decreaseScaleOrSetToMinimal(overlayCoordsData.fishingProfitTrackerOverlay);
     }
     overlayCoordsData.save();
+
+    // This is needed to prevent setting values < 0.1 so the overlay gets invisible or flipped
+    function decreaseScaleOrSetToMinimal(gui) {
+        if (gui.scale > 0.1) {
+            gui.scale -= 0.1;
+        } else {
+            gui.scale = 0.1;
+        }
+    }
 }

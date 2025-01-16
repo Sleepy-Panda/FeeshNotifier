@@ -1,6 +1,7 @@
-import { BOLD, EPIC, GOLD, GREEN, LEGENDARY, RARE, RESET, UNCOMMON } from "../../constants/formatting";
+import { BOLD, EPIC, GOLD, GREEN, LEGENDARY, RARE, RESET, UNCOMMON, WHITE } from "../../constants/formatting";
 import { getAuctionItemPrices } from "../../utils/auctionPrices";
 import { toShortNumber } from "../../utils/common";
+import { isInSkyblock } from "../../utils/playerState";
 
 const CRAFTABLES = [
     {
@@ -121,7 +122,13 @@ const CRAFTABLES = [
 
 export function calculateGearCraftPrices() {
     try {
-        let message = `${GREEN}${BOLD}Profits for crafting the gear:\n`;
+        if (!isInSkyblock()) {
+            return;
+        }
+
+        let messageParts = [];
+        messageParts.push(`${GREEN}${BOLD}Profits for crafting the gear:\n`);
+
         CRAFTABLES.forEach(category => {
             const craftProfits = category.items.map(item => {
                 const itemAuctionPrices = getAuctionItemPrices(item.itemId);
@@ -134,13 +141,16 @@ export function calculateGearCraftPrices() {
                 };
             }).sort((a, b) => b.profitPerBaseItem - a.profitPerBaseItem);
             
-            message += `\nGear crafted from ${category.baseItemName}:\n`;
+            messageParts.push(`\n${WHITE}Gear crafted from ${category.baseItemName}${WHITE}:\n`);
             for (let craftProfit of craftProfits) {
-                message += ` - ${craftProfit.itemName}${RESET}: ${GOLD}${toShortNumber(craftProfit.itemPrice) || 'N/A'}${RESET} (${GOLD}${toShortNumber(craftProfit.profitPerBaseItem)}${RESET} per item)\n`;
+                const itemMessagePart = new TextComponent(` - ${craftProfit.itemName}${RESET}: ${GOLD}${toShortNumber(craftProfit.itemPrice) || 'N/A'}${RESET} (${GOLD}${toShortNumber(craftProfit.profitPerBaseItem)}${RESET} per item)\n`)
+                    .setClick("run_command", `/recipe ${craftProfit.itemName.removeFormatting()}`)
+                    .setHover("show_text", 'Click to craft using Supercraft menu');
+                messageParts.push(itemMessagePart);
             }
         });
 
-        ChatLib.chat(message);
+        ChatLib.chat(new Message(messageParts));
     } catch (e) {
 		console.error(e);
 		console.log(`[FeeshNotifier] [ProfitTracker] Failed to calculate gear craft price statistics.`);

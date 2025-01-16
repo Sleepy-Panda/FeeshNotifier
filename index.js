@@ -13,6 +13,7 @@ import { getCatchMessage, getColoredPlayerNameFromDisplayName, getColoredPlayerN
 import { trackCatch, renderRareCatchTrackerOverlay } from './features/overlays/rareCatchesTracker';
 import "./features/chat/announceMobSpawnToAllChat";
 import "./features/chat/messageOnPlayerDeath";
+import "./features/chat/messageOnRevenant";
 import "./features/alerts/alertOnPlayerDeath";
 import "./features/overlays/totemTracker";
 import "./features/overlays/flareTracker";

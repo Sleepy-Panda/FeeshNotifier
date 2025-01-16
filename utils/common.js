@@ -191,6 +191,14 @@ export function formatElapsedTime(elapsedSeconds) {
     return result;
 }
 
+// [1, 2, 3, 4, 5], 3 => [1, 2, 3], [4, 5]
+export function splitArray(array, count) {
+    if (!array || !array.length) {
+        return [[], []];
+    }
+    return [array.slice(0, count), array.slice(count)]
+}
+
 export function isInChatOrInventoryGui() {
 	return Client.isInGui() && (Client.currentGui?.getClassName() === 'GuiInventory' || Client.currentGui?.getClassName() === 'GuiChatOF');
 }

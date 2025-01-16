@@ -1,5 +1,5 @@
 import { AQUA, GOLD, GRAY, RED, WHITE, BLUE, DARK_GRAY, RESET } from "./constants/formatting";
-import { @Vigilant, @ButtonProperty, @SwitchProperty, @SelectorProperty, @SliderProperty, @TextProperty } from "../Vigilance/index"
+import { @Vigilant, @ButtonProperty, @SwitchProperty, @SelectorProperty, @SliderProperty, @TextProperty } from "../Vigilance/index";
 
 @Vigilant("FeeshNotifier/config", "FeeshNotifier Settings", {
     getCategoryComparator: () => (a, b) => {
@@ -293,6 +293,16 @@ class Settings {
         subcategory: "Rare Drops"
     })
     messageOnGuardianPetDrop = true;
+
+    // ******* CHAT - Slayers ******* //
+
+    @SwitchProperty({
+        name: "Share the location on REVENANT HORROR spawn",
+        description: `${GRAY}Sends a message with the coords to the ${BLUE}party chat ${GRAY}when a Revenant Horror is spawned. ${DARK_GRAY}Because we love doing T5s while fishing :)`,
+        category: "Chat",
+        subcategory: "Slayers"
+    })
+    messageOnRevenantHorrorSpawn = false;
 
     // ******* CHAT - Player's death ******* //
 
@@ -1113,7 +1123,7 @@ ${RED}Hidden if you have no fishing rod in your hotbar!`,
     }
 }
 
-export default new Settings()
+export default new Settings();
 
 function showOverlayMoveHelp() {
     ChatLib.chat(`${GOLD}[FeeshNotifier] ${WHITE}Make sure the overlay is visible before moving! Then drag the overlay to move it. Press +/- or mouse scroll to increase/decrease size. Press ESC when you're done.`);

@@ -1,4 +1,5 @@
 import request from "requestV2";
+import { EPIC, LEGENDARY, RARE, UNCOMMON, COMMON, MYTHIC } from "../constants/formatting";
 
 trackAuctionPrices();
 register('step', () => trackAuctionPrices()).setDelay(60);
@@ -10,6 +11,18 @@ export function getAuctionItemPrices(itemId) {
         return null;
     }
     return auctionPrices[itemId] || null;
+}
+
+export function getPetRarityCode(rarityColorCode) {
+    switch (rarityColorCode) {
+        case COMMON: return 0;
+        case UNCOMMON: return 1;
+        case RARE: return 2;
+        case EPIC: return 3;
+        case LEGENDARY: return 4;
+        case MYTHIC: return 5;
+        default: return 0;
+    }
 }
 
 function trackAuctionPrices() {

@@ -1,8 +1,15 @@
+import { HUB } from "../constants/areas";
+
 var isInSkyblock = false;
 var hasFishingRodInHotbar = false;
 var hasDirtRodInHand = false;
 var worldName = null;
 var isInHunterArmor = false;
+
+var lastKatUpgrade = {
+	lastPetClaimedAt: null,
+	petDisplayName: null
+};
 
 var lastSacksGuiClosedAt = null;
 var lastSupercraftGuiClosedAt = null;
@@ -45,6 +52,18 @@ register("guiClosed", (gui) => {
     }
 });
 
+[
+	'&e[NPC] &bKat&f: &rI was able to upgrade your pet ${petDisplayName}&f to ${*}&f.&r', // petDisplayName contains old rarity, &e[NPC] &bKat&f: &rI was able to upgrade your pet &5Guardian&f to &6§LLEGENDARY&f.&r
+	'&e[NPC] &bKat&f: &b✆ &f&rHi! I\'ve finished training your ${petDisplayName}&f!&r' // petDisplayName contains new rarity, &e[NPC] &bKat&f: &b✆ &f&rHi! I've finished training your &5Guardian&f!&r
+].forEach(entry => {
+	register("Chat", (petDisplayName, event) => {
+		lastKatUpgrade = {
+			lastPetClaimedAt: new Date(),
+			petDisplayName: petDisplayName
+		};
+	}).setCriteria(entry); 
+});
+
 export function isInSkyblock() {
 	return isInSkyblock;
 }
@@ -79,6 +98,10 @@ export function getLastAuctionGuiClosedAt() {
 
 export function getLastSupercraftGuiClosedAt() {
 	return lastSupercraftGuiClosedAt;
+}
+
+export function getLastKatUpgrade() {
+	return lastKatUpgrade;
 }
 
 function setIsInSkyblock() {

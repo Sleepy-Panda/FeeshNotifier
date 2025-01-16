@@ -16,8 +16,10 @@ let killMobsCountNotificationShown = false;
 let killMobsTimerNotificationShown = false;
 
 register('step', () => trackSeaCreaturesCount()).setFps(2);
-register('step', () => alertOnSeaCreaturesCountThreshold()).setFps(1);
-register('step', () => alertOnSeaCreaturesTimerThreshold()).setFps(1);
+register('step', () => {
+    alertOnSeaCreaturesCountThreshold();
+    alertOnSeaCreaturesTimerThreshold();
+}).setFps(1);
 register('renderOverlay', () => renderCountOverlay());
 register("worldUnload", () => {
     resetTimer();
@@ -41,7 +43,7 @@ function resetTimer() {
 }
 
 function trackSeaCreaturesCount() {
-    if ((!settings.alertOnSeaCreaturesCountThreshold && !settings.alertOnSeaCreaturesTimerThreshold && !settings.seaCreaturesCountOverlay) || !isInSkyblock()) {
+    if ((!settings.alertOnSeaCreaturesCountThreshold && !settings.alertOnSeaCreaturesTimerThreshold && !settings.seaCreaturesCountOverlay) || !isInSkyblock() || getWorldName() === KUUDRA) {
         return;
     }
 
@@ -50,8 +52,14 @@ function trackSeaCreaturesCount() {
 	entities.forEach(entity => {
         const plainName = entity?.getName()?.removeFormatting();
 
-        if (ALL_SEA_CREATURES_NAMES.some(sc => plainName.includes(sc) && plainName.includes('[Lv'))) { // Mobs have prefix like [Lv100]
-            newMobsCount++;
+        // Mobs / corrupted mobs have prefix like [Lv100], only Grinch does not have it
+        // This check is needed to exclude Necromancy souls
+        if ((plainName.includes('[Lv') && ALL_SEA_CREATURES_NAMES.some(sc => plainName.includes(sc))) || plainName.includes('Grinch  ❤')) {
+            if (plainName.includes('Rider of the Deep')) {
+                newMobsCount += 2;
+            } else {
+                newMobsCount++;
+            }
         }
     });
 
