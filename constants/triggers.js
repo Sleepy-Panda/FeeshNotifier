@@ -75,28 +75,34 @@ export const LAVA_PIGMAN_MESSAGE = `${GREEN}A Lava Pigman arose from the depths!
 
 // DROPS
 
-export const BABY_YETI_PET_LEG_MESSAGE = `PET DROP! ${RESET}${GOLD}Baby Yeti`; // PET DROP! &r&6Baby Yeti
-export const BABY_YETI_PET_EPIC_MESSAGE = `PET DROP! ${RESET}${DARK_PURPLE}Baby Yeti`; // PET DROP! &r&5Baby Yeti
-export const FLYING_FISH_PET_LEG_MESSAGE = `PET DROP! ${RESET}${GOLD}Flying Fish`;
-export const FLYING_FISH_PET_EPIC_MESSAGE = `PET DROP! ${RESET}${DARK_PURPLE}Flying Fish`;
-export const FLYING_FISH_PET_RARE_MESSAGE = `PET DROP! ${RESET}${BLUE}Flying Fish`;
-export const LUCKY_CLOVER_CORE_MESSAGE = `RARE DROP! ${RESET}${DARK_PURPLE}Lucky Clover Core`;
-export const MEGALODON_PET_LEG_MESSAGE = `PET DROP! ${RESET}${GOLD}Megalodon`;
-export const MEGALODON_PET_EPIC_MESSAGE = `PET DROP! ${RESET}${DARK_PURPLE}Megalodon`;
-export const DEEP_SEA_ORB_MESSAGE = `RARE DROP! ${RESET}${DARK_PURPLE}Deep Sea Orb`;
-export const RADIOACTIVE_VIAL_MESSAGE = `RARE DROP! ${RESET}${LIGHT_PURPLE}Radioactive Vial`; // RARE DROP! &r&dRadioactive Vial
-export const CARMINE_DYE_MESSAGE = `RARE DROP! ${RESET}${DARK_PURPLE}Carmine Dye`;
-export const FLAME_DYE_MESSAGE = `RARE DROP! ${RESET}${DARK_PURPLE}Flame Dye`; // RARE DROP! &r&5Flame Dye
+const MAGIC_FIND_MESSAGE_PATTERN = `${RESET}${AQUA}(+${RESET}${AQUA}` + '${magicFind}' + `% ${RESET}${AQUA}✯ Magic Find${RESET}${AQUA})`; // &r&b(+&r&b236% &r&b✯ Magic Find&r&b)
+export const BABY_YETI_PET_LEG_MESSAGE = `PET DROP! ${RESET}${GOLD}Baby Yeti ${MAGIC_FIND_MESSAGE_PATTERN}`; // PET DROP! &r&6Baby Yeti &r&b(+&r&b236% &r&b✯ Magic Find&r&b)
+export const BABY_YETI_PET_EPIC_MESSAGE = `PET DROP! ${RESET}${DARK_PURPLE}Baby Yeti ${MAGIC_FIND_MESSAGE_PATTERN}`; // PET DROP! &r&5Baby Yeti &r&b(+&r&b236% &r&b✯ Magic Find&r&b)
+export const FLYING_FISH_PET_LEG_MESSAGE = `PET DROP! ${RESET}${GOLD}Flying Fish ${MAGIC_FIND_MESSAGE_PATTERN}`;
+export const FLYING_FISH_PET_EPIC_MESSAGE = `PET DROP! ${RESET}${DARK_PURPLE}Flying Fish ${MAGIC_FIND_MESSAGE_PATTERN}`;
+export const FLYING_FISH_PET_RARE_MESSAGE = `PET DROP! ${RESET}${BLUE}Flying Fish ${MAGIC_FIND_MESSAGE_PATTERN}`;
+export const LUCKY_CLOVER_CORE_MESSAGE = `RARE DROP! ${RESET}${DARK_PURPLE}Lucky Clover Core ${MAGIC_FIND_MESSAGE_PATTERN}`;
+export const MEGALODON_PET_LEG_MESSAGE = `PET DROP! ${RESET}${GOLD}Megalodon ${MAGIC_FIND_MESSAGE_PATTERN}`;
+export const MEGALODON_PET_EPIC_MESSAGE = `PET DROP! ${RESET}${DARK_PURPLE}Megalodon ${MAGIC_FIND_MESSAGE_PATTERN}`;
+export const DEEP_SEA_ORB_MESSAGE = `RARE DROP! ${RESET}${DARK_PURPLE}Deep Sea Orb ${MAGIC_FIND_MESSAGE_PATTERN}`;
+export const RADIOACTIVE_VIAL_MESSAGE = `RARE DROP! ${RESET}${LIGHT_PURPLE}Radioactive Vial ${MAGIC_FIND_MESSAGE_PATTERN}`; // RARE DROP! &r&dRadioactive Vial &r&b(+&r&b236% &r&b✯ Magic Find&r&b)
+export const MAGMA_CORE_MESSAGE = `RARE DROP! ${RESET}${BLUE}Magma Core ${MAGIC_FIND_MESSAGE_PATTERN}`; // RARE DROP! &r&9Magma Core &r&b(+&r&b236% &r&b✯ Magic Find&r&b)
+export const CARMINE_DYE_MESSAGE = `RARE DROP! ${RESET}${DARK_PURPLE}Carmine Dye ${MAGIC_FIND_MESSAGE_PATTERN}`; // RARE DROP! &r&Carmine Dye &r&b(+&r&b236% &r&b✯ Magic Find&r&b)
+export const FLAME_DYE_MESSAGE = `RARE DROP! ${RESET}${DARK_PURPLE}Flame Dye ${MAGIC_FIND_MESSAGE_PATTERN}`; // RARE DROP! &r&5Flame Dye &r&b(+&r&b236% &r&b✯ Magic Find&r&b)
+
+export const MUSIC_RUNE_MESSAGE = `${RESET}${DARK_PURPLE}${BOLD}GREAT CATCH! ${RESET}${AQUA}You found a ${RESET}${AQUA}◆ Music Rune I${RESET}${AQUA}.${RESET}`; // &r&5&lGREAT CATCH! &r&bYou found a &r&b◆ Music Rune I&r&b.&r
 export const AQUAMARINE_DYE_MESSAGE = `${RESET}${LIGHT_PURPLE}${BOLD}OUTSTANDING CATCH! ${RESET}${AQUA}You found a ${RESET}${DARK_PURPLE}Aquamarine Dye`; // &r&d&lOUTSTANDING CATCH! &r&bYou found a &r&5Aquamarine Dye
 export const ICEBERG_DYE_MESSAGE = `${RESET}${LIGHT_PURPLE}${BOLD}OUTSTANDING CATCH! ${RESET}${AQUA}You found a ${RESET}${DARK_PURPLE}Iceberg Dye`; // &r&d&lOUTSTANDING CATCH! &r&bYou found a &r&5Iceberg Dye
 export const NADESHIKO_DYE_MESSAGE = `${RESET}${LIGHT_PURPLE}${BOLD}OUTSTANDING CATCH! ${RESET}${AQUA}You found a ${RESET}${DARK_PURPLE}Nadeshiko Dye`; // &r&d&lOUTSTANDING CATCH! &r&bYou found a &r&5Nadeshiko Dye
-export const MAGMA_CORE_MESSAGE = `RARE DROP! ${RESET}${BLUE}Magma Core`;
+
+// OTHER
 
 export const KILLED_BY_THUNDER_MESSAGE = `${RESET}${GRAY}You were killed by Thunder${RESET}${GRAY}${RESET}${GRAY}.`; // &r&7You were killed by Thunder&r&7&r&7.
 export const KILLED_BY_LORD_JAWBUS_MESSAGE = `${RESET}${GRAY}You were killed by Lord Jawbus${RESET}${GRAY}${RESET}${GRAY}.`; // &r&7You were killed by Lord Jawbus&r&7&r&7.
 
 export const THUNDER_BOTTLE_CHARGED_MESSAGE = `${RESET}${YELLOW}> Your bottle of thunder has fully charged!`;
 export const REINDRAKE_SPAWNED_BY_ANYONE_MESSAGE = `${RESET}${RED}${BOLD}WOAH! ${RESET}${RED}A ${RESET}${DARK_RED}Reindrake ${RESET}${RED}was summoned from the depths!${RESET}`;
+export const CHUM_BUCKET_AUTO_PICKED_UP_MESSAGE = `${RESET}${YELLOW}Automatically picked up the Chum Bucket you left back there!${RESET}`;
 
 export const RARE_CATCH_TRIGGERS = [
     {
@@ -275,7 +281,7 @@ export const RARE_DROP_TRIGGERS = [
     {
         trigger: RADIOACTIVE_VIAL_MESSAGE,
         itemName: drops.RADIOACTIVE_VIAL,
-        sound: sounds.INSANE_SOUND_SOURCE,
+        sound: sounds.MC_RARE_ACHIEVEMENT_SOURCE,
         isMessageEnabledSettingKey: 'messageOnRadioactiveVialDrop',
         isAlertEnabledSettingKey: 'alertOnRadioactiveVialDrop',
         rarityColorCode: MYTHIC
@@ -296,6 +302,17 @@ export const RARE_DROP_TRIGGERS = [
         isAlertEnabledSettingKey: 'alertOnFlameDyeDrop',
         rarityColorCode: EPIC
     },
+    {
+        trigger: MAGMA_CORE_MESSAGE,
+        itemName: drops.MAGMA_CORE,
+        sound: sounds.OH_MY_GOD_SOUND_SOURCE,
+        isMessageEnabledSettingKey: 'messageOnMagmaCoreDrop',
+        isAlertEnabledSettingKey: 'alertOnMagmaCoreDrop',
+        rarityColorCode: RARE
+    },
+];
+
+export const OUTSTANDING_CATCH_TRIGGERS = [
     {
         trigger: AQUAMARINE_DYE_MESSAGE,
         itemName: drops.AQUAMARINE_DYE,
@@ -321,12 +338,12 @@ export const RARE_DROP_TRIGGERS = [
         rarityColorCode: EPIC
     },
     {
-        trigger: MAGMA_CORE_MESSAGE,
-        itemName: drops.MAGMA_CORE,
-        sound: sounds.OH_MY_GOD_SOUND_SOURCE,
-        isMessageEnabledSettingKey: 'messageOnMagmaCoreDrop',
-        isAlertEnabledSettingKey: 'alertOnMagmaCoreDrop',
-        rarityColorCode: RARE
+        trigger: MUSIC_RUNE_MESSAGE,
+        itemName: drops.MUSIC_RUNE,
+        sound: sounds.MUSIC_RUNE_SOUND_SOURCE,
+        isMessageEnabledSettingKey: 'messageOnMusicRuneDrop',
+        isAlertEnabledSettingKey: 'alertOnMusicRuneDrop',
+        rarityColorCode: EPIC
     },
 ];
 
@@ -461,5 +478,14 @@ export const WORM_CATCH_TRIGGERS = [
     },
     {
         trigger: POISONED_WATER_WORM_MESSAGE
+    },
+];
+
+export const MAGMA_FIELDS_TRIGGERS = [
+    {
+        trigger: LAVA_BLAZE_MESSAGE
+    },
+    {
+        trigger: LAVA_PIGMAN_MESSAGE
     },
 ];

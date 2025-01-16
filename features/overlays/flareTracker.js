@@ -1,5 +1,5 @@
 import settings from "../../settings";
-import { RED, RESET, WHITE, YELLOW } from "../../constants/formatting";
+import { GOLD, RED, RESET, WHITE, YELLOW } from "../../constants/formatting";
 import { EntityFireworkRocket } from "../../constants/javaTypes";
 import { OFF_SOUND_MODE, TIMER_SOUND_SOURCE } from "../../constants/sounds";
 import { overlayCoordsData } from "../../data/overlayCoords";
@@ -88,6 +88,7 @@ function trackFlareStatus() {
     
             if (settings.alertOnFlareExpiresSoon && flareTimerRemainingSeconds === secondsBeforeExpiration) {
                 Client.showTitle(`${flareName} ${RED}expires soon`, '', 1, 30, 1);
+                ChatLib.chat(`${GOLD}[FeeshNotifier] ${WHITE}Your ${flareName} ${WHITE}expires soon.`);
     
                 if (settings.soundMode !== OFF_SOUND_MODE)
                 {

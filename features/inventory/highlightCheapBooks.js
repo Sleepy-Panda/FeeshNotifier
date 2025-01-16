@@ -42,6 +42,6 @@ function highlightCheapBooks(slot, gui) {
         bookName.includes('Angler') ||
         bookName.includes('Spiked Hook')
     ) {
-        Renderer.drawRect(Renderer.color(255, 0, 0, 100), slot.getDisplayX(), slot.getDisplayY(), 16, 16);
+        Renderer.drawRect(Renderer.color(255, 0, 0, 150), slot.getDisplayX(), slot.getDisplayY(), 16, 16);
     }
 }

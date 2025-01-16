@@ -63,6 +63,7 @@ Some of the features are disabled by default, please explore the settings to tog
     - Megalodon
     - Lucky Clover Core
     - Deep Sea Orb
+    - Music Rune I
     - Magma Core
     - Radioactive Vial
     - Carmine Dye
@@ -77,6 +78,7 @@ Some of the features are disabled by default, please explore the settings to tog
   - Ping when barn fishing timer shows 5+ minutes.
   - Ping when a player is fishing with no fishing armor equipped (made by ruki_tryuki).
   - Ping when catching a Worm the Fish (Dirt rod).
+  - Ping when Chum bucket is automatically picked up because you moved away from it.
 3. Inventory features:
   - Highlight cheap fishing books (e.g. Corruption) in inventory and storages, using red background.
   - Empty Thunder Bottle charging progress rendered in the inventory / storages / AH.

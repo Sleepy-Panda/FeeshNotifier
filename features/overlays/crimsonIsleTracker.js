@@ -19,7 +19,7 @@ register("Chat", (event) => trackThunderCatch()).setCriteria(thunderTrigger.trig
 register("Chat", (event) => trackLordJawbusCatch()).setCriteria(lordJawbusTrigger.trigger).setContains();
 
 const radioactiveVialTrigger = triggers.RARE_DROP_TRIGGERS.find(entry => entry.trigger === triggers.RADIOACTIVE_VIAL_MESSAGE);
-register("Chat", (event) => trackRadioctiveVialDrop()).setCriteria(radioactiveVialTrigger.trigger).setContains();
+register("Chat", (magicFind, event) => trackRadioctiveVialDrop()).setCriteria(radioactiveVialTrigger.trigger).setContains();
 
 register('renderOverlay', () => renderCrimsonIsleTrackerOverlay());
 

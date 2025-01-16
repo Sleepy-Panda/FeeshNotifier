@@ -2,7 +2,7 @@ import settings from "../../settings";
 import { overlayCoordsData } from "../../data/overlayCoords";
 import { EntityArmorStand } from "../../constants/javaTypes";
 import { TIMER_SOUND_SOURCE, OFF_SOUND_MODE } from "../../constants/sounds";
-import { WHITE, RED, DARK_PURPLE } from "../../constants/formatting";
+import { WHITE, RED, DARK_PURPLE, GOLD } from "../../constants/formatting";
 import { isInSkyblock } from "../../utils/playerState";
 
 let remainingTotemTime; // Format examples: 01m 02s, 50s, 09s
@@ -44,6 +44,7 @@ function trackTotemStatus() {
 
                 if (settings.alertOnTotemExpiresSoon && remainingTotemTime && remainingTotemTime === `${secondsBeforeExpiration}s`) {
                     Client.showTitle(`${DARK_PURPLE}Totem ${RED}expires soon`, '', 1, 30, 1);
+                    ChatLib.chat(`${GOLD}[FeeshNotifier] ${WHITE}Your ${DARK_PURPLE}Totem of Corruption ${WHITE}expires soon.`);
 
                     if (settings.soundMode !== OFF_SOUND_MODE)
                     {
