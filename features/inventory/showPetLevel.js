@@ -30,7 +30,7 @@ function showPetLevel(item, x, y) {
         return;
     }
 
-    const level = name.split(']')[0].slice(5); // Start from the 5th char of "[Lvl 200"
+    const level = name.split('[')[1].split(']')[0].slice(4);
     const color = loreLines.some(line => line.includes('MAX LEVEL')) ? GREEN : GOLD;
     Renderer.translate(x, y, 275); // z coord = 275 to be on top of the item icon and below the tooltip
     Renderer.scale(0.7, 0.7);

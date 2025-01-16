@@ -34,6 +34,7 @@ import "./features/alerts/alertOnSpiritMaskUsed";
 import "./features/overlays/jerryWorkshopTracker";
 import "./features/overlays/wormMembraneProfitTracker";
 import "./features/overlays/magmaCoreProfitTracker";
+import "./features/overlays/fishingProfitTracker";
 
 register('worldLoad', () => {
     Client.showTitle('', '', 1, 1, 1); // Shitty fix for a title not showing for the 1st time

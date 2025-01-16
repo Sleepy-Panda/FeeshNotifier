@@ -32,6 +32,9 @@ register("dragged", (mx, my, x, y) => {
     } else if (settings.magmaCoreProfitTrackerOverlayGui.isOpen()) {
         overlayCoordsData.magmaCoreProfitTrackerOverlay.x = x;
         overlayCoordsData.magmaCoreProfitTrackerOverlay.y = y;
+    } else if (settings.fishingProfitTrackerOverlayGui.isOpen()) {
+        overlayCoordsData.fishingProfitTrackerOverlay.x = x;
+        overlayCoordsData.fishingProfitTrackerOverlay.y = y;
     }
     overlayCoordsData.save();
 });
@@ -58,6 +61,8 @@ register("guiKey", (char, keyCode, gui, event) => {
             overlayCoordsData.wormProfitTrackerOverlay.scale += 0.1;
         } else if (settings.magmaCoreProfitTrackerOverlayGui.isOpen()) {
             overlayCoordsData.magmaCoreProfitTrackerOverlay.scale += 0.1;
+        } else if (settings.fishingProfitTrackerOverlayGui.isOpen()) {
+            overlayCoordsData.fishingProfitTrackerOverlay.scale += 0.1;
         }
     } else if (keyCode == 12) { // "-" character
         if (settings.totemRemainingTimeOverlayGui.isOpen()) {
@@ -80,6 +85,8 @@ register("guiKey", (char, keyCode, gui, event) => {
             overlayCoordsData.wormProfitTrackerOverlay.scale -= 0.1;
         } else if (settings.magmaCoreProfitTrackerOverlayGui.isOpen()) {
             overlayCoordsData.magmaCoreProfitTrackerOverlay.scale -= 0.1;
+        } else if (settings.fishingProfitTrackerOverlayGui.isOpen()) {
+            overlayCoordsData.fishingProfitTrackerOverlay.scale -= 0.1;
         }
     }
     overlayCoordsData.save();
