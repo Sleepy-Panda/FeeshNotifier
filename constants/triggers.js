@@ -88,12 +88,12 @@ export const DEEP_SEA_ORB_MESSAGE = `RARE DROP! ${RESET}${DARK_PURPLE}Deep Sea O
 export const RADIOACTIVE_VIAL_MESSAGE = `RARE DROP! ${RESET}${LIGHT_PURPLE}Radioactive Vial ${MAGIC_FIND_MESSAGE_PATTERN}`; // RARE DROP! &r&dRadioactive Vial &r&b(+&r&b236% &r&b✯ Magic Find&r&b)
 export const MAGMA_CORE_MESSAGE = `RARE DROP! ${RESET}${BLUE}Magma Core ${MAGIC_FIND_MESSAGE_PATTERN}`; // RARE DROP! &r&9Magma Core &r&b(+&r&b236% &r&b✯ Magic Find&r&b)
 
-export const MUSIC_RUNE_MESSAGE = `${RESET}${DARK_PURPLE}${BOLD}GREAT CATCH! ${RESET}${AQUA}You found a ${RESET}${AQUA}◆ Music Rune I${RESET}${AQUA}.${RESET}`; // &r&5&lGREAT CATCH! &r&bYou found a &r&b◆ Music Rune I&r&b.&r
-export const AQUAMARINE_DYE_MESSAGE = `${RESET}${LIGHT_PURPLE}${BOLD}OUTSTANDING CATCH! ${RESET}${AQUA}You found a ${RESET}${AQUA}Aquamarine Dye`; // &r&d&lOUTSTANDING CATCH! &r&bYou found a &r&bAquamarine Dye
-export const ICEBERG_DYE_MESSAGE = `${RESET}${LIGHT_PURPLE}${BOLD}OUTSTANDING CATCH! ${RESET}${AQUA}You found a ${RESET}${DARK_AQUA}Iceberg Dye`; // &r&d&lOUTSTANDING CATCH! &r&bYou found a &r&3Iceberg Dye
-
+export const AQUAMARINE_DYE_MESSAGE = `${RESET}${LIGHT_PURPLE}${BOLD}WOW! ` + '${playerNameAndRank}' + ` ${RESET}${GOLD}found ${RESET}${AQUA}Aquamarine Dye${RESET}`; // &r&d&lWOW! &r&b[MVP&r&c+&r&b] &5MoonTheSadFisher&r&r&f &r&6found &r&bAquamarine Dye&r
+export const ICEBERG_DYE_MESSAGE = `${RESET}${LIGHT_PURPLE}${BOLD}WOW! ` + '${playerNameAndRank}' + ` ${RESET}${GOLD}found ${RESET}${DARK_AQUA}Iceberg Dye${RESET}`; // &r&d&lWOW! &r&b[MVP&r&c+&r&b] &5MoonTheSadFisher&r&r&f &r&6found &r&3Iceberg Dye&r
 export const CARMINE_DYE_MESSAGE = `${RESET}${LIGHT_PURPLE}${BOLD}WOW! ` + '${playerNameAndRank}' + ` ${RESET}${GOLD}found ${RESET}${DARK_RED}Carmine Dye${RESET}`; // &r&d&lWOW! &r&b[MVP&r&c+&r&b] &5MoonTheSadFisher&r&r&f &r&6found &r&4Carmine Dye&r
 export const MIDNIGHT_DYE_MESSAGE = `${RESET}${LIGHT_PURPLE}${BOLD}WOW! ` + '${playerNameAndRank}' + ` ${RESET}${GOLD}found ${RESET}${DARK_PURPLE}Midnight Dye${RESET}`; // &r&d&lWOW! &r&b[MVP&r&c+&r&b] &5MoonTheSadFisher&r&r&f &r&6found &r&5Midnight Dye&r
+
+export const MUSIC_RUNE_MESSAGE = `${RESET}${DARK_PURPLE}${BOLD}GREAT CATCH! ${RESET}${AQUA}You found a ${RESET}${AQUA}◆ Music Rune I${RESET}${AQUA}.${RESET}`; // &r&5&lGREAT CATCH! &r&bYou found a &r&b◆ Music Rune I&r&b.&r
 
 export const SQUID_PET_LEG_MESSAGE = `${DARK_PURPLE}${BOLD}GREAT CATCH! ${RESET}${AQUA}You found a ${RESET}${GRAY}[Lvl 1] ${RESET}${GOLD}Squid${RESET}${AQUA}.${RESET}`;
 export const SQUID_PET_EPIC_MESSAGE = `${DARK_PURPLE}${BOLD}GREAT CATCH! ${RESET}${AQUA}You found a ${RESET}${GRAY}[Lvl 1] ${RESET}${DARK_PURPLE}Squid${RESET}${AQUA}.${RESET}`;
@@ -338,26 +338,6 @@ export const RARE_DROP_TRIGGERS = [
 
 export const OUTSTANDING_CATCH_TRIGGERS = [
     {
-        trigger: AQUAMARINE_DYE_MESSAGE,
-        itemId: 'DYE_AQUAMARINE',
-        itemName: drops.AQUAMARINE_DYE,
-        sound: sounds.INSANE_SOUND_SOURCE,
-        isMessageEnabledSettingKey: 'messageOnAqumarineDyeDrop',
-        isAlertEnabledSettingKey: 'alertOnAqumarineDyeDrop',
-        rarityColorCode: AQUA,
-        shouldTrackDropNumber: false,
-    },
-    {
-        trigger: ICEBERG_DYE_MESSAGE,
-        itemId: 'DYE_ICEBERG',
-        itemName: drops.ICEBERG_DYE,
-        sound: sounds.INSANE_SOUND_SOURCE,
-        isMessageEnabledSettingKey: 'messageOnIcebergDyeDrop',
-        isAlertEnabledSettingKey: 'alertOnIcebergDyeDrop',
-        rarityColorCode: DARK_AQUA,
-        shouldTrackDropNumber: false,
-    },
-    {
         trigger: MUSIC_RUNE_MESSAGE,
         itemId: 'MUSIC_RUNE;1',
         itemName: drops.MUSIC_RUNE,
@@ -489,6 +469,26 @@ export const DYE_TRIGGERS = [
         isMessageEnabledSettingKey: 'messageOnMidnightDyeDrop',
         isAlertEnabledSettingKey: 'alertOnMidnightDyeDrop',
         rarityColorCode: DARK_PURPLE,
+        shouldTrackDropNumber: false,
+    },
+    {
+        trigger: AQUAMARINE_DYE_MESSAGE,
+        itemId: 'DYE_AQUAMARINE',
+        itemName: drops.AQUAMARINE_DYE,
+        sound: sounds.INSANE_SOUND_SOURCE,
+        isMessageEnabledSettingKey: 'messageOnAqumarineDyeDrop',
+        isAlertEnabledSettingKey: 'alertOnAqumarineDyeDrop',
+        rarityColorCode: AQUA,
+        shouldTrackDropNumber: false,
+    },
+    {
+        trigger: ICEBERG_DYE_MESSAGE,
+        itemId: 'DYE_ICEBERG',
+        itemName: drops.ICEBERG_DYE,
+        sound: sounds.INSANE_SOUND_SOURCE,
+        isMessageEnabledSettingKey: 'messageOnIcebergDyeDrop',
+        isAlertEnabledSettingKey: 'alertOnIcebergDyeDrop',
+        rarityColorCode: DARK_AQUA,
         shouldTrackDropNumber: false,
     },
 ];
