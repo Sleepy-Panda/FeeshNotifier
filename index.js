@@ -11,12 +11,14 @@ import { getCatchMessage, getColoredPlayerNameFromDisplayName, getColoredPlayerN
 import { trackTotemStatus, renderTotemOverlay } from './features/totem/totem';
 import { trackCatch, renderRareCatchTrackerOverlay } from './features/catch-tracker/catchTracker';
 import { renderHpOverlay, trackSeaCreaturesHp } from "./features/hp-tracker/hpTracker";
-import { renderCountOverlay, alertOnSeaCreaturesCountThreshold, trackSeaCreaturesCount } from "./features/count-tracker/countTracker";
-import { alertOnNonFishingArmor } from "./features/alert-armor/alertOnNonFishingArmor";
+import { renderCountOverlay, alertOnSeaCreaturesCountThreshold, alertOnSeaCreaturesTimerThreshold, trackSeaCreaturesCount } from "./features/count-tracker/countTracker";
+import { alertOnNonFishingArmor } from "./features/alert/alertOnNonFishingArmor";
 import { trackPlayerState } from "./utils/playerState";
-import { alertOnWormTheFishCatch } from "./features/alert-worm-the-fish/alertOnWormTheFish";
+import { alertOnWormTheFishCatch } from "./features/alert/alertOnWormTheFish";
 import { sendMessageOnPlayerDeath } from "./features/chat/messageOnPlayerDeath";
 import { playAlertOnPlayerDeath } from "./features/alert/alertOnPlayerDeath";
+import { highlightCheapBooks } from "./features/inventory/highlightCheapBooks";
+import { renderLegionAndBobbingTimeOverlay, trackPlayersAndFishingHooksNearby } from "./features/legion-and-bobbing-time-tracker/legionAndBobbingTimeTracker";
 
 register('worldLoad', () => {
     Client.showTitle('', '', 1, 1, 1); // Shitty fix for a title not showing for the 1st time
@@ -32,19 +34,31 @@ register('renderOverlay', () => renderTotemOverlay());
 
 // Sea creatures HP
 
-register('step', () => trackSeaCreaturesHp()).setFps(2);
+register('step', () => trackSeaCreaturesHp()).setFps(4);
 register('renderOverlay', () => renderHpOverlay());
 
 // Sea creatures count + barn fish timer
 
 register('step', () => trackSeaCreaturesCount()).setFps(2);
 register('step', () => alertOnSeaCreaturesCountThreshold()).setFps(1);
+register('step', () => alertOnSeaCreaturesTimerThreshold()).setFps(1);
 register('renderOverlay', () => renderCountOverlay());
 
-// Wrong armor
+// Non-fishing armor
 
 register("playerInteract", (action, pos, event) => {
     alertOnNonFishingArmor(action, pos, event);
+});
+
+// Players and fishing hooks (legion / bobbing time)
+
+register('step', () => trackPlayersAndFishingHooksNearby()).setFps(2);
+register('renderOverlay', () => renderLegionAndBobbingTimeOverlay());
+
+// Highlight cheap enchanted books
+
+register('renderSlot', (slot, gui, event) => {
+    highlightCheapBooks(slot, gui);
 });
 
 // Party member's death (Jawbus, Thunder)
@@ -72,7 +86,7 @@ triggers.KILLED_BY_TRIGGERS.forEach(entry => {
 
 register('renderWorld', () => alertOnWormTheFishCatch());
 
-// Rare catch triggers
+// Rare catches overlay
 
 register('renderOverlay', () => renderRareCatchTrackerOverlay());
 

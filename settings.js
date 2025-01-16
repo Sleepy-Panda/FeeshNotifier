@@ -1,9 +1,9 @@
-import { AQUA, GOLD, GRAY, RED, WHITE, BLUE } from "./constants/formatting";
+import { AQUA, GOLD, GRAY, RED, WHITE, BLUE, DARK_GRAY } from "./constants/formatting";
 import { @Vigilant, @ButtonProperty, @SwitchProperty, @SelectorProperty, @SliderProperty } from "../Vigilance/index"
 
 @Vigilant("FeeshNotifier/config", "FeeshNotifier Settings", {
     getCategoryComparator: () => (a, b) => {
-        const categories = ["General", "Chat", "Alerts", "Overlays"];
+        const categories = ["General", "Chat", "Alerts", "Overlays", "Inventory"];
 
         return categories.indexOf(a.name) - categories.indexOf(b.name);
     }
@@ -24,6 +24,7 @@ class Settings {
     rareCatchesTrackerOverlayGui = new Gui();
     seaCreaturesHpOverlayGui = new Gui();
     seaCreaturesCountOverlayGui = new Gui();
+    legionAndBobbingTimeOverlayGui = new Gui();
 
     // ******* GENERAL ******* //
 
@@ -295,6 +296,16 @@ class Settings {
     })
     seaCreaturesCountThreshold_Default = 50;
 
+    // ******* ALERTS - Sea creatures timer ******* //
+
+    @SwitchProperty({
+        name: "Alert when sea creatures are alive for 5+ minutes",
+        description: `Shows a title and plays a sound when the sea creatures nearby are alive for 5+ minutes. ${RED}Disabled if you have no fishing rod in your hotbar!`,
+        category: "Alerts",
+        subcategory: "Sea creatures timer"
+    })
+    alertOnSeaCreaturesTimerThreshold = false;
+
     // ******* ALERTS - Rare Catches ******* //
 
     @SwitchProperty({
@@ -505,7 +516,7 @@ class Settings {
         placeholder: "Reset"
     })
     resetRareCatchesTracker() {
-        ChatLib.command("feeshResetRareCatches", true);
+        ChatLib.command("feeshResetRareCatches noconfirm", true);
     }
 
     // ******* OVERLAYS - Sea creatures HP ******* //
@@ -551,6 +562,38 @@ class Settings {
         showOverlayMoveHelp();
         this.seaCreaturesCountOverlayGui.open();
     };
+
+    // ******* OVERLAYS - Legion & Bobbing Time ******* //
+
+    @SwitchProperty({
+        name: "Legion & Bobbing Time",
+        description: `Shows an overlay with the amount of players within 30 blocks (excluding you), and amount of fishing hooks within 30 blocks (including your own hook). ${RED}Hidden if you have no fishing rod in your hotbar!\n\n${DARK_GRAY}If you have other players' hooks hidden by the mods, this may not work correctly. E.g. it works with NEU hooks hider, but doesn't work with Skytils.`,
+        category: "Overlays",
+        subcategory: "Legion & Bobbing Time"
+    })
+    legionAndBobbingTimeOverlay = false;
+
+    @ButtonProperty({
+        name: "Move Legion & Bobbing Time",
+        description: "Moves the overlay text.",
+        category: "Overlays",
+        subcategory: "Legion & Bobbing Time",
+        placeholder: "Move"
+    })
+    moveLegionAndBobbingTimeOverlay() {
+        showOverlayMoveHelp();
+        this.legionAndBobbingTimeOverlayGui.open();
+    };
+
+    // ******* INVENTORY - Highlight ******* //
+
+    @SwitchProperty({
+        name: "Highlight cheap enchanted books",
+        description: `Use red background for the fishing enchanted books that are worth nothing (e.g. Corruption), when they are in your inventory and storages. ${DARK_GRAY}For people who accidentally throw away Blessing and Prosperity c:`,
+        category: "Inventory",
+        subcategory: "Highlight"
+    })
+    highlightCheapBooks = false;
 }
 
 export default new Settings()

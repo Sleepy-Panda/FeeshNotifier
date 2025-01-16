@@ -43,7 +43,7 @@ export function alertOnNonFishingArmor(action, pos, event) {
     }
 
     if (fishingArmorCount < 2) {
-        Client.showTitle(`${RED}Equip fishing armor!`, "", 1, 30, 1);
+        Client.showTitle(`${RED}Equip fishing armor!`, '', 1, 30, 1);
     }
 }
 

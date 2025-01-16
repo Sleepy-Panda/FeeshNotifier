@@ -2,13 +2,34 @@ import settings from "../../settings";
 import * as seaCreatures from '../../constants/seaCreatures';
 import { persistentData } from "../../data/data";
 import { overlayCoordsData } from "../../data/overlayCoords";
-import { fromUppercaseToCapitalizedFirstLetters, hasDoubleHookInMessage, hasDoubleHookInMessage_Reindrake, pluralize } from '../../utils/common';
-import { WHITE, GOLD, BOLD, YELLOW, GRAY } from "../../constants/formatting";
+import { fromUppercaseToCapitalizedFirstLetters, pluralize } from '../../utils/common';
+import { WHITE, GOLD, BOLD, YELLOW, GRAY, RED, UNDERLINE } from "../../constants/formatting";
 import { RARE_CATCH_TRIGGERS } from "../../constants/triggers";
 import { getWorldName, hasFishingRodInHotbar, isInSkyblock } from "../../utils/playerState";
 
-export function resetRareCatchesTracker() {
+// DisplayLine is initialized once in order to avoid multiple method calls on click.
+let resetTrackerDisplay = new Display().hide();
+let resetTrackerDisplayLine = new DisplayLine(`${RED}[Click to reset]`).setShadow(true);
+resetTrackerDisplayLine.registerClicked((x, y, mouseButton, buttonState) => {
+    if (mouseButton === 0 && buttonState === false) { // When left mouse button is UP. 0 is left mouse button, false is UP, true is DOWN. 
+        resetRareCatchesTracker(false);
+    }
+});
+resetTrackerDisplayLine.registerHovered(() => resetTrackerDisplayLine.setText(`${RED}${UNDERLINE}[Click to reset]`).setShadow(true));
+resetTrackerDisplayLine.registerMouseLeave(() => resetTrackerDisplayLine.setText(`${RED}[Click to reset]`).setShadow(true));
+resetTrackerDisplay.addLine(resetTrackerDisplayLine);
+
+export function resetRareCatchesTracker(isConfirmed) {
     try {
+        if (!isConfirmed) {
+            new Message(
+                new TextComponent(`${GOLD}[FeeshNotifier] ${WHITE}Do you want to reset rare catches tracker? ${RED}${BOLD}[Click to confirm]`)
+                    .setClickAction('run_command')
+                    .setClickValue('/feeshResetRareCatches noconfirm')
+            ).chat();
+            return;
+        }
+
         if (persistentData.totalRareCatches > 0 && persistentData.rareCatches) {
             var catches = Object.entries(persistentData.rareCatches)
                 .map(([key, value]) => {
@@ -42,6 +63,10 @@ export function trackCatch(options) {
             return;
         }
     
+        if (options.seaCreature === seaCreatures.VANQUISHER && !hasFishingRodInHotbar()) {
+            return;
+        }
+
         const valueToAdd = options.isDoubleHook ? 2 : 1;
         const currentAmount = persistentData.rareCatches[options.seaCreature] ? persistentData.rareCatches[options.seaCreature].amount : 0;
     
@@ -73,7 +98,9 @@ export function renderRareCatchTrackerOverlay() {
         !Object.entries(persistentData.rareCatches).length ||
         !isInSkyblock() ||
         getWorldName() === 'Kuudra' ||
-        !hasFishingRodInHotbar()) {
+        !hasFishingRodInHotbar()
+    ) {
+        resetTrackerDisplay.hide();
         return;
     }
 
@@ -96,4 +123,15 @@ export function renderRareCatchTrackerOverlay() {
         .setShadow(true)
         .setScale(overlayCoordsData.rareCatchesTrackerOverlay.scale);
     overlay.draw();
+
+    const isInChatOrInventoryGui = Client.Companion.isInGui() && (Client.currentGui?.getClassName() === 'GuiInventory' || Client.currentGui?.getClassName() === 'GuiChatOF');
+    if (isInChatOrInventoryGui) {
+        resetTrackerDisplayLine.setScale(overlayCoordsData.rareCatchesTrackerOverlay.scale - 0.2);
+        resetTrackerDisplay
+            .setRenderX(overlayCoordsData.rareCatchesTrackerOverlay.x)
+            .setRenderY(overlayCoordsData.rareCatchesTrackerOverlay.y + overlay.getHeight() + 2).show();
+    
+    } else {
+        resetTrackerDisplay.hide();
+    }
 }
