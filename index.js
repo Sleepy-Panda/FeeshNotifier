@@ -11,6 +11,7 @@ import { playAlertOnCatch } from './features/alerts/alertOnCatch';
 import { playAlertOnDrop } from './features/alerts/alertOnDrop';
 import { getCatchMessage, getColoredPlayerNameFromDisplayName, getColoredPlayerNameFromPartyChat, getDoubleHookCatchMessage, getDropMessagePattern, getPartyChatMessage, getPlayerDeathMessage, isDoubleHook } from './utils/common';
 import { trackCatch, renderRareCatchTrackerOverlay } from './features/overlays/rareCatchesTracker';
+import "./features/chat/announceMobSpawnToAllChat";
 import "./features/chat/messageOnPlayerDeath";
 import "./features/alerts/alertOnPlayerDeath";
 import "./features/overlays/totemTracker";
@@ -28,6 +29,7 @@ import "./features/inventory/showThunderBottleProgress";
 import "./features/inventory/showPetLevel";
 import "./features/inventory/showArmorAttributes";
 import "./features/inventory/showFishingRodAttributes";
+import "./features/inventory/showRarityUpgrade";
 import "./features/alerts/alertOnThunderBottleCharged";
 import "./features/alerts/alertOnSpiritMaskUsed";
 import "./features/overlays/jerryWorkshopTracker";
@@ -113,10 +115,11 @@ triggers.RARE_DROP_TRIGGERS.forEach(entry => {
             });
 
             sendMessageOnDrop({
+                itemId: entry.itemId,
                 itemName: entry.itemName,
                 rarityColorCode: entry.rarityColorCode,
                 magicFind: magicFind,
-                sound: entry.sound,
+                shouldTrackDropNumber: entry.shouldTrackDropNumber,
                 isEnabled: settings[entry.isMessageEnabledSettingKey]
             });
         }
@@ -152,10 +155,11 @@ triggers.OUTSTANDING_CATCH_TRIGGERS.forEach(entry => {
             });
 
             sendMessageOnDrop({
+                itemId: entry.itemId,
                 itemName: entry.itemName,
                 rarityColorCode: entry.rarityColorCode,
                 magicFind: null,
-                sound: entry.sound,
+                shouldTrackDropNumber: entry.shouldTrackDropNumber,
                 isEnabled: settings[entry.isMessageEnabledSettingKey]
             });
         }
@@ -194,10 +198,11 @@ triggers.DYE_TRIGGERS.forEach(entry => {
             });
 
             sendMessageOnDrop({
+                itemId: entry.itemId,
                 itemName: entry.itemName,
                 rarityColorCode: entry.rarityColorCode,
                 magicFind: null,
-                sound: entry.sound,
+                shouldTrackDropNumber: entry.shouldTrackDropNumber,
                 isEnabled: settings[entry.isMessageEnabledSettingKey]
             });
         }

@@ -1,7 +1,7 @@
 import * as drops from './drops';
 import * as sounds from './sounds';
 import * as seaCreatures from './seaCreatures';
-import { GREEN, GOLD, DARK_PURPLE, LIGHT_PURPLE, BLUE, RED, BOLD, RESET, COMMON, RARE, EPIC, LEGENDARY, MYTHIC, GRAY, AQUA, YELLOW, DARK_RED, DARK_AQUA } from './formatting';
+import { GREEN, GOLD, DARK_PURPLE, LIGHT_PURPLE, BLUE, RED, BOLD, RESET, COMMON, RARE, EPIC, LEGENDARY, MYTHIC, GRAY, AQUA, YELLOW, DARK_RED, DARK_AQUA, WHITE, UNCOMMON } from './formatting';
 
 // WATER SEA CREATURES
 
@@ -95,6 +95,18 @@ export const ICEBERG_DYE_MESSAGE = `${RESET}${LIGHT_PURPLE}${BOLD}OUTSTANDING CA
 export const CARMINE_DYE_MESSAGE = `${RESET}${LIGHT_PURPLE}${BOLD}WOW! ` + '${playerNameAndRank}' + ` ${RESET}${GOLD}found ${RESET}${DARK_RED}Carmine Dye${RESET}`; // &r&d&lWOW! &r&b[MVP&r&c+&r&b] &5MoonTheSadFisher&r&r&f &r&6found &r&4Carmine Dye&r
 export const MIDNIGHT_DYE_MESSAGE = `${RESET}${LIGHT_PURPLE}${BOLD}WOW! ` + '${playerNameAndRank}' + ` ${RESET}${GOLD}found ${RESET}${DARK_PURPLE}Midnight Dye${RESET}`; // &r&d&lWOW! &r&b[MVP&r&c+&r&b] &5MoonTheSadFisher&r&r&f &r&6found &r&5Midnight Dye&r
 
+export const SQUID_PET_LEG_MESSAGE = `${DARK_PURPLE}${BOLD}GREAT CATCH! ${RESET}${AQUA}You found a ${RESET}${GRAY}[Lvl 1] ${RESET}${GOLD}Squid${RESET}${AQUA}.${RESET}`;
+export const SQUID_PET_EPIC_MESSAGE = `${DARK_PURPLE}${BOLD}GREAT CATCH! ${RESET}${AQUA}You found a ${RESET}${GRAY}[Lvl 1] ${RESET}${DARK_PURPLE}Squid${RESET}${AQUA}.${RESET}`;
+export const SQUID_PET_RARE_MESSAGE = `${DARK_PURPLE}${BOLD}GREAT CATCH! ${RESET}${AQUA}You found a ${RESET}${GRAY}[Lvl 1] ${RESET}${BLUE}Squid${RESET}${AQUA}.${RESET}`;
+export const SQUID_PET_UNCOMMON_MESSAGE = `${DARK_PURPLE}${BOLD}GREAT CATCH! ${RESET}${AQUA}You found a ${RESET}${GRAY}[Lvl 1] ${RESET}${GREEN}Squid${RESET}${AQUA}.${RESET}`;
+export const SQUID_PET_COMMON_MESSAGE = `${DARK_PURPLE}${BOLD}GREAT CATCH! ${RESET}${AQUA}You found a ${RESET}${GRAY}[Lvl 1] ${RESET}${WHITE}Squid${RESET}${AQUA}.${RESET}`;
+
+export const GUARDIAN_PET_LEG_MESSAGE = `${DARK_PURPLE}${BOLD}GREAT CATCH! ${RESET}${AQUA}You found a ${RESET}${GRAY}[Lvl 1] ${RESET}${GOLD}Guardian${RESET}${AQUA}.${RESET}`;
+export const GUARDIAN_PET_EPIC_MESSAGE = `${DARK_PURPLE}${BOLD}GREAT CATCH! ${RESET}${AQUA}You found a ${RESET}${GRAY}[Lvl 1] ${RESET}${DARK_PURPLE}Guardian${RESET}${AQUA}.${RESET}`;
+export const GUARDIAN_PET_RARE_MESSAGE = `${DARK_PURPLE}${BOLD}GREAT CATCH! ${RESET}${AQUA}You found a ${RESET}${GRAY}[Lvl 1] ${RESET}${BLUE}Guardian${RESET}${AQUA}.${RESET}`;
+export const GUARDIAN_PET_UNCOMMON_MESSAGE = `${DARK_PURPLE}${BOLD}GREAT CATCH! ${RESET}${AQUA}You found a ${RESET}${GRAY}[Lvl 1] ${RESET}${GREEN}Guardian${RESET}${AQUA}.${RESET}`;
+export const GUARDIAN_PET_COMMON_MESSAGE = `${DARK_PURPLE}${BOLD}GREAT CATCH! ${RESET}${AQUA}You found a ${RESET}${GRAY}[Lvl 1] ${RESET}${WHITE}Guardian${RESET}${AQUA}.${RESET}`;
+
 // OTHER
 
 export const KILLED_BY_THUNDER_MESSAGE = `${RESET}${GRAY}You were killed by Thunder${RESET}${GRAY}${RESET}${GRAY}.`; // &r&7You were killed by Thunder&r&7&r&7.
@@ -183,6 +195,7 @@ export const RARE_CATCH_TRIGGERS = [
         seaCreature: seaCreatures.THUNDER,
         isMessageEnabledSettingKey: 'messageOnThunderCatch',
         isAlertEnabledSettingKey: 'alertOnThunderCatch',
+        isAnnounceToAllChatEnabledSettingKey: 'announceToAllChatOnThunderCatch',
         rarityColorCode: MYTHIC
     },
     {
@@ -190,6 +203,7 @@ export const RARE_CATCH_TRIGGERS = [
         seaCreature: seaCreatures.LORD_JAWBUS,
         isMessageEnabledSettingKey: 'messageOnLordJawbusCatch',
         isAlertEnabledSettingKey: 'alertOnLordJawbusCatch',
+        isAnnounceToAllChatEnabledSettingKey: 'announceToAllChatOnLordJawbusCatch',
         rarityColorCode: MYTHIC
     },
     {
@@ -204,6 +218,7 @@ export const RARE_CATCH_TRIGGERS = [
         seaCreature: seaCreatures.VANQUISHER,
         isMessageEnabledSettingKey: 'messageOnVanquisherCatch',
         isAlertEnabledSettingKey: 'alertOnVanquisherCatch',
+        isAnnounceToAllChatEnabledSettingKey: 'announceToAllChatOnVanquisherCatch',
         rarityColorCode: EPIC
     },
 ];
@@ -211,137 +226,270 @@ export const RARE_CATCH_TRIGGERS = [
 export const RARE_DROP_TRIGGERS = [
     {
         trigger: BABY_YETI_PET_LEG_MESSAGE,
+        itemId: 'BABY_YETI;4',
         itemName: drops.BABY_YETI_PET + ' (Legendary)',
         sound: sounds.SHEESH_SOUND_SOURCE,
         isMessageEnabledSettingKey: 'messageOnBabyYetiPetDrop',
         isAlertEnabledSettingKey: 'alertOnBabyYetiPetDrop',
-        rarityColorCode: LEGENDARY
+        rarityColorCode: LEGENDARY,
+        shouldTrackDropNumber: true,
     },
     {
         trigger: BABY_YETI_PET_EPIC_MESSAGE,
+        itemId: 'BABY_YETI;3',
         itemName: drops.BABY_YETI_PET + ' (Epic)',
         sound: sounds.AUGH_SOUND_SOURCE,
         isMessageEnabledSettingKey: 'messageOnBabyYetiPetDrop',
         isAlertEnabledSettingKey: 'alertOnBabyYetiPetDrop',
-        rarityColorCode: EPIC
+        rarityColorCode: EPIC,
+        shouldTrackDropNumber: true,
     },
     {
         trigger: FLYING_FISH_PET_LEG_MESSAGE,
+        itemId: 'FLYING_FISH;4',
         itemName: drops.FLYING_FISH_PET + ' (Legendary)',
         sound: sounds.WOW_SOUND_SOURCE,
         isMessageEnabledSettingKey: 'messageOnFlyingFishPetDrop',
         isAlertEnabledSettingKey: 'alertOnFlyingFishPetDrop',
-        rarityColorCode: LEGENDARY
+        rarityColorCode: LEGENDARY,
+        shouldTrackDropNumber: true,
     },
     {
         trigger: FLYING_FISH_PET_EPIC_MESSAGE,
+        itemId: 'FLYING_FISH;3',
         itemName: drops.FLYING_FISH_PET + ' (Epic)',
         sound: sounds.AUGH_SOUND_SOURCE,
         isMessageEnabledSettingKey: 'messageOnFlyingFishPetDrop',
         isAlertEnabledSettingKey: 'alertOnFlyingFishPetDrop',
-        rarityColorCode: EPIC
+        rarityColorCode: EPIC,
+        shouldTrackDropNumber: true,
     },
     {
         trigger: FLYING_FISH_PET_RARE_MESSAGE,
+        itemId: 'FLYING_FISH;2',
         itemName: drops.FLYING_FISH_PET + ' (Rare)',
         sound: sounds.GOOFY_LAUGH_SOUND_SOURCE,
         isMessageEnabledSettingKey: 'messageOnFlyingFishPetDrop',
         isAlertEnabledSettingKey: 'alertOnFlyingFishPetDrop',
-        rarityColorCode: RARE
+        rarityColorCode: RARE,
+        shouldTrackDropNumber: true,
     },
     {
         trigger: LUCKY_CLOVER_CORE_MESSAGE,
+        itemId: 'PET_ITEM_LUCKY_CLOVER_DROP',
         itemName: drops.LUCKY_CLOVER_CORE,
         sound: sounds.OH_MY_GOD_SOUND_SOURCE,
         isMessageEnabledSettingKey: 'messageOnLuckyCloverCoreDrop',
         isAlertEnabledSettingKey: 'alertOnLuckyCloverCoreDrop',
-        rarityColorCode: EPIC
+        rarityColorCode: EPIC,
+        shouldTrackDropNumber: true,
     },
     {
         trigger: MEGALODON_PET_LEG_MESSAGE,
+        itemId: 'MEGALODON;4',
         itemName: drops.MEGALODON_PET + ' (Legendary)',
         sound: sounds.WOW_SOUND_SOURCE,
         isMessageEnabledSettingKey: 'messageOnMegalodonPetDrop',
         isAlertEnabledSettingKey: 'alertOnMegalodonPetDrop',
-        rarityColorCode: LEGENDARY
+        rarityColorCode: LEGENDARY,
+        shouldTrackDropNumber: true,
     },
     {
         trigger: MEGALODON_PET_EPIC_MESSAGE,
+        itemId: 'MEGALODON;3',
         itemName: drops.MEGALODON_PET + ' (Epic)',
         sound: sounds.AUGH_SOUND_SOURCE,
         isMessageEnabledSettingKey: 'messageOnMegalodonPetDrop',
         isAlertEnabledSettingKey: 'alertOnMegalodonPetDrop',
-        rarityColorCode: EPIC
+        rarityColorCode: EPIC,
+        shouldTrackDropNumber: true,
     },
     {
         trigger: DEEP_SEA_ORB_MESSAGE,
+        itemId: 'DEEP_SEA_ORB',
         itemName: drops.DEEP_SEA_ORB,
         sound: sounds.OH_MY_GOD_SOUND_SOURCE,
         isMessageEnabledSettingKey: 'messageOnDeepSeaOrbDrop',
         isAlertEnabledSettingKey: 'alertOnDeepSeaOrbDrop',
-        rarityColorCode: EPIC
+        rarityColorCode: EPIC,
+        shouldTrackDropNumber: true,
     },
     {
         trigger: RADIOACTIVE_VIAL_MESSAGE,
+        itemId: 'RADIOACTIVE_VIAL',
         itemName: drops.RADIOACTIVE_VIAL,
         sound: sounds.MC_RARE_ACHIEVEMENT_SOURCE,
         isMessageEnabledSettingKey: 'messageOnRadioactiveVialDrop',
         isAlertEnabledSettingKey: 'alertOnRadioactiveVialDrop',
-        rarityColorCode: MYTHIC
+        rarityColorCode: MYTHIC,
+        shouldTrackDropNumber: false,
     },
     {
         trigger: MAGMA_CORE_MESSAGE,
+        itemId: 'MAGMA_CORE',
         itemName: drops.MAGMA_CORE,
         sound: sounds.OH_MY_GOD_SOUND_SOURCE,
         isMessageEnabledSettingKey: 'messageOnMagmaCoreDrop',
         isAlertEnabledSettingKey: 'alertOnMagmaCoreDrop',
-        rarityColorCode: RARE
+        rarityColorCode: RARE,
+        shouldTrackDropNumber: true,
     },
 ];
 
 export const OUTSTANDING_CATCH_TRIGGERS = [
     {
         trigger: AQUAMARINE_DYE_MESSAGE,
+        itemId: 'DYE_AQUAMARINE',
         itemName: drops.AQUAMARINE_DYE,
         sound: sounds.INSANE_SOUND_SOURCE,
         isMessageEnabledSettingKey: 'messageOnAqumarineDyeDrop',
         isAlertEnabledSettingKey: 'alertOnAqumarineDyeDrop',
-        rarityColorCode: AQUA
+        rarityColorCode: AQUA,
+        shouldTrackDropNumber: false,
     },
     {
         trigger: ICEBERG_DYE_MESSAGE,
+        itemId: 'DYE_ICEBERG',
         itemName: drops.ICEBERG_DYE,
         sound: sounds.INSANE_SOUND_SOURCE,
         isMessageEnabledSettingKey: 'messageOnIcebergDyeDrop',
         isAlertEnabledSettingKey: 'alertOnIcebergDyeDrop',
-        rarityColorCode: DARK_AQUA
+        rarityColorCode: DARK_AQUA,
+        shouldTrackDropNumber: false,
     },
     {
         trigger: MUSIC_RUNE_MESSAGE,
+        itemId: 'MUSIC_RUNE;1',
         itemName: drops.MUSIC_RUNE,
         sound: sounds.MUSIC_RUNE_SOUND_SOURCE,
         isMessageEnabledSettingKey: 'messageOnMusicRuneDrop',
         isAlertEnabledSettingKey: 'alertOnMusicRuneDrop',
-        rarityColorCode: EPIC
+        rarityColorCode: EPIC,
+        shouldTrackDropNumber: true,
+    },
+    {
+        trigger: SQUID_PET_LEG_MESSAGE,
+        itemId: 'SQUID;4',
+        itemName: drops.SQUID_PET + ' (Legendary)',
+        sound: sounds.WOW_SOUND_SOURCE,
+        isMessageEnabledSettingKey: 'messageOnSquidPetDrop',
+        isAlertEnabledSettingKey: 'alertOnSquidPetDrop',
+        rarityColorCode: LEGENDARY,
+        shouldTrackDropNumber: true,
+    },
+    {
+        trigger: SQUID_PET_EPIC_MESSAGE,
+        itemId: 'SQUID;3',
+        itemName: drops.SQUID_PET + ' (Epic)',
+        sound: sounds.AUGH_SOUND_SOURCE,
+        isMessageEnabledSettingKey: 'messageOnSquidPetDrop',
+        isAlertEnabledSettingKey: 'alertOnSquidPetDrop',
+        rarityColorCode: EPIC,
+        shouldTrackDropNumber: true,
+    },
+    {
+        trigger: SQUID_PET_RARE_MESSAGE,
+        itemId: 'SQUID;2',
+        itemName: drops.SQUID_PET + ' (Rare)',
+        sound: sounds.GOOFY_LAUGH_SOUND_SOURCE,
+        isMessageEnabledSettingKey: 'messageOnSquidPetDrop',
+        isAlertEnabledSettingKey: 'alertOnSquidPetDrop',
+        rarityColorCode: RARE,
+        shouldTrackDropNumber: true,
+    },
+    {
+        trigger: SQUID_PET_UNCOMMON_MESSAGE,
+        itemId: 'SQUID;1',
+        itemName: drops.SQUID_PET + ' (Uncommon)',
+        sound: sounds.GOOFY_LAUGH_SOUND_SOURCE,
+        isMessageEnabledSettingKey: 'messageOnSquidPetDrop',
+        isAlertEnabledSettingKey: 'alertOnSquidPetDrop',
+        rarityColorCode: UNCOMMON,
+        shouldTrackDropNumber: true,
+    },
+    {
+        trigger: SQUID_PET_COMMON_MESSAGE,
+        itemId: 'SQUID;0',
+        itemName: drops.SQUID_PET + ' (Common)',
+        sound: sounds.GOOFY_LAUGH_SOUND_SOURCE,
+        isMessageEnabledSettingKey: 'messageOnSquidPetDrop',
+        isAlertEnabledSettingKey: 'alertOnSquidPetDrop',
+        rarityColorCode: COMMON,
+        shouldTrackDropNumber: true,
+    },
+
+    {
+        trigger: GUARDIAN_PET_LEG_MESSAGE,
+        itemId: 'GUARDIAN;4',
+        itemName: drops.GUARDIAN_PET + ' (Legendary)',
+        sound: sounds.WOW_SOUND_SOURCE,
+        isMessageEnabledSettingKey: 'messageOnGuardianPetDrop',
+        isAlertEnabledSettingKey: 'alertOnGuardianPetDrop',
+        rarityColorCode: LEGENDARY,
+        shouldTrackDropNumber: true,
+    },
+    {
+        trigger: GUARDIAN_PET_EPIC_MESSAGE,
+        itemId: 'GUARDIAN;3',
+        itemName: drops.GUARDIAN_PET + ' (Epic)',
+        sound: sounds.AUGH_SOUND_SOURCE,
+        isMessageEnabledSettingKey: 'messageOnGuardianPetDrop',
+        isAlertEnabledSettingKey: 'alertOnGuardianPetDrop',
+        rarityColorCode: EPIC,
+        shouldTrackDropNumber: true,
+    },
+    {
+        trigger: GUARDIAN_PET_RARE_MESSAGE,
+        itemId: 'GUARDIAN;2',
+        itemName: drops.GUARDIAN_PET + ' (Rare)',
+        sound: sounds.GOOFY_LAUGH_SOUND_SOURCE,
+        isMessageEnabledSettingKey: 'messageOnGuardianPetDrop',
+        isAlertEnabledSettingKey: 'alertOnGuardianPetDrop',
+        rarityColorCode: RARE,
+        shouldTrackDropNumber: true,
+    },
+    {
+        trigger: GUARDIAN_PET_UNCOMMON_MESSAGE,
+        itemId: 'GUARDIAN;1',
+        itemName: drops.GUARDIAN_PET + ' (Uncommon)',
+        sound: sounds.GOOFY_LAUGH_SOUND_SOURCE,
+        isMessageEnabledSettingKey: 'messageOnGuardianPetDrop',
+        isAlertEnabledSettingKey: 'alertOnGuardianPetDrop',
+        rarityColorCode: UNCOMMON,
+        shouldTrackDropNumber: true,
+    },
+    {
+        trigger: GUARDIAN_PET_COMMON_MESSAGE,
+        itemId: 'GUARDIAN;0',
+        itemName: drops.GUARDIAN_PET + ' (Common)',
+        sound: sounds.GOOFY_LAUGH_SOUND_SOURCE,
+        isMessageEnabledSettingKey: 'messageOnGuardianPetDrop',
+        isAlertEnabledSettingKey: 'alertOnGuardianPetDrop',
+        rarityColorCode: COMMON,
+        shouldTrackDropNumber: true,
     },
 ];
 
 export const DYE_TRIGGERS = [
     {
         trigger: CARMINE_DYE_MESSAGE,
+        itemId: 'DYE_CARMINE',
         itemName: drops.CARMINE_DYE,
         sound: sounds.INSANE_SOUND_SOURCE,
         isMessageEnabledSettingKey: 'messageOnCarmineDyeDrop',
         isAlertEnabledSettingKey: 'alertOnCarmineDyeDrop',
-        rarityColorCode: DARK_RED
+        rarityColorCode: DARK_RED,
+        shouldTrackDropNumber: false,
     },
     {
         trigger: MIDNIGHT_DYE_MESSAGE,
+        itemId: 'DYE_MIDNIGHT',
         itemName: drops.MIDNIGHT_DYE,
         sound: sounds.INSANE_SOUND_SOURCE,
         isMessageEnabledSettingKey: 'messageOnMidnightDyeDrop',
         isAlertEnabledSettingKey: 'alertOnMidnightDyeDrop',
-        rarityColorCode: DARK_PURPLE
+        rarityColorCode: DARK_PURPLE,
+        shouldTrackDropNumber: false,
     },
 ];
 

@@ -1,5 +1,19 @@
 # Releases
 
+## v1.16.0
+
+Released: 2024-08-30
+
+- Added setting to show dropped item's ordinal number for the current session in the party chat message. This requires Fishing Profit Tracker to be enabled. Search for "Include drop number" setting.
+- Added settings to share the location to ALL chat on Thunder / Lord Jawbus / Vanquisher spawn. Search for "Rare Catches - All Chat" settings section. Disabled by default.
+- Added limitations for displayed lines in the fishing profit tracker - now you can hide entries cheaper than the specified threshold, and to limit maximum amount of lines.
+Search for "Hide cheap items" and "Maximum items count" settings to configure.
+- Added Guardian pet and Squid pet drop alerts & party pings.
+- Added setting to show if an item has rarity upgrade (autorecombobulated fishing items). Disabled by default, search for "Rarity upgrade".
+- Applied pet rarity colors when rendering pet level.
+- Fixed items crafted from Supercraft menu being added to the Fishing Profit Tracker.
+- Added Yeti to Sea Creatures HP tracker.
+
 ## v1.15.0
 
 Released: 2024-08-16

@@ -47,9 +47,9 @@ export function getDoubleHookCatchTitle(seaCreature, rarityColorCode) {
 	return `${rarityColorCode}${BOLD}${seaCreature} ${RED}${BOLD}X2`;
 }
 
-export function getDropMessage(item, magicFind) {
-	return magicFind
-		? `--> ${getArticle(item)} ${item} has dropped (+${magicFind}% ✯ Magic Find) <--`
+export function getDropMessage(item, metadata) {
+	return metadata && metadata.length
+		? `--> ${getArticle(item)} ${item} has dropped (${metadata.join(', ')}) <--`
 		: `--> ${getArticle(item)} ${item} has dropped <--`;
 }
 
@@ -196,13 +196,13 @@ export function isInChatOrInventoryGui() {
 }
 
 export function isInSacksGui() {
-	if (Client.isInGui() && Client.currentGui?.getClassName() === 'GuiChest') {
-		const chestName = Client.currentGui?.get()?.field_147002_h?.func_85151_d()?.func_145748_c_()?.text;
-		if (chestName && chestName.includes('Sack')) {
-			return true;
-		}
-	}
-	return false;
+	const chestName = getCurrentGuiChestName();
+	return (!!chestName && chestName.endsWith('Sack'));
+}
+
+export function isInSupercraftGui() {
+	const chestName = getCurrentGuiChestName();
+	return (!!chestName && chestName.endsWith('Recipe'));
 }
 
 export function getPlayerNamesInRange(distance) {
@@ -250,7 +250,25 @@ export function getItemsAddedToSacks(eventMessage) {
 	return items;
 }
 
+export function getCleanItemName(itemName) {
+    if (itemName && /.+ §8x[\d]+$/.test(itemName)) { // Booster cookie menu or NPCs append the amount to the item name - e.g. §9Fish Affinity Talisman §8x1
+        const itemNameParts = itemName.split(' ');
+        itemNameParts.pop();
+        itemName = itemNameParts.join(' ');
+    }
+    const cleanItemName = itemName?.removeFormatting()?.replace(/§L/g, ''); // For some reason, §L is not deleted when calling removeFormatting (trophy fish) 
+    return cleanItemName || '';
+}
+
 function getArticle(str) {
     const isFirstLetterVowel = ['a', 'e', 'i', 'o', 'u'].indexOf(str[0].toLowerCase()) !== -1;
 	return isFirstLetterVowel ? 'An' : 'A';
+}
+
+function getCurrentGuiChestName() {
+	if (Client.isInGui() && Client.currentGui?.getClassName() === 'GuiChest') {
+		const chestName = Client.currentGui?.get()?.field_147002_h?.func_85151_d()?.func_145748_c_()?.text;
+		return chestName;
+	}
+	return null;
 }
