@@ -111,6 +111,14 @@ class Settings {
     messageOnGrimReaperCatch = true;
 
     @SwitchProperty({
+        name: "Send a message on ABYSSAL MINER catch",
+        description: "Sends a message to the party chat when a ABYSSAL MINER has caught.",
+        category: "Chat",
+        subcategory: "Rare Catches"
+    })
+    messageOnAbyssalMinerCatch = true;
+
+    @SwitchProperty({
         name: "Send a message on THUNDER catch",
         description: "Sends a message to the party chat when a THUNDER has caught.",
         category: "Chat",
@@ -133,6 +141,14 @@ class Settings {
         subcategory: "Rare Catches"
     })
     messageOnVanquisherCatch = true;
+
+    @SwitchProperty({
+        name: "Send a message on PLHLEGBLAST catch",
+        description: "Sends a message to the party chat when a PLHLEGBLAST has caught.",
+        category: "Chat",
+        subcategory: "Rare Catches"
+    })
+    messageOnPlhlegblastCatch = true;
 
     // ******* CHAT - Rare Drops ******* //
 
@@ -277,6 +293,14 @@ class Settings {
     alertOnGrimReaperCatch = true;
 
     @SwitchProperty({
+        name: "Alert on ABYSSAL MINER catch",
+        description: "Shows a title and plays a sound when an ABYSSAL MINER has caught.",
+        category: "Alerts",
+        subcategory: "Rare Catches"
+    })
+    alertOnAbyssalMinerCatch = true;
+
+    @SwitchProperty({
         name: "Alert on THUNDER catch",
         description: "Shows a title and plays a sound when a THUNDER has caught.",
         category: "Alerts",
@@ -299,6 +323,14 @@ class Settings {
         subcategory: "Rare Catches"
     })
     alertOnVanquisherCatch = true;
+
+    @SwitchProperty({
+        name: "Alert on PLHLEGBLAST catch",
+        description: "Shows a title and plays a sound when a PLHLEGBLAST has caught.",
+        category: "Alerts",
+        subcategory: "Rare Catches"
+    })
+    alertOnPlhlegblastCatch = true;
 
     // ******* ALERTS - Rare Drops ******* //
 
