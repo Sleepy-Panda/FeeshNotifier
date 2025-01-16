@@ -11,7 +11,16 @@ export function notifyOnPlayersTotemExpiration(options) {
 		return;
 	}
 
-	World.getAllEntitiesOfType(EntityArmorStand).forEach(entity => {
+    const entities = World.getAllEntitiesOfType(EntityArmorStand);
+    const hasPlayersTotem = entities.some(entity => {
+        const name = entity?.getName()?.removeFormatting();
+        return name.includes('Owner:') && name.includes(currentPlayer);
+    });
+    if (playerTotemPosition && !hasPlayersTotem) {
+        playerTotemPosition = null;
+    }
+
+	entities.forEach(entity => {
         const name = entity?.getName()?.removeFormatting();
 
         if (name.includes('Owner:') && name.includes(currentPlayer)) {
