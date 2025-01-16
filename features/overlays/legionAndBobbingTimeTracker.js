@@ -4,6 +4,7 @@ import { EntityFishHook } from "../../constants/javaTypes";
 import { overlayCoordsData } from "../../data/overlayCoords";
 import { getWorldName, hasFishingRodInHotbar, isInSkyblock } from "../../utils/playerState";
 import { KUUDRA } from "../../constants/areas";
+import { getPlayerNamesInRange } from "../../utils/common";
 
 let playersCount = 0;
 let fishingHooksCount = 0;
@@ -30,17 +31,7 @@ function trackPlayersAndFishingHooksNearby() {
             !hook.getEntity()?.field_146042_b?.getDisplayNameString()?.includes('Phantom Fisher')) // field_146042_b = angler
         .length;
 
-    const players = World
-        .getAllPlayers()
-        .filter(player =>
-            (player.getUUID().version() === 4 || player.getUUID().version() === 1) && // Players and Watchdog have version 4, nicked players have version 1, this is done to exclude NPCs
-            player.ping === 1 && // -1 is watchdog and ghost players, also there is a ghost player with high ping value when joining a world
-            player.name != Player.getName() && // Exclude current player because they do not count for legion
-            player.distanceTo(Player.getPlayer()) < legionDistance
-        )
-        .map(player => player.name)
-        .filter((x, i, a) => a.indexOf(x) == i); // Distinct, sometimes the players are duplicated in the list
-
+    const players = getPlayerNamesInRange(legionDistance);
     playersCount = players.length;
 }
 

@@ -43,7 +43,7 @@ export const ALL_SEA_CREATURES_NAMES = [
     'Flaming Worm',
     'Lava Blaze',
     'Lava Pigman',
-    'Zombie Miner',
+    'Abyssal Miner',
     'Scarecrow',
     'Nightmare',
     'Werewolf',

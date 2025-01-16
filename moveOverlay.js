@@ -5,6 +5,9 @@ register("dragged", (mx, my, x, y) => {
     if (settings.totemRemainingTimeOverlayGui.isOpen()) {
         overlayCoordsData.totemRemainingTimeOverlay.x = x;
         overlayCoordsData.totemRemainingTimeOverlay.y = y;
+    } else if (settings.flareRemainingTimeOverlayGui.isOpen()) {
+        overlayCoordsData.flareRemainingTimeOverlay.x = x;
+        overlayCoordsData.flareRemainingTimeOverlay.y = y;
     } else if (settings.rareCatchesTrackerOverlayGui.isOpen()) {
         overlayCoordsData.rareCatchesTrackerOverlay.x = x;
         overlayCoordsData.rareCatchesTrackerOverlay.y = y;
@@ -34,6 +37,8 @@ register("guiKey", (char, keyCode, gui, event) => {
     if (keyCode == 13) { // "+" character
         if (settings.totemRemainingTimeOverlayGui.isOpen()) {
             overlayCoordsData.totemRemainingTimeOverlay.scale += 0.1;
+        } else if (settings.flareRemainingTimeOverlayGui.isOpen()) {
+            overlayCoordsData.flareRemainingTimeOverlay.scale += 0.1;
         } else if (settings.rareCatchesTrackerOverlayGui.isOpen()) {
             overlayCoordsData.rareCatchesTrackerOverlay.scale += 0.1;
         } else if (settings.seaCreaturesHpOverlayGui.isOpen()) {
@@ -52,6 +57,8 @@ register("guiKey", (char, keyCode, gui, event) => {
     } else if (keyCode == 12) { // "-" character
         if (settings.totemRemainingTimeOverlayGui.isOpen()) {
             overlayCoordsData.totemRemainingTimeOverlay.scale -= 0.1;
+        } else if (settings.flareRemainingTimeOverlayGui.isOpen()) {
+            overlayCoordsData.flareRemainingTimeOverlay.scale -= 0.1;
         } else if (settings.rareCatchesTrackerOverlayGui.isOpen()) {
             overlayCoordsData.rareCatchesTrackerOverlay.scale -= 0.1;
         } else if (settings.seaCreaturesHpOverlayGui.isOpen()) {

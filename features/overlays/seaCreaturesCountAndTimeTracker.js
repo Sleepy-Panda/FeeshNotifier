@@ -1,11 +1,12 @@
 import settings from "../../settings";
-import { GOLD, RED, DARK_GRAY, WHITE, GRAY } from "../../constants/formatting";
+import { GOLD, RED, DARK_GRAY, WHITE, GRAY, UNDERLINE } from "../../constants/formatting";
 import { TIMER_SOUND_SOURCE, OFF_SOUND_MODE } from "../../constants/sounds";
 import { ALL_SEA_CREATURES_NAMES } from "../../constants/seaCreatures";
 import { EntityArmorStand } from "../../constants/javaTypes";
 import { overlayCoordsData } from "../../data/overlayCoords";
 import { getWorldName, hasFishingRodInHotbar, isInHunterArmor, isInSkyblock } from "../../utils/playerState";
 import { CRIMSON_ISLE, CRYSTAL_HOLLOWS, HUB, KUUDRA } from "../../constants/areas";
+import { isInChatOrInventoryGui } from "../../utils/common";
 
 const TIMER_THRESHOLD_IN_MINUTES = 5;
 
@@ -18,6 +19,26 @@ register('step', () => trackSeaCreaturesCount()).setFps(2);
 register('step', () => alertOnSeaCreaturesCountThreshold()).setFps(1);
 register('step', () => alertOnSeaCreaturesTimerThreshold()).setFps(1);
 register('renderOverlay', () => renderCountOverlay());
+register("worldUnload", () => {
+    resetTimer();
+});
+
+// DisplayLine is initialized once in order to avoid multiple method calls on click.
+let resetTrackerDisplay = new Display().hide();
+let resetTrackerDisplayLine = new DisplayLine(`${RED}[Click to reset]`).setShadow(true);
+resetTrackerDisplayLine.registerClicked((x, y, mouseButton, buttonState) => {
+    if (mouseButton === 0 && buttonState === false) { // When left mouse button is UP. 0 is left mouse button, false is UP, true is DOWN. 
+        resetTimer();
+    }
+});
+resetTrackerDisplayLine.registerHovered(() => resetTrackerDisplayLine.setText(`${RED}${UNDERLINE}[Click to reset]`).setShadow(true));
+resetTrackerDisplayLine.registerMouseLeave(() => resetTrackerDisplayLine.setText(`${RED}[Click to reset]`).setShadow(true));
+resetTrackerDisplay.addLine(resetTrackerDisplayLine);
+
+function resetTimer() {
+    startTime = null;
+    mobsCount = 0;
+}
 
 function trackSeaCreaturesCount() {
     if ((!settings.alertOnSeaCreaturesCountThreshold && !settings.alertOnSeaCreaturesTimerThreshold && !settings.seaCreaturesCountOverlay) || !isInSkyblock()) {
@@ -104,7 +125,9 @@ function renderCountOverlay() {
         !isInSkyblock() ||
         isInHunterArmor() ||
         getWorldName() === KUUDRA ||
-        !hasFishingRodInHotbar()) {
+        !hasFishingRodInHotbar()
+    ) {
+        resetTrackerDisplay.hide();
         return;
     }
 
@@ -127,6 +150,16 @@ function renderCountOverlay() {
         .setShadow(true)
         .setScale(overlayCoordsData.seaCreaturesCountOverlay.scale);
     overlay.draw();
+
+    const shouldShowReset = isInChatOrInventoryGui();
+    if (shouldShowReset) {
+        resetTrackerDisplayLine.setScale(overlayCoordsData.seaCreaturesCountOverlay.scale - 0.2);
+        resetTrackerDisplay
+            .setRenderX(overlayCoordsData.seaCreaturesCountOverlay.x + overlay.getWidth() + 2)
+            .setRenderY(overlayCoordsData.seaCreaturesCountOverlay.y + 1).show();
+    } else {
+        resetTrackerDisplay.hide();
+    }
 }
 
 function getSeaCreaturesCountThreshold() {

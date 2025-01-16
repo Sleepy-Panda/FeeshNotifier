@@ -115,7 +115,7 @@ export function renderRareCatchTrackerOverlay() {
 
     entries.forEach((entry) => {
         const rarityColorCode = RARE_CATCH_TRIGGERS.find(t => t.seaCreature === entry.seaCreature).rarityColorCode;
-        overlayText += ` ${rarityColorCode}${fromUppercaseToCapitalizedFirstLetters(entry.seaCreature)}: ${WHITE}${formatNumberWithSpaces(entry.amount)} ${GRAY}(${entry.percent}%)\n`;
+        overlayText += `${GRAY}- ${rarityColorCode}${fromUppercaseToCapitalizedFirstLetters(entry.seaCreature)}: ${WHITE}${formatNumberWithSpaces(entry.amount)} ${GRAY}(${entry.percent}%)\n`;
     });
 
     overlayText += `${YELLOW}Total: ${WHITE}${persistentData.totalRareCatches}`;

@@ -12,7 +12,7 @@ function playAlertOnThunderBottleCharged() {
 			return;
 		}
 		
-		Client.showTitle(`${AQUA}Thunder bottle is full`, '', 1, 25, 1);
+		Client.showTitle(`${AQUA}Thunder bottle is full`, '', 1, 30, 1);
 	
 		if (settings.soundMode !== OFF_SOUND_MODE) {
             World.playSound('random.orb', 1, 1);

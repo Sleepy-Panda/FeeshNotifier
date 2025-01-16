@@ -21,6 +21,7 @@ class Settings {
     }
 
     totemRemainingTimeOverlayGui = new Gui();
+    flareRemainingTimeOverlayGui = new Gui();
     rareCatchesTrackerOverlayGui = new Gui();
     seaCreaturesHpOverlayGui = new Gui();
     seaCreaturesCountOverlayGui = new Gui();
@@ -257,6 +258,16 @@ class Settings {
     })
     alertOnTotemExpiresSoon = true;
 
+    // ******* ALERTS - Flare ******* //
+
+    @SwitchProperty({
+        name: "Alert when player's flare expires soon",
+        description: "Shows a title and plays a sound when current player's Warning Flare / Alert Flare / SOS Flare expires in 10 seconds.",
+        category: "Alerts",
+        subcategory: "Flare"
+    })
+    alertOnFlareExpiresSoon = true;
+
     // ******* ALERTS - Party member's death ******* //
 
     @SwitchProperty({
@@ -362,6 +373,14 @@ class Settings {
         subcategory: "Rare Catches"
     })
     alertOnReindrakeCatch = true;
+
+    @SwitchProperty({
+        name: "Alert on any REINDRAKE catch",
+        description: `Alerts you if any reindrake spawned in the lobby, even if it was caught not by you or your party members.`,
+        category: "Alerts",
+        subcategory: "Rare Catches"
+    })
+    alertOnAnyReindrakeCatch = false;
 
     @SwitchProperty({
         name: "Alert on NUTCRACKER catch",
@@ -541,7 +560,7 @@ class Settings {
         category: "Overlays",
         subcategory: "Totem"
     })
-    totemRemainingTimeOverlay = false;
+    totemRemainingTimeOverlay = true;
 
     @ButtonProperty({
         name: "Move remaining totem time",
@@ -553,6 +572,28 @@ class Settings {
     moveTotemRemainingTimeOverlay() {
         showOverlayMoveHelp();
         this.totemRemainingTimeOverlayGui.open();
+    };
+
+    // ******* OVERLAYS - Flare ******* //
+
+    @SwitchProperty({
+        name: "Remaining flare time",
+        description: "Shows an overlay with the remaining time of current player's Warning Flare / Alert Flare / SOS Flare.",
+        category: "Overlays",
+        subcategory: "Flare"
+    })
+    flareRemainingTimeOverlay = true;
+
+    @ButtonProperty({
+        name: "Move remaining flare time",
+        description: "Moves the overlay text.",
+        category: "Overlays",
+        subcategory: "Flare",
+        placeholder: "Move"
+    })
+    moveFlareRemainingTimeOverlay() {
+        showOverlayMoveHelp();
+        this.flareRemainingTimeOverlayGui.open();
     };
 
     // ******* OVERLAYS - Rare catches ******* //
