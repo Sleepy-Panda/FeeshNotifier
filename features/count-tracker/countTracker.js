@@ -1,6 +1,6 @@
 import settings from "../../settings";
 import { GOLD, RED, DARK_GRAY, WHITE } from "../../constants/formatting";
-import { TIMER_SOUND, OFF_SOUND_MODE } from "../../constants/sounds";
+import { TIMER_SOUND_SOURCE, OFF_SOUND_MODE } from "../../constants/sounds";
 import { ALL_SEA_CREATURES_NAMES } from "../../constants/seaCreatures";
 import { EntityArmorStand } from "../../constants/javaTypes";
 import { overlayCoordsData } from "../../data/overlayCoords";
@@ -53,7 +53,7 @@ export function alertOnSeaCreaturesCountThreshold() {
 
         if (settings.soundMode !== OFF_SOUND_MODE)
         {
-            TIMER_SOUND.play();
+            new Sound(TIMER_SOUND_SOURCE).play();
         }
     } else if (mobsCount < seaCreaturesCountThreshold && killMobsNotificationShown) {
         killMobsNotificationShown = false;

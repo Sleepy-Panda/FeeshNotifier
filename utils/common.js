@@ -9,19 +9,41 @@ export function hasDoubleHookInMessage() {
 	return isDoubleHook;
 }
 
-export function getMessage(seaCreature) {
+// Double hook reindrakes may produce the following messages history:
+// [CHAT] &r&eIt's a &r&aDouble Hook&r&e!&r
+// [CHAT] &r
+// [CHAT] &r&c&lWOAH! &r&cA &r&4Reindrake &r&cwas summoned from the depths!&r
+// [CHAT] &r
+// [CHAT] &r
+// [CHAT] &r&c&lWOAH! &r&cA &r&4Reindrake &r&cwas summoned from the depths!&r
+// [CHAT] &r
+// [CHAT] &r&aA Reindrake forms from the depths.&r
+export function hasDoubleHookInMessage_Reindrake() {
+	const doubleHookMessages = [ '&r&eIt\'s a &r&aDouble Hook&r&e! Woot woot!&r', '&r&eIt\'s a &r&aDouble Hook&r&e!&r' ];
+	const history = ChatLib.getChatLines()?.filter(l => l !== '&r' && l !== '&r&c&lWOAH! &r&cA &r&4Reindrake &r&cwas summoned from the depths!&r');
+	const isDoubleHook = (!!history && history.length > 1)
+		? doubleHookMessages.includes(history[1])
+		: false;
+	return isDoubleHook;
+}
+
+export function getCatchMessage(seaCreature) {
 	return `--> ${getArticle(seaCreature)} ${seaCreature} has spawned <--`;
 }
 
-export function getDoubleHookMessage(seaCreature) {
+export function getDoubleHookCatchMessage(seaCreature) {
 	return `--> DOUBLE HOOK! Two ${seaCreature}s have spawned <--`;
 }
 
-export function getTitle(seaCreature, rarityColorCode) {
+export function getPlayerDeathMessage() {
+	return `--> I was killed, please wait for me until I come back <--`;
+}
+
+export function getCatchTitle(seaCreature, rarityColorCode) {
 	return `${rarityColorCode}${BOLD}${seaCreature}`;
 }
 
-export function getDoubleHookTitle(seaCreature, rarityColorCode) {
+export function getDoubleHookCatchTitle(seaCreature, rarityColorCode) {
 	return `${rarityColorCode}${BOLD}${seaCreature} ${RED}${BOLD}X2`;
 }
 
@@ -31,6 +53,20 @@ export function getDropMessage(item) {
 
 export function getDropTitle(item, rarityColorCode) {
 	return `${rarityColorCode}${BOLD}${item}`;
+}
+
+export function getColoredPlayerNameFromDisplayName() {
+	const displayName = Player.getDisplayName(); // [Level] Nickname, e.g. §r§r§8[§d326§8] §bMoonTheSadFisher §7α§r§7
+	const nameWithoutLevel = displayName.getText().split('] ').pop();
+	const name = nameWithoutLevel.split(' ')[0];
+	return name;
+}
+
+export function getColoredPlayerNameFromPartyChat(playerAndRank) { // &r&9Party &8> &b[MVP&d+&b] DeadlyMetal&f: &r--> A YETI has spawned <--&r
+	if (!playerAndRank) return '';
+	const color = playerAndRank.substring(0, 2);
+	const nameWithoutRank = playerAndRank.split('] ').pop();
+	return `${color}${nameWithoutRank}`;
 }
 
 // Messages have the following format:
@@ -50,6 +86,19 @@ export function fromUppercaseToCapitalizedFirstLetters(str) {
 	return words.map((word) => { 
 	    return word[0].toUpperCase() + word.substring(1).toLowerCase(); 
 	}).join(' ');
+}
+
+// Pluralizes the words, e.g. Thunder => Thunders, Lord Jawbus => Lord Jawbuses.
+export function pluralize(str) {
+	if (!str) {
+		return '';
+	}
+
+	if (str.endsWith('s') || str.endsWith('z') || str.endsWith('x') || str.endsWith('sh') || str.endsWith('ch')) {
+		return `${str}es`;
+	}
+
+	return `${str}s`;
 }
 
 function getArticle(str) {

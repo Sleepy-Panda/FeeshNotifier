@@ -205,6 +205,16 @@ class Settings {
     })
     messageOnMagmaCoreDrop = true;
 
+    // ******* CHAT - Player's death ******* //
+
+    @SwitchProperty({
+        name: "Send a message when you are killed by Thunder / Lord Jawbus",
+        description: `${GRAY}Sends a message to the ${BLUE}party chat ${GRAY}when when you are killed by Thunder / Lord Jawbus. It enables the alerts for your party members so they can wait for you.`,
+        category: "Chat",
+        subcategory: "Player's death"
+    })
+    messageOnDeath = true;
+
     // ******* ALERTS - Totem ******* //
 
     @SwitchProperty({
@@ -214,6 +224,16 @@ class Settings {
         subcategory: "Totem"
     })
     alertOnTotemExpiresSoon = true;
+
+    // ******* ALERTS - Party member's death ******* //
+
+    @SwitchProperty({
+        name: "Alert when a party member was killed by Thunder / Lord Jawbus",
+        description: `Shows a title and plays a sound when your party member reports they are killed by Thunder / Lord Jawbus, so the party can wait for them to come back.`,
+        category: "Alerts",
+        subcategory: "Party member's death"
+    })
+    alertOnPartyMemberDeath = true;
 
     // ******* ALERTS - Fishing armor ******* //
 
