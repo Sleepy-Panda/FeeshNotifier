@@ -723,19 +723,13 @@ export const FISHING_PROFIT_ITEMS = [
     {
         itemId: 'DYE_AQUAMARINE',
         itemName: 'Aquamarine Dye',
-        itemDisplayName: `${EPIC}Aquamarine Dye`,
+        itemDisplayName: `${LEGENDARY}Aquamarine Dye`,
         npcPrice: 0,
     },
     {
         itemId: 'DYE_ICEBERG',
         itemName: 'Iceberg Dye',
-        itemDisplayName: `${EPIC}Iceberg Dye`,
-        npcPrice: 0,
-    },
-    {
-        itemId: 'DYE_NADESHIKO',
-        itemName: 'Nadeshiko Dye',
-        itemDisplayName: `${EPIC}Nadeshiko Dye`,
+        itemDisplayName: `${LEGENDARY}Iceberg Dye`,
         npcPrice: 0,
     },
 
@@ -812,42 +806,60 @@ export const FISHING_PROFIT_ITEMS = [
         itemName: 'Slug Boots',
         itemDisplayName: `${RARE}Slug Boots`,
         npcPrice: 5000,
+        salvage: {
+            essenceType: 'ESSENCE_CRIMSON',
+            essenceCount: 15
+        },
     },
     {
         itemId: 'MOOGMA_LEGGINGS',
         itemName: 'Moogma Leggings',
         itemDisplayName: `${RARE}Moogma Leggings`,
         npcPrice: 10000,
+        salvage: {
+            essenceType: 'ESSENCE_CRIMSON',
+            essenceCount: 20
+        },
     },
     {
         itemId: 'FLAMING_CHESTPLATE',
         itemName: 'Flaming Chestplate',
         itemDisplayName: `${RARE}Flaming Chestplate`,
         npcPrice: 25000,
+        salvage: {
+            essenceType: 'ESSENCE_CRIMSON',
+            essenceCount: 25
+        },
     },
     {
         itemId: 'TAURUS_HELMET',
         itemName: 'Taurus Helmet',
         itemDisplayName: `${RARE}Taurus Helmet`,
         npcPrice: 50000,
-    },
-    {
-        itemId: 'TAURUS_HELMET',
-        itemName: 'Taurus Helmet',
-        itemDisplayName: `${RARE}Taurus Helmet`,
-        npcPrice: 50000,
+        salvage: {
+            essenceType: 'ESSENCE_CRIMSON',
+            essenceCount: 30
+        },
     },
     {
         itemId: 'BLADE_OF_THE_VOLCANO',
         itemName: 'Blade of the Volcano',
         itemDisplayName: `${RARE}Blade of the Volcano`,
         npcPrice: 5000,
+        salvage: {
+            essenceType: 'ESSENCE_CRIMSON',
+            essenceCount: 10
+        },
     },
     {
         itemId: 'STAFF_OF_THE_VOLCANO',
         itemName: 'Staff of the Volcano',
         itemDisplayName: `${RARE}Staff of the Volcano`,
         npcPrice: 5000,
+        salvage: {
+            essenceType: 'ESSENCE_CRIMSON',
+            essenceCount: 10
+        },
     },
     {
         itemId: 'PITCHIN_KOI',
@@ -1023,13 +1035,7 @@ export const FISHING_PROFIT_ITEMS = [
     {
         itemId: 'DYE_CARMINE',
         itemName: 'Carmine Dye',
-        itemDisplayName: `${EPIC}Carmine Dye`,
-        npcPrice: 0,
-    },
-    {
-        itemId: 'DYE_FLAME',
-        itemName: 'Flame Dye',
-        itemDisplayName: `${EPIC}Flame Dye`,
+        itemDisplayName: `${LEGENDARY}Carmine Dye`,
         npcPrice: 0,
     },
 
@@ -1087,6 +1093,12 @@ export const FISHING_PROFIT_ITEMS = [
         itemId: 'PET_ITEM_VAMPIRE_FANG',
         itemName: 'Vampire Fang',
         itemDisplayName: `${LEGENDARY}Vampire Fang`,
+        npcPrice: 0,
+    },
+    {
+        itemId: 'DYE_MIDNIGHT',
+        itemName: 'Midnight Dye',
+        itemDisplayName: `${LEGENDARY}Midnight Dye`,
         npcPrice: 0,
     },
 

@@ -9,7 +9,8 @@ let wormTheFishCount = 0;
 register('renderWorld', () => alertOnWormTheFishCatch());
 
 function alertOnWormTheFishCatch() {
-    if (!isInSkyblock() ||
+    if (!settings.alertOnWormTheFishCaught ||
+        !isInSkyblock() ||
         !hasDirtRodInHand()
     ) {
         return;

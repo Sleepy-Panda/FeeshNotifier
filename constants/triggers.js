@@ -1,7 +1,7 @@
 import * as drops from './drops';
 import * as sounds from './sounds';
 import * as seaCreatures from './seaCreatures';
-import { GREEN, GOLD, DARK_PURPLE, LIGHT_PURPLE, BLUE, RED, BOLD, RESET, COMMON, RARE, EPIC, LEGENDARY, MYTHIC, GRAY, AQUA, YELLOW, DARK_RED } from './formatting';
+import { GREEN, GOLD, DARK_PURPLE, LIGHT_PURPLE, BLUE, RED, BOLD, RESET, COMMON, RARE, EPIC, LEGENDARY, MYTHIC, GRAY, AQUA, YELLOW, DARK_RED, DARK_AQUA } from './formatting';
 
 // WATER SEA CREATURES
 
@@ -87,13 +87,13 @@ export const MEGALODON_PET_EPIC_MESSAGE = `PET DROP! ${RESET}${DARK_PURPLE}Megal
 export const DEEP_SEA_ORB_MESSAGE = `RARE DROP! ${RESET}${DARK_PURPLE}Deep Sea Orb ${MAGIC_FIND_MESSAGE_PATTERN}`;
 export const RADIOACTIVE_VIAL_MESSAGE = `RARE DROP! ${RESET}${LIGHT_PURPLE}Radioactive Vial ${MAGIC_FIND_MESSAGE_PATTERN}`; // RARE DROP! &r&dRadioactive Vial &r&b(+&r&b236% &r&b✯ Magic Find&r&b)
 export const MAGMA_CORE_MESSAGE = `RARE DROP! ${RESET}${BLUE}Magma Core ${MAGIC_FIND_MESSAGE_PATTERN}`; // RARE DROP! &r&9Magma Core &r&b(+&r&b236% &r&b✯ Magic Find&r&b)
-export const CARMINE_DYE_MESSAGE = `RARE DROP! ${RESET}${DARK_PURPLE}Carmine Dye ${MAGIC_FIND_MESSAGE_PATTERN}`; // RARE DROP! &r&Carmine Dye &r&b(+&r&b236% &r&b✯ Magic Find&r&b)
-export const FLAME_DYE_MESSAGE = `RARE DROP! ${RESET}${DARK_PURPLE}Flame Dye ${MAGIC_FIND_MESSAGE_PATTERN}`; // RARE DROP! &r&5Flame Dye &r&b(+&r&b236% &r&b✯ Magic Find&r&b)
 
 export const MUSIC_RUNE_MESSAGE = `${RESET}${DARK_PURPLE}${BOLD}GREAT CATCH! ${RESET}${AQUA}You found a ${RESET}${AQUA}◆ Music Rune I${RESET}${AQUA}.${RESET}`; // &r&5&lGREAT CATCH! &r&bYou found a &r&b◆ Music Rune I&r&b.&r
-export const AQUAMARINE_DYE_MESSAGE = `${RESET}${LIGHT_PURPLE}${BOLD}OUTSTANDING CATCH! ${RESET}${AQUA}You found a ${RESET}${DARK_PURPLE}Aquamarine Dye`; // &r&d&lOUTSTANDING CATCH! &r&bYou found a &r&5Aquamarine Dye
-export const ICEBERG_DYE_MESSAGE = `${RESET}${LIGHT_PURPLE}${BOLD}OUTSTANDING CATCH! ${RESET}${AQUA}You found a ${RESET}${DARK_PURPLE}Iceberg Dye`; // &r&d&lOUTSTANDING CATCH! &r&bYou found a &r&5Iceberg Dye
-export const NADESHIKO_DYE_MESSAGE = `${RESET}${LIGHT_PURPLE}${BOLD}OUTSTANDING CATCH! ${RESET}${AQUA}You found a ${RESET}${DARK_PURPLE}Nadeshiko Dye`; // &r&d&lOUTSTANDING CATCH! &r&bYou found a &r&5Nadeshiko Dye
+export const AQUAMARINE_DYE_MESSAGE = `${RESET}${LIGHT_PURPLE}${BOLD}OUTSTANDING CATCH! ${RESET}${AQUA}You found a ${RESET}${AQUA}Aquamarine Dye`; // &r&d&lOUTSTANDING CATCH! &r&bYou found a &r&bAquamarine Dye
+export const ICEBERG_DYE_MESSAGE = `${RESET}${LIGHT_PURPLE}${BOLD}OUTSTANDING CATCH! ${RESET}${AQUA}You found a ${RESET}${DARK_AQUA}Iceberg Dye`; // &r&d&lOUTSTANDING CATCH! &r&bYou found a &r&3Iceberg Dye
+
+export const CARMINE_DYE_MESSAGE = `${RESET}${LIGHT_PURPLE}${BOLD}WOW! ` + '${playerNameAndRank}' + ` ${RESET}${GOLD}found ${RESET}${DARK_RED}Carmine Dye${RESET}`; // &r&d&lWOW! &r&b[MVP&r&c+&r&b] &5MoonTheSadFisher&r&r&f &r&6found &r&4Carmine Dye&r
+export const MIDNIGHT_DYE_MESSAGE = `${RESET}${LIGHT_PURPLE}${BOLD}WOW! ` + '${playerNameAndRank}' + ` ${RESET}${GOLD}found ${RESET}${DARK_PURPLE}Midnight Dye${RESET}`; // &r&d&lWOW! &r&b[MVP&r&c+&r&b] &5MoonTheSadFisher&r&r&f &r&6found &r&5Midnight Dye&r
 
 // OTHER
 
@@ -290,22 +290,6 @@ export const RARE_DROP_TRIGGERS = [
         rarityColorCode: MYTHIC
     },
     {
-        trigger: CARMINE_DYE_MESSAGE,
-        itemName: drops.CARMINE_DYE,
-        sound: sounds.INSANE_SOUND_SOURCE,
-        isMessageEnabledSettingKey: 'messageOnCarmineDyeDrop',
-        isAlertEnabledSettingKey: 'alertOnCarmineDyeDrop',
-        rarityColorCode: EPIC
-    },
-    {
-        trigger: FLAME_DYE_MESSAGE,
-        itemName: drops.FLAME_DYE,
-        sound: sounds.INSANE_SOUND_SOURCE,
-        isMessageEnabledSettingKey: 'messageOnFlameDyeDrop',
-        isAlertEnabledSettingKey: 'alertOnFlameDyeDrop',
-        rarityColorCode: EPIC
-    },
-    {
         trigger: MAGMA_CORE_MESSAGE,
         itemName: drops.MAGMA_CORE,
         sound: sounds.OH_MY_GOD_SOUND_SOURCE,
@@ -322,7 +306,7 @@ export const OUTSTANDING_CATCH_TRIGGERS = [
         sound: sounds.INSANE_SOUND_SOURCE,
         isMessageEnabledSettingKey: 'messageOnAqumarineDyeDrop',
         isAlertEnabledSettingKey: 'alertOnAqumarineDyeDrop',
-        rarityColorCode: EPIC
+        rarityColorCode: AQUA
     },
     {
         trigger: ICEBERG_DYE_MESSAGE,
@@ -330,15 +314,7 @@ export const OUTSTANDING_CATCH_TRIGGERS = [
         sound: sounds.INSANE_SOUND_SOURCE,
         isMessageEnabledSettingKey: 'messageOnIcebergDyeDrop',
         isAlertEnabledSettingKey: 'alertOnIcebergDyeDrop',
-        rarityColorCode: EPIC
-    },
-    {
-        trigger: NADESHIKO_DYE_MESSAGE,
-        itemName: drops.NADESHIKO_DYE,
-        sound: sounds.INSANE_SOUND_SOURCE,
-        isMessageEnabledSettingKey: 'messageOnNadeshikoDyeDrop',
-        isAlertEnabledSettingKey: 'alertOnNadeshikoDyeDrop',
-        rarityColorCode: EPIC
+        rarityColorCode: DARK_AQUA
     },
     {
         trigger: MUSIC_RUNE_MESSAGE,
@@ -347,6 +323,25 @@ export const OUTSTANDING_CATCH_TRIGGERS = [
         isMessageEnabledSettingKey: 'messageOnMusicRuneDrop',
         isAlertEnabledSettingKey: 'alertOnMusicRuneDrop',
         rarityColorCode: EPIC
+    },
+];
+
+export const DYE_TRIGGERS = [
+    {
+        trigger: CARMINE_DYE_MESSAGE,
+        itemName: drops.CARMINE_DYE,
+        sound: sounds.INSANE_SOUND_SOURCE,
+        isMessageEnabledSettingKey: 'messageOnCarmineDyeDrop',
+        isAlertEnabledSettingKey: 'alertOnCarmineDyeDrop',
+        rarityColorCode: DARK_RED
+    },
+    {
+        trigger: MIDNIGHT_DYE_MESSAGE,
+        itemName: drops.MIDNIGHT_DYE,
+        sound: sounds.INSANE_SOUND_SOURCE,
+        isMessageEnabledSettingKey: 'messageOnMidnightDyeDrop',
+        isAlertEnabledSettingKey: 'alertOnMidnightDyeDrop',
+        rarityColorCode: DARK_PURPLE
     },
 ];
 

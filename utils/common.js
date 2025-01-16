@@ -1,13 +1,4 @@
-import { RED, DARK_GRAY, BLUE, WHITE, BOLD, RESET, AQUA } from '../constants/formatting';
-
-export function hasDoubleHookInMessage() {
-	const doubleHookMessages = [ '&r&eIt\'s a &r&aDouble Hook&r&e! Woot woot!&r', '&r&eIt\'s a &r&aDouble Hook&r&e!&r' ];
-	const history = ChatLib.getChatLines();
-	const isDoubleHook = (!!history && history.length > 1)
-		? doubleHookMessages.includes(history[1])
-		: false;
-	return isDoubleHook;
-}
+import { RED, DARK_GRAY, BLUE, WHITE, BOLD, RESET } from '../constants/formatting';
 
 // Double hook reindrakes may produce the following messages history:
 // [CHAT] &r&eIt's a &r&aDouble Hook&r&e!&r
@@ -18,13 +9,22 @@ export function hasDoubleHookInMessage() {
 // [CHAT] &r&c&lWOAH! &r&cA &r&4Reindrake &r&cwas summoned from the depths!&r
 // [CHAT] &r
 // [CHAT] &r&aA Reindrake forms from the depths.&r
-export function hasDoubleHookInMessage_Reindrake() {
+
+// [CHAT] &r&eIt's a &r&aDouble Hook&r&e! Woot woot!&r
+// [CHAT] &r&e> Your bottle of thunder has fully charged!&r
+// [CHAT] &r&c&lYou hear a massive rumble as Thunder emerges.&r
+
+export function isDoubleHook() {
 	const doubleHookMessages = [ '&r&eIt\'s a &r&aDouble Hook&r&e! Woot woot!&r', '&r&eIt\'s a &r&aDouble Hook&r&e!&r' ];
-	const history = ChatLib.getChatLines()?.filter(l => l !== '&r' && l !== '&r&c&lWOAH! &r&cA &r&4Reindrake &r&cwas summoned from the depths!&r');
-	const isDoubleHook = (!!history && history.length > 1)
+	const history = ChatLib.getChatLines()?.filter(l => // Those messages appear between double hook and catch messages for Reindrake / Thunder
+		l !== '&r' &&
+		l !== '&r&c&lWOAH! &r&cA &r&4Reindrake &r&cwas summoned from the depths!&r' &&
+		l !== '&r&e> Your bottle of thunder has fully charged!&r'
+	);
+	const isDoubleHooked = (!!history && history.length > 1)
 		? doubleHookMessages.includes(history[1])
 		: false;
-	return isDoubleHook;
+	return isDoubleHooked;
 }
 
 export function getCatchMessage(seaCreature) {
@@ -145,6 +145,34 @@ export function formatNumberWithSpaces(number) {
     return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ");
 }
 
+// 999999 => 999.9K
+// 1000 => 1K
+// 2500000 => 2.5M
+export function toShortNumber(number) {
+	if (!number) {
+		return 0;
+	}
+
+	number = Math.floor(number);
+
+	if (number >= 1000000000) {
+		return roundToFixed(number / 1000000000, 1) + 'B';
+	}
+	if (number >= 1000000) {
+		return roundToFixed(number / 1000000, 1) + 'M';
+	}
+	if (number >= 1000) {
+		return roundToFixed(number / 1000, 1) + 'K';
+	}
+
+	return number;
+
+	function roundToFixed(number, digits) { // Default js toFixed() function rounds numbers, e.g. 999.999 => 1000K
+		const m = 10 ** digits;
+		return Math.floor(number * m) / m;
+	}
+}
+
 // Elapsed seconds to format: "1:05" or "2:03:49" or "27:03:17"
 export function formatElapsedTime(elapsedSeconds) {
     const hours = ~~(elapsedSeconds / 3600);
@@ -164,7 +192,17 @@ export function formatElapsedTime(elapsedSeconds) {
 }
 
 export function isInChatOrInventoryGui() {
-	return Client.Companion.isInGui() && (Client.currentGui?.getClassName() === 'GuiInventory' || Client.currentGui?.getClassName() === 'GuiChatOF');
+	return Client.isInGui() && (Client.currentGui?.getClassName() === 'GuiInventory' || Client.currentGui?.getClassName() === 'GuiChatOF');
+}
+
+export function isInSacksGui() {
+	if (Client.isInGui() && Client.currentGui?.getClassName() === 'GuiChest') {
+		const chestName = Client.currentGui?.get()?.field_147002_h?.func_85151_d()?.func_145748_c_()?.text;
+		if (chestName && chestName.includes('Sack')) {
+			return true;
+		}
+	}
+	return false;
 }
 
 export function getPlayerNamesInRange(distance) {
@@ -180,6 +218,36 @@ export function getPlayerNamesInRange(distance) {
 		.filter((x, i, a) => a.indexOf(x) == i); // Distinct, sometimes the players are duplicated in the list
 		
 	return players;
+}
+
+export function getItemsAddedToSacks(eventMessage) {
+	let items = [];
+
+	const addedItemsMessage = new Message(eventMessage)
+        .getMessageParts()
+        .find(part => part.getHoverValue()?.includes('Added items:'))?.hoverValue || '';
+    if (!addedItemsMessage) {
+        return items;
+    }
+    
+    const addedItemsRegex = new RegExp(/(\+[\d,]+) (.+) \((.+)\)/, "g"); // +1,344 Pufferfish (Fishing Sack)
+    let match = addedItemsRegex.exec(addedItemsMessage);
+
+    while (!!match) {
+        const difference = +match[1]?.removeFormatting()?.replace(/\+/g, '')?.replace(/,/g, '') || 0;
+        const itemName = match[2];
+        const sackName = match[3]?.removeFormatting();
+    
+        if (!difference || !itemName) {
+            match = addedItemsRegex.exec(addedItemsMessage);
+            continue;
+        }
+
+		items.push({ itemName: itemName, difference: difference, sackName: sackName });
+        match = addedItemsRegex.exec(addedItemsMessage);
+    }
+
+	return items;
 }
 
 function getArticle(str) {

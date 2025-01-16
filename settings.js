@@ -214,13 +214,6 @@ class Settings {
     messageOnCarmineDyeDrop = true;
 
     @SwitchProperty({
-        name: "Send a message on FLAME DYE drop",
-        category: "Chat",
-        subcategory: "Rare Drops"
-    })
-    messageOnFlameDyeDrop = true;
-
-    @SwitchProperty({
         name: "Send a message on AQUAMARINE DYE drop",
         category: "Chat",
         subcategory: "Rare Drops"
@@ -235,11 +228,11 @@ class Settings {
     messageOnIcebergDyeDrop = true;
 
     @SwitchProperty({
-        name: "Send a message on NADESHIKO DYE drop",
+        name: "Send a message on MIDNIGHT DYE drop",
         category: "Chat",
         subcategory: "Rare Drops"
     })
-    messageOnNadeshikoDyeDrop = true;
+    messageOnMidnightDyeDrop = true;
 
     @SwitchProperty({
         name: "Send a message on MAGMA CORE drop",
@@ -334,6 +327,16 @@ class Settings {
         subcategory: "Spirit Mask"
     })
     alertOnSpiritMaskUsed = true;
+
+    // ******* ALERTS - Worm the Fish ******* //
+
+    @SwitchProperty({
+        name: "Alert when a Worm the Fish is caught",
+        description: `Shows a title when a Worm the Fish is caught using (Dirt Rod fishing).`,
+        category: "Alerts",
+        subcategory: "Worm the Fish"
+    })
+    alertOnWormTheFishCaught = true;
 
     // ******* ALERTS - Sea creatures count ******* //
 
@@ -555,13 +558,6 @@ class Settings {
     alertOnCarmineDyeDrop = true;
 
     @SwitchProperty({
-        name: "Alert on FLAME DYE drop",
-        category: "Alerts",
-        subcategory: "Rare Drops"
-    })
-    alertOnFlameDyeDrop = true;
-
-    @SwitchProperty({
         name: "Alert on AQUAMARINE DYE drop",
         category: "Alerts",
         subcategory: "Rare Drops"
@@ -576,11 +572,11 @@ class Settings {
     alertOnIcebergDyeDrop = true;
 
     @SwitchProperty({
-        name: "Alert on NADESHIKO DYE drop",
+        name: "Alert on MIDNIGHT DYE drop",
         category: "Alerts",
         subcategory: "Rare Drops"
     })
-    alertOnNadeshikoDyeDrop = true;
+    alertOnMidnightDyeDrop = true;
 
     @SwitchProperty({
         name: "Alert on MAGMA CORE drop",
@@ -776,7 +772,15 @@ class Settings {
 
     @SwitchProperty({
         name: "Crimson Isle tracker",
-        description: `Shows an overlay with Thunder / Lord Jawbus catch statistics and Radioactive Vial drop statistics while in the Crimson Isle.\nDo ${AQUA}/feeshResetCrimsonIsle${GRAY} to reset.\n${RED}Hidden if you have no fishing rod in your hotbar!`,
+        description: `
+Shows an overlay with Thunder / Lord Jawbus catch statistics and Radioactive Vial drop statistics while in the Crimson Isle.
+Do ${AQUA}/feeshResetCrimsonIsle${GRAY} to reset.
+${RED}Hidden if you have no fishing rod in your hotbar!
+
+Do ${AQUA}/feeshSetRadioactiveVials COUNT LAST_ON_UTC_DATE${GRAY} to initialize your vials history:
+  - COUNT is mandatory number.
+  - LAST_ON_UTC_DATE is optional and, if provided, should be in YYYY-MM-DDThh:mm:ssZ format (UTC).
+Example: /feeshSetRadioactiveVials 5 2024-03-18T14:05:00Z`,
         category: "Overlays",
         subcategory: "Crimson Isle tracker"
     })
@@ -884,11 +888,15 @@ class Settings {
 
     @SwitchProperty({
         name: "Fishing profit tracker",
-        description: `Shows an overlay with your profits per fishing session.\nDo ${AQUA}/feeshResetProfitTracker${GRAY} to reset.\n${RED}WIP - expect bugs!\n${RED}Hidden if you have no fishing rod in your hotbar!`,
+        description: `
+Shows an overlay with your profits per fishing session.
+${DARK_GRAY}For this to work, make sure to enable Settings - Personal -> Chat Feedback -> Sack Notifications in Skyblock.
+${GRAY}Do ${AQUA}/feeshResetProfitTracker${GRAY} to reset.
+${RED}Hidden if you have no fishing rod in your hotbar!`,
         category: "Overlays",
         subcategory: "Fishing profit tracker"
     })
-    fishingProfitTrackerOverlay = false;
+    fishingProfitTrackerOverlay = true;
 
     @ButtonProperty({
         name: "Move fishing profit tracker",
@@ -921,6 +929,14 @@ class Settings {
         options: ["Sell offer", "Insta-sell"]
     })
     fishingProfitTrackerMode = 0;
+
+    @SwitchProperty({
+        name: "Show profits in crimson essence",
+        description: "Calculate price in crimson essence for crimson fishing items e.g. Slug Boots, Moogma Leggings, Flaming Chestplate, Blade of the Volcano, Staff of the Volcano.",
+        category: "Overlays",
+        subcategory: "Fishing profit tracker"
+    })
+    calculateProfitInCrimsonEssence = false;
 
     // ******* INVENTORY - Highlight ******* //
 
@@ -990,5 +1006,5 @@ class Settings {
 export default new Settings()
 
 function showOverlayMoveHelp() {
-    ChatLib.chat(`${GOLD}[FeeshNotifier] ${WHITE}Drag the overlay to move it. Press +/- to increase/decrease size. Press ESC when you're done.`);
+    ChatLib.chat(`${GOLD}[FeeshNotifier] ${WHITE}Make sure the overlay is visible before moving! Then drag the overlay to move it. Press +/- to increase/decrease size. Press ESC when you're done.`);
 }

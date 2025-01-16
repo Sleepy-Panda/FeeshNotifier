@@ -69,7 +69,7 @@ function setHasFishingRodInHotbar() {
 	if (!hotbarItems || !hotbarItems.length) {
 		hasFishingRodInHotbar = false;
 	} else {
-		const rods = hotbarItems.filter(i => i && i.getLore().some(loreLine => loreLine.includes('FISHING ROD') || loreLine.includes('FISHING WEAPON')));
+		const rods = hotbarItems.filter(i => i && !i.getName()?.includes('Carnival Rod') && i.getLore().some(loreLine => loreLine.includes('FISHING ROD') || loreLine.includes('FISHING WEAPON')));
 		hasFishingRodInHotbar = rods && rods.length;	
 	}
 }
