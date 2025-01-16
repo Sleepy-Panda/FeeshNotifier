@@ -46,6 +46,10 @@ const GUIS = [
         gui: settings.fishingProfitTrackerOverlayGui,
         guiSettings: overlayCoordsData.fishingProfitTrackerOverlay,
     },
+    {
+        gui: settings.sharksTrackerOverlayGui,
+        guiSettings: overlayCoordsData.sharksTrackerOverlay,
+    },
 ];
 
 register("dragged", (mx, my, x, y) => {

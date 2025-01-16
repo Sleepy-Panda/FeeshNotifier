@@ -3,7 +3,7 @@ import { AQUA, BOLD, DARK_PURPLE, GOLD, GRAY, GREEN, RED, WHITE, YELLOW } from "
 import { getBazaarItemPrices } from "../../utils/bazaarPrices";
 import { formatElapsedTime, formatNumberWithSpaces, getItemsAddedToSacks, isDoubleHook, isInChatOrInventoryGui, isInSacksGui, toShortNumber } from "../../utils/common";
 import * as triggers from '../../constants/triggers';
-import { getLastSacksGuiClosedAt, getWorldName, hasFishingRodInHotbar, isInSkyblock } from "../../utils/playerState";
+import { getLastGuisClosed, getWorldName, hasFishingRodInHotbar, isInSkyblock } from "../../utils/playerState";
 import { CRYSTAL_HOLLOWS } from "../../constants/areas";
 import { overlayCoordsData } from "../../data/overlayCoords";
 import { getAuctionItemPrices } from "../../utils/auctionPrices";
@@ -114,7 +114,8 @@ function onAddedToSacks(event) {
             return;
         }
     
-        if (isInSacksGui() || new Date() - getLastSacksGuiClosedAt() < 15 * 1000) { // Sacks closed < 15 seconds ago
+        const lastGuisClosed = getLastGuisClosed();
+        if (isInSacksGui() || new Date() - lastGuisClosed.lastSacksGuiClosedAt < 15 * 1000) { // Sacks closed < 15 seconds ago
             return;
         }
 
@@ -310,6 +311,8 @@ function renderWormMembraneProfitTrackerOverlay() {
 
     let text = `${YELLOW}${BOLD}Worm profit tracker\n`;
     const mode = settings.wormProfitTrackerMode;
+    const pausedText = isSessionActive ? '' : ` ${YELLOW}[Paused]`;
+
     switch (mode) {
         case WORM_MEMBRANES_MODE:
             const wormMembranePrices = getBazaarItemPrices('WORM_MEMBRANE');
@@ -326,7 +329,7 @@ function renderWormMembraneProfitTrackerOverlay() {
             text += `${GOLD}Coins/h (sell offer): ${WHITE}${toShortNumber(membraneCoinsPerHourSellOffer)}\n`;
             text += `${GOLD}Coins/h (insta-sell): ${WHITE}${toShortNumber(membraneCoinsPerHourInstaSell)}\n`;
             text += `\n`;
-            text += `${AQUA}Elapsed time: ${WHITE}${formatElapsedTime(elapsedSeconds)}`;        
+            text += `${AQUA}Elapsed time: ${WHITE}${formatElapsedTime(elapsedSeconds)}${pausedText}`;        
             break;
 
         case GEMSTONE_CHAMBERS_MODE:
@@ -343,7 +346,7 @@ function renderWormMembraneProfitTrackerOverlay() {
             text += `${DARK_PURPLE}Chambers/h: ${WHITE}${formatNumberWithSpaces(chambersPerHour)}\n`;
             text += `${GOLD}Coins/h: ${WHITE}${toShortNumber(chamberCoinsPerHour)}\n`;
             text += `\n`;
-            text += `${AQUA}Elapsed time: ${WHITE}${formatElapsedTime(elapsedSeconds)}`;     
+            text += `${AQUA}Elapsed time: ${WHITE}${formatElapsedTime(elapsedSeconds)}${pausedText}`;     
             break;
         default:
             break;

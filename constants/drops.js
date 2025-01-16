@@ -11,4 +11,6 @@ export const CARMINE_DYE = "Carmine Dye";
 export const AQUAMARINE_DYE = "Aquamarine Dye";
 export const ICEBERG_DYE = "Iceberg Dye";
 export const MIDNIGHT_DYE = "Midnight Dye";
+export const PERIWINKLE_DYE = "Periwinkle Dye";
+export const BONE_DYE = "Bone Dye";
 export const MUSIC_RUNE = "Music Rune I";

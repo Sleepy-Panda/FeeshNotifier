@@ -2,14 +2,15 @@ import * as triggers from '../../constants/triggers';
 import settings from "../../settings";
 import { persistentData } from "../../data/data";
 import { overlayCoordsData } from "../../data/overlayCoords";
-import { CRIMSON_ISLE, KUUDRA } from "../../constants/areas";
+import { CRIMSON_ISLE, JERRY_WORKSHOP, KUUDRA } from "../../constants/areas";
 import { FISHING_PROFIT_ITEMS } from "../../constants/fishingProfitItems";
 import { AQUA, BOLD, GOLD, GRAY, RESET, WHITE, YELLOW, RED, GREEN, BLUE } from "../../constants/formatting";
 import { EntityFishHook } from "../../constants/javaTypes";
 import { getAuctionItemPrices, getPetRarityCode } from "../../utils/auctionPrices";
 import { getBazaarItemPrices } from "../../utils/bazaarPrices";
-import { formatElapsedTime, getCleanItemName, getItemsAddedToSacks, isInChatOrInventoryGui, isInSacksGui, isInSupercraftGui, splitArray, toShortNumber } from "../../utils/common";
-import { getLastAuctionGuiClosedAt, getLastCraftGuiClosedAt, getLastKatUpgrade, getLastOdgerGuiClosedAt, getLastSacksGuiClosedAt, getLastSupercraftGuiClosedAt, getWorldName, hasFishingRodInHotbar, isInSkyblock } from "../../utils/playerState";
+import { formatElapsedTime, getCleanItemName, getItemsAddedToSacks, isFishingRod, isInChatOrInventoryGui, isInSacksGui, isInSupercraftGui, splitArray, toShortNumber } from "../../utils/common";
+import { getLastGuisClosed, getLastKatUpgrade, getWorldName, hasFishingRodInHotbar, isInSkyblock } from "../../utils/playerState";
+import { playRareDropSound } from '../../utils/sound';
 
 let isVisible = false;
 let areActionsVisible = false;
@@ -21,6 +22,7 @@ register("Chat", (event) => onAddedToSacks(event)).setCriteria('&6[Sacks] &r&a+'
 register('step', () => detectInventoryChanges()).setFps(4); // Items added to the inventory
 
 triggers.COINS_FISHED_TRIGGERS.forEach(trigger => { register("Chat", (coins, event) => onCoinsFished(coins)).setCriteria(trigger.trigger); });
+triggers.ICE_ESSENCE_FISHED_TRIGGERS.forEach(trigger => { register("Chat", (count, event) => onIceEssenceFished(count)).setCriteria(trigger.trigger); });
 
 // &r&aYour &r&5Ender Dragon &r&aleveled up to level &r&981&r&a!&r
 // &r&aYour &r&6Mammoth &r&aleveled up to level &r&92&r&a!&r
@@ -47,6 +49,12 @@ register("worldUnload", () => {
 register("worldLoad", () => {
     isWorldLoaded = true;
 }); 
+
+register("gameUnload", () => {
+    if (settings.fishingProfitTrackerOverlay && settings.resetFishingProfitTrackerOnGameClosed && (Object.keys(persistentData.fishingProfit.profitTrackerItems).length || persistentData.fishingProfit.elapsedSeconds)) {
+        resetFishingProfitTracker(true);
+    }
+});
 
 register('guiClosed', (gui) => {
     if (gui?.toString()?.includes('vigilance')) { // Settings menu is closed, probably some settings have changed
@@ -113,7 +121,7 @@ function refreshIsVisible() {
 
     if (!settings.fishingProfitTrackerOverlay ||
         !persistentData || !persistentData.fishingProfit ||
-        (!persistentData.fishingProfit.totalProfit && !persistentData.fishingProfit.profitTrackerItems.length && !persistentData.fishingProfit.elapsedSeconds) ||
+        (!persistentData.fishingProfit.totalProfit && !Object.keys(persistentData.fishingProfit.profitTrackerItems).length && !persistentData.fishingProfit.elapsedSeconds) ||
         !isInSkyblock() ||
         getWorldName() === KUUDRA ||
         !hasFishingRodInHotbar() ||
@@ -189,7 +197,7 @@ function activateSessionOnPlayersFishingHook() {
         }
     
         const heldItem = Player.getHeldItem();
-        if (heldItem?.getName()?.includes('Carnival Rod')) {
+        if (!isFishingRod(heldItem)) {
             return;
         }
 
@@ -320,13 +328,12 @@ function onAddedToSacks(event) {
             return;
         }
     
-        const lastSacksGuiClosedAt = getLastSacksGuiClosedAt();
-        if (isInSacksGui() || new Date() - lastSacksGuiClosedAt < 15 * 1000) { // Sacks closed < 15 seconds ago
+        const lastGuisClosed = getLastGuisClosed();
+        if (isInSacksGui() || new Date() - lastGuisClosed.lastSacksGuiClosedAt < 15 * 1000) { // Sacks closed < 15 seconds ago
             return;
         }
 
-        const lastSupercraftGuiClosedAt = getLastSupercraftGuiClosedAt();
-        if (isInSupercraftGui() || new Date() - lastSupercraftGuiClosedAt < 15 * 1000) { // Supercraft closed < 15 seconds ago
+        if (isInSupercraftGui() || new Date() - lastGuisClosed.lastSupercraftGuiClosedAt < 15 * 1000) { // Supercraft closed < 15 seconds ago
             return;
         }
 
@@ -346,8 +353,7 @@ function onAddedToSacks(event) {
                 continue;
             }
     
-            const lastOdgerGuiClosedAt = getLastOdgerGuiClosedAt();
-            if (itemId?.startsWith('MAGMA_FISH') && lastOdgerGuiClosedAt && new Date() - lastOdgerGuiClosedAt < 15 * 1000) { // User probably just filleted trophy fish
+            if (itemId?.startsWith('MAGMA_FISH') && lastGuisClosed.lastOdgerGuiClosedAt && new Date() - lastGuisClosed.lastOdgerGuiClosedAt < 15 * 1000) { // User probably just filleted trophy fish
                 continue;
             }
 
@@ -400,6 +406,38 @@ function onCoinsFished(coins) {
     } catch (e) {
 		console.error(e);
 		console.log(`[FeeshNotifier] [ProfitTracker] Failed to track fished coins.`);
+	}
+}
+
+function onIceEssenceFished(count) {
+    try {
+        if (!isVisible || !count || !isSessionActive || getWorldName() !== JERRY_WORKSHOP) {
+            return;
+        }
+    
+        const fishingProfitItem = FISHING_PROFIT_ITEMS.find(i => i.itemId === 'ESSENCE_ICE');
+        const itemId = fishingProfitItem?.itemId;
+        if (!fishingProfitItem || !itemId) {
+            return;
+        }
+
+        const essenceCountWithoutSeparator = +(count.replace(/,/g, ''));
+        const item = persistentData.fishingProfit.profitTrackerItems[itemId];
+        const currentAmount = item?.amount || 0;
+    
+        persistentData.fishingProfit.profitTrackerItems[itemId] = {
+            itemName: fishingProfitItem.itemName,
+            itemDisplayName: fishingProfitItem.itemDisplayName,
+            itemId: itemId,
+            amount: currentAmount + essenceCountWithoutSeparator,
+        };
+        persistentData.save();
+
+        refreshPrices();
+        refreshTrackerDisplayData();  
+    } catch (e) {
+		console.error(e);
+		console.log(`[FeeshNotifier] [ProfitTracker] Failed to track fished ice essence.`);
 	}
 }
 
@@ -540,29 +578,12 @@ function detectInventoryChanges() {
     }
 
     function onItemAddedToInventory(itemId, previousCount, newCount) {
-        const lastOdgerGuiClosedAt = getLastOdgerGuiClosedAt();
-        if (itemId?.startsWith('MAGMA_FISH') && lastOdgerGuiClosedAt && new Date() - lastOdgerGuiClosedAt < 1000) { // User probably just filleted trophy fish
-            return;
-        }
-
-        const lastAuctionGuiClosedAt = getLastAuctionGuiClosedAt();
-        if (lastAuctionGuiClosedAt && new Date() - lastAuctionGuiClosedAt < 1000) { // Something is probably claimed from AH
-            return;
-        }
-
-        const lastCraftGuiClosedAt = getLastCraftGuiClosedAt();
-        if (lastCraftGuiClosedAt && new Date() - lastCraftGuiClosedAt < 1000) { // Something is probably claimed from crafting table
-            return;
-        }
-
         const item = FISHING_PROFIT_ITEMS.find(i => i.itemId === itemId);
         if (!item) {
             return;
         }
 
-        const lastKatUpgrade = getLastKatUpgrade(); // Ignore pets that are claimed from Kat
-        if (lastKatUpgrade.lastPetClaimedAt && new Date() - lastKatUpgrade.lastPetClaimedAt < 7 * 1000 &&
-            item.itemDisplayName.removeFormatting().includes(lastKatUpgrade.petDisplayName?.removeFormatting())) { 
+        if (isInventoryPotentiallyDirty(itemId, item)) {
             return;
         }
 
@@ -579,7 +600,49 @@ function detectInventoryChanges() {
             };
             persistentData.save();
             refreshPrices();
+
+            if (settings.shouldAnnounceRareDropsWhenPickup && item.shouldAnnounceRareDrop) {
+                const diffText = difference > 1 ? ` ${RESET}${GRAY}${difference}x` : '';
+                ChatLib.chat(`${GOLD}[FeeshNotifier] ${GOLD}${BOLD}RARE DROP! ${RESET}${item.itemDisplayName}${diffText}`);
+                playRareDropSound();
+            }
         }
+    }
+
+    function isInventoryPotentiallyDirty(itemId, item) {
+        const lastGuisClosed = getLastGuisClosed();
+
+        if (itemId?.startsWith('MAGMA_FISH') && lastGuisClosed.lastOdgerGuiClosedAt && new Date() - lastGuisClosed.lastOdgerGuiClosedAt < 1000) { // User probably just filleted trophy fish
+            return true;
+        }
+
+        if (lastGuisClosed.lastStorageGuiClosedAt && new Date() - lastGuisClosed.lastStorageGuiClosedAt < 1000) {
+            return true;
+        }
+
+        if (lastGuisClosed.lastAuctionGuiClosedAt && new Date() - lastGuisClosed.lastAuctionGuiClosedAt < 3000) {
+            return true;
+        }
+
+        if (lastGuisClosed.lastBazaarGuiClosedAt && new Date() - lastGuisClosed.lastBazaarGuiClosedAt < 1000) {
+            return true;
+        }
+
+        if (lastGuisClosed.lastCraftGuiClosedAt && new Date() - lastGuisClosed.lastCraftGuiClosedAt < 1000) {
+            return true;
+        }
+
+        if (lastGuisClosed.lastSupercraftGuiClosedAt && new Date() - lastGuisClosed.lastSupercraftGuiClosedAt < 1000) {
+            return true;
+        }
+
+        const lastKatUpgrade = getLastKatUpgrade(); // Ignore pets that are claimed from Kat
+        if (lastKatUpgrade.lastPetClaimedAt && new Date() - lastKatUpgrade.lastPetClaimedAt < 7 * 1000 &&
+            item.itemDisplayName.removeFormatting().includes(lastKatUpgrade.petDisplayName?.removeFormatting())) { 
+            return true;
+        }
+
+        return false;
     }
 }
 
@@ -591,7 +654,8 @@ function getFishingProfitItemByName(itemName) {
 }
 
 function getElapsedTimeLineText(elapsedTime) {
-    return `\n${AQUA}Elapsed time: ${WHITE}${formatElapsedTime(elapsedTime)}`
+    const pausedText = isSessionActive ? '' : ` ${YELLOW}[Paused]`;
+    return `\n${AQUA}Elapsed time: ${WHITE}${formatElapsedTime(elapsedTime)}${pausedText}`
 }
 
 function refreshTrackerDisplayData() {
@@ -607,9 +671,12 @@ function refreshTrackerDisplayData() {
         let displayTrackerData = {
             entriesToShow: [],
             entriesToHide: [],
+            totalCheapItemsCount: 0,
+            totalCheapItemsTypesCount: 0,
             totalCheapItemsProfit: 0,
             elapsedTime: 0,
-            totalProfit: 0
+            totalProfit: 0,
+            profitPerHour: 0
         };
 
         const entries = Object.entries(persistentData.fishingProfit.profitTrackerItems)
@@ -629,6 +696,14 @@ function refreshTrackerDisplayData() {
         displayTrackerData.entriesToHide = toHide.concat(cheapEntries);
         displayTrackerData.elapsedTime = persistentData.fishingProfit.elapsedSeconds;
         displayTrackerData.totalProfit = persistentData.fishingProfit.totalProfit;
+
+        const elapsedHours = persistentData.fishingProfit.elapsedSeconds / 3600;
+        displayTrackerData.profitPerHour = elapsedHours
+            ? Math.floor(displayTrackerData.totalProfit / elapsedHours)
+            : 0;
+
+        displayTrackerData.totalCheapItemsTypesCount = displayTrackerData.entriesToHide.length;
+        displayTrackerData.totalCheapItemsCount = displayTrackerData.entriesToHide.reduce((accumulator, currentValue) => { return accumulator + currentValue.amount }, 0);
 
         if (displayTrackerData.entriesToHide.length) {
             displayTrackerData.totalCheapItemsProfit = displayTrackerData.entriesToHide.reduce((accumulator, currentValue) => { return accumulator + currentValue.profit }, 0);
@@ -658,7 +733,7 @@ function refreshTrackerDisplayData() {
         });
 
         if (displayTrackerData.entriesToHide.length) {
-            const line = new DisplayLine(`${GRAY}- ${WHITE}${displayTrackerData.entriesToHide.length}${GRAY}x Cheap items: ${GOLD}${toShortNumber(displayTrackerData.totalCheapItemsProfit)}`).setShadow(true).setScale(overlayCoordsData.fishingProfitTrackerOverlay.scale);
+            const line = new DisplayLine(`${GRAY}- ${WHITE}${displayTrackerData.totalCheapItemsCount}${GRAY}x Cheap items of ${WHITE}${displayTrackerData.totalCheapItemsTypesCount} ${GRAY}types: ${GOLD}${toShortNumber(displayTrackerData.totalCheapItemsProfit)}`).setShadow(true).setScale(overlayCoordsData.fishingProfitTrackerOverlay.scale);
             profitTrackerDisplay.addLine(line);
         }
      
@@ -669,7 +744,7 @@ function refreshTrackerDisplayData() {
             profitTrackerDisplay.addLine(removeTrackerDisplayLine);
         }
 
-        profitTrackerDisplay.addLine(new DisplayLine(`\n${AQUA}Total: ${GOLD}${toShortNumber(displayTrackerData.totalProfit)}`).setShadow(true).setScale(overlayCoordsData.fishingProfitTrackerOverlay.scale));
+        profitTrackerDisplay.addLine(new DisplayLine(`\n${AQUA}Total: ${GOLD}${BOLD}${toShortNumber(displayTrackerData.totalProfit)} ${RESET}${GRAY}(${GOLD}${toShortNumber(displayTrackerData.profitPerHour)}${GRAY}/h)`).setShadow(true).setScale(overlayCoordsData.fishingProfitTrackerOverlay.scale));
         profitTrackerDisplay.addLine(new DisplayLine(getElapsedTimeLineText(displayTrackerData.elapsedTime)).setShadow(true).setScale(overlayCoordsData.fishingProfitTrackerOverlay.scale));  
 
         if (areActionsVisible) {

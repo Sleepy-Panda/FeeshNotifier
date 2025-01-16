@@ -1,5 +1,37 @@
 # Releases
 
+## v1.21.0
+
+Released: 2025-01-03
+
+Features:
+
+- Fishing Profit tracker changes:
+  - Display profit per hour.
+  - Added option to emulate default Hypixel's RARE DROP! message + sound for the items that do not have it by default (like in SBO):
+    - Triggers when those items are added to the active Fishing profit tracker.
+    - Examples (not full list): Great White Shark tooth, Soul fragment, Flash / Blessing / Luck of the sea / Piscary books, Magma Lord fragments, emperor skulls, Fish Affinity talismans, attribute shards, etc.
+    - It also prints book name / attribute shard name.
+  - Track Ice Essence fished up from water on Jerry's Workshop.
+  - More detailed count of items hidden in "Cheap items" line.
+  - Fixed some cases when items are counted in tracker after getting them from storages/bazaar/etc.
+- Sea creatures HP tracker: made mob's HP nametag more compact, also show it only when mob is in <= 30 blocks range (so if you see the nametag - you're in lootshare range).
+- For all "Last on" dates in the Jerry Workshop/Crimson Isle tracker, added elapsed time till now in days/hours/minutes.
+  - It also types elapsed time in chat message when catching a rare mob / dropping a vial.
+- Added alert on Storm / Hurricane bottle charged (same way as it works for Thunder bottle).
+- Added option to reset Fishing Profit Tracker, Rare Catches Tracker, Crimson Isle Tracker, Jerry Workshop Tracker on closing the game. [disabled by default]
+- Added Sharks tracker which counts the sharks caught during the fishing festival (similar way as in SkyHanni).
+- Added option to show fishing rod's expertise kills in the lore. [disabled by default]
+- Added option to see price per T1 attribute level in the auctioned Attribute Shard's lore, based on item's price (e.g. for T3 shard it shows its price divided by 4). Helps to compare prices for high-tier attribute shards on AH. [disabled by default]
+  - TODO sometimes causes item's lore to blink which needs to be investigated later
+- Slightly changed output of /feeshPetLevelUpPrices command, now it considers that Reindeer requires less time to level up.
+- Added [Paused] text to all profit trackers when they aren't active.
+- Added alert on Periwinkle Dye and Bone Dye drop, also added them to Fishing profit tracker when it's obtained while fishing.
+
+Bugfixes:
+- Fixed charge percent not shown on the Thunder/Storm/Hurricane bottles when in Booster Cookie menu.
+- Fixed item abbreviations (pet level, attributes etc.) being rendered in more light color sometimes.
+
 ## v1.20.0
 
 Released: 2024-12-03

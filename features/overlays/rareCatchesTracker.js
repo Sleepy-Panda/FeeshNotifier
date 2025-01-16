@@ -18,6 +18,12 @@ triggers.RARE_CATCH_TRIGGERS.forEach(entry => {
 
 register('renderOverlay', () => renderRareCatchTrackerOverlay());
 
+register("gameUnload", () => {
+    if (settings.rareCatchesTrackerOverlay && settings.resetRareCatchesTrackerOnGameClosed && persistentData.totalRareCatches > 0) {
+        resetRareCatchesTracker(true);
+    }
+});
+
 // DisplayLine is initialized once in order to avoid multiple method calls on click.
 let resetTrackerDisplay = new Display().hide();
 let resetTrackerDisplayLine = new DisplayLine(`${RED}[Click to reset]`).setShadow(true);

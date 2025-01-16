@@ -45,7 +45,7 @@ ${GRAY}- ${LIGHT_PURPLE}Lord Jawbus: ${WHITE}2`,
     {
         toggleSettingKey: 'seaCreaturesHpOverlay',
         guiSettings: overlayCoordsData.seaCreaturesHpOverlay,
-        sampleText: `${YELLOW}${BOLD}Sea creatures HP\n${GRAY}[Lv600] ${RED}${BOLD}Lord Jawbus ${RESET}${GREEN}76m${WHITE}/${GREEN}100m${RED}❤`,
+        sampleText: `${YELLOW}${BOLD}Sea creatures HP\n${RED}${BOLD}Lord Jawbus ${RESET}${GREEN}76m${WHITE}/${GREEN}100m${RED}❤`,
         isActive: false,
         width: 0,
         height: 0
@@ -72,11 +72,11 @@ ${GRAY}- ${LIGHT_PURPLE}Lord Jawbus: ${WHITE}2`,
         sampleText:
 `${DARK_RED}${BOLD}Crimson Isle tracker
 ${LIGHT_PURPLE}Thunder: ${WHITE}35 ${GRAY}catches ago ${DARK_GRAY}(${GRAY}avg: ${WHITE}70${DARK_GRAY})
-${GRAY}Last on: ${WHITE}2024-11-30 12:00:00
+${GRAY}Last on: ${WHITE}15m ${GRAY}(${WHITE}2024-11-30 12:00:00${GRAY})
 ${LIGHT_PURPLE}Lord Jawbus: ${WHITE}417 ${GRAY}catches ago ${DARK_GRAY}(${GRAY}avg: ${WHITE}454${DARK_GRAY})
-${GRAY}Last on: ${WHITE}2024-11-30 11:30:00
+${GRAY}Last on: ${WHITE}45m ${GRAY}(${WHITE}2024-11-30 11:30:00${GRAY})
 ${LIGHT_PURPLE}Radioactive Vials: ${WHITE}10
-${GRAY}Last on: ${WHITE}2024-11-29 18:00:00
+${GRAY}Last on: ${WHITE}1d 0h 0m ${GRAY}(${WHITE}2024-11-29 12:15:00${GRAY})
 ${GRAY}Last on: ${WHITE}6 Jawbuses ago`,
         isActive: false,
         width: 0,
@@ -88,9 +88,9 @@ ${GRAY}Last on: ${WHITE}6 Jawbuses ago`,
         sampleText:
 `${AQUA}${BOLD}Jerry Workshop tracker
 ${GOLD}Yeti: ${WHITE}70 ${GRAY}catches ago ${DARK_GRAY}(${GRAY}avg: ${WHITE}85${DARK_GRAY})
-${GRAY}Last on: ${WHITE}2024-11-30 12:00:00
+${GRAY}Last on: ${WHITE}2d 5h 8m ${GRAY}(${WHITE}2024-11-30 12:00:00${GRAY})
 ${GOLD}Reindrake: ${WHITE}417 ${GRAY}catches ago ${DARK_GRAY}(${GRAY}avg: ${WHITE}654${DARK_GRAY})
-${GRAY}Last on: ${WHITE}2024-11-30 08:30:00
+${GRAY}Last on: ${WHITE}2d 9h 8m ${GRAY}(${WHITE}2024-11-30 08:00:00${GRAY})
 ${GRAY}Baby Yeti pets: ${GOLD}3 ${DARK_PURPLE}7`,
         isActive: false,
         width: 0,
@@ -145,11 +145,19 @@ ${AQUA}Elapsed time: ${WHITE}1:11:13`,
 - 1027x ${DARK_PURPLE}Silver Magmafish: ${GOLD}25m
 - 3x ${LIGHT_PURPLE}Flash I ${WHITE}Book: ${GOLD}20m
 - 2x ${AQUA}Fishing Experience I ${WHITE}Attribute Shard: ${GOLD}2m
-- 20x Cheap items: ${GOLD}3m
+- 20x Cheap items of 3 types: ${GOLD}3m
 
-${AQUA}Total: ${GOLD}220m
+${AQUA}Total: ${GOLD}${BOLD}220M ${RESET}${GRAY}(${GOLD}171M${GRAY}/h)
 
 ${AQUA}Elapsed time: ${WHITE}1:17:14`,
+        isActive: false,
+        width: 0,
+        height: 0
+    },
+    {
+        toggleSettingKey: 'sharksTrackerOverlay',
+        guiSettings: overlayCoordsData.sharksTrackerOverlay,
+        sampleText: `${AQUA}${BOLD}Sharks: ${GOLD}53 ${DARK_PURPLE}56 ${BLUE}119 ${GREEN}217 ${GRAY}(${WHITE}445 ${GRAY}in total)`,
         isActive: false,
         width: 0,
         height: 0

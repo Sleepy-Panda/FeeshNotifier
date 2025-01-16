@@ -9,6 +9,7 @@ import { resetDropNumbers } from "./features/chat/messageOnDrop";
 import { calculateFishingPetPrices } from "./features/commands/calculateFishingPetsPrices";
 import { calculateGearCraftPrices } from "./features/commands/calculateGearCraftPrices";
 import { moveAllGuis } from "./moveAllOverlays";
+import { resetSharksTracker } from "./features/overlays/sharksTracker";
 
 register("command", (...args) => {
     settings.openGUI();
@@ -46,6 +47,11 @@ register("command", (...args) => {
         resetDropNumbers();
     }
 }).setName("feeshResetProfitTracker");
+
+register("command", (...args) => {
+    const isConfirmed = args[0] && args[0] === "noconfirm";
+    resetSharksTracker(!!isConfirmed);
+}).setName("feeshResetSharks");
 
 register("command", (...args) => {
     const count = args[0];

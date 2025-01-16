@@ -1,4 +1,5 @@
 import settings from "../../settings";
+import { getItemAttributes } from "../../utils/common";
 import { isInSkyblock } from "../../utils/playerState";
 
 const CRIMSON_ARMOR_NAMES = [
@@ -63,21 +64,6 @@ function highlightAttributeFusionMatchingItems(slot, gui) {
     if (targetItemAttributes.some(a => inventoryItemAttributes.includes(a))) {
         Renderer.drawRect(Renderer.color(0, 255, 0, 150), slot.getDisplayX(), slot.getDisplayY(), 16, 16);
     }
-}
-
-function getItemAttributes(item) {
-    const itemAttributes = item?.getNBT()?.getCompoundTag('tag')?.getCompoundTag('ExtraAttributes')?.getCompoundTag('attributes')?.toObject();
-    if (!itemAttributes) {
-        return [];
-    }
-
-    var stringifiedAttributes = [];
-    Object.keys(itemAttributes).sort().forEach(attributeCode => {
-        const attributeLevel = itemAttributes[attributeCode];
-        stringifiedAttributes.push(`${attributeCode.toLowerCase()}:${attributeLevel}`);
-    });
-
-    return stringifiedAttributes;
 }
 
 // ID examples: FIERY_CRIMSON_CHESTPLATE, AURORA_HELMET, etc.

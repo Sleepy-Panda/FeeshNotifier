@@ -34,6 +34,7 @@ class Settings {
     wormProfitTrackerOverlayGui = new Gui();
     magmaCoreProfitTrackerOverlayGui = new Gui();
     fishingProfitTrackerOverlayGui = new Gui();
+    sharksTrackerOverlayGui = new Gui();
 
     // ******* GENERAL ******* //
 
@@ -280,6 +281,20 @@ class Settings {
     messageOnMidnightDyeDrop = true;
 
     @SwitchProperty({
+        name: "Send a message on PERIWINKLE DYE drop",
+        category: "Chat",
+        subcategory: "Rare Drops"
+    })
+    messageOnPeriwinkleDyeDrop = true;
+
+    @SwitchProperty({
+        name: "Send a message on BONE DYE drop",
+        category: "Chat",
+        subcategory: "Rare Drops"
+    })
+    messageOnBoneDyeDrop = true;
+
+    @SwitchProperty({
         name: "Send a message on MAGMA CORE drop",
         category: "Chat",
         subcategory: "Rare Drops"
@@ -371,7 +386,7 @@ class Settings {
 
     @SwitchProperty({
         name: "Alert when a thunder bottle has fully charged",
-        description: `Shows a title when a thunder bottle has fully charged and became Thunder in a bottle.`,
+        description: `Shows a title when a Thunder / Storm / Hurricane bottle has fully charged.`,
         category: "Alerts",
         subcategory: "Thunder bottle"
     })
@@ -658,6 +673,20 @@ class Settings {
     alertOnMidnightDyeDrop = true;
 
     @SwitchProperty({
+        name: "Alert on PERIWINKLE DYE drop",
+        category: "Alerts",
+        subcategory: "Rare Drops"
+    })
+    alertOnPeriwinkleDyeDrop = true;
+
+    @SwitchProperty({
+        name: "Alert on BONE DYE drop",
+        category: "Alerts",
+        subcategory: "Rare Drops"
+    })
+    alertOnBoneDyeDrop = true;
+
+    @SwitchProperty({
         name: "Alert on MAGMA CORE drop",
         category: "Alerts",
         subcategory: "Rare Drops"
@@ -739,6 +768,14 @@ class Settings {
     })
     rareCatchesTrackerOverlay = true;
 
+    @SwitchProperty({
+        name: "Reset on closing game",
+        description: "Automatically reset the rare catches tracker when you close Minecraft.",
+        category: "Overlays",
+        subcategory: "Rare catches"
+    })
+    resetRareCatchesTrackerOnGameClosed = false;
+
     @ButtonProperty({
         name: "Move rare catches tracker",
         description: "Allows to move and resize the overlay text.",
@@ -766,7 +803,7 @@ class Settings {
 
     @SwitchProperty({
         name: "Sea creatures HP",
-        description: `Shows an overlay with the HP of nearby Thunder / Lord Jawbus / Plhlegblast / Reindrake / Yeti. ${RED}Hidden if you have no fishing rod in your hotbar!`,
+        description: `Shows an overlay with the HP of nearby Thunder / Lord Jawbus / Plhlegblast / Reindrake / Yeti when they're in lootshare range. ${RED}Hidden if you have no fishing rod in your hotbar!`,
         category: "Overlays",
         subcategory: "Sea creatures HP"
     })
@@ -838,6 +875,14 @@ class Settings {
     })
     jerryWorkshopTrackerOverlay = true;
 
+    @SwitchProperty({
+        name: "Reset on closing game",
+        description: "Automatically reset the Jerry Workshop tracker when you close Minecraft.",
+        category: "Overlays",
+        subcategory: "Jerry Workshop tracker"
+    })
+    resetJerryWorkshopTrackerOnGameClosed = false;
+
     @ButtonProperty({
         name: "Move Jerry Workshop tracker",
         description: "Allows to move and resize the overlay text.",
@@ -878,6 +923,14 @@ Example: /feeshSetRadioactiveVials 5 2024-03-18T14:05:00Z`,
         subcategory: "Crimson Isle tracker"
     })
     crimsonIsleTrackerOverlay = true;
+
+    @SwitchProperty({
+        name: "Reset on closing game",
+        description: "Automatically reset the Crimson Isle tracker when you close Minecraft.",
+        category: "Overlays",
+        subcategory: "Crimson Isle tracker"
+    })
+    resetCrimsonIsleTrackerOnGameClosed = false;
 
     @ButtonProperty({
         name: "Move Crimson Isle tracker",
@@ -1042,12 +1095,61 @@ ${RED}Hidden if you have no fishing rod in your hotbar!`,
     fishingProfitTracker_showTop = 20;
 
     @SwitchProperty({
+        name: "Announce rare drops",
+        description: "Send RARE DROP! message to player's chat when a rare item is added to the fishing profit tracker (for the items that have no RARE DROP! message from Hypixel by default).",
+        category: "Overlays",
+        subcategory: "Fishing profit tracker"
+    })
+    shouldAnnounceRareDropsWhenPickup = true;
+
+    @SwitchProperty({
         name: "Show profits in crimson essence",
         description: "Calculate price in crimson essence for crimson fishing items e.g. Slug Boots, Moogma Leggings, Flaming Chestplate, Blade of the Volcano, Staff of the Volcano.",
         category: "Overlays",
         subcategory: "Fishing profit tracker"
     })
     calculateProfitInCrimsonEssence = false;
+
+    @SwitchProperty({
+        name: "Reset on closing game",
+        description: "Automatically reset the fishing profit tracker when you close Minecraft.",
+        category: "Overlays",
+        subcategory: "Fishing profit tracker"
+    })
+    resetFishingProfitTrackerOnGameClosed = false;
+
+    // ******* OVERLAYS - Sharks tracker ******* //
+
+    @SwitchProperty({
+        name: "Sharks tracker",
+        description: `Shows an overlay with current fishing festival's sharks tracker. Not persistent - resets on MC restart.\nDo ${AQUA}/feeshResetSharks${GRAY} to reset.\n${RED}Hidden if you have no fishing rod in your hotbar!`,
+        category: "Overlays",
+        subcategory: "Sharks tracker"
+    })
+    sharksTrackerOverlay = true;
+
+    @ButtonProperty({
+        name: "Move Sharks tracker",
+        description: "Allows to move and resize the overlay text.",
+        category: "Overlays",
+        subcategory: "Sharks tracker",
+        placeholder: "Move"
+    })
+    moveSharksTrackerOverlay() {
+        showOverlayMoveHelp();
+        this.sharksTrackerOverlayGui.open();
+    };
+
+    @ButtonProperty({
+        name: "Reset Sharks tracker",
+        description: `Resets tracking for Sharks tracker. Executes ${AQUA}/feeshResetSharks`,
+        category: "Overlays",
+        subcategory: "Sharks tracker",
+        placeholder: "Reset"
+    })
+    resetMagmaCoreProfitTracker() {
+        ChatLib.command("feeshResetSharks noconfirm", true);
+    }
 
     // ******* INVENTORY - Highlight ******* //
 
@@ -1071,7 +1173,7 @@ ${RED}Hidden if you have no fishing rod in your hotbar!`,
 
     @SwitchProperty({
         name: "Thunder bottle charge progress",
-        description: `Render empty thunder / storm / hurricane bottle charge progress (percentage)`,
+        description: `Render empty thunder / storm / hurricane bottle charge progress (percentage).`,
         category: "Inventory",
         subcategory: "Item tooltip"
     })
@@ -1144,6 +1246,26 @@ ${RED}Hidden if you have no fishing rod in your hotbar!`,
         subcategory: "Fishing rod attributes"
     })
     accentedFishingRodAttributes = 'double_hook,fishing_speed,trophy_hunter';
+
+    // ******* INVENTORY - Expertise ******* //
+
+    @SwitchProperty({
+        name: "Fishing rod expertise",
+        description: `Render expertise kills in fishing rod's lore if applicable.`,
+        category: "Inventory",
+        subcategory: "Expertise"
+    })
+    showFishingRodExpertiseKills = false;
+
+    // ******* INVENTORY - Prices ******* //
+
+    @SwitchProperty({
+        name: "Price per T1 attribute",
+        description: `Render price per T1 attribute level in the auctioned Attribute Shard's lore, based on item's price. Helps to compare prices for high-tier attribute shards on AH.`,
+        category: "Inventory",
+        subcategory: "Prices"
+    })
+    showPricePerT1Attribute = false;
 
     // ******* COMMANDS ******* //
 

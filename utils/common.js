@@ -1,4 +1,5 @@
 import { RED, DARK_GRAY, BLUE, WHITE, BOLD, RESET } from '../constants/formatting';
+import { NBTTagString } from '../constants/javaTypes';
 
 // Double hook reindrakes may produce the following messages history:
 // [CHAT] &r&eIt's a &r&aDouble Hook&r&e!&r
@@ -156,7 +157,7 @@ export function toShortNumber(number) {
 	number = Math.floor(number);
 
 	if (number >= 1000000000) {
-		return roundToFixed(number / 1000000000, 1) + 'B';
+		return roundToFixed(number / 1000000000, 2) + 'B';
 	}
 	if (number >= 1000000) {
 		return roundToFixed(number / 1000000, 1) + 'M';
@@ -213,6 +214,12 @@ export function isInSupercraftGui() {
 	return (!!chestName && chestName.endsWith('Recipe'));
 }
 
+export function isFishingRod(item) {
+	if (!item) return;
+    const isRod = (!item.getName()?.includes('Carnival Rod') && item.getLore().some(loreLine => loreLine.includes('FISHING ROD') || loreLine.includes('FISHING WEAPON')));
+	return isRod;
+}
+
 export function getPlayerNamesInRange(distance) {
 	const players = World
 		.getAllPlayers()
@@ -220,7 +227,7 @@ export function getPlayerNamesInRange(distance) {
 			(player.getUUID().version() === 4 || player.getUUID().version() === 1) && // Players and Watchdog have version 4, nicked players have version 1, this is done to exclude NPCs
 			player.ping === 1 && // -1 is watchdog and ghost players, also there is a ghost player with high ping value when joining a world
 			player.name != Player.getName() && // Exclude current player because they do not count for legion
-			player.distanceTo(Player.getPlayer()) < distance
+			player.distanceTo(Player.getPlayer()) <= distance
 		)
 		.map(player => player.name)
 		.filter((x, i, a) => a.indexOf(x) == i); // Distinct, sometimes the players are duplicated in the list
@@ -266,6 +273,71 @@ export function getCleanItemName(itemName) {
     }
     const cleanItemName = itemName?.removeFormatting()?.replace(/§L/g, ''); // For some reason, §L is not deleted when calling removeFormatting (trophy fish) 
     return cleanItemName || '';
+}
+
+// Returns attributes array in format [attrName:attrLevel]
+export function getItemAttributes(item) {
+	if (!item) {
+		return [];
+	}
+
+    const itemAttributes = item?.getNBT()?.getCompoundTag('tag')?.getCompoundTag('ExtraAttributes')?.getCompoundTag('attributes')?.toObject();
+    if (!itemAttributes) {
+        return [];
+    }
+
+    var stringifiedAttributes = [];
+    Object.keys(itemAttributes).sort().forEach(attributeCode => {
+        const attributeLevel = itemAttributes[attributeCode];
+        stringifiedAttributes.push(`${attributeCode.toLowerCase()}:${attributeLevel}`);
+    });
+
+    return stringifiedAttributes;
+}
+
+// Formatted time elapsed between 2 dates, e.g. "2d 8h 5m" or "< 1m"
+export function formatTimeElapsedBetweenDates(dateFrom, dateTo = new Date()) {
+	if (!dateFrom || !dateTo) {
+		return '';
+	}
+
+	const totalSeconds = Math.floor((dateTo - dateFrom) / 1000);
+	const totalMinutes = Math.floor(totalSeconds / 60);
+	const totalHours = Math.floor(totalMinutes / 60);
+	const totalDays = Math.floor(totalHours / 24);
+	
+	const days = totalDays;
+	const hours = totalHours - (days * 24);
+	const minutes = totalMinutes - (days * 24 * 60) - (hours * 60);
+	const seconds = totalSeconds - (days * 24 * 60 * 60) - (hours * 60 * 60) - (minutes * 60);
+	
+	const isLessThanMinute = totalSeconds < 60;
+
+	return isLessThanMinute
+		? `less than 1m`
+		: `${days > 0 ? days + 'd ' : ''}${days > 0 || hours > 0 ? hours + 'h ' : ''}${days > 0 || hours > 0 || minutes > 0 ? minutes + 'm' : ''}`;
+}
+
+// Credits Volcaddons
+// Adds a line combined from prefix and value, to the item's lore.
+export function addLineToLore(item, prefix, value) {
+	let loreLine = prefix + value;
+
+	const loreTag = item.getNBT()?.getCompoundTag('tag')?.getCompoundTag('display')?.getTagMap()?.get('Lore');
+	if (!loreTag) {
+		return;
+	}
+
+	const list = new NBTTagList(loreTag);
+
+	for (let i = 0; i < list.getTagCount(); i++) {
+		if (list.getStringTagAt(i).includes(prefix)) {
+			list.set(i, new NBTTagString(loreLine));
+			return;
+		}
+	}
+
+	list.appendTag(new NBTTagString(loreLine));
 }
 
 function getArticle(str) {

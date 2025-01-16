@@ -31,7 +31,7 @@ function trackPlayersAndFishingHooksNearby() {
     fishingHooksCount = World
         .getAllEntitiesOfType(EntityFishHook)
         .filter(hook =>
-            hook.distanceTo(Player.getPlayer()) < bobbingTimeDistance &&
+            hook.distanceTo(Player.getPlayer()) <= bobbingTimeDistance &&
             !hook.getEntity()?.field_146042_b?.getDisplayNameString()?.includes('Phantom Fisher')) // field_146042_b = angler
         .length;
 

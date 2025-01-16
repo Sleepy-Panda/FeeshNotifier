@@ -5,6 +5,7 @@ import { AQUA, BOLD, COMMON, DARK_GRAY, EPIC, GOLD, GRAY, LEGENDARY, MYTHIC, OBF
 // itemAlternateNames - support for item name modifications made by mods
 // itemDisplayName - name with formatting
 // npcPrice - NPC price if exists, or 0
+// shouldAnnounceRareDrop - if the item should be announced as a rare drop in player's chat (for valuable drops which have no standart RARE DROP! message from Hypixel)
 
 export const FISHING_PROFIT_ITEMS = [
 
@@ -490,6 +491,12 @@ export const FISHING_PROFIT_ITEMS = [
         itemDisplayName: `${UNCOMMON}Music Disc - Wait`,
         npcPrice: 20,
     },
+    {
+        itemId: 'ESSENCE_ICE',
+        itemName: 'Ice Essence',
+        itemDisplayName: `${UNCOMMON}Ice Essence`,
+        npcPrice: 0,
+    },
 
     // Water
 
@@ -498,6 +505,7 @@ export const FISHING_PROFIT_ITEMS = [
         itemName: 'Bobbin\' Scriptures',
         itemDisplayName: `${RARE}Bobbin\' Scriptures`,
         npcPrice: 35000,
+        shouldAnnounceRareDrop: true,
     },
     {
         itemId: 'CHUM',
@@ -798,6 +806,7 @@ export const FISHING_PROFIT_ITEMS = [
         itemAlternateNames: [ 'Enchanted Book (Luck of the Sea 6)' ],
         itemDisplayName: `${RARE}Luck of the Sea VI ${WHITE}Book`,
         npcPrice: 0,
+        shouldAnnounceRareDrop: true,
     },
     {
         itemId: 'ENCHANTMENT_CASTER_6',
@@ -812,6 +821,7 @@ export const FISHING_PROFIT_ITEMS = [
         itemAlternateNames: [ 'Enchanted Book (Blessing 6)' ],
         itemDisplayName: `${RARE}Blessing VI ${WHITE}Book`,
         npcPrice: 0,
+        shouldAnnounceRareDrop: true,
     },
     {
         itemId: 'CARROT_ITEM',
@@ -902,36 +912,42 @@ export const FISHING_PROFIT_ITEMS = [
         itemName: 'Fishing Exp Boost (RARE)',
         itemDisplayName: `${RARE}Fishing Exp Boost`,
         npcPrice: 0,
+        shouldAnnounceRareDrop: true,
     },
     {
         itemId: 'PET_ITEM_FISHING_SKILL_BOOST_EPIC',
         itemName: 'Fishing Exp Boost (EPIC)',
         itemDisplayName: `${EPIC}Fishing Exp Boost`,
         npcPrice: 0,
+        shouldAnnounceRareDrop: true,
     },
     {
         itemId: 'WATER_HYDRA_HEAD',
         itemName: 'Water Hydra Head',
         itemDisplayName: `${EPIC}Water Hydra Head`,
         npcPrice: 500,
+        shouldAnnounceRareDrop: true,
     },
     {
         itemId: 'FISH_AFFINITY_TALISMAN',
         itemName: 'Fish Affinity Talisman',
         itemDisplayName: `${RARE}Fish Affinity Talisman`,
         npcPrice: 1000,
+        shouldAnnounceRareDrop: true,
     },
     {
         itemId: 'THE_SHREDDER',
         itemName: 'Shredder',
         itemDisplayName: `${LEGENDARY}Shredder`,
         npcPrice: 1000,
+        shouldAnnounceRareDrop: true,
     },
     {
         itemId: 'DIVER_FRAGMENT',
         itemName: 'Emperor\'s Skull',
         itemDisplayName: `${RARE}Emperor's Skull`,
         npcPrice: 100,
+        shouldAnnounceRareDrop: true,
     },
     {
         itemId: 'FLYING_FISH;2',
@@ -954,13 +970,25 @@ export const FISHING_PROFIT_ITEMS = [
     {
         itemId: 'DYE_AQUAMARINE',
         itemName: 'Aquamarine Dye',
-        itemDisplayName: `${LEGENDARY}Aquamarine Dye`,
+        itemDisplayName: `${LEGENDARY}${BOLD}Aquamarine Dye`,
         npcPrice: 0,
     },
     {
         itemId: 'DYE_ICEBERG',
         itemName: 'Iceberg Dye',
-        itemDisplayName: `${LEGENDARY}Iceberg Dye`,
+        itemDisplayName: `${LEGENDARY}${BOLD}Iceberg Dye`,
+        npcPrice: 0,
+    },
+    {
+        itemId: 'DYE_PERIWINKLE',
+        itemName: 'Periwinkle Dye',
+        itemDisplayName: `${LEGENDARY}${BOLD}Periwinkle Dye`,
+        npcPrice: 0,
+    },
+    {
+        itemId: 'DYE_BONE',
+        itemName: 'Bone Dye',
+        itemDisplayName: `${LEGENDARY}${BOLD}Bone Dye`,
         npcPrice: 0,
     },
 
@@ -1103,11 +1131,12 @@ export const FISHING_PROFIT_ITEMS = [
         itemName: 'Magma Lord Fragment',
         itemDisplayName: `${LEGENDARY}Magma Lord Fragment`,
         npcPrice: 0,
+        shouldAnnounceRareDrop: true,
     },
     {
         itemId: 'RADIOACTIVE_VIAL',
         itemName: 'Radioactive Vial',
-        itemDisplayName: `${MYTHIC}Radioactive Vial`,
+        itemDisplayName: `${MYTHIC}${BOLD}Radioactive Vial`,
         npcPrice: 100000,
     },
     {
@@ -1138,8 +1167,9 @@ export const FISHING_PROFIT_ITEMS = [
         itemId: 'ENCHANTMENT_ULTIMATE_FLASH_1',
         itemName: 'Enchanted Book (Flash I)',
         itemAlternateNames: [ 'Enchanted Book (Flash 1)' ],
-        itemDisplayName: `${MYTHIC}${BOLD}Flash I ${WHITE}Book`,
+        itemDisplayName: `${MYTHIC}Flash I ${WHITE}Book`,
         npcPrice: 0,
+        shouldAnnounceRareDrop: true,
     },
     {
         itemId: 'ATTRIBUTE_SHARD+ATTRIBUTE_BLAZING_FORTUNE;1',
@@ -1147,6 +1177,7 @@ export const FISHING_PROFIT_ITEMS = [
         itemAlternateNames: [ 'Attribute Shard (Blazing Fortune 1)' ],
         itemDisplayName: `${AQUA}Blazing Fortune I ${WHITE}Attribute Shard`,
         npcPrice: 0,
+        shouldAnnounceRareDrop: true,
     },
     {
         itemId: 'ATTRIBUTE_SHARD+ATTRIBUTE_DOUBLE_HOOK;1',
@@ -1154,6 +1185,7 @@ export const FISHING_PROFIT_ITEMS = [
         itemAlternateNames: [ 'Attribute Shard (Double Hook 1)' ],
         itemDisplayName: `${AQUA}Double Hook I ${WHITE}Attribute Shard`,
         npcPrice: 0,
+        shouldAnnounceRareDrop: true,
     },
     {
         itemId: 'ATTRIBUTE_SHARD+ATTRIBUTE_FISHERMAN;1',
@@ -1161,6 +1193,7 @@ export const FISHING_PROFIT_ITEMS = [
         itemAlternateNames: [ 'Attribute Shard (Fisherman 1)' ],
         itemDisplayName: `${AQUA}Fisherman I ${WHITE}Attribute Shard`,
         npcPrice: 0,
+        shouldAnnounceRareDrop: true,
     },
     {
         itemId: 'ATTRIBUTE_SHARD+ATTRIBUTE_FISHING_EXPERIENCE;1',
@@ -1168,6 +1201,7 @@ export const FISHING_PROFIT_ITEMS = [
         itemAlternateNames: [ 'Attribute Shard (Fishing Experience 1)' ],
         itemDisplayName: `${AQUA}Fishing Experience I ${WHITE}Attribute Shard`,
         npcPrice: 0,
+        shouldAnnounceRareDrop: true,
     },
     {
         itemId: 'ATTRIBUTE_SHARD+ATTRIBUTE_FISHING_SPEED;1',
@@ -1175,6 +1209,7 @@ export const FISHING_PROFIT_ITEMS = [
         itemAlternateNames: [ 'Attribute Shard (Fishing Speed 1)' ],
         itemDisplayName: `${AQUA}Fishing Speed I ${WHITE}Attribute Shard`,
         npcPrice: 0,
+        shouldAnnounceRareDrop: true,
     },
     {
         itemId: 'ATTRIBUTE_SHARD+ATTRIBUTE_HUNTER;1',
@@ -1182,6 +1217,7 @@ export const FISHING_PROFIT_ITEMS = [
         itemAlternateNames: [ 'Attribute Shard (Hunter 1)' ],
         itemDisplayName: `${AQUA}Hunter I ${WHITE}Attribute Shard`,
         npcPrice: 0,
+        shouldAnnounceRareDrop: true,
     },
     {
         itemId: 'ATTRIBUTE_SHARD+ATTRIBUTE_INFECTION;1',
@@ -1189,6 +1225,7 @@ export const FISHING_PROFIT_ITEMS = [
         itemAlternateNames: [ 'Attribute Shard (Infection 1)' ],
         itemDisplayName: `${AQUA}Infection I ${WHITE}Attribute Shard`,
         npcPrice: 0,
+        shouldAnnounceRareDrop: true,
     },
     {
         itemId: 'ATTRIBUTE_SHARD+ATTRIBUTE_TROPHY_HUNTER;1',
@@ -1196,6 +1233,7 @@ export const FISHING_PROFIT_ITEMS = [
         itemAlternateNames: [ 'Attribute Shard (Trophy Hunter 1)' ],
         itemDisplayName: `${AQUA}Trophy Hunter I ${WHITE}Attribute Shard`,
         npcPrice: 0,
+        shouldAnnounceRareDrop: true,
     },
 
     // Crystal Hollows
@@ -1224,6 +1262,7 @@ export const FISHING_PROFIT_ITEMS = [
         itemAlternateNames: [ 'Enchanted Book (Piscary 6)' ],
         itemDisplayName: `${RARE}Piscary VI ${WHITE}Book`,
         npcPrice: 0,
+        shouldAnnounceRareDrop: true,
     },
     {
         itemId: 'WORM_MEMBRANE',
@@ -1288,7 +1327,7 @@ export const FISHING_PROFIT_ITEMS = [
     {
         itemId: 'DYE_CARMINE',
         itemName: 'Carmine Dye',
-        itemDisplayName: `${LEGENDARY}Carmine Dye`,
+        itemDisplayName: `${LEGENDARY}${BOLD}Carmine Dye`,
         npcPrice: 0,
     },
 
@@ -1341,6 +1380,7 @@ export const FISHING_PROFIT_ITEMS = [
         itemName: 'Soul Fragment',
         itemDisplayName: `${EPIC}Soul Fragment`,
         npcPrice: 0,
+        shouldAnnounceRareDrop: true,
     },
     {
         itemId: 'PET_ITEM_VAMPIRE_FANG',
@@ -1351,7 +1391,7 @@ export const FISHING_PROFIT_ITEMS = [
     {
         itemId: 'DYE_MIDNIGHT',
         itemName: 'Midnight Dye',
-        itemDisplayName: `${LEGENDARY}Midnight Dye`,
+        itemDisplayName: `${LEGENDARY}${BOLD}Midnight Dye`,
         npcPrice: 0,
     },
 
@@ -1452,12 +1492,14 @@ export const FISHING_PROFIT_ITEMS = [
         itemName: 'Yeti Rod',
         itemDisplayName: `${EPIC}Yeti Rod`,
         npcPrice: 150000,
+        shouldAnnounceRareDrop: true,
     },
     {
         itemId: 'HILT_OF_TRUE_ICE',
         itemName: 'Hilt of True Ice',
         itemDisplayName: `${LEGENDARY}Hilt of True Ice`,
         npcPrice: 0,
+        shouldAnnounceRareDrop: true,
     },
     {
         itemId: 'ENCHANTMENT_PROSPERITY_1',
@@ -1465,6 +1507,7 @@ export const FISHING_PROFIT_ITEMS = [
         itemAlternateNames: [ 'Enchanted Book (Prosperity 1)' ],
         itemDisplayName: `${RARE}Prosperity I ${WHITE}Book`,
         npcPrice: 0,
+        shouldAnnounceRareDrop: true,
     },
     {
         itemId: 'BABY_YETI;3',
@@ -1504,6 +1547,7 @@ export const FISHING_PROFIT_ITEMS = [
         itemName: 'Great White Shark Tooth',
         itemDisplayName: `${LEGENDARY}Great White Shark Tooth`,
         npcPrice: 0,
+        shouldAnnounceRareDrop: true,
     },
     {
         itemId: 'SHARK_FIN',

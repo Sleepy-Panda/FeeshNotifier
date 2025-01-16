@@ -216,6 +216,7 @@ function renderMagmaCoreTrackerOverlay() {
         return;
     }
 
+    const pausedText = isSessionActive ? '' : ` ${YELLOW}[Paused]`;
     let text = `${YELLOW}${BOLD}Magma Core profit tracker\n`;
     text += `${GREEN}Total sea creatures caught: ${WHITE}${formatNumberWithSpaces(totalSeaCreaturesCaughtCount)}\n`;
     text += `${BLUE}Total magma cores: ${WHITE}${formatNumberWithSpaces(totalMagmaCoresCount)} ${GRAY}[+${formatNumberWithSpaces(lastAddedMagmaCoresCount)} last added]\n`;
@@ -227,7 +228,7 @@ function renderMagmaCoreTrackerOverlay() {
     text += `${GOLD}Coins/h (sell offer): ${WHITE}${toShortNumber(magmaCoreCoinsPerHourSellOffer)}\n`;
     text += `${GOLD}Coins/h (insta-sell): ${WHITE}${toShortNumber(magmaCoreCoinsPerHourInstaSell)}\n`;
     text += `\n`;
-    text += `${AQUA}Elapsed time: ${WHITE}${formatElapsedTime(elapsedSeconds)}`; 
+    text += `${AQUA}Elapsed time: ${WHITE}${formatElapsedTime(elapsedSeconds)}${pausedText}`; 
 
     const overlay = new Text(text, overlayCoordsData.magmaCoreProfitTrackerOverlay.x, overlayCoordsData.magmaCoreProfitTrackerOverlay.y)
         .setShadow(true)

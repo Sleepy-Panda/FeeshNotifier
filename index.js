@@ -27,6 +27,7 @@ import "./features/overlays/jerryWorkshopTracker";
 import "./features/overlays/wormMembraneProfitTracker";
 import "./features/overlays/magmaCoreProfitTracker";
 import "./features/overlays/fishingProfitTracker";
+import "./features/overlays/sharksTracker";
 
 import "./features/inventory/highlightCheapBooks";
 import "./features/inventory/showThunderBottleProgress";
@@ -35,6 +36,8 @@ import "./features/inventory/showArmorAttributes";
 import "./features/inventory/showFishingRodAttributes";
 import "./features/inventory/showRarityUpgrade";
 import "./features/inventory/highlightAttributeFusionMatchingItems";
+import "./features/inventory/showExpertiseKills";
+import "./features/inventory/showPricePerT1Shard";
 
 import "./features/chat/announceMobSpawnToAllChat";
 import "./features/chat/messageOnPlayerDeath";
