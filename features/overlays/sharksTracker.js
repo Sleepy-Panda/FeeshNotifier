@@ -6,6 +6,7 @@ import { formatNumberWithSpaces, isDoubleHook, isInChatOrInventoryGui } from '..
 import { WHITE, GOLD, BOLD, GRAY, RED, UNDERLINE, AQUA, RESET } from "../../constants/formatting";
 import { getWorldName, hasFishingRodInHotbar, isInSkyblock } from "../../utils/playerState";
 import { KUUDRA } from "../../constants/areas";
+import { registerWhen } from "../../utils/registers";
 
 let sharksCaught = {
     [seaCreatures.GREAT_WHITE_SHARK]: 0,
@@ -17,15 +18,24 @@ let totalSharksCaught = 0;
 let festivalStartedAt = null;
 
 triggers.SHARK_CATCH_TRIGGERS.forEach(entry => {
-    register("Chat", (event) => {
-        const isDoubleHooked = isDoubleHook();
-        trackSharkCatch({ seaCreature: entry.seaCreature, rarityColorCode: entry.rarityColorCode, isDoubleHook: isDoubleHooked });
-    }).setCriteria(entry.trigger).setContains();
+    registerWhen(
+        register("Chat", (event) => {
+            const isDoubleHooked = isDoubleHook();
+            trackSharkCatch({ seaCreature: entry.seaCreature, rarityColorCode: entry.rarityColorCode, isDoubleHook: isDoubleHooked });
+        }).setCriteria(entry.trigger).setContains(),
+        () => isInSkyblock() && settings.sharksTrackerOverlay
+    );
 });
 
-register("Chat", () => sendFestivalResultsAndReset()).setCriteria(triggers.FISHING_FESTIVAL_ENDED_MESSAGE).setContains();
+registerWhen(
+    register("Chat", () => sendFestivalResultsAndReset()).setCriteria(triggers.FISHING_FESTIVAL_ENDED_MESSAGE).setContains(),
+    () => isInSkyblock() && settings.sharksTrackerOverlay
+);
 
-register('renderOverlay', () => renderSharksTrackerOverlay());
+registerWhen(
+    register('renderOverlay', () => renderSharksTrackerOverlay()),
+    () => isInSkyblock() && settings.sharksTrackerOverlay && getWorldName() !== KUUDRA
+);
 
 let resetTrackerDisplay = new Display().hide();
 let resetTrackerDisplayLine = new DisplayLine(`${RED}[Click to reset]`).setShadow(true);
@@ -71,10 +81,6 @@ function resetTracker() {
 
 function trackSharkCatch(options) {
     try {
-        if (!settings.sharksTrackerOverlay || !isInSkyblock()) {
-            return;
-        }
-
         if (!festivalStartedAt || new Date() - festivalStartedAt > 61 * 60 * 1000) { // If more than 1 hour & 1 minute elapsed, it means it's the next festival
             resetTracker();
             festivalStartedAt = new Date();
@@ -97,7 +103,7 @@ function trackSharkCatch(options) {
 
 function sendFestivalResultsAndReset() {
     try {
-        if (!settings.sharksTrackerOverlay || !totalSharksCaught || !Object.entries(sharksCaught).length || !isInSkyblock()) {
+        if (!totalSharksCaught || !Object.entries(sharksCaught).length) {
             return;
         }
         
@@ -120,11 +126,8 @@ function sendFestivalResultsAndReset() {
 }
 
 function renderSharksTrackerOverlay() {
-    if (!settings.sharksTrackerOverlay ||
-        !Object.entries(sharksCaught).length ||
+    if (!Object.entries(sharksCaught).length ||
         !totalSharksCaught ||
-        !isInSkyblock() ||
-        getWorldName() === KUUDRA ||
         !hasFishingRodInHotbar() ||
         settings.allOverlaysGui.isOpen()
     ) {

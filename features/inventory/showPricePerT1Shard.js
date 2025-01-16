@@ -1,9 +1,17 @@
 import settings from "../../settings";
 import { addLineToLore, getItemAttributes, toShortNumber } from "../../utils/common";
 import { isInSkyblock } from "../../utils/playerState";
+import { registerWhen } from "../../utils/registers";
 
-register("itemTooltip", (lore, item) => {
-    if (!item || !isInSkyblock() || !settings.showPricePerT1Attribute) {
+registerWhen(
+    register('itemTooltip', (lore, item) => {
+        showPricePerT1Attribute(item);
+    }),
+    () => isInSkyblock() && settings.showPricePerT1Attribute
+);
+
+function showPricePerT1Attribute(item) {
+    if (!item) {
         return;
     }
 
@@ -37,4 +45,4 @@ register("itemTooltip", (lore, item) => {
     const pricePerT1Shard = Math.floor(+priceStr / t1ShardsCount);
 
     addLineToLore(item, `§r§6Price per T1 attribute: `, `§r§7${toShortNumber(pricePerT1Shard)} coins`);
-});
+}

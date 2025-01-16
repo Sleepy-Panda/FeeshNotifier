@@ -1,15 +1,15 @@
 import settings from "../../settings";
 import { isInSkyblock } from "../../utils/playerState";
+import { registerWhen } from "../../utils/registers";
 
-register('renderItemIntoGui', (item, x, y, event) => {
-    showPetLevel(item, x, y);
-});
+registerWhen(
+    register('renderItemIntoGui', (item, x, y, event) => {
+        showPetLevel(item, x, y);
+    }),
+    () => isInSkyblock() && settings.showPetLevel
+);
 
 function showPetLevel(item, x, y) {
-    if (!settings.showPetLevel || !isInSkyblock()) {
-        return;
-    }
-
     if (!item) {
         return;
     }

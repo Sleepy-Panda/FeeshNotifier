@@ -1,9 +1,11 @@
 import { isFishingRod } from "./common";
+import { updateRegisters } from "./registers";
 
 var isInSkyblock = false;
+var worldName = null;
+
 var hasFishingRodInHotbar = false;
 var hasDirtRodInHand = false;
-var worldName = null;
 var isInHunterArmor = false;
 
 var lastKatUpgrade = {
@@ -21,12 +23,65 @@ var lastGuisClosed = {
 	lastBazaarGuiClosedAt: null,
 };
 
+register("worldUnload", () => {
+	isInSkyblock = false;
+	worldName = null;
+});
+
+var trackWorldAttempt = 0;
+
+register("worldLoad", () => {
+	isInSkyblock = false;
+	worldName = null;
+	trackWorldAttempt = 0;
+	setTimeout(trackWorld, 500);
+});
+
 register('step', () => trackPlayerState()).setFps(2);
+
+function trackWorld() {
+	try {
+		if (trackWorldAttempt > 10) {
+			console.log('[FeeshNotifier] Failed to detect the current world after 10 attempts.')
+			return;
+		}
+
+		trackWorldAttempt++;
+
+		const scoreboardTitle = Scoreboard?.getTitle();
+		if (!scoreboardTitle) {
+			isInSkyblock = false;
+			worldName = null;
+			setTimeout(trackWorld, 1000);
+			return;
+		}
+
+		isInSkyblock = hasSkyblockInScoreboard();
+
+		if (!isInSkyblock) {
+			worldName = null;
+			updateRegisters();
+			return;
+		}
+
+		const detectedWorld = TabList?.getNames()?.find(tab => tab.includes("Area: "));
+		if (!detectedWorld) {
+			worldName = null;
+			setTimeout(trackWorld, 1000);
+			return;
+		}
+
+		const cleanName = detectedWorld?.removeFormatting();
+		worldName = cleanName.substring(cleanName.indexOf(': ') + 2);
+		updateRegisters();
+	} catch (e) {
+		console.error(e);
+		console.log(`[FeeshNotifier] Failed to track player's world.`);
+	}
+}
 
 function trackPlayerState() {
 	try {
-		setIsInSkyblock();
-		setWorldName();
 		setHasFishingRodInHotbar();
 		setHasDirtRodInHand();
 		setIsInHunterArmor();	
@@ -103,33 +158,13 @@ export function getLastKatUpgrade() {
 	return lastKatUpgrade;
 }
 
-function setIsInSkyblock() {
-	const scoreboardTitle = Scoreboard.getTitle()?.removeFormatting();
-	isInSkyblock = scoreboardTitle && scoreboardTitle.includes('SKYBLOCK');
-}
-
-function setWorldName() {
-	if (!isInSkyblock) {
-		worldName = null;
-		return;
-	}
-	
-	const world = TabList.getNames().find(tab => tab.includes("Area: "));
-	if (!world) {
-		worldName = null;
-	} else {
-		const formattedName = world.removeFormatting();
-		worldName = formattedName.substring(formattedName.indexOf(': ') + 2);
-	}
-}
-
 function setHasFishingRodInHotbar() {
 	if (!isInSkyblock) {
 		hasFishingRodInHotbar = false;
 		return;
 	}
 
-	const hotbarItems = Player.getInventory().getItems()?.slice(0, 8);
+	const hotbarItems = Player?.getInventory()?.getItems()?.slice(0, 8);
 	if (!hotbarItems || !hotbarItems.length) {
 		hasFishingRodInHotbar = false;
 	} else {
@@ -144,7 +179,7 @@ function setHasDirtRodInHand() {
 		return;
 	}
 
-	const heldItem = Player.getHeldItem();
+	const heldItem = Player?.getHeldItem();
 	if (!heldItem) {
 		hasDirtRodInHand = false;
 	} else {
@@ -160,11 +195,11 @@ function setIsInHunterArmor() {
 		return;
 	}
 
-	const armor = Player.armor;
-	const helmetLoreLines = armor.getHelmet()?.getLore();
-	const chestplateLoreLines = armor.getChestplate()?.getLore();
-	const leggingsLoreLines = armor.getLeggings()?.getLore();
-	const bootsLoreLines = armor.getBoots()?.getLore();
+	const armor = Player?.armor;
+	const helmetLoreLines = armor?.getHelmet()?.getLore();
+	const chestplateLoreLines = armor?.getChestplate()?.getLore();
+	const leggingsLoreLines = armor?.getLeggings()?.getLore();
+	const bootsLoreLines = armor?.getBoots()?.getLore();
 	const hunter = 'Hunter';
 
 	if (!helmetLoreLines || !helmetLoreLines.length ||
@@ -181,4 +216,9 @@ function setIsInHunterArmor() {
 	} else {
 		isInHunterArmor = false;
 	}
+}
+
+function hasSkyblockInScoreboard() {
+	const scoreboardTitle = Scoreboard?.getTitle()?.removeFormatting();
+	return !!scoreboardTitle && scoreboardTitle.includes('SKYBLOCK');
 }

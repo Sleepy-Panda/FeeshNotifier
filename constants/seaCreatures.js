@@ -67,5 +67,9 @@ export const ALL_SEA_CREATURES_NAMES = [
     'Thunder',
     'Lord Jawbus',
     'Jawbus Follower',
-    'Plhlegblast'
+    'Plhlegblast',
+    'Mithril Grubber',
+    'Medium Mithril Grubber',
+    'Large Mithril Grubber',
+    'Bloated Mithril Grubber',
 ];

@@ -11,6 +11,7 @@ import { getBazaarItemPrices } from "../../utils/bazaarPrices";
 import { formatElapsedTime, getCleanItemName, getItemsAddedToSacks, isFishingRod, isInChatOrInventoryGui, isInSacksGui, isInSupercraftGui, splitArray, toShortNumber } from "../../utils/common";
 import { getLastGuisClosed, getLastKatUpgrade, getWorldName, hasFishingRodInHotbar, isInSkyblock } from "../../utils/playerState";
 import { playRareDropSound } from '../../utils/sound';
+import { registerWhen } from '../../utils/registers';
 
 let isVisible = false;
 let areActionsVisible = false;
@@ -18,26 +19,55 @@ let previousInventory = [];
 let isSessionActive = false;
 let lastHookSeenAt = null;
 
-register("Chat", (event) => onAddedToSacks(event)).setCriteria('&6[Sacks] &r&a+').setStart(); // Items added to the sacks
-register('step', () => detectInventoryChanges()).setFps(4); // Items added to the inventory
+registerWhen(
+    register("Chat", (event) => onAddedToSacks(event)).setCriteria('&6[Sacks] &r&a+').setStart(), // Items added to the sacks
+    () => isInSkyblock() && settings.fishingProfitTrackerOverlay && getWorldName() !== KUUDRA
+);
+registerWhen(
+    register('step', () => detectInventoryChanges()).setFps(4), // Items added to the inventory
+    () => isInSkyblock() && settings.fishingProfitTrackerOverlay && getWorldName() !== KUUDRA
+);
 
-triggers.COINS_FISHED_TRIGGERS.forEach(trigger => { register("Chat", (coins, event) => onCoinsFished(coins)).setCriteria(trigger.trigger); });
-triggers.ICE_ESSENCE_FISHED_TRIGGERS.forEach(trigger => { register("Chat", (count, event) => onIceEssenceFished(count)).setCriteria(trigger.trigger); });
+triggers.COINS_FISHED_TRIGGERS.forEach(trigger => {
+    registerWhen(
+        register("Chat", (coins, event) => onCoinsFished(coins)).setCriteria(trigger.trigger),
+        () => isInSkyblock() && settings.fishingProfitTrackerOverlay && getWorldName() !== KUUDRA
+    );
+});
+triggers.ICE_ESSENCE_FISHED_TRIGGERS.forEach(trigger => {
+    registerWhen(
+        register("Chat", (count, event) => onIceEssenceFished(count)).setCriteria(trigger.trigger),
+        () => isInSkyblock() && settings.fishingProfitTrackerOverlay && getWorldName() === JERRY_WORKSHOP
+    );
+});
 
-// &r&aYour &r&5Ender Dragon &r&aleveled up to level &r&981&r&a!&r
-// &r&aYour &r&6Mammoth &r&aleveled up to level &r&92&r&a!&r
-register("Chat", (petDisplayName, level, event) => onPetReachedMaxLevel(+level, petDisplayName))
-    .setCriteria(`${RESET}${GREEN}Your ${RESET}` + "${petDisplayName}" + ` ${RESET}${GREEN}leveled up to level ${RESET}${BLUE}` + "${level}" + `${RESET}${GREEN}!${RESET}`)
-    .setContains();
+registerWhen(
+    // &r&aYour &r&5Ender Dragon &r&aleveled up to level &r&981&r&a!&r
+    // &r&aYour &r&6Mammoth &r&aleveled up to level &r&92&r&a!&r
+    register("Chat", (petDisplayName, level, event) => onPetReachedMaxLevel(+level, petDisplayName))
+        .setCriteria(`${RESET}${GREEN}Your ${RESET}` + "${petDisplayName}" + ` ${RESET}${GREEN}leveled up to level ${RESET}${BLUE}` + "${level}" + `${RESET}${GREEN}!${RESET}`)
+        .setContains(),
+    () => isInSkyblock() && settings.fishingProfitTrackerOverlay && getWorldName() === CRIMSON_ISLE
+);
 
 register('step', () => {
     activateSessionOnPlayersFishingHook();
     refreshIsVisible();
     refreshAreActionsVisible();
 }).setFps(2);
-register('step', () => refreshElapsedTime()).setFps(1);
-register('step', () => refreshPrices()).setDelay(30);
-register('step', () => { if (settings.fishingProfitTrackerOverlayGui.isOpen()) refreshTrackerDisplayData(); }).setFps(4); // Handle move/resize
+
+registerWhen(
+    register('step', () => refreshElapsedTime()).setFps(1),
+    () => isInSkyblock() && settings.fishingProfitTrackerOverlay && getWorldName() !== KUUDRA
+);
+registerWhen(
+    register('step', () => refreshPrices()).setDelay(30),
+    () => isInSkyblock() && settings.fishingProfitTrackerOverlay && getWorldName() !== KUUDRA
+);
+registerWhen(
+    register('step', () => { if (settings.fishingProfitTrackerOverlayGui.isOpen()) refreshTrackerDisplayData(); }).setFps(4), // Handle move/resize
+    () => isInSkyblock() && settings.fishingProfitTrackerOverlay && getWorldName() !== KUUDRA
+);
 
 let isWorldLoaded = false;
 // World.isLoaded() doesn't give the same result for some reason
@@ -56,12 +86,15 @@ register("gameUnload", () => {
     }
 });
 
-register('guiClosed', (gui) => {
-    if (gui?.toString()?.includes('vigilance')) { // Settings menu is closed, probably some settings have changed
-        refreshPrices();
-        refreshTrackerDisplayData();
-    }
-});
+registerWhen(
+    register('guiClosed', (gui) => {
+        if (gui?.toString()?.includes('vigilance')) { // Settings menu is closed, probably some settings have changed
+            refreshPrices();
+            refreshTrackerDisplayData();
+        }
+    }),
+    () => isInSkyblock() && getWorldName() !== KUUDRA
+);
 
 let profitTrackerDisplay = new Display().hide();
 
@@ -411,7 +444,7 @@ function onCoinsFished(coins) {
 
 function onIceEssenceFished(count) {
     try {
-        if (!isVisible || !count || !isSessionActive || getWorldName() !== JERRY_WORKSHOP) {
+        if (!isVisible || !count || !isSessionActive) {
             return;
         }
     
@@ -447,7 +480,7 @@ function onPetReachedMaxLevel(level, petDisplayName) {
             return;
         }
 
-        if (!isVisible || !petDisplayName || !isSessionActive || getWorldName() !== CRIMSON_ISLE) {
+        if (!isVisible || !petDisplayName || !isSessionActive) {
             return;
         }
     

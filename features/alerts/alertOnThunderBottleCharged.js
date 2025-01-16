@@ -3,20 +3,20 @@ import * as triggers from '../../constants/triggers';
 import { OFF_SOUND_MODE } from "../../constants/sounds";
 import { AQUA } from "../../constants/formatting";
 import { isInSkyblock } from "../../utils/playerState";
+import { registerWhen } from "../../utils/registers";
 
 triggers.BOTTLE_CHARGED_TRIGGERS.forEach(entry => {
-    register(
-        "Chat",
-        (event) => setTimeout(() => playAlertOnBottleCharged(entry.bottleName), 1000) // Delay because the alert is often overriden by the Thunder spawn alert
-    ).setCriteria(entry.trigger).setContains();
+	registerWhen(
+		register(
+			"Chat",
+			(event) => setTimeout(() => playAlertOnBottleCharged(entry.bottleName), 1000) // Delay because the alert is often overriden by the Thunder spawn alert
+		).setCriteria(entry.trigger).setContains(),
+		() => isInSkyblock() && settings.alertOnThunderBottleCharged
+	);
 });
 
 function playAlertOnBottleCharged(bottleName) {
 	try {
-		if (!settings.alertOnThunderBottleCharged || !isInSkyblock()) {
-			return;
-		}
-		
 		Client.showTitle(`${AQUA}${bottleName} is full`, '', 1, 30, 1);
 	
 		if (settings.soundMode !== OFF_SOUND_MODE) {

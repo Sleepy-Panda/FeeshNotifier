@@ -396,7 +396,7 @@ class Settings {
 
     @SwitchProperty({
         name: "Alert when a Chum / Chumcap bucket is automatically picked up",
-        description: `Shows a title when your Chum / Chumcap bucket is automatically picked up because you want too far away.`,
+        description: `Shows a title when your Chum / Chumcap bucket is automatically picked up because you went too far away.`,
         category: "Alerts",
         subcategory: "Chum bucket"
     })

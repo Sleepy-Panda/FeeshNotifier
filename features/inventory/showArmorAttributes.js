@@ -1,17 +1,21 @@
 import settings from "../../settings";
 import { BOLD, GREEN, WHITE } from "../../constants/formatting";
 import { isInSkyblock } from "../../utils/playerState";
+import { registerWhen } from "../../utils/registers";
 
-register('renderItemIntoGui', (item, x, y, event) => {
-    showArmorAttributes(item, x, y);
-});
+registerWhen(
+    register('renderItemIntoGui', (item, x, y, event) => {
+        showArmorAttributes(item, x, y);
+    }),
+    () => isInSkyblock() && (settings.showFishingArmorAttributes || settings.showCrimsonArmorAttributes)
+);
 
 const FISHING_GEAR_REGEX = /(Thunder|Thunderbolt|Magma Lord|Slug|Moogma|Flaming|Taurus) (Helmet|Chestplate|Leggings|Boots|Gauntlet|Necklace)/;
 const CRIMSON_ARMOR_REGEX = /(Crimson|Aurora|Terror|Fervor|Hollow|Berserker|Rampart) (Helmet|Chestplate|Leggings|Boots)/;
 const CRIMSON_EQUIPMENT_REGEX = /Gauntlet of Contagion|Flaming Fist|((Molten|Implosion|Blaze|Scoville|Scourge|Delirium|Ghast|Lava Shell|Magma|Glowstone) (Cloak|Belt|Necklace|Gauntlet|Bracelet))/;
 
 function showArmorAttributes(item, x, y) {
-    if (!item || (!settings.showFishingArmorAttributes && !settings.showCrimsonArmorAttributes) || !isInSkyblock()) {
+    if (!item) {
         return;
     }
 

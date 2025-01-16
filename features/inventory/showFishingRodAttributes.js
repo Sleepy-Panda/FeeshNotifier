@@ -1,16 +1,16 @@
-import { BOLD, GREEN, WHITE } from "../../constants/formatting";
 import settings from "../../settings";
+import { BOLD, GREEN, WHITE } from "../../constants/formatting";
+import { registerWhen } from "../../utils/registers";
 import { isInSkyblock } from "../../utils/playerState";
 
-register('renderItemIntoGui', (item, x, y, event) => {
-    showFishingRodAttributes(item, x, y);
-});
+registerWhen(
+    register('renderItemIntoGui', (item, x, y, event) => {
+        showFishingRodAttributes(item, x, y);
+    }),
+    () => isInSkyblock() && settings.showFishingRodAttributes
+);
 
 function showFishingRodAttributes(item, x, y) {
-    if (!settings.showFishingRodAttributes || !isInSkyblock()) {
-        return;
-    }
-
     if (!item) {
         return;
     }

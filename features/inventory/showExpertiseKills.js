@@ -1,9 +1,15 @@
 import settings from "../../settings";
 import { addLineToLore, isFishingRod, toShortNumber } from "../../utils/common";
 import { isInSkyblock } from "../../utils/playerState";
+import { registerWhen } from "../../utils/registers";
 
-register("itemTooltip", (lore, item) => {
-    if (!item || !isInSkyblock() || !settings.showFishingRodExpertiseKills || !isFishingRod(item)) {
+registerWhen(
+    register('itemTooltip', (lore, item) => showFishingRodExpertiseKills(item)),
+    () => isInSkyblock() && settings.showFishingRodExpertiseKills
+);
+
+function showFishingRodExpertiseKills(item) {
+    if (!item || !isFishingRod(item)) {
         return;
     }
 
@@ -16,4 +22,4 @@ register("itemTooltip", (lore, item) => {
     if (expertise || expertise === 0) {
         addLineToLore(item, `§r§6Expertise kills: `, `§r§7${toShortNumber(expertise)} / 15K`);
     }
-});
+}

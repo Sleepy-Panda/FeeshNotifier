@@ -1,5 +1,33 @@
 # Releases
 
+## v1.22.0
+
+Released: ???
+
+- Add Mithril Grubber to SCS count
+  - Need to add rare catch?
+  - TODO: Nose Candy, Ench Mithril, Speckled Teacup to profit tracker
+  - Calculate Mithril powder gained?
+- GRUB! You received 469 ᠅ Mithril Powder from killing a Mithril Grubber!
+- &r&2&lGRUB! &r&aYou received &r&2469 ᠅ Mithril Powder &r&afrom killing a &r&2Mithril Grubber&r&a!&r
+- &r&aA leech of the mines surfaces... you've caught a Medium Mithril Grubber.&r
+&r&aA leech of the mines surfaces... you've caught a Mithril Grubber.&r
+[CHAT] &r&2&lGRUB! &r&aYou received &r&259 ᠅ Mithril Powder &r&afrom killing a &r&2Mithril Grubber&r&a!&r
+ &r&aA leech of the mines surfaces... you've caught a Bloated Mithril Grubber.&r
+[CHAT] &r&cThere are blocks in the way!&r
+[CHAT] &6[Sacks] &r&a+20&r&e items&r&e.&r&8 (Last 5s.)&r
+[CHAT] &r&cYour Kill Combo has expired! You reached a 9 Kill Combo!&r
+[CHAT] &r&2&lGRUB! &r&aYou received &r&24,251 ᠅ Mithril Powder &r&afrom killing a &r&2Mithril Grubber&r&a!&r
+
+- Fixed typo in setting for Bucket
+- Highlight maxed bobbers/legion
+
+- ??? SyntaxError: Unexpected token: <
+- registers, applied to inventory section
+  -- register("worldLoad", () => trackPlayerState()); in playerstate
+- overlay.js
+- rare catches tracker
+
 ## v1.21.0
 
 Released: 2025-01-03

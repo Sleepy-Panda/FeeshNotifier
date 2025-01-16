@@ -1,4 +1,5 @@
 import settings from "../../settings";
+import { registerWhen } from "../../utils/registers";
 import { isInSkyblock } from "../../utils/playerState";
 
 const BOOK_NAMES_TO_HIGHLIGHT = [
@@ -10,15 +11,12 @@ const BOOK_NAMES_TO_HIGHLIGHT = [
     'SPIKED_HOOK_6'
 ];
 
-register('renderSlot', (slot, gui, event) => {
-    highlightCheapBooks(slot, gui);
-});
+registerWhen(
+    register('renderSlot', (slot, gui, event) => highlightCheapBooks(slot, gui)),
+    () => isInSkyblock() && settings.highlightCheapBooks
+);
 
 function highlightCheapBooks(slot, gui) {
-    if (!settings.highlightCheapBooks || !isInSkyblock()) {
-        return;
-    }
-
     if (!(gui instanceof net.minecraft.client.gui.inventory.GuiChest) && !(gui instanceof net.minecraft.client.gui.inventory.GuiInventory)) {
         return;
     }

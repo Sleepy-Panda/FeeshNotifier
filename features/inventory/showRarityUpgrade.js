@@ -1,16 +1,16 @@
 import { GOLD } from "../../constants/formatting";
 import settings from "../../settings";
 import { isInSkyblock } from "../../utils/playerState";
+import { registerWhen } from "../../utils/registers";
 
-register('renderItemIntoGui', (item, x, y, event) => {
-    showRarityUpgrade(item, x, y);
-});
+registerWhen(
+    register('renderItemIntoGui', (item, x, y, event) => {
+        showRarityUpgrade(item, x, y);
+    }),
+    () => isInSkyblock() && settings.showRarityUpgrade
+);
 
 function showRarityUpgrade(item, x, y) {
-    if (!settings.showRarityUpgrade || !isInSkyblock()) {
-        return;
-    }
-
     if (!item) {
         return;
     }

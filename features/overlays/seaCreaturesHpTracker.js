@@ -5,6 +5,7 @@ import { overlayCoordsData } from "../../data/overlayCoords";
 import { getWorldName, hasFishingRodInHotbar, isInSkyblock } from "../../utils/playerState";
 import { CRIMSON_ISLE, JERRY_WORKSHOP } from "../../constants/areas";
 import { OFF_SOUND_MODE } from "../../constants/sounds";
+import { registerWhen } from "../../utils/registers";
 
 const LOOTSHARE_DISTANCE = 30;
 const TRACKED_MOBS = [
@@ -33,23 +34,27 @@ const TRACKED_WORLD_NAMES = TRACKED_MOBS.map(m => m.world);
 
 let mobs = [];
 
-register('step', () => trackSeaCreaturesHp()).setFps(4);
-register('renderOverlay', () => renderHpOverlay());
+registerWhen(
+    register('step', () => trackSeaCreaturesHp()).setFps(4),
+    () => isInSkyblock() && settings.seaCreaturesHpOverlay && TRACKED_WORLD_NAMES.some(w => w === getWorldName())
+);
+
+registerWhen(
+    register('renderOverlay', () => renderHpOverlay()),
+    () => isInSkyblock() && settings.seaCreaturesHpOverlay && TRACKED_WORLD_NAMES.some(w => w === getWorldName())
+);
+
 register("worldUnload", () => {
     mobs = [];
 });
 
 function trackSeaCreaturesHp() {
     try {
-        const worldName = getWorldName();
-
-        if (!settings.seaCreaturesHpOverlay ||
-            !isInSkyblock() ||
-            !TRACKED_WORLD_NAMES.some(w => w === worldName) ||
-            !hasFishingRodInHotbar()) {
+        if (!hasFishingRodInHotbar()) {
             return;
         }
     
+        const worldName = getWorldName();
         let currentMobs = [];
         const entities = World.getAllEntitiesOfType(EntityArmorStand);
     
@@ -80,10 +85,7 @@ function trackSeaCreaturesHp() {
 }
 
 function renderHpOverlay() {
-    if (!settings.seaCreaturesHpOverlay ||
-        !mobs.length ||
-        !isInSkyblock() ||
-        !TRACKED_WORLD_NAMES.some(w => w === getWorldName()) ||
+    if (!mobs.length ||
         !hasFishingRodInHotbar() ||
         settings.allOverlaysGui.isOpen()
     ) {

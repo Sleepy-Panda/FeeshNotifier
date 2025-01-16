@@ -8,15 +8,22 @@ import { WHITE, GOLD, BOLD, YELLOW, GRAY, RED, UNDERLINE } from "../../constants
 import { RARE_CATCH_TRIGGERS } from "../../constants/triggers";
 import { getWorldName, hasFishingRodInHotbar, isInSkyblock } from "../../utils/playerState";
 import { KUUDRA } from "../../constants/areas";
+import { registerWhen } from "../../utils/registers";
 
 triggers.RARE_CATCH_TRIGGERS.forEach(entry => {
-    register("Chat", (event) => {
-        const isDoubleHooked = isDoubleHook();
-        trackCatch({ seaCreature: entry.seaCreature, rarityColorCode: entry.rarityColorCode, isDoubleHook: isDoubleHooked });
-    }).setCriteria(entry.trigger).setContains();
+    registerWhen(
+        register("Chat", (event) => {
+            const isDoubleHooked = isDoubleHook();
+            trackCatch({ seaCreature: entry.seaCreature, rarityColorCode: entry.rarityColorCode, isDoubleHook: isDoubleHooked });
+        }).setCriteria(entry.trigger).setContains(),
+        () => isInSkyblock() && settings.rareCatchesTrackerOverlay && getWorldName() !== KUUDRA
+    );
 });
 
-register('renderOverlay', () => renderRareCatchTrackerOverlay());
+registerWhen(
+    register('renderOverlay', () => renderRareCatchTrackerOverlay()),
+    () => isInSkyblock() && settings.rareCatchesTrackerOverlay && getWorldName() !== KUUDRA  
+);
 
 register("gameUnload", () => {
     if (settings.rareCatchesTrackerOverlay && settings.resetRareCatchesTrackerOnGameClosed && persistentData.totalRareCatches > 0) {
@@ -76,10 +83,6 @@ export function resetRareCatchesTracker(isConfirmed) {
 
 function trackCatch(options) {
     try {
-        if (!settings.rareCatchesTrackerOverlay || !isInSkyblock()) {
-            return;
-        }
-    
         if (options.seaCreature === seaCreatures.VANQUISHER && !hasFishingRodInHotbar()) {
             return;
         }
@@ -111,10 +114,7 @@ function trackCatch(options) {
 }
 
 function renderRareCatchTrackerOverlay() {
-    if (!settings.rareCatchesTrackerOverlay ||
-        !Object.entries(persistentData.rareCatches).length ||
-        !isInSkyblock() ||
-        getWorldName() === KUUDRA ||
+    if (!Object.entries(persistentData.rareCatches).length ||
         !hasFishingRodInHotbar() ||
         settings.allOverlaysGui.isOpen()
     ) {

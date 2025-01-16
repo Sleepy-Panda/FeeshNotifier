@@ -4,6 +4,7 @@ import { EntityFireworkRocket } from "../../constants/javaTypes";
 import { OFF_SOUND_MODE, TIMER_SOUND_SOURCE } from "../../constants/sounds";
 import { overlayCoordsData } from "../../data/overlayCoords";
 import { isInSkyblock } from "../../utils/playerState";
+import { registerWhen } from "../../utils/registers";
 
 let isFlarePlaced = false;
 let flareName = null;
@@ -16,21 +17,33 @@ const secondsBeforeExpiration = 10;
 const flareDistance = 40;
 
 // We check for interaction with a flare, to minimize triggering on other people flares & other types of firework rockets e.g. Bat Fireworks.
-register("playerInteract", (action, pos, event) => handleFlareInteraction(action));
-register('step', () => trackFlareStatus()).setFps(1);
-register('renderOverlay', () => renderFlareOverlay());
+registerWhen(
+    register("playerInteract", (action, pos, event) => handleFlareInteraction(action)),
+    () => isInSkyblock() && (settings.alertOnFlareExpiresSoon || settings.flareRemainingTimeOverlay)
+);
+
+registerWhen(
+    register('step', () => trackFlareStatus()).setFps(1),
+    () => isInSkyblock() && (settings.alertOnFlareExpiresSoon || settings.flareRemainingTimeOverlay)
+);
+
+registerWhen(
+    register('renderOverlay', () => renderFlareOverlay()),
+    () => isInSkyblock() && settings.flareRemainingTimeOverlay
+);
+
+registerWhen(
+    register("chat", () => resetFlare()).setCriteria(`${RESET}${YELLOW}Your flare disappeared because you were too far away!${RESET}`),
+    () => isInSkyblock()
+);
+
 register("worldUnload", () => {
     resetFlare();
 });
-register("chat", () => {
-    resetFlare();
-}).setCriteria(`${RESET}${YELLOW}Your flare disappeared because you were too far away!${RESET}`);
 
 function handleFlareInteraction(action) {
     try {
-        if ((!settings.alertOnFlareExpiresSoon && !settings.flareRemainingTimeOverlay) ||
-            !isInSkyblock ||
-            !action.toString().includes('RIGHT_CLICK') ||
+        if (!action.toString().includes('RIGHT_CLICK') ||
             new Date() - lastFlarePlacedAt < 500 // sometimes playerInteract event happens multiple times
         ) {
             return;
@@ -75,10 +88,6 @@ function handleFlareInteraction(action) {
 
 function trackFlareStatus() {
     try {
-        if ((!settings.alertOnFlareExpiresSoon && !settings.flareRemainingTimeOverlay) || !isInSkyblock) {
-            return;
-        }
-
         if (isFlarePlaced && flareTimerRemainingSeconds <= 0) {
             resetFlare();
         }
@@ -116,10 +125,8 @@ function resetFlare() {
 }
 
 function renderFlareOverlay() {
-    if (!settings.flareRemainingTimeOverlay ||
-        !isFlarePlaced ||
+    if (!isFlarePlaced ||
         flareTimerRemainingSeconds <= 0 ||
-        !isInSkyblock() ||
         settings.allOverlaysGui.isOpen()
     ) {
         return;

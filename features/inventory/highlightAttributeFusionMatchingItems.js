@@ -1,6 +1,7 @@
 import settings from "../../settings";
 import { getItemAttributes } from "../../utils/common";
 import { isInSkyblock } from "../../utils/playerState";
+import { registerWhen } from "../../utils/registers";
 
 const CRIMSON_ARMOR_NAMES = [
     'CRIMSON',
@@ -13,15 +14,12 @@ const CRIMSON_ARMOR_NAMES = [
 const TARGET_ITEM_SLOT_INDEX = 29;
 const COMBINED_ITEM_SLOT_INDEX = 13;
 
-register('renderSlot', (slot, gui, event) => {
-    highlightAttributeFusionMatchingItems(slot, gui);
-});
+registerWhen(
+    register('renderSlot', (slot, gui, event) => highlightAttributeFusionMatchingItems(slot, gui)),
+    () => isInSkyblock() && settings.highlightMatchingItemsInAttributeFusion
+);
 
 function highlightAttributeFusionMatchingItems(slot, gui) {
-    if (!settings.highlightMatchingItemsInAttributeFusion || !isInSkyblock()) {
-        return;
-    }
-
     if (!(gui instanceof net.minecraft.client.gui.inventory.GuiChest)) {
         return;
     }

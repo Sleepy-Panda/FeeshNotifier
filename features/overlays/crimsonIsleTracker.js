@@ -8,18 +8,36 @@ import { getWorldName, hasFishingRodInHotbar, isInSkyblock } from "../../utils/p
 import { formatDate, formatNumberWithSpaces, formatTimeElapsedBetweenDates, isDoubleHook, isInChatOrInventoryGui } from "../../utils/common";
 import { CRIMSON_ISLE } from "../../constants/areas";
 import { MEME_SOUND_MODE, NORMAL_SOUND_MODE, SAD_TROMBONE_SOUND_SOURCE } from "../../constants/sounds";
+import { registerWhen } from "../../utils/registers";
 
 triggers.REGULAR_CRIMSON_CATCH_TRIGGERS.forEach(entry => {
-    register("Chat", (event) => trackRegularSeaCreatureCatch()).setCriteria(entry.trigger).setContains();
+    registerWhen(
+        register("Chat", (event) => trackRegularSeaCreatureCatch()).setCriteria(entry.trigger).setContains(),
+        () => isInSkyblock() && settings.crimsonIsleTrackerOverlay && getWorldName() === CRIMSON_ISLE
+    );
 });
 
 const thunderTrigger = triggers.RARE_CATCH_TRIGGERS.find(entry => entry.seaCreature === seaCreatures.THUNDER);
 const lordJawbusTrigger = triggers.RARE_CATCH_TRIGGERS.find(entry => entry.seaCreature === seaCreatures.LORD_JAWBUS);
-register("Chat", (event) => trackThunderCatch()).setCriteria(thunderTrigger.trigger).setContains();
-register("Chat", (event) => trackLordJawbusCatch()).setCriteria(lordJawbusTrigger.trigger).setContains();
+registerWhen(
+    register("Chat", (event) => trackThunderCatch()).setCriteria(thunderTrigger.trigger).setContains(),
+    () => isInSkyblock() && settings.crimsonIsleTrackerOverlay && getWorldName() === CRIMSON_ISLE
+);
+registerWhen(
+    register("Chat", (event) => trackLordJawbusCatch()).setCriteria(lordJawbusTrigger.trigger).setContains(),
+    () => isInSkyblock() && settings.crimsonIsleTrackerOverlay && getWorldName() === CRIMSON_ISLE
+);
 
 const radioactiveVialTrigger = triggers.RARE_DROP_TRIGGERS.find(entry => entry.trigger === triggers.RADIOACTIVE_VIAL_MESSAGE);
-register("Chat", (magicFind, event) => trackRadioctiveVialDrop()).setCriteria(radioactiveVialTrigger.trigger).setContains();
+registerWhen(
+    register("Chat", (magicFind, event) => trackRadioctiveVialDrop()).setCriteria(radioactiveVialTrigger.trigger).setContains(),
+    () => isInSkyblock() && settings.crimsonIsleTrackerOverlay && getWorldName() === CRIMSON_ISLE
+);
+
+registerWhen(
+    register('renderOverlay', () => renderCrimsonIsleTrackerOverlay()),
+    () => isInSkyblock() && settings.crimsonIsleTrackerOverlay && getWorldName() === CRIMSON_ISLE
+);
 
 register("gameUnload", () => {
     if (settings.crimsonIsleTrackerOverlay && settings.resetCrimsonIsleTrackerOnGameClosed && persistentData.crimsonIsle && (
@@ -32,8 +50,6 @@ register("gameUnload", () => {
         resetCrimsonIsleTracker(true);
     }
 });
-
-register('renderOverlay', () => renderCrimsonIsleTrackerOverlay());
 
 // DisplayLine is initialized once in order to avoid multiple method calls on click.
 let resetTrackerDisplay = new Display().hide();
@@ -118,10 +134,6 @@ export function setRadioactiveVials(count, lastOn) {
 
 function trackThunderCatch() {
     try {
-        if (!isInSkyblock() || getWorldName() !== CRIMSON_ISLE || !settings.crimsonIsleTrackerOverlay) {
-            return;
-        }
-
         const catchesSinceLast = persistentData.crimsonIsle.thunder.catchesSinceLast;
         const lastCatchTime = persistentData.crimsonIsle.thunder.lastCatchTime;
         const elapsedTime = lastCatchTime ? ` ${GRAY}(${WHITE}${formatTimeElapsedBetweenDates(new Date(lastCatchTime))}${GRAY})` : '';
@@ -150,10 +162,6 @@ function trackThunderCatch() {
 
 function trackLordJawbusCatch() {
     try {
-        if (!isInSkyblock() || getWorldName() !== CRIMSON_ISLE || !settings.crimsonIsleTrackerOverlay) {
-            return;
-        }
-
         const isDoubleHooked = isDoubleHook();
 
         const catchesSinceLast = persistentData.crimsonIsle.lordJawbus.catchesSinceLast;
@@ -189,10 +197,6 @@ function trackLordJawbusCatch() {
 
 function trackRegularSeaCreatureCatch() {
     try {
-        if (!isInSkyblock() || getWorldName() !== CRIMSON_ISLE || !settings.crimsonIsleTrackerOverlay) {
-            return;
-        }
-
         persistentData.crimsonIsle.thunder.catchesSinceLast += 1;
         persistentData.crimsonIsle.lordJawbus.catchesSinceLast += 1;
         persistentData.save();
@@ -221,10 +225,6 @@ function trackRegularSeaCreatureCatch() {
 
 function trackRadioctiveVialDrop() {
     try {
-        if (!settings.crimsonIsleTrackerOverlay || !isInSkyblock() || getWorldName() !== CRIMSON_ISLE) {
-            return;
-        }
-
         const lordJawbusCatches = persistentData.crimsonIsle.radioactiveVials.lordJawbusCatchesSinceLast || 0;
 
         persistentData.crimsonIsle.radioactiveVials.count += 1;
@@ -250,8 +250,7 @@ function trackRadioctiveVialDrop() {
 }
 
 function renderCrimsonIsleTrackerOverlay() {
-    if (!settings.crimsonIsleTrackerOverlay ||
-        !persistentData.crimsonIsle ||
+    if (!persistentData.crimsonIsle ||
         (
             !persistentData.crimsonIsle.thunder.lastCatchTime &&
             !persistentData.crimsonIsle.lordJawbus.lastCatchTime &&
@@ -259,8 +258,6 @@ function renderCrimsonIsleTrackerOverlay() {
             !persistentData.crimsonIsle.lordJawbus.catchesSinceLast &&
             !persistentData.crimsonIsle.radioactiveVials.count
         ) ||
-        !isInSkyblock() ||
-        getWorldName() !== CRIMSON_ISLE ||
         !hasFishingRodInHotbar() ||
         settings.allOverlaysGui.isOpen()
     ) {

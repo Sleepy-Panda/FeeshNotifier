@@ -1,11 +1,15 @@
-import { AQUA } from "../../constants/formatting";
 import settings from "../../settings";
+import { AQUA } from "../../constants/formatting";
 import { getCleanItemName } from "../../utils/common";
 import { isInSkyblock } from "../../utils/playerState";
+import { registerWhen } from "../../utils/registers";
 
-register('renderItemIntoGui', (item, x, y, event) => {
-    showThunderBottleProgress(item, x, y);
-});
+registerWhen(
+    register('renderItemIntoGui', (item, x, y, event) => {
+        showThunderBottleProgress(item, x, y);
+    }),
+    () => isInSkyblock() && settings.showThunderBottleProgress
+);
 
 const BOTTLES = [
     {
@@ -23,10 +27,6 @@ const BOTTLES = [
 ];
 
 function showThunderBottleProgress(item, x, y) {
-    if (!settings.showThunderBottleProgress || !isInSkyblock()) {
-        return;
-    }
-
     if (!item) {
         return;
     }

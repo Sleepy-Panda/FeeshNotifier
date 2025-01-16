@@ -7,6 +7,7 @@ import { getLastGuisClosed, getWorldName, hasFishingRodInHotbar, isInSkyblock } 
 import { CRYSTAL_HOLLOWS } from "../../constants/areas";
 import { overlayCoordsData } from "../../data/overlayCoords";
 import { getAuctionItemPrices } from "../../utils/auctionPrices";
+import { registerWhen } from "../../utils/registers";
 
 var totalMembranesCount = 0;
 var totalChambersCount = 0;
@@ -32,19 +33,39 @@ const WORM_MEMBRANES_MODE = 0;
 const GEMSTONE_CHAMBERS_MODE = 1;
 
 triggers.WORM_CATCH_TRIGGERS.forEach(trigger => {
-    register("Chat", (event) => {
-        const isDoubleHooked = isDoubleHook();
-        trackWormCatch(isDoubleHooked);
-    }).setCriteria(trigger.trigger).setContains();
+    registerWhen(
+        register("Chat", (event) => {
+            const isDoubleHooked = isDoubleHook();
+            trackWormCatch(isDoubleHooked);
+        }).setCriteria(trigger.trigger).setContains(),
+        () => isInSkyblock() && settings.wormProfitTrackerOverlay && getWorldName() === CRYSTAL_HOLLOWS
+    );
 });
 
-register('renderOverlay', () => renderWormMembraneProfitTrackerOverlay());
+registerWhen(
+    register('renderOverlay', () => renderWormMembraneProfitTrackerOverlay()),
+    () => isInSkyblock() && settings.wormProfitTrackerOverlay && getWorldName() === CRYSTAL_HOLLOWS
+);
 
-register('step', () => refreshElapsedTime()).setDelay(1);
-register('step', () => refreshValuesPerHour()).setDelay(5);
+registerWhen(
+    register('step', () => refreshElapsedTime()).setDelay(1),
+    () => isInSkyblock() && settings.wormProfitTrackerOverlay && getWorldName() === CRYSTAL_HOLLOWS
+);
 
-register("Chat", (event) => onAddedToSacks(event)).setCriteria('&6[Sacks] &r&a+').setStart();
-register('step', () => detectInventoryChanges()).setFps(5);
+registerWhen(
+    register('step', () => refreshValuesPerHour()).setDelay(5),
+    () => isInSkyblock() && settings.wormProfitTrackerOverlay && getWorldName() === CRYSTAL_HOLLOWS
+);
+
+registerWhen(
+    register("Chat", (event) => onAddedToSacks(event)).setCriteria('&6[Sacks] &r&a+').setStart(),
+    () => isInSkyblock() && settings.wormProfitTrackerOverlay && getWorldName() === CRYSTAL_HOLLOWS
+);
+
+registerWhen(
+    register('step', () => detectInventoryChanges()).setFps(5),
+    () => isInSkyblock() && settings.wormProfitTrackerOverlay && getWorldName() === CRYSTAL_HOLLOWS
+);
 
 register("worldUnload", () => {
     isSessionActive = false;
@@ -110,7 +131,7 @@ export function resetWormMembraneProfitTracker(isConfirmed) {
 
 function onAddedToSacks(event) {
     try {
-        if (!isSessionActive || !settings.wormProfitTrackerOverlay || !isInSkyblock() || !hasFishingRodInHotbar() || getWorldName() !== CRYSTAL_HOLLOWS) {
+        if (!isSessionActive || !hasFishingRodInHotbar()) {
             return;
         }
     
@@ -153,7 +174,7 @@ function onAddedToSacks(event) {
 
 function detectInventoryChanges() {
     try {
-        if (!isSessionActive || !settings.wormProfitTrackerOverlay || !isInSkyblock() || !hasFishingRodInHotbar() || getWorldName() !== CRYSTAL_HOLLOWS) {
+        if (!isSessionActive || !hasFishingRodInHotbar()) {
             previousInventory = [];
             previousInventoryTotal = 0;
             return;
@@ -229,10 +250,6 @@ function pauseWormMembraneProfitTracker() {
 
 function trackWormCatch(isDoubleHooked) {
     try {
-        if (!settings.wormProfitTrackerOverlay || !isInSkyblock() || !hasFishingRodInHotbar() || getWorldName() !== CRYSTAL_HOLLOWS) {
-            return;
-        }
-
         isSessionActive = true;
         
         const diff = isDoubleHooked ? 2 : 1;
@@ -246,7 +263,7 @@ function trackWormCatch(isDoubleHooked) {
 
 function refreshElapsedTime() {
     try {
-        if (!settings.wormProfitTrackerOverlay || !isInSkyblock() || !hasFishingRodInHotbar() || getWorldName() !== CRYSTAL_HOLLOWS || !isSessionActive) {
+        if (!hasFishingRodInHotbar() || !isSessionActive) {
             return;
         }
 
@@ -267,7 +284,7 @@ function refreshElapsedTime() {
 
 function refreshValuesPerHour() {
     try {
-        if (!settings.wormProfitTrackerOverlay || !isInSkyblock() || !hasFishingRodInHotbar() || getWorldName() !== CRYSTAL_HOLLOWS) {
+        if (!hasFishingRodInHotbar()) {
             return;
         }
 
@@ -298,10 +315,7 @@ function refreshValuesPerHour() {
 }
 
 function renderWormMembraneProfitTrackerOverlay() {
-    if (!settings.wormProfitTrackerOverlay ||
-        !isInSkyblock() ||
-        !hasFishingRodInHotbar() ||
-        getWorldName() !== CRYSTAL_HOLLOWS ||
+    if (!hasFishingRodInHotbar() ||
         (!totalWormsCount && !totalMembranesCount) ||
         settings.allOverlaysGui.isOpen()
     ) {

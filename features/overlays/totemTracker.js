@@ -4,14 +4,23 @@ import { EntityArmorStand } from "../../constants/javaTypes";
 import { TIMER_SOUND_SOURCE, OFF_SOUND_MODE } from "../../constants/sounds";
 import { WHITE, RED, DARK_PURPLE, GOLD } from "../../constants/formatting";
 import { isInSkyblock } from "../../utils/playerState";
+import { registerWhen } from "../../utils/registers";
 
 let remainingTotemTime; // Format examples: 01m 02s, 50s, 09s
 let playerTotemPosition;
 const currentPlayer = Player.getName();
 const secondsBeforeExpiration = 10;
 
-register('step', () => trackTotemStatus()).setFps(1);
-register('renderOverlay', () => renderTotemOverlay());
+registerWhen(
+    register('step', () => trackTotemStatus()).setFps(1),
+    () => isInSkyblock() && (settings.totemRemainingTimeOverlay || settings.alertOnTotemExpiresSoon)
+);
+
+registerWhen(
+    register('renderOverlay', () => renderTotemOverlay()),
+    () => isInSkyblock() && settings.totemRemainingTimeOverlay
+);
+
 register("worldUnload", () => {
     resetTotem();
 });

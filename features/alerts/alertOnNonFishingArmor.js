@@ -5,6 +5,7 @@ import { OFF_SOUND_MODE } from "../../constants/sounds";
 import { DUNGEONS, KUUDRA } from "../../constants/areas";
 import { EntityFishHook } from "../../constants/javaTypes";
 import { isFishingRod } from "../../utils/common";
+import { registerWhen } from "../../utils/registers";
 
 let lastHookDetectedAt = null;
 
@@ -12,11 +13,14 @@ register("worldUnload", () => {
     lastHookDetectedAt = null; 
 });
 
-register(net.minecraftforge.event.entity.EntityJoinWorldEvent, (event) => alertOnNonFishingArmor(event));
+registerWhen(
+    register(net.minecraftforge.event.entity.EntityJoinWorldEvent, (event) => alertOnNonFishingArmor(event)),
+    () => isInSkyblock() && settings.alertOnNonFishingArmor && getWorldName() !== KUUDRA && getWorldName() !== DUNGEONS
+);
 
 function alertOnNonFishingArmor(event) {
     try {
-        if (!settings.alertOnNonFishingArmor || !isInSkyblock() || !hasFishingRodInHotbar() || getWorldName() === KUUDRA || getWorldName() === DUNGEONS || !(event.entity instanceof EntityFishHook)) {
+        if (!hasFishingRodInHotbar() || !(event.entity instanceof EntityFishHook)) {
             return;
         }
     

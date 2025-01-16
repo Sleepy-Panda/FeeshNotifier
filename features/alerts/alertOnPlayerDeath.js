@@ -1,33 +1,27 @@
 import settings from "../../settings";
-import * as triggers from '../../constants/triggers';
 import { OFF_SOUND_MODE } from "../../constants/sounds";
 import { RED } from "../../constants/formatting";
 import { isInSkyblock } from "../../utils/playerState";
 import { getColoredPlayerNameFromPartyChat, getPartyChatMessage, getPlayerDeathMessage } from "../../utils/common";
+import { registerWhen } from "../../utils/registers";
 
-triggers.KILLED_BY_TRIGGERS.forEach(entry => {
-    register(
-        "Chat",
-        (rankAndPlayer, event) => playAlertOnPlayerDeath({
-            isEnabled: settings.alertOnPartyMemberDeath,
-            player: getColoredPlayerNameFromPartyChat(rankAndPlayer)
-        })
-    ).setCriteria(getPartyChatMessage(getPlayerDeathMessage()));
-});
+registerWhen(
+	register(
+		"Chat",
+		(rankAndPlayer, event) => playAlertOnPlayerDeath(getColoredPlayerNameFromPartyChat(rankAndPlayer))
+	).setCriteria(getPartyChatMessage(getPlayerDeathMessage())),
+	() => isInSkyblock() && settings.alertOnPartyMemberDeath
+);
 
 // Shows a title and plays a sound on automated player death message sent by this module.
-function playAlertOnPlayerDeath(options) {
+function playAlertOnPlayerDeath(player) {
 	try {
-		if (!options.isEnabled || !isInSkyblock()) {
-			return;
-		}
-		
 		// If the party message is sent by current player, no need to show alert.
-		if (options.player && options.player.includes(Player.getName())) {
+		if (player && player.includes(Player.getName())) {
 			return;
 		}
 	
-		const title = `${options.player || 'Party member'} ${RED}killed ☠`;
+		const title = `${player || 'Party member'} ${RED}killed ☠`;
 		Client.showTitle(title, 'Wait for them to come back', 1, 30, 1);
 	
 		if (settings.soundMode !== OFF_SOUND_MODE) {

@@ -1,18 +1,20 @@
 import settings from "../../settings";
 import { RED, WHITE } from "../../constants/formatting";
 import { EntityItem } from "../../constants/javaTypes";
-import { hasDirtRodInHand, isInSkyblock } from "../../utils/playerState";
+import { getWorldName, hasDirtRodInHand, isInSkyblock } from "../../utils/playerState";
 import { OFF_SOUND_MODE } from "../../constants/sounds";
+import { registerWhen } from "../../utils/registers";
+import { DUNGEONS, KUUDRA } from "../../constants/areas";
 
 let wormTheFishCount = 0;
 
-register("step", () => alertOnWormTheFishCatch()).setFps(2);
+registerWhen(
+    register("step", () => alertOnWormTheFishCatch()).setFps(2),
+    () => isInSkyblock() && settings.alertOnWormTheFishCaught && getWorldName() !== KUUDRA && getWorldName() !== DUNGEONS
+);
 
 function alertOnWormTheFishCatch() {
-    if (!settings.alertOnWormTheFishCaught ||
-        !isInSkyblock() ||
-        !hasDirtRodInHand()
-    ) {
+    if (!hasDirtRodInHand()) {
         return;
     }
 

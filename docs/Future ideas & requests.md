@@ -1,4 +1,7 @@
 - Pet price as diff between lvl 1 and lvl 100
+- im not sure if you can change the colours already for the legion and bobbing time counters, but that would be cool. but could you make it so if it hits max bobbers (10) the colour will change, or light up (ideally with a chroma option)
+- Offer supercrafting or bazaar when items like raw fish goes to inventory (sacks are full)
+- Item counted into profit tracker when dropped but drop prevented by settings
 - Remove double hook reindrake logic because DH is not possible now
 - Probably remove calculation of profits in Pulse Rings
 - Total price is set to 0 in Profit tracker while other lines being normal (very rare and seems random).

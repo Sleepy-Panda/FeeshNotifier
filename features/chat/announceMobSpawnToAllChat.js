@@ -2,24 +2,29 @@ import settings from '../../settings';
 import * as triggers from '../../constants/triggers';
 import * as seaCreatures from '../../constants/seaCreatures';
 import { isDoubleHook } from '../../utils/common';
-import { isInSkyblock } from '../../utils/playerState';
+import { getWorldName, isInSkyblock } from '../../utils/playerState';
+import { registerWhen } from '../../utils/registers';
+import { CRIMSON_ISLE } from '../../constants/areas';
 
 const chatCommand = 'ac';
 
 const mobTriggers = triggers.RARE_CATCH_TRIGGERS.filter(t => t.seaCreature === seaCreatures.THUNDER || t.seaCreature === seaCreatures.LORD_JAWBUS || t.seaCreature === seaCreatures.VANQUISHER);
 
 mobTriggers.forEach(entry => {
-    register(
-        "Chat",
-        (event) => {
-            announceMobSpawnToAllChat(entry.seaCreature, entry.isAnnounceToAllChatEnabledSettingKey);
-        }
-    ).setCriteria(entry.trigger).setContains();
+    registerWhen(
+        register(
+            "Chat",
+            (event) => {
+                announceMobSpawnToAllChat(entry.seaCreature, entry.isAnnounceToAllChatEnabledSettingKey);
+            }
+        ).setCriteria(entry.trigger).setContains(),
+        () => isInSkyblock() && getWorldName() === CRIMSON_ISLE
+    )
 });
 
 function announceMobSpawnToAllChat(seaCreature, isAnnounceToAllChatEnabledSettingKey) {
 	try {
-		if (!seaCreature || !isAnnounceToAllChatEnabledSettingKey || !settings[isAnnounceToAllChatEnabledSettingKey] || !isInSkyblock()) {
+		if (!seaCreature || !isAnnounceToAllChatEnabledSettingKey || !settings[isAnnounceToAllChatEnabledSettingKey]) {
 			return;
 		}
 

@@ -7,6 +7,7 @@ import { overlayCoordsData } from "../../data/overlayCoords";
 import { getWorldName, hasFishingRodInHotbar, isInHunterArmor, isInSkyblock } from "../../utils/playerState";
 import { CRIMSON_ISLE, CRYSTAL_HOLLOWS, HUB, KUUDRA } from "../../constants/areas";
 import { isInChatOrInventoryGui } from "../../utils/common";
+import { registerWhen } from "../../utils/registers";
 
 const TIMER_THRESHOLD_IN_MINUTES = 5;
 
@@ -15,12 +16,24 @@ let startTime = null;
 let killMobsCountNotificationShown = false;
 let killMobsTimerNotificationShown = false;
 
-register('step', () => trackSeaCreaturesCount()).setFps(2);
-register('step', () => {
-    alertOnSeaCreaturesCountThreshold();
-    alertOnSeaCreaturesTimerThreshold();
-}).setFps(1);
-register('renderOverlay', () => renderCountOverlay());
+registerWhen(
+    register('step', () => trackSeaCreaturesCount()).setFps(2),
+    () => isInSkyblock() && (settings.alertOnSeaCreaturesCountThreshold || settings.alertOnSeaCreaturesTimerThreshold || settings.seaCreaturesCountOverlay) && getWorldName() !== KUUDRA
+);
+
+registerWhen(
+    register('step', () => {
+        alertOnSeaCreaturesCountThreshold();
+        alertOnSeaCreaturesTimerThreshold();
+    }).setFps(1),
+    () => isInSkyblock() && (settings.alertOnSeaCreaturesCountThreshold || settings.alertOnSeaCreaturesTimerThreshold) && getWorldName() !== KUUDRA
+);
+
+registerWhen(
+    register('renderOverlay', () => renderCountOverlay()),
+    () => isInSkyblock() && settings.seaCreaturesCountOverlay && getWorldName() !== KUUDRA
+);
+
 register("worldUnload", () => {
     resetTimer();
 });
@@ -43,10 +56,6 @@ function resetTimer() {
 }
 
 function trackSeaCreaturesCount() {
-    if ((!settings.alertOnSeaCreaturesCountThreshold && !settings.alertOnSeaCreaturesTimerThreshold && !settings.seaCreaturesCountOverlay) || !isInSkyblock() || getWorldName() === KUUDRA) {
-        return;
-    }
-
     let newMobsCount = 0;
     const entities = World.getAllEntitiesOfType(EntityArmorStand);
 	entities.forEach(entity => {
@@ -76,12 +85,7 @@ function trackSeaCreaturesCount() {
 }
 
 function alertOnSeaCreaturesCountThreshold() {
-    if (!settings.alertOnSeaCreaturesCountThreshold ||
-        !isInSkyblock() ||
-        isInHunterArmor() ||
-        getWorldName() === KUUDRA ||
-        !hasFishingRodInHotbar()
-    ) {
+    if (isInHunterArmor() || !hasFishingRodInHotbar()) {
         return;
     }
 
@@ -101,13 +105,7 @@ function alertOnSeaCreaturesCountThreshold() {
 }
 
 function alertOnSeaCreaturesTimerThreshold() {
-    if (!startTime ||
-        !settings.alertOnSeaCreaturesTimerThreshold ||
-        !isInSkyblock() ||
-        isInHunterArmor() ||
-        getWorldName() === KUUDRA ||
-        !hasFishingRodInHotbar()
-    ) {
+    if (!startTime || isInHunterArmor() || !hasFishingRodInHotbar()) {
         return;
     }
 
@@ -128,12 +126,9 @@ function alertOnSeaCreaturesTimerThreshold() {
 }
 
 function renderCountOverlay() {
-    if (!settings.seaCreaturesCountOverlay ||
-        !mobsCount ||
+    if (!mobsCount ||
         !startTime ||
-        !isInSkyblock() ||
         isInHunterArmor() ||
-        getWorldName() === KUUDRA ||
         !hasFishingRodInHotbar() ||
         settings.allOverlaysGui.isOpen()
     ) {

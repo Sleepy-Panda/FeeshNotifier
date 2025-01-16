@@ -3,15 +3,15 @@ import * as triggers from '../../constants/triggers';
 import { OFF_SOUND_MODE } from "../../constants/sounds";
 import { GOLD, WHITE } from "../../constants/formatting";
 import { isInSkyblock } from "../../utils/playerState";
+import { registerWhen } from "../../utils/registers";
 
-register("Chat", (event) => playAlertOnGoldenFish()).setCriteria(triggers.GOLDEN_FISH_MESSAGE);
+registerWhen(
+	register("Chat", (event) => playAlertOnGoldenFish()).setCriteria(triggers.GOLDEN_FISH_MESSAGE),
+	() => isInSkyblock() && settings.alertOnGoldenFishSpawned
+);
 
 function playAlertOnGoldenFish() {
 	try {
-		if (!settings.alertOnGoldenFishSpawned || !isInSkyblock()) {
-			return;
-		}
-		
 		Client.showTitle(`${WHITE}Catch ${GOLD}Golden Fish`, '', 1, 30, 1);
 	
 		if (settings.soundMode !== OFF_SOUND_MODE) {

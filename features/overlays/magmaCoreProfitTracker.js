@@ -6,6 +6,7 @@ import { getWorldName, hasFishingRodInHotbar, isInSkyblock } from "../../utils/p
 import {  formatElapsedTime, formatNumberWithSpaces, isDoubleHook, isInChatOrInventoryGui, toShortNumber } from "../../utils/common";
 import { CRYSTAL_HOLLOWS } from "../../constants/areas";
 import { getBazaarItemPrices } from "../../utils/bazaarPrices";
+import { registerWhen } from "../../utils/registers";
 
 var totalMagmaCoresCount = 0;
 var lastAddedMagmaCoresCount = 0;
@@ -24,24 +25,39 @@ var lastSeaCreatureCaughtAt = null;
 var lastMagmaCoreDroppedAt = null;
 
 triggers.MAGMA_FIELDS_TRIGGERS.forEach(trigger => {
-    register("Chat", (event) => {
-        const isDoubleHooked = isDoubleHook();
-        trackSeaCreatureCatch(isDoubleHooked);
-    }).setCriteria(trigger.trigger).setContains();
+    registerWhen(
+        register("Chat", (event) => {
+            const isDoubleHooked = isDoubleHook();
+            trackSeaCreatureCatch(isDoubleHooked);
+        }).setCriteria(trigger.trigger).setContains(),
+        () => isInSkyblock() && settings.magmaCoreProfitTrackerOverlay && getWorldName() === CRYSTAL_HOLLOWS
+    );
 });
 
 const magmaCoreTrigger = triggers.RARE_DROP_TRIGGERS.find(entry => entry.trigger === triggers.MAGMA_CORE_MESSAGE);
-register("Chat", (magicFind, event) => trackMagmaCoreDrop()).setCriteria(magmaCoreTrigger.trigger).setContains();
+registerWhen(
+    register("Chat", (magicFind, event) => trackMagmaCoreDrop()).setCriteria(magmaCoreTrigger.trigger).setContains(),
+    () => isInSkyblock() && settings.magmaCoreProfitTrackerOverlay && getWorldName() === CRYSTAL_HOLLOWS
+);
+
+registerWhen(
+    register('step', () => refreshElapsedTime()).setDelay(1),
+    () => isInSkyblock() && settings.magmaCoreProfitTrackerOverlay && getWorldName() === CRYSTAL_HOLLOWS
+);
+
+registerWhen(
+    register('step', () => refreshTrackerData()).setDelay(5),
+    () => isInSkyblock() && settings.magmaCoreProfitTrackerOverlay && getWorldName() === CRYSTAL_HOLLOWS
+);
+
+registerWhen(
+    register('renderOverlay', () => renderMagmaCoreTrackerOverlay()),
+    () => isInSkyblock() && settings.magmaCoreProfitTrackerOverlay && getWorldName() === CRYSTAL_HOLLOWS
+);
 
 register("worldUnload", () => {
     isSessionActive = false;
 });
-
-register('step', () => refreshElapsedTime()).setDelay(1);
-
-register('step', () => refreshTrackerData()).setDelay(5);
-
-register('renderOverlay', () => renderMagmaCoreTrackerOverlay());
 
 // DisplayLine is initialized once in order to avoid multiple method calls on click.
 let buttonsDisplay = new Display().hide();
@@ -112,7 +128,7 @@ function pauseMagmaCoreProfitTracker() {
 
 function refreshElapsedTime() {
     try {
-        if (!isSessionActive || !settings.magmaCoreProfitTrackerOverlay || !isInSkyblock() || !hasFishingRodInHotbar() || getWorldName() !== CRYSTAL_HOLLOWS) {
+        if (!isSessionActive || !hasFishingRodInHotbar()) {
             return;
         }
 
@@ -133,7 +149,7 @@ function refreshElapsedTime() {
 
 function refreshTrackerData() {
     try {
-        if (!settings.magmaCoreProfitTrackerOverlay || !isInSkyblock() || !hasFishingRodInHotbar() || getWorldName() !== CRYSTAL_HOLLOWS) {
+        if (!hasFishingRodInHotbar()) {
             return;
         }
 
@@ -164,10 +180,6 @@ function refreshTrackerData() {
 
 function trackSeaCreatureCatch(isDoubleHooked) {
     try {
-        if (!settings.magmaCoreProfitTrackerOverlay || !isInSkyblock() || !hasFishingRodInHotbar() || getWorldName() !== CRYSTAL_HOLLOWS) {
-            return;
-        }
-
         isSessionActive = true;
         
         const diff = isDoubleHooked ? 2 : 1;
@@ -183,7 +195,7 @@ function trackSeaCreatureCatch(isDoubleHooked) {
 
 function trackMagmaCoreDrop() {
     try {
-        if (!isSessionActive || !settings.magmaCoreProfitTrackerOverlay || !isInSkyblock() || getWorldName() !== CRYSTAL_HOLLOWS) {
+        if (!isSessionActive) {
             return;
         }
 
@@ -205,10 +217,7 @@ function trackMagmaCoreDrop() {
 }
 
 function renderMagmaCoreTrackerOverlay() {
-    if (!settings.magmaCoreProfitTrackerOverlay ||
-        !isInSkyblock() ||
-        !hasFishingRodInHotbar() ||
-        getWorldName() !== CRYSTAL_HOLLOWS ||
+    if (!hasFishingRodInHotbar() ||
         (!totalMagmaCoresCount && !totalSeaCreaturesCaughtCount) ||
         settings.allOverlaysGui.isOpen()
     ) {

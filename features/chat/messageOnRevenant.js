@@ -2,19 +2,19 @@ import settings from '../../settings';
 import { DUNGEONS, KUUDRA } from '../../constants/areas';
 import { EntityArmorStand } from '../../constants/javaTypes';
 import { getWorldName, isInSkyblock } from '../../utils/playerState';
+import { registerWhen } from '../../utils/registers';
 
 const chatCommand = 'pc';
 
 let slayerUUID = null;
 
-register('step', () => sendMessageOnRevenantSpawn()).setFps(3);
+registerWhen(
+    register('step', () => sendMessageOnRevenantSpawn()).setFps(3),
+    () => isInSkyblock() && settings.messageOnRevenantHorrorSpawn && getWorldName() !== KUUDRA && getWorldName() !== DUNGEONS
+);
 
 function sendMessageOnRevenantSpawn() {
 	try {
-		if (!settings.messageOnRevenantHorrorSpawn || !isInSkyblock() || getWorldName() === KUUDRA || getWorldName() === DUNGEONS) {
-			return;
-		}
-	
         const entities = World.getAllEntitiesOfType(EntityArmorStand);
 
         const slayerOwner = entities.find(entity => {

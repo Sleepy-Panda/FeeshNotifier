@@ -5,18 +5,20 @@ import * as triggers from '../../constants/triggers';
 import { OFF_SOUND_MODE } from "../../constants/sounds";
 import { YELLOW } from "../../constants/formatting";
 import { isInSkyblock } from "../../utils/playerState";
+import { registerWhen } from "../../utils/registers";
 
 let worldChangedAt = null;
 
-register("Chat", (event) => setTimeout(playAlertOnBucketAutoPickup, 500)).setCriteria(triggers.CHUM_BUCKET_AUTO_PICKED_UP_MESSAGE);
+registerWhen(
+    register("Chat", (event) => setTimeout(playAlertOnBucketAutoPickup, 500)).setCriteria(triggers.CHUM_BUCKET_AUTO_PICKED_UP_MESSAGE),
+    () => isInSkyblock() && settings.alertOnChumBucketAutoPickedUp
+);
 
-register("worldUnload", () => {
-    worldChangedAt = new Date();
-});
+register("worldUnload", () => { worldChangedAt = new Date(); })
 
-export function playAlertOnBucketAutoPickup() {
+function playAlertOnBucketAutoPickup() {
 	try {
-		if (!settings.alertOnChumBucketAutoPickedUp || !isInSkyblock() || !World.isLoaded) {
+		if (!World.isLoaded) {
 			return;
 		}
 
