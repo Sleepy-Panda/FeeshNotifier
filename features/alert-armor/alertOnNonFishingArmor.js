@@ -1,12 +1,13 @@
 import settings from "../../settings";
 import { RED } from "../../constants/formatting";
-import { hasFishingRodInHand, isInSkyblock } from "../../utils/playerState";
+import { getWorldName, hasFishingRodInHand, isInSkyblock } from "../../utils/playerState";
 
 // This module is made with help of ruki_tryuki, praises!
 
 export function alertOnNonFishingArmor(action, pos, event) {
     if (!settings.alertOnNonFishingArmor ||
         !isInSkyblock() ||
+        getWorldName() === 'Kuudra' ||
         !hasFishingRodInHand() ||
         !action.toString().includes('RIGHT_CLICK') // RIGHT_CLICK_BLOCK, RIGHT_CLICK_EMPTY
     ) {
@@ -56,7 +57,7 @@ function isFishingArmor(item) {
         return false;
     }
 
-    if (itemLore[0].includes("Hunter Armor")) {
+    if (itemLore[0].includes("Hunter")) {
         return true;
     }
 

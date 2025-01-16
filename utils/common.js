@@ -33,25 +33,6 @@ export function getDropTitle(item, rarityColorCode) {
 	return `${rarityColorCode}${BOLD}${item}`;
 }
 
-// export function isInSkyblock() {
-// 	return Scoreboard.getTitle()?.removeFormatting().includes('SKYBLOCK');
-// }
-
-// export function hasFishingRodInHotbar() {
-// 	const items = Player.getInventory().getItems().slice(0, 8); // hotbar items
-// 	const rods = items.filter(i => i && i.getLore().some(loreLine => loreLine.includes('FISHING ROD') || loreLine.includes('FISHING WEAPON')));
-// 	return rods && rods.length;
-// }
-
-// export function hasFishingRodInHand() {
-// 	const heldItem = Player.getHeldItem();
-// 	if (!heldItem) {
-// 		return false;
-// 	}
-// 	const isRod = heldItem.getLore().some(loreLine => loreLine.includes('FISHING ROD') || loreLine.includes('FISHING WEAPON'));
-// 	return isRod;
-// }
-
 // Messages have the following format:
 // &r&9Party &8> &b[MVP&d+&b] DeadlyMetal&f: &r--> A YETI has spawned <--&r
 // &r&9Компания &8> &b[MVP] PivoTheSadFisher&f: &r--> A Deep Sea Orb has dropped <--&r

@@ -2,7 +2,7 @@ import settings from "../../settings";
 import { BOLD, YELLOW } from "../../constants/formatting";
 import { EntityArmorStand } from "../../constants/javaTypes";
 import { overlayCoordsData } from "../../data/overlayCoords";
-import { hasFishingRodInHotbar, isInSkyblock } from "../../utils/playerState";
+import { getWorldName, hasFishingRodInHotbar, isInSkyblock } from "../../utils/playerState";
 
 let mobs = [];
 
@@ -25,7 +25,7 @@ export function trackSeaCreaturesHp() {
 }
 
 export function renderHpOverlay() {
-    if (!settings.seaCreaturesHpOverlay || !mobs.length || !isInSkyblock() || !hasFishingRodInHotbar()) {
+    if (!settings.seaCreaturesHpOverlay || !mobs.length || !isInSkyblock() || getWorldName() === 'Kuudra' || !hasFishingRodInHotbar()) {
         return;
     }
 
