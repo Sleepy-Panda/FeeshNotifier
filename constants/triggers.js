@@ -125,6 +125,9 @@ export const GREAT_CATCH_COINS_MESSAGE = `${RESET}${DARK_PURPLE}${BOLD}GREAT CAT
 export const GOLDEN_FISH_MESSAGE = `${RESET}${BLUE}You spot a ${RESET}${GOLD}Golden Fish ${RESET}${BLUE}surface from beneath the lava!${RESET}`; // &r&9You spot a &r&6Golden Fish &r&9surface from beneath the lava!&r
 export const WORKSHOP_CLOSING_MESSAGE = `${RESET}${RED}[Important] ${RESET}${YELLOW}This server will restart soon: ${RESET}${AQUA}Workshop Closing${RESET}`; // &r&c[Important] &r&eThis server will restart soon: &r&bWorkshop Closing&r
 
+export const GOOD_CATCH_ICE_ESSENCE_MESSAGE = `${RESET}${GOLD}${BOLD}GOOD CATCH! ${RESET}${AQUA}You found ${RESET}${AQUA}` + "${count}" + ` Ice Essence${RESET}${AQUA}.${RESET}`; // &r&6&lGOOD CATCH! &r&bYou found &r&b70 Ice Essence&r&b.&r
+export const GREAT_CATCH_ICE_ESSENCE_MESSAGE = `${RESET}${DARK_PURPLE}${BOLD}GREAT CATCH! ${RESET}${AQUA}You found ${RESET}${AQUA}` + "${count}" + ` Ice Essence${RESET}${AQUA}.${RESET}`;
+
 export const RARE_CATCH_TRIGGERS = [
     {
         trigger: YETI_MESSAGE,
@@ -683,5 +686,14 @@ export const BOTTLE_CHARGED_TRIGGERS = [
     {
         trigger: HURRICANE_BOTTLE_CHARGED_MESSAGE,
         bottleName: 'Hurricane bottle'
+    },
+];
+
+export const ICE_ESSENCE_FISHED_TRIGGERS = [
+    {
+        trigger: GOOD_CATCH_ICE_ESSENCE_MESSAGE
+    },
+    {
+        trigger: GREAT_CATCH_ICE_ESSENCE_MESSAGE
     },
 ];

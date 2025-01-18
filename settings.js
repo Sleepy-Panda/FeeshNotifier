@@ -794,7 +794,7 @@ class Settings {
 
     @SwitchProperty({
         name: "Sea creatures HP",
-        description: `Shows an overlay with the HP of nearby Thunder / Lord Jawbus / Plhlegblast / Reindrake / Yeti. ${RED}Hidden if you have no fishing rod in your hotbar!`,
+        description: `Shows an overlay with the HP of nearby Thunder / Lord Jawbus / Plhlegblast / Reindrake / Yeti when they're in lootshare range. ${RED}Hidden if you have no fishing rod in your hotbar!`,
         category: "Overlays",
         subcategory: "Sea creatures HP"
     })

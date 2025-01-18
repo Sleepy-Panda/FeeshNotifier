@@ -491,6 +491,12 @@ export const FISHING_PROFIT_ITEMS = [
         itemDisplayName: `${UNCOMMON}Music Disc - Wait`,
         npcPrice: 20,
     },
+    {
+        itemId: 'ESSENCE_ICE',
+        itemName: 'Ice Essence',
+        itemDisplayName: `${UNCOMMON}Ice Essence`,
+        npcPrice: 0,
+    },
 
     // Water
 
