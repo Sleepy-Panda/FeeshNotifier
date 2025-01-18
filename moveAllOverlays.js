@@ -45,7 +45,7 @@ ${GRAY}- ${LIGHT_PURPLE}Lord Jawbus: ${WHITE}2`,
     {
         toggleSettingKey: 'seaCreaturesHpOverlay',
         guiSettings: overlayCoordsData.seaCreaturesHpOverlay,
-        sampleText: `${YELLOW}${BOLD}Sea creatures HP\n${GRAY}[Lv600] ${RED}${BOLD}Lord Jawbus ${RESET}${GREEN}76m${WHITE}/${GREEN}100m${RED}❤`,
+        sampleText: `${YELLOW}${BOLD}Sea creatures HP\n${RED}${BOLD}Lord Jawbus ${RESET}${GREEN}76m${WHITE}/${GREEN}100m${RED}❤`,
         isActive: false,
         width: 0,
         height: 0

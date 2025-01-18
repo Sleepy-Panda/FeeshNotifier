@@ -6,6 +6,7 @@ import { getWorldName, hasFishingRodInHotbar, isInSkyblock } from "../../utils/p
 import { CRIMSON_ISLE, JERRY_WORKSHOP } from "../../constants/areas";
 import { OFF_SOUND_MODE } from "../../constants/sounds";
 
+const LOOTSHARE_DISTANCE = 30;
 const TRACKED_MOBS = [
     {
         world: CRIMSON_ISLE,
@@ -53,12 +54,17 @@ function trackSeaCreaturesHp() {
         const entities = World.getAllEntitiesOfType(EntityArmorStand);
     
         entities.forEach(entity => {
+            const player = Player.getPlayer();
             const name = entity?.getName();
             const plainName = entity?.getName()?.removeFormatting();
     
             if (plainName.includes('[Lv') && plainName.includes('❤') && // Distinguish mobs from pets (e.g. Squid)
-                TRACKED_MOBS.filter(m => m.world === worldName).some(m => plainName.includes(m.mobShortName))) {
-                currentMobs.push(name);
+                TRACKED_MOBS.filter(m => m.world === worldName).some(m => plainName.includes(m.mobShortName)) &&
+                (plainName.includes('Reindrake') || entity.distanceTo(player) <= LOOTSHARE_DISTANCE)
+            ) {
+                // Original nametag: §e﴾ §8[§7Lv400§8] §c§lThunder§r§r §e17M§f/§a35M§c❤ §e﴿ §b✯
+                const cleanName = name.replace('§e﴾ ', '').replace(' §e﴿', '').trim().split('] ')[1];
+                currentMobs.push(cleanName);          
             }
         });
     
