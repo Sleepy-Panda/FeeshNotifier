@@ -42,7 +42,13 @@ function showFishingRodAttributes(item, x, y) {
 
     const attributesString = attributeAbbreviations.join(`\n`);
 
+    Tessellator.pushMatrix();
+    Tessellator.disableLighting();
+    
     Renderer.translate(x, y, 275); // z coord = 275 to be on top of the item icon and below the tooltip
     Renderer.scale(0.5, 0.5);
     Renderer.drawString(attributesString, 0, 0, true);
+
+    Tessellator.enableLighting();
+    Tessellator.popMatrix();
 }
