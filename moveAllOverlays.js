@@ -145,9 +145,9 @@ ${AQUA}Elapsed time: ${WHITE}1:11:13`,
 - 1027x ${DARK_PURPLE}Silver Magmafish: ${GOLD}25m
 - 3x ${LIGHT_PURPLE}Flash I ${WHITE}Book: ${GOLD}20m
 - 2x ${AQUA}Fishing Experience I ${WHITE}Attribute Shard: ${GOLD}2m
-- 20x Cheap items: ${GOLD}3m
+- 20x Cheap items of 3 types: ${GOLD}3m
 
-${AQUA}Total: ${GOLD}220m
+${AQUA}Total: ${GOLD}${BOLD}220M ${RESET}${GRAY}(${GOLD}171M${GRAY}/h)
 
 ${AQUA}Elapsed time: ${WHITE}1:17:14`,
         isActive: false,

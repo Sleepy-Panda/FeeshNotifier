@@ -1,6 +1,7 @@
 import { AQUA } from "../../constants/formatting";
 import settings from "../../settings";
 import { isInSkyblock } from "../../utils/playerState";
+import { getCleanItemName } from "../../utils/common";
 
 register('renderItemIntoGui', (item, x, y, event) => {
     showThunderBottleProgress(item, x, y);
@@ -30,7 +31,7 @@ function showThunderBottleProgress(item, x, y) {
         return;
     }
 
-    const name = item.getName()?.removeFormatting();
+    const name = getCleanItemName(item.getName());
 
     if (!BOTTLES.map(b => b.name).includes(name)) {
         return;
@@ -44,7 +45,13 @@ function showThunderBottleProgress(item, x, y) {
     const maxCharge = BOTTLES.find(b => b.name === name).maxCharge;
     const displayString = Math.trunc(charge / maxCharge * 100) + '%';
 
+    Tessellator.pushMatrix();
+    Tessellator.disableLighting();
+
     Renderer.translate(x, y, 275); // z coord = 275 to be on top of the item icon and below the tooltip
     Renderer.scale(0.7, 0.7);
     Renderer.drawString(AQUA + displayString, 0, 16, true);
+
+    Tessellator.enableLighting();
+    Tessellator.popMatrix();
 }

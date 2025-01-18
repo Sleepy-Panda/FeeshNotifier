@@ -27,7 +27,14 @@ function showPetLevel(item, x, y) {
 
     const level = name.split('[')[1].split(']')[0].slice(4);
     const color = displayName?.split('] ').pop().slice(0, 2);
+
+    Tessellator.pushMatrix();
+    Tessellator.disableLighting();
+
     Renderer.translate(x, y, 275); // z coord = 275 to be on top of the item icon and below the tooltip
     Renderer.scale(0.7, 0.7);
     Renderer.drawString(color + level, 0, 16, true);
+
+    Tessellator.enableLighting();
+    Tessellator.popMatrix();
 }

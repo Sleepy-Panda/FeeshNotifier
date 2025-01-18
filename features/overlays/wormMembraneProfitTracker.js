@@ -3,7 +3,7 @@ import { AQUA, BOLD, DARK_PURPLE, GOLD, GRAY, GREEN, RED, WHITE, YELLOW } from "
 import { getBazaarItemPrices } from "../../utils/bazaarPrices";
 import { formatElapsedTime, formatNumberWithSpaces, getItemsAddedToSacks, isDoubleHook, isInChatOrInventoryGui, isInSacksGui, toShortNumber } from "../../utils/common";
 import * as triggers from '../../constants/triggers';
-import { getLastSacksGuiClosedAt, getWorldName, hasFishingRodInHotbar, isInSkyblock } from "../../utils/playerState";
+import { getLastGuisClosed, getWorldName, hasFishingRodInHotbar, isInSkyblock } from "../../utils/playerState";
 import { CRYSTAL_HOLLOWS } from "../../constants/areas";
 import { overlayCoordsData } from "../../data/overlayCoords";
 import { getAuctionItemPrices } from "../../utils/auctionPrices";
@@ -114,7 +114,8 @@ function onAddedToSacks(event) {
             return;
         }
     
-        if (isInSacksGui() || new Date() - getLastSacksGuiClosedAt() < 15 * 1000) { // Sacks closed < 15 seconds ago
+        const lastGuisClosed = getLastGuisClosed();
+        if (isInSacksGui() || new Date() - lastGuisClosed.lastSacksGuiClosedAt < 15 * 1000) { // Sacks closed < 15 seconds ago
             return;
         }
 

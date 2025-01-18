@@ -1,5 +1,27 @@
 # Releases
 
+## v1.21.0
+
+Released: 2025-01-18
+
+Features:
+
+- Fishing Profit tracker changes:
+  - Display profit per hour.
+  - More detailed count of items hidden in "Cheap items" line.
+  - Made some item names rendered in bold font.
+  - Added option to emulate default Hypixel's RARE DROP! message + sound for the items that do not have it by default (like in SBO):
+    - Triggers when those items are added to the active Fishing profit tracker.
+    - Examples (not full list): Great White Shark tooth, Soul fragment, Flash / Blessing / Luck of the sea / Piscary books, Magma Lord fragments, emperor skulls, Fish Affinity talismans, attribute shards, etc.
+    - It also prints book name / attribute shard name.
+  - Fixed some cases when items are counted in tracker after getting them from storages/bazaar/etc.
+- Highlight maxed count of bobbers / players nearby according to Bobbing Time / Legion enchant limits.
+
+Bugfixes:
+
+- Fixed item abbreviations (pet level, attributes etc.) being rendered in more light color sometimes.
+- Fixed charge percent not shown on the Thunder/Storm/Hurricane bottles when in Booster Cookie menu.
+
 ## v1.20.0
 
 Released: 2024-12-03

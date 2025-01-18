@@ -156,7 +156,7 @@ export function toShortNumber(number) {
 	number = Math.floor(number);
 
 	if (number >= 1000000000) {
-		return roundToFixed(number / 1000000000, 1) + 'B';
+		return roundToFixed(number / 1000000000, 2) + 'B';
 	}
 	if (number >= 1000000) {
 		return roundToFixed(number / 1000000, 1) + 'M';
@@ -220,7 +220,7 @@ export function getPlayerNamesInRange(distance) {
 			(player.getUUID().version() === 4 || player.getUUID().version() === 1) && // Players and Watchdog have version 4, nicked players have version 1, this is done to exclude NPCs
 			player.ping === 1 && // -1 is watchdog and ghost players, also there is a ghost player with high ping value when joining a world
 			player.name != Player.getName() && // Exclude current player because they do not count for legion
-			player.distanceTo(Player.getPlayer()) < distance
+			player.distanceTo(Player.getPlayer()) <= distance
 		)
 		.map(player => player.name)
 		.filter((x, i, a) => a.indexOf(x) == i); // Distinct, sometimes the players are duplicated in the list

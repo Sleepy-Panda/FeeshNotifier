@@ -1,5 +1,5 @@
 import settings from "../../settings";
-import { GOLD, GRAY, WHITE } from "../../constants/formatting";
+import { GOLD, GRAY, GREEN, WHITE } from "../../constants/formatting";
 import { EntityFishHook } from "../../constants/javaTypes";
 import { overlayCoordsData } from "../../data/overlayCoords";
 import { getWorldName, hasFishingRodInHotbar, isInSkyblock } from "../../utils/playerState";
@@ -10,7 +10,9 @@ let playersCount = 0;
 let fishingHooksCount = 0;
 
 const legionDistance = 30;
+const maxLegionCount = 20;
 const bobbingTimeDistance = 30;
+const maxBobbingTimeCount = 10;
 
 register('step', () => trackPlayersAndFishingHooksNearby()).setFps(2);
 register('renderOverlay', () => renderLegionAndBobbingTimeOverlay());
@@ -31,7 +33,7 @@ function trackPlayersAndFishingHooksNearby() {
     fishingHooksCount = World
         .getAllEntitiesOfType(EntityFishHook)
         .filter(hook =>
-            hook.distanceTo(Player.getPlayer()) < bobbingTimeDistance &&
+            hook.distanceTo(Player.getPlayer()) <= bobbingTimeDistance &&
             !hook.getEntity()?.field_146042_b?.getDisplayNameString()?.includes('Phantom Fisher')) // field_146042_b = angler
         .length;
 
@@ -49,8 +51,10 @@ function renderLegionAndBobbingTimeOverlay() {
         return;
     }
 
-    const playersText = `${GOLD}Legion: ${WHITE}${playersCount} ${GRAY}${playersCount === 1 ? 'player' : 'players'}`;
-    const hooksText = `${GOLD}Bobbin' time: ${WHITE}${fishingHooksCount} ${GRAY}${fishingHooksCount === 1 ? 'hook' : 'hooks'} α`;
+    const playersColor = playersCount >= maxLegionCount ? GREEN : WHITE;
+    const playersText = `${GOLD}Legion: ${playersColor}${playersCount} ${GRAY}${playersCount === 1 ? 'player' : 'players'}`;
+    const hooksColor = fishingHooksCount >= maxBobbingTimeCount ? GREEN : WHITE;
+    const hooksText = `${GOLD}Bobbin' time: ${hooksColor}${fishingHooksCount} ${GRAY}${fishingHooksCount === 1 ? 'hook' : 'hooks'}`;
     const overlay = new Text(`${playersText}\n${hooksText}`, overlayCoordsData.legionAndBobbingTimeOverlay.x, overlayCoordsData.legionAndBobbingTimeOverlay.y)
         .setShadow(true)
         .setScale(overlayCoordsData.legionAndBobbingTimeOverlay.scale);

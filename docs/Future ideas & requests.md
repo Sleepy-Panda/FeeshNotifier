@@ -1,7 +1,11 @@
+- Pet price as diff between lvl 1 and lvl 100
+- Remove double hook reindrake logic because DH is not possible now
+- Probably remove calculation of profits in Pulse Rings
+- Total price is set to 0 in Profit tracker while other lines being normal (very rare and seems random).
+- Sea creatures/hour
 - Alert when a new bottle type charged (LF message)
-- Jerry island closing timer added to Jerry widget
-  - Do not show when IRL December
-  - Can read from tablist? Island closes in: 35h
+- Rain/Thunder widget
+- Find out price calculation for Kuudra Keys in profit tracker
 - Achievements (ScathaPro / SBO as reference)
 - Party chat commands
   - !feeshsincejawbus
@@ -34,10 +38,13 @@
 "can you add a golden fish timer tracker into this? i only have golden fish diamond left and i like playing other games while just having my bobber in lava, and setting a 15min timer every time is p annoying lmao"
 - Bait changed / Bait missing alert
 "i think a feature that says im out of whale bait / fish bait / carrot bait would be cool to add because sometimes im just watching video and i realise im out of bait after like 30 mins."
+- "I was gonna say maybe add a feature that also keeps track of the cost of fish baits while fishing would be pretty cool"
+  - Probably same for buying rain
 
 Refactoring:
 
 - Do not run registers if feature is disabled.
+- [Faangorn] Profit tracker causes lags after a while (memory consumption grows)
 
 
 

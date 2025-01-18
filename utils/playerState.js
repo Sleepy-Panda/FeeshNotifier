@@ -9,11 +9,15 @@ var lastKatUpgrade = {
 	petDisplayName: null
 };
 
-var lastSacksGuiClosedAt = null;
-var lastSupercraftGuiClosedAt = null;
-var lastOdgerGuiClosedAt = null;
-var lastAuctionGuiClosedAt = null;
-var lastCraftGuiClosedAt = null;
+var lastGuisClosed = {
+	lastStorageGuiClosedAt: null,
+	lastSacksGuiClosedAt: null,
+	lastCraftGuiClosedAt: null,
+	lastSupercraftGuiClosedAt: null,
+	lastOdgerGuiClosedAt: null,
+	lastAuctionGuiClosedAt: null,
+	lastBazaarGuiClosedAt: null,
+};
 
 register('step', () => trackPlayerState()).setFps(2);
 
@@ -41,15 +45,19 @@ register("guiClosed", (gui) => {
     }
 
     if (chestName.includes('Sack')) {
-        lastSacksGuiClosedAt = new Date();
+        lastGuisClosed.lastSacksGuiClosedAt = new Date();
     } else if (chestName.includes('Trophy Fishing')) {
-        lastOdgerGuiClosedAt = new Date();
+        lastGuisClosed.lastOdgerGuiClosedAt = new Date();
     } else if (chestName.includes('Manage Auctions') || chestName.includes('Confirm Purchase') || chestName.includes('BIN Auction View') || chestName.includes('Your Bids')) {
-        lastAuctionGuiClosedAt = new Date();
+        lastGuisClosed.lastAuctionGuiClosedAt = new Date();
     } else if (chestName.endsWith('Recipe')) {
-        lastSupercraftGuiClosedAt = new Date();
+        lastGuisClosed.lastSupercraftGuiClosedAt = new Date();
     } else if (chestName.includes('Craft Item')) {
-        lastCraftGuiClosedAt = new Date();
+        lastGuisClosed.lastCraftGuiClosedAt = new Date();
+    } else if (chestName.includes('Backpack') || chestName.includes('Chest') || chestName.includes('Ender Chest')) {
+		lastGuisClosed.lastStorageGuiClosedAt = new Date();
+	}  else if (chestName.includes('Bazaar Orders') || chestName.includes('Order options') || chestName.includes('Instant Buy')) {
+        lastGuisClosed.lastBazaarGuiClosedAt = new Date();
     }
 });
 
@@ -85,24 +93,8 @@ export function isInHunterArmor() {
 	return isInHunterArmor;
 }
 
-export function getLastSacksGuiClosedAt() {
-	return lastSacksGuiClosedAt;
-}
-
-export function getLastOdgerGuiClosedAt() {
-	return lastOdgerGuiClosedAt;
-}
-
-export function getLastAuctionGuiClosedAt() {
-	return lastAuctionGuiClosedAt;
-}
-
-export function getLastCraftGuiClosedAt() {
-	return lastCraftGuiClosedAt;
-}
-
-export function getLastSupercraftGuiClosedAt() {
-	return lastSupercraftGuiClosedAt;
+export function getLastGuisClosed() {
+	return lastGuisClosed;
 }
 
 export function getLastKatUpgrade() {
