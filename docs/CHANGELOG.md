@@ -10,7 +10,7 @@ Features:
 
 Bugfixes:
 
-
+- Fixed item abbreviations (pet level, attributes etc.) being rendered in more light color sometimes.
 
 ## v1.20.0
 
