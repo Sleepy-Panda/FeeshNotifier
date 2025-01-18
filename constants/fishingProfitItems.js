@@ -973,6 +973,18 @@ export const FISHING_PROFIT_ITEMS = [
         itemDisplayName: `${LEGENDARY}${BOLD}Iceberg Dye`,
         npcPrice: 0,
     },
+    {
+        itemId: 'DYE_PERIWINKLE',
+        itemName: 'Periwinkle Dye',
+        itemDisplayName: `${LEGENDARY}${BOLD}Periwinkle Dye`,
+        npcPrice: 0,
+    },
+    {
+        itemId: 'DYE_BONE',
+        itemName: 'Bone Dye',
+        itemDisplayName: `${LEGENDARY}${BOLD}Bone Dye`,
+        npcPrice: 0,
+    },
 
     // Crimson Isle
 

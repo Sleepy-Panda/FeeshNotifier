@@ -4,6 +4,7 @@
 
 Features:
 
+- Added alert on Periwinkle Dye and Bone Dye drop, also added them to Fishing profit tracker when it's obtained while fishing.
 
 ## v1.22.0
 
