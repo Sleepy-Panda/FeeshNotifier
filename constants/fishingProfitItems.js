@@ -954,13 +954,13 @@ export const FISHING_PROFIT_ITEMS = [
     {
         itemId: 'DYE_AQUAMARINE',
         itemName: 'Aquamarine Dye',
-        itemDisplayName: `${LEGENDARY}Aquamarine Dye`,
+        itemDisplayName: `${LEGENDARY}${BOLD}Aquamarine Dye`,
         npcPrice: 0,
     },
     {
         itemId: 'DYE_ICEBERG',
         itemName: 'Iceberg Dye',
-        itemDisplayName: `${LEGENDARY}Iceberg Dye`,
+        itemDisplayName: `${LEGENDARY}${BOLD}Iceberg Dye`,
         npcPrice: 0,
     },
 
@@ -1107,7 +1107,7 @@ export const FISHING_PROFIT_ITEMS = [
     {
         itemId: 'RADIOACTIVE_VIAL',
         itemName: 'Radioactive Vial',
-        itemDisplayName: `${MYTHIC}Radioactive Vial`,
+        itemDisplayName: `${MYTHIC}${BOLD}Radioactive Vial`,
         npcPrice: 100000,
     },
     {
@@ -1138,7 +1138,7 @@ export const FISHING_PROFIT_ITEMS = [
         itemId: 'ENCHANTMENT_ULTIMATE_FLASH_1',
         itemName: 'Enchanted Book (Flash I)',
         itemAlternateNames: [ 'Enchanted Book (Flash 1)' ],
-        itemDisplayName: `${MYTHIC}${BOLD}Flash I ${WHITE}Book`,
+        itemDisplayName: `${MYTHIC}Flash I ${WHITE}Book`,
         npcPrice: 0,
     },
     {
@@ -1288,7 +1288,7 @@ export const FISHING_PROFIT_ITEMS = [
     {
         itemId: 'DYE_CARMINE',
         itemName: 'Carmine Dye',
-        itemDisplayName: `${LEGENDARY}Carmine Dye`,
+        itemDisplayName: `${LEGENDARY}${BOLD}Carmine Dye`,
         npcPrice: 0,
     },
 
@@ -1351,7 +1351,7 @@ export const FISHING_PROFIT_ITEMS = [
     {
         itemId: 'DYE_MIDNIGHT',
         itemName: 'Midnight Dye',
-        itemDisplayName: `${LEGENDARY}Midnight Dye`,
+        itemDisplayName: `${LEGENDARY}${BOLD}Midnight Dye`,
         npcPrice: 0,
     },
 
