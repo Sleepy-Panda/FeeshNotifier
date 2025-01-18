@@ -113,6 +113,8 @@ export const KILLED_BY_THUNDER_MESSAGE = `${RESET}${GRAY}You were killed by Thun
 export const KILLED_BY_LORD_JAWBUS_MESSAGE = `${RESET}${GRAY}You were killed by Lord Jawbus${RESET}${GRAY}${RESET}${GRAY}.`; // &r&7You were killed by Lord Jawbus&r&7&r&7.
 
 export const THUNDER_BOTTLE_CHARGED_MESSAGE = `${RESET}${YELLOW}> Your bottle of thunder has fully charged!`;
+export const STORM_BOTTLE_CHARGED_MESSAGE = `${RESET}${YELLOW}> Your Storm in a Bottle has fully charged!${RESET}`;
+export const HURRICANE_BOTTLE_CHARGED_MESSAGE = `${RESET}${YELLOW}> Your Hurricane in a Bottle has fully charged!${RESET}`;
 export const REINDRAKE_SPAWNED_BY_ANYONE_MESSAGE = `${RESET}${RED}${BOLD}WOAH! ${RESET}${RED}A ${RESET}${DARK_RED}Reindrake ${RESET}${RED}was summoned from the depths!${RESET}`;
 export const CHUM_BUCKET_AUTO_PICKED_UP_MESSAGE = `${RESET}${YELLOW}Automatically picked up the Chum Bucket you left back there!${RESET}`;
 export const SPIRIT_MASK_USED_MESSAGE = `${RESET}${GOLD}Second Wind Activated${RESET}${GREEN}! ${RESET}${GREEN}Your Spirit Mask saved your life!${RESET}`; // &r&6Second Wind Activated&r&a! &r&aYour Spirit Mask saved your life!&r
@@ -644,5 +646,20 @@ export const COINS_FISHED_TRIGGERS = [
     },
     {
         trigger: GREAT_CATCH_COINS_MESSAGE
+    },
+];
+
+export const BOTTLE_CHARGED_TRIGGERS = [
+    {
+        trigger: THUNDER_BOTTLE_CHARGED_MESSAGE,
+        bottleName: 'Thunder bottle'
+    },
+    {
+        trigger: STORM_BOTTLE_CHARGED_MESSAGE,
+        bottleName: 'Storm bottle'
+    },
+    {
+        trigger: HURRICANE_BOTTLE_CHARGED_MESSAGE,
+        bottleName: 'Hurricane bottle'
     },
 ];

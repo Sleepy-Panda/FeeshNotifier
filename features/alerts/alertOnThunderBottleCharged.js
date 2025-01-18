@@ -4,18 +4,20 @@ import { OFF_SOUND_MODE } from "../../constants/sounds";
 import { AQUA } from "../../constants/formatting";
 import { isInSkyblock } from "../../utils/playerState";
 
-register(
-	"Chat",
-	(event) => setTimeout(playAlertOnThunderBottleCharged, 1000) // Delay because the alert is often overriden by the Thunder spawn alert
-).setCriteria(triggers.THUNDER_BOTTLE_CHARGED_MESSAGE).setContains();
+triggers.BOTTLE_CHARGED_TRIGGERS.forEach(entry => {
+    register(
+        "Chat",
+        (event) => setTimeout(() => playAlertOnBottleCharged(entry.bottleName), 1000) // Delay because the alert is often overriden by the Thunder spawn alert
+    ).setCriteria(entry.trigger).setContains();
+});
 
-function playAlertOnThunderBottleCharged() {
+function playAlertOnBottleCharged(bottleName) {
 	try {
 		if (!settings.alertOnThunderBottleCharged || !isInSkyblock()) {
 			return;
 		}
 		
-		Client.showTitle(`${AQUA}Thunder bottle is full`, '', 1, 30, 1);
+		Client.showTitle(`${AQUA}${bottleName} is full`, '', 1, 30, 1);
 	
 		if (settings.soundMode !== OFF_SOUND_MODE) {
             World.playSound('random.orb', 1, 1);
