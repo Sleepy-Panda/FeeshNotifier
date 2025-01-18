@@ -1113,6 +1113,7 @@ export const FISHING_PROFIT_ITEMS = [
         itemName: 'Magma Lord Fragment',
         itemDisplayName: `${LEGENDARY}Magma Lord Fragment`,
         npcPrice: 0,
+        shouldAnnounceRareDrop: true,
     },
     {
         itemId: 'RADIOACTIVE_VIAL',
