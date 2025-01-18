@@ -385,7 +385,7 @@ class Settings {
 
     @SwitchProperty({
         name: "Alert when a thunder bottle has fully charged",
-        description: `Shows a title when a thunder bottle has fully charged and became Thunder in a bottle.`,
+        description: `Shows a title when a Thunder / Storm / Hurricane bottle has fully charged.`,
         category: "Alerts",
         subcategory: "Thunder bottle"
     })
@@ -1107,7 +1107,7 @@ ${RED}Hidden if you have no fishing rod in your hotbar!`,
 
     @SwitchProperty({
         name: "Thunder bottle charge progress",
-        description: `Render empty thunder / storm / hurricane bottle charge progress (percentage)`,
+        description: `Render Thunder / Storm / Hurricane bottle charge progress (percentage).`,
         category: "Inventory",
         subcategory: "Item tooltip"
     })
