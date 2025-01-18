@@ -381,7 +381,7 @@ class Settings {
 
     @SwitchProperty({
         name: "Alert when a Chum / Chumcap bucket is automatically picked up",
-        description: `Shows a title when your Chum / Chumcap bucket is automatically picked up because you want too far away.`,
+        description: `Shows a title when your Chum / Chumcap bucket is automatically picked up because you went too far away.`,
         category: "Alerts",
         subcategory: "Chum bucket"
     })
@@ -1041,6 +1041,14 @@ ${RED}Hidden if you have no fishing rod in your hotbar!`,
     })
     fishingProfitTracker_showTop = 20;
 
+    @SwitchProperty({
+        name: "Announce rare drops",
+        description: "Send RARE DROP! message to player's chat when a rare item is added to the fishing profit tracker (for the items that have no RARE DROP! message from Hypixel by default).",
+        category: "Overlays",
+        subcategory: "Fishing profit tracker"
+    })
+    shouldAnnounceRareDropsWhenPickup = true;
+    
     @SwitchProperty({
         name: "Show profits in crimson essence",
         description: "Calculate price in crimson essence for crimson fishing items e.g. Slug Boots, Moogma Leggings, Flaming Chestplate, Blade of the Volcano, Staff of the Volcano.",
