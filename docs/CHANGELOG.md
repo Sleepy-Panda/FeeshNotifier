@@ -14,6 +14,7 @@ Features:
     - Triggers when those items are added to the active Fishing profit tracker.
     - Examples (not full list): Great White Shark tooth, Soul fragment, Flash / Blessing / Luck of the sea / Piscary books, Magma Lord fragments, emperor skulls, Fish Affinity talismans, attribute shards, etc.
     - It also prints book name / attribute shard name.
+  - Fixed some cases when items are counted in tracker after getting them from storages/bazaar/etc.
 - Highlight maxed count of bobbers / players nearby according to Bobbing Time / Legion enchant limits.
 
 Bugfixes:
