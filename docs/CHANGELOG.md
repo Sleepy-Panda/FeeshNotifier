@@ -10,6 +10,10 @@ Features:
   - Display profit per hour.
   - More detailed count of items hidden in "Cheap items" line.
   - Made some item names rendered in bold font.
+  - Added option to emulate default Hypixel's RARE DROP! message + sound for the items that do not have it by default (like in SBO):
+    - Triggers when those items are added to the active Fishing profit tracker.
+    - Examples (not full list): Great White Shark tooth, Soul fragment, Flash / Blessing / Luck of the sea / Piscary books, Magma Lord fragments, emperor skulls, Fish Affinity talismans, attribute shards, etc.
+    - It also prints book name / attribute shard name.
 - Highlight maxed count of bobbers / players nearby according to Bobbing Time / Legion enchant limits.
 
 Bugfixes:

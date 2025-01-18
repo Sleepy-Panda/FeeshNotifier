@@ -10,6 +10,7 @@ import { getAuctionItemPrices, getPetRarityCode } from "../../utils/auctionPrice
 import { getBazaarItemPrices } from "../../utils/bazaarPrices";
 import { formatElapsedTime, getCleanItemName, getItemsAddedToSacks, isInChatOrInventoryGui, isInSacksGui, isInSupercraftGui, splitArray, toShortNumber } from "../../utils/common";
 import { getLastAuctionGuiClosedAt, getLastCraftGuiClosedAt, getLastKatUpgrade, getLastOdgerGuiClosedAt, getLastSacksGuiClosedAt, getLastSupercraftGuiClosedAt, getWorldName, hasFishingRodInHotbar, isInSkyblock } from "../../utils/playerState";
+import { playRareDropSound } from '../../utils/sound';
 
 let isVisible = false;
 let areActionsVisible = false;
@@ -579,6 +580,12 @@ function detectInventoryChanges() {
             };
             persistentData.save();
             refreshPrices();
+
+            if (settings.shouldAnnounceRareDropsWhenPickup && item.shouldAnnounceRareDrop) {
+                const diffText = difference > 1 ? ` ${RESET}${GRAY}${difference}x` : '';
+                ChatLib.chat(`${GOLD}[FeeshNotifier] ${GOLD}${BOLD}RARE DROP! ${RESET}${item.itemDisplayName}${diffText}`);
+                playRareDropSound();
+            }
         }
     }
 }
