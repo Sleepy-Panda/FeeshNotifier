@@ -6,8 +6,11 @@ Released: 2025-01-18
 
 Features:
 
+- Fishing Profit tracker changes:
+  - Display profit per hour.
+  - More detailed count of items hidden in "Cheap items" line.
+  - Made some item names rendered in bold font.
 - Highlight maxed count of bobbers / players nearby according to Bobbing Time / Legion enchant limits.
-- Made some item names in Fishing Profit Tracker rendered in bold font.
 
 Bugfixes:
 

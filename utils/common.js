@@ -156,7 +156,7 @@ export function toShortNumber(number) {
 	number = Math.floor(number);
 
 	if (number >= 1000000000) {
-		return roundToFixed(number / 1000000000, 1) + 'B';
+		return roundToFixed(number / 1000000000, 2) + 'B';
 	}
 	if (number >= 1000000) {
 		return roundToFixed(number / 1000000, 1) + 'M';
