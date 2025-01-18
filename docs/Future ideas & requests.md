@@ -1,3 +1,6 @@
+- "basically when using Skyhanni's Estimated Item Value and in NEU's /pv, having the FeeshNotifier CT module loaded will cause it to flash like shown in the recording"
+- Offer supercrafting or bazaar when items like raw fish goes to inventory (sacks are full)
+- Item counted into profit tracker when dropped but drop prevented by settings
 - Pet price as diff between lvl 1 and lvl 100
 - Remove double hook reindrake logic because DH is not possible now
 - Probably remove calculation of profits in Pulse Rings
