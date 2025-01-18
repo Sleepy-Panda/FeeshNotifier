@@ -1,6 +1,7 @@
 import { AQUA } from "../../constants/formatting";
 import settings from "../../settings";
 import { isInSkyblock } from "../../utils/playerState";
+import { getCleanItemName } from "../../utils/common";
 
 register('renderItemIntoGui', (item, x, y, event) => {
     showThunderBottleProgress(item, x, y);
@@ -30,7 +31,7 @@ function showThunderBottleProgress(item, x, y) {
         return;
     }
 
-    const name = item.getName()?.removeFormatting();
+    const name = getCleanItemName(item.getName());
 
     if (!BOTTLES.map(b => b.name).includes(name)) {
         return;

@@ -11,6 +11,7 @@ Features:
 Bugfixes:
 
 - Fixed item abbreviations (pet level, attributes etc.) being rendered in more light color sometimes.
+- Fixed charge percent not shown on the Thunder/Storm/Hurricane bottles when in Booster Cookie menu.
 
 ## v1.20.0
 
