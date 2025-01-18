@@ -1,5 +1,11 @@
 # Releases
 
+## v1.22.0
+
+Features:
+
+- Sea creatures HP tracker: made mob's HP nametag more compact, also show it only when mob is in <= 30 blocks range (so if you see the nametag - you're in lootshare range).
+
 ## v1.21.0
 
 Released: 2025-01-18
