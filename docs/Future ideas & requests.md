@@ -1,4 +1,7 @@
-- Pet price as diff between lvl 1 and lvl 100
+- "when using Skyhanni's Estimated Item Value and in NEU's /pv, having the module loaded causes it to flash"
+- Offer supercrafting or bazaar when items like raw fish goes to inventory (sacks are full)
+- Items are counted by profit tracker when dropped, but drop was prevented by SB settings (basically it drops and picks up again)
+- Calculate pet price in profit tracker as difference between lvl 1 and lvl 100
 - Remove double hook reindrake logic because DH is not possible now
 - Probably remove calculation of profits in Pulse Rings
 - Total price is set to 0 in Profit tracker while other lines being normal (very rare and seems random).

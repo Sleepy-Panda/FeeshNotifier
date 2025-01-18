@@ -5,7 +5,7 @@ import { persistentData } from "../../data/data";
 import { overlayCoordsData } from "../../data/overlayCoords";
 import { BOLD, GOLD, LIGHT_PURPLE, RED, WHITE, UNDERLINE, GRAY, DARK_RED, DARK_GRAY, RESET } from "../../constants/formatting";
 import { getWorldName, hasFishingRodInHotbar, isInSkyblock } from "../../utils/playerState";
-import { formatDate, formatNumberWithSpaces, isDoubleHook, isInChatOrInventoryGui } from "../../utils/common";
+import { formatDate, formatNumberWithSpaces, formatTimeElapsedBetweenDates, isDoubleHook, isInChatOrInventoryGui } from "../../utils/common";
 import { CRIMSON_ISLE } from "../../constants/areas";
 import { MEME_SOUND_MODE, NORMAL_SOUND_MODE, SAD_TROMBONE_SOUND_SOURCE } from "../../constants/sounds";
 
@@ -111,6 +111,9 @@ function trackThunderCatch() {
         }
 
         const catchesSinceLast = persistentData.crimsonIsle.thunder.catchesSinceLast;
+        const lastCatchTime = persistentData.crimsonIsle.thunder.lastCatchTime;
+        const elapsedTime = lastCatchTime ? ` ${GRAY}(${WHITE}${formatTimeElapsedBetweenDates(new Date(lastCatchTime))}${GRAY})` : '';
+
         let catchesHistory = persistentData.crimsonIsle.thunder.catchesHistory || [];
         catchesHistory.unshift(catchesSinceLast); // Most recent counts at the start of array
         catchesHistory.length = Math.min(catchesHistory.length, 100); // Store last 100
@@ -126,7 +129,7 @@ function trackThunderCatch() {
 
         persistentData.save();
 
-        ChatLib.chat(`${GOLD}[FeeshNotifier] ${GRAY}It took ${WHITE}${catchesSinceLast} ${GRAY}${catchesSinceLast === 1 ? 'catch' : 'catches'} to get the ${LIGHT_PURPLE}Thunder${GRAY}.`);
+        ChatLib.chat(`${GOLD}[FeeshNotifier] ${GRAY}It took ${WHITE}${catchesSinceLast} ${GRAY}${catchesSinceLast === 1 ? 'catch' : 'catches'}${elapsedTime} to get the ${LIGHT_PURPLE}Thunder${GRAY}.`);
     } catch (e) {
 		console.error(e);
 		console.log(`[FeeshNotifier] Failed to track Thunder catch.`);
@@ -142,6 +145,9 @@ function trackLordJawbusCatch() {
         const isDoubleHooked = isDoubleHook();
 
         const catchesSinceLast = persistentData.crimsonIsle.lordJawbus.catchesSinceLast;
+        const lastCatchTime = persistentData.crimsonIsle.lordJawbus.lastCatchTime;
+        const elapsedTime = lastCatchTime ? ` ${GRAY}(${WHITE}${formatTimeElapsedBetweenDates(new Date(lastCatchTime))}${GRAY})` : '';
+
         let catchesHistory = persistentData.crimsonIsle.lordJawbus.catchesHistory || [];
         catchesHistory.unshift(catchesSinceLast); // Most recent counts at the start of array
         catchesHistory.length = Math.min(catchesHistory.length, 100); // Store last 100
@@ -162,7 +168,7 @@ function trackLordJawbusCatch() {
 
         persistentData.save();
 
-        ChatLib.chat(`${GOLD}[FeeshNotifier] ${GRAY}It took ${WHITE}${catchesSinceLast} ${GRAY}${catchesSinceLast === 1 ? 'catch' : 'catches'} to get the ${LIGHT_PURPLE}Lord Jawbus${GRAY}.`);
+        ChatLib.chat(`${GOLD}[FeeshNotifier] ${GRAY}It took ${WHITE}${catchesSinceLast} ${GRAY}${catchesSinceLast === 1 ? 'catch' : 'catches'}${elapsedTime} to get the ${LIGHT_PURPLE}Lord Jawbus${GRAY}.`);
     } catch (e) {
 		console.error(e);
 		console.log(`[FeeshNotifier] Failed to track Lord Jawbus catch.`);
@@ -213,6 +219,9 @@ function trackRadioctiveVialDrop() {
         persistentData.crimsonIsle.radioactiveVials.lordJawbusCatchesSinceLast = 0;
 
         let vialDropsHistory = persistentData.crimsonIsle.radioactiveVials.dropsHistory || [];
+        const lastDropTime = vialDropsHistory.length && vialDropsHistory[0].time ? vialDropsHistory[0].time : null;
+        const elapsedTime = lastDropTime ? ` ${GRAY}(${WHITE}${formatTimeElapsedBetweenDates(new Date(lastDropTime))}${GRAY})` : '';
+
         vialDropsHistory.unshift({
             time: new Date(),
             lordJawbusCatches: lordJawbusCatches
@@ -221,7 +230,7 @@ function trackRadioctiveVialDrop() {
 
         persistentData.save();
 
-        ChatLib.chat(`${GOLD}[FeeshNotifier] ${GRAY}It took ${WHITE}${lordJawbusCatches} ${GRAY}${lordJawbusCatches === 1 ? 'Lord Jawbus catch' : 'Lord Jawbus catches'} to get the ${LIGHT_PURPLE}Radioactive Vial${GRAY}. Congratulations!`);
+        ChatLib.chat(`${GOLD}[FeeshNotifier] ${GRAY}It took ${WHITE}${lordJawbusCatches} ${GRAY}${lordJawbusCatches === 1 ? 'Lord Jawbus catch' : 'Lord Jawbus catches'}${elapsedTime} to get the ${LIGHT_PURPLE}Radioactive Vial ${WHITE}#${persistentData.crimsonIsle.radioactiveVials.count}${GRAY}. Congratulations!`);
     } catch (e) {
 		console.error(e);
 		console.log(`[FeeshNotifier] Failed to track Radioactive Vial drop.`);
@@ -247,20 +256,26 @@ function renderCrimsonIsleTrackerOverlay() {
         return;
     }
 
-    const lastCatchTimeThunder = persistentData.crimsonIsle.thunder.lastCatchTime ? formatDate(new Date(persistentData.crimsonIsle.thunder.lastCatchTime)) : 'N/A';
-    const lastCatchTimeLordJawbus = persistentData.crimsonIsle.lordJawbus.lastCatchTime ? formatDate(new Date(persistentData.crimsonIsle.lordJawbus.lastCatchTime)) : 'N/A';
+    const lastCatchTimeThunder = persistentData.crimsonIsle.thunder.lastCatchTime
+        ? `${WHITE}${formatTimeElapsedBetweenDates(new Date(persistentData.crimsonIsle.thunder.lastCatchTime))} ${GRAY}(${WHITE}${formatDate(new Date(persistentData.crimsonIsle.thunder.lastCatchTime))}${GRAY})` 
+        : `${WHITE}N/A`;
+    const lastCatchTimeLordJawbus = persistentData.crimsonIsle.lordJawbus.lastCatchTime 
+        ? `${WHITE}${formatTimeElapsedBetweenDates(new Date(persistentData.crimsonIsle.lordJawbus.lastCatchTime))} ${GRAY}(${WHITE}${formatDate(new Date(persistentData.crimsonIsle.lordJawbus.lastCatchTime))}${GRAY})` 
+        : `${WHITE}N/A`;
     const averageThunder = formatNumberWithSpaces(persistentData.crimsonIsle.thunder.averageCatches) || 'N/A';
     const averageLordJawbus = formatNumberWithSpaces(persistentData.crimsonIsle.lordJawbus.averageCatches) || 'N/A';
-    const lastTimeVial = persistentData.crimsonIsle.radioactiveVials.dropsHistory.length ? formatDate(new Date(persistentData.crimsonIsle.radioactiveVials.dropsHistory[0].time)) : 'N/A';
+    const lastTimeVial = persistentData.crimsonIsle.radioactiveVials.dropsHistory.length
+        ? `${WHITE}${formatTimeElapsedBetweenDates(new Date(persistentData.crimsonIsle.radioactiveVials.dropsHistory[0].time))} ${GRAY}(${WHITE}${formatDate(new Date(persistentData.crimsonIsle.radioactiveVials.dropsHistory[0].time))}${GRAY})` 
+        : `${WHITE}N/A`;
     const lordJawbusCatchesSinceLastVial = persistentData.crimsonIsle.radioactiveVials.lordJawbusCatchesSinceLast || 0;
 
     let overlayText = `${DARK_RED}${BOLD}Crimson Isle tracker\n`;
     overlayText += `${LIGHT_PURPLE}Thunder: ${WHITE}${formatNumberWithSpaces(persistentData.crimsonIsle.thunder.catchesSinceLast)} ${GRAY}${persistentData.crimsonIsle.thunder.catchesSinceLast !== 1 ? 'catches' : 'catch'} ago ${DARK_GRAY}(${GRAY}avg: ${WHITE}${averageThunder}${DARK_GRAY})\n`;
-    overlayText += `${GRAY}Last on: ${WHITE}${lastCatchTimeThunder}\n`;
+    overlayText += `${GRAY}Last on: ${lastCatchTimeThunder}\n`;
     overlayText += `${LIGHT_PURPLE}Lord Jawbus: ${WHITE}${formatNumberWithSpaces(persistentData.crimsonIsle.lordJawbus.catchesSinceLast)} ${GRAY}${persistentData.crimsonIsle.lordJawbus.catchesSinceLast !== 1 ? 'catches' : 'catch'} ago ${DARK_GRAY}(${GRAY}avg: ${WHITE}${averageLordJawbus}${DARK_GRAY})\n`;
-    overlayText += `${GRAY}Last on: ${WHITE}${lastCatchTimeLordJawbus}\n`;
+    overlayText += `${GRAY}Last on: ${lastCatchTimeLordJawbus}\n`;
     overlayText += `${LIGHT_PURPLE}Radioactive Vials: ${WHITE}${formatNumberWithSpaces(persistentData.crimsonIsle.radioactiveVials.count)}\n`;
-    overlayText += `${GRAY}Last on: ${WHITE}${lastTimeVial}\n`;
+    overlayText += `${GRAY}Last on: ${lastTimeVial}\n`;
     overlayText += `${GRAY}Last on: ${WHITE}${formatNumberWithSpaces(lordJawbusCatchesSinceLastVial)} ${GRAY}${lordJawbusCatchesSinceLastVial !== 1 ? 'Jawbuses' : 'Jawbus'} ago`;
 
     const overlay = new Text(overlayText, overlayCoordsData.crimsonIsleTrackerOverlay.x, overlayCoordsData.crimsonIsleTrackerOverlay.y)
