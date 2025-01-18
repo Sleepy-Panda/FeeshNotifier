@@ -72,11 +72,11 @@ ${GRAY}- ${LIGHT_PURPLE}Lord Jawbus: ${WHITE}2`,
         sampleText:
 `${DARK_RED}${BOLD}Crimson Isle tracker
 ${LIGHT_PURPLE}Thunder: ${WHITE}35 ${GRAY}catches ago ${DARK_GRAY}(${GRAY}avg: ${WHITE}70${DARK_GRAY})
-${GRAY}Last on: ${WHITE}2024-11-30 12:00:00
+${GRAY}Last on: ${WHITE}15m ${GRAY}(${WHITE}2024-11-30 12:00:00${GRAY})
 ${LIGHT_PURPLE}Lord Jawbus: ${WHITE}417 ${GRAY}catches ago ${DARK_GRAY}(${GRAY}avg: ${WHITE}454${DARK_GRAY})
-${GRAY}Last on: ${WHITE}2024-11-30 11:30:00
+${GRAY}Last on: ${WHITE}45m ${GRAY}(${WHITE}2024-11-30 11:30:00${GRAY})
 ${LIGHT_PURPLE}Radioactive Vials: ${WHITE}10
-${GRAY}Last on: ${WHITE}2024-11-29 18:00:00
+${GRAY}Last on: ${WHITE}1d 0h 0m ${GRAY}(${WHITE}2024-11-29 12:15:00${GRAY})
 ${GRAY}Last on: ${WHITE}6 Jawbuses ago`,
         isActive: false,
         width: 0,
@@ -88,9 +88,9 @@ ${GRAY}Last on: ${WHITE}6 Jawbuses ago`,
         sampleText:
 `${AQUA}${BOLD}Jerry Workshop tracker
 ${GOLD}Yeti: ${WHITE}70 ${GRAY}catches ago ${DARK_GRAY}(${GRAY}avg: ${WHITE}85${DARK_GRAY})
-${GRAY}Last on: ${WHITE}2024-11-30 12:00:00
+${GRAY}Last on: ${WHITE}2d 5h 8m ${GRAY}(${WHITE}2024-11-30 12:00:00${GRAY})
 ${GOLD}Reindrake: ${WHITE}417 ${GRAY}catches ago ${DARK_GRAY}(${GRAY}avg: ${WHITE}654${DARK_GRAY})
-${GRAY}Last on: ${WHITE}2024-11-30 08:30:00
+${GRAY}Last on: ${WHITE}2d 9h 8m ${GRAY}(${WHITE}2024-11-30 08:00:00${GRAY})
 ${GRAY}Baby Yeti pets: ${GOLD}3 ${DARK_PURPLE}7`,
         isActive: false,
         width: 0,
