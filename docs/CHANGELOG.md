@@ -6,6 +6,7 @@ Released: 2025-01-18
 
 Features:
 
+- Highlight maxed count of bobbers / players nearby according to Bobbing Time / Legion enchant limits.
 - Made some item names in Fishing Profit Tracker rendered in bold font.
 
 Bugfixes:
