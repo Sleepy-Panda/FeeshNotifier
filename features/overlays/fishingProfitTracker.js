@@ -2,7 +2,7 @@ import * as triggers from '../../constants/triggers';
 import settings from "../../settings";
 import { persistentData } from "../../data/data";
 import { overlayCoordsData } from "../../data/overlayCoords";
-import { CRIMSON_ISLE, KUUDRA } from "../../constants/areas";
+import { CRIMSON_ISLE, JERRY_WORKSHOP, KUUDRA } from "../../constants/areas";
 import { FISHING_PROFIT_ITEMS } from "../../constants/fishingProfitItems";
 import { AQUA, BOLD, GOLD, GRAY, RESET, WHITE, YELLOW, RED, GREEN, BLUE } from "../../constants/formatting";
 import { EntityFishHook } from "../../constants/javaTypes";
@@ -22,6 +22,7 @@ register("Chat", (event) => onAddedToSacks(event)).setCriteria('&6[Sacks] &r&a+'
 register('step', () => detectInventoryChanges()).setFps(4); // Items added to the inventory
 
 triggers.COINS_FISHED_TRIGGERS.forEach(trigger => { register("Chat", (coins, event) => onCoinsFished(coins)).setCriteria(trigger.trigger); });
+triggers.ICE_ESSENCE_FISHED_TRIGGERS.forEach(trigger => { register("Chat", (count, event) => onIceEssenceFished(count)).setCriteria(trigger.trigger); });
 
 // &r&aYour &r&5Ender Dragon &r&aleveled up to level &r&981&r&a!&r
 // &r&aYour &r&6Mammoth &r&aleveled up to level &r&92&r&a!&r
@@ -399,6 +400,38 @@ function onCoinsFished(coins) {
     } catch (e) {
 		console.error(e);
 		console.log(`[FeeshNotifier] [ProfitTracker] Failed to track fished coins.`);
+	}
+}
+
+function onIceEssenceFished(count) {
+    try {
+        if (!isVisible || !count || !isSessionActive || getWorldName() !== JERRY_WORKSHOP) {
+            return;
+        }
+
+        const fishingProfitItem = FISHING_PROFIT_ITEMS.find(i => i.itemId === 'ESSENCE_ICE');
+        const itemId = fishingProfitItem?.itemId;
+        if (!fishingProfitItem || !itemId) {
+            return;
+        }
+
+        const essenceCountWithoutSeparator = +(count.replace(/,/g, ''));
+        const item = persistentData.fishingProfit.profitTrackerItems[itemId];
+        const currentAmount = item?.amount || 0;
+
+        persistentData.fishingProfit.profitTrackerItems[itemId] = {
+            itemName: fishingProfitItem.itemName,
+            itemDisplayName: fishingProfitItem.itemDisplayName,
+            itemId: itemId,
+            amount: currentAmount + essenceCountWithoutSeparator,
+        };
+        persistentData.save();
+
+        refreshPrices();
+        refreshTrackerDisplayData();  
+    } catch (e) {
+		console.error(e);
+		console.log(`[FeeshNotifier] [ProfitTracker] Failed to track fished ice essence.`);
 	}
 }
 
