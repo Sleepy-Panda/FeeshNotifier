@@ -280,6 +280,20 @@ class Settings {
     messageOnMidnightDyeDrop = true;
 
     @SwitchProperty({
+        name: "Send a message on PERIWINKLE DYE drop",
+        category: "Chat",
+        subcategory: "Rare Drops"
+    })
+    messageOnPeriwinkleDyeDrop = true;
+
+    @SwitchProperty({
+        name: "Send a message on BONE DYE drop",
+        category: "Chat",
+        subcategory: "Rare Drops"
+    })
+    messageOnBoneDyeDrop = true;
+
+    @SwitchProperty({
         name: "Send a message on MAGMA CORE drop",
         category: "Chat",
         subcategory: "Rare Drops"
@@ -657,6 +671,20 @@ class Settings {
     })
     alertOnMidnightDyeDrop = true;
 
+    @SwitchProperty({
+        name: "Alert on PERIWINKLE DYE drop",
+        category: "Alerts",
+        subcategory: "Rare Drops"
+    })
+    alertOnPeriwinkleDyeDrop = true;
+
+    @SwitchProperty({
+        name: "Alert on BONE DYE drop",
+        category: "Alerts",
+        subcategory: "Rare Drops"
+    })
+    alertOnBoneDyeDrop = true;
+    
     @SwitchProperty({
         name: "Alert on MAGMA CORE drop",
         category: "Alerts",

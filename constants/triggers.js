@@ -92,6 +92,8 @@ export const AQUAMARINE_DYE_MESSAGE = `${RESET}${LIGHT_PURPLE}${BOLD}WOW! ` + '$
 export const ICEBERG_DYE_MESSAGE = `${RESET}${LIGHT_PURPLE}${BOLD}WOW! ` + '${playerNameAndRank}' + ` ${RESET}${GOLD}found ${RESET}${DARK_AQUA}Iceberg Dye`; // &r&d&lWOW! &r&b[MVP&r&c+&r&b] &bMoonTheSadFisher&r&r&f &r&6found &r&3Iceberg Dye&r
 export const CARMINE_DYE_MESSAGE = `${RESET}${LIGHT_PURPLE}${BOLD}WOW! ` + '${playerNameAndRank}' + ` ${RESET}${GOLD}found ${RESET}${DARK_RED}Carmine Dye`; // &r&d&lWOW! &r&b[MVP&r&c+&r&b] &bMoonTheSadFisher&r&r&f &r&6found &r&4Carmine Dye&r
 export const MIDNIGHT_DYE_MESSAGE = `${RESET}${LIGHT_PURPLE}${BOLD}WOW! ` + '${playerNameAndRank}' + ` ${RESET}${GOLD}found ${RESET}${DARK_PURPLE}Midnight Dye`; // &r&d&lWOW! &r&b[MVP&r&c+&r&b] &bMoonTheSadFisher&r&r&f &r&6found &r&5Midnight Dye&r
+export const PERIWINKLE_DYE_MESSAGE = `${RESET}${LIGHT_PURPLE}${BOLD}WOW! ` + '${playerNameAndRank}' + ` ${RESET}${GOLD}found ${RESET}${DARK_AQUA}Periwinkle Dye`; // &r&d&lWOW! &r&b[MVP&r&c+&r&b] &bMoonTheSadFisher&r&r&f &r&6found &r&3Periwinkle Dye&r
+export const BONE_DYE_MESSAGE = `${RESET}${LIGHT_PURPLE}${BOLD}WOW! ` + '${playerNameAndRank}' + ` ${RESET}${GOLD}found ${RESET}${WHITE}Bone Dye`; // &r&d&lWOW! &r&b[MVP&r&c+&r&b] &bMoonTheSadFisher&r&r&f &r&6found &r&fBone Dye&r
 
 export const MUSIC_RUNE_MESSAGE = `${RESET}${DARK_PURPLE}${BOLD}GREAT CATCH! ${RESET}${AQUA}You found a ${RESET}${AQUA}◆ Music Rune I${RESET}${AQUA}.${RESET}`; // &r&5&lGREAT CATCH! &r&bYou found a &r&b◆ Music Rune I&r&b.&r
 
@@ -491,6 +493,26 @@ export const DYE_TRIGGERS = [
         isMessageEnabledSettingKey: 'messageOnIcebergDyeDrop',
         isAlertEnabledSettingKey: 'alertOnIcebergDyeDrop',
         rarityColorCode: DARK_AQUA,
+        shouldTrackDropNumber: false,
+    },
+    {
+        trigger: PERIWINKLE_DYE_MESSAGE,
+        itemId: 'DYE_PERIWINKLE',
+        itemName: drops.PERIWINKLE_DYE,
+        sound: sounds.INSANE_SOUND_SOURCE,
+        isMessageEnabledSettingKey: 'messageOnPeriwinkleDyeDrop',
+        isAlertEnabledSettingKey: 'alertOnPeriwinkleDyeDrop',
+        rarityColorCode: DARK_AQUA,
+        shouldTrackDropNumber: false,
+    },
+    {
+        trigger: BONE_DYE_MESSAGE,
+        itemId: 'DYE_BONE',
+        itemName: drops.BONE_DYE,
+        sound: sounds.INSANE_SOUND_SOURCE,
+        isMessageEnabledSettingKey: 'messageOnBoneDyeDrop',
+        isAlertEnabledSettingKey: 'alertOnBoneDyeDrop',
+        rarityColorCode: WHITE,
         shouldTrackDropNumber: false,
     },
 ];
