@@ -9,7 +9,7 @@ import { EntityFishHook } from "../../constants/javaTypes";
 import { getAuctionItemPrices, getPetRarityCode } from "../../utils/auctionPrices";
 import { getBazaarItemPrices } from "../../utils/bazaarPrices";
 import { formatElapsedTime, getCleanItemName, getItemsAddedToSacks, isInChatOrInventoryGui, isInSacksGui, isInSupercraftGui, splitArray, toShortNumber } from "../../utils/common";
-import { getLastAuctionGuiClosedAt, getLastCraftGuiClosedAt, getLastKatUpgrade, getLastOdgerGuiClosedAt, getLastSacksGuiClosedAt, getLastSupercraftGuiClosedAt, getWorldName, hasFishingRodInHotbar, isInSkyblock } from "../../utils/playerState";
+import { getLastGuisClosed, getLastKatUpgrade, getWorldName, hasFishingRodInHotbar, isInSkyblock } from "../../utils/playerState";
 import { playRareDropSound } from '../../utils/sound';
 
 let isVisible = false;
@@ -321,13 +321,12 @@ function onAddedToSacks(event) {
             return;
         }
     
-        const lastSacksGuiClosedAt = getLastSacksGuiClosedAt();
-        if (isInSacksGui() || new Date() - lastSacksGuiClosedAt < 15 * 1000) { // Sacks closed < 15 seconds ago
+        const lastGuisClosed = getLastGuisClosed();
+        if (isInSacksGui() || new Date() - lastGuisClosed.lastSacksGuiClosedAt < 15 * 1000) { // Sacks closed < 15 seconds ago
             return;
         }
 
-        const lastSupercraftGuiClosedAt = getLastSupercraftGuiClosedAt();
-        if (isInSupercraftGui() || new Date() - lastSupercraftGuiClosedAt < 15 * 1000) { // Supercraft closed < 15 seconds ago
+        if (isInSupercraftGui() || new Date() - lastGuisClosed.lastSupercraftGuiClosedAt < 15 * 1000) { // Supercraft closed < 15 seconds ago
             return;
         }
 
@@ -347,8 +346,7 @@ function onAddedToSacks(event) {
                 continue;
             }
     
-            const lastOdgerGuiClosedAt = getLastOdgerGuiClosedAt();
-            if (itemId?.startsWith('MAGMA_FISH') && lastOdgerGuiClosedAt && new Date() - lastOdgerGuiClosedAt < 15 * 1000) { // User probably just filleted trophy fish
+            if (itemId?.startsWith('MAGMA_FISH') && lastGuisClosed.lastOdgerGuiClosedAt && new Date() - lastGuisClosed.lastOdgerGuiClosedAt < 15 * 1000) { // User probably just filleted trophy fish
                 continue;
             }
 
@@ -541,29 +539,12 @@ function detectInventoryChanges() {
     }
 
     function onItemAddedToInventory(itemId, previousCount, newCount) {
-        const lastOdgerGuiClosedAt = getLastOdgerGuiClosedAt();
-        if (itemId?.startsWith('MAGMA_FISH') && lastOdgerGuiClosedAt && new Date() - lastOdgerGuiClosedAt < 1000) { // User probably just filleted trophy fish
-            return;
-        }
-
-        const lastAuctionGuiClosedAt = getLastAuctionGuiClosedAt();
-        if (lastAuctionGuiClosedAt && new Date() - lastAuctionGuiClosedAt < 1000) { // Something is probably claimed from AH
-            return;
-        }
-
-        const lastCraftGuiClosedAt = getLastCraftGuiClosedAt();
-        if (lastCraftGuiClosedAt && new Date() - lastCraftGuiClosedAt < 1000) { // Something is probably claimed from crafting table
-            return;
-        }
-
         const item = FISHING_PROFIT_ITEMS.find(i => i.itemId === itemId);
         if (!item) {
             return;
         }
 
-        const lastKatUpgrade = getLastKatUpgrade(); // Ignore pets that are claimed from Kat
-        if (lastKatUpgrade.lastPetClaimedAt && new Date() - lastKatUpgrade.lastPetClaimedAt < 7 * 1000 &&
-            item.itemDisplayName.removeFormatting().includes(lastKatUpgrade.petDisplayName?.removeFormatting())) { 
+        if (isInventoryPotentiallyDirty(itemId, item)) {
             return;
         }
 
@@ -587,6 +568,42 @@ function detectInventoryChanges() {
                 playRareDropSound();
             }
         }
+    }
+
+    function isInventoryPotentiallyDirty(itemId, item) {
+        const lastGuisClosed = getLastGuisClosed();
+
+        if (itemId?.startsWith('MAGMA_FISH') && lastGuisClosed.lastOdgerGuiClosedAt && new Date() - lastGuisClosed.lastOdgerGuiClosedAt < 1000) { // User probably just filleted trophy fish
+            return true;
+        }
+
+        if (lastGuisClosed.lastStorageGuiClosedAt && new Date() - lastGuisClosed.lastStorageGuiClosedAt < 1000) {
+            return true;
+        }
+
+        if (lastGuisClosed.lastAuctionGuiClosedAt && new Date() - lastGuisClosed.lastAuctionGuiClosedAt < 3000) {
+            return true;
+        }
+
+        if (lastGuisClosed.lastBazaarGuiClosedAt && new Date() - lastGuisClosed.lastBazaarGuiClosedAt < 1000) {
+            return true;
+        }
+
+        if (lastGuisClosed.lastCraftGuiClosedAt && new Date() - lastGuisClosed.lastCraftGuiClosedAt < 1000) {
+            return true;
+        }
+
+        if (lastGuisClosed.lastSupercraftGuiClosedAt && new Date() - lastGuisClosed.lastSupercraftGuiClosedAt < 1000) {
+            return true;
+        }
+
+        const lastKatUpgrade = getLastKatUpgrade(); // Ignore pets that are claimed from Kat
+        if (lastKatUpgrade.lastPetClaimedAt && new Date() - lastKatUpgrade.lastPetClaimedAt < 7 * 1000 &&
+            item.itemDisplayName.removeFormatting().includes(lastKatUpgrade.petDisplayName?.removeFormatting())) { 
+            return true;
+        }
+
+        return false;
     }
 }
 

@@ -2080,5 +2080,6 @@ export const FISHING_PROFIT_ITEMS = [
         itemName: 'Worm the Fish',
         itemDisplayName: `${SPECIAL}Worm the Fish`,
         npcPrice: 0,
+        shouldAnnounceRareDrop: true
     },
 ];
