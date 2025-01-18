@@ -1550,6 +1550,21 @@ export const FISHING_PROFIT_ITEMS = [
         npcPrice: 2500000,
     },
 
+    // The Abandoned Quarry
+
+    {
+        itemId: 'MITHRIL_ORE',
+        itemName: 'Mithril',
+        itemDisplayName: `${COMMON}Mithril`,
+        npcPrice: 8,
+    },
+    {
+        itemId: 'ENCHANTED_MITHRIL',
+        itemName: 'Enchanted Mithril',
+        itemDisplayName: `${RARE}Enchanted Mithril`,
+        npcPrice: 1280,
+    },
+
     // Runes
 
     {
