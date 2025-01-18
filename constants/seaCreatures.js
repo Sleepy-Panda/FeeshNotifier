@@ -12,6 +12,10 @@ export const THUNDER = "THUNDER";
 export const LORD_JAWBUS = "LORD JAWBUS";
 export const PLHLEGBLAST = "PLHLEGBLAST";
 export const VANQUISHER = "VANQUISHER";
+export const MITHRIL_GRUBBER = "MITHRIL GRUBBER";
+export const MEDIUM_MITHRIL_GRUBBER = "MEDIUM MITHRIL GRUBBER";
+export const LARGE_MITHRIL_GRUBBER = "LARGE MITHRIL GRUBBER";
+export const BLOATED_MITHRIL_GRUBBER = "BLOATED MITHRIL GRUBBER";
 
 // Partial names from sea creature nametags.
 export const ALL_SEA_CREATURES_NAMES = [
