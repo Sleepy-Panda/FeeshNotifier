@@ -1,6 +1,13 @@
 # Releases
 
+## v1.23.0
+
+Features:
+
+
 ## v1.22.0
+
+Released: 2025-01-19
 
 Features:
 
