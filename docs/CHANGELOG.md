@@ -1,5 +1,13 @@
 # Releases
 
+## v1.22.0
+
+Features:
+
+- Sea creatures HP tracker: made mob's HP nametag more compact, also show it only when mob is in <= 30 blocks range (so if you see the nametag - you're in lootshare range).
+- For all "Last on" dates in the Jerry Workshop/Crimson Isle tracker, added elapsed time till now in days/hours/minutes.
+  - It also types elapsed time in chat message when catching a rare mob / dropping a vial.
+
 ## v1.21.0
 
 Released: 2025-01-18
