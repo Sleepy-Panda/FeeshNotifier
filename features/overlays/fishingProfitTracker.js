@@ -113,7 +113,7 @@ function refreshIsVisible() {
 
     if (!settings.fishingProfitTrackerOverlay ||
         !persistentData || !persistentData.fishingProfit ||
-        (!persistentData.fishingProfit.totalProfit && !persistentData.fishingProfit.profitTrackerItems.length && !persistentData.fishingProfit.elapsedSeconds) ||
+        (!persistentData.fishingProfit.totalProfit && !Object.keys(persistentData.fishingProfit.profitTrackerItems).length && !persistentData.fishingProfit.elapsedSeconds) ||
         !isInSkyblock() ||
         getWorldName() === KUUDRA ||
         !hasFishingRodInHotbar() ||
@@ -607,9 +607,12 @@ function refreshTrackerDisplayData() {
         let displayTrackerData = {
             entriesToShow: [],
             entriesToHide: [],
+            totalCheapItemsCount: 0,
+            totalCheapItemsTypesCount: 0,
             totalCheapItemsProfit: 0,
             elapsedTime: 0,
-            totalProfit: 0
+            totalProfit: 0,
+            profitPerHour: 0
         };
 
         const entries = Object.entries(persistentData.fishingProfit.profitTrackerItems)
@@ -629,6 +632,14 @@ function refreshTrackerDisplayData() {
         displayTrackerData.entriesToHide = toHide.concat(cheapEntries);
         displayTrackerData.elapsedTime = persistentData.fishingProfit.elapsedSeconds;
         displayTrackerData.totalProfit = persistentData.fishingProfit.totalProfit;
+
+        const elapsedHours = persistentData.fishingProfit.elapsedSeconds / 3600;
+        displayTrackerData.profitPerHour = elapsedHours
+            ? Math.floor(displayTrackerData.totalProfit / elapsedHours)
+            : 0;
+
+        displayTrackerData.totalCheapItemsTypesCount = displayTrackerData.entriesToHide.length;
+        displayTrackerData.totalCheapItemsCount = displayTrackerData.entriesToHide.reduce((accumulator, currentValue) => { return accumulator + currentValue.amount }, 0);
 
         if (displayTrackerData.entriesToHide.length) {
             displayTrackerData.totalCheapItemsProfit = displayTrackerData.entriesToHide.reduce((accumulator, currentValue) => { return accumulator + currentValue.profit }, 0);
@@ -658,7 +669,7 @@ function refreshTrackerDisplayData() {
         });
 
         if (displayTrackerData.entriesToHide.length) {
-            const line = new DisplayLine(`${GRAY}- ${WHITE}${displayTrackerData.entriesToHide.length}${GRAY}x Cheap items: ${GOLD}${toShortNumber(displayTrackerData.totalCheapItemsProfit)}`).setShadow(true).setScale(overlayCoordsData.fishingProfitTrackerOverlay.scale);
+            const line = new DisplayLine(`${GRAY}- ${WHITE}${displayTrackerData.totalCheapItemsCount}${GRAY}x Cheap items of ${WHITE}${displayTrackerData.totalCheapItemsTypesCount} ${GRAY}types: ${GOLD}${toShortNumber(displayTrackerData.totalCheapItemsProfit)}`).setShadow(true).setScale(overlayCoordsData.fishingProfitTrackerOverlay.scale);
             profitTrackerDisplay.addLine(line);
         }
      
@@ -669,7 +680,7 @@ function refreshTrackerDisplayData() {
             profitTrackerDisplay.addLine(removeTrackerDisplayLine);
         }
 
-        profitTrackerDisplay.addLine(new DisplayLine(`\n${AQUA}Total: ${GOLD}${toShortNumber(displayTrackerData.totalProfit)}`).setShadow(true).setScale(overlayCoordsData.fishingProfitTrackerOverlay.scale));
+        profitTrackerDisplay.addLine(new DisplayLine(`\n${AQUA}Total: ${GOLD}${BOLD}${toShortNumber(displayTrackerData.totalProfit)} ${RESET}${GRAY}(${GOLD}${toShortNumber(displayTrackerData.profitPerHour)}${GRAY}/h)`).setShadow(true).setScale(overlayCoordsData.fishingProfitTrackerOverlay.scale));
         profitTrackerDisplay.addLine(new DisplayLine(getElapsedTimeLineText(displayTrackerData.elapsedTime)).setShadow(true).setScale(overlayCoordsData.fishingProfitTrackerOverlay.scale));  
 
         if (areActionsVisible) {
