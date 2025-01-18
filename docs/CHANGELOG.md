@@ -1,5 +1,17 @@
 # Releases
 
+## v1.21.0
+
+Released: 2025-01-18
+
+Features:
+
+- Made some item names in Fishing Profit Tracker rendered in bold font.
+
+Bugfixes:
+
+
+
 ## v1.20.0
 
 Released: 2024-12-03
