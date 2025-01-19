@@ -268,6 +268,38 @@ export function getCleanItemName(itemName) {
     return cleanItemName || '';
 }
 
+// Formatted time elapsed between 2 dates, e.g. "2d 8h 5m" or "< 1m"
+export function formatTimeElapsedBetweenDates(dateFrom, dateTo = new Date()) {
+	if (!dateFrom || !dateTo) {
+		return '';
+	}
+
+	const totalSeconds = Math.floor((dateTo - dateFrom) / 1000);
+	const totalMinutes = Math.floor(totalSeconds / 60);
+	const totalHours = Math.floor(totalMinutes / 60);
+	const totalDays = Math.floor(totalHours / 24);
+
+	const days = totalDays;
+	const hours = totalHours - (days * 24);
+	const minutes = totalMinutes - (days * 24 * 60) - (hours * 60);
+	const seconds = totalSeconds - (days * 24 * 60 * 60) - (hours * 60 * 60) - (minutes * 60);
+
+	const isLessThanMinute = totalSeconds < 60;
+
+	return isLessThanMinute
+		? `less than 1m`
+		: `${days > 0 ? days + 'd ' : ''}${days > 0 || hours > 0 ? hours + 'h ' : ''}${days > 0 || hours > 0 || minutes > 0 ? minutes + 'm' : ''}`;
+}
+
+// Native getLore() interferes with other mods, e.g. it causes Skyhanni's estimated item value overlay to flash in /pv
+export function getLore(item) {
+	if (!item) {
+		return [];
+	}
+
+    return item.getNBT().getCompoundTag('tag')?.getCompoundTag('display')?.toObject()?.Lore || [];
+}
+
 function getArticle(str) {
     const isFirstLetterVowel = ['a', 'e', 'i', 'o', 'u'].indexOf(str[0].toLowerCase()) !== -1;
 	return isFirstLetterVowel ? 'An' : 'A';

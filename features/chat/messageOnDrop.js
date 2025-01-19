@@ -5,6 +5,12 @@ import { isInSkyblock } from '../../utils/playerState';
 
 const chatCommand = 'pc';
 
+register("gameUnload", () => {
+	if (settings.fishingProfitTrackerOverlay && settings.resetFishingProfitTrackerOnGameClosed && Object.keys(persistentData.rareDropNotifications.items).length) {
+		resetDropNumbers();
+	}
+});
+
 export function resetDropNumbers() {
 	persistentData.rareDropNotifications.items = {};
 	persistentData.save();

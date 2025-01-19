@@ -1,3 +1,5 @@
+import { getLore } from "./common";
+
 var isInSkyblock = false;
 var hasFishingRodInHotbar = false;
 var hasDirtRodInHand = false;
@@ -131,7 +133,7 @@ function setHasFishingRodInHotbar() {
 	if (!hotbarItems || !hotbarItems.length) {
 		hasFishingRodInHotbar = false;
 	} else {
-		const rods = hotbarItems.filter(i => i && !i.getName()?.includes('Carnival Rod') && i.getLore().some(loreLine => loreLine.includes('FISHING ROD') || loreLine.includes('FISHING WEAPON')));
+		const rods = hotbarItems.filter(i => i && !i.getName()?.includes('Carnival Rod') && getLore(i).some(loreLine => loreLine.includes('FISHING ROD') || loreLine.includes('FISHING WEAPON')));
 		hasFishingRodInHotbar = rods && rods.length;	
 	}
 }
@@ -146,8 +148,7 @@ function setHasDirtRodInHand() {
 	if (!heldItem) {
 		hasDirtRodInHand = false;
 	} else {
-		const loreLines = heldItem.getLore();
-		const isDirtRod = loreLines.length ? loreLines[0].includes('Dirt Rod') : false;
+		const isDirtRod = heldItem?.getName()?.includes('Dirt Rod');
 		hasDirtRodInHand = isDirtRod;
 	}
 }
@@ -158,23 +159,19 @@ function setIsInHunterArmor() {
 		return;
 	}
 
-	const armor = Player.armor;
-	const helmetLoreLines = armor.getHelmet()?.getLore();
-	const chestplateLoreLines = armor.getChestplate()?.getLore();
-	const leggingsLoreLines = armor.getLeggings()?.getLore();
-	const bootsLoreLines = armor.getBoots()?.getLore();
+	const armor = Player?.armor;
+	const helmetName = armor?.getHelmet()?.getName();
+	const chestplateName = armor?.getChestplate()?.getName();
+	const leggingsName = armor?.getLeggings()?.getName();
+	const bootsName = armor?.getBoots()?.getName();
 	const hunter = 'Hunter';
 
-	if (!helmetLoreLines || !helmetLoreLines.length ||
-		!chestplateLoreLines || !chestplateLoreLines.length ||
-		!leggingsLoreLines || !leggingsLoreLines.length ||
-		!bootsLoreLines || !bootsLoreLines.length
-	) {
+	if (!helmetName || !chestplateName || !leggingsName || !bootsName) {
 		isInHunterArmor = false;
 		return;
 	}
 
-	if (helmetLoreLines[0].includes(hunter) && chestplateLoreLines[0].includes(hunter) && leggingsLoreLines[0].includes(hunter) && bootsLoreLines[0].includes(hunter)) {
+	if (helmetName.includes(hunter) && chestplateName.includes(hunter) && leggingsName.includes(hunter) && bootsName.includes(hunter)) {
 		isInHunterArmor = true;
 	} else {
 		isInHunterArmor = false;

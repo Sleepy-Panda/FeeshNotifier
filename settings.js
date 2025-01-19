@@ -280,6 +280,20 @@ class Settings {
     messageOnMidnightDyeDrop = true;
 
     @SwitchProperty({
+        name: "Send a message on PERIWINKLE DYE drop",
+        category: "Chat",
+        subcategory: "Rare Drops"
+    })
+    messageOnPeriwinkleDyeDrop = true;
+
+    @SwitchProperty({
+        name: "Send a message on BONE DYE drop",
+        category: "Chat",
+        subcategory: "Rare Drops"
+    })
+    messageOnBoneDyeDrop = true;
+
+    @SwitchProperty({
         name: "Send a message on MAGMA CORE drop",
         category: "Chat",
         subcategory: "Rare Drops"
@@ -371,7 +385,7 @@ class Settings {
 
     @SwitchProperty({
         name: "Alert when a thunder bottle has fully charged",
-        description: `Shows a title when a thunder bottle has fully charged and became Thunder in a bottle.`,
+        description: `Shows a title when a Thunder / Storm / Hurricane bottle has fully charged.`,
         category: "Alerts",
         subcategory: "Thunder bottle"
     })
@@ -658,6 +672,20 @@ class Settings {
     alertOnMidnightDyeDrop = true;
 
     @SwitchProperty({
+        name: "Alert on PERIWINKLE DYE drop",
+        category: "Alerts",
+        subcategory: "Rare Drops"
+    })
+    alertOnPeriwinkleDyeDrop = true;
+
+    @SwitchProperty({
+        name: "Alert on BONE DYE drop",
+        category: "Alerts",
+        subcategory: "Rare Drops"
+    })
+    alertOnBoneDyeDrop = true;
+    
+    @SwitchProperty({
         name: "Alert on MAGMA CORE drop",
         category: "Alerts",
         subcategory: "Rare Drops"
@@ -739,6 +767,14 @@ class Settings {
     })
     rareCatchesTrackerOverlay = true;
 
+    @SwitchProperty({
+        name: "Reset on closing game",
+        description: "Automatically reset the rare catches tracker when you close Minecraft or reload CT modules.",
+        category: "Overlays",
+        subcategory: "Rare catches"
+    })
+    resetRareCatchesTrackerOnGameClosed = false;
+
     @ButtonProperty({
         name: "Move rare catches tracker",
         description: "Allows to move and resize the overlay text.",
@@ -766,7 +802,7 @@ class Settings {
 
     @SwitchProperty({
         name: "Sea creatures HP",
-        description: `Shows an overlay with the HP of nearby Thunder / Lord Jawbus / Plhlegblast / Reindrake / Yeti. ${RED}Hidden if you have no fishing rod in your hotbar!`,
+        description: `Shows an overlay with the HP of nearby Thunder / Lord Jawbus / Plhlegblast / Reindrake / Yeti when they're in lootshare range. ${RED}Hidden if you have no fishing rod in your hotbar!`,
         category: "Overlays",
         subcategory: "Sea creatures HP"
     })
@@ -838,6 +874,14 @@ class Settings {
     })
     jerryWorkshopTrackerOverlay = true;
 
+    @SwitchProperty({
+        name: "Reset on closing game",
+        description: "Automatically reset the Jerry Workshop tracker when you close Minecraft or reload CT modules.",
+        category: "Overlays",
+        subcategory: "Jerry Workshop tracker"
+    })
+    resetJerryWorkshopTrackerOnGameClosed = false;
+
     @ButtonProperty({
         name: "Move Jerry Workshop tracker",
         description: "Allows to move and resize the overlay text.",
@@ -878,6 +922,14 @@ Example: /feeshSetRadioactiveVials 5 2024-03-18T14:05:00Z`,
         subcategory: "Crimson Isle tracker"
     })
     crimsonIsleTrackerOverlay = true;
+
+    @SwitchProperty({
+        name: "Reset on closing game",
+        description: "Automatically reset the Crimson Isle tracker when you close Minecraft or or reload CT modules.",
+        category: "Overlays",
+        subcategory: "Crimson Isle tracker"
+    })
+    resetCrimsonIsleTrackerOnGameClosed = false;
 
     @ButtonProperty({
         name: "Move Crimson Isle tracker",
@@ -1057,6 +1109,14 @@ ${RED}Hidden if you have no fishing rod in your hotbar!`,
     })
     calculateProfitInCrimsonEssence = false;
 
+    @SwitchProperty({
+        name: "Reset on closing game",
+        description: "Automatically reset the fishing profit tracker when you close Minecraft or reload CT modules.",
+        category: "Overlays",
+        subcategory: "Fishing profit tracker"
+    })
+    resetFishingProfitTrackerOnGameClosed = false;
+
     // ******* INVENTORY - Highlight ******* //
 
     @SwitchProperty({
@@ -1079,7 +1139,7 @@ ${RED}Hidden if you have no fishing rod in your hotbar!`,
 
     @SwitchProperty({
         name: "Thunder bottle charge progress",
-        description: `Render empty thunder / storm / hurricane bottle charge progress (percentage)`,
+        description: `Render Thunder / Storm / Hurricane bottle charge progress (percentage).`,
         category: "Inventory",
         subcategory: "Item tooltip"
     })

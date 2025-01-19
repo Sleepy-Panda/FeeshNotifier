@@ -2,13 +2,13 @@ import * as triggers from '../../constants/triggers';
 import settings from "../../settings";
 import { persistentData } from "../../data/data";
 import { overlayCoordsData } from "../../data/overlayCoords";
-import { CRIMSON_ISLE, KUUDRA } from "../../constants/areas";
+import { CRIMSON_ISLE, JERRY_WORKSHOP, KUUDRA } from "../../constants/areas";
 import { FISHING_PROFIT_ITEMS } from "../../constants/fishingProfitItems";
 import { AQUA, BOLD, GOLD, GRAY, RESET, WHITE, YELLOW, RED, GREEN, BLUE } from "../../constants/formatting";
 import { EntityFishHook } from "../../constants/javaTypes";
 import { getAuctionItemPrices, getPetRarityCode } from "../../utils/auctionPrices";
 import { getBazaarItemPrices } from "../../utils/bazaarPrices";
-import { formatElapsedTime, getCleanItemName, getItemsAddedToSacks, isInChatOrInventoryGui, isInSacksGui, isInSupercraftGui, splitArray, toShortNumber } from "../../utils/common";
+import { formatElapsedTime, getCleanItemName, getItemsAddedToSacks, getLore, isInChatOrInventoryGui, isInSacksGui, isInSupercraftGui, splitArray, toShortNumber } from "../../utils/common";
 import { getLastGuisClosed, getLastKatUpgrade, getWorldName, hasFishingRodInHotbar, isInSkyblock } from "../../utils/playerState";
 import { playRareDropSound } from '../../utils/sound';
 
@@ -22,6 +22,7 @@ register("Chat", (event) => onAddedToSacks(event)).setCriteria('&6[Sacks] &r&a+'
 register('step', () => detectInventoryChanges()).setFps(4); // Items added to the inventory
 
 triggers.COINS_FISHED_TRIGGERS.forEach(trigger => { register("Chat", (coins, event) => onCoinsFished(coins)).setCriteria(trigger.trigger); });
+triggers.ICE_ESSENCE_FISHED_TRIGGERS.forEach(trigger => { register("Chat", (count, event) => onIceEssenceFished(count)).setCriteria(trigger.trigger); });
 
 // &r&aYour &r&5Ender Dragon &r&aleveled up to level &r&981&r&a!&r
 // &r&aYour &r&6Mammoth &r&aleveled up to level &r&92&r&a!&r
@@ -53,6 +54,12 @@ register('guiClosed', (gui) => {
     if (gui?.toString()?.includes('vigilance')) { // Settings menu is closed, probably some settings have changed
         refreshPrices();
         refreshTrackerDisplayData();
+    }
+});
+
+register("gameUnload", () => {
+    if (settings.fishingProfitTrackerOverlay && settings.resetFishingProfitTrackerOnGameClosed && (Object.keys(persistentData.fishingProfit.profitTrackerItems).length || persistentData.fishingProfit.elapsedSeconds)) {
+        resetFishingProfitTracker(true);
     }
 });
 
@@ -199,8 +206,7 @@ function activateSessionOnPlayersFishingHook() {
             return;
         }
 
-        const loreLines = heldItem?.getLore() || [];
-        const isDirtRod = loreLines.length ? loreLines[0].includes('Dirt Rod') : false;
+        const isDirtRod = heldItem?.getName()?.includes('Dirt Rod');
         if (isDirtRod) { // For dirt rod, the player's hook can be in dirt
             activateTimer();
         }
@@ -402,6 +408,38 @@ function onCoinsFished(coins) {
 	}
 }
 
+function onIceEssenceFished(count) {
+    try {
+        if (!isVisible || !count || !isSessionActive || getWorldName() !== JERRY_WORKSHOP) {
+            return;
+        }
+
+        const fishingProfitItem = FISHING_PROFIT_ITEMS.find(i => i.itemId === 'ESSENCE_ICE');
+        const itemId = fishingProfitItem?.itemId;
+        if (!fishingProfitItem || !itemId) {
+            return;
+        }
+
+        const essenceCountWithoutSeparator = +(count.replace(/,/g, ''));
+        const item = persistentData.fishingProfit.profitTrackerItems[itemId];
+        const currentAmount = item?.amount || 0;
+
+        persistentData.fishingProfit.profitTrackerItems[itemId] = {
+            itemName: fishingProfitItem.itemName,
+            itemDisplayName: fishingProfitItem.itemDisplayName,
+            itemId: itemId,
+            amount: currentAmount + essenceCountWithoutSeparator,
+        };
+        persistentData.save();
+
+        refreshPrices();
+        refreshTrackerDisplayData();  
+    } catch (e) {
+		console.error(e);
+		console.log(`[FeeshNotifier] [ProfitTracker] Failed to track fished ice essence.`);
+	}
+}
+
 function onPetReachedMaxLevel(level, petDisplayName) {
     try {
         if (level !== 100 && level !== 200) {
@@ -505,13 +543,13 @@ function detectInventoryChanges() {
             let slotItemName = getCleanItemName(item?.getName());
 
             if (slotItemName === 'Attribute Shard' || slotItemName === 'Enchanted Book') {
-                const loreLines = item.getLore();
-                const description = loreLines[1].removeFormatting();
+                const loreLines = getLore(item);
+                const description = loreLines[0].removeFormatting();
                 slotItemName += ` (${description})`;
             }
 
             if (slotItemName === 'Fishing Exp Boost') {
-                const loreLines = item.getLore();
+                const loreLines = getLore(item);
                 const description = loreLines.find(line => line.endsWith('PET ITEM')).removeFormatting().split(' ')[0];
                 slotItemName += ` (${description})`;
             }

@@ -491,6 +491,12 @@ export const FISHING_PROFIT_ITEMS = [
         itemDisplayName: `${UNCOMMON}Music Disc - Wait`,
         npcPrice: 20,
     },
+    {
+        itemId: 'ESSENCE_ICE',
+        itemName: 'Ice Essence',
+        itemDisplayName: `${UNCOMMON}Ice Essence`,
+        npcPrice: 0,
+    },
 
     // Water
 
@@ -971,6 +977,18 @@ export const FISHING_PROFIT_ITEMS = [
         itemId: 'DYE_ICEBERG',
         itemName: 'Iceberg Dye',
         itemDisplayName: `${LEGENDARY}${BOLD}Iceberg Dye`,
+        npcPrice: 0,
+    },
+    {
+        itemId: 'DYE_PERIWINKLE',
+        itemName: 'Periwinkle Dye',
+        itemDisplayName: `${LEGENDARY}${BOLD}Periwinkle Dye`,
+        npcPrice: 0,
+    },
+    {
+        itemId: 'DYE_BONE',
+        itemName: 'Bone Dye',
+        itemDisplayName: `${LEGENDARY}${BOLD}Bone Dye`,
         npcPrice: 0,
     },
 
