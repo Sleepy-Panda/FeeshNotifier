@@ -6,6 +6,7 @@ Released: ???
 
 Features:
 
+- Added option to reset Fishing Profit Tracker, Rare Catches Tracker, Crimson Isle Tracker, Jerry Workshop Tracker on closing the game. [disabled by default]
 
 ## v1.23.0
 

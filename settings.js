@@ -767,6 +767,14 @@ class Settings {
     })
     rareCatchesTrackerOverlay = true;
 
+    @SwitchProperty({
+        name: "Reset on closing game",
+        description: "Automatically reset the rare catches tracker when you close Minecraft or reload CT modules.",
+        category: "Overlays",
+        subcategory: "Rare catches"
+    })
+    resetRareCatchesTrackerOnGameClosed = false;
+
     @ButtonProperty({
         name: "Move rare catches tracker",
         description: "Allows to move and resize the overlay text.",
@@ -866,6 +874,14 @@ class Settings {
     })
     jerryWorkshopTrackerOverlay = true;
 
+    @SwitchProperty({
+        name: "Reset on closing game",
+        description: "Automatically reset the Jerry Workshop tracker when you close Minecraft or reload CT modules.",
+        category: "Overlays",
+        subcategory: "Jerry Workshop tracker"
+    })
+    resetJerryWorkshopTrackerOnGameClosed = false;
+
     @ButtonProperty({
         name: "Move Jerry Workshop tracker",
         description: "Allows to move and resize the overlay text.",
@@ -906,6 +922,14 @@ Example: /feeshSetRadioactiveVials 5 2024-03-18T14:05:00Z`,
         subcategory: "Crimson Isle tracker"
     })
     crimsonIsleTrackerOverlay = true;
+
+    @SwitchProperty({
+        name: "Reset on closing game",
+        description: "Automatically reset the Crimson Isle tracker when you close Minecraft or or reload CT modules.",
+        category: "Overlays",
+        subcategory: "Crimson Isle tracker"
+    })
+    resetCrimsonIsleTrackerOnGameClosed = false;
 
     @ButtonProperty({
         name: "Move Crimson Isle tracker",
@@ -1084,6 +1108,14 @@ ${RED}Hidden if you have no fishing rod in your hotbar!`,
         subcategory: "Fishing profit tracker"
     })
     calculateProfitInCrimsonEssence = false;
+
+    @SwitchProperty({
+        name: "Reset on closing game",
+        description: "Automatically reset the fishing profit tracker when you close Minecraft or reload CT modules.",
+        category: "Overlays",
+        subcategory: "Fishing profit tracker"
+    })
+    resetFishingProfitTrackerOnGameClosed = false;
 
     // ******* INVENTORY - Highlight ******* //
 
