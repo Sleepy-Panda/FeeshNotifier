@@ -7,6 +7,11 @@ Features:
 - Added alert on Periwinkle Dye and Bone Dye drop, also added them to Fishing profit tracker when it's obtained while fishing.
 - Track Ice Essence fished up from water on Jerry's Workshop.
 
+Bugfixes:
+
+- Fixed Skyhanni's Estimated Item Value flashing in NEU PV when module is loaded.
+  - It's caused by CT's Item.getLore() called, it somehow interferes with other mods.
+
 ## v1.22.0
 
 Released: 2025-01-19

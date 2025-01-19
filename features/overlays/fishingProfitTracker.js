@@ -8,7 +8,7 @@ import { AQUA, BOLD, GOLD, GRAY, RESET, WHITE, YELLOW, RED, GREEN, BLUE } from "
 import { EntityFishHook } from "../../constants/javaTypes";
 import { getAuctionItemPrices, getPetRarityCode } from "../../utils/auctionPrices";
 import { getBazaarItemPrices } from "../../utils/bazaarPrices";
-import { formatElapsedTime, getCleanItemName, getItemsAddedToSacks, isInChatOrInventoryGui, isInSacksGui, isInSupercraftGui, splitArray, toShortNumber } from "../../utils/common";
+import { formatElapsedTime, getCleanItemName, getItemsAddedToSacks, getLore, isInChatOrInventoryGui, isInSacksGui, isInSupercraftGui, splitArray, toShortNumber } from "../../utils/common";
 import { getLastGuisClosed, getLastKatUpgrade, getWorldName, hasFishingRodInHotbar, isInSkyblock } from "../../utils/playerState";
 import { playRareDropSound } from '../../utils/sound';
 
@@ -200,8 +200,7 @@ function activateSessionOnPlayersFishingHook() {
             return;
         }
 
-        const loreLines = heldItem?.getLore() || [];
-        const isDirtRod = loreLines.length ? loreLines[0].includes('Dirt Rod') : false;
+        const isDirtRod = heldItem?.getName()?.includes('Dirt Rod');
         if (isDirtRod) { // For dirt rod, the player's hook can be in dirt
             activateTimer();
         }
@@ -538,13 +537,13 @@ function detectInventoryChanges() {
             let slotItemName = getCleanItemName(item?.getName());
 
             if (slotItemName === 'Attribute Shard' || slotItemName === 'Enchanted Book') {
-                const loreLines = item.getLore();
-                const description = loreLines[1].removeFormatting();
+                const loreLines = getLore(item);
+                const description = loreLines[0].removeFormatting();
                 slotItemName += ` (${description})`;
             }
 
             if (slotItemName === 'Fishing Exp Boost') {
-                const loreLines = item.getLore();
+                const loreLines = getLore(item);
                 const description = loreLines.find(line => line.endsWith('PET ITEM')).removeFormatting().split(' ')[0];
                 slotItemName += ` (${description})`;
             }
