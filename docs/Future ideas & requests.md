@@ -1,4 +1,3 @@
-- "when using Skyhanni's Estimated Item Value and in NEU's /pv, having the module loaded causes it to flash"
 - Offer supercrafting or bazaar when items like raw fish goes to inventory (sacks are full)
 - Some items are tracked by profit tracker when dropped, but drop was prevented by SB settings (basically it drops and picks up again).
 - Calculate pet price in profit tracker as difference between lvl 1 and lvl 100
@@ -7,7 +6,6 @@
 - Total price is set to 0 in Profit tracker while other lines being normal (very rare and seems random).
 - Sea creatures/hour
 - Disable functionalities in Dungeons, Garden same way as it's done for Kuudra.
-- Alert when a new bottle type charged (LF message)
 - Rain/Thunder widget
 - Find out price calculation for Kuudra Keys in profit tracker
 - Achievements (ScathaPro / SBO as reference)

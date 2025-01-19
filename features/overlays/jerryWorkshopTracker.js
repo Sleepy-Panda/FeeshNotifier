@@ -34,6 +34,19 @@ register("worldUnload", () => {
     sawWorkshopClosingMessage = false;
 });
 
+register("gameUnload", () => {
+    if (settings.jerryWorkshopTrackerOverlay && settings.resetJerryWorkshopTrackerOnGameClosed && persistentData.jerryWorkshop && (
+        persistentData.jerryWorkshop.yeti.lastCatchTime ||
+        persistentData.jerryWorkshop.reindrake.lastCatchTime ||
+        persistentData.jerryWorkshop.yeti.catchesSinceLast ||
+        persistentData.jerryWorkshop.reindrake.catchesSinceLast ||
+        persistentData.jerryWorkshop.babyYetiPets.epic.count ||
+        persistentData.jerryWorkshop.babyYetiPets.legendary.count
+    )) {
+        resetJerryWorkshopTracker(true);
+    }
+});
+
 // DisplayLine is initialized once in order to avoid multiple method calls on click.
 let resetTrackerDisplay = new Display().hide();
 let resetTrackerDisplayLine = new DisplayLine(`${RED}[Click to reset]`).setShadow(true);

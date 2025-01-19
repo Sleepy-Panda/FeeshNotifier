@@ -23,6 +23,18 @@ register("Chat", (magicFind, event) => trackRadioctiveVialDrop()).setCriteria(ra
 
 register('renderOverlay', () => renderCrimsonIsleTrackerOverlay());
 
+register("gameUnload", () => {
+    if (settings.crimsonIsleTrackerOverlay && settings.resetCrimsonIsleTrackerOnGameClosed && persistentData.crimsonIsle && (
+        persistentData.crimsonIsle.thunder.lastCatchTime ||
+        persistentData.crimsonIsle.lordJawbus.lastCatchTime ||
+        persistentData.crimsonIsle.thunder.catchesSinceLast ||
+        persistentData.crimsonIsle.lordJawbus.catchesSinceLast ||
+        persistentData.crimsonIsle.radioactiveVials.count
+    )) {
+        resetCrimsonIsleTracker(true);
+    }
+});
+
 // DisplayLine is initialized once in order to avoid multiple method calls on click.
 let resetTrackerDisplay = new Display().hide();
 let resetTrackerDisplayLine = new DisplayLine(`${RED}[Click to reset]`).setShadow(true);

@@ -57,6 +57,12 @@ register('guiClosed', (gui) => {
     }
 });
 
+register("gameUnload", () => {
+    if (settings.fishingProfitTrackerOverlay && settings.resetFishingProfitTrackerOnGameClosed && (Object.keys(persistentData.fishingProfit.profitTrackerItems).length || persistentData.fishingProfit.elapsedSeconds)) {
+        resetFishingProfitTracker(true);
+    }
+});
+
 let profitTrackerDisplay = new Display().hide();
 
 export function resetFishingProfitTracker(isConfirmed) {
