@@ -4,6 +4,7 @@ import { getWorldName, hasFishingRodInHotbar, isInSkyblock } from "../../utils/p
 import { OFF_SOUND_MODE } from "../../constants/sounds";
 import { DUNGEONS, KUUDRA } from "../../constants/areas";
 import { EntityFishHook } from "../../constants/javaTypes";
+import { getLore } from "../../utils/common";
 
 let lastHookDetectedAt = null;
 
@@ -49,8 +50,7 @@ function alertOnNonFishingArmor(event) {
             if (playerHook.isInWater() || playerHook.isInLava()) { // For regular rods, the player's hook must be in lava or water
                 isHookActive = true;
             } else {
-                const loreLines = heldItem?.getLore() || [];
-                const isDirtRod = loreLines.length ? loreLines[0].includes('Dirt Rod') : false;
+                const isDirtRod = heldItem?.getName()?.includes('Dirt Rod');
                 if (isDirtRod) { // For dirt rod, the player's hook can be in dirt
                     isHookActive = true;
                 }
@@ -73,8 +73,8 @@ function alertOnNonFishingArmor(event) {
 }
 
 function isPlayerWearingFishingArmor() {
-    const armor = Player.armor;
-    const armorPieces = [ armor.getHelmet(), armor.getChestplate(), armor.getLeggings(), armor.getBoots() ];
+    const armor = Player?.armor;
+    const armorPieces = [ armor?.getHelmet(), armor?.getChestplate(), armor?.getLeggings(), armor?.getBoots() ];
     const fishingArmorCount = armorPieces.filter(armorPiece => isFishingArmor(armorPiece)).length;
 
     return (fishingArmorCount >= 3);
@@ -85,15 +85,16 @@ function isFishingArmor(item) {
         return false;
     }
 
-    const itemLore = item.getLore();
-    if (!itemLore || !itemLore.length) {
+    const itemName = item.getName();
+    const itemLore = getLore(item);
+    if (!itemName || !itemLore || !itemLore.length) {
         return false;
     }
 
-    if (itemLore[0].includes("Hunter") || itemLore[0].includes("Squid Hat")) {
+    if (itemName.includes("Hunter") || itemName.includes("Squid Hat")) {
         return true;
     }
 
-    const isFishingArmor = itemLore.slice(1).some(loreLine => (loreLine.includes("Sea Creature Chance:") || loreLine.includes("Fishing Speed:")));
+    const isFishingArmor = itemLore.some(loreLine => (loreLine.includes("Sea Creature Chance:") || loreLine.includes("Fishing Speed:")));
     return isFishingArmor;
 }
