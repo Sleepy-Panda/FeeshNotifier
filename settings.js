@@ -280,6 +280,20 @@ class Settings {
     messageOnMidnightDyeDrop = true;
 
     @SwitchProperty({
+        name: "Send a message on PERIWINKLE DYE drop",
+        category: "Chat",
+        subcategory: "Rare Drops"
+    })
+    messageOnPeriwinkleDyeDrop = true;
+
+    @SwitchProperty({
+        name: "Send a message on BONE DYE drop",
+        category: "Chat",
+        subcategory: "Rare Drops"
+    })
+    messageOnBoneDyeDrop = true;
+
+    @SwitchProperty({
         name: "Send a message on MAGMA CORE drop",
         category: "Chat",
         subcategory: "Rare Drops"
@@ -658,6 +672,20 @@ class Settings {
     alertOnMidnightDyeDrop = true;
 
     @SwitchProperty({
+        name: "Alert on PERIWINKLE DYE drop",
+        category: "Alerts",
+        subcategory: "Rare Drops"
+    })
+    alertOnPeriwinkleDyeDrop = true;
+
+    @SwitchProperty({
+        name: "Alert on BONE DYE drop",
+        category: "Alerts",
+        subcategory: "Rare Drops"
+    })
+    alertOnBoneDyeDrop = true;
+    
+    @SwitchProperty({
         name: "Alert on MAGMA CORE drop",
         category: "Alerts",
         subcategory: "Rare Drops"
@@ -766,7 +794,7 @@ class Settings {
 
     @SwitchProperty({
         name: "Sea creatures HP",
-        description: `Shows an overlay with the HP of nearby Thunder / Lord Jawbus / Plhlegblast / Reindrake / Yeti. ${RED}Hidden if you have no fishing rod in your hotbar!`,
+        description: `Shows an overlay with the HP of nearby Thunder / Lord Jawbus / Plhlegblast / Reindrake / Yeti when they're in lootshare range. ${RED}Hidden if you have no fishing rod in your hotbar!`,
         category: "Overlays",
         subcategory: "Sea creatures HP"
     })

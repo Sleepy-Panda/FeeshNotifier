@@ -291,6 +291,15 @@ export function formatTimeElapsedBetweenDates(dateFrom, dateTo = new Date()) {
 		: `${days > 0 ? days + 'd ' : ''}${days > 0 || hours > 0 ? hours + 'h ' : ''}${days > 0 || hours > 0 || minutes > 0 ? minutes + 'm' : ''}`;
 }
 
+// Native getLore() interferes with other mods, e.g. it causes Skyhanni's estimated item value overlay to flash in /pv
+export function getLore(item) {
+	if (!item) {
+		return [];
+	}
+
+    return item.getNBT().getCompoundTag('tag')?.getCompoundTag('display')?.toObject()?.Lore || [];
+}
+
 function getArticle(str) {
     const isFirstLetterVowel = ['a', 'e', 'i', 'o', 'u'].indexOf(str[0].toLowerCase()) !== -1;
 	return isFirstLetterVowel ? 'An' : 'A';
