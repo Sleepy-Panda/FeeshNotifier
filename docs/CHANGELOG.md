@@ -9,7 +9,7 @@ Features:
 
 Bugfixes:
 
-- Fixed Skyhanni's Estimated Item Value flashinh in NEU PV when module is loaded.
+- Fixed Skyhanni's Estimated Item Value flashing in NEU PV when module is loaded.
   - It's caused by CT's Item.getLore() called, it somehow interferes with other mods.
 
 ## v1.22.0
