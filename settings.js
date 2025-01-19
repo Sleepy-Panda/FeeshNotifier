@@ -767,6 +767,14 @@ class Settings {
     })
     rareCatchesTrackerOverlay = true;
 
+    @SwitchProperty({
+        name: "Reset on closing game",
+        description: "Automatically reset the rare catches tracker when you close Minecraft or reload CT modules.",
+        category: "Overlays",
+        subcategory: "Rare catches"
+    })
+    resetRareCatchesTrackerOnGameClosed = false;
+
     @ButtonProperty({
         name: "Move rare catches tracker",
         description: "Allows to move and resize the overlay text.",
@@ -868,7 +876,7 @@ class Settings {
 
     @SwitchProperty({
         name: "Reset on closing game",
-        description: "Automatically reset the Jerry Workshop tracker when you close Minecraft.",
+        description: "Automatically reset the Jerry Workshop tracker when you close Minecraft or reload CT modules.",
         category: "Overlays",
         subcategory: "Jerry Workshop tracker"
     })
@@ -917,7 +925,7 @@ Example: /feeshSetRadioactiveVials 5 2024-03-18T14:05:00Z`,
 
     @SwitchProperty({
         name: "Reset on closing game",
-        description: "Automatically reset the Crimson Isle tracker when you close Minecraft.",
+        description: "Automatically reset the Crimson Isle tracker when you close Minecraft or or reload CT modules.",
         category: "Overlays",
         subcategory: "Crimson Isle tracker"
     })
@@ -1103,12 +1111,12 @@ ${RED}Hidden if you have no fishing rod in your hotbar!`,
 
     @SwitchProperty({
         name: "Reset on closing game",
-        description: "Automatically reset the fishing profit tracker when you close Minecraft.",
+        description: "Automatically reset the fishing profit tracker when you close Minecraft or reload CT modules.",
         category: "Overlays",
         subcategory: "Fishing profit tracker"
     })
     resetFishingProfitTrackerOnGameClosed = false;
-    
+
     // ******* INVENTORY - Highlight ******* //
 
     @SwitchProperty({
