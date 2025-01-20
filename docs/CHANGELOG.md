@@ -1,5 +1,42 @@
 # Releases
 
+## v1.24.0
+
+Released: ???
+
+Features:
+
+- Added option to reset Fishing Profit Tracker, Rare Catches Tracker, Crimson Isle Tracker, Jerry Workshop Tracker on closing the game. [disabled by default]
+
+Bugfixes:
+
+- Changed output of /feeshPetLevelUpPrices command, now it considers that Reindeer requires 2x less time to level up.
+
+## v1.23.0
+
+Released: 2025-01-19
+
+Features:
+
+- Added alert on Periwinkle Dye and Bone Dye drop, also added them to Fishing profit tracker when it's obtained while fishing.
+- Track Ice Essence fished up from water on Jerry's Workshop.
+
+Bugfixes:
+
+- Fixed Skyhanni's Estimated Item Value flashing in NEU PV when module is loaded.
+  - It's caused by CT's Item.getLore() called, it somehow interferes with other mods.
+
+## v1.22.0
+
+Released: 2025-01-19
+
+Features:
+
+- Sea creatures HP tracker: made mob's HP nametag more compact, also show it only when mob is in <= 30 blocks range (so if you see the nametag - you're in lootshare range).
+- For all "Last on" dates in the Jerry Workshop/Crimson Isle tracker, added elapsed time till now in days/hours/minutes.
+  - It also types elapsed time in chat message when catching a rare mob / dropping a vial.
+- Added alert on Storm / Hurricane bottle charged (same way as it works for Thunder bottle).
+
 ## v1.21.0
 
 Released: 2025-01-18
