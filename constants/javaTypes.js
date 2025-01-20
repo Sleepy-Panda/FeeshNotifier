@@ -6,3 +6,4 @@ export const EntityFireworkRocket = Java.type("net.minecraft.entity.item.EntityF
 export const GuiInventory = Java.type("net.minecraft.client.gui.inventory.GuiInventory");
 export const GuiChat = Java.type("net.minecraft.client.gui.GuiChat");
 export const EntityJoinWorldEvent = Java.type("net.minecraftforge.event.entity.EntityJoinWorldEvent");
+export const NBTTagString = Java.type("net.minecraft.nbt.NBTTagString");
