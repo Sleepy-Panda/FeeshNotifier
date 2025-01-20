@@ -3,46 +3,47 @@ import { getAuctionItemPrices, getPetRarityCode } from "../../utils/auctionPrice
 import { toShortNumber } from "../../utils/common";
 import { isInSkyblock } from "../../utils/playerState";
 
+const MAX_XP = 25353230;
 const PETS_TO_CHECK = [
     {
         petDisplayName: `${LEGENDARY}Blue Whale`,
-        maxXp: 25353230
+        xpGainMultiplier: 1
     },
     {
         petDisplayName: `${LEGENDARY}Flying Fish`,
-        maxXp: 25353230
+        xpGainMultiplier: 1
     },
     {
         petDisplayName: `${LEGENDARY}Baby Yeti`,
-        maxXp: 25353230
+        xpGainMultiplier: 1
     },
     {
         petDisplayName: `${LEGENDARY}Penguin`,
-        maxXp: 25353230
+        xpGainMultiplier: 1
     },
     {
         petDisplayName: `${LEGENDARY}Spinosaurus`,
-        maxXp: 25353230
+        xpGainMultiplier: 1
     },
     {
         petDisplayName: `${LEGENDARY}Megalodon`,
-        maxXp: 25353230
+        xpGainMultiplier: 1
     },
     {
         petDisplayName: `${LEGENDARY}Ammonite`,
-        maxXp: 25353230
+        xpGainMultiplier: 1
     },
     {
         petDisplayName: `${LEGENDARY}Squid`,
-        maxXp: 25353230
+        xpGainMultiplier: 1
     },
     {
         petDisplayName: `${LEGENDARY}Dolphin`,
-        maxXp: 25353230
+        xpGainMultiplier: 1
     },
     {
         petDisplayName: `${LEGENDARY}Reindeer`,
-        maxXp: 12676615
+        xpGainMultiplier: 2 // 2x faster to level up
     },
 ];
 
@@ -69,7 +70,7 @@ export function calculateFishingPetPrices() {
                 petDisplayName: pet.petDisplayName,
                 level1Price: level1Price,
                 level100Price: level100Price,
-                coinsPerXp: level100Price / pet.maxXp,
+                coinsPerXp: (level100Price / MAX_XP) * pet.xpGainMultiplier,
                 diff: level1Price && level100Price ? level100Price - level1Price : 0
             };       
         }).sort((a, b) => b.coinsPerXp - a.coinsPerXp);
