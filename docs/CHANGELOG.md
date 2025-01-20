@@ -8,6 +8,10 @@ Features:
 
 - Added option to reset Fishing Profit Tracker, Rare Catches Tracker, Crimson Isle Tracker, Jerry Workshop Tracker on closing the game. [disabled by default]
 
+Bugfixes:
+
+- Changed output of /feeshPetLevelUpPrices command, now it considers that Reindeer requires 2x less time to level up.
+
 ## v1.23.0
 
 Released: 2025-01-19
