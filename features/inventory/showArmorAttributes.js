@@ -1,6 +1,7 @@
 import settings from "../../settings";
 import { BOLD, GREEN, WHITE } from "../../constants/formatting";
 import { isInSkyblock } from "../../utils/playerState";
+import { getItemAttributes } from "../../utils/common";
 
 register('renderItemIntoGui', (item, x, y, event) => {
     showArmorAttributes(item, x, y);
@@ -33,22 +34,18 @@ function showArmorAttributes(item, x, y) {
         return;
     }
 
-    const attributes = item.getNBT()?.getCompoundTag('tag')?.getCompoundTag('ExtraAttributes')?.getCompoundTag('attributes')?.toObject();
-    if (!attributes) {
+    const highlightedAttributeCodesString = isFishingGear ? (settings.accentedFishingArmorAttributes || '') : (settings.accentedCrimsonArmorAttributes || '');
+    const highlightedAttributeCodes = highlightedAttributeCodesString.split(',');
+
+    const itemAttributes = getItemAttributes(item);
+    if (!itemAttributes || !itemAttributes.length) {
         return;
     }
 
     let attributeAbbreviations = [];
-    const highlightedAttributeCodesString = isFishingGear ? (settings.accentedFishingArmorAttributes || '') : (settings.accentedCrimsonArmorAttributes || '');
-    const highlightedAttributeCodes = highlightedAttributeCodesString.split(',');
-
-    Object.keys(attributes).sort().forEach(attributeCode => {
-        const attributeLevel = attributes[attributeCode];
-        if (attributeCode === 'mending') {
-            attributeCode = 'vitality';
-        }
-        const color = highlightedAttributeCodes.includes(attributeCode) ? GREEN + BOLD : WHITE + BOLD;
-        const attributeAbbreviation = `${color}${attributeCode.split('_', 2).map(a => a.substring(0, 1).toUpperCase()).join('')}${attributeLevel}`;
+    itemAttributes.forEach(attribute => {
+        const color = highlightedAttributeCodes.includes(attribute.attributeCode) ? GREEN + BOLD : WHITE + BOLD;
+        const attributeAbbreviation = `${color}${attribute.attributeCode.split('_', 2).map(a => a.substring(0, 1).toUpperCase()).join('')}${attribute.attributeLevel}`;
         attributeAbbreviations.push(attributeAbbreviation);
     });
 
