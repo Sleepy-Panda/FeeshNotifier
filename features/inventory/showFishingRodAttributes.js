@@ -1,5 +1,6 @@
 import { BOLD, GREEN, WHITE } from "../../constants/formatting";
 import settings from "../../settings";
+import { getItemAttributes } from "../../utils/common";
 import { isInSkyblock } from "../../utils/playerState";
 
 register('renderItemIntoGui', (item, x, y, event) => {
@@ -24,19 +25,18 @@ function showFishingRodAttributes(item, x, y) {
         return;
     }
 
-    const attributes = item.getNBT()?.getCompoundTag('tag')?.getCompoundTag('ExtraAttributes')?.getCompoundTag('attributes')?.toObject();
-    if (!attributes) {
+    const highlightedAttributeCodesString = settings.accentedFishingRodAttributes || '';
+    const highlightedAttributeCodes = highlightedAttributeCodesString.split(',');
+
+    const itemAttributes = getItemAttributes(item);
+    if (!itemAttributes || !itemAttributes.length) {
         return;
     }
 
     let attributeAbbreviations = [];
-    const highlightedAttributeCodesString = settings.accentedFishingRodAttributes || '';
-    const highlightedAttributeCodes = highlightedAttributeCodesString.split(',');
-
-    Object.keys(attributes).sort().forEach(attributeCode => {
-        const attributeLevel = attributes[attributeCode];
-        const color = highlightedAttributeCodes.includes(attributeCode) ? GREEN + BOLD : WHITE + BOLD;
-        const attributeAbbreviation = `${color}${attributeCode.split('_', 2).map(a => a.substring(0, 1).toUpperCase()).join('')}${attributeLevel}`;
+    itemAttributes.forEach(attribute => {
+        const color = highlightedAttributeCodes.includes(attribute.attributeCode) ? GREEN + BOLD : WHITE + BOLD;
+        const attributeAbbreviation = `${color}${attribute.attributeCode.split('_', 2).map(a => a.substring(0, 1).toUpperCase()).join('')}${attribute.attributeLevel}`;
         attributeAbbreviations.push(attributeAbbreviation);
     });
 

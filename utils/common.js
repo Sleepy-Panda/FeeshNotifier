@@ -1,4 +1,5 @@
 import { RED, DARK_GRAY, BLUE, WHITE, BOLD, RESET } from '../constants/formatting';
+import { NBTTagString } from '../constants/javaTypes';
 
 // Double hook reindrakes may produce the following messages history:
 // [CHAT] &r&eIt's a &r&aDouble Hook&r&e!&r
@@ -298,6 +299,49 @@ export function getLore(item) {
 	}
 
     return item.getNBT().getCompoundTag('tag')?.getCompoundTag('display')?.toObject()?.Lore || [];
+}
+
+// Credits VolcAddons
+// Adds a line combined from prefix and value, to the item's lore.
+export function addLineToLore(item, prefix, value) {
+	let loreLine = prefix + value;
+
+	const loreTag = item.getNBT()?.getCompoundTag('tag')?.getCompoundTag('display')?.getTagMap()?.get('Lore');
+	if (!loreTag) {
+		return;
+	}
+
+	const list = new NBTTagList(loreTag);
+
+	for (let i = 0; i < list.getTagCount(); i++) {
+		if (list.getStringTagAt(i).includes(prefix)) {
+			list.set(i, new NBTTagString(loreLine));
+			return;
+		}
+	}
+
+	list.appendTag(new NBTTagString(loreLine));
+}
+
+// Returns attributes array in format { "attributeCode": "life_regeneration", "attributeLevel|: 5 }
+export function getItemAttributes(item) {
+	if (!item) {
+		return [];
+	}
+
+    const itemAttributes = item?.getNBT()?.getCompoundTag('tag')?.getCompoundTag('ExtraAttributes')?.getCompoundTag('attributes')?.toObject();
+    if (!itemAttributes) {
+        return [];
+    }
+
+    var attributes = [];
+    Object.keys(itemAttributes).sort().forEach(attributeCode => {
+        const level = itemAttributes[attributeCode];
+		const code = attributeCode === 'mending' ? 'vitality' : attributeCode.toLowerCase();
+		attributes.push({ attributeCode: code, attributeLevel: level });
+    });
+
+    return attributes;
 }
 
 function getArticle(str) {

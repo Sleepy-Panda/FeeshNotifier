@@ -1213,6 +1213,16 @@ ${RED}Hidden if you have no fishing rod in your hotbar!`,
     })
     accentedFishingRodAttributes = 'double_hook,fishing_speed,trophy_hunter';
 
+    // ******* INVENTORY - Item lore ******* //
+
+    @SwitchProperty({
+        name: "Price per T1 attribute shard",
+        description: `Render price per T1 attribute level in the auctioned Attribute Shard's lore, based on item's price. Helps to compare prices for high-tier attribute shards on AH.`,
+        category: "Inventory",
+        subcategory: "Item lore"
+    })
+    showPricePerT1Attribute = false;
+
     // ******* COMMANDS ******* //
 
     @ButtonProperty({
