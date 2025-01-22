@@ -1582,6 +1582,12 @@ export const FISHING_PROFIT_ITEMS = [
         itemDisplayName: `${RARE}Enchanted Mithril`,
         npcPrice: 1280,
     },
+    {
+        itemId: 'SPECKLED_TEACUP',
+        itemName: 'Speckled Teacup',
+        itemDisplayName: `${SPECIAL}Speckled Teacup`,
+        npcPrice: 0,
+    },
 
     // Runes
 
