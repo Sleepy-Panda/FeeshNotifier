@@ -1,5 +1,6 @@
-import { BOLD, EPIC, GOLD, GREEN, LEGENDARY, RARE, RESET, UNCOMMON, WHITE } from "../../constants/formatting";
+import { BOLD, DARK_GRAY, EPIC, GOLD, GREEN, LEGENDARY, RARE, RESET, UNCOMMON, WHITE } from "../../constants/formatting";
 import { getAuctionItemPrices } from "../../utils/auctionPrices";
+import { getBazaarItemPrices } from "../../utils/bazaarPrices";
 import { toShortNumber } from "../../utils/common";
 import { isInSkyblock } from "../../utils/playerState";
 
@@ -127,12 +128,13 @@ export function calculateGearCraftPrices() {
         }
 
         let messageParts = [];
-        messageParts.push(`${GREEN}${BOLD}Profits for crafting the gear:\n`);
+        messageParts.push(`${GREEN}${BOLD}Gear craft prices:\n`);
+        messageParts.push(`${DARK_GRAY}Prices for crafted gear compared with price for selling base items via sell offer. Click a line to open Supercraft menu.\n`);
 
         CRAFTABLES.forEach(category => {
+            const baseItemPrice = getPrice(category.baseItemId);
             const craftProfits = category.items.map(item => {
-                const itemAuctionPrices = getAuctionItemPrices(item.itemId);
-                const itemPrice = itemAuctionPrices?.lbin || 0;
+                const itemPrice = getPrice(item.itemId);
                 return {
                     itemName: item.itemName,
                     baseItemName: category.baseItemName,
@@ -141,7 +143,7 @@ export function calculateGearCraftPrices() {
                 };
             }).sort((a, b) => b.profitPerBaseItem - a.profitPerBaseItem);
             
-            messageParts.push(`\n${WHITE}Gear crafted from ${category.baseItemName}${WHITE}:\n`);
+            messageParts.push(`\n${WHITE}Gear crafted from ${category.baseItemName}${WHITE} (${GOLD}${toShortNumber(baseItemPrice) || 'N/A'} ${RESET}per item):\n`);
             for (let craftProfit of craftProfits) {
                 const itemMessagePart = new TextComponent(` - ${craftProfit.itemName}${RESET}: ${GOLD}${toShortNumber(craftProfit.itemPrice) || 'N/A'}${RESET} (${GOLD}${toShortNumber(craftProfit.profitPerBaseItem)}${RESET} per item)\n`)
                     .setClick("run_command", `/recipe ${craftProfit.itemName.removeFormatting()}`)
@@ -155,4 +157,16 @@ export function calculateGearCraftPrices() {
 		console.error(e);
 		console.log(`[FeeshNotifier] [ProfitTracker] Failed to calculate gear craft price statistics.`);
 	}
+}
+
+function getPrice(itemId) {
+    const bazaarPrices = getBazaarItemPrices(itemId);
+    let itemPrice = bazaarPrices?.sellOffer;
+
+    if (!bazaarPrices) {
+        const auctionPrices = getAuctionItemPrices(itemId);
+        itemPrice = auctionPrices?.lbin;
+    }
+
+    return itemPrice || 0;
 }

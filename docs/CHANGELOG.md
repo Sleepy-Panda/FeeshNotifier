@@ -1,15 +1,18 @@
 # Releases
 
-## v1.24.0
+## v1.25.0
 
 Released: ???
+
+## v1.24.0
+
+Released: 2025-01-22
 
 Features:
 
 - Added option to reset Fishing Profit Tracker, Rare Catches Tracker, Crimson Isle Tracker, Jerry Workshop Tracker on closing the game. [disabled by default]
-
-Bugfixes:
-
+- Added option to see price per T1 attribute level in the auctioned Attribute Shard's lore, based on item's price (e.g. for T3 shard it shows its price divided by 4). Helps to compare prices for high-tier attribute shards on AH. [disabled by default]
+- Changed output of /feeshGearCraftPrices command, now it shows price per base item.
 - Changed output of /feeshPetLevelUpPrices command, now it considers that Reindeer requires 2x less time to level up.
 
 ## v1.23.0
