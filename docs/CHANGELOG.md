@@ -1,8 +1,18 @@
 # Releases
 
-## v1.24.0
+## v1.25.0
 
 Released: ???
+
+Features:
+
+- Add 4 variations of Mithril Grubbers to sea creatures count widget.
+- Added mithril, enchanted mithril and specked teacup to the fishing profit tracker.
+- Render attributes on Tera Shell Necklace if the setting is enabled (same way as for other equipment).
+
+## v1.24.0
+
+Released: 2025-01-22
 
 Features:
 

@@ -73,6 +73,13 @@ export const FLAMING_WORM_MESSAGE = `${GREEN}A Flaming Worm surfaces from the de
 export const LAVA_BLAZE_MESSAGE = `${GREEN}A Lava Blaze has surfaced from the depths!`;
 export const LAVA_PIGMAN_MESSAGE = `${GREEN}A Lava Pigman arose from the depths!`;
 
+// ABANDONED QUARRY SEA CREATURES
+
+export const SMALL_MITHRIL_GRUBBER_MESSAGE = `${RESET}${GREEN}A leech of the mines surfaces... you've caught a Mithril Grubber.${RESET}`; // &r&aA leech of the mines surfaces... you've caught a Mithril Grubber.&r
+export const MEDIUM_MITHRIL_GRUBBER_MESSAGE = `${RESET}${GREEN}A leech of the mines surfaces... you've caught a Medium Mithril Grubber.${RESET}`;
+export const LARGE_MITHRIL_GRUBBER_MESSAGE = `${RESET}${GREEN}A leech of the mines surfaces... you've caught a Large Mithril Grubber.${RESET}`;
+export const BLOATED_MITHRIL_GRUBBER_MESSAGE = `${RESET}${GREEN}A leech of the mines surfaces... you've caught a Bloated Mithril Grubber.${RESET}`;
+
 // DROPS
 
 const MAGIC_FIND_MESSAGE_PATTERN = `${RESET}${AQUA}(+${RESET}${AQUA}` + '${magicFind}' + `% ${RESET}${AQUA}✯ Magic Find${RESET}${AQUA})`; // &r&b(+&r&b236% &r&b✯ Magic Find&r&b)
