@@ -5,6 +5,7 @@
 Released: ???
 
 - Fixed wrong pet profit sorting of /feeshPetLevelUpPrices command.
+- Added NPC sell price to Speckled Teacup in Fishing Profit Tracker.
 
 ## v1.25.0
 
