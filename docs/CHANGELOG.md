@@ -4,7 +4,7 @@
 
 Released: ???
 
-
+- Fixed wrong pet profit sorting of /feeshPetLevelUpPrices command.
 
 ## v1.25.0
 

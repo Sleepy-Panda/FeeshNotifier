@@ -66,12 +66,14 @@ export function calculateFishingPetPrices() {
             const level100AuctionPrices = getAuctionItemPrices(level100ItemId);
             const level100Price = level100AuctionPrices?.lbin || 0;
 
+            const diff =  level1Price && level100Price ? level100Price - level1Price : 0;
+
             return {
                 petDisplayName: pet.petDisplayName,
                 level1Price: level1Price,
                 level100Price: level100Price,
-                coinsPerXp: (level100Price / MAX_XP) * pet.xpGainMultiplier,
-                diff: level1Price && level100Price ? level100Price - level1Price : 0
+                coinsPerXp: diff ? (diff / MAX_XP) * pet.xpGainMultiplier : 0,
+                diff: diff
             };       
         }).sort((a, b) => b.coinsPerXp - a.coinsPerXp);
 
