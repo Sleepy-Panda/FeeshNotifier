@@ -1586,7 +1586,7 @@ export const FISHING_PROFIT_ITEMS = [
         itemId: 'SPECKLED_TEACUP',
         itemName: 'Speckled Teacup',
         itemDisplayName: `${SPECIAL}Speckled Teacup`,
-        npcPrice: 0,
+        npcPrice: 100000,
     },
 
     // Runes
