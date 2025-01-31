@@ -6,6 +6,7 @@ Released: ???
 
 - Fixed wrong pet profit sorting of /feeshPetLevelUpPrices command.
 - Added NPC sell price to Speckled Teacup in Fishing Profit Tracker.
+- Added /feeshSpidersDenRainSchedule command which displays the nearest Spider's Den Rain / Thunderstorm events in the chat.
 
 ## v1.25.0
 
