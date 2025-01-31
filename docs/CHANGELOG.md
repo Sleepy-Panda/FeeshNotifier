@@ -2,11 +2,15 @@
 
 ## v1.26.0
 
-Released: ???
+Released: 2025-01-31
 
+Features:
+- Added /feeshSpidersDenRainSchedule command which displays the nearest Spider's Den Rain / Thunderstorm events in the chat.
+
+Bugfixes:
 - Fixed wrong pet profit sorting of /feeshPetLevelUpPrices command.
 - Added NPC sell price to Speckled Teacup in Fishing Profit Tracker.
-- Added /feeshSpidersDenRainSchedule command which displays the nearest Spider's Den Rain / Thunderstorm events in the chat.
+- Changed rarity of Volcanic Stonefish to Rare in Fishing Profit Tracker.
 
 ## v1.25.0
 
