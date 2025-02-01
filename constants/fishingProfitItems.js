@@ -1586,7 +1586,7 @@ export const FISHING_PROFIT_ITEMS = [
         itemId: 'SPECKLED_TEACUP',
         itemName: 'Speckled Teacup',
         itemDisplayName: `${SPECIAL}Speckled Teacup`,
-        npcPrice: 0,
+        npcPrice: 100000,
     },
 
     // Runes
@@ -2059,28 +2059,28 @@ export const FISHING_PROFIT_ITEMS = [
     {
         itemId: 'VOLCANIC_STONEFISH_BRONZE',
         itemName: 'Volcanic Stonefish BRONZE',
-        itemDisplayName: `${EPIC}Volcanic Stonefish ${DARK_GRAY}${BOLD}BRONZE`,
+        itemDisplayName: `${RARE}Volcanic Stonefish ${DARK_GRAY}${BOLD}BRONZE`,
         npcPrice: 0,
         amountOfMagmaFish: 20,
     },
     {
         itemId: 'VOLCANIC_STONEFISH_SILVER',
         itemName: 'Volcanic Stonefish SILVER',
-        itemDisplayName: `${EPIC}Volcanic Stonefish ${GRAY}${BOLD}SILVER`,
+        itemDisplayName: `${RARE}Volcanic Stonefish ${GRAY}${BOLD}SILVER`,
         npcPrice: 0,
         amountOfMagmaFish: 28,
     },
     {
         itemId: 'VOLCANIC_STONEFISH_GOLD',
         itemName: 'Volcanic Stonefish GOLD',
-        itemDisplayName: `${EPIC}Volcanic Stonefish ${GOLD}${BOLD}GOLD`,
+        itemDisplayName: `${RARE}Volcanic Stonefish ${GOLD}${BOLD}GOLD`,
         npcPrice: 0,
         amountOfMagmaFish: 40,
     },
     {
         itemId: 'VOLCANIC_STONEFISH_DIAMOND',
         itemName: 'Volcanic Stonefish DIAMOND',
-        itemDisplayName: `${EPIC}Volcanic Stonefish ${AQUA}${BOLD}DIAMOND`,
+        itemDisplayName: `${RARE}Volcanic Stonefish ${AQUA}${BOLD}DIAMOND`,
         npcPrice: 0,
         amountOfMagmaFish: 60,
     },

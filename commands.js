@@ -8,6 +8,7 @@ import { resetFishingProfitTracker } from "./features/overlays/fishingProfitTrac
 import { resetDropNumbers } from "./features/chat/messageOnDrop";
 import { calculateFishingPetPrices } from "./features/commands/calculateFishingPetsPrices";
 import { calculateGearCraftPrices } from "./features/commands/calculateGearCraftPrices";
+import { showSpidersDenRainSchedule } from "./features/commands/showSpidersDenRainSchedule";
 import { moveAllGuis } from "./moveAllOverlays";
 
 register("command", (...args) => {
@@ -60,6 +61,10 @@ register("command", (...args) => {
 register("command", (...args) => {
     calculateGearCraftPrices();
 }).setName("feeshGearCraftPrices");
+
+register("command", (...args) => {
+    showSpidersDenRainSchedule();
+}).setName("feeshSpidersDenRainSchedule");
 
 register("command", (...args) => {
     moveAllGuis();

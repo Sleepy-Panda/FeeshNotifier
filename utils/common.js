@@ -116,7 +116,11 @@ export function pluralize(str) {
 	return `${str}s`;
 }
 
-// Date to '2024-04-12 01:15:25' format
+/**
+ * Converts date to string using YYYY-MM-DD hh:ss:ss format. Example: "2024-04-21 17:15:25"
+ * @param {Date} date - Date to be formatted
+ * @returns {string}
+ */
 export function formatDate(date) {
     if (!date) {
         return date;
@@ -138,7 +142,11 @@ export function formatDate(date) {
     return formattedDateTime;
 }
 
-// Number to format with spaces: 10500 => "10 500"
+/**
+ * Converts a number to more readable format with spaces. Example: 10500 => "10 500"
+ * @param {number} number - Number to be formatted
+ * @returns {string}
+ */
 export function formatNumberWithSpaces(number) {
 	if (!number) {
 		return number;
@@ -146,9 +154,11 @@ export function formatNumberWithSpaces(number) {
     return number.toString().replace(/\B(?=(\d{3})+(?!\d))/g, " ");
 }
 
-// 999999 => 999.9K
-// 1000 => 1K
-// 2500000 => 2.5M
+/**
+ * Converts a number to more short format in thousands, millions and billions. Examples: 100 => "100", 1000 => "1K", 1160 => "1.1K", 999999 => "999.9K", 2500000 => "2.5M"
+ * @param {number} number - Number to be formatted
+ * @returns {string}
+ */
 export function toShortNumber(number) {
 	if (!number) {
 		return 0;
@@ -174,7 +184,11 @@ export function toShortNumber(number) {
 	}
 }
 
-// Elapsed seconds to format: "1:05" or "2:03:49" or "27:03:17"
+/**
+ * Converts elapsed seconds to hours, minutes and seconds. Examples: "1:05", "2:03:49", "27:03:17"
+ * @param {Number} elapsedSeconds - Elapsed seconds
+ * @returns {string}
+ */
 export function formatElapsedTime(elapsedSeconds) {
     const hours = ~~(elapsedSeconds / 3600);
     const minutes = ~~((elapsedSeconds % 3600) / 60);
@@ -192,7 +206,12 @@ export function formatElapsedTime(elapsedSeconds) {
     return result;
 }
 
-// [1, 2, 3, 4, 5], 3 => [1, 2, 3], [4, 5]
+/**
+ * Splits array into 2 sub-arrays starting after the specified items count. Example: [1, 2, 3, 4, 5], 3 => [1, 2, 3], [4, 5]
+ * @param {array} array - Array to split
+ * @param {number} count - Number of items coming into the first sub-array. The rest of items come into the second sub-array. If count is more than the array length, the second sub-array will be empty.
+ * @returns {array} Array of 2 sub-arrays [[...], [...]]
+ */
 export function splitArray(array, count) {
     if (!array || !array.length) {
         return [[], []];
@@ -269,7 +288,12 @@ export function getCleanItemName(itemName) {
     return cleanItemName || '';
 }
 
-// Formatted time elapsed between 2 dates, e.g. "2d 8h 5m" or "< 1m"
+/**
+ * Formats time elapsed between two dates in days, hours and minutes. Examples: "2d 8h 5m" or "less than 1m"
+ * @param {Date} dateFrom - Earlier date
+ * @param {Date} dateTo - Later date
+ * @returns {string}
+ */
 export function formatTimeElapsedBetweenDates(dateFrom, dateTo = new Date()) {
 	if (!dateFrom || !dateTo) {
 		return '';
@@ -292,7 +316,11 @@ export function formatTimeElapsedBetweenDates(dateFrom, dateTo = new Date()) {
 		: `${days > 0 ? days + 'd ' : ''}${days > 0 || hours > 0 ? hours + 'h ' : ''}${days > 0 || hours > 0 || minutes > 0 ? minutes + 'm' : ''}`;
 }
 
-// Native getLore() interferes with other mods, e.g. it causes Skyhanni's estimated item value overlay to flash in /pv
+/**
+ * Get item's lore lines without item name. Native Item.getLore() interferes with other mods, e.g. it causes Skyhanni's estimated item value overlay to flash in /pv
+ * @param {Item} item
+ * @returns {array} Array of strings with lore lones
+ */
 export function getLore(item) {
 	if (!item) {
 		return [];
@@ -302,7 +330,14 @@ export function getLore(item) {
 }
 
 // Credits VolcAddons
-// Adds a line combined from prefix and value, to the item's lore.
+/**
+ * Adds a line combined from prefix and value, to the item's lore. If item's lore already contains the specified prefix, then line's value is updated by this prefix.
+ * Example: for prefix "Expertise kills: " and value "800K", the added/updated lore line will be "Expertise kills: 800K"
+ * @param {Item} item - Item whose lore to be modified
+ * @param {string} prefix - String key to decide whether the line is already present in item's lore
+ * @param {string} value - String value
+ */
+
 export function addLineToLore(item, prefix, value) {
 	let loreLine = prefix + value;
 
@@ -323,7 +358,11 @@ export function addLineToLore(item, prefix, value) {
 	list.appendTag(new NBTTagString(loreLine));
 }
 
-// Returns attributes array in format { "attributeCode": "life_regeneration", "attributeLevel|: 5 }
+/**
+ * Get item's attributes (if any).
+ * @param {Item} item
+ * @returns {array} Array of item's attributes in format [{ "attributeCode": "life_regeneration", "attributeLevel": 5 }]
+ */
 export function getItemAttributes(item) {
 	if (!item) {
 		return [];

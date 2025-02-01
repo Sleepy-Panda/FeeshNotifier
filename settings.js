@@ -1246,6 +1246,17 @@ ${RED}Hidden if you have no fishing rod in your hotbar!`,
     calculateGearCraftPrices() {
         ChatLib.command("feeshGearCraftPrices", true);
     }
+
+    @ButtonProperty({
+        name: "Spider's Den rain schedule",
+        description: `Displays the nearest Spider's Den Rain / Thunderstorm events in the chat. Executes ${AQUA}/feeshSpidersDenRainSchedule`,
+        category: "Commands",
+        subcategory: "Spider's Den rain schedule",
+        placeholder: "Calculate"
+    })
+    showSpiderDenRainSchedule() {
+        ChatLib.command("feeshSpidersDenRainSchedule", true);
+    }
 }
 
 export default new Settings();
