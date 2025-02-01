@@ -1,5 +1,9 @@
 # Releases
 
+## v1.27.0
+
+Released: ???
+
 ## v1.26.0
 
 Released: 2025-01-31
