@@ -4,7 +4,11 @@
 
 Released: ???
 
+Features:
 - Added 2 variations of the Beach Balls and Golden Bait to the fishing profit tracker.
+
+Bugfixes:
+- Fixed items counting in the fishing profit tracker when dropped but drop was prevented by Hypixel (basically it gets dropped and insta-picked up again).
 
 ## v1.26.0
 
