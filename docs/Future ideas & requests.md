@@ -24,7 +24,6 @@
   - Ability to open folder from settings
   - Ability to test sound from settings
   - Toggle setting to enable customization
-- Sea creatures/hour
 - Render mob immunity flag
 - Highlight rare sea creatures
 - Short catch messages and double hook messages
@@ -33,7 +32,7 @@
 - Multiple drops that happen at the same time lead to "You're sending messages too fast" error.
 - Personal cap alert (20 for CH, 5 for Crimson)
 - Expertise widget
-- Fishing XP tracker
+- Fishing XP tracker, skill level tracking above fishing 60
 - Attach Vials drop number to the pchat message
 - Track all mobs caught, not only rare
 - Golden fish timer
