@@ -1,5 +1,4 @@
 - Offer supercrafting or bazaar when items like raw fish goes to inventory (sacks are full)
-- Some items are tracked by profit tracker when dropped, but drop was prevented by SB settings (basically it drops and picks up again).
 - Calculate pet price in profit tracker as difference between lvl 1 and lvl 100
 - Remove double hook reindrake logic because DH is not possible now
 - Probably remove calculation of profits in Pulse Rings
