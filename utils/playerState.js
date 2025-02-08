@@ -6,8 +6,6 @@ var hasDirtRodInHand = false;
 var worldName = null;
 var isInHunterArmor = false;
 
-var lastItemDropped = null;
-
 var lastKatUpgrade = {
 	lastPetClaimedAt: null,
 	petDisplayName: null
@@ -77,10 +75,6 @@ register("guiClosed", (gui) => {
 	}).setCriteria(entry); 
 });
 
-register('dropItem', () => {
-	lastItemDropped = new Date();
-});
-
 export function isInSkyblock() {
 	return isInSkyblock;
 }
@@ -107,10 +101,6 @@ export function getLastGuisClosed() {
 
 export function getLastKatUpgrade() {
 	return lastKatUpgrade;
-}
-
-export function getLastItemDropped() {
-	return lastItemDropped;
 }
 
 function setIsInSkyblock() {
