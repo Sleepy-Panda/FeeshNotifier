@@ -9,7 +9,7 @@ import { EntityFishHook } from "../../constants/javaTypes";
 import { getAuctionItemPrices, getPetRarityCode } from "../../utils/auctionPrices";
 import { getBazaarItemPrices } from "../../utils/bazaarPrices";
 import { formatElapsedTime, getCleanItemName, getItemsAddedToSacks, getLore, isInChatOrInventoryGui, isInSacksGui, isInSupercraftGui, splitArray, toShortNumber } from "../../utils/common";
-import { getLastGuisClosed, getLastItemDropped, getLastKatUpgrade, getWorldName, hasFishingRodInHotbar, isInSkyblock } from "../../utils/playerState";
+import { getLastGuisClosed, getLastKatUpgrade, getWorldName, hasFishingRodInHotbar, isInSkyblock } from "../../utils/playerState";
 import { playRareDropSound } from '../../utils/sound';
 
 let isVisible = false;
@@ -638,11 +638,6 @@ function detectInventoryChanges() {
         const lastKatUpgrade = getLastKatUpgrade(); // Ignore pets that are claimed from Kat
         if (lastKatUpgrade.lastPetClaimedAt && new Date() - lastKatUpgrade.lastPetClaimedAt < 7 * 1000 &&
             item.itemDisplayName.removeFormatting().includes(lastKatUpgrade.petDisplayName?.removeFormatting())) { 
-            return true;
-        }
-
-        const lastItemDropped = getLastItemDropped();
-        if (lastItemDropped && new Date() - lastItemDropped < 500) { // Sometimes Hypixel prevents dropping an item, so it drops and returns back to inventory
             return true;
         }
 
