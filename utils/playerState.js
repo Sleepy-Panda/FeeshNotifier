@@ -1,4 +1,4 @@
-import { getLore } from "./common";
+import { isFishingRod } from "./common";
 
 var isInSkyblock = false;
 var hasFishingRodInHotbar = false;
@@ -133,7 +133,7 @@ function setHasFishingRodInHotbar() {
 	if (!hotbarItems || !hotbarItems.length) {
 		hasFishingRodInHotbar = false;
 	} else {
-		const rods = hotbarItems.filter(i => i && !i.getName()?.includes('Carnival Rod') && getLore(i).some(loreLine => loreLine.includes('FISHING ROD') || loreLine.includes('FISHING WEAPON')));
+		const rods = hotbarItems.filter(i => i && isFishingRod(i));
 		hasFishingRodInHotbar = rods && rods.length;	
 	}
 }
