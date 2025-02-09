@@ -289,6 +289,17 @@ export function getCleanItemName(itemName) {
 }
 
 /**
+ * Checks if an item is a fishing rod.
+ * @param {Item} item
+ * @returns {boolean}
+ */
+export function isFishingRod(item) {
+	if (!item) return;
+    const isRod = (!item.getName()?.includes('Carnival Rod') && getLore(item).some(loreLine => loreLine.includes('FISHING ROD') || loreLine.includes('FISHING WEAPON')));
+	return isRod;
+}
+
+/**
  * Formats time elapsed between two dates in days, hours and minutes. Examples: "2d 8h 5m" or "less than 1m"
  * @param {Date} dateFrom - Earlier date
  * @param {Date} dateTo - Later date
@@ -337,7 +348,6 @@ export function getLore(item) {
  * @param {string} prefix - String key to decide whether the line is already present in item's lore
  * @param {string} value - String value
  */
-
 export function addLineToLore(item, prefix, value) {
 	let loreLine = prefix + value;
 

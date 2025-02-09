@@ -4,7 +4,7 @@ import { getWorldName, hasFishingRodInHotbar, isInSkyblock } from "../../utils/p
 import { OFF_SOUND_MODE } from "../../constants/sounds";
 import { DUNGEONS, KUUDRA } from "../../constants/areas";
 import { EntityFishHook } from "../../constants/javaTypes";
-import { getLore } from "../../utils/common";
+import { getLore, isFishingRod } from "../../utils/common";
 
 let lastHookDetectedAt = null;
 
@@ -37,7 +37,7 @@ function alertOnNonFishingArmor(event) {
         // Time for hook to land on water/lava
         setTimeout(function() {
             const heldItem = Player.getHeldItem();
-            if (heldItem?.getName()?.includes('Carnival Rod')) {
+            if (!isFishingRod(heldItem)) {
                 return;
             }
             

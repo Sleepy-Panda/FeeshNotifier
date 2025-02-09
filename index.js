@@ -36,6 +36,7 @@ import "./features/inventory/showFishingRodAttributes";
 import "./features/inventory/showRarityUpgrade";
 import "./features/inventory/highlightAttributeFusionMatchingItems";
 import "./features/inventory/showPricePerT1Shard";
+import "./features/inventory/showExpertiseKills";
 
 import "./features/chat/announceMobSpawnToAllChat";
 import "./features/chat/messageOnPlayerDeath";
