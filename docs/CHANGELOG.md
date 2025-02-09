@@ -4,7 +4,11 @@
 
 Released: ???
 
+Features:
 - Added 2 variations of the Beach Balls and Golden Bait to the fishing profit tracker.
+
+Bugfixes:
+- Fixed NEU slot binding causing inventory items counting into fishing profit tracker (because it replaces inventory items with Barriers while trying to bind a slot).
 
 ## v1.26.0
 

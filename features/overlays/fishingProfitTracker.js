@@ -498,6 +498,11 @@ function detectInventoryChanges() {
             }
         }
 
+        const hasBarrier = (Player?.getInventory()?.getItems() || []).find(i => i?.getName() === 'Barrier'); // NEU slot binding replaces inventory items with Barriers
+        if (hasBarrier) {
+            return;
+        }
+        
         const currentInventory = getFishingProfitItemsInCurrentInventory();
 
         let isInChest = Client.isInGui() && Client.currentGui?.getClassName() === 'GuiChest';
