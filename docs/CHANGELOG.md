@@ -1,8 +1,16 @@
 # Releases
 
-## v1.27.0
+## v1.28.0
 
 Released: ???
+
+Features:
+
+Bugfixes:
+
+## v1.27.0
+
+Released: 2025-02-10
 
 Features:
 - Added 2 variations of the Beach Balls and Golden Bait to the fishing profit tracker.
