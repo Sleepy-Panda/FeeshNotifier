@@ -341,6 +341,16 @@ class Settings {
     })
     messageOnDeath = true;
 
+    // ******* CHAT - Compact messages ******* //
+
+    @SwitchProperty({
+        name: "Compact sea creature catch messages",
+        description: 'Shortens double hook message and catch message that says what sea creature you caught.',
+        category: "Chat",
+        subcategory: "Compact messages"
+    })
+    compactCatchMessages = false;
+
     // ******* ALERTS - Totem ******* //
 
     @SwitchProperty({

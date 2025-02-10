@@ -5,6 +5,7 @@
 Released: ???
 
 Features:
+- Added option to compact sea creature catch messages [disabled by default]. It shortens double hook message and catch message that says what sea creature you caught.
 
 Bugfixes:
 - Changed Plhlegblast's rarity to legendary in the alert and Rare Catches tracker.

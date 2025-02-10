@@ -1,7 +1,7 @@
 import * as drops from './drops';
 import * as sounds from './sounds';
 import * as seaCreatures from './seaCreatures';
-import { GREEN, GOLD, DARK_PURPLE, LIGHT_PURPLE, BLUE, RED, BOLD, RESET, COMMON, RARE, EPIC, LEGENDARY, MYTHIC, GRAY, AQUA, YELLOW, DARK_RED, DARK_AQUA, WHITE, UNCOMMON } from './formatting';
+import { GREEN, GOLD, DARK_PURPLE, LIGHT_PURPLE, BLUE, RED, BOLD, RESET, GRAY, AQUA, YELLOW, DARK_RED, DARK_AQUA, WHITE, COMMON, UNCOMMON, RARE, EPIC, LEGENDARY, MYTHIC } from './formatting';
 
 // WATER SEA CREATURES
 
@@ -118,6 +118,8 @@ export const GUARDIAN_PET_COMMON_MESSAGE = `${DARK_PURPLE}${BOLD}GREAT CATCH! ${
 
 // OTHER
 
+export const DOUBLE_HOOK_MESSAGES = [ '&r&eIt\'s a &r&aDouble Hook&r&e! Woot woot!&r', '&r&eIt\'s a &r&aDouble Hook&r&e!&r' ];
+
 export const KILLED_BY_THUNDER_MESSAGE = `${RESET}${GRAY}You were killed by Thunder${RESET}${GRAY}${RESET}${GRAY}.`; // &r&7You were killed by Thunder&r&7&r&7.
 export const KILLED_BY_LORD_JAWBUS_MESSAGE = `${RESET}${GRAY}You were killed by Lord Jawbus${RESET}${GRAY}${RESET}${GRAY}.`; // &r&7You were killed by Lord Jawbus&r&7&r&7.
 
@@ -134,6 +136,282 @@ export const WORKSHOP_CLOSING_MESSAGE = `${RESET}${RED}[Important] ${RESET}${YEL
 
 export const GOOD_CATCH_ICE_ESSENCE_MESSAGE = `${RESET}${GOLD}${BOLD}GOOD CATCH! ${RESET}${AQUA}You found ${RESET}${AQUA}` + "${count}" + ` Ice Essence${RESET}${AQUA}.${RESET}`; // &r&6&lGOOD CATCH! &r&bYou found &r&b70 Ice Essence&r&b.&r
 export const GREAT_CATCH_ICE_ESSENCE_MESSAGE = `${RESET}${DARK_PURPLE}${BOLD}GREAT CATCH! ${RESET}${AQUA}You found ${RESET}${AQUA}` + "${count}" + ` Ice Essence${RESET}${AQUA}.${RESET}`;
+
+export const ALL_CATCHES_TRIGGERS = [
+    // WATER SEA CREATURES
+    {
+        trigger: WATER_HYDRA_MESSAGE,
+        seaCreature: `Water Hydra`,
+        rarityColorCode: LEGENDARY,
+    },
+    {
+        trigger: SEA_EMPEROR_MESSAGE,
+        seaCreature: `Sea Emperor`,
+        rarityColorCode: LEGENDARY,
+    },
+    {
+        trigger: CARROT_KING_MESSAGE,
+        seaCreature: `Carrot King`,
+        rarityColorCode: RARE,
+    },
+    {
+        trigger: SQUID_MESSAGE,
+        seaCreature: `Squid`,
+        rarityColorCode: COMMON,
+    },
+    {
+        trigger: NIGHT_SQUID_MESSAGE,
+        seaCreature: `Night Squid`,
+        rarityColorCode: COMMON,
+    },
+    {
+        trigger: SEA_WALKER_MESSAGE,
+        seaCreature: `Sea Walker`,
+        rarityColorCode: COMMON,
+    },
+    {
+        trigger: SEA_GUARDIAN_MESSAGE,
+        seaCreature: `Sea Guardian`,
+        rarityColorCode: COMMON,
+    },
+    {
+        trigger: SEA_WITCH_MESSAGE,
+        seaCreature: `Sea Witch`,
+        rarityColorCode: UNCOMMON,
+    },
+    {
+        trigger: SEA_ARCHER_MESSAGE,
+        seaCreature: `Sea Archer`,
+        rarityColorCode: UNCOMMON,
+    },
+    {
+        trigger: RIDER_OF_THE_DEEP_MESSAGE,
+        seaCreature: `Rider of the Deep`,
+        rarityColorCode: UNCOMMON,
+    },
+    {
+        trigger: CATFISH_MESSAGE,
+        seaCreature: `Catfish`,
+        rarityColorCode: RARE,
+    },
+    {
+        trigger: SEA_LEECH_MESSAGE,
+        seaCreature: `Sea Leech`,
+        rarityColorCode: RARE,
+    },
+    {
+        trigger: GUARDIAN_DEFENDER_MESSAGE,
+        seaCreature: `Guardian Defender`,
+        rarityColorCode: EPIC,
+    },
+    {
+        trigger: DEEP_SEA_PROTECTOR_MESSAGE,
+        seaCreature: `Deep Sea Protector`,
+        rarityColorCode: EPIC,
+    },
+    {
+        trigger: AGARIMOO_MESSAGE,
+        seaCreature: `Agarimoo`,
+        rarityColorCode: RARE,
+    },
+    // FISHING FESTIVAL SEA CREATURES
+    {
+        trigger: GREAT_WHITE_SHARK_MESSAGE,
+        seaCreature: `Great White Shark`,
+        rarityColorCode: LEGENDARY,
+    },
+    {
+        trigger: NURSE_SHARK_MESSAGE,
+        seaCreature: `Nurse Shark`,
+        rarityColorCode: UNCOMMON,
+    },
+    {
+        trigger: BLUE_SHARK_MESSAGE,
+        seaCreature: `Blue Shark`,
+        rarityColorCode: RARE,
+    },
+    {
+        trigger: TIGER_SHARK_MESSAGE,
+        seaCreature: `Tiger Shark`,
+        rarityColorCode: EPIC,
+    },
+    // WINTER SEA CREATURES
+    {
+        trigger: YETI_MESSAGE,
+        seaCreature: `Yeti`,
+        rarityColorCode: LEGENDARY,
+    },
+    {
+        trigger: REINDRAKE_MESSAGE,
+        seaCreature: `Reindrake`,
+        rarityColorCode: LEGENDARY,
+    },
+    {
+        trigger: NUTCRACKER_MESSAGE,
+        seaCreature: `Nutcracker`,
+        rarityColorCode: RARE,
+    },
+    {
+        trigger: FROZEN_STEVE_MESSAGE,
+        seaCreature: `Frozen Steve`,
+        rarityColorCode: COMMON,
+    },
+    {
+        trigger: FROSTY_MESSAGE,
+        seaCreature: `Frosty`,
+        rarityColorCode: COMMON,
+    },
+    {
+        trigger: GRINCH_MESSAGE,
+        seaCreature: `Grinch`,
+        rarityColorCode: UNCOMMON,
+    },
+    // SPOOKY SEA CREATURES
+    {
+        trigger: PHANTOM_FISHER_MESSAGE,
+        seaCreature: `Phantom Fisher`,
+        rarityColorCode: LEGENDARY,
+    },
+    {
+        trigger: GRIM_REAPER_MESSAGE,
+        seaCreature: `Grim Reaper`,
+        rarityColorCode: LEGENDARY,
+    },
+    {
+        trigger: SCARECROW_MESSAGE,
+        seaCreature: `Scarecrow`,
+        rarityColorCode: COMMON,
+    },
+    {
+        trigger: NIGHTMARE_MESSAGE,
+        seaCreature: `Nightmare`,
+        rarityColorCode: RARE,
+    },
+    {
+        trigger: WEREWOLF_MESSAGE,
+        seaCreature: `Werewolf`,
+        rarityColorCode: EPIC,
+    },
+    // CRIMSON ISLE SEA CREATURES
+    {
+        trigger: THUNDER_MESSAGE,
+        seaCreature: `Thunder`,
+        rarityColorCode: MYTHIC,
+    },
+    {
+        trigger: LORD_JAWBUS_MESSAGE,
+        seaCreature: `Lord Jawbus`,
+        rarityColorCode: MYTHIC,
+    },
+    {
+        trigger: PLHLEGBLAST_MESSAGE,
+        seaCreature: `Plhlegblast`,
+        rarityColorCode: LEGENDARY,
+    },
+    {
+        trigger: MAGMA_SLUG_MESSAGE,
+        seaCreature: `Magma Slug`,
+        rarityColorCode: UNCOMMON,
+    },
+    {
+        trigger: MOOGMA_MESSAGE,
+        seaCreature: `Moogma`,
+        rarityColorCode: UNCOMMON,
+    },
+    {
+        trigger: LAVA_LEECH_MESSAGE,
+        seaCreature: `Lava Leech`,
+        rarityColorCode: RARE,
+    },
+    {
+        trigger: PYROCLASTIC_WORM_MESSAGE,
+        seaCreature: `Pyroclastic Worm`,
+        rarityColorCode: RARE,
+    },
+    {
+        trigger: LAVA_FLAME_MESSAGE,
+        seaCreature: `Lava Flame`,
+        rarityColorCode: RARE,
+    },
+    {
+        trigger: FIRE_EEL_MESSAGE,
+        seaCreature: `Fire Eel`,
+        rarityColorCode: RARE,
+    },
+    {
+        trigger: TAURUS_MESSAGE,
+        seaCreature: `Taurus`,
+        rarityColorCode: EPIC,
+    },
+    // OASIS SEA CREATURES
+    {
+        trigger: OASIS_RABBIT_MESSAGE,
+        seaCreature: `Oasis Rabbit`,
+        rarityColorCode: UNCOMMON,
+    },
+    {
+        trigger: OASIS_SHEEP_MESSAGE,
+        seaCreature: `Oasis Sheep`,
+        rarityColorCode: UNCOMMON,
+    },
+    // CRYSTAL HOLLOWS SEA CREATURES
+    {
+        trigger: ABYSSAL_MINER_MESSAGE,
+        seaCreature: `Abyssal Miner`,
+        rarityColorCode: LEGENDARY,
+    },
+    {
+        trigger: WATER_WORM_MESSAGE,
+        seaCreature: `Water Worm`,
+        rarityColorCode: RARE,
+    },
+    {
+        trigger: POISONED_WATER_WORM_MESSAGE,
+        seaCreature: `Poisoned Water Worm`,
+        rarityColorCode: RARE,
+    },
+    {
+        trigger: POISONED_WATER_WORM_MESSAGE,
+        seaCreature: `Poisoned Water Worm`,
+        rarityColorCode: RARE,
+    },
+    {
+        trigger: FLAMING_WORM_MESSAGE,
+        seaCreature: `Flaming Worm`,
+        rarityColorCode: RARE,
+    },
+    {
+        trigger: LAVA_BLAZE_MESSAGE,
+        seaCreature: `Lava Blaze`,
+        rarityColorCode: EPIC,
+    },
+    {
+        trigger: LAVA_PIGMAN_MESSAGE,
+        seaCreature: `Lava Pigman`,
+        rarityColorCode: EPIC,
+    },
+    // ABANDONED QUARRY SEA CREATURES
+    {
+        trigger: SMALL_MITHRIL_GRUBBER_MESSAGE,
+        seaCreature: `Small Mithril Grubber`,
+        rarityColorCode: UNCOMMON,
+    },
+    {
+        trigger: MEDIUM_MITHRIL_GRUBBER_MESSAGE,
+        seaCreature: `Medium Mithril Grubber`,
+        rarityColorCode: UNCOMMON,
+    },
+    {
+        trigger: LARGE_MITHRIL_GRUBBER_MESSAGE,
+        seaCreature: `Large Mithril Grubber`,
+        rarityColorCode: UNCOMMON,
+    },
+    {
+        trigger: BLOATED_MITHRIL_GRUBBER_MESSAGE,
+        seaCreature: `Bloated Mithril Grubber`,
+        rarityColorCode: UNCOMMON,
+    },
+];
 
 export const RARE_CATCH_TRIGGERS = [
     {
