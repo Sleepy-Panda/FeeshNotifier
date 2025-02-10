@@ -227,7 +227,7 @@ export const RARE_CATCH_TRIGGERS = [
         seaCreature: seaCreatures.PLHLEGBLAST,
         isMessageEnabledSettingKey: 'messageOnPlhlegblastCatch',
         isAlertEnabledSettingKey: 'alertOnPlhlegblastCatch',
-        rarityColorCode: COMMON
+        rarityColorCode: LEGENDARY
     },
     {
         trigger: VANQUISHER_MESSAGE,

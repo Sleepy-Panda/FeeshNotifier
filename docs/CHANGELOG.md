@@ -7,6 +7,7 @@ Released: ???
 Features:
 
 Bugfixes:
+- Changed Plhlegblast's rarity to legendary in the alert and Rare Catches tracker.
 
 ## v1.27.0
 
