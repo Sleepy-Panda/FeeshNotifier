@@ -5,6 +5,7 @@
 Released: ???
 
 Features:
+- Added option to share the location to ALL chat on Plhlegblast catch [disabled by default].
 
 Bugfixes:
 - Changed Plhlegblast's rarity to legendary in the alert and Rare Catches tracker.
