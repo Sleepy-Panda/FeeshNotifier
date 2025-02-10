@@ -505,6 +505,7 @@ export const RARE_CATCH_TRIGGERS = [
         seaCreature: seaCreatures.PLHLEGBLAST,
         isMessageEnabledSettingKey: 'messageOnPlhlegblastCatch',
         isAlertEnabledSettingKey: 'alertOnPlhlegblastCatch',
+        isAnnounceToAllChatEnabledSettingKey: 'announceToAllChatOnPlhlegblastCatch',
         rarityColorCode: LEGENDARY
     },
     {
