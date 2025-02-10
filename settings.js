@@ -185,6 +185,13 @@ class Settings {
     announceToAllChatOnLordJawbusCatch = false;
 
     @SwitchProperty({
+        name: "Share the location to ALL chat on PLHLEGBLAST catch",
+        category: "Chat",
+        subcategory: "Rare Catches - All Chat"
+    })
+    announceToAllChatOnPlhlegblastCatch = false;
+
+    @SwitchProperty({
         name: "Share the location to ALL chat on VANQUISHER spawn",
         category: "Chat",
         subcategory: "Rare Catches - All Chat"
