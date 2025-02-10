@@ -335,7 +335,7 @@ class Settings {
 
     @SwitchProperty({
         name: "Send a message when you are killed by Thunder / Lord Jawbus",
-        description: `${GRAY}Sends a message to the ${BLUE}party chat ${GRAY}when when you are killed by Thunder / Lord Jawbus. It enables the alerts for your party members so they can wait for you.`,
+        description: `${GRAY}Sends a message to the ${BLUE}party chat ${GRAY}when you are killed by Thunder / Lord Jawbus. It enables the alerts for your party members so they can wait for you.`,
         category: "Chat",
         subcategory: "Player's death"
     })
