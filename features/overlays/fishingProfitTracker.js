@@ -8,7 +8,7 @@ import { AQUA, BOLD, GOLD, GRAY, RESET, WHITE, YELLOW, RED, GREEN, BLUE } from "
 import { EntityFishHook } from "../../constants/javaTypes";
 import { getAuctionItemPrices, getPetRarityCode } from "../../utils/auctionPrices";
 import { getBazaarItemPrices } from "../../utils/bazaarPrices";
-import { formatElapsedTime, getCleanItemName, getItemsAddedToSacks, getLore, isInChatOrInventoryGui, isInSacksGui, isInSupercraftGui, splitArray, toShortNumber } from "../../utils/common";
+import { formatElapsedTime, getCleanItemName, getItemsAddedToSacks, getLore, isFishingRod, isInChatOrInventoryGui, isInSacksGui, isInSupercraftGui, splitArray, toShortNumber } from "../../utils/common";
 import { getLastGuisClosed, getLastKatUpgrade, getWorldName, hasFishingRodInHotbar, isInSkyblock } from "../../utils/playerState";
 import { playRareDropSound } from '../../utils/sound';
 
@@ -197,7 +197,7 @@ function activateSessionOnPlayersFishingHook() {
         }
     
         const heldItem = Player.getHeldItem();
-        if (heldItem?.getName()?.includes('Carnival Rod')) {
+        if (!isFishingRod(heldItem)) {
             return;
         }
 
@@ -498,6 +498,11 @@ function detectInventoryChanges() {
             }
         }
 
+        const hasBarrier = (Player?.getInventory()?.getItems() || []).find(i => i?.getName() === 'Barrier'); // NEU slot binding replaces inventory items with Barriers
+        if (hasBarrier) {
+            return;
+        }
+        
         const currentInventory = getFishingProfitItemsInCurrentInventory();
 
         let isInChest = Client.isInGui() && Client.currentGui?.getClassName() === 'GuiChest';

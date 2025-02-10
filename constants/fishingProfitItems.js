@@ -408,6 +408,12 @@ export const FISHING_PROFIT_ITEMS = [
         npcPrice: 25,
     },
     {
+        itemId: 'GOLDEN_BAIT',
+        itemName: 'Golden Bait',
+        itemDisplayName: `${UNCOMMON}Golden Bait`,
+        npcPrice: 10,
+    },
+    {
         itemId: 'WHALE_BAIT',
         itemName: 'Whale Bait',
         itemDisplayName: `${RARE}Whale Bait`,
@@ -495,6 +501,18 @@ export const FISHING_PROFIT_ITEMS = [
         itemId: 'ESSENCE_ICE',
         itemName: 'Ice Essence',
         itemDisplayName: `${UNCOMMON}Ice Essence`,
+        npcPrice: 0,
+    },
+    {
+        itemId: 'BOUNCY_BEACH_BALL',
+        itemName: 'Bouncy Beach Ball',
+        itemDisplayName: `${EPIC}Bouncy Beach Ball`,
+        npcPrice: 0,
+    },
+    {
+        itemId: 'GIANT_BOUNCY_BEACH_BALL',
+        itemName: 'Giant Bouncy Beach Ball',
+        itemDisplayName: `${LEGENDARY}Giant Bouncy Beach Ball`,
         npcPrice: 0,
     },
 

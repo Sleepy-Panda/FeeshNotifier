@@ -1216,6 +1216,14 @@ ${RED}Hidden if you have no fishing rod in your hotbar!`,
     // ******* INVENTORY - Item lore ******* //
 
     @SwitchProperty({
+        name: "Fishing rod expertise",
+        description: `Render expertise kills in fishing rod's lore if it has Expertise enchant.`,
+        category: "Inventory",
+        subcategory: "Item lore"
+    })
+    showFishingRodExpertiseKills = false;
+
+    @SwitchProperty({
         name: "Price per T1 attribute shard",
         description: `Render price per T1 attribute level in the auctioned Attribute Shard's lore, based on item's price. Helps to compare prices for high-tier attribute shards on AH.`,
         category: "Inventory",

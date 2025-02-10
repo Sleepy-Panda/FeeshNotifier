@@ -1,5 +1,16 @@
 # Releases
 
+## v1.27.0
+
+Released: ???
+
+Features:
+- Added 2 variations of the Beach Balls and Golden Bait to the fishing profit tracker.
+- Added option to show fishing rod's expertise kills in the lore. [disabled by default] 
+
+Bugfixes:
+- Fixed NEU slot binding causing inventory items counting into fishing profit tracker (because it replaces inventory items with Barriers while trying to bind a slot).
+
 ## v1.26.0
 
 Released: 2025-01-31
