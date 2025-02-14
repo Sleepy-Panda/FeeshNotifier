@@ -27,6 +27,7 @@ import "./features/overlays/jerryWorkshopTracker";
 import "./features/overlays/wormMembraneProfitTracker";
 import "./features/overlays/magmaCoreProfitTracker";
 import "./features/overlays/fishingProfitTracker";
+import "./features/overlays/archfiendDiceProfitTracker";
 
 import "./features/inventory/highlightCheapBooks";
 import "./features/inventory/showThunderBottleProgress";
