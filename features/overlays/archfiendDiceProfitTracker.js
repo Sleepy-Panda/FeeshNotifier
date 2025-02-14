@@ -10,13 +10,15 @@ let trackerData = {
         rollsCount: 0,
         rollsCost: 0,  
         lostDicesCount: 0,
-        lostDicesCost: 0,  
+        lostDicesCost: 0,
+        earnedCost: 0
     },
     highClass: {
         rollsCount: 0,
         rollsCost: 0,  
         lostDicesCount: 0,
         lostDicesCost: 0,
+        earnedCost: 0
     },
     dyesCount: 0,
     profit: 0,
@@ -44,13 +46,15 @@ register("worldUnload", () => {
             rollsCount: 0,
             rollsCost: 0,  
             lostDicesCount: 0,
-            lostDicesCost: 0,  
+            lostDicesCost: 0, 
+            earnedCost: 0 
         },
         highClass: {
             rollsCount: 0,
             rollsCost: 0,  
             lostDicesCount: 0,
-            lostDicesCost: 0,  
+            lostDicesCost: 0, 
+            earnedCost: 0
         },
         dyesCount: 0,
         profit: 0,
@@ -92,13 +96,15 @@ function trackArchfiendRoll(number) {
     if (number === 6) {
         trackerData.archfiend.lostDicesCount += 1;
         trackerData.archfiend.lostDicesCost -= dicePrice;
+        trackerData.archfiend.earnedCost += diceInfo.winCost;
         trackerData.profit -= dicePrice;
-        trackerData.profit += 15000000;
+        trackerData.profit += diceInfo.winCost;
     }
 
     if (number === 7) {
         trackerData.archfiend.lostDicesCount += 1;
         trackerData.archfiend.lostDicesCost -= dicePrice;
+        trackerData.archfiend.earnedCost += dyePrice;
         trackerData.profit -= dicePrice;
         trackerData.profit += dyePrice;
     }
@@ -121,13 +127,15 @@ function trackHighClassArchfiendRoll(number) {
     if (number === 6) {
         trackerData.highClass.lostDicesCount += 1;
         trackerData.highClass.lostDicesCost -= dicePrice;
+        trackerData.highClass.earnedCost += diceInfo.winCost;
         trackerData.profit -= dicePrice;
-        trackerData.profit += 15000000;
+        trackerData.profit += diceInfo.winCost;
     }
 
     if (number === 7) {
         trackerData.highClass.lostDicesCount += 1;
         trackerData.highClass.lostDicesCost -= dicePrice;
+        trackerData.highClass.earnedCost += dyePrice;
         trackerData.profit -= dicePrice;
         trackerData.profit += dyePrice;
     }
@@ -142,22 +150,27 @@ function renderOverlay() {
         return;
     }
 
-    let text = `${DARK_PURPLE}${BOLD}Archfiend Dice\n`;
+    let text = `${YELLOW}${BOLD}Dice profit tracker\n\n`;
+    text += `${DARK_PURPLE}${BOLD}Archfiend Dice\n`;
     text += `${GRAY}Rolled ${WHITE}${trackerData.archfiend.rollsCount} ${GRAY}time(s)\n`;
-    text += `${GOLD}Rolls cost: ${RED}${toShortNumber(trackerData.archfiend.rollsCost)}\n`;
-    text += `${GOLD}Lost dices cost: ${RED}${toShortNumber(trackerData.archfiend.lostDicesCost)}\n\n`;
+    text += `- ${YELLOW}Rolls cost: ${RED}${toShortNumber(trackerData.archfiend.rollsCost) || 'N/A'}\n`;
+    text += `- ${YELLOW}Lost dices cost: ${RED}${toShortNumber(trackerData.archfiend.lostDicesCost) || 'N/A'}\n`;
+    text += `- ${YELLOW}Earned: ${GREEN}${toShortNumber(trackerData.archfiend.earnedCost) || 'N/A'}\n\n`;
 
     text += `${GOLD}${BOLD}High Class Archfiend Dice\n`;
     text += `${GRAY}Rolled ${WHITE}${trackerData.highClass.rollsCount} ${GRAY}time(s)\n`;
-    text += `${GOLD}Rolls cost: ${RED}${toShortNumber(trackerData.highClass.rollsCost)}\n`;
-    text += `${GOLD}Lost dices cost: ${RED}${toShortNumber(trackerData.highClass.lostDicesCost)}\n\n`;
-
-    const bonusHpColor = trackerData.bonusHp >= 0 ? GREEN : RED;
-    text += `${GREEN}Bonus HP: ${bonusHpColor}${trackerData.bonusHp || 'N/A'}\n`;
+    text += `- ${YELLOW}Rolls cost: ${RED}${toShortNumber(trackerData.highClass.rollsCost) || 'N/A'}\n`;
+    text += `- ${YELLOW}Lost dices cost: ${RED}${toShortNumber(trackerData.highClass.lostDicesCost) || 'N/A'}\n`;
+    text += `- ${YELLOW}Earned: ${GREEN}${toShortNumber(trackerData.highClass.earnedCost) || 'N/A'}\n\n`;
 
     const profitColor = trackerData.profit >= 0 ? GREEN : RED;
-    text += `${GOLD}${BOLD}Total profit: ${profitColor}${toShortNumber(trackerData.profit)}\n`;
+    text += `${YELLOW}${BOLD}Total profit: ${profitColor}${toShortNumber(trackerData.profit)}\n`;
     
+    if (trackerData.bonusHp) {
+        const bonusHpColor = trackerData.bonusHp >= 0 ? GREEN : RED;
+        text += `${GREEN}Bonus HP: ${bonusHpColor}${trackerData.bonusHp || 'N/A'}\n`;    
+    }
+
     const overlay = new Text(text, overlayCoordsData.legionAndBobbingTimeOverlay.x, overlayCoordsData.legionAndBobbingTimeOverlay.y) // TODO!!!!!!!
         .setShadow(true)
         .setScale(overlayCoordsData.legionAndBobbingTimeOverlay.scale); // TODO!!!!!!!
