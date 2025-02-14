@@ -1,4 +1,4 @@
-- Offer supercrafting or bazaar when items like raw fish goes to inventory (sacks are full)
+- Offer supercrafting of bazaar when items like raw fish goes to inventory (sacks are full)
 - Some items are tracked by profit tracker when dropped, but drop was prevented by SB settings (basically it drops and picks up again).
 - Calculate pet price in profit tracker as difference between lvl 1 and lvl 100
 - Remove double hook reindrake logic because DH is not possible now
@@ -26,7 +26,6 @@
   - Toggle setting to enable customization
 - Render mob immunity flag
 - Highlight rare sea creatures
-- Short catch messages and double hook messages
 - Total and session tracker
 - Trading with other players adds items to the profit trackers
 - Multiple drops that happen at the same time lead to "You're sending messages too fast" error.
