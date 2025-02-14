@@ -1178,6 +1178,14 @@ ${RED}Hidden if you have no fishing rod in your hotbar!`,
     })
     showRarityUpgrade = false;
 
+    @SwitchProperty({
+        name: "Caught trophy fish rarities",
+        description: `Render caught trophy fish rarities in Odger's Trophy Fishing GUI.`,
+        category: "Inventory",
+        subcategory: "Item tooltip"
+    })
+    showCaughtTrophyFishRaritiesInOdger = false;
+
     // ******* INVENTORY - Armor attributes ******* //
 
     @SwitchProperty({
