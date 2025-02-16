@@ -1,8 +1,16 @@
 # Releases
 
-## v1.28.0
+## v1.29.0
 
 Released: ???
+
+Features:
+
+Bugfixes:
+
+## v1.28.0
+
+Released: 2025-02-16
 
 Features:
 - Added option to compact sea creature catch messages [disabled by default]. It shortens double hook message and catch message that says what sea creature you caught.
