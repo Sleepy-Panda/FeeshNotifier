@@ -37,10 +37,12 @@ import "./features/inventory/showRarityUpgrade";
 import "./features/inventory/highlightAttributeFusionMatchingItems";
 import "./features/inventory/showPricePerT1Shard";
 import "./features/inventory/showExpertiseKills";
+import "./features/inventory/showCaughtTrophyFishRaritiesInOdger";
 
 import "./features/chat/announceMobSpawnToAllChat";
 import "./features/chat/messageOnPlayerDeath";
 import "./features/chat/messageOnRevenant";
+import "./features/chat/compactCatchMessages";
 
 register('worldLoad', () => {
     Client.showTitle('', '', 1, 1, 1); // Shitty fix for a title not showing for the 1st time

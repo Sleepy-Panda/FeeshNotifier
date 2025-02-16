@@ -65,7 +65,7 @@ export const ALL_SEA_CREATURES_NAMES = [
     'Lord Jawbus',
     'Jawbus Follower',
     'Plhlegblast',
-    'Mithril Grubber',
+    'Mithril Grubber', // A sea creature is called Small Mithril Grubber, but corrupted one is Corrupted Mithril Grubber (without "Small")
     'Medium Mithril Grubber',
     'Large Mithril Grubber',
     'Bloated Mithril Grubber',

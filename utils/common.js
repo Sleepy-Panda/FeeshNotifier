@@ -1,5 +1,6 @@
 import { RED, DARK_GRAY, BLUE, WHITE, BOLD, RESET } from '../constants/formatting';
 import { NBTTagString } from '../constants/javaTypes';
+import { DOUBLE_HOOK_MESSAGES } from '../constants/triggers';
 
 // Double hook reindrakes may produce the following messages history:
 // [CHAT] &r&eIt's a &r&aDouble Hook&r&e!&r
@@ -16,14 +17,13 @@ import { NBTTagString } from '../constants/javaTypes';
 // [CHAT] &r&c&lYou hear a massive rumble as Thunder emerges.&r
 
 export function isDoubleHook() {
-	const doubleHookMessages = [ '&r&eIt\'s a &r&aDouble Hook&r&e! Woot woot!&r', '&r&eIt\'s a &r&aDouble Hook&r&e!&r' ];
 	const history = ChatLib.getChatLines()?.filter(l => // Those messages appear between double hook and catch messages for Reindrake / Thunder
 		l !== '&r' &&
 		l !== '&r&c&lWOAH! &r&cA &r&4Reindrake &r&cwas summoned from the depths!&r' &&
 		l !== '&r&e> Your bottle of thunder has fully charged!&r'
 	);
 	const isDoubleHooked = (!!history && history.length > 1)
-		? doubleHookMessages.includes(history[1])
+		? DOUBLE_HOOK_MESSAGES.includes(history[1])
 		: false;
 	return isDoubleHooked;
 }
@@ -393,7 +393,12 @@ export function getItemAttributes(item) {
     return attributes;
 }
 
-function getArticle(str) {
+/**
+ * Get suitable article (A/An) depending on the passed string.
+ * @param {string} str
+ * @returns {string} Article (A/An)
+ */
+export function getArticle(str) {
     const isFirstLetterVowel = ['a', 'e', 'i', 'o', 'u'].indexOf(str[0].toLowerCase()) !== -1;
 	return isFirstLetterVowel ? 'An' : 'A';
 }

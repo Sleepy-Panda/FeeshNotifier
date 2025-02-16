@@ -185,6 +185,13 @@ class Settings {
     announceToAllChatOnLordJawbusCatch = false;
 
     @SwitchProperty({
+        name: "Share the location to ALL chat on PLHLEGBLAST catch",
+        category: "Chat",
+        subcategory: "Rare Catches - All Chat"
+    })
+    announceToAllChatOnPlhlegblastCatch = false;
+
+    @SwitchProperty({
         name: "Share the location to ALL chat on VANQUISHER spawn",
         category: "Chat",
         subcategory: "Rare Catches - All Chat"
@@ -335,11 +342,21 @@ class Settings {
 
     @SwitchProperty({
         name: "Send a message when you are killed by Thunder / Lord Jawbus",
-        description: `${GRAY}Sends a message to the ${BLUE}party chat ${GRAY}when when you are killed by Thunder / Lord Jawbus. It enables the alerts for your party members so they can wait for you.`,
+        description: `${GRAY}Sends a message to the ${BLUE}party chat ${GRAY}when you are killed by Thunder / Lord Jawbus. It enables the alerts for your party members so they can wait for you.`,
         category: "Chat",
         subcategory: "Player's death"
     })
     messageOnDeath = true;
+
+    // ******* CHAT - Compact messages ******* //
+
+    @SwitchProperty({
+        name: "Compact sea creature catch messages",
+        description: 'Shortens double hook message and catch message that says what sea creature you caught.',
+        category: "Chat",
+        subcategory: "Compact messages"
+    })
+    compactCatchMessages = false;
 
     // ******* ALERTS - Totem ******* //
 
@@ -1160,6 +1177,14 @@ ${RED}Hidden if you have no fishing rod in your hotbar!`,
         subcategory: "Item tooltip"
     })
     showRarityUpgrade = false;
+
+    @SwitchProperty({
+        name: "Caught trophy fish rarities",
+        description: `Render caught trophy fish rarities in Odger's Trophy Fishing GUI.`,
+        category: "Inventory",
+        subcategory: "Item tooltip"
+    })
+    showCaughtTrophyFishRaritiesInOdger = false;
 
     // ******* INVENTORY - Armor attributes ******* //
 
