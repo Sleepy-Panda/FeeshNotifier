@@ -51,5 +51,6 @@ export const persistentData = new PogObject("FeeshNotifier", {
     },
     "rareDropNotifications": {
         "items": {}
-    }
+    },
+    "isFishingBagEnabled": null
 }, 'config/data.json');

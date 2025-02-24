@@ -5,6 +5,7 @@
 Released: ???
 
 Features:
+- Added alert when a player starts fishing with Fishing Bag disabled.
 
 Bugfixes:
 

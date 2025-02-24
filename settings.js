@@ -398,6 +398,16 @@ class Settings {
     })
     alertOnNonFishingArmor = true;
 
+    // ******* ALERTS - Fishing bag ******* //
+
+    @SwitchProperty({
+        name: "Alert when Fishing Bag is disabled",
+        description: `Shows a title when current player starts fishing with Fishing Bag disabled.`,
+        category: "Alerts",
+        subcategory: "Fishing bag"
+    })
+    alertOnFishingBagDisabled = true;
+
     // ******* ALERTS - Thunder bottle ******* //
 
     @SwitchProperty({

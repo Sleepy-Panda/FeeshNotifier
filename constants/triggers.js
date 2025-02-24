@@ -137,6 +137,9 @@ export const WORKSHOP_CLOSING_MESSAGE = `${RESET}${RED}[Important] ${RESET}${YEL
 export const GOOD_CATCH_ICE_ESSENCE_MESSAGE = `${RESET}${GOLD}${BOLD}GOOD CATCH! ${RESET}${AQUA}You found ${RESET}${AQUA}` + "${count}" + ` Ice Essence${RESET}${AQUA}.${RESET}`; // &r&6&lGOOD CATCH! &r&bYou found &r&b70 Ice Essence&r&b.&r
 export const GREAT_CATCH_ICE_ESSENCE_MESSAGE = `${RESET}${DARK_PURPLE}${BOLD}GREAT CATCH! ${RESET}${AQUA}You found ${RESET}${AQUA}` + "${count}" + ` Ice Essence${RESET}${AQUA}.${RESET}`;
 
+export const USE_BAITS_FROM_FISHING_BAG_DISABLED = `${RESET}${RED}Use Baits From Bag is now disabled!${RESET}`;
+export const USE_BAITS_FROM_FISHING_BAG_ENABLED = `${RESET}${GREEN}Use Baits From Bag is now enabled!${RESET}`;
+
 export const ALL_CATCHES_TRIGGERS = [
     // WATER SEA CREATURES
     {

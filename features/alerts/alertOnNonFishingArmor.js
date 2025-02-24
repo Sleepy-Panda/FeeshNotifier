@@ -4,7 +4,7 @@ import { getWorldName, hasFishingRodInHotbar, isInSkyblock } from "../../utils/p
 import { OFF_SOUND_MODE } from "../../constants/sounds";
 import { DUNGEONS, KUUDRA } from "../../constants/areas";
 import { EntityFishHook } from "../../constants/javaTypes";
-import { getLore, isFishingRod } from "../../utils/common";
+import { getLore, isFishingHookActive } from "../../utils/common";
 
 let lastHookDetectedAt = null;
 
@@ -36,26 +36,7 @@ function alertOnNonFishingArmor(event) {
     
         // Time for hook to land on water/lava
         setTimeout(function() {
-            const heldItem = Player.getHeldItem();
-            if (!isFishingRod(heldItem)) {
-                return;
-            }
-            
-            const playerHook = World.getAllEntitiesOfType(EntityFishHook).find(e => Player.getPlayer().field_71104_cf == e.getEntity()); // field_71104_cf = fishEntity
-            if (!playerHook) {
-                return;
-            }
-        
-            let isHookActive = false;
-            if (playerHook.isInWater() || playerHook.isInLava()) { // For regular rods, the player's hook must be in lava or water
-                isHookActive = true;
-            } else {
-                const isDirtRod = heldItem?.getName()?.includes('Dirt Rod');
-                if (isDirtRod) { // For dirt rod, the player's hook can be in dirt
-                    isHookActive = true;
-                }
-            }
-
+            let isHookActive = isFishingHookActive();
             if (!isHookActive) {
                 return;
             }
