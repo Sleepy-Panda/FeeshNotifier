@@ -16,9 +16,11 @@ let areActionsVisible = false;
 let previousInventory = [];
 let isSessionActive = false;
 let lastHookSeenAt = null;
+let previousPurse = null;
 
 register("Chat", (event) => onAddedToSacks(event)).setCriteria('&6[Sacks] &r&a+').setStart(); // Items added to the sacks
 register('step', () => detectInventoryChanges()).setFps(4); // Items added to the inventory
+register('step', () => onScavengedCoins()).setFps(1);
 
 triggers.COINS_FISHED_TRIGGERS.forEach(trigger => { register("Chat", (coins, event) => onCoinsFished(coins)).setCriteria(trigger.trigger); });
 triggers.ICE_ESSENCE_FISHED_TRIGGERS.forEach(trigger => { register("Chat", (count, event) => onIceEssenceFished(count)).setCriteria(trigger.trigger); });
@@ -37,6 +39,7 @@ register('step', () => {
 register('step', () => refreshElapsedTime()).setFps(1);
 register('step', () => refreshPrices()).setDelay(30);
 register('step', () => { if (settings.fishingProfitTrackerOverlayGui.isOpen()) refreshTrackerDisplayData(); }).setFps(4); // Handle move/resize
+
 
 let isWorldLoaded = false;
 // World.isLoaded() doesn't give the same result for some reason
@@ -111,6 +114,7 @@ function pauseFishingProfitTracker() {
 
 function pause() {
     previousInventory = [];
+    previousPurse = null;
     lastHookSeenAt = null;
     isSessionActive = false;
 }
@@ -425,6 +429,75 @@ function onIceEssenceFished(count) {
 	}
 }
 
+// register("actionBar", (dist) => {}).setCriteria('TREASURE: ${rest}').setParameter('contains');
+
+function onScavengedCoins() {
+    try {
+        if (!isVisible || !isSessionActive || !isWorldLoaded || !isInSkyblock() || !Scoreboard?.getLines()?.length) {
+            previousPurse = null;
+            return;
+        }
+
+        if (previousPurse === null) {
+            previousPurse = getPurse();
+        }
+
+        // If in GUI - return
+        // If coins from bank, AH or BZ, NPC sell
+        // Getting Bank coins are from Sign message :(
+        // If dice roll
+        // Good/great catch
+        // Limit amount of coins gained - what is max? From 5 to Around 20k
+        // 0x in amount
+
+        // /^Purse\: [\d,.]+ \(\+([\d,.]+)\)$/)
+
+        const currentPurse = getPurse();
+        const isInChest = Client.isInGui() && Client.currentGui?.getClassName() === 'GuiChest';
+        if (!isInChest) {
+            const diff = currentPurse - previousPurse;
+            console.log(previousPurse + ' | ' + currentPurse);
+            if (diff > 0) {
+                ChatLib.chat('Added +' + diff + ' coins');
+                const itemId = 'SCAVENGED_COINS';
+                const item = persistentData.fishingProfit.profitTrackerItems[itemId];
+            
+                const currentAmount = 0;
+                const currentProfit = item?.totalItemProfit || 0;
+            
+                persistentData.fishingProfit.profitTrackerItems[itemId] = {
+                    itemName: 'Scavenged Coins',
+                    itemDisplayName: `${GOLD}Scavenged Coins`,
+                    itemId: itemId,
+                    amount: currentAmount,
+                    totalItemProfit: currentProfit + diff,
+                };
+                persistentData.save();
+                refreshPrices();
+                refreshTrackerDisplayData();  
+            }
+        }
+
+        previousPurse = currentPurse;
+    } catch (e) {
+        console.error(e);
+		console.log(`[FeeshNotifier] [ProfitTracker] Failed to track scavenged coins.`);
+    }
+
+    function getPurse() {
+        const purseLine = Scoreboard?.getLines()?.find(l => l?.getName()?.removeFormatting()?.startsWith('Purse: ') || l?.getName()?.removeFormatting()?.startsWith('Piggy: '))
+            .getName()?.removeFormatting();
+        if (!purseLine) return 0;
+
+        let parts = purseLine.split(": ");
+        parts[1] = parts[1].split(" ")[0];
+        parts[1] = parts[1].split(".")[0]; // 500.0
+        parts[1] = parts[1].replaceAll(",", "");
+        let purse = parseInt(parts[1]);
+        return purse;
+    }
+}
+
 function onPetReachedMaxLevel(level, petDisplayName) {
     try {
         if (level !== 100 && level !== 200) {
@@ -707,9 +780,9 @@ function refreshTrackerDisplayData() {
             if (areActionsVisible) {
                 line.registerClicked((x, y, mouseButton, buttonState) => {
                     if (buttonState === false && (Keyboard.isKeyDown(29) || Keyboard.isKeyDown(157))) { // buttonState = false is UP. 29 and 157 is LCTRL/RCTRL https://minecraft.fandom.com/wiki/Key_codes
-                        if (mouseButton === 0 && entry.itemId !== 'FISHED_COINS') { // left mouse button
+                        if (mouseButton === 0 && entry.itemId !== 'FISHED_COINS' && entry.itemId !== 'SCAVENGED_COINS') { // left mouse button
                             changeItemAmount(entry.itemId, false, -1);
-                        } else if (mouseButton === 1 && entry.itemId !== 'FISHED_COINS') { // right
+                        } else if (mouseButton === 1 && entry.itemId !== 'FISHED_COINS' && entry.itemId !== 'SCAVENGED_COINS') { // right
                             changeItemAmount(entry.itemId, false, 1);
                         } else if (mouseButton === 2) { // middle
                             changeItemAmount(entry.itemId, true, 0);
