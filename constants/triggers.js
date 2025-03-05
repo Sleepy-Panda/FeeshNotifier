@@ -75,6 +75,7 @@ export const LAVA_PIGMAN_MESSAGE = `${GREEN}A Lava Pigman arose from the depths!
 
 // ABANDONED QUARRY SEA CREATURES
 
+export const ANY_MITHRIL_GRUBBER_MESSAGE = `${RESET}${GREEN}A leech of the mines surfaces... you've caught a ` + "${seaCreature}" + `.${RESET}`;
 export const SMALL_MITHRIL_GRUBBER_MESSAGE = `${RESET}${GREEN}A leech of the mines surfaces... you've caught a Mithril Grubber.${RESET}`; // &r&aA leech of the mines surfaces... you've caught a Mithril Grubber.&r
 export const MEDIUM_MITHRIL_GRUBBER_MESSAGE = `${RESET}${GREEN}A leech of the mines surfaces... you've caught a Medium Mithril Grubber.${RESET}`;
 export const LARGE_MITHRIL_GRUBBER_MESSAGE = `${RESET}${GREEN}A leech of the mines surfaces... you've caught a Large Mithril Grubber.${RESET}`;

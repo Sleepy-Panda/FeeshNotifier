@@ -5,6 +5,7 @@
 Released: ???
 
 Features:
+- Added Abandoned Quarry tracker - overlay with the Mithril Grubbers and Mithril Powder statistics, when in Abandoned Quarry.
 - Added alert when a player starts fishing with Fishing Bag disabled.
 
 Bugfixes:
