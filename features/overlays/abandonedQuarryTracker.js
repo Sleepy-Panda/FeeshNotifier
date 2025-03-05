@@ -7,11 +7,6 @@ import { overlayCoordsData } from "../../data/overlayCoords";
 import { formatElapsedTime, formatNumberWithSpaces, isDoubleHook, isFishingHookActive, isInChatOrInventoryGui } from "../../utils/common";
 import { getLastGuisClosed, getZoneName, hasFishingRodInHotbar, isInSkyblock } from "../../utils/playerState";
 
-// Move, moveall
-// Too often updates (every sec)
-// Sample overlay
-// Paused button to other widgets
-
 const SMALL_MITHRIL_GRUBBER_KEY = seaCreatures.SMALL_MITHRIL_GRUBBER.toUpperCase();
 const MEDIUM_MITHRIL_GRUBBER_KEY = seaCreatures.MEDIUM_MITHRIL_GRUBBER.toUpperCase();
 const LARGE_MITHRIL_GRUBBER_KEY = seaCreatures.LARGE_MITHRIL_GRUBBER.toUpperCase();

@@ -310,6 +310,7 @@ function renderWormMembraneProfitTrackerOverlay() {
     }
 
     let text = `${YELLOW}${BOLD}Worm profit tracker\n`;
+    const pausedText = isSessionActive ? '' : ` ${YELLOW}[Paused]`;
     const mode = settings.wormProfitTrackerMode;
     switch (mode) {
         case WORM_MEMBRANES_MODE:
@@ -327,7 +328,7 @@ function renderWormMembraneProfitTrackerOverlay() {
             text += `${GOLD}Coins/h (sell offer): ${WHITE}${toShortNumber(membraneCoinsPerHourSellOffer)}\n`;
             text += `${GOLD}Coins/h (insta-sell): ${WHITE}${toShortNumber(membraneCoinsPerHourInstaSell)}\n`;
             text += `\n`;
-            text += `${AQUA}Elapsed time: ${WHITE}${formatElapsedTime(elapsedSeconds)}`;        
+            text += `${AQUA}Elapsed time: ${WHITE}${formatElapsedTime(elapsedSeconds)}${pausedText}`;        
             break;
 
         case GEMSTONE_CHAMBERS_MODE:
@@ -344,7 +345,7 @@ function renderWormMembraneProfitTrackerOverlay() {
             text += `${DARK_PURPLE}Chambers/h: ${WHITE}${formatNumberWithSpaces(chambersPerHour)}\n`;
             text += `${GOLD}Coins/h: ${WHITE}${toShortNumber(chamberCoinsPerHour)}\n`;
             text += `\n`;
-            text += `${AQUA}Elapsed time: ${WHITE}${formatElapsedTime(elapsedSeconds)}`;     
+            text += `${AQUA}Elapsed time: ${WHITE}${formatElapsedTime(elapsedSeconds)}${pausedText}`;     
             break;
         default:
             break;
