@@ -10,6 +10,7 @@ import { calculateFishingPetPrices } from "./features/commands/calculateFishingP
 import { calculateGearCraftPrices } from "./features/commands/calculateGearCraftPrices";
 import { showSpidersDenRainSchedule } from "./features/commands/showSpidersDenRainSchedule";
 import { moveAllGuis } from "./moveAllOverlays";
+import { resetAbandonedQuarryTracker } from "./features/overlays/abandonedQuarryTracker";
 
 register("command", (...args) => {
     settings.openGUI();
@@ -39,6 +40,11 @@ register("command", (...args) => {
     const isConfirmed = args[0] && args[0] === "noconfirm";
     resetMagmaCoreProfitTracker(!!isConfirmed);
 }).setName("feeshResetMagmaCoreProfit");
+
+register("command", (...args) => {
+    const isConfirmed = args[0] && args[0] === "noconfirm";
+    resetAbandonedQuarryTracker(!!isConfirmed);
+}).setName("feeshResetAbandonedQuarry");
 
 register("command", (...args) => {
     const isConfirmed = args[0] && args[0] === "noconfirm";

@@ -33,6 +33,7 @@ class Settings {
     jerryWorkshopTrackerOverlayGui = new Gui();
     wormProfitTrackerOverlayGui = new Gui();
     magmaCoreProfitTrackerOverlayGui = new Gui();
+    abandonedQuarryTrackerOverlayGui = new Gui();
     fishingProfitTrackerOverlayGui = new Gui();
 
     // ******* GENERAL ******* //
@@ -1054,6 +1055,39 @@ Example: /feeshSetRadioactiveVials 5 2024-03-18T14:05:00Z`,
     })
     resetMagmaCoreProfitTracker() {
         ChatLib.command("feeshResetMagmaCoreProfit noconfirm", true);
+    }
+
+    // ******* OVERLAYS - Abandoned Quarry tracker ******* //
+
+    @SwitchProperty({
+        name: "Abandoned Quarry tracker",
+        description: `Shows an overlay with the Mithril Grubber and Mithril Powder statistics, when in Abandoned Quarry. Not persistent - resets on MC restart.\n${DARK_GRAY}This requires Powder Widget to be enabled in /tablist.\nDo ${AQUA}/feeshResetAbandonedQuarry${GRAY} to reset.\n${RED}Hidden if you have no fishing rod in your hotbar!`,
+        category: "Overlays",
+        subcategory: "Abandoned Quarry tracker"
+    })
+    abandonedQuarryTrackerOverlay = true;
+
+    @ButtonProperty({
+        name: "Move Abandoned Quarry tracker",
+        description: "Allows to move and resize the overlay text.",
+        category: "Overlays",
+        subcategory: "Abandoned Quarry tracker",
+        placeholder: "Move"
+    })
+    moveAbandonedQuarryTrackerOverlay() {
+        showOverlayMoveHelp();
+        this.abandonedQuarryTrackerOverlayGui.open();
+    };
+
+    @ButtonProperty({
+        name: "Reset Abandoned Quarry tracker",
+        description: `Resets tracking for Abandoned Quarry tracker. Executes ${AQUA}/feeshResetAbandonedQuarry`,
+        category: "Overlays",
+        subcategory: "Abandoned Quarry tracker",
+        placeholder: "Reset"
+    })
+    resetAbandonedQuarryTracker() {
+        ChatLib.command("feeshResetAbandonedQuarry noconfirm", true);
     }
 
     // ******* OVERLAYS - Fishing profit tracker ******* //
