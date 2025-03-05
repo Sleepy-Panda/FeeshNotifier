@@ -142,7 +142,7 @@ ${AQUA}Elapsed time: ${WHITE}1:11:13`,
         sampleText:
 `${YELLOW}${BOLD}Abandoned Quarry tracker
 ${GREEN}Total Mithril Grubbers caught: ${WHITE}13 ${GRAY}(${WHITE}6 2 3 2${GRAY})
-${GREEN}Total Mithril Powder: ${WHITE}23 250
+${GREEN}Total Mithril Powder: ${WHITE}23 250 ${GRAY}[+750 last added]
 ${GREEN}Avg Mithril Powder per catch: ${WHITE}1 000
 
 ${GREEN}Mithril Grubbers caught/h: ${WHITE}238

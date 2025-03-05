@@ -1,16 +1,16 @@
 import settings from "../../settings";
-import * as seaCreatures from "../../constants/seaCreatures";
+import { overlayCoordsData } from "../../data/overlayCoords";
 import { ABANDONED_QUARRY } from "../../constants/areas";
 import { AQUA, BOLD, GOLD, GRAY, GREEN, RED, WHITE, YELLOW } from "../../constants/formatting";
 import { ANY_MITHRIL_GRUBBER_MESSAGE } from "../../constants/triggers";
-import { overlayCoordsData } from "../../data/overlayCoords";
 import { formatElapsedTime, formatNumberWithSpaces, isDoubleHook, isFishingHookActive, isInChatOrInventoryGui } from "../../utils/common";
 import { getLastGuisClosed, getZoneName, hasFishingRodInHotbar, isInSkyblock } from "../../utils/playerState";
+import { BLOATED_MITHRIL_GRUBBER, LARGE_MITHRIL_GRUBBER, MEDIUM_MITHRIL_GRUBBER, SMALL_MITHRIL_GRUBBER } from "../../constants/seaCreatures";
 
-const SMALL_MITHRIL_GRUBBER_KEY = seaCreatures.SMALL_MITHRIL_GRUBBER.toUpperCase();
-const MEDIUM_MITHRIL_GRUBBER_KEY = seaCreatures.MEDIUM_MITHRIL_GRUBBER.toUpperCase();
-const LARGE_MITHRIL_GRUBBER_KEY = seaCreatures.LARGE_MITHRIL_GRUBBER.toUpperCase();
-const BLOATED_MITHRIL_GRUBBER_KEY = seaCreatures.BLOATED_MITHRIL_GRUBBER.toUpperCase();
+const SMALL_MITHRIL_GRUBBER_KEY = SMALL_MITHRIL_GRUBBER.toUpperCase();
+const MEDIUM_MITHRIL_GRUBBER_KEY = MEDIUM_MITHRIL_GRUBBER.toUpperCase();
+const LARGE_MITHRIL_GRUBBER_KEY = LARGE_MITHRIL_GRUBBER.toUpperCase();
+const BLOATED_MITHRIL_GRUBBER_KEY = BLOATED_MITHRIL_GRUBBER.toUpperCase();
 
 let trackerData = {
     catches: {
@@ -293,7 +293,7 @@ function renderMithrilGrubberPowderTrackerOverlay() {
     text += `\n`;
     text += `${AQUA}Elapsed time: ${WHITE}${formatElapsedTime(trackerData.elapsedSeconds)}${pausedText}`; 
 
-    const overlay = new Text(text, overlayCoordsData.abandonedQuarryTrackerOverlay.x, overlayCoordsData.abandonedQuarryTrackerOverlay.y) // TODO
+    const overlay = new Text(text, overlayCoordsData.abandonedQuarryTrackerOverlay.x, overlayCoordsData.abandonedQuarryTrackerOverlay.y)
         .setShadow(true)
         .setScale(overlayCoordsData.abandonedQuarryTrackerOverlay.scale);
     overlay.draw();
