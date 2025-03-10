@@ -439,6 +439,14 @@ class Settings {
     })
     alertOnSpiritMaskUsed = true;
 
+    @SwitchProperty({
+        name: "Alert when a Spirit Mask is ready after being used",
+        description: `Shows a title when your Spirit Mask's Second Wind ability is back after it was activated.`,
+        category: "Alerts",
+        subcategory: "Spirit Mask"
+    })
+    alertOnSpiritMaskBack = false;
+
     // ******* ALERTS - Golden Fish ******* //
 
     @SwitchProperty({
@@ -497,7 +505,7 @@ class Settings {
         min: 5,
         max: 60
     })
-    seaCreaturesCountThreshold_CrystalHollows = 60;
+    seaCreaturesCountThreshold_CrystalHollows = 20;
 
     @SliderProperty({
         name: "Sea creatures count threshold - Other",
