@@ -329,6 +329,13 @@ class Settings {
     })
     messageOnGuardianPetDrop = true;
 
+    @SwitchProperty({
+        name: "Send a message on PHOENIX PET drop",
+        category: "Chat",
+        subcategory: "Rare Drops"
+    })
+    messageOnPhoenixPetDrop = true;
+
     // ******* CHAT - Slayers ******* //
 
     @SwitchProperty({
@@ -748,6 +755,13 @@ class Settings {
         subcategory: "Rare Drops"
     })
     alertOnGuardianPetDrop = true;
+
+    @SwitchProperty({
+        name: "Alert on PHOENIX PET drop",
+        category: "Alerts",
+        subcategory: "Rare Drops"
+    })
+    alertOnPhoenixPetDrop = true;
 
     // ******* OVERLAYS - Totem ******* //
 

@@ -6,6 +6,7 @@ Released: ???
 
 Features:
 - Added alert when Spirit Mask is back after being activated [disabled by default].
+- Added alert on Phoenix Pet dropped.
 
 Bugfixes:
 - Changed display name of Fishing Exp Boost items in Fishing Profit Tracker, so now it displays boost % and looks better when copy-pasting drop message.

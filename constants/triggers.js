@@ -117,6 +117,9 @@ export const GUARDIAN_PET_RARE_MESSAGE = `${DARK_PURPLE}${BOLD}GREAT CATCH! ${RE
 export const GUARDIAN_PET_UNCOMMON_MESSAGE = `${DARK_PURPLE}${BOLD}GREAT CATCH! ${RESET}${AQUA}You found a ${RESET}${GRAY}[Lvl 1] ${RESET}${GREEN}Guardian${RESET}${AQUA}.${RESET}`;
 export const GUARDIAN_PET_COMMON_MESSAGE = `${DARK_PURPLE}${BOLD}GREAT CATCH! ${RESET}${AQUA}You found a ${RESET}${GRAY}[Lvl 1] ${RESET}${WHITE}Guardian${RESET}${AQUA}.${RESET}`;
 
+export const PHOENIX_PET_LEG_MESSAGE = `PET DROP! ${RESET}${GOLD}Phoenix ${MAGIC_FIND_MESSAGE_PATTERN}`; // PET DROP! &r&6Phoenix &r&b(+&r&b236% &r&b✯ Magic Find&r&b)
+export const PHOENIX_PET_EPIC_MESSAGE = `PET DROP! ${RESET}${DARK_PURPLE}Phoenix ${MAGIC_FIND_MESSAGE_PATTERN}`; // PET DROP! &r&5Phoenix &r&b(+&r&b236% &r&b✯ Magic Find&r&b)
+
 // OTHER
 
 export const DOUBLE_HOOK_MESSAGES = [ '&r&eIt\'s a &r&aDouble Hook&r&e! Woot woot!&r', '&r&eIt\'s a &r&aDouble Hook&r&e!&r' ];
@@ -632,6 +635,26 @@ export const RARE_DROP_TRIGGERS = [
         isAlertEnabledSettingKey: 'alertOnMagmaCoreDrop',
         rarityColorCode: RARE,
         shouldTrackDropNumber: true,
+    },
+    {
+        trigger: PHOENIX_PET_LEG_MESSAGE,
+        itemId: 'PHOENIX;4',
+        itemName: drops.PHOENIX_PET + ' (Legendary)',
+        sound: sounds.MC_RARE_ACHIEVEMENT_SOURCE,
+        isMessageEnabledSettingKey: 'messageOnPhoenixPetDrop',
+        isAlertEnabledSettingKey: 'alertOnPhoenixPetDrop',
+        rarityColorCode: LEGENDARY,
+        shouldTrackDropNumber: false,
+    },
+    {
+        trigger: PHOENIX_PET_EPIC_MESSAGE,
+        itemId: 'PHOENIX;3',
+        itemName: drops.PHOENIX_PET + ' (Epic)',
+        sound: sounds.MC_RARE_ACHIEVEMENT_SOURCE,
+        isMessageEnabledSettingKey: 'messageOnPhoenixPetDrop',
+        isAlertEnabledSettingKey: 'alertOnPhoenixPetDrop',
+        rarityColorCode: EPIC,
+        shouldTrackDropNumber: false,
     },
 ];
 
