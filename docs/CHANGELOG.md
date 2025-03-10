@@ -1,14 +1,20 @@
 # Releases
 
-## v1.29.0
+## v1.30.0
 
 Released: ???
 
 Features:
-- Added Abandoned Quarry tracker - overlay with the Mithril Grubbers and Mithril Powder statistics, when in Abandoned Quarry.
-- Added alert when a player starts fishing with Fishing Bag disabled.
 
 Bugfixes:
+
+## v1.29.0
+
+Released: 2025-03-10
+
+Features:
+- Added Abandoned Quarry tracker - overlay with the Mithril Grubbers and Mithril Powder statistics, when in Abandoned Quarry.
+- Added alert when a player starts fishing with Fishing Bag disabled.
 
 ## v1.28.0
 
