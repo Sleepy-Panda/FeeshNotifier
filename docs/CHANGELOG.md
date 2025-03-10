@@ -5,10 +5,10 @@
 Released: ???
 
 Features:
-
 - Added alert when Spirit Mask is back after being activated [disabled by default].
 
 Bugfixes:
+- Changed display name of Fishing Exp Boost items in Fishing Profit Tracker, so now it displays boost % and looks better when copy-pasting drop message.
 
 ## v1.29.0
 

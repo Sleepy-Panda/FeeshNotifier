@@ -922,20 +922,20 @@ export const FISHING_PROFIT_ITEMS = [
     {
         itemId: 'PET_ITEM_FISHING_SKILL_BOOST_UNCOMMON',
         itemName: 'Fishing Exp Boost (UNCOMMON)',
-        itemDisplayName: `${UNCOMMON}Fishing Exp Boost`,
+        itemDisplayName: `${UNCOMMON}Fishing Exp Boost +30%`,
         npcPrice: 0,
     },
     {
         itemId: 'PET_ITEM_FISHING_SKILL_BOOST_RARE',
         itemName: 'Fishing Exp Boost (RARE)',
-        itemDisplayName: `${RARE}Fishing Exp Boost`,
+        itemDisplayName: `${RARE}Fishing Exp Boost +40%`,
         npcPrice: 0,
         shouldAnnounceRareDrop: true,
     },
     {
         itemId: 'PET_ITEM_FISHING_SKILL_BOOST_EPIC',
         itemName: 'Fishing Exp Boost (EPIC)',
-        itemDisplayName: `${EPIC}Fishing Exp Boost`,
+        itemDisplayName: `${EPIC}Fishing Exp Boost +50%`,
         npcPrice: 0,
         shouldAnnounceRareDrop: true,
     },
