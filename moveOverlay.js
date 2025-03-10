@@ -43,6 +43,10 @@ const GUIS = [
         guiSettings: overlayCoordsData.magmaCoreProfitTrackerOverlay,
     },
     {
+        gui: settings.abandonedQuarryTrackerOverlayGui,
+        guiSettings: overlayCoordsData.abandonedQuarryTrackerOverlay,
+    },
+    {
         gui: settings.fishingProfitTrackerOverlayGui,
         guiSettings: overlayCoordsData.fishingProfitTrackerOverlay,
     },

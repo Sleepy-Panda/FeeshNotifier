@@ -1,9 +1,13 @@
 - Offer supercrafting of bazaar when items like raw fish goes to inventory (sacks are full)
 - Some items are tracked by profit tracker when dropped, but drop was prevented by SB settings (basically it drops and picks up again).
+- Scavenged coins
+- Ice Essence drop from mobs
+- [Bug] Some items are tracked by profit tracker when dropped, but drop was prevented by SB settings (basically it drops and picks up again).
 - Calculate pet price in profit tracker as difference between lvl 1 and lvl 100
+  - Also, there are requests to track pet level progress in coins
 - Remove double hook reindrake logic because DH is not possible now
 - Probably remove calculation of profits in Pulse Rings
-- Total price is set to 0 in Profit tracker while other lines being normal (very rare and seems random).
+- [Bug] Total price is set to 0 in Profit tracker while other lines being normal (very rare and seems random).
 - Sea creatures/hour
 - Disable functionalities in Dungeons, Garden same way as it's done for Kuudra.
 - Rain/Thunder widget
@@ -27,6 +31,7 @@
 - Render mob immunity flag
 - Highlight rare sea creatures
 - Total and session tracker
+- Total and session tracker, pr ability to load named session
 - Trading with other players adds items to the profit trackers
 - Multiple drops that happen at the same time lead to "You're sending messages too fast" error.
 - Personal cap alert (20 for CH, 5 for Crimson)
@@ -40,6 +45,10 @@
 "i think a feature that says im out of whale bait / fish bait / carrot bait would be cool to add because sometimes im just watching video and i realise im out of bait after like 30 mins."
 - "I was gonna say maybe add a feature that also keeps track of the cost of fish baits while fishing would be pretty cool"
   - Probably same for buying rain
+- Thunder spark profit - Amount gained in bottle divided by lbin for the current item
+  Hurricane: 400m
+  Thunder sparkes gained in session: 1m 
+  Profit for session: 80m
 
 Refactoring:
 

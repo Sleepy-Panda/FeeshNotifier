@@ -1,8 +1,18 @@
 # Releases
 
-## v1.28.0
+## v1.29.0
 
 Released: ???
+
+Features:
+- Added Abandoned Quarry tracker - overlay with the Mithril Grubbers and Mithril Powder statistics, when in Abandoned Quarry.
+- Added alert when a player starts fishing with Fishing Bag disabled.
+
+Bugfixes:
+
+## v1.28.0
+
+Released: 2025-02-16
 
 Features:
 - Added option to compact sea creature catch messages [disabled by default]. It shortens double hook message and catch message that says what sea creature you caught.

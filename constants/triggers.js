@@ -75,6 +75,7 @@ export const LAVA_PIGMAN_MESSAGE = `${GREEN}A Lava Pigman arose from the depths!
 
 // ABANDONED QUARRY SEA CREATURES
 
+export const ANY_MITHRIL_GRUBBER_MESSAGE = `${RESET}${GREEN}A leech of the mines surfaces... you've caught a ` + "${seaCreature}" + `.${RESET}`;
 export const SMALL_MITHRIL_GRUBBER_MESSAGE = `${RESET}${GREEN}A leech of the mines surfaces... you've caught a Mithril Grubber.${RESET}`; // &r&aA leech of the mines surfaces... you've caught a Mithril Grubber.&r
 export const MEDIUM_MITHRIL_GRUBBER_MESSAGE = `${RESET}${GREEN}A leech of the mines surfaces... you've caught a Medium Mithril Grubber.${RESET}`;
 export const LARGE_MITHRIL_GRUBBER_MESSAGE = `${RESET}${GREEN}A leech of the mines surfaces... you've caught a Large Mithril Grubber.${RESET}`;
@@ -136,6 +137,9 @@ export const WORKSHOP_CLOSING_MESSAGE = `${RESET}${RED}[Important] ${RESET}${YEL
 
 export const GOOD_CATCH_ICE_ESSENCE_MESSAGE = `${RESET}${GOLD}${BOLD}GOOD CATCH! ${RESET}${AQUA}You found ${RESET}${AQUA}` + "${count}" + ` Ice Essence${RESET}${AQUA}.${RESET}`; // &r&6&lGOOD CATCH! &r&bYou found &r&b70 Ice Essence&r&b.&r
 export const GREAT_CATCH_ICE_ESSENCE_MESSAGE = `${RESET}${DARK_PURPLE}${BOLD}GREAT CATCH! ${RESET}${AQUA}You found ${RESET}${AQUA}` + "${count}" + ` Ice Essence${RESET}${AQUA}.${RESET}`;
+
+export const USE_BAITS_FROM_FISHING_BAG_DISABLED = `${RESET}${RED}Use Baits From Bag is now disabled!${RESET}`;
+export const USE_BAITS_FROM_FISHING_BAG_ENABLED = `${RESET}${GREEN}Use Baits From Bag is now enabled!${RESET}`;
 
 export const ALL_CATCHES_TRIGGERS = [
     // WATER SEA CREATURES

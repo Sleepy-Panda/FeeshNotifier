@@ -5,10 +5,9 @@ import { overlayCoordsData } from "../../data/overlayCoords";
 import { CRIMSON_ISLE, JERRY_WORKSHOP, KUUDRA } from "../../constants/areas";
 import { FISHING_PROFIT_ITEMS } from "../../constants/fishingProfitItems";
 import { AQUA, BOLD, GOLD, GRAY, RESET, WHITE, YELLOW, RED, GREEN, BLUE } from "../../constants/formatting";
-import { EntityFishHook } from "../../constants/javaTypes";
 import { getAuctionItemPrices, getPetRarityCode } from "../../utils/auctionPrices";
 import { getBazaarItemPrices } from "../../utils/bazaarPrices";
-import { formatElapsedTime, getCleanItemName, getItemsAddedToSacks, getLore, isFishingRod, isInChatOrInventoryGui, isInSacksGui, isInSupercraftGui, splitArray, toShortNumber } from "../../utils/common";
+import { formatElapsedTime, getCleanItemName, getItemsAddedToSacks, getLore, isFishingHookActive, isInChatOrInventoryGui, isInSacksGui, isInSupercraftGui, splitArray, toShortNumber } from "../../utils/common";
 import { getLastGuisClosed, getLastKatUpgrade, getWorldName, hasFishingRodInHotbar, isInSkyblock } from "../../utils/playerState";
 import { playRareDropSound } from '../../utils/sound';
 
@@ -191,23 +190,9 @@ function activateSessionOnPlayersFishingHook() {
             return;
         }
     
-        const playerHook = World.getAllEntitiesOfType(EntityFishHook).find(e => Player.getPlayer().field_71104_cf == e.getEntity()); // field_71104_cf = fishEntity
-        if (!playerHook) {
-            return;
-        }
-    
-        const heldItem = Player.getHeldItem();
-        if (!isFishingRod(heldItem)) {
-            return;
-        }
+        const isHookActive = isFishingHookActive();
 
-        if (playerHook.isInWater() || playerHook.isInLava()) { // For rods, the player's hook must be in lava or water
-            activateTimer();
-            return;
-        }
-
-        const isDirtRod = heldItem?.getName()?.includes('Dirt Rod');
-        if (isDirtRod) { // For dirt rod, the player's hook can be in dirt
+        if (isHookActive) {
             activateTimer();
         }
     } catch (e) {
