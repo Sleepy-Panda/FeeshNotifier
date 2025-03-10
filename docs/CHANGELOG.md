@@ -6,6 +6,8 @@ Released: ???
 
 Features:
 
+- Added alert when Spirit Mask is back after being activated [disabled by default].
+
 Bugfixes:
 
 ## v1.29.0
