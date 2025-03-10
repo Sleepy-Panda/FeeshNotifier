@@ -15,6 +15,7 @@ import "./features/alerts/alertOnChumBucketAutopickup";
 import "./features/alerts/alertOnThunderBottleCharged";
 import "./features/alerts/alertOnSpiritMaskUsed";
 import "./features/alerts/alertOnGoldenFish";
+import "./features/alerts/alertOnFishingBagDisabled";
 
 import "./features/overlays/rareCatchesTracker";
 import "./features/overlays/totemTracker";
@@ -26,6 +27,7 @@ import "./features/overlays/crimsonIsleTracker";
 import "./features/overlays/jerryWorkshopTracker";
 import "./features/overlays/wormMembraneProfitTracker";
 import "./features/overlays/magmaCoreProfitTracker";
+import "./features/overlays/abandonedQuarryTracker";
 import "./features/overlays/fishingProfitTracker";
 
 import "./features/inventory/highlightCheapBooks";

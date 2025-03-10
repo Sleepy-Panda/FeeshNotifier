@@ -1,5 +1,6 @@
 import { RED, DARK_GRAY, BLUE, WHITE, BOLD, RESET } from '../constants/formatting';
 import { NBTTagString } from '../constants/javaTypes';
+import { EntityFishHook, NBTTagString } from '../constants/javaTypes';
 import { DOUBLE_HOOK_MESSAGES } from '../constants/triggers';
 
 // Double hook reindrakes may produce the following messages history:
@@ -294,9 +295,36 @@ export function getCleanItemName(itemName) {
  * @returns {boolean}
  */
 export function isFishingRod(item) {
-	if (!item) return;
+	if (!item) return false;
     const isRod = (!item.getName()?.includes('Carnival Rod') && getLore(item).some(loreLine => loreLine.includes('FISHING ROD') || loreLine.includes('FISHING WEAPON')));
 	return isRod;
+}
+
+/**
+ * Checks if a fishing rod is casted (fishing hook is in water or lava).
+ * @returns {boolean}
+ */
+export function isFishingHookActive() {
+	const heldItem = Player?.getHeldItem();
+    if (!isFishingRod(heldItem)) {
+        return false;
+    }
+
+	const playerHook = World.getAllEntitiesOfType(EntityFishHook).find(e => Player.getPlayer().field_71104_cf == e.getEntity()); // field_71104_cf = fishEntity
+	if (!playerHook) {
+		return false;
+	}
+
+    if (playerHook.isInWater() || playerHook.isInLava()) { // For regular rods, the player's hook must be in lava or water
+        return true;
+    }
+
+    const isDirtRod = heldItem?.getName()?.includes('Dirt Rod');
+    if (isDirtRod) { // For dirt rod, the player's hook can be in dirt
+        return true;
+    }
+
+	return false;
 }
 
 /**

@@ -1,9 +1,11 @@
 import { isFishingRod } from "./common";
 
 var isInSkyblock = false;
+var worldName = null;
+var zoneName = null;
+
 var hasFishingRodInHotbar = false;
 var hasDirtRodInHand = false;
-var worldName = null;
 var isInHunterArmor = false;
 
 var lastKatUpgrade = {
@@ -19,6 +21,7 @@ var lastGuisClosed = {
 	lastOdgerGuiClosedAt: null,
 	lastAuctionGuiClosedAt: null,
 	lastBazaarGuiClosedAt: null,
+	lastHotmGuiClosedAt: null,
 };
 
 register('step', () => trackPlayerState()).setFps(2);
@@ -27,6 +30,7 @@ function trackPlayerState() {
 	try {
 		setIsInSkyblock();
 		setWorldName();
+		setZoneName();
 		setHasFishingRodInHotbar();
 		setHasDirtRodInHand();
 		setIsInHunterArmor();	
@@ -60,6 +64,8 @@ register("guiClosed", (gui) => {
 		lastGuisClosed.lastStorageGuiClosedAt = new Date();
 	}  else if (chestName.includes('Bazaar Orders') || chestName.includes('Order options') || chestName.includes('Instant Buy')) {
         lastGuisClosed.lastBazaarGuiClosedAt = new Date();
+    } else if (chestName.includes('Heart of the Mountain')) { // Heart of the Mountain, Reset Heart of the Mountain (5)
+        lastGuisClosed.lastHotmGuiClosedAt = new Date();
     }
 });
 
@@ -81,6 +87,10 @@ export function isInSkyblock() {
 
 export function getWorldName() {
 	return worldName;
+}
+
+export function getZoneName() {
+	return zoneName;
 }
 
 export function hasFishingRodInHotbar() {
@@ -120,6 +130,21 @@ function setWorldName() {
 	} else {
 		const formattedName = world.removeFormatting();
 		worldName = formattedName.substring(formattedName.indexOf(': ') + 2);
+	}
+}
+
+function setZoneName() {
+	if (!isInSkyblock || !worldName) {
+		zoneName = null;
+		return;
+	}
+	
+	const zone = Scoreboard.getLines().find((line) => line.getName().includes('⏣'));
+	if (!zone) {
+		zoneName = null;
+	} else {
+		const plainName = zone.getName()?.removeFormatting();
+		zoneName = plainName?.replace(/[^\u0000-\u007F]/g, '')?.trim(); // Abandoned🐍 Quarry
 	}
 }
 

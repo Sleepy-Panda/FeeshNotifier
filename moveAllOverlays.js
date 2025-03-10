@@ -100,7 +100,7 @@ ${GRAY}Baby Yeti pets: ${GOLD}3 ${DARK_PURPLE}7`,
         toggleSettingKey: 'wormProfitTrackerOverlay',
         guiSettings: overlayCoordsData.wormProfitTrackerOverlay,
         sampleText:
-`${AQUA}${YELLOW}Worm profit tracker
+`${YELLOW}${BOLD}Worm profit tracker
 ${GREEN}Total worms: ${WHITE}3 172
 ${GREEN}Total membranes: ${WHITE}1 574
 ${GOLD}Total coins (sell offer): ${WHITE}109.7m
@@ -120,7 +120,7 @@ ${AQUA}Elapsed time: ${WHITE}3:17:26`,
         toggleSettingKey: 'magmaCoreProfitTrackerOverlay',
         guiSettings: overlayCoordsData.magmaCoreProfitTrackerOverlay,
         sampleText:
-`${AQUA}${YELLOW}Magma Core profit tracker
+`${YELLOW}${BOLD}Magma Core profit tracker
 ${GREEN}Total sea creatures caught: ${WHITE}1 106
 ${BLUE}Total magma cores: ${WHITE}20
 ${GOLD}Total coins (sell offer): ${WHITE}41.3m
@@ -132,6 +132,23 @@ ${GOLD}Coins/h (sell offer): ${WHITE}33m
 ${GOLD}Coins/h (insta-sell): ${WHITE}28.8m
 
 ${AQUA}Elapsed time: ${WHITE}1:11:13`,
+        isActive: false,
+        width: 0,
+        height: 0
+    },
+    {
+        toggleSettingKey: 'abandonedQuarryTrackerOverlay',
+        guiSettings: overlayCoordsData.abandonedQuarryTrackerOverlay,
+        sampleText:
+`${YELLOW}${BOLD}Abandoned Quarry tracker
+${GREEN}Total Mithril Grubbers caught: ${WHITE}13 ${GRAY}(${WHITE}6 2 3 2${GRAY})
+${GREEN}Total Mithril Powder: ${WHITE}23 250 ${GRAY}[+750 last added]
+${GREEN}Avg Mithril Powder per catch: ${WHITE}1 000
+
+${GREEN}Mithril Grubbers caught/h: ${WHITE}238
+${GREEN}Mithril Powder/h: ${WHITE}427 000
+
+${AQUA}Elapsed time: ${WHITE}3:16`,
         isActive: false,
         width: 0,
         height: 0
