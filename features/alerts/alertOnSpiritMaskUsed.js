@@ -1,7 +1,7 @@
 import settings from "../../settings";
 import * as triggers from '../../constants/triggers';
 import { OFF_SOUND_MODE } from "../../constants/sounds";
-import { GOLD, WHITE, YELLOW } from "../../constants/formatting";
+import { DARK_PURPLE, GOLD, GREEN, WHITE, YELLOW } from "../../constants/formatting";
 import { isInSkyblock } from "../../utils/playerState";
 
 register(
@@ -32,8 +32,8 @@ function playAlertOnSpiritMaskUsed() {
 
 function playAlertOnSpiritMaskBack() {
 	try {
-		ChatLib.chat(`${GOLD}[FeeshNotifier] ${WHITE}Spirit Mask is ready!`);
-		Client.showTitle(`${YELLOW}Spirit Mask ready`, '', 1, 30, 1);
+		ChatLib.chat(`${GOLD}[FeeshNotifier] ${DARK_PURPLE}Spirit Mask ${WHITE}is ready!`);
+		Client.showTitle(`${GREEN}Spirit Mask ready`, '', 1, 30, 1);
 	
 		if (settings.soundMode !== OFF_SOUND_MODE) {
             World.playSound('random.orb', 1, 1);
