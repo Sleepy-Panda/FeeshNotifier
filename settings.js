@@ -1231,6 +1231,14 @@ ${RED}Hidden if you have no fishing rod in your hotbar!`,
     showRarityUpgrade = false;
 
     @SwitchProperty({
+        name: "Exp Boost percentage",
+        description: `Render percentage for Exp Boost items.`,
+        category: "Inventory",
+        subcategory: "Item tooltip"
+    })
+    showExpBoostPercentage = false;
+
+    @SwitchProperty({
         name: "Caught trophy fish rarities",
         description: `Render caught trophy fish rarities in Odger's Trophy Fishing GUI.`,
         category: "Inventory",
