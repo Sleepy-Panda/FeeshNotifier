@@ -1,6 +1,6 @@
 import Settings from "../Amaterasu/core/Settings";
 import DefaultConfig from "../Amaterasu/core/DefaultConfig";
-import { AQUA, GOLD, GRAY, RED, WHITE, BLUE, DARK_GRAY, RESET } from "./constants/formatting";
+import { AQUA, GOLD, GRAY, RED, WHITE, BLUE, DARK_GRAY, RESET, BOLD } from "./constants/formatting";
 
 export const allOverlaysGui = new Gui(); // Sample overlays GUI to move/resize them all at once
 
@@ -17,6 +17,7 @@ export const magmaCoreProfitTrackerOverlayGui = new Gui();
 export const abandonedQuarryTrackerOverlayGui = new Gui();
 export const fishingProfitTrackerOverlayGui = new Gui();
 
+const categories = ["General", "Chat", "Alerts", "Overlays", "Items and storages", "Commands"]
 const config = new DefaultConfig("FeeshNotifier", "config/settings.json")
 
 .addButton({
@@ -1059,8 +1060,7 @@ Example: /feeshSetRadioactiveVials 5 2024-03-18T14:05:00Z`,
     configName: "fishingProfitTrackerOverlay",
     title: "Fishing profit tracker",
     description: `
-Shows an overlay with your profits per fishing session.
-${DARK_GRAY}For this to work, make sure to enable Settings - Personal -> Chat Feedback -> Sack Notifications in Skyblock.
+Shows an overlay with your profits per fishing session. For this to work, make sure to enable Settings - Personal -> Chat Feedback -> Sack Notifications in Skyblock.
 ${GRAY}Do ${AQUA}/feeshResetProfitTracker${GRAY} to reset.
 ${RED}Hidden if you have no fishing rod in your hotbar!`,
     subcategory: "Fishing profit tracker",
@@ -1137,14 +1137,14 @@ ${RED}Hidden if you have no fishing rod in your hotbar!`,
 })
 
 .addSwitch({
-    category: "Inventory",
+    category: "Items and storages",
     configName: "highlightCheapBooks",
     title: "Highlight cheap enchanted books",
-    description: `Use red background for the fishing enchanted books that are worth nothing (e.g. Corruption), when they are in your inventory and storages. ${DARK_GRAY}For people who accidentally throw away Blessing and Prosperity c:`,
+    description: `Use red background for the fishing enchanted books that are worth nothing (e.g. Corruption), when they are in your inventory and storages.`,
     subcategory: "Item background"
 })
 .addSwitch({
-    category: "Inventory",
+    category: "Items and storages",
     configName: "highlightMatchingItemsInAttributeFusion",
     title: "Highlight matching items in Attribute Fusion",
     description: "Highlight matching items with the same attribute tier, when combining the gear / attribute shards in the Attribute Fusion menu.",
@@ -1152,35 +1152,35 @@ ${RED}Hidden if you have no fishing rod in your hotbar!`,
 })
 
 .addSwitch({
-    category: "Inventory",
+    category: "Items and storages",
     configName: "showThunderBottleProgress",
     title: "Thunder bottle charge progress",
     description: "Render Thunder / Storm / Hurricane bottle charge progress (percentage).",
     subcategory: "Item icon"
 })
 .addSwitch({
-    category: "Inventory",
+    category: "Items and storages",
     configName: "showPetLevel",
     title: "Pet level",
     description: "Render pet rarity and level.",
     subcategory: "Item icon"
 })
 .addSwitch({
-    category: "Inventory",
+    category: "Items and storages",
     configName: "showRarityUpgrade",
     title: "Rarity upgrade",
     description: "Render rarity upgrade for recombobulated fishing items (autorecombobulator).",
     subcategory: "Item icon"
 })
 .addSwitch({
-    category: "Inventory",
+    category: "Items and storages",
     configName: "showExpBoostPercentage",
     title: "Exp Boost percentage",
     description: "Render percentage for Exp Boost items.",
     subcategory: "Item icon"
 })
 .addSwitch({
-    category: "Inventory",
+    category: "Items and storages",
     configName: "showCaughtTrophyFishRaritiesInOdger",
     title: "Caught trophy fish rarities",
     description: "Render caught trophy fish rarities in Odger's Trophy Fishing GUI.",
@@ -1188,63 +1188,63 @@ ${RED}Hidden if you have no fishing rod in your hotbar!`,
 })
 
 .addSwitch({
-    category: "Inventory",
+    category: "Items and storages",
     configName: "showFishingArmorAttributes",
     title: "Armor attributes",
     description: "Render attribute name and level as short abbreviations, for Thunder/Magma Lord/Lava Sea Creature armor and equipment.",
-    subcategory: "Armor attributes"
+    subcategory: "Attributes"
 })
 .addTextInput({
-    category: "Inventory",
+    category: "Items and storages",
     configName: "accentedFishingArmorAttributes",
     title: "Accented armor attributes",
     description: "Render attributes from this list using another color. Use lower_case_with_underscore to specify an attribute code, and comma as a separator to specify multiple.",
     value: "blazing_fortune,magic_find,fishing_experience",
     placeHolder: "",
-    subcategory: "Armor attributes"
+    subcategory: "Attributes"
 })
 .addSwitch({
-    category: "Inventory",
+    category: "Items and storages",
     configName: "showCrimsonArmorAttributes",
     title: "Crimson armor / equipment attributes",
     description: "Render attribute name and level as short abbreviations, for different crimson/kuudra armors and equipment.",
-    subcategory: "Armor attributes"
+    subcategory: "Attributes"
 })
 .addTextInput({
-    category: "Inventory",
+    category: "Items and storages",
     configName: "accentedCrimsonArmorAttributes",
     title: "Accented crimson armor / equipment attributes",
     description: "Render attributes from this list using another color. Use lower_case_with_underscore to specify an attribute code, and comma as a separator to specify multiple.",
     value: "magic_find,veteran,vitality,dominance,mana_pool,mana_regeneration,lifeline",
     placeHolder: "",
-    subcategory: "Armor attributes"
+    subcategory: "Attributes"
 })
 .addSwitch({
-    category: "Inventory",
+    category: "Items and storages",
     configName: "showFishingRodAttributes",
     title: "Fishing rod attributes",
     description: "Render fishing rod attribute name and level as short abbreviations.",
-    subcategory: "Fishing rod attributes"
+    subcategory: "Attributes"
 })
 .addTextInput({
-    category: "Inventory",
+    category: "Items and storages",
     configName: "accentedFishingRodAttributes",
     title: "Accented fishing rod attributes",
     description: "Render attributes from this list using another color. Use lower_case_with_underscore to specify an attribute code, and comma as a separator to specify multiple.",
     value: "double_hook,fishing_speed,trophy_hunter",
     placeHolder: "",
-    subcategory: "Fishing rod attributes"
+    subcategory: "Attributes"
 })
 
 .addSwitch({
-    category: "Inventory",
+    category: "Items and storages",
     configName: "showFishingRodExpertiseKills",
     title: "Fishing rod expertise",
     description: "Render expertise kills in fishing rod's lore if it has Expertise enchant.",
     subcategory: "Item lore"
 })
 .addSwitch({
-    category: "Inventory",
+    category: "Items and storages",
     configName: "showPricePerT1Attribute",
     title: "Price per T1 attribute shard",
     description: "Render price per T1 attribute level in the auctioned Attribute Shard's lore, based on item's price. Helps to compare prices for high-tier attribute shards on AH.",
@@ -1282,7 +1282,13 @@ ${RED}Hidden if you have no fishing rod in your hotbar!`,
     }
 })
 
-const setting = new Settings("FeeshNotifier", config, "data/ColorScheme.json", `${AQUA}FeeshNotifier ${WHITE}v${JSON.parse(FileLib.read("FeeshNotifier", "metadata.json")).version}`);
+const setting = new Settings("FeeshNotifier", config, "data/ColorScheme.json", `${AQUA}${BOLD}FeeshNotifier ${RESET}${WHITE}v${JSON.parse(FileLib.read("FeeshNotifier", "metadata.json")).version}`)
+    .setCategorySort((a, b) => categories.indexOf(a.category) - categories.indexOf(b.category))
+    .setPos(0.0001, 0.0001) // Weird but if set to 0 it applies default value = 20 or so
+    .setSize(100, 100)
+    .onOpenGui(() => setting.searchBar._focusSearch())
+    .setClickSound(() => World.playSound("gui.button.press", 0.25, 1))
+    .apply();
 
 export default () => setting.settings;
 
