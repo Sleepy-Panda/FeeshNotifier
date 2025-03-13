@@ -21,6 +21,10 @@ const TRACKED_MOBS = [
         mobShortName: 'Plhlegblast',
     },
     {
+        world: CRIMSON_ISLE,
+        mobShortName: 'Ragnarok',
+    },
+    {
         world: JERRY_WORKSHOP,
         mobShortName: 'Reindrake',
     },
