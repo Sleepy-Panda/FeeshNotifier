@@ -62,7 +62,7 @@ const config = new DefaultConfig("FeeshNotifier", "config/settings.json")
     category: "Chat",
     configName: "messageOnDeath",
     title: "Send a party chat message when you are killed by a Mythic lava creature",
-    description: `${GRAY}Sends a message to the ${BLUE}party chat ${GRAY}when you are killed by Thunder / Lord Jawbus. It enables the alerts for your party members so they can wait for you.`,
+    description: `${GRAY}Sends a message to the ${BLUE}party chat ${GRAY}when you are killed by Thunder / Lord Jawbus / Ragnarok. It enables the alerts for your party members so they can wait for you.`,
     subcategory: "Player's death",
     value: true
 })
@@ -419,7 +419,7 @@ const config = new DefaultConfig("FeeshNotifier", "config/settings.json")
     category: "Alerts",
     configName: "alertOnPartyMemberDeath",
     title: "Alert when a party member was killed by a Mythic lava creature",
-    description: "Shows a title and plays a sound when your party member reports they are killed by Thunder / Lord Jawbus, so the party can wait for them to come back.",
+    description: "Shows a title and plays a sound when your party member reports they are killed by Thunder / Lord Jawbus / Ragnarok, so the party can wait for them to come back.",
     subcategory: "Party member's death",
     value: true
 })

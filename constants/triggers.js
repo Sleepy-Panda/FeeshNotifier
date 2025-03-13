@@ -134,6 +134,7 @@ export const DOUBLE_HOOK_MESSAGES = [ '&r&eIt\'s a &r&aDouble Hook&r&e! Woot woo
 
 export const KILLED_BY_THUNDER_MESSAGE = `${RESET}${GRAY}You were killed by Thunder${RESET}${GRAY}${RESET}${GRAY}.`; // &r&7You were killed by Thunder&r&7&r&7.
 export const KILLED_BY_LORD_JAWBUS_MESSAGE = `${RESET}${GRAY}You were killed by Lord Jawbus${RESET}${GRAY}${RESET}${GRAY}.`; // &r&7You were killed by Lord Jawbus&r&7&r&7.
+export const KILLED_BY_RAGNAROK_MESSAGE = `${RESET}${GRAY}You were killed by Ragnarok${RESET}${GRAY}${RESET}${GRAY}.`; // &r&7You were killed by Ragnarok&r&7&r&7.
 
 export const THUNDER_BOTTLE_CHARGED_MESSAGE = `${RESET}${YELLOW}> Your bottle of thunder has fully charged!`;
 export const STORM_BOTTLE_CHARGED_MESSAGE = `${RESET}${YELLOW}> Your Storm in a Bottle has fully charged!${RESET}`;
@@ -885,6 +886,9 @@ export const KILLED_BY_TRIGGERS = [
     },
     {
         trigger: KILLED_BY_LORD_JAWBUS_MESSAGE
+    },
+    {
+        trigger: KILLED_BY_RAGNAROK_MESSAGE
     },
 ];
 

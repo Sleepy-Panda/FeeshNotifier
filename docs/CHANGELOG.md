@@ -2,21 +2,13 @@
 
 ## v1.31.0
 
-- Settings for TODO - new legs and mythics (rare catches tracker, alert), so far used Ragnarok setting
-- Fishing pet level up prices / + mythic ff
-- Ragnarok HP
-- Killed by ragnarok
-- Share ragnarok loc to ALL CHAT
 - Add new fishing drops to profit tracker, remove old ones
-- Add alerts on ragnarok and Blue Ringed Octopus, Fiery Scuttler, Wiki Tiki
 - Add alerts on new drops?
 - Track catches for Ragnarok in crimson isle tracker, and for 
 - Double hook + short message for all new SC
 - Check treasure messages
-- Count mobs in cap
 - COINS_FISHED_TRIGGERS to work on both new and old versions of SB
 - Ice essense messages?
-- Removed guardian pet from tracker and alerts
 - Glowstone Dust instead of GLowstone
 - Changed colors of good catch and great catch
 - Looking to add a "Hotspot Bait"
@@ -34,7 +26,7 @@ Features:
   - Added new mobs support for compact sea creature catch messages.
   - Display Ragnarok/s HP in Sea Creatures HP tracker.
   - Added option to share Ragnarok's location to ALL chat [disabled by default].
-
+  - Added "killed by Ragnarok" reason to the Player's Death alert.
 
 ## v1.30.0
 
