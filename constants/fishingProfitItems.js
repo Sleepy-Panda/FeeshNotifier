@@ -924,13 +924,6 @@ export const FISHING_PROFIT_ITEMS = [
         shouldAnnounceRareDrop: true,
     },
     {
-        itemId: 'THE_SHREDDER',
-        itemName: 'Shredder',
-        itemDisplayName: `${LEGENDARY}Shredder`,
-        npcPrice: 1000,
-        shouldAnnounceRareDrop: true,
-    },
-    {
         itemId: 'DIVER_FRAGMENT',
         itemName: 'Emperor\'s Skull',
         itemDisplayName: `${RARE}Emperor's Skull`,
@@ -1356,12 +1349,6 @@ export const FISHING_PROFIT_ITEMS = [
         itemName: 'Deep Sea Orb',
         itemDisplayName: `${EPIC}Deep Sea Orb`,
         npcPrice: 0,
-    },
-    {
-        itemId: 'PHANTOM_ROD',
-        itemName: 'Phantom Rod',
-        itemDisplayName: `${LEGENDARY}Phantom Rod`,
-        npcPrice: 1000,
     },
     {
         itemId: 'SOUL_FRAGMENT',
