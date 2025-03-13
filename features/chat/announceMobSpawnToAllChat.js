@@ -6,7 +6,13 @@ import { isInSkyblock } from '../../utils/playerState';
 
 const chatCommand = 'ac';
 
-const mobTriggers = triggers.RARE_CATCH_TRIGGERS.filter(t => t.seaCreature === seaCreatures.THUNDER || t.seaCreature === seaCreatures.LORD_JAWBUS || t.seaCreature === seaCreatures.PLHLEGBLAST || t.seaCreature === seaCreatures.RAGNAROK || t.seaCreature === seaCreatures.VANQUISHER);
+const mobTriggers = triggers.RARE_CATCH_TRIGGERS.filter(t =>
+    t.seaCreature === seaCreatures.THUNDER ||
+    t.seaCreature === seaCreatures.LORD_JAWBUS ||
+    t.seaCreature === seaCreatures.PLHLEGBLAST ||
+    t.seaCreature === seaCreatures.RAGNAROK ||
+    t.seaCreature === seaCreatures.VANQUISHER
+);
 
 mobTriggers.forEach(entry => {
     register(

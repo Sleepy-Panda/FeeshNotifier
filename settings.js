@@ -1,6 +1,6 @@
 import Settings from "../Amaterasu/core/Settings";
 import DefaultConfig from "../Amaterasu/core/DefaultConfig";
-import { AQUA, GOLD, GRAY, RED, WHITE, BLUE, DARK_GRAY, RESET, BOLD } from "./constants/formatting";
+import { AQUA, GOLD, GRAY, RED, WHITE, BLUE, DARK_GRAY, RESET, BOLD, LIGHT_PURPLE } from "./constants/formatting";
 
 export const allOverlaysGui = new Gui(); // Sample overlays GUI to move/resize them all at once
 
@@ -197,14 +197,6 @@ const config = new DefaultConfig("FeeshNotifier", "config/settings.json")
 })
 .addSwitch({
     category: "Chat",
-    configName: "messageOnVanquisherCatch",
-    title: "Send a party chat message on VANQUISHER spawn",
-    description: "",
-    subcategory: "Rare Catches",
-    value: true
-})
-.addSwitch({
-    category: "Chat",
     configName: "messageOnPlhlegblastCatch",
     title: "Send a party chat message on PLHLEGBLAST catch",
     description: "",
@@ -219,6 +211,15 @@ const config = new DefaultConfig("FeeshNotifier", "config/settings.json")
     subcategory: "Rare Catches",
     value: true
 })
+.addSwitch({
+    category: "Chat",
+    configName: "messageOnVanquisherCatch",
+    title: "Send a party chat message on VANQUISHER spawn",
+    description: "",
+    subcategory: "Rare Catches",
+    value: true
+})
+
 .addSwitch({
     category: "Chat",
     configName: "announceToAllChatOnThunderCatch",
@@ -321,6 +322,30 @@ const config = new DefaultConfig("FeeshNotifier", "config/settings.json")
 })
 .addSwitch({
     category: "Chat",
+    configName: "messageOnMagmaCoreDrop",
+    title: "Send a party chat message on MAGMA CORE drop",
+    description: "",
+    subcategory: "Rare Drops",
+    value: true
+})
+.addSwitch({
+    category: "Chat",
+    configName: "messageOnMusicRuneDrop",
+    title: "Send a party chat message on MUSIC RUNE I drop",
+    description: "",
+    subcategory: "Rare Drops",
+    value: true
+})
+.addSwitch({
+    category: "Chat",
+    configName: "messageOnSquidPetDrop",
+    title: "Send a party chat message on SQUID PET drop",
+    description: "",
+    subcategory: "Rare Drops",
+    value: true
+})
+.addSwitch({
+    category: "Chat",
     configName: "messageOnCarmineDyeDrop",
     title: "Send a party chat message on CARMINE DYE drop",
     description: "",
@@ -367,30 +392,7 @@ const config = new DefaultConfig("FeeshNotifier", "config/settings.json")
     subcategory: "Rare Drops",
     value: true
 })
-.addSwitch({
-    category: "Chat",
-    configName: "messageOnMagmaCoreDrop",
-    title: "Send a party chat message on MAGMA CORE drop",
-    description: "",
-    subcategory: "Rare Drops",
-    value: true
-})
-.addSwitch({
-    category: "Chat",
-    configName: "messageOnMusicRuneDrop",
-    title: "Send a party chat message on MUSIC RUNE I drop",
-    description: "",
-    subcategory: "Rare Drops",
-    value: true
-})
-.addSwitch({
-    category: "Chat",
-    configName: "messageOnSquidPetDrop",
-    title: "Send a party chat message on SQUID PET drop",
-    description: "",
-    subcategory: "Rare Drops",
-    value: true
-})
+
 .addSwitch({
     category: "Chat",
     configName: "messageOnRevenantHorrorSpawn",
@@ -489,7 +491,7 @@ const config = new DefaultConfig("FeeshNotifier", "config/settings.json")
     category: "Alerts",
     configName: "alertOnSeaCreaturesCountThreshold",
     title: "Alert when sea creatures count hits threshold",
-    description: `Shows a title and plays a sound when amount of sea creatures nearby hits the specified threshold. ${RED}Disabled if you have no fishing rod in your hotbar!`,
+    description: `Shows a title and plays a sound when amount of sea creatures nearby hits the specified threshold. Useful to detect cap when barn fishing. ${RED}Disabled if you have no fishing rod in your hotbar!`,
     subcategory: "Sea creatures count",
     value: true
 })
@@ -497,7 +499,7 @@ const config = new DefaultConfig("FeeshNotifier", "config/settings.json")
     category: "Alerts",
     configName: "seaCreaturesCountThreshold_Hub",
     title: "Sea creatures count threshold - HUB",
-    description: "Count of sea creatures nearby required to see the alert when you are in the hub. Ignored if the sea creatures count alert is disabled.",
+    description: "Count of sea creatures nearby required to see the alert when you are in the Hub. Ignored if the sea creatures count alert is disabled.",
     options: [5, 60],
     value: 50,
     subcategory: "Sea creatures count"
@@ -675,14 +677,6 @@ const config = new DefaultConfig("FeeshNotifier", "config/settings.json")
 })
 .addSwitch({
     category: "Alerts",
-    configName: "alertOnVanquisherCatch",
-    title: "Alert on VANQUISHER spawn",
-    description: "Shows a title and plays a sound when a rare sea creature has caught by you or your party members.",
-    subcategory: "Rare Catches",
-    value: true
-})
-.addSwitch({
-    category: "Alerts",
     configName: "alertOnPlhlegblastCatch",
     title: "Alert on PLHLEGBLAST catch",
     description: "Shows a title and plays a sound when a rare sea creature has caught by you or your party members.",
@@ -693,6 +687,14 @@ const config = new DefaultConfig("FeeshNotifier", "config/settings.json")
     category: "Alerts",
     configName: "alertOnRagnarokCatch",
     title: "Alert on RAGNAROK catch",
+    description: "Shows a title and plays a sound when a rare sea creature has caught by you or your party members.",
+    subcategory: "Rare Catches",
+    value: true
+})
+.addSwitch({
+    category: "Alerts",
+    configName: "alertOnVanquisherCatch",
+    title: "Alert on VANQUISHER spawn",
     description: "Shows a title and plays a sound when a rare sea creature has caught by you or your party members.",
     subcategory: "Rare Catches",
     value: true
@@ -748,6 +750,30 @@ const config = new DefaultConfig("FeeshNotifier", "config/settings.json")
 })
 .addSwitch({
     category: "Alerts",
+    configName: "alertOnMagmaCoreDrop",
+    title: "Alert on MAGMA CORE drop",
+    description: "Shows a title and plays a sound when a rare item has dropped by you or your party members.",
+    subcategory: "Rare Drops",
+    value: true
+})
+.addSwitch({
+    category: "Alerts",
+    configName: "alertOnMusicRuneDrop",
+    title: "Alert on MUSIC RUNE I drop",
+    description: "Shows a title and plays a sound when a rare item has dropped by you or your party members.",
+    subcategory: "Rare Drops",
+    value: true
+})
+.addSwitch({
+    category: "Alerts",
+    configName: "alertOnSquidPetDrop",
+    title: "Alert on SQUID PET drop",
+    description: "Shows a title and plays a sound when a rare item has dropped by you or your party members.",
+    subcategory: "Rare Drops",
+    value: true
+})
+.addSwitch({
+    category: "Alerts",
     configName: "alertOnCarmineDyeDrop",
     title: "Alert on CARMINE DYE drop",
     description: "Shows a title and plays a sound when a rare item has dropped by you or your party members.",
@@ -790,30 +816,6 @@ const config = new DefaultConfig("FeeshNotifier", "config/settings.json")
     category: "Alerts",
     configName: "alertOnBoneDyeDrop",
     title: "Alert on BONE DYE drop",
-    description: "Shows a title and plays a sound when a rare item has dropped by you or your party members.",
-    subcategory: "Rare Drops",
-    value: true
-})
-.addSwitch({
-    category: "Alerts",
-    configName: "alertOnMagmaCoreDrop",
-    title: "Alert on MAGMA CORE drop",
-    description: "Shows a title and plays a sound when a rare item has dropped by you or your party members.",
-    subcategory: "Rare Drops",
-    value: true
-})
-.addSwitch({
-    category: "Alerts",
-    configName: "alertOnMusicRuneDrop",
-    title: "Alert on MUSIC RUNE I drop",
-    description: "Shows a title and plays a sound when a rare item has dropped by you or your party members.",
-    subcategory: "Rare Drops",
-    value: true
-})
-.addSwitch({
-    category: "Alerts",
-    configName: "alertOnSquidPetDrop",
-    title: "Alert on SQUID PET drop",
     description: "Shows a title and plays a sound when a rare item has dropped by you or your party members.",
     subcategory: "Rare Drops",
     value: true
@@ -992,14 +994,26 @@ const config = new DefaultConfig("FeeshNotifier", "config/settings.json")
     description: `
 Shows an overlay with Thunder / Lord Jawbus catch statistics and Radioactive Vial drop statistics while in the Crimson Isle.
 Do ${AQUA}/feeshResetCrimsonIsle${GRAY} to reset.
-${RED}Hidden if you have no fishing rod in your hotbar!
-
-Do ${AQUA}/feeshSetRadioactiveVials COUNT LAST_ON_UTC_DATE${GRAY} to initialize your vials history:
-  - COUNT is mandatory number.
-  - LAST_ON_UTC_DATE is optional and, if provided, should be in YYYY-MM-DDThh:mm:ssZ format (UTC).
-Example: /feeshSetRadioactiveVials 5 2024-03-18T14:05:00Z`,
+${RED}Hidden if you have no fishing rod in your hotbar!`,
     subcategory: "Crimson Isle tracker",
     value: true
+})
+.addButton({
+    category: "Overlays",
+    configName: "getRadioactiveVialsSetupHelp",
+    title: "Set Radioactive Vials count",
+    description: "Explains how to setup Radioactive Vials count and last drop date.",
+    subcategory: "Crimson Isle tracker",
+    onClick() {
+        ChatLib.chat(`
+${LIGHT_PURPLE}${BOLD}Radioactive Vials setup
+
+Do ${AQUA}/feeshSetRadioactiveVials <COUNT> <LAST_ON_UTC_DATE>${RESET} to initialize your vials history:
+  - <COUNT> is a mandatory number of vials.
+  - <LAST_ON_UTC_DATE> is optional and, if provided, should be in YYYY-MM-DDThh:mm:ssZ format (UTC).
+
+Example: ${AQUA}/feeshSetRadioactiveVials 5 2024-03-18T14:05:00Z`);
+    }
 })
 .addSwitch({
     category: "Overlays",
