@@ -8,6 +8,7 @@ Features:
 - Adapted module to the new fishing update:
   - Removed Guardian Pet alert and profit tracker as it's not obtainable from fishing anymore.
   - Removed Shredder and Phantom Rod from Fishing Profit tracker.
+  - Added Legendary/Mythic Hermit Crab and Mythic Flying Fish to /feeshPetLevelUpPrices command.
 
 
 ## v1.30.0
