@@ -1,4 +1,4 @@
-import { BOLD, DARK_GRAY, GOLD, GREEN, LEGENDARY, RESET } from "../../constants/formatting";
+import { BOLD, DARK_GRAY, GOLD, GREEN, LEGENDARY, MYTHIC, RESET } from "../../constants/formatting";
 import { getAuctionItemPrices, getPetRarityCode } from "../../utils/auctionPrices";
 import { toShortNumber } from "../../utils/common";
 import { isInSkyblock } from "../../utils/playerState";
@@ -11,6 +11,10 @@ const PETS_TO_CHECK = [
     },
     {
         petDisplayName: `${LEGENDARY}Flying Fish`,
+        xpGainMultiplier: 1
+    },
+    {
+        petDisplayName: `${MYTHIC}Flying Fish`,
         xpGainMultiplier: 1
     },
     {
@@ -44,6 +48,14 @@ const PETS_TO_CHECK = [
     {
         petDisplayName: `${LEGENDARY}Reindeer`,
         xpGainMultiplier: 2 // 2x faster to level up
+    },
+    {
+        petDisplayName: `${LEGENDARY}Hermit Crab`,
+        xpGainMultiplier: 1
+    },
+    {
+        petDisplayName: `${MYTHIC}Hermit Crab`,
+        xpGainMultiplier: 1
     },
 ];
 
