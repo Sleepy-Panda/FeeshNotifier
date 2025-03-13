@@ -404,8 +404,8 @@ const config = new DefaultConfig("FeeshNotifier", "config/settings.json")
 .addSwitch({
     category: "Alerts",
     configName: "alertOnTotemExpiresSoon",
-    title: "Alert when player's totem expires soon",
-    description: "Shows a title and plays a sound when current player's totem expires in 10 seconds.",
+    title: "Alert when player's Totem of Corruption expires soon",
+    description: "Shows a title and plays a sound when current player's Totem of Corruption expires in 10 seconds.",
     subcategory: "Totem",
     value: true
 })
@@ -444,7 +444,7 @@ const config = new DefaultConfig("FeeshNotifier", "config/settings.json")
 .addSwitch({
     category: "Alerts",
     configName: "alertOnThunderBottleCharged",
-    title: "Alert when a thunder bottle has fully charged",
+    title: "Alert when a Thunder Bottle has fully charged",
     description: "Shows a title and plays a sound when a Thunder / Storm / Hurricane bottle has fully charged.",
     subcategory: "Thunder bottle",
     value: true
@@ -825,7 +825,7 @@ const config = new DefaultConfig("FeeshNotifier", "config/settings.json")
     category: "Overlays",
     configName: "totemRemainingTimeOverlay",
     title: "Remaining totem time",
-    description: "Shows an overlay with the remaining time of current player's totem of corruption.",
+    description: "Shows an overlay with the remaining time of current player's Totem of Corruption.",
     subcategory: "Totem",
     value: true
 })
@@ -1239,8 +1239,8 @@ ${RED}Hidden if you have no fishing rod in your hotbar!`,
 .addSwitch({
     category: "Items and storages",
     configName: "showThunderBottleProgress",
-    title: "Thunder bottle charge progress",
-    description: "Render Thunder / Storm / Hurricane bottle charge progress (percentage).",
+    title: "Thunder Bottle charge progress",
+    description: "Render Thunder / Storm / Hurricane Bottle charge progress (percentage).",
     subcategory: "Item icon"
 })
 .addSwitch({

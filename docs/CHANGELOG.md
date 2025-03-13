@@ -2,6 +2,7 @@
 
 ## v1.31.0
 
+- Check IDs and NPC prices
 - Add new fishing drops to profit tracker, remove old ones
 - Add alerts on new drops?
 - Track catches for Ragnarok in crimson isle tracker, and for 
@@ -24,7 +25,7 @@ Features:
   - Added new Legendary and Mythic mobs to the alerts and Rare Catches tracker.
   - Count new mobs towards Sea Creatures Count tracker.
   - Added new mobs support for compact sea creature catch messages.
-  - Display Ragnarok/s HP in Sea Creatures HP tracker.
+  - Display Ragnarok's HP in Sea Creatures HP tracker.
   - Added option to share Ragnarok's location to ALL chat [disabled by default].
   - Added "killed by Ragnarok" reason to the Player's Death alert.
 

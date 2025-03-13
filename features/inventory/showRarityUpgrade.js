@@ -37,7 +37,8 @@ function showRarityUpgrade(item, x, y) {
         cleanName.includes('Shredder') ||
         cleanName.includes('Lucky Hoof') ||
         cleanName.includes('Phantom Rod') ||
-        cleanName.includes('Yeti Rod')
+        cleanName.includes('Yeti Rod') ||
+        cleanName.includes('Tiki Mask')
     );
     if (!isFishingItem) {
         return;
