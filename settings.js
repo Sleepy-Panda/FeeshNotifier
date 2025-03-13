@@ -149,6 +149,38 @@ const config = new DefaultConfig("FeeshNotifier", "config/settings.json")
 })
 .addSwitch({
     category: "Chat",
+    configName: "messageOnBlueRingedOctopusCatch",
+    title: "Send a party chat message on BLUE RINGED OCTOPUS catch",
+    description: "",
+    subcategory: "Rare Catches",
+    value: true
+})
+.addSwitch({
+    category: "Chat",
+    configName: "messageOnWikiTikiCatch",
+    title: "Send a party chat message on WIKI TIKI catch",
+    description: "",
+    subcategory: "Rare Catches",
+    value: true
+})
+.addSwitch({
+    category: "Chat",
+    configName: "messageOnTitanoboaCatch",
+    title: "Send a party chat message on TITANOBOA catch",
+    description: "",
+    subcategory: "Rare Catches",
+    value: true
+})
+.addSwitch({
+    category: "Chat",
+    configName: "messageOnFieryScuttlerCatch",
+    title: "Send a party chat message on FIERY SCUTTLER catch",
+    description: "",
+    subcategory: "Rare Catches",
+    value: true
+})
+.addSwitch({
+    category: "Chat",
     configName: "messageOnThunderCatch",
     title: "Send a party chat message on THUNDER catch",
     description: "",
@@ -179,7 +211,14 @@ const config = new DefaultConfig("FeeshNotifier", "config/settings.json")
     subcategory: "Rare Catches",
     value: true
 })
-
+.addSwitch({
+    category: "Chat",
+    configName: "messageOnRagnarokCatch",
+    title: "Send a party chat message on RAGNAROK catch",
+    description: "",
+    subcategory: "Rare Catches",
+    value: true
+})
 .addSwitch({
     category: "Chat",
     configName: "announceToAllChatOnThunderCatch",
@@ -581,6 +620,38 @@ const config = new DefaultConfig("FeeshNotifier", "config/settings.json")
 })
 .addSwitch({
     category: "Alerts",
+    configName: "alertOnBlueRingedOctopusCatch",
+    title: "Alert on BLUE RINGED OCTOPUS catch",
+    description: "Shows a title and plays a sound when a rare sea creature has caught by you or your party members.",
+    subcategory: "Rare Catches",
+    value: true
+})
+.addSwitch({
+    category: "Alerts",
+    configName: "alertOnWikiTikiCatch",
+    title: "Alert on WIKI TIKI catch",
+    description: "Shows a title and plays a sound when a rare sea creature has caught by you or your party members.",
+    subcategory: "Rare Catches",
+    value: true
+})
+.addSwitch({
+    category: "Alerts",
+    configName: "alertOnTitanoboaCatch",
+    title: "Alert on TITANOBOA catch",
+    description: "Shows a title and plays a sound when a rare sea creature has caught by you or your party members.",
+    subcategory: "Rare Catches",
+    value: true
+})
+.addSwitch({
+    category: "Alerts",
+    configName: "alertOnFieryScuttlerCatch",
+    title: "Alert on FIERY SCUTTLER catch",
+    description: "Shows a title and plays a sound when a rare sea creature has caught by you or your party members.",
+    subcategory: "Rare Catches",
+    value: true
+})
+.addSwitch({
+    category: "Alerts",
     configName: "alertOnThunderCatch",
     title: "Alert on THUNDER catch",
     description: "Shows a title and plays a sound when a rare sea creature has caught by you or your party members.",
@@ -607,6 +678,14 @@ const config = new DefaultConfig("FeeshNotifier", "config/settings.json")
     category: "Alerts",
     configName: "alertOnPlhlegblastCatch",
     title: "Alert on PLHLEGBLAST catch",
+    description: "Shows a title and plays a sound when a rare sea creature has caught by you or your party members.",
+    subcategory: "Rare Catches",
+    value: true
+})
+.addSwitch({
+    category: "Alerts",
+    configName: "alertOnRagnarokCatch",
+    title: "Alert on RAGNAROK catch",
     description: "Shows a title and plays a sound when a rare sea creature has caught by you or your party members.",
     subcategory: "Rare Catches",
     value: true
@@ -811,7 +890,7 @@ const config = new DefaultConfig("FeeshNotifier", "config/settings.json")
     category: "Overlays",
     configName: "seaCreaturesHpOverlay",
     title: "Sea creatures HP",
-    description: `Shows an overlay with the HP of nearby Thunder / Lord Jawbus / Plhlegblast / Reindrake / Yeti when they're in lootshare range. ${RED}Hidden if you have no fishing rod in your hotbar!`,
+    description: `Shows an overlay with the HP of nearby Thunder / Lord Jawbus / Plhlegblast / Ragnarok / Reindrake / Yeti when they're in lootshare range. ${RED}Hidden if you have no fishing rod in your hotbar!`,
     subcategory: "Sea creatures HP",
     value: true
 })

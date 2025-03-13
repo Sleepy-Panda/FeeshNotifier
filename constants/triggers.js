@@ -47,10 +47,8 @@ export const WEREWOLF_MESSAGE = `${GREEN}It must be a full moon, a Werewolf appe
 
 // CRIMSON ISLE SEA CREATURES
 
-export const THUNDER_MESSAGE = `${RESET}${RED}${BOLD}You hear a massive rumble as Thunder emerges.`; // &r&c&lYou hear a massive rumble as Thunder emerges.
-export const LORD_JAWBUS_MESSAGE = `${RESET}${RED}${BOLD}You have angered a legendary creature... Lord Jawbus has arrived.`; // &r&c&lYou have angered a legendary creature... Lord Jawbus has arrived.
-export const PLHLEGBLAST_MESSAGE = `${GREEN}WOAH! A Plhlegblast appeared.`;
-export const VANQUISHER_MESSAGE = `A ${RESET}${RED}Vanquisher ${RESET}${GREEN}is spawning nearby!`; // A &r&cVanquisher &r&ais spawning nearby!
+export const FRIED_CHICKEN_MESSAGE = `${GREEN}Smells of burning. Must be a Fried Chicken.`;
+export const FIREPROOF_WITCH_MESSAGE = `${GREEN}Trouble's brewing, it's a Fireproof Witch!`;
 export const MAGMA_SLUG_MESSAGE = `${GREEN}From beneath the lava appears a Magma Slug.`;
 export const MOOGMA_MESSAGE = `${GREEN}You hear a faint Moo from the lava... A Moogma appears.`;
 export const LAVA_LEECH_MESSAGE = `${GREEN}A small but fearsome Lava Leech emerges.`;
@@ -58,6 +56,12 @@ export const PYROCLASTIC_WORM_MESSAGE = `${GREEN}You feel the heat radiating as 
 export const LAVA_FLAME_MESSAGE = `${GREEN}A Lava Flame flies out from beneath the lava.`;
 export const FIRE_EEL_MESSAGE = `${GREEN}A Fire Eel slithers out from the depths.`;
 export const TAURUS_MESSAGE = `${GREEN}Taurus and his steed emerge.`;
+export const FIERY_SCUTTLER_MESSAGE = `${GREEN}A Fiery Scuttler inconspicuously waddles up to you, friends in tow.`;
+export const THUNDER_MESSAGE = `${RESET}${RED}${BOLD}You hear a massive rumble as Thunder emerges.`; // &r&c&lYou hear a massive rumble as Thunder emerges.
+export const LORD_JAWBUS_MESSAGE = `${RESET}${RED}${BOLD}You have angered a legendary creature... Lord Jawbus has arrived.`; // &r&c&lYou have angered a legendary creature... Lord Jawbus has arrived.
+export const PLHLEGBLAST_MESSAGE = `${GREEN}WOAH! A Plhlegblast appeared.`;
+export const RAGNAROK_MESSAGE = `${GREEN}Ragnarok appeared.`; // TODO
+export const VANQUISHER_MESSAGE = `A ${RESET}${RED}Vanquisher ${RESET}${GREEN}is spawning nearby!`; // A &r&cVanquisher &r&ais spawning nearby!
 
 // OASIS SEA CREATURES
 
@@ -80,6 +84,19 @@ export const SMALL_MITHRIL_GRUBBER_MESSAGE = `${RESET}${GREEN}A leech of the min
 export const MEDIUM_MITHRIL_GRUBBER_MESSAGE = `${RESET}${GREEN}A leech of the mines surfaces... you've caught a Medium Mithril Grubber.${RESET}`;
 export const LARGE_MITHRIL_GRUBBER_MESSAGE = `${RESET}${GREEN}A leech of the mines surfaces... you've caught a Large Mithril Grubber.${RESET}`;
 export const BLOATED_MITHRIL_GRUBBER_MESSAGE = `${RESET}${GREEN}A leech of the mines surfaces... you've caught a Bloated Mithril Grubber.${RESET}`;
+
+// BACKWATER BAYOU SEA CREATURES
+
+export const FROG_MAN_MESSAGE = `${RESET}${GREEN}Is it a frog? Is it a man? Well, yes, sorta, IT'S FROG MAN!!!!!!${RESET}`;
+export const TRASH_GOBBLER_MESSAGE = `${RESET}${GREEN}The Trash Gobbler is hungry for you!${RESET}`;
+export const DUMPSTER_DIVER_MESSAGE = `${RESET}${GREEN}A Dumpster Diver has emerged from the swamp!${RESET}`;
+export const BANSHEE_MESSAGE = `${RESET}${GREEN}The desolate wail of a Banshee breaks the silence.${RESET}`;
+export const SNAPPING_TURTLE_MESSAGE = `${RESET}${GREEN}A Snapping Turtle is coming your way, and it's ANGRY!${RESET}`;
+export const BAYOU_SLUDGE_MESSAGE = `${RESET}${GREEN}A swampy mass of slime emerges, the Bayou Sludge!${RESET}`;
+export const ALLIGATOR_MESSAGE = `${RESET}${GREEN}A long snout breaks the surface of the water. It's an Alligator!${RESET}`;
+export const TITANOBOA_MESSAGE = `${RESET}${GREEN}Titanoboa`; // TODO
+export const BLUE_RINGED_OCTOPUS_MESSAGE = `${RESET}${GREEN}A garish set of tentacles arise. It's a Blue Ringed Octopus!${RESET}`; // TODO
+export const WIKI_TIKI_MESSAGE = `${RESET}${RED}${RESET}${RED}${BOLD}The water bubbles and froths. A massive form emerges- you have disturbed the Wiki Tiki! You shall pay the price.${RESET}`;
 
 // DROPS
 
@@ -292,19 +309,14 @@ export const ALL_CATCHES_TRIGGERS = [
     },
     // CRIMSON ISLE SEA CREATURES
     {
-        trigger: THUNDER_MESSAGE,
-        seaCreature: `Thunder`,
-        rarityColorCode: MYTHIC,
+        trigger: FRIED_CHICKEN_MESSAGE,
+        seaCreature: `Fried Chicken`,
+        rarityColorCode: COMMON,
     },
     {
-        trigger: LORD_JAWBUS_MESSAGE,
-        seaCreature: `Lord Jawbus`,
-        rarityColorCode: MYTHIC,
-    },
-    {
-        trigger: PLHLEGBLAST_MESSAGE,
-        seaCreature: `Plhlegblast`,
-        rarityColorCode: LEGENDARY,
+        trigger: FIREPROOF_WITCH_MESSAGE,
+        seaCreature: `Fireproof Witch`,
+        rarityColorCode: RARE,
     },
     {
         trigger: MAGMA_SLUG_MESSAGE,
@@ -340,6 +352,31 @@ export const ALL_CATCHES_TRIGGERS = [
         trigger: TAURUS_MESSAGE,
         seaCreature: `Taurus`,
         rarityColorCode: EPIC,
+    },
+    {
+        trigger: FIERY_SCUTTLER_MESSAGE,
+        seaCreature: `Fiery Scuttler`,
+        rarityColorCode: LEGENDARY,
+    },
+    {
+        trigger: THUNDER_MESSAGE,
+        seaCreature: `Thunder`,
+        rarityColorCode: MYTHIC,
+    },
+    {
+        trigger: LORD_JAWBUS_MESSAGE,
+        seaCreature: `Lord Jawbus`,
+        rarityColorCode: MYTHIC,
+    },
+    {
+        trigger: PLHLEGBLAST_MESSAGE,
+        seaCreature: `Plhlegblast`,
+        rarityColorCode: MYTHIC,
+    },
+    {
+        trigger: RAGNAROK_MESSAGE,
+        seaCreature: `Ragnarok`,
+        rarityColorCode: MYTHIC,
     },
     // OASIS SEA CREATURES
     {
@@ -408,6 +445,57 @@ export const ALL_CATCHES_TRIGGERS = [
         trigger: BLOATED_MITHRIL_GRUBBER_MESSAGE,
         seaCreature: `Bloated Mithril Grubber`,
         rarityColorCode: UNCOMMON,
+    },
+    // BACKWATER BAYOU SEA CREATURES
+    {
+        trigger: FROG_MAN_MESSAGE,
+        seaCreature: `Frog Man`,
+        rarityColorCode: COMMON,
+    },
+    {
+        trigger: TRASH_GOBBLER_MESSAGE,
+        seaCreature: `Trash Gobbler`,
+        rarityColorCode: COMMON,
+    },
+    {
+        trigger: DUMPSTER_DIVER_MESSAGE,
+        seaCreature: `Dumpster Diver`,
+        rarityColorCode: UNCOMMON,
+    },
+    {
+        trigger: BANSHEE_MESSAGE,
+        seaCreature: `Banshee`,
+        rarityColorCode: RARE,
+    },
+    {
+        trigger: SNAPPING_TURTLE_MESSAGE,
+        seaCreature: `Snapping Turtle`,
+        rarityColorCode: RARE,
+    },
+    {
+        trigger: BAYOU_SLUDGE_MESSAGE,
+        seaCreature: `Bayou Sludge`,
+        rarityColorCode: RARE,
+    },
+    {
+        trigger: ALLIGATOR_MESSAGE,
+        seaCreature: `Alligator`,
+        rarityColorCode: RARE,
+    },
+    {
+        trigger: BLUE_RINGED_OCTOPUS_MESSAGE,
+        seaCreature: `Blue Ringed Octopus`,
+        rarityColorCode: LEGENDARY,
+    },
+    {
+        trigger: WIKI_TIKI_MESSAGE,
+        seaCreature: `Wiki Tiki`,
+        rarityColorCode: MYTHIC,
+    },
+    {
+        trigger: TITANOBOA_MESSAGE,
+        seaCreature: `Titanoboa`,
+        rarityColorCode: MYTHIC,
     },
 ];
 
@@ -483,6 +571,34 @@ export const RARE_CATCH_TRIGGERS = [
         rarityColorCode: LEGENDARY
     },
     {
+        trigger: BLUE_RINGED_OCTOPUS_MESSAGE,
+        seaCreature: seaCreatures.BLUE_RINGED_OCTOPUS,
+        isMessageEnabledSettingKey: 'messageOnBlueRingedOctopusCatch',
+        isAlertEnabledSettingKey: 'alertOnBlueRingedOctopusCatch',
+        rarityColorCode: LEGENDARY
+    },
+    {
+        trigger: WIKI_TIKI_MESSAGE,
+        seaCreature: seaCreatures.WIKI_TIKI,
+        isMessageEnabledSettingKey: 'messageOnWikiTikiCatch',
+        isAlertEnabledSettingKey: 'alertOnWikiTikiCatch',
+        rarityColorCode: MYTHIC
+    },
+    {
+        trigger: TITANOBOA_MESSAGE,
+        seaCreature: seaCreatures.TITANOBOA,
+        isMessageEnabledSettingKey: 'messageOnTitanoboaCatch',
+        isAlertEnabledSettingKey: 'alertOnTitanoboaCatch',
+        rarityColorCode: MYTHIC
+    },
+    {
+        trigger: FIERY_SCUTTLER_MESSAGE,
+        seaCreature: seaCreatures.FIERY_SCUTTLER,
+        isMessageEnabledSettingKey: 'messageOnFieryScuttlerCatch',
+        isAlertEnabledSettingKey: 'alertOnFieryScuttlerCatch',
+        rarityColorCode: LEGENDARY
+    },
+    {
         trigger: THUNDER_MESSAGE,
         seaCreature: seaCreatures.THUNDER,
         isMessageEnabledSettingKey: 'messageOnThunderCatch',
@@ -504,7 +620,15 @@ export const RARE_CATCH_TRIGGERS = [
         isMessageEnabledSettingKey: 'messageOnPlhlegblastCatch',
         isAlertEnabledSettingKey: 'alertOnPlhlegblastCatch',
         isAnnounceToAllChatEnabledSettingKey: 'announceToAllChatOnPlhlegblastCatch',
-        rarityColorCode: LEGENDARY
+        rarityColorCode: MYTHIC
+    },
+    {
+        trigger: RAGNAROK_MESSAGE,
+        seaCreature: seaCreatures.RAGNAROK,
+        isMessageEnabledSettingKey: 'messageOnRagnarokCatch',
+        isAlertEnabledSettingKey: 'alertOnRagnarokCatch',
+        isAnnounceToAllChatEnabledSettingKey: 'announceToAllChatOnRagnarokCatch',
+        rarityColorCode: MYTHIC
     },
     {
         trigger: VANQUISHER_MESSAGE,
@@ -789,6 +913,18 @@ export const REGULAR_CRIMSON_CATCH_TRIGGERS = [
     },
     {
         trigger: PLHLEGBLAST_MESSAGE
+    },
+    {
+        trigger: RAGNAROK_MESSAGE
+    },
+    {
+        trigger: FRIED_CHICKEN_MESSAGE
+    },
+    {
+        trigger: FIREPROOF_WITCH_MESSAGE
+    },
+    {
+        trigger: FIERY_SCUTTLER_MESSAGE
     },
 ];
 
