@@ -1060,7 +1060,8 @@ Example: /feeshSetRadioactiveVials 5 2024-03-18T14:05:00Z`,
     configName: "fishingProfitTrackerOverlay",
     title: "Fishing profit tracker",
     description: `
-Shows an overlay with your profits per fishing session. For this to work, make sure to enable Settings - Personal -> Chat Feedback -> Sack Notifications in Skyblock.
+Shows an overlay with your profits per fishing session.
+${DARK_GRAY}For this to work, make sure to enable Settings - Personal -> Chat Feedback -> Sack Notifications in Skyblock.
 ${GRAY}Do ${AQUA}/feeshResetProfitTracker${GRAY} to reset.
 ${RED}Hidden if you have no fishing rod in your hotbar!`,
     subcategory: "Fishing profit tracker",
