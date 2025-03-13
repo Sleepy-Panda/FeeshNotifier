@@ -111,12 +111,6 @@ export const SQUID_PET_RARE_MESSAGE = `${DARK_PURPLE}${BOLD}GREAT CATCH! ${RESET
 export const SQUID_PET_UNCOMMON_MESSAGE = `${DARK_PURPLE}${BOLD}GREAT CATCH! ${RESET}${AQUA}You found a ${RESET}${GRAY}[Lvl 1] ${RESET}${GREEN}Squid${RESET}${AQUA}.${RESET}`;
 export const SQUID_PET_COMMON_MESSAGE = `${DARK_PURPLE}${BOLD}GREAT CATCH! ${RESET}${AQUA}You found a ${RESET}${GRAY}[Lvl 1] ${RESET}${WHITE}Squid${RESET}${AQUA}.${RESET}`;
 
-export const GUARDIAN_PET_LEG_MESSAGE = `${DARK_PURPLE}${BOLD}GREAT CATCH! ${RESET}${AQUA}You found a ${RESET}${GRAY}[Lvl 1] ${RESET}${GOLD}Guardian${RESET}${AQUA}.${RESET}`;
-export const GUARDIAN_PET_EPIC_MESSAGE = `${DARK_PURPLE}${BOLD}GREAT CATCH! ${RESET}${AQUA}You found a ${RESET}${GRAY}[Lvl 1] ${RESET}${DARK_PURPLE}Guardian${RESET}${AQUA}.${RESET}`;
-export const GUARDIAN_PET_RARE_MESSAGE = `${DARK_PURPLE}${BOLD}GREAT CATCH! ${RESET}${AQUA}You found a ${RESET}${GRAY}[Lvl 1] ${RESET}${BLUE}Guardian${RESET}${AQUA}.${RESET}`;
-export const GUARDIAN_PET_UNCOMMON_MESSAGE = `${DARK_PURPLE}${BOLD}GREAT CATCH! ${RESET}${AQUA}You found a ${RESET}${GRAY}[Lvl 1] ${RESET}${GREEN}Guardian${RESET}${AQUA}.${RESET}`;
-export const GUARDIAN_PET_COMMON_MESSAGE = `${DARK_PURPLE}${BOLD}GREAT CATCH! ${RESET}${AQUA}You found a ${RESET}${GRAY}[Lvl 1] ${RESET}${WHITE}Guardian${RESET}${AQUA}.${RESET}`;
-
 // OTHER
 
 export const DOUBLE_HOOK_MESSAGES = [ '&r&eIt\'s a &r&aDouble Hook&r&e! Woot woot!&r', '&r&eIt\'s a &r&aDouble Hook&r&e!&r' ];
@@ -693,57 +687,6 @@ export const OUTSTANDING_CATCH_TRIGGERS = [
         sound: sounds.GOOFY_LAUGH_SOUND_SOURCE,
         isMessageEnabledSettingKey: 'messageOnSquidPetDrop',
         isAlertEnabledSettingKey: 'alertOnSquidPetDrop',
-        rarityColorCode: COMMON,
-        shouldTrackDropNumber: true,
-    },
-
-    {
-        trigger: GUARDIAN_PET_LEG_MESSAGE,
-        itemId: 'GUARDIAN;4',
-        itemName: drops.GUARDIAN_PET + ' (Legendary)',
-        sound: sounds.WOW_SOUND_SOURCE,
-        isMessageEnabledSettingKey: 'messageOnGuardianPetDrop',
-        isAlertEnabledSettingKey: 'alertOnGuardianPetDrop',
-        rarityColorCode: LEGENDARY,
-        shouldTrackDropNumber: true,
-    },
-    {
-        trigger: GUARDIAN_PET_EPIC_MESSAGE,
-        itemId: 'GUARDIAN;3',
-        itemName: drops.GUARDIAN_PET + ' (Epic)',
-        sound: sounds.AUGH_SOUND_SOURCE,
-        isMessageEnabledSettingKey: 'messageOnGuardianPetDrop',
-        isAlertEnabledSettingKey: 'alertOnGuardianPetDrop',
-        rarityColorCode: EPIC,
-        shouldTrackDropNumber: true,
-    },
-    {
-        trigger: GUARDIAN_PET_RARE_MESSAGE,
-        itemId: 'GUARDIAN;2',
-        itemName: drops.GUARDIAN_PET + ' (Rare)',
-        sound: sounds.GOOFY_LAUGH_SOUND_SOURCE,
-        isMessageEnabledSettingKey: 'messageOnGuardianPetDrop',
-        isAlertEnabledSettingKey: 'alertOnGuardianPetDrop',
-        rarityColorCode: RARE,
-        shouldTrackDropNumber: true,
-    },
-    {
-        trigger: GUARDIAN_PET_UNCOMMON_MESSAGE,
-        itemId: 'GUARDIAN;1',
-        itemName: drops.GUARDIAN_PET + ' (Uncommon)',
-        sound: sounds.GOOFY_LAUGH_SOUND_SOURCE,
-        isMessageEnabledSettingKey: 'messageOnGuardianPetDrop',
-        isAlertEnabledSettingKey: 'alertOnGuardianPetDrop',
-        rarityColorCode: UNCOMMON,
-        shouldTrackDropNumber: true,
-    },
-    {
-        trigger: GUARDIAN_PET_COMMON_MESSAGE,
-        itemId: 'GUARDIAN;0',
-        itemName: drops.GUARDIAN_PET + ' (Common)',
-        sound: sounds.GOOFY_LAUGH_SOUND_SOURCE,
-        isMessageEnabledSettingKey: 'messageOnGuardianPetDrop',
-        isAlertEnabledSettingKey: 'alertOnGuardianPetDrop',
         rarityColorCode: COMMON,
         shouldTrackDropNumber: true,
     },

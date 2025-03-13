@@ -1,5 +1,13 @@
 # Releases
 
+## v1.31.0
+
+Released: ???
+
+Features:
+- Adapted module to the new fishing update:
+  - Removed Guardian Pet alert and profit tracker as it's not obtainable from fishing anymore.
+
 ## v1.30.0
 
 Released: ???

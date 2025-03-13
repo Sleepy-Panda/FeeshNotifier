@@ -347,14 +347,6 @@ const config = new DefaultConfig("FeeshNotifier", "config/settings.json")
 })
 .addSwitch({
     category: "Chat",
-    configName: "messageOnGuardianPetDrop",
-    title: "Send a party chat message on GUARDIAN PET drop",
-    description: "",
-    subcategory: "Rare Drops",
-    value: true
-})
-.addSwitch({
-    category: "Chat",
     configName: "messageOnRevenantHorrorSpawn",
     title: "Share the location to the party chat on REVENANT HORROR spawn",
     description: `${GRAY}Sends a message with the coords to the ${BLUE}party chat ${GRAY}when a Revenant Horror is spawned. ${DARK_GRAY}Because we love doing T5s while fishing :)`,
@@ -736,14 +728,6 @@ const config = new DefaultConfig("FeeshNotifier", "config/settings.json")
     category: "Alerts",
     configName: "alertOnSquidPetDrop",
     title: "Alert on SQUID PET drop",
-    description: "Shows a title and plays a sound when a rare item has dropped by you or your party members.",
-    subcategory: "Rare Drops",
-    value: true
-})
-.addSwitch({
-    category: "Alerts",
-    configName: "alertOnGuardianPetDrop",
-    title: "Alert on GUARDIAN PET drop",
     description: "Shows a title and plays a sound when a rare item has dropped by you or your party members.",
     subcategory: "Rare Drops",
     value: true

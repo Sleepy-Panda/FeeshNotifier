@@ -622,36 +622,6 @@ export const FISHING_PROFIT_ITEMS = [
         npcPrice: 480,
     },
     {
-        itemId: 'GUARDIAN;0',
-        itemName: '[Lvl 1] Guardian (COMMON)',
-        itemDisplayName: `${COMMON}Guardian`,
-        npcPrice: 100,
-    },
-    {
-        itemId: 'GUARDIAN;1',
-        itemName: '[Lvl 1] Guardian (UNCOMMON)',
-        itemDisplayName: `${UNCOMMON}Guardian`,
-        npcPrice: 500,
-    },
-    {
-        itemId: 'GUARDIAN;2',
-        itemName: '[Lvl 1] Guardian (RARE)',
-        itemDisplayName: `${RARE}Guardian`,
-        npcPrice: 1000,
-    },
-    {
-        itemId: 'GUARDIAN;3',
-        itemName: '[Lvl 1] Guardian (EPIC)',
-        itemDisplayName: `${EPIC}Guardian`,
-        npcPrice: 100000,
-    },
-    {
-        itemId: 'GUARDIAN;4',
-        itemName: '[Lvl 1] Guardian (LEGENDARY)',
-        itemDisplayName: `${LEGENDARY}Guardian`,
-        npcPrice: 250000,
-    },
-    {
         itemId: 'SQUID;0',
         itemName: '[Lvl 1] Squid (COMMON)',
         itemDisplayName: `${COMMON}Squid`,
