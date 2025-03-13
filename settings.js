@@ -162,12 +162,26 @@ class Settings {
     })
     messageOnVanquisherCatch = true;
 
+    // @SwitchProperty({
+    //     name: "Send a message on FIERY SCUTTLER catch",
+    //     category: "Chat",
+    //     subcategory: "Rare Catches"
+    // })
+    // messageOnFieryScuttlerCatch = true;
+
     @SwitchProperty({
         name: "Send a message on PLHLEGBLAST catch",
         category: "Chat",
         subcategory: "Rare Catches"
     })
     messageOnPlhlegblastCatch = true;
+
+    @SwitchProperty({
+        name: "Send a message on RAGNAROK catch",
+        category: "Chat",
+        subcategory: "Rare Catches"
+    })
+    messageOnRagnarokCatch = true;
 
     // ******* CHAT - Rare Catches - All Chat ******* //
 
@@ -191,6 +205,13 @@ class Settings {
         subcategory: "Rare Catches - All Chat"
     })
     announceToAllChatOnPlhlegblastCatch = false;
+
+    @SwitchProperty({
+        name: "Share the location to ALL chat on RAGNAROK catch",
+        category: "Chat",
+        subcategory: "Rare Catches - All Chat"
+    })
+    announceToAllChatOnRagnarokCatch = false;
 
     @SwitchProperty({
         name: "Share the location to ALL chat on VANQUISHER spawn",
@@ -322,13 +343,6 @@ class Settings {
     })
     messageOnSquidPetDrop = true;
 
-    @SwitchProperty({
-        name: "Send a message on GUARDIAN PET drop",
-        category: "Chat",
-        subcategory: "Rare Drops"
-    })
-    messageOnGuardianPetDrop = true;
-
     // ******* CHAT - Slayers ******* //
 
     @SwitchProperty({
@@ -342,8 +356,8 @@ class Settings {
     // ******* CHAT - Player's death ******* //
 
     @SwitchProperty({
-        name: "Send a message when you are killed by Thunder / Lord Jawbus",
-        description: `${GRAY}Sends a message to the ${BLUE}party chat ${GRAY}when you are killed by Thunder / Lord Jawbus. It enables the alerts for your party members so they can wait for you.`,
+        name: "Send a message when you are killed by a Mythic lava creature",
+        description: `${GRAY}Sends a message to the ${BLUE}party chat ${GRAY}when you are killed by Thunder / Lord Jawbus / Ragnarok. It enables the alerts for your party members so they can wait for you.`,
         category: "Chat",
         subcategory: "Player's death"
     })
@@ -382,8 +396,8 @@ class Settings {
     // ******* ALERTS - Party member's death ******* //
 
     @SwitchProperty({
-        name: "Alert when a party member was killed by Thunder / Lord Jawbus",
-        description: `Shows a title and plays a sound when your party member reports they are killed by Thunder / Lord Jawbus, so the party can wait for them to come back.`,
+        name: "Alert when a party member was killed by a Mythic lava creature",
+        description: `Shows a title and plays a sound when your party member reports they are killed by Thunder / Lord Jawbus / Ragnarok, so the party can wait for them to come back.`,
         category: "Alerts",
         subcategory: "Party member's death"
     })
@@ -628,12 +642,26 @@ class Settings {
     })
     alertOnVanquisherCatch = true;
 
+    // @SwitchProperty({
+    //     name: "Alert on FIERY SCUTTLER catch",
+    //     category: "Alerts",
+    //     subcategory: "Rare Catches"
+    // })
+    // alertOnFieryScuttlerCatch = true;
+
     @SwitchProperty({
         name: "Alert on PLHLEGBLAST catch",
         category: "Alerts",
         subcategory: "Rare Catches"
     })
     alertOnPlhlegblastCatch = true;
+
+    @SwitchProperty({
+        name: "Alert on RAGNAROK catch",
+        category: "Alerts",
+        subcategory: "Rare Catches"
+    })
+    alertOnRagnarokCatch = true;
 
     // ******* ALERTS - Rare Drops ******* //
 
@@ -741,13 +769,6 @@ class Settings {
         subcategory: "Rare Drops"
     })
     alertOnSquidPetDrop = true;
-
-    @SwitchProperty({
-        name: "Alert on GUARDIAN PET drop",
-        category: "Alerts",
-        subcategory: "Rare Drops"
-    })
-    alertOnGuardianPetDrop = true;
 
     // ******* OVERLAYS - Totem ******* //
 

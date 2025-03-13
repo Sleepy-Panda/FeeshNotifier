@@ -34,9 +34,7 @@ function showRarityUpgrade(item, x, y) {
         cleanName.includes('Rabbit Hat') ||
         cleanName.includes('Water Hydra Head') ||
         cleanName.includes('Fish Affinity Talisman') ||
-        cleanName.includes('Shredder') ||
         cleanName.includes('Lucky Hoof') ||
-        cleanName.includes('Phantom Rod') ||
         cleanName.includes('Yeti Rod')
     );
     if (!isFishingItem) {
