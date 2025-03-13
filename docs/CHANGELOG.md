@@ -33,6 +33,7 @@ Features:
   - Count new mobs towards Sea Creatures Count tracker.
   - Added new mobs support for compact sea creature catch messages.
   - Display Ragnarok/s HP in Sea Creatures HP tracker.
+  - Added option to share Ragnarok's location to ALL chat [disabled by default].
 
 
 ## v1.30.0

@@ -242,6 +242,13 @@ const config = new DefaultConfig("FeeshNotifier", "config/settings.json")
 })
 .addSwitch({
     category: "Chat",
+    configName: "announceToAllChatOnRagnarokCatch",
+    title: "Share the location to ALL chat on RAGNAROK catch",
+    description: "",
+    subcategory: "Rare Catches - All Chat"
+})
+.addSwitch({
+    category: "Chat",
     configName: "announceToAllChatOnVanquisherCatch",
     title: "Share the location to ALL chat on VANQUISHER spawn",
     description: "",
