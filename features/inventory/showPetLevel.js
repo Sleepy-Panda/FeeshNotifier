@@ -6,7 +6,7 @@ register('renderItemIntoGui', (item, x, y, event) => {
 });
 
 function showPetLevel(item, x, y) {
-    if (!settings.showPetLevel || !isInSkyblock()) {
+    if (!settings().showPetLevel || !isInSkyblock()) {
         return;
     }
 

@@ -7,7 +7,7 @@ let rareDropSoundLastPlayedAt = null;
 // Pitches extracted via soundPlay register, and mapped to the table above
 // Hypixel plays same sounds twice with 0.4 and 0.8 volume
 export function playRareDropSound() {
-    if (settings.soundMode === OFF_SOUND_MODE) {
+    if (settings().soundMode === OFF_SOUND_MODE) {
         return;
     }
 

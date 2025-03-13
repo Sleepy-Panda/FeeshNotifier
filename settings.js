@@ -1,951 +1,924 @@
+import Settings from "../Amaterasu/core/Settings";
+import DefaultConfig from "../Amaterasu/core/DefaultConfig";
 import { AQUA, GOLD, GRAY, RED, WHITE, BLUE, DARK_GRAY, RESET } from "./constants/formatting";
-import { @Vigilant, @ButtonProperty, @SwitchProperty, @SelectorProperty, @SliderProperty, @TextProperty } from "../Vigilance/index";
 
-@Vigilant("FeeshNotifier/config", "FeeshNotifier Settings", {
-    getCategoryComparator: () => (a, b) => {
-        const categories = ["General", "Chat", "Alerts", "Overlays", "Inventory", "Commands"];
+export const allOverlaysGui = new Gui(); // Sample overlays GUI to move/resize them all at once
 
-        return categories.indexOf(a.name) - categories.indexOf(b.name);
+export const totemRemainingTimeOverlayGui = new Gui();
+export const flareRemainingTimeOverlayGui = new Gui();
+export const rareCatchesTrackerOverlayGui = new Gui();
+export const seaCreaturesHpOverlayGui = new Gui();
+export const seaCreaturesCountOverlayGui = new Gui();
+export const legionAndBobbingTimeOverlayGui = new Gui();
+export const crimsonIsleTrackerOverlayGui = new Gui();
+export const jerryWorkshopTrackerOverlayGui = new Gui();
+export const wormProfitTrackerOverlayGui = new Gui();
+export const magmaCoreProfitTrackerOverlayGui = new Gui();
+export const abandonedQuarryTrackerOverlayGui = new Gui();
+export const fishingProfitTrackerOverlayGui = new Gui();
+
+const config = new DefaultConfig("FeeshNotifier", "config/settings.json")
+
+.addButton({
+    category: "General",
+    configName: "discordLink",
+    title: `FeeshNotifier on ChatTriggers`,
+    description: `Find latest releases notes, contacts and README here. From ${AQUA}MoonTheSadFisher ${WHITE}with ${RED}❤`,
+    subcategory: "Contacts",
+    onClick() {
+        java.awt.Desktop.getDesktop().browse(new java.net.URI("https://www.chattriggers.com/modules/v/FeeshNotifier"));
+    }
+})
+.addDropDown({
+    category: "General",
+    configName: "soundMode",
+    title: "Sound mode",
+    description: "Setups sounds played on rare catches and rare drops.",
+    options: ["Meme","Normal","Off"],
+    value: 0,
+    subcategory: "Sounds"
+})
+.addButton({
+    category: "General",
+    configName: "moveAllOverlays",
+    title: "Move GUIs",
+    description: `Allows to move and resize all GUIs enabled in the settings. Executes ${AQUA}/feeshMoveAllGuis`,
+    subcategory: "GUI",
+    onClick() {
+        ChatLib.command("feeshMoveAllGuis", true);
     }
 })
 
-class Settings {
-    constructor() {
-        this.initialize(this);
-        this.setCategoryDescription("General", `${AQUA}FeeshNotifier ${WHITE}v${JSON.parse(FileLib.read("FeeshNotifier", "metadata.json")).version}\nBy ${AQUA}MoonTheSadFisher ${WHITE}with ${RED}❤\nTry ${AQUA}/ct load ${WHITE}or reach out to ${AQUA}m00nlight_sky ${WHITE}in Discord if the module doesn't function properly!`);
+.addSwitch({
+    category: "Chat",
+    configName: "compactCatchMessages",
+    title: "Compact sea creature catch messages",
+    description: "Shortens double hook message and catch message that says what sea creature you caught.",
+    subcategory: "Compact messages"
+})
 
-        this.setSubcategoryDescription("Chat", "Rare Catches", `${GRAY}Sends a message to the ${BLUE}party chat ${GRAY}when a rare sea creature has caught. It enables the alerts for your party members.\n\n${DARK_GRAY}For this to work, make sure to enable Skyblock setting which sends sea creatures to the chat: Settings -> Personal -> Fishing Settings -> Sea Creature Chat.`);
-        this.setSubcategoryDescription("Chat", "Rare Catches - All Chat", `${GRAY}Sends your coords to the ${WHITE}all chat ${GRAY}when a rare sea creature has caught. It enables the waypoints for the entire server.\n\n${DARK_GRAY}For this to work, make sure to enable Skyblock setting which sends sea creatures to the chat: Settings -> Personal -> Fishing Settings -> Sea Creature Chat.`);
-        this.setSubcategoryDescription("Chat", "Rare Drops", `${GRAY}Sends a message to the ${BLUE}party chat ${GRAY}when a rare item has dropped. It enables the alerts for your party members.`);
-        this.setSubcategoryDescription("Alerts", "Rare Catches", `Shows a title and plays a sound when a rare sea creature has caught by you or your party members.\n\n${DARK_GRAY}For this to work, make sure to enable Skyblock setting which sends sea creatures to the chat: Settings -> Personal -> Fishing Settings -> Sea Creature Chat.`);
-        this.setSubcategoryDescription("Alerts", "Rare Drops", "Shows a title and plays a sound when a rare item has dropped by you or your party members.");
+.addSwitch({
+    category: "Chat",
+    configName: "messageOnDeath",
+    title: "Send a party chat message when you are killed by a Mythic lava creature",
+    description: `${GRAY}Sends a message to the ${BLUE}party chat ${GRAY}when you are killed by Thunder / Lord Jawbus. It enables the alerts for your party members so they can wait for you.`,
+    subcategory: "Player's death",
+    value: true
+})
+
+.addSwitch({
+    category: "Chat",
+    configName: "messageOnYetiCatch",
+    title: "Send a party chat message on YETI catch",
+    description: "",
+    subcategory: "Rare Catches",
+    value: true
+})
+.addSwitch({
+    category: "Chat",
+    configName: "messageOnReindrakeCatch",
+    title: "Send a party chat message on REINDRAKE catch",
+    description: "",
+    subcategory: "Rare Catches",
+    value: true
+})
+.addSwitch({
+    category: "Chat",
+    configName: "messageOnNutcrackerCatch",
+    title: "Send a party chat message on NUTCRACKER catch",
+    description: "",
+    subcategory: "Rare Catches",
+    value: true
+})
+.addSwitch({
+    category: "Chat",
+    configName: "messageOnWaterHydraCatch",
+    title: "Send a party chat message on WATER HYDRA catch",
+    description: "",
+    subcategory: "Rare Catches",
+    value: true
+})
+.addSwitch({
+    category: "Chat",
+    configName: "messageOnSeaEmperorCatch",
+    title: "Send a party chat message on SEA EMPEROR catch",
+    description: "",
+    subcategory: "Rare Catches",
+    value: true
+})
+.addSwitch({
+    category: "Chat",
+    configName: "messageOnCarrotKingCatch",
+    title: "Send a party chat message on CARROT KING catch",
+    description: "",
+    subcategory: "Rare Catches",
+    value: true
+})
+.addSwitch({
+    category: "Chat",
+    configName: "messageOnGreatWhiteSharkCatch",
+    title: "Send a party chat message on GREAT WHITE SHARK catch",
+    description: "",
+    subcategory: "Rare Catches",
+    value: true
+})
+.addSwitch({
+    category: "Chat",
+    configName: "messageOnPhantomFisherCatch",
+    title: "Send a party chat message on PHANTOM FISHER catch",
+    description: "",
+    subcategory: "Rare Catches",
+    value: true
+})
+.addSwitch({
+    category: "Chat",
+    configName: "messageOnGrimReaperCatch",
+    title: "Send a party chat message on GRIM REAPER catch",
+    description: "",
+    subcategory: "Rare Catches",
+    value: true
+})
+.addSwitch({
+    category: "Chat",
+    configName: "messageOnAbyssalMinerCatch",
+    title: "Send a party chat message on ABYSSAL MINER catch",
+    description: "",
+    subcategory: "Rare Catches",
+    value: true
+})
+.addSwitch({
+    category: "Chat",
+    configName: "messageOnThunderCatch",
+    title: "Send a party chat message on THUNDER catch",
+    description: "",
+    subcategory: "Rare Catches",
+    value: true
+})
+.addSwitch({
+    category: "Chat",
+    configName: "messageOnLordJawbusCatch",
+    title: "Send a party chat message on LORD JAWBUS catch",
+    description: "",
+    subcategory: "Rare Catches",
+    value: true
+})
+.addSwitch({
+    category: "Chat",
+    configName: "messageOnVanquisherCatch",
+    title: "Send a party chat message on VANQUISHER spawn",
+    description: "",
+    subcategory: "Rare Catches",
+    value: true
+})
+.addSwitch({
+    category: "Chat",
+    configName: "messageOnPlhlegblastCatch",
+    title: "Send a party chat message on PLHLEGBLAST catch",
+    description: "",
+    subcategory: "Rare Catches",
+    value: true
+})
+
+.addSwitch({
+    category: "Chat",
+    configName: "announceToAllChatOnThunderCatch",
+    title: "Share the location to ALL chat on THUNDER catch",
+    description: "",
+    subcategory: "Rare Catches - All Chat"
+})
+.addSwitch({
+    category: "Chat",
+    configName: "announceToAllChatOnLordJawbusCatch",
+    title: "Share the location to ALL chat on LORD JAWBUS catch",
+    description: "",
+    subcategory: "Rare Catches - All Chat"
+})
+.addSwitch({
+    category: "Chat",
+    configName: "announceToAllChatOnPlhlegblastCatch",
+    title: "Share the location to ALL chat on PLHLEGBLAST catch",
+    description: "",
+    subcategory: "Rare Catches - All Chat"
+})
+.addSwitch({
+    category: "Chat",
+    configName: "announceToAllChatOnVanquisherCatch",
+    title: "Share the location to ALL chat on VANQUISHER spawn",
+    description: "",
+    subcategory: "Rare Catches - All Chat"
+})
+
+.addSwitch({
+    category: "Chat",
+    configName: "includeMagicFindIntoDropMessage",
+    title: "Include magic find",
+    description: `Show drop's ${AQUA}✯ Magic Find ${RESET}in the party chat message.`,
+    subcategory: "Rare Drops",
+    value: true
+})
+.addSwitch({
+    category: "Chat",
+    configName: "includeDropNumberIntoDropMessage",
+    title: "Include drop number",
+    description: `Show dropped item's ordinal number for the current session in the party chat message. Works for the items which drop relatively often per fishing session, so makes sense to track their count.\n${RED}Requires Fishing Profit Tracker to be enabled! ${GRAY}Drop numbers are reset when Fishing Profit Tracker is reset.`,
+    subcategory: "Rare Drops",
+    value: true
+})
+.addSwitch({
+    category: "Chat",
+    configName: "messageOnBabyYetiPetDrop",
+    title: "Send a party chat message on BABY YETI PET drop",
+    description: "",
+    subcategory: "Rare Drops",
+    value: true
+})
+.addSwitch({
+    category: "Chat",
+    configName: "messageOnFlyingFishPetDrop",
+    title: "Send a party chat message on FLYING FISH PET drop",
+    description: "",
+    subcategory: "Rare Drops",
+    value: true
+})
+.addSwitch({
+    category: "Chat",
+    configName: "messageOnLuckyCloverCoreDrop",
+    title: "Send a party chat message on LUCKY CLOVER CORE drop",
+    description: "",
+    subcategory: "Rare Drops",
+    value: true
+})
+.addSwitch({
+    category: "Chat",
+    configName: "messageOnMegalodonPetDrop",
+    title: "Send a party chat message on MEGALODON PET drop",
+    description: "",
+    subcategory: "Rare Drops",
+    value: true
+})
+.addSwitch({
+    category: "Chat",
+    configName: "messageOnDeepSeaOrbDrop",
+    title: "Send a party chat message on DEEP SEA ORB drop",
+    description: "",
+    subcategory: "Rare Drops",
+    value: true
+})
+.addSwitch({
+    category: "Chat",
+    configName: "messageOnRadioactiveVialDrop",
+    title: "Send a party chat message on RADIOACTIVE VIAL drop",
+    description: "",
+    subcategory: "Rare Drops",
+    value: true
+})
+.addSwitch({
+    category: "Chat",
+    configName: "messageOnCarmineDyeDrop",
+    title: "Send a party chat message on CARMINE DYE drop",
+    description: "",
+    subcategory: "Rare Drops",
+    value: true
+})
+.addSwitch({
+    category: "Chat",
+    configName: "messageOnAqumarineDyeDrop",
+    title: "Send a party chat message on AQUAMARINE DYE drop",
+    description: "",
+    subcategory: "Rare Drops",
+    value: true
+})
+.addSwitch({
+    category: "Chat",
+    configName: "messageOnIcebergDyeDrop",
+    title: "Send a party chat message on ICEBERG DYE drop",
+    description: "",
+    subcategory: "Rare Drops",
+    value: true
+})
+.addSwitch({
+    category: "Chat",
+    configName: "messageOnMidnightDyeDrop",
+    title: "Send a party chat message on MIDNIGHT DYE drop",
+    description: "",
+    subcategory: "Rare Drops",
+    value: true
+})
+.addSwitch({
+    category: "Chat",
+    configName: "messageOnPeriwinkleDyeDrop",
+    title: "Send a party chat message on PERIWINKLE DYE drop",
+    description: "",
+    subcategory: "Rare Drops",
+    value: true
+})
+.addSwitch({
+    category: "Chat",
+    configName: "messageOnBoneDyeDrop",
+    title: "Send a party chat message on BONE DYE drop",
+    description: "",
+    subcategory: "Rare Drops",
+    value: true
+})
+.addSwitch({
+    category: "Chat",
+    configName: "messageOnMagmaCoreDrop",
+    title: "Send a party chat message on MAGMA CORE drop",
+    description: "",
+    subcategory: "Rare Drops",
+    value: true
+})
+.addSwitch({
+    category: "Chat",
+    configName: "messageOnMusicRuneDrop",
+    title: "Send a party chat message on MUSIC RUNE I drop",
+    description: "",
+    subcategory: "Rare Drops",
+    value: true
+})
+.addSwitch({
+    category: "Chat",
+    configName: "messageOnSquidPetDrop",
+    title: "Send a party chat message on SQUID PET drop",
+    description: "",
+    subcategory: "Rare Drops",
+    value: true
+})
+.addSwitch({
+    category: "Chat",
+    configName: "messageOnGuardianPetDrop",
+    title: "Send a party chat message on GUARDIAN PET drop",
+    description: "",
+    subcategory: "Rare Drops",
+    value: true
+})
+.addSwitch({
+    category: "Chat",
+    configName: "messageOnRevenantHorrorSpawn",
+    title: "Share the location to the party chat on REVENANT HORROR spawn",
+    description: `${GRAY}Sends a message with the coords to the ${BLUE}party chat ${GRAY}when a Revenant Horror is spawned. ${DARK_GRAY}Because we love doing T5s while fishing :)`,
+    subcategory: "Slayers"
+})
+
+.addSwitch({
+    category: "Alerts",
+    configName: "alertOnTotemExpiresSoon",
+    title: "Alert when player's totem expires soon",
+    description: "Shows a title and plays a sound when current player's totem expires in 10 seconds.",
+    subcategory: "Totem",
+    value: true
+})
+.addSwitch({
+    category: "Alerts",
+    configName: "alertOnFlareExpiresSoon",
+    title: "Alert when player's flare expires soon",
+    description: "Shows a title and plays a sound when current player's Warning Flare / Alert Flare / SOS Flare expires in 10 seconds.",
+    subcategory: "Flare",
+    value: true
+})
+.addSwitch({
+    category: "Alerts",
+    configName: "alertOnPartyMemberDeath",
+    title: "Alert when a party member was killed by a Mythic lava creature",
+    description: "Shows a title and plays a sound when your party member reports they are killed by Thunder / Lord Jawbus, so the party can wait for them to come back.",
+    subcategory: "Party member's death",
+    value: true
+})
+.addSwitch({
+    category: "Alerts",
+    configName: "alertOnNonFishingArmor",
+    title: "Alert when no fishing armor equipped",
+    description: "Shows a title and plays a sound when current player is fishing in a non-fishing armor.",
+    subcategory: "Fishing armor",
+    value: true
+})
+.addSwitch({
+    category: "Alerts",
+    configName: "alertOnFishingBagDisabled",
+    title: "Alert when Fishing Bag is disabled",
+    description: "Shows a title and plays a sound when current player starts fishing with Fishing Bag disabled.",
+    subcategory: "Fishing bag",
+    value: true
+})
+.addSwitch({
+    category: "Alerts",
+    configName: "alertOnThunderBottleCharged",
+    title: "Alert when a thunder bottle has fully charged",
+    description: "Shows a title and plays a sound when a Thunder / Storm / Hurricane bottle has fully charged.",
+    subcategory: "Thunder bottle",
+    value: true
+})
+.addSwitch({
+    category: "Alerts",
+    configName: "alertOnChumBucketAutoPickedUp",
+    title: "Alert when a Chum / Chumcap bucket is automatically picked up",
+    description: "Shows a title and plays a sound when your Chum / Chumcap bucket is automatically picked up because you went too far away.",
+    subcategory: "Chum bucket",
+    value: true
+})
+.addSwitch({
+    category: "Alerts",
+    configName: "alertOnSpiritMaskUsed",
+    title: "Alert when a Spirit Mask is used",
+    description: "Shows a title and plays a sound when your Spirit Mask's Second Wind ability is activated.",
+    subcategory: "Spirit Mask",
+    value: true
+})
+.addSwitch({
+    category: "Alerts",
+    configName: "alertOnSpiritMaskBack",
+    title: "Alert when a Spirit Mask is ready after being used",
+    description: "Shows a title and plays a sound when your Spirit Mask's Second Wind ability is back after it was activated.",
+    subcategory: "Spirit Mask"
+})
+.addSwitch({
+    category: "Alerts",
+    configName: "alertOnGoldenFishSpawned",
+    title: "Alert when a Golden Fish has spawned",
+    description: "Shows a title and plays a sound when a Golden Fish has spawned.",
+    subcategory: "Golden Fish"
+})
+.addSwitch({
+    category: "Alerts",
+    configName: "alertOnWormTheFishCaught",
+    title: "Alert when a Worm the Fish is caught",
+    description: "Shows a title and plays a sound when a Worm the Fish is caught (Dirt Rod fishing).",
+    subcategory: "Worm the Fish",
+    value: true
+})
+.addSwitch({
+    category: "Alerts",
+    configName: "alertOnSeaCreaturesCountThreshold",
+    title: "Alert when sea creatures count hits threshold",
+    description: `Shows a title and plays a sound when amount of sea creatures nearby hits the specified threshold. ${RED}Disabled if you have no fishing rod in your hotbar!`,
+    subcategory: "Sea creatures count",
+    value: true
+})
+.addSlider({
+    category: "Alerts",
+    configName: "seaCreaturesCountThreshold_Hub",
+    title: "Sea creatures count threshold - HUB",
+    description: "Count of sea creatures nearby required to see the alert when you are in the hub. Ignored if the sea creatures count alert is disabled.",
+    options: [5, 60],
+    value: 50,
+    subcategory: "Sea creatures count"
+})
+.addSlider({
+    category: "Alerts",
+    configName: "seaCreaturesCountThreshold_CrimsonIsle",
+    title: "Sea creatures count threshold - CRIMSON ISLE",
+    description: "Count of sea creatures nearby required to see the alert when you are in the Crimson Isle. Ignored if the sea creatures count alert is disabled.",
+    options: [5, 60],
+    value: 5,
+    subcategory: "Sea creatures count"
+})
+.addSlider({
+    category: "Alerts",
+    configName: "seaCreaturesCountThreshold_CrystalHollows",
+    title: "Sea creatures count threshold - CRYSTAL HOLLOWS",
+    description: "Count of sea creatures nearby required to see the alert when you are in the Crystal Hollows. Ignored if the sea creatures count alert is disabled.",
+    options: [5, 60],
+    value: 20,
+    subcategory: "Sea creatures count"
+})
+.addSlider({
+    category: "Alerts",
+    configName: "seaCreaturesCountThreshold_Default",
+    title: "Sea creatures count threshold - Other",
+    description: "Count of sea creatures nearby required to see the alert when you are in other locations. Ignored if the sea creatures count alert is disabled.",
+    options: [5, 60],
+    value: 50,
+    subcategory: "Sea creatures count"
+})
+.addSwitch({
+    category: "Alerts",
+    configName: "alertOnSeaCreaturesTimerThreshold",
+    title: "Alert when sea creatures are alive for 5+ minutes",
+    description:  `Shows a title and plays a sound when the sea creatures nearby are alive for 5+ minutes and will despawn soon. ${RED}Disabled if you have no fishing rod in your hotbar!`,
+    subcategory: "Sea creatures timer",
+    value: true
+})
+
+.addSwitch({
+    category: "Alerts",
+    configName: "alertOnYetiCatch",
+    title: "Alert on YETI catch",
+    description: "Shows a title and plays a sound when a rare sea creature has caught by you or your party members.",
+    subcategory: "Rare Catches",
+    value: true
+})
+.addSwitch({
+    category: "Alerts",
+    configName: "alertOnReindrakeCatch",
+    title: "Alert on REINDRAKE catch",
+    description: "Shows a title and plays a sound when a rare sea creature has caught by you or your party members.",
+    subcategory: "Rare Catches",
+    value: true
+})
+.addSwitch({
+    category: "Alerts",
+    configName: "alertOnAnyReindrakeCatch",
+    title: "Alert on any REINDRAKE catch",
+    description: "Alerts you if any reindrake spawned in the lobby, even if it was caught not by you or your party members.",
+    subcategory: "Rare Catches"
+})
+.addSwitch({
+    category: "Alerts",
+    configName: "alertOnNutcrackerCatch",
+    title: "Alert on NUTCRACKER catch",
+    description: "Shows a title and plays a sound when a rare sea creature has caught by you or your party members.",
+    subcategory: "Rare Catches",
+    value: true
+})
+.addSwitch({
+    category: "Alerts",
+    configName: "alertOnWaterHydraCatch",
+    title: "Alert on WATER HYDRA catch",
+    description: "Shows a title and plays a sound when a rare sea creature has caught by you or your party members.",
+    subcategory: "Rare Catches",
+    value: true
+})
+.addSwitch({
+    category: "Alerts",
+    configName: "alertOnSeaEmperorCatch",
+    title: "Alert on SEA EMPEROR catch",
+    description: "Shows a title and plays a sound when a rare sea creature has caught by you or your party members.",
+    subcategory: "Rare Catches",
+    value: true
+})
+.addSwitch({
+    category: "Alerts",
+    configName: "alertOnCarrotKingCatch",
+    title: "Alert on CARROT KING catch",
+    description: "Shows a title and plays a sound when a rare sea creature has caught by you or your party members.",
+    subcategory: "Rare Catches",
+    value: true
+})
+.addSwitch({
+    category: "Alerts",
+    configName: "alertOnGreatWhiteSharkCatch",
+    title: "Alert on GREAT WHITE SHARK catch",
+    description: "Shows a title and plays a sound when a rare sea creature has caught by you or your party members.",
+    subcategory: "Rare Catches",
+    value: true
+})
+.addSwitch({
+    category: "Alerts",
+    configName: "alertOnPhantomFisherCatch",
+    title: "Alert on PHANTOM FISHER catch",
+    description: "Shows a title and plays a sound when a rare sea creature has caught by you or your party members.",
+    subcategory: "Rare Catches",
+    value: true
+})
+.addSwitch({
+    category: "Alerts",
+    configName: "alertOnGrimReaperCatch",
+    title: "Alert on GRIM REAPER catch",
+    description: "Shows a title and plays a sound when a rare sea creature has caught by you or your party members.",
+    subcategory: "Rare Catches",
+    value: true
+})
+.addSwitch({
+    category: "Alerts",
+    configName: "alertOnAbyssalMinerCatch",
+    title: "Alert on ABYSSAL MINER catch",
+    description: "Shows a title and plays a sound when a rare sea creature has caught by you or your party members.",
+    subcategory: "Rare Catches",
+    value: true
+})
+.addSwitch({
+    category: "Alerts",
+    configName: "alertOnThunderCatch",
+    title: "Alert on THUNDER catch",
+    description: "Shows a title and plays a sound when a rare sea creature has caught by you or your party members.",
+    subcategory: "Rare Catches",
+    value: true
+})
+.addSwitch({
+    category: "Alerts",
+    configName: "alertOnLordJawbusCatch",
+    title: "Alert on LORD JAWBUS catch",
+    description: "Shows a title and plays a sound when a rare sea creature has caught by you or your party members.",
+    subcategory: "Rare Catches",
+    value: true
+})
+.addSwitch({
+    category: "Alerts",
+    configName: "alertOnVanquisherCatch",
+    title: "Alert on VANQUISHER spawn",
+    description: "Shows a title and plays a sound when a rare sea creature has caught by you or your party members.",
+    subcategory: "Rare Catches",
+    value: true
+})
+.addSwitch({
+    category: "Alerts",
+    configName: "alertOnPlhlegblastCatch",
+    title: "Alert on PLHLEGBLAST catch",
+    description: "Shows a title and plays a sound when a rare sea creature has caught by you or your party members.",
+    subcategory: "Rare Catches",
+    value: true
+})
+
+.addSwitch({
+    category: "Alerts",
+    configName: "alertOnBabyYetiPetDrop",
+    title: "Alert on BABY YETI PET drop",
+    description: "Shows a title and plays a sound when a rare item has dropped by you or your party members.",
+    subcategory: "Rare Drops",
+    value: true
+})
+.addSwitch({
+    category: "Alerts",
+    configName: "alertOnFlyingFishPetDrop",
+    title: "Alert on FLYING FISH PET drop",
+    description: "Shows a title and plays a sound when a rare item has dropped by you or your party members.",
+    subcategory: "Rare Drops",
+    value: true
+})
+.addSwitch({
+    category: "Alerts",
+    configName: "alertOnLuckyCloverCoreDrop",
+    title: "Alert on LUCKY CLOVER CORE drop",
+    description: "Shows a title and plays a sound when a rare item has dropped by you or your party members.",
+    subcategory: "Rare Drops",
+    value: true
+})
+.addSwitch({
+    category: "Alerts",
+    configName: "alertOnMegalodonPetDrop",
+    title: "Alert on MEGALODON PET drop",
+    description: "Shows a title and plays a sound when a rare item has dropped by you or your party members.",
+    subcategory: "Rare Drops",
+    value: true
+})
+.addSwitch({
+    category: "Alerts",
+    configName: "alertOnDeepSeaOrbDrop",
+    title: "Alert on DEEP SEA ORB drop",
+    description: "Shows a title and plays a sound when a rare item has dropped by you or your party members.",
+    subcategory: "Rare Drops",
+    value: true
+})
+.addSwitch({
+    category: "Alerts",
+    configName: "alertOnRadioactiveVialDrop",
+    title: "Alert on RADIOACTIVE VIAL drop",
+    description: "Shows a title and plays a sound when a rare item has dropped by you or your party members.",
+    subcategory: "Rare Drops",
+    value: true
+})
+.addSwitch({
+    category: "Alerts",
+    configName: "alertOnCarmineDyeDrop",
+    title: "Alert on CARMINE DYE drop",
+    description: "Shows a title and plays a sound when a rare item has dropped by you or your party members.",
+    subcategory: "Rare Drops",
+    value: true
+})
+.addSwitch({
+    category: "Alerts",
+    configName: "alertOnAqumarineDyeDrop",
+    title: "Alert on AQUAMARINE DYE drop",
+    description: "Shows a title and plays a sound when a rare item has dropped by you or your party members.",
+    subcategory: "Rare Drops",
+    value: true
+})
+.addSwitch({
+    category: "Alerts",
+    configName: "alertOnIcebergDyeDrop",
+    title: "Alert on ICEBERG DYE drop",
+    description: "Shows a title and plays a sound when a rare item has dropped by you or your party members.",
+    subcategory: "Rare Drops",
+    value: true
+})
+.addSwitch({
+    category: "Alerts",
+    configName: "alertOnMidnightDyeDrop",
+    title: "Alert on MIDNIGHT DYE drop",
+    description: "Shows a title and plays a sound when a rare item has dropped by you or your party members.",
+    subcategory: "Rare Drops",
+    value: true
+})
+.addSwitch({
+    category: "Alerts",
+    configName: "alertOnPeriwinkleDyeDrop",
+    title: "Alert on PERIWINKLE DYE drop",
+    description: "Shows a title and plays a sound when a rare item has dropped by you or your party members.",
+    subcategory: "Rare Drops",
+    value: true
+})
+.addSwitch({
+    category: "Alerts",
+    configName: "alertOnBoneDyeDrop",
+    title: "Alert on BONE DYE drop",
+    description: "Shows a title and plays a sound when a rare item has dropped by you or your party members.",
+    subcategory: "Rare Drops",
+    value: true
+})
+.addSwitch({
+    category: "Alerts",
+    configName: "alertOnMagmaCoreDrop",
+    title: "Alert on MAGMA CORE drop",
+    description: "Shows a title and plays a sound when a rare item has dropped by you or your party members.",
+    subcategory: "Rare Drops",
+    value: true
+})
+.addSwitch({
+    category: "Alerts",
+    configName: "alertOnMusicRuneDrop",
+    title: "Alert on MUSIC RUNE I drop",
+    description: "Shows a title and plays a sound when a rare item has dropped by you or your party members.",
+    subcategory: "Rare Drops",
+    value: true
+})
+.addSwitch({
+    category: "Alerts",
+    configName: "alertOnSquidPetDrop",
+    title: "Alert on SQUID PET drop",
+    description: "Shows a title and plays a sound when a rare item has dropped by you or your party members.",
+    subcategory: "Rare Drops",
+    value: true
+})
+.addSwitch({
+    category: "Alerts",
+    configName: "alertOnGuardianPetDrop",
+    title: "Alert on GUARDIAN PET drop",
+    description: "Shows a title and plays a sound when a rare item has dropped by you or your party members.",
+    subcategory: "Rare Drops",
+    value: true
+})
+
+.addSwitch({
+    category: "Overlays",
+    configName: "totemRemainingTimeOverlay",
+    title: "Remaining totem time",
+    description: "Shows an overlay with the remaining time of current player's totem of corruption.",
+    subcategory: "Totem",
+    value: true
+})
+.addButton({
+    category: "Overlays",
+    configName: "moveTotemRemainingTimeOverlay",
+    title: "Move remaining totem time",
+    description: "Allows to move and resize the overlay text.",
+    subcategory: "Totem",
+    onClick() {
+        moveOverlay(totemRemainingTimeOverlayGui);
     }
+})
 
-    allOverlaysGui = new Gui(); // Sample overlays GUI to move/resize them all at once
-
-    totemRemainingTimeOverlayGui = new Gui();
-    flareRemainingTimeOverlayGui = new Gui();
-    rareCatchesTrackerOverlayGui = new Gui();
-    seaCreaturesHpOverlayGui = new Gui();
-    seaCreaturesCountOverlayGui = new Gui();
-    legionAndBobbingTimeOverlayGui = new Gui();
-    crimsonIsleTrackerOverlayGui = new Gui();
-    jerryWorkshopTrackerOverlayGui = new Gui();
-    wormProfitTrackerOverlayGui = new Gui();
-    magmaCoreProfitTrackerOverlayGui = new Gui();
-    abandonedQuarryTrackerOverlayGui = new Gui();
-    fishingProfitTrackerOverlayGui = new Gui();
-
-    // ******* GENERAL ******* //
-
-    @ButtonProperty({
-        name: "FeeshNotifier on ChatTriggers",
-        description: "Find latest releases notes, contact details and README here.",
-        category: "General",
-        subcategory: "ChatTriggers",
-        placeholder: "FeeshNotifier"
-    })
-    discordLink() {
-        java.awt.Desktop.getDesktop().browse(new java.net.URI("https://www.chattriggers.com/modules/v/FeeshNotifier"));
+.addSwitch({
+    category: "Overlays",
+    configName: "flareRemainingTimeOverlay",
+    title: "Remaining flare time",
+    description: "Shows an overlay with the remaining time of current player's Warning Flare / Alert Flare / SOS Flare.",
+    subcategory: "Flare",
+    value: true
+})
+.addButton({
+    category: "Overlays",
+    configName: "moveFlareRemainingTimeOverlay",
+    title: "Move remaining flare time",
+    description: "Allows to move and resize the overlay text.",
+    subcategory: "Flare",
+    onClick() {
+        moveOverlay(flareRemainingTimeOverlayGui);
     }
-
-    @ButtonProperty({
-        name: "Move GUIs",
-        description: `Allows to move and resize all GUIs enabled in the settings. Executes ${AQUA}/feeshMoveAllGuis`,
-        category: "General",
-        subcategory: "GUI",
-        placeholder: "Move GUIs"
-    })
-    moveAllOverlays() {
-        ChatLib.command("feeshMoveAllGuis", true);
-    };
-
-    @SelectorProperty({
-        name: "Sound mode",
-        description: "Setups sounds played on rare catches and rare drops.",
-        category: "General",
-        subcategory: "Sounds",
-        options: ["Meme", "Normal", "Off"]
-    })
-    soundMode = 0;
-
-    // ******* CHAT - Rare Catches ******* //
-
-    @SwitchProperty({
-        name: "Send a message on YETI catch",
-        category: "Chat",
-        subcategory: "Rare Catches"
-    })
-    messageOnYetiCatch = true;
-
-    @SwitchProperty({
-        name: "Send a message on REINDRAKE catch",
-        category: "Chat",
-        subcategory: "Rare Catches"
-    })
-    messageOnReindrakeCatch = true;
-
-    @SwitchProperty({
-        name: "Send a message on NUTCRACKER catch",
-        category: "Chat",
-        subcategory: "Rare Catches"
-    })
-    messageOnNutcrackerCatch = true;
-
-    @SwitchProperty({
-        name: "Send a message on WATER HYDRA catch",
-        category: "Chat",
-        subcategory: "Rare Catches"
-    })
-    messageOnWaterHydraCatch = true;
-
-    @SwitchProperty({
-        name: "Send a message on SEA EMPEROR catch",
-        category: "Chat",
-        subcategory: "Rare Catches"
-    })
-    messageOnSeaEmperorCatch = true;
-
-    @SwitchProperty({
-        name: "Send a message on CARROT KING catch",
-        category: "Chat",
-        subcategory: "Rare Catches"
-    })
-    messageOnCarrotKingCatch = true;
-
-    @SwitchProperty({
-        name: "Send a message on GREAT WHITE SHARK catch",
-        category: "Chat",
-        subcategory: "Rare Catches"
-    })
-    messageOnGreatWhiteSharkCatch = true;
-
-    @SwitchProperty({
-        name: "Send a message on PHANTOM FISHER catch",
-        category: "Chat",
-        subcategory: "Rare Catches"
-    })
-    messageOnPhantomFisherCatch = true;
-
-    @SwitchProperty({
-        name: "Send a message on GRIM REAPER catch",
-        category: "Chat",
-        subcategory: "Rare Catches"
-    })
-    messageOnGrimReaperCatch = true;
-
-    @SwitchProperty({
-        name: "Send a message on ABYSSAL MINER catch",
-        category: "Chat",
-        subcategory: "Rare Catches"
-    })
-    messageOnAbyssalMinerCatch = true;
-
-    @SwitchProperty({
-        name: "Send a message on THUNDER catch",
-        category: "Chat",
-        subcategory: "Rare Catches"
-    })
-    messageOnThunderCatch = true;
-
-    @SwitchProperty({
-        name: "Send a message on LORD JAWBUS catch",
-        category: "Chat",
-        subcategory: "Rare Catches"
-    })
-    messageOnLordJawbusCatch = true;
-
-    @SwitchProperty({
-        name: "Send a message on VANQUISHER spawn",
-        category: "Chat",
-        subcategory: "Rare Catches"
-    })
-    messageOnVanquisherCatch = true;
-
-    @SwitchProperty({
-        name: "Send a message on PLHLEGBLAST catch",
-        category: "Chat",
-        subcategory: "Rare Catches"
-    })
-    messageOnPlhlegblastCatch = true;
-
-    // ******* CHAT - Rare Catches - All Chat ******* //
-
-    @SwitchProperty({
-        name: "Share the location to ALL chat on THUNDER catch",
-        category: "Chat",
-        subcategory: "Rare Catches - All Chat"
-    })
-    announceToAllChatOnThunderCatch = false;
-
-    @SwitchProperty({
-        name: "Share the location to ALL chat on LORD JAWBUS catch",
-        category: "Chat",
-        subcategory: "Rare Catches - All Chat"
-    })
-    announceToAllChatOnLordJawbusCatch = false;
-
-    @SwitchProperty({
-        name: "Share the location to ALL chat on PLHLEGBLAST catch",
-        category: "Chat",
-        subcategory: "Rare Catches - All Chat"
-    })
-    announceToAllChatOnPlhlegblastCatch = false;
-
-    @SwitchProperty({
-        name: "Share the location to ALL chat on VANQUISHER spawn",
-        category: "Chat",
-        subcategory: "Rare Catches - All Chat"
-    })
-    announceToAllChatOnVanquisherCatch = false;
-
-    // ******* CHAT - Rare Drops ******* //
-
-    @SwitchProperty({
-        name: "Include magic find",
-        description: `Show drop's ${AQUA}✯ Magic Find ${RESET}in the party chat message.`,
-        category: "Chat",
-        subcategory: "Rare Drops"
-    })
-    includeMagicFindIntoDropMessage = true;
-
-    @SwitchProperty({
-        name: "Include drop number",
-        description: `Show dropped item's ordinal number for the current session in the party chat message. Works for the items which drop relatively often per fishing session, so makes sense to track their count.\n${RED}Requires Fishing Profit Tracker to be enabled! ${GRAY}Drop numbers are reset when Fishing Profit Tracker is reset.`,
-        category: "Chat",
-        subcategory: "Rare Drops"
-    })
-    includeDropNumberIntoDropMessage = true;
-
-    @SwitchProperty({
-        name: "Send a message on BABY YETI PET drop",
-        category: "Chat",
-        subcategory: "Rare Drops"
-    })
-    messageOnBabyYetiPetDrop = true;
-
-    @SwitchProperty({
-        name: "Send a message on FLYING FISH PET drop",
-        category: "Chat",
-        subcategory: "Rare Drops"
-    })
-    messageOnFlyingFishPetDrop = true;
-
-    @SwitchProperty({
-        name: "Send a message on LUCKY CLOVER CORE drop",
-        category: "Chat",
-        subcategory: "Rare Drops"
-    })
-    messageOnLuckyCloverCoreDrop = true;
-
-    @SwitchProperty({
-        name: "Send a message on MEGALODON PET drop",
-        category: "Chat",
-        subcategory: "Rare Drops"
-    })
-    messageOnMegalodonPetDrop = true;
-
-    @SwitchProperty({
-        name: "Send a message on DEEP SEA ORB drop",
-        category: "Chat",
-        subcategory: "Rare Drops"
-    })
-    messageOnDeepSeaOrbDrop = true;
-
-    @SwitchProperty({
-        name: "Send a message on RADIOACTIVE VIAL drop",
-        category: "Chat",
-        subcategory: "Rare Drops"
-    })
-    messageOnRadioactiveVialDrop = true;
-
-    @SwitchProperty({
-        name: "Send a message on CARMINE DYE drop",
-        category: "Chat",
-        subcategory: "Rare Drops"
-    })
-    messageOnCarmineDyeDrop = true;
-
-    @SwitchProperty({
-        name: "Send a message on AQUAMARINE DYE drop",
-        category: "Chat",
-        subcategory: "Rare Drops"
-    })
-    messageOnAqumarineDyeDrop = true;
-
-    @SwitchProperty({
-        name: "Send a message on ICEBERG DYE drop",
-        category: "Chat",
-        subcategory: "Rare Drops"
-    })
-    messageOnIcebergDyeDrop = true;
-
-    @SwitchProperty({
-        name: "Send a message on MIDNIGHT DYE drop",
-        category: "Chat",
-        subcategory: "Rare Drops"
-    })
-    messageOnMidnightDyeDrop = true;
-
-    @SwitchProperty({
-        name: "Send a message on PERIWINKLE DYE drop",
-        category: "Chat",
-        subcategory: "Rare Drops"
-    })
-    messageOnPeriwinkleDyeDrop = true;
-
-    @SwitchProperty({
-        name: "Send a message on BONE DYE drop",
-        category: "Chat",
-        subcategory: "Rare Drops"
-    })
-    messageOnBoneDyeDrop = true;
-
-    @SwitchProperty({
-        name: "Send a message on MAGMA CORE drop",
-        category: "Chat",
-        subcategory: "Rare Drops"
-    })
-    messageOnMagmaCoreDrop = true;
-
-    @SwitchProperty({
-        name: "Send a message on MUSIC RUNE I drop",
-        category: "Chat",
-        subcategory: "Rare Drops"
-    })
-    messageOnMusicRuneDrop = true;
-
-    @SwitchProperty({
-        name: "Send a message on SQUID PET drop",
-        category: "Chat",
-        subcategory: "Rare Drops"
-    })
-    messageOnSquidPetDrop = true;
-
-    @SwitchProperty({
-        name: "Send a message on GUARDIAN PET drop",
-        category: "Chat",
-        subcategory: "Rare Drops"
-    })
-    messageOnGuardianPetDrop = true;
-
-    // ******* CHAT - Slayers ******* //
-
-    @SwitchProperty({
-        name: "Share the location on REVENANT HORROR spawn",
-        description: `${GRAY}Sends a message with the coords to the ${BLUE}party chat ${GRAY}when a Revenant Horror is spawned. ${DARK_GRAY}Because we love doing T5s while fishing :)`,
-        category: "Chat",
-        subcategory: "Slayers"
-    })
-    messageOnRevenantHorrorSpawn = false;
-
-    // ******* CHAT - Player's death ******* //
-
-    @SwitchProperty({
-        name: "Send a message when you are killed by Thunder / Lord Jawbus",
-        description: `${GRAY}Sends a message to the ${BLUE}party chat ${GRAY}when you are killed by Thunder / Lord Jawbus. It enables the alerts for your party members so they can wait for you.`,
-        category: "Chat",
-        subcategory: "Player's death"
-    })
-    messageOnDeath = true;
-
-    // ******* CHAT - Compact messages ******* //
-
-    @SwitchProperty({
-        name: "Compact sea creature catch messages",
-        description: 'Shortens double hook message and catch message that says what sea creature you caught.',
-        category: "Chat",
-        subcategory: "Compact messages"
-    })
-    compactCatchMessages = false;
-
-    // ******* ALERTS - Totem ******* //
-
-    @SwitchProperty({
-        name: "Alert when player's totem expires soon",
-        description: "Shows a title and plays a sound when current player's totem expires in 10 seconds.",
-        category: "Alerts",
-        subcategory: "Totem"
-    })
-    alertOnTotemExpiresSoon = true;
-
-    // ******* ALERTS - Flare ******* //
-
-    @SwitchProperty({
-        name: "Alert when player's flare expires soon",
-        description: "Shows a title and plays a sound when current player's Warning Flare / Alert Flare / SOS Flare expires in 10 seconds.",
-        category: "Alerts",
-        subcategory: "Flare"
-    })
-    alertOnFlareExpiresSoon = true;
-
-    // ******* ALERTS - Party member's death ******* //
-
-    @SwitchProperty({
-        name: "Alert when a party member was killed by Thunder / Lord Jawbus",
-        description: `Shows a title and plays a sound when your party member reports they are killed by Thunder / Lord Jawbus, so the party can wait for them to come back.`,
-        category: "Alerts",
-        subcategory: "Party member's death"
-    })
-    alertOnPartyMemberDeath = true;
-
-    // ******* ALERTS - Fishing armor ******* //
-
-    @SwitchProperty({
-        name: "Alert when no fishing armor equipped",
-        description: `Shows a title when current player is fishing in a non-fishing armor.`,
-        category: "Alerts",
-        subcategory: "Fishing armor"
-    })
-    alertOnNonFishingArmor = true;
-
-    // ******* ALERTS - Fishing bag ******* //
-
-    @SwitchProperty({
-        name: "Alert when Fishing Bag is disabled",
-        description: `Shows a title when current player starts fishing with Fishing Bag disabled.`,
-        category: "Alerts",
-        subcategory: "Fishing bag"
-    })
-    alertOnFishingBagDisabled = true;
-
-    // ******* ALERTS - Thunder bottle ******* //
-
-    @SwitchProperty({
-        name: "Alert when a thunder bottle has fully charged",
-        description: `Shows a title when a Thunder / Storm / Hurricane bottle has fully charged.`,
-        category: "Alerts",
-        subcategory: "Thunder bottle"
-    })
-    alertOnThunderBottleCharged = true;
-
-    // ******* ALERTS - Chum bucket ******* //
-
-    @SwitchProperty({
-        name: "Alert when a Chum / Chumcap bucket is automatically picked up",
-        description: `Shows a title when your Chum / Chumcap bucket is automatically picked up because you went too far away.`,
-        category: "Alerts",
-        subcategory: "Chum bucket"
-    })
-    alertOnChumBucketAutoPickedUp = true;
-
-    // ******* ALERTS - Spirit Mask ******* //
-
-    @SwitchProperty({
-        name: "Alert when a Spirit Mask is used",
-        description: `Shows a title when your Spirit Mask's Second Wind ability is activated.`,
-        category: "Alerts",
-        subcategory: "Spirit Mask"
-    })
-    alertOnSpiritMaskUsed = true;
-
-    @SwitchProperty({
-        name: "Alert when a Spirit Mask is ready after being used",
-        description: `Shows a title when your Spirit Mask's Second Wind ability is back after it was activated.`,
-        category: "Alerts",
-        subcategory: "Spirit Mask"
-    })
-    alertOnSpiritMaskBack = false;
-
-    // ******* ALERTS - Golden Fish ******* //
-
-    @SwitchProperty({
-        name: "Alert when a Golden Fish has spawned",
-        description: `Shows a title when a Golden Fish has spawned.`,
-        category: "Alerts",
-        subcategory: "Golden Fish"
-    })
-    alertOnGoldenFishSpawned = false;
-
-    // ******* ALERTS - Worm the Fish ******* //
-
-    @SwitchProperty({
-        name: "Alert when a Worm the Fish is caught",
-        description: `Shows a title when a Worm the Fish is caught (Dirt Rod fishing).`,
-        category: "Alerts",
-        subcategory: "Worm the Fish"
-    })
-    alertOnWormTheFishCaught = true;
-
-    // ******* ALERTS - Sea creatures count ******* //
-
-    @SwitchProperty({
-        name: "Alert when sea creatures count hits threshold",
-        description: `Shows a title and plays a sound when amount of sea creatures nearby hits the specified threshold. ${RED}Disabled if you have no fishing rod in your hotbar!`,
-        category: "Alerts",
-        subcategory: "Sea creatures count"
-    })
-    alertOnSeaCreaturesCountThreshold = false;
-
-    @SliderProperty({
-        name: "Sea creatures count threshold - HUB",
-        description: "Count of sea creatures nearby required to see the alert when you are in the hub. Ignored if the sea creatures count alert is disabled.",
-        category: "Alerts",
-        subcategory: "Sea creatures count",
-        min: 5,
-        max: 60
-    })
-    seaCreaturesCountThreshold_Hub = 50;
-
-    @SliderProperty({
-        name: "Sea creatures count threshold - CRIMSON ISLE",
-        description: "Count of sea creatures nearby required to see the alert when you are in the Crimson Isle. Ignored if the sea creatures count alert is disabled.",
-        category: "Alerts",
-        subcategory: "Sea creatures count",
-        min: 5,
-        max: 60
-    })
-    seaCreaturesCountThreshold_CrimsonIsle = 30;
-
-    @SliderProperty({
-        name: "Sea creatures count threshold - CRYSTAL HOLLOWS",
-        description: "Count of sea creatures nearby required to see the alert when you are in the Crystal Hollows. Ignored if the sea creatures count alert is disabled.",
-        category: "Alerts",
-        subcategory: "Sea creatures count",
-        min: 5,
-        max: 60
-    })
-    seaCreaturesCountThreshold_CrystalHollows = 20;
-
-    @SliderProperty({
-        name: "Sea creatures count threshold - Other",
-        description: "Count of sea creatures nearby required to see the alert when you are in other locations. Ignored if the sea creatures count alert is disabled.",
-        category: "Alerts",
-        subcategory: "Sea creatures count",
-        min: 5,
-        max: 60
-    })
-    seaCreaturesCountThreshold_Default = 50;
-
-    // ******* ALERTS - Sea creatures timer ******* //
-
-    @SwitchProperty({
-        name: "Alert when sea creatures are alive for 5+ minutes",
-        description: `Shows a title and plays a sound when the sea creatures nearby are alive for 5+ minutes. ${RED}Disabled if you have no fishing rod in your hotbar!`,
-        category: "Alerts",
-        subcategory: "Sea creatures timer"
-    })
-    alertOnSeaCreaturesTimerThreshold = false;
-
-    // ******* ALERTS - Rare Catches ******* //
-
-    @SwitchProperty({
-        name: "Alert on YETI catch",
-        category: "Alerts",
-        subcategory: "Rare Catches"
-    })
-    alertOnYetiCatch = true;
-
-    @SwitchProperty({
-        name: "Alert on REINDRAKE catch",
-        category: "Alerts",
-        subcategory: "Rare Catches"
-    })
-    alertOnReindrakeCatch = true;
-
-    @SwitchProperty({
-        name: "Alert on any REINDRAKE catch",
-        description: `Alerts you if any reindrake spawned in the lobby, even if it was caught not by you or your party members.`,
-        category: "Alerts",
-        subcategory: "Rare Catches"
-    })
-    alertOnAnyReindrakeCatch = false;
-
-    @SwitchProperty({
-        name: "Alert on NUTCRACKER catch",
-        category: "Alerts",
-        subcategory: "Rare Catches"
-    })
-    alertOnNutcrackerCatch = true;
-
-    @SwitchProperty({
-        name: "Alert on WATER HYDRA catch",
-        category: "Alerts",
-        subcategory: "Rare Catches"
-    })
-    alertOnWaterHydraCatch = true;
-
-    @SwitchProperty({
-        name: "Alert on SEA EMPEROR catch",
-        category: "Alerts",
-        subcategory: "Rare Catches"
-    })
-    alertOnSeaEmperorCatch = true;
-
-    @SwitchProperty({
-        name: "Alert on CARROT KING catch",
-        category: "Alerts",
-        subcategory: "Rare Catches"
-    })
-    alertOnCarrotKingCatch = true;
-
-    @SwitchProperty({
-        name: "Alert on GREAT WHITE SHARK catch",
-        category: "Alerts",
-        subcategory: "Rare Catches"
-    })
-    alertOnGreatWhiteSharkCatch = true;
-
-    @SwitchProperty({
-        name: "Alert on PHANTOM FISHER catch",
-        category: "Alerts",
-        subcategory: "Rare Catches"
-    })
-    alertOnPhantomFisherCatch = true;
-
-    @SwitchProperty({
-        name: "Alert on GRIM REAPER catch",
-        category: "Alerts",
-        subcategory: "Rare Catches"
-    })
-    alertOnGrimReaperCatch = true;
-
-    @SwitchProperty({
-        name: "Alert on ABYSSAL MINER catch",
-        category: "Alerts",
-        subcategory: "Rare Catches"
-    })
-    alertOnAbyssalMinerCatch = true;
-
-    @SwitchProperty({
-        name: "Alert on THUNDER catch",
-        category: "Alerts",
-        subcategory: "Rare Catches"
-    })
-    alertOnThunderCatch = true;
-
-    @SwitchProperty({
-        name: "Alert on LORD JAWBUS catch",
-        category: "Alerts",
-        subcategory: "Rare Catches"
-    })
-    alertOnLordJawbusCatch = true;
-
-    @SwitchProperty({
-        name: "Alert on VANQUISHER spawn",
-        category: "Alerts",
-        subcategory: "Rare Catches"
-    })
-    alertOnVanquisherCatch = true;
-
-    @SwitchProperty({
-        name: "Alert on PLHLEGBLAST catch",
-        category: "Alerts",
-        subcategory: "Rare Catches"
-    })
-    alertOnPlhlegblastCatch = true;
-
-    // ******* ALERTS - Rare Drops ******* //
-
-    @SwitchProperty({
-        name: "Alert on BABY YETI PET drop",
-        category: "Alerts",
-        subcategory: "Rare Drops"
-    })
-    alertOnBabyYetiPetDrop = true;
-
-    @SwitchProperty({
-        name: "Alert on FLYING FISH PET drop",
-        category: "Alerts",
-        subcategory: "Rare Drops"
-    })
-    alertOnFlyingFishPetDrop = true;
-
-    @SwitchProperty({
-        name: "Alert on LUCKY CLOVER CORE drop",
-        category: "Alerts",
-        subcategory: "Rare Drops"
-    })
-    alertOnLuckyCloverCoreDrop = true;
-
-    @SwitchProperty({
-        name: "Alert on MEGALODON PET drop",
-        category: "Alerts",
-        subcategory: "Rare Drops"
-    })
-    alertOnMegalodonPetDrop = true;
-
-    @SwitchProperty({
-        name: "Alert on DEEP SEA ORB drop",
-        category: "Alerts",
-        subcategory: "Rare Drops"
-    })
-    alertOnDeepSeaOrbDrop = true;
-
-    @SwitchProperty({
-        name: "Alert on RADIOACTIVE VIAL drop",
-        category: "Alerts",
-        subcategory: "Rare Drops"
-    })
-    alertOnRadioactiveVialDrop = true;
-
-    @SwitchProperty({
-        name: "Alert on CARMINE DYE drop",
-        category: "Alerts",
-        subcategory: "Rare Drops"
-    })
-    alertOnCarmineDyeDrop = true;
-
-    @SwitchProperty({
-        name: "Alert on AQUAMARINE DYE drop",
-        category: "Alerts",
-        subcategory: "Rare Drops"
-    })
-    alertOnAqumarineDyeDrop = true;
-
-    @SwitchProperty({
-        name: "Alert on ICEBERG DYE drop",
-        category: "Alerts",
-        subcategory: "Rare Drops"
-    })
-    alertOnIcebergDyeDrop = true;
-
-    @SwitchProperty({
-        name: "Alert on MIDNIGHT DYE drop",
-        category: "Alerts",
-        subcategory: "Rare Drops"
-    })
-    alertOnMidnightDyeDrop = true;
-
-    @SwitchProperty({
-        name: "Alert on PERIWINKLE DYE drop",
-        category: "Alerts",
-        subcategory: "Rare Drops"
-    })
-    alertOnPeriwinkleDyeDrop = true;
-
-    @SwitchProperty({
-        name: "Alert on BONE DYE drop",
-        category: "Alerts",
-        subcategory: "Rare Drops"
-    })
-    alertOnBoneDyeDrop = true;
-    
-    @SwitchProperty({
-        name: "Alert on MAGMA CORE drop",
-        category: "Alerts",
-        subcategory: "Rare Drops"
-    })
-    alertOnMagmaCoreDrop = true;
-
-    @SwitchProperty({
-        name: "Alert on MUSIC RUNE I drop",
-        category: "Alerts",
-        subcategory: "Rare Drops"
-    })
-    alertOnMusicRuneDrop = true;
-
-    @SwitchProperty({
-        name: "Alert on SQUID PET drop",
-        category: "Alerts",
-        subcategory: "Rare Drops"
-    })
-    alertOnSquidPetDrop = true;
-
-    @SwitchProperty({
-        name: "Alert on GUARDIAN PET drop",
-        category: "Alerts",
-        subcategory: "Rare Drops"
-    })
-    alertOnGuardianPetDrop = true;
-
-    // ******* OVERLAYS - Totem ******* //
-
-    @SwitchProperty({
-        name: "Remaining totem time",
-        description: "Shows an overlay with the remaining time of current player's totem of corruption.",
-        category: "Overlays",
-        subcategory: "Totem"
-    })
-    totemRemainingTimeOverlay = true;
-
-    @ButtonProperty({
-        name: "Move remaining totem time",
-        description: "Allows to move and resize the overlay text.",
-        category: "Overlays",
-        subcategory: "Totem",
-        placeholder: "Move"
-    })
-    moveTotemRemainingTimeOverlay() {
-        showOverlayMoveHelp();
-        this.totemRemainingTimeOverlayGui.open();
-    };
-
-    // ******* OVERLAYS - Flare ******* //
-
-    @SwitchProperty({
-        name: "Remaining flare time",
-        description: "Shows an overlay with the remaining time of current player's Warning Flare / Alert Flare / SOS Flare.",
-        category: "Overlays",
-        subcategory: "Flare"
-    })
-    flareRemainingTimeOverlay = true;
-
-    @ButtonProperty({
-        name: "Move remaining flare time",
-        description: "Allows to move and resize the overlay text.",
-        category: "Overlays",
-        subcategory: "Flare",
-        placeholder: "Move"
-    })
-    moveFlareRemainingTimeOverlay() {
-        showOverlayMoveHelp();
-        this.flareRemainingTimeOverlayGui.open();
-    };
-
-    // ******* OVERLAYS - Rare catches ******* //
-
-    @SwitchProperty({
-        name: "Rare catches tracker",
-        description: `Shows an overlay with the statistics of rare sea creatures caught per session.\nDo ${AQUA}/feeshResetRareCatches${GRAY} to reset.\n${RED}Hidden if you have no fishing rod in your hotbar!`,
-        category: "Overlays",
-        subcategory: "Rare catches"
-    })
-    rareCatchesTrackerOverlay = true;
-
-    @SwitchProperty({
-        name: "Reset on closing game",
-        description: "Automatically reset the rare catches tracker when you close Minecraft or reload CT modules.",
-        category: "Overlays",
-        subcategory: "Rare catches"
-    })
-    resetRareCatchesTrackerOnGameClosed = false;
-
-    @ButtonProperty({
-        name: "Move rare catches tracker",
-        description: "Allows to move and resize the overlay text.",
-        category: "Overlays",
-        subcategory: "Rare catches",
-        placeholder: "Move"
-    })
-    moveRareCatchesTrackerOverlay() {
-        showOverlayMoveHelp();
-        this.rareCatchesTrackerOverlayGui.open();
-    };
-
-    @ButtonProperty({
-        name: "Reset rare catches tracker",
-        description: `Resets tracking for rare catches tracker. Executes ${AQUA}/feeshResetRareCatches`,
-        category: "Overlays",
-        subcategory: "Rare catches",
-        placeholder: "Reset"
-    })
-    resetRareCatchesTracker() {
+})
+
+.addSwitch({
+    category: "Overlays",
+    configName: "rareCatchesTrackerOverlay",
+    title: "Rare catches tracker",
+    description: `Shows an overlay with the statistics of rare sea creatures caught per session.\nDo ${AQUA}/feeshResetRareCatches${GRAY} to reset.\n${RED}Hidden if you have no fishing rod in your hotbar!`,
+    subcategory: "Rare catches",
+    value: true
+})
+.addSwitch({
+    category: "Overlays",
+    configName: "resetRareCatchesTrackerOnGameClosed",
+    title: "Reset on closing game",
+    description: "Automatically reset the rare catches tracker when you close Minecraft or reload CT modules.",
+    subcategory: "Rare catches"
+})
+.addButton({
+    category: "Overlays",
+    configName: "moveRareCatchesTrackerOverlay",
+    title: "Move rare catches tracker",
+    description: "Allows to move and resize the overlay text.",
+    subcategory: "Rare catches",
+    onClick() {
+        moveOverlay(rareCatchesTrackerOverlayGui);
+    }
+})
+.addButton({
+    category: "Overlays",
+    configName: "resetRareCatchesTracker",
+    title: "Reset rare catches tracker",
+    description: `Resets tracking for rare catches tracker. Executes ${AQUA}/feeshResetRareCatches`,
+    subcategory: "Rare catches",
+    onClick() {
         ChatLib.command("feeshResetRareCatches noconfirm", true);
     }
+})
 
-    // ******* OVERLAYS - Sea creatures HP ******* //
+.addSwitch({
+    category: "Overlays",
+    configName: "seaCreaturesHpOverlay",
+    title: "Sea creatures HP",
+    description: `Shows an overlay with the HP of nearby Thunder / Lord Jawbus / Plhlegblast / Reindrake / Yeti when they're in lootshare range. ${RED}Hidden if you have no fishing rod in your hotbar!`,
+    subcategory: "Sea creatures HP",
+    value: true
+})
+.addButton({
+    category: "Overlays",
+    configName: "moveSeaCreaturesHpOverlay",
+    title: "Move sea creatures HP",
+    description: "Allows to move and resize the overlay text.",
+    subcategory: "Sea creatures HP",
+    onClick() {
+        moveOverlay(seaCreaturesHpOverlayGui);
+    }
+})
 
-    @SwitchProperty({
-        name: "Sea creatures HP",
-        description: `Shows an overlay with the HP of nearby Thunder / Lord Jawbus / Plhlegblast / Reindrake / Yeti when they're in lootshare range. ${RED}Hidden if you have no fishing rod in your hotbar!`,
-        category: "Overlays",
-        subcategory: "Sea creatures HP"
-    })
-    seaCreaturesHpOverlay = true;
+.addSwitch({
+    category: "Overlays",
+    configName: "seaCreaturesCountOverlay",
+    title: "Sea creatures count",
+    description: `Shows an overlay with the count of nearby sea creatures, and timer for how long they are alive. Useful to detect cap when barn fishing. ${RED}Hidden if you have no fishing rod in your hotbar!`,
+    subcategory: "Sea creatures count",
+    value: true
+})
+.addButton({
+    category: "Overlays",
+    configName: "moveSeaCreaturesCountOverlay",
+    title: "Move sea creatures count",
+    description: "Allows to move and resize the overlay text.",
+    subcategory: "Sea creatures count",
+    onClick() {
+        moveOverlay(seaCreaturesCountOverlayGui);
+    }
+})
 
-    @ButtonProperty({
-        name: "Move sea creatures HP",
-        description: "Allows to move and resize the overlay text.",
-        category: "Overlays",
-        subcategory: "Sea creatures HP",
-        placeholder: "Move"
-    })
-    moveSeaCreaturesHpOverlay() {
-        showOverlayMoveHelp();
-        this.seaCreaturesHpOverlayGui.open();
-    };
+.addSwitch({
+    category: "Overlays",
+    configName: "legionAndBobbingTimeOverlay",
+    title: "Legion & Bobbing Time",
+    description: `Shows an overlay with the amount of players within 30 blocks (excluding you), and amount of fishing hooks within 30 blocks (including your own hook). ${RED}Hidden if you have no fishing rod in your hotbar!\n\n${DARK_GRAY}If you have other players' hooks hidden by the mods, this may not work correctly. E.g. it works with NEU hooks hider, but doesn't work with Skytils.`,
+    subcategory: "Legion & Bobbing Time"
+})
+.addButton({
+    category: "Overlays",
+    configName: "moveLegionAndBobbingTimeOverlay",
+    title: "Move Legion & Bobbing Time",
+    description: "Allows to move and resize the overlay text.",
+    subcategory: "Legion & Bobbing Time",
+    onClick() {
+        moveOverlay(legionAndBobbingTimeOverlayGui);
+    }
+})
 
-    // ******* OVERLAYS - Sea creatures count ******* //
-
-    @SwitchProperty({
-        name: "Sea creatures count",
-        description: `Shows an overlay with the count of nearby sea creatures, and timer for how long they are alive. Useful for barn fishing. ${RED}Hidden if you have no fishing rod in your hotbar!`,
-        category: "Overlays",
-        subcategory: "Sea creatures count"
-    })
-    seaCreaturesCountOverlay = true;
-
-    @ButtonProperty({
-        name: "Move sea creatures count",
-        description: "Allows to move and resize the overlay text.",
-        category: "Overlays",
-        subcategory: "Sea creatures count",
-        placeholder: "Move"
-    })
-    moveSeaCreaturesCountOverlay() {
-        showOverlayMoveHelp();
-        this.seaCreaturesCountOverlayGui.open();
-    };
-
-    // ******* OVERLAYS - Legion & Bobbing Time ******* //
-
-    @SwitchProperty({
-        name: "Legion & Bobbing Time",
-        description: `Shows an overlay with the amount of players within 30 blocks (excluding you), and amount of fishing hooks within 30 blocks (including your own hook). ${RED}Hidden if you have no fishing rod in your hotbar!\n\n${DARK_GRAY}If you have other players' hooks hidden by the mods, this may not work correctly. E.g. it works with NEU hooks hider, but doesn't work with Skytils.`,
-        category: "Overlays",
-        subcategory: "Legion & Bobbing Time"
-    })
-    legionAndBobbingTimeOverlay = false;
-
-    @ButtonProperty({
-        name: "Move Legion & Bobbing Time",
-        description: "Allows to move and resize the overlay text.",
-        category: "Overlays",
-        subcategory: "Legion & Bobbing Time",
-        placeholder: "Move"
-    })
-    moveLegionAndBobbingTimeOverlay() {
-        showOverlayMoveHelp();
-        this.legionAndBobbingTimeOverlayGui.open();
-    };
-
-    // ******* OVERLAYS - Jerry Workshop tracker ******* //
-
-    @SwitchProperty({
-        name: "Jerry Workshop tracker",
-        description: `Shows an overlay with Yeti / Reindrake catch statistics and Baby Yeti pet drops statistics while in the Jerry Workshop.\nDo ${AQUA}/feeshResetJerryWorkshop${GRAY} to reset.\n${RED}Hidden if you have no fishing rod in your hotbar!`,
-        category: "Overlays",
-        subcategory: "Jerry Workshop tracker"
-    })
-    jerryWorkshopTrackerOverlay = true;
-
-    @SwitchProperty({
-        name: "Reset on closing game",
-        description: "Automatically reset the Jerry Workshop tracker when you close Minecraft or reload CT modules.",
-        category: "Overlays",
-        subcategory: "Jerry Workshop tracker"
-    })
-    resetJerryWorkshopTrackerOnGameClosed = false;
-
-    @ButtonProperty({
-        name: "Move Jerry Workshop tracker",
-        description: "Allows to move and resize the overlay text.",
-        category: "Overlays",
-        subcategory: "Jerry Workshop tracker",
-        placeholder: "Move"
-    })
-    moveJerryWorkshopTrackerOverlay() {
-        showOverlayMoveHelp();
-        this.jerryWorkshopTrackerOverlayGui.open();
-    };
-
-    @ButtonProperty({
-        name: "Reset Jerry Workshop tracker",
-        description: `Resets tracking for Jerry Workshop tracker. Executes ${AQUA}/feeshResetJerryWorkshop`,
-        category: "Overlays",
-        subcategory: "Jerry Workshop tracker",
-        placeholder: "Reset"
-    })
-    resetJerryWorkshopTracker() {
+.addSwitch({
+    category: "Overlays",
+    configName: "jerryWorkshopTrackerOverlay",
+    title: "Jerry Workshop tracker",
+    description: `Shows an overlay with Yeti / Reindrake catch statistics and Baby Yeti pet drops statistics while in the Jerry Workshop.\nDo ${AQUA}/feeshResetJerryWorkshop${GRAY} to reset.\n${RED}Hidden if you have no fishing rod in your hotbar!`,
+    subcategory: "Jerry Workshop tracker",
+    value: true
+})
+.addSwitch({
+    category: "Overlays",
+    configName: "resetJerryWorkshopTrackerOnGameClosed",
+    title: "Reset on closing game",
+    description: "Automatically reset the Jerry Workshop tracker when you close Minecraft or reload CT modules.",
+    subcategory: "Jerry Workshop tracker"
+})
+.addButton({
+    category: "Overlays",
+    configName: "moveJerryWorkshopTrackerOverlay",
+    title: "Move Jerry Workshop tracker",
+    description: "Allows to move and resize the overlay text.",
+    subcategory: "Jerry Workshop tracker",
+    onClick() {
+        moveOverlay(jerryWorkshopTrackerOverlayGui);
+    }
+})
+.addButton({
+    category: "Overlays",
+    configName: "resetJerryWorkshopTracker",
+    title: "Reset Jerry Workshop tracker",
+    description: `Resets tracking for Jerry Workshop tracker. Executes ${AQUA}/feeshResetJerryWorkshop`,
+    subcategory: "Jerry Workshop tracker",
+    onClick() {
         ChatLib.command("feeshResetJerryWorkshop noconfirm", true);
     }
+})
 
-    // ******* OVERLAYS - Crimson Isle tracker ******* //
-
-    @SwitchProperty({
-        name: "Crimson Isle tracker",
-        description: `
+.addSwitch({
+    category: "Overlays",
+    configName: "crimsonIsleTrackerOverlay",
+    title: "Crimson Isle tracker",
+    description: `
 Shows an overlay with Thunder / Lord Jawbus catch statistics and Radioactive Vial drop statistics while in the Crimson Isle.
 Do ${AQUA}/feeshResetCrimsonIsle${GRAY} to reset.
 ${RED}Hidden if you have no fishing rod in your hotbar!
@@ -954,406 +927,368 @@ Do ${AQUA}/feeshSetRadioactiveVials COUNT LAST_ON_UTC_DATE${GRAY} to initialize 
   - COUNT is mandatory number.
   - LAST_ON_UTC_DATE is optional and, if provided, should be in YYYY-MM-DDThh:mm:ssZ format (UTC).
 Example: /feeshSetRadioactiveVials 5 2024-03-18T14:05:00Z`,
-        category: "Overlays",
-        subcategory: "Crimson Isle tracker"
-    })
-    crimsonIsleTrackerOverlay = true;
-
-    @SwitchProperty({
-        name: "Reset on closing game",
-        description: "Automatically reset the Crimson Isle tracker when you close Minecraft or or reload CT modules.",
-        category: "Overlays",
-        subcategory: "Crimson Isle tracker"
-    })
-    resetCrimsonIsleTrackerOnGameClosed = false;
-
-    @ButtonProperty({
-        name: "Move Crimson Isle tracker",
-        description: "Allows to move and resize the overlay text.",
-        category: "Overlays",
-        subcategory: "Crimson Isle tracker",
-        placeholder: "Move"
-    })
-    moveCrimsonIsleTrackerOverlay() {
-        showOverlayMoveHelp();
-        this.crimsonIsleTrackerOverlayGui.open();
-    };
-
-    @ButtonProperty({
-        name: "Reset Crimson Isle tracker",
-        description: `Resets tracking for Crimson Isle tracker. Executes ${AQUA}/feeshResetCrimsonIsle`,
-        category: "Overlays",
-        subcategory: "Crimson Isle tracker",
-        placeholder: "Reset"
-    })
-    resetCrimsonIsleTracker() {
+    subcategory: "Crimson Isle tracker",
+    value: true
+})
+.addSwitch({
+    category: "Overlays",
+    configName: "resetCrimsonIsleTrackerOnGameClosed",
+    title: "Reset on closing game",
+    description: "Automatically reset the Crimson Isle tracker when you close Minecraft or or reload CT modules.",
+    subcategory: "Crimson Isle tracker"
+})
+.addButton({
+    category: "Overlays",
+    configName: "moveCrimsonIsleTrackerOverlay",
+    title: "Move Crimson Isle tracker",
+    description: "Allows to move and resize the overlay text.",
+    subcategory: "Crimson Isle tracker",
+    onClick() {
+        moveOverlay(crimsonIsleTrackerOverlayGui);
+    }
+})
+.addButton({
+    category: "Overlays",
+    configName: "resetCrimsonIsleTracker",
+    title: "Reset Crimson Isle tracker",
+    description: `Resets tracking for Crimson Isle tracker. Executes ${AQUA}/feeshResetCrimsonIsle`,
+    subcategory: "Crimson Isle tracker",
+    onClick() {
         ChatLib.command("feeshResetCrimsonIsle noconfirm", true);
     }
+})
 
-    // ******* OVERLAYS - Worm profit tracker ******* //
-
-    @SwitchProperty({
-        name: "Worm profit tracker",
-        description: `Shows an overlay with the worm fishing statistics - total and per hour, when in Crystal Hollows. Not persistent - resets on MC restart.\nDo ${AQUA}/feeshResetWormProfit${GRAY} to reset.\n${RED}Hidden if you have no fishing rod in your hotbar!`,
-        category: "Overlays",
-        subcategory: "Worm profit tracker"
-    })
-    wormProfitTrackerOverlay = true;
-
-    @SelectorProperty({
-        name: "Worm profit tracker display mode",
-        description: "How to calculate total profit and profit per hour.",
-        category: "Overlays",
-        subcategory: "Worm profit tracker",
-        options: ["Worm membranes", "Gemstone chambers"]
-    })
-    wormProfitTrackerMode = 0;
-
-    @ButtonProperty({
-        name: "Move Worm profit tracker",
-        description: "Allows to move and resize the overlay text.",
-        category: "Overlays",
-        subcategory: "Worm profit tracker",
-        placeholder: "Move"
-    })
-    moveWormProfitTrackerOverlay() {
-        showOverlayMoveHelp();
-        this.wormProfitTrackerOverlayGui.open();
-    };
-
-    @ButtonProperty({
-        name: "Reset Worm profit tracker",
-        description: `Resets tracking for Worm profit tracker. Executes ${AQUA}/feeshResetWormProfit`,
-        category: "Overlays",
-        subcategory: "Worm profit tracker",
-        placeholder: "Reset"
-    })
-    resetWormProfitTracker() {
+.addSwitch({
+    category: "Overlays",
+    configName: "wormProfitTrackerOverlay",
+    title: "Worm profit tracker",
+    description: `Shows an overlay with the worm fishing statistics - total and per hour, when in Crystal Hollows. Not persistent - resets on MC restart.\nDo ${AQUA}/feeshResetWormProfit${GRAY} to reset.\n${RED}Hidden if you have no fishing rod in your hotbar!`,
+    subcategory: "Worm profit tracker",
+    value: true
+})
+.addDropDown({
+    category: "Overlays",
+    configName: "wormProfitTrackerMode",
+    title: "Worm profit tracker display mode",
+    description: "How to calculate total profit and profit per hour.",
+    options: ["Worm membranes","Gemstone chambers"],
+    value: 0,
+    subcategory: "Worm profit tracker"
+})
+.addButton({
+    category: "Overlays",
+    configName: "moveWormProfitTrackerOverlay",
+    title: "Move Worm profit tracker",
+    description: "Allows to move and resize the overlay text.",
+    subcategory: "Worm profit tracker",
+    onClick() {
+        moveOverlay(wormProfitTrackerOverlayGui);
+    }
+})
+.addButton({
+    category: "Overlays",
+    configName: "resetWormProfitTracker",
+    title: "Reset Worm profit tracker",
+    description: `Resets tracking for Worm profit tracker. Executes ${AQUA}/feeshResetWormProfit`,
+    subcategory: "Worm profit tracker",
+    onClick() {
         ChatLib.command("feeshResetWormProfit noconfirm", true);
     }
+})
 
-    // ******* OVERLAYS - Magma Core profit tracker ******* //
-
-    @SwitchProperty({
-        name: "Magma Core profit tracker",
-        description: `Shows an overlay with the Magma Core fishing statistics - total and per hour, when in Crystal Hollows. Not persistent - resets on MC restart. \nDo ${AQUA}/feeshResetMagmaCoreProfit${GRAY} to reset.\n${RED}Hidden if you have no fishing rod in your hotbar!`,
-        category: "Overlays",
-        subcategory: "Magma Core profit tracker"
-    })
-    magmaCoreProfitTrackerOverlay = true;
-
-    @ButtonProperty({
-        name: "Move Magma Core profit tracker",
-        description: "Allows to move and resize the overlay text.",
-        category: "Overlays",
-        subcategory: "Magma Core profit tracker",
-        placeholder: "Move"
-    })
-    moveMagmaCoreProfitTrackerOverlay() {
-        showOverlayMoveHelp();
-        this.magmaCoreProfitTrackerOverlayGui.open();
-    };
-
-    @ButtonProperty({
-        name: "Reset Magma Core profit tracker",
-        description: `Resets tracking for Magma Core profit tracker. Executes ${AQUA}/feeshResetMagmaCoreProfit`,
-        category: "Overlays",
-        subcategory: "Magma Core profit tracker",
-        placeholder: "Reset"
-    })
-    resetMagmaCoreProfitTracker() {
+.addSwitch({
+    category: "Overlays",
+    configName: "magmaCoreProfitTrackerOverlay",
+    title: "Magma Core profit tracker",
+    description: `Shows an overlay with the Magma Core fishing statistics - total and per hour, when in Crystal Hollows. Not persistent - resets on MC restart. \nDo ${AQUA}/feeshResetMagmaCoreProfit${GRAY} to reset.\n${RED}Hidden if you have no fishing rod in your hotbar!`,
+    subcategory: "Magma Core profit tracker",
+    value: true
+})
+.addButton({
+    category: "Overlays",
+    configName: "moveMagmaCoreProfitTrackerOverlay",
+    title: "Move Magma Core profit tracker",
+    description: "Allows to move and resize the overlay text.",
+    subcategory: "Magma Core profit tracker",
+    onClick() {
+        moveOverlay(magmaCoreProfitTrackerOverlayGui);
+    }
+})
+.addButton({
+    category: "Overlays",
+    configName: "resetMagmaCoreProfitTracker",
+    title: "Reset Magma Core profit tracker",
+    description: `Resets tracking for Magma Core profit tracker. Executes ${AQUA}/feeshResetMagmaCoreProfit`,
+    subcategory: "Magma Core profit tracker",
+    onClick() {
         ChatLib.command("feeshResetMagmaCoreProfit noconfirm", true);
     }
+})
 
-    // ******* OVERLAYS - Abandoned Quarry tracker ******* //
-
-    @SwitchProperty({
-        name: "Abandoned Quarry tracker",
-        description: `Shows an overlay with the Mithril Grubber and Mithril Powder statistics, when in Abandoned Quarry. Not persistent - resets on MC restart.\n${DARK_GRAY}This requires Powder Widget to be enabled in /tablist.\nDo ${AQUA}/feeshResetAbandonedQuarry${GRAY} to reset.\n${RED}Hidden if you have no fishing rod in your hotbar!`,
-        category: "Overlays",
-        subcategory: "Abandoned Quarry tracker"
-    })
-    abandonedQuarryTrackerOverlay = true;
-
-    @ButtonProperty({
-        name: "Move Abandoned Quarry tracker",
-        description: "Allows to move and resize the overlay text.",
-        category: "Overlays",
-        subcategory: "Abandoned Quarry tracker",
-        placeholder: "Move"
-    })
-    moveAbandonedQuarryTrackerOverlay() {
-        showOverlayMoveHelp();
-        this.abandonedQuarryTrackerOverlayGui.open();
-    };
-
-    @ButtonProperty({
-        name: "Reset Abandoned Quarry tracker",
-        description: `Resets tracking for Abandoned Quarry tracker. Executes ${AQUA}/feeshResetAbandonedQuarry`,
-        category: "Overlays",
-        subcategory: "Abandoned Quarry tracker",
-        placeholder: "Reset"
-    })
-    resetAbandonedQuarryTracker() {
+.addSwitch({
+    category: "Overlays",
+    configName: "abandonedQuarryTrackerOverlay",
+    title: "Abandoned Quarry tracker",
+    description: `Shows an overlay with the Mithril Grubber and Mithril Powder statistics, when in Abandoned Quarry. Not persistent - resets on MC restart.\n${DARK_GRAY}This requires Powder Widget to be enabled in /tablist.\nDo ${AQUA}/feeshResetAbandonedQuarry${GRAY} to reset.\n${RED}Hidden if you have no fishing rod in your hotbar!`,
+    subcategory: "Abandoned Quarry tracker",
+    value: true
+})
+.addButton({
+    category: "Overlays",
+    configName: "moveAbandonedQuarryTrackerOverlay",
+    title: "Move Abandoned Quarry tracker",
+    description: "Allows to move and resize the overlay text.",
+    subcategory: "Abandoned Quarry tracker",
+    onClick() {
+        moveOverlay(abandonedQuarryTrackerOverlayGui);
+    }
+})
+.addButton({
+    category: "Overlays",
+    configName: "resetAbandonedQuarryTracker",
+    title: "Reset Abandoned Quarry tracker",
+    description: `Resets tracking for Abandoned Quarry tracker. Executes ${AQUA}/feeshResetAbandonedQuarry`,
+    subcategory: "Abandoned Quarry tracker",
+    onClick() {
         ChatLib.command("feeshResetAbandonedQuarry noconfirm", true);
     }
+})
 
-    // ******* OVERLAYS - Fishing profit tracker ******* //
-
-    @SwitchProperty({
-        name: "Fishing profit tracker",
-        description: `
+.addSwitch({
+    category: "Overlays",
+    configName: "fishingProfitTrackerOverlay",
+    title: "Fishing profit tracker",
+    description: `
 Shows an overlay with your profits per fishing session.
 ${DARK_GRAY}For this to work, make sure to enable Settings - Personal -> Chat Feedback -> Sack Notifications in Skyblock.
 ${GRAY}Do ${AQUA}/feeshResetProfitTracker${GRAY} to reset.
 ${RED}Hidden if you have no fishing rod in your hotbar!`,
-        category: "Overlays",
-        subcategory: "Fishing profit tracker"
-    })
-    fishingProfitTrackerOverlay = true;
-
-    @ButtonProperty({
-        name: "Move fishing profit tracker",
-        description: "Allows to move and resize the overlay text.",
-        category: "Overlays",
-        subcategory: "Fishing profit tracker",
-        placeholder: "Move"
-    })
-    moveFishingProfitTrackerOverlay() {
-        showOverlayMoveHelp();
-        this.fishingProfitTrackerOverlayGui.open();
-    };
-
-    @ButtonProperty({
-        name: "Reset fishing profit tracker",
-        description: `Resets tracking for fishing profit tracker. Executes ${AQUA}/feeshResetProfitTracker`,
-        category: "Overlays",
-        subcategory: "Fishing profit tracker",
-        placeholder: "Reset"
-    })
-    resetFishingProfitTracker() {
+    subcategory: "Fishing profit tracker",
+    value: true
+})
+.addDropDown({
+    category: "Overlays",
+    configName: "fishingProfitTrackerMode",
+    title: "Fishing profit tracker display mode",
+    description: "How to calculate price for the bazaar items.",
+    options: ["Sell offer","Insta-sell"],
+    value: 0,
+    subcategory: "Fishing profit tracker"
+})
+.addTextInput({
+    category: "Overlays",
+    configName: "fishingProfitTracker_hideCheaperThan",
+    title: "Hide cheap items",
+    description: "Items which are cheaper than the specified threshold in coins will be hidden in the fishing profit tracker. They will be grouped under 'Cheap items' section. Set to 0 to show all items.",
+    value: "500000",
+    placeHolder: "",
+    subcategory: "Fishing profit tracker"
+})
+.addSlider({
+    category: "Overlays",
+    configName: "fishingProfitTracker_showTop",
+    title: "Maximum items count",
+    description: "Show top N lines for the most expensive items. Other cheaper items will be grouped under 'Cheap items' section.",
+    options: [1, 50],
+    value: 20,
+    subcategory: "Fishing profit tracker"
+})
+.addSwitch({
+    category: "Overlays",
+    configName: "shouldAnnounceRareDropsWhenPickup",
+    title: "Announce rare drops",
+    description: "Send RARE DROP! message to player's chat when a rare item is added to the fishing profit tracker (for the items that have no RARE DROP! message from Hypixel by default).",
+    subcategory: "Fishing profit tracker",
+    value: true
+})
+.addSwitch({
+    category: "Overlays",
+    configName: "calculateProfitInCrimsonEssence",
+    title: "Show profits in crimson essence",
+    description: "Calculate price in crimson essence for crimson fishing items e.g. Slug Boots, Moogma Leggings, Flaming Chestplate, Blade of the Volcano, Staff of the Volcano.",
+    subcategory: "Fishing profit tracker"
+})
+.addSwitch({
+    category: "Overlays",
+    configName: "resetFishingProfitTrackerOnGameClosed",
+    title: "Reset on closing game",
+    description: "Automatically reset the fishing profit tracker when you close Minecraft or reload CT modules.",
+    subcategory: "Fishing profit tracker"
+})
+.addButton({
+    category: "Overlays",
+    configName: "moveFishingProfitTrackerOverlay",
+    title: "Move fishing profit tracker",
+    description: "Allows to move and resize the overlay text.",
+    subcategory: "Fishing profit tracker",
+    onClick() {
+        moveOverlay(fishingProfitTrackerOverlayGui);
+    }
+})
+.addButton({
+    category: "Overlays",
+    configName: "resetFishingProfitTracker",
+    title: "Reset fishing profit tracker",
+    description: `Resets tracking for fishing profit tracker. Executes ${AQUA}/feeshResetProfitTracker`,
+    subcategory: "Fishing profit tracker",
+    onClick() {
         ChatLib.command("feeshResetProfitTracker noconfirm", true);
     }
+})
 
-    @SelectorProperty({
-        name: "Fishing profit tracker display mode",
-        description: "How to calculate price for the bazaar items.",
-        category: "Overlays",
-        subcategory: "Fishing profit tracker",
-        options: ["Sell offer", "Insta-sell"]
-    })
-    fishingProfitTrackerMode = 0;
+.addSwitch({
+    category: "Inventory",
+    configName: "highlightCheapBooks",
+    title: "Highlight cheap enchanted books",
+    description: `Use red background for the fishing enchanted books that are worth nothing (e.g. Corruption), when they are in your inventory and storages. ${DARK_GRAY}For people who accidentally throw away Blessing and Prosperity c:`,
+    subcategory: "Item background"
+})
+.addSwitch({
+    category: "Inventory",
+    configName: "highlightMatchingItemsInAttributeFusion",
+    title: "Highlight matching items in Attribute Fusion",
+    description: "Highlight matching items with the same attribute tier, when combining the gear / attribute shards in the Attribute Fusion menu.",
+    subcategory: "Item background"
+})
 
-    @TextProperty({
-        name: "Hide cheap items",
-        description: `Items which are cheaper than the specified threshold in coins will be hidden in the fishing profit tracker. They will be grouped under 'Cheap items' section. Set to 0 to show all items.`,
-        category: "Overlays",
-        subcategory: "Fishing profit tracker"
-    })
-    fishingProfitTracker_hideCheaperThan = '20000';
+.addSwitch({
+    category: "Inventory",
+    configName: "showThunderBottleProgress",
+    title: "Thunder bottle charge progress",
+    description: "Render Thunder / Storm / Hurricane bottle charge progress (percentage).",
+    subcategory: "Item icon"
+})
+.addSwitch({
+    category: "Inventory",
+    configName: "showPetLevel",
+    title: "Pet level",
+    description: "Render pet rarity and level.",
+    subcategory: "Item icon"
+})
+.addSwitch({
+    category: "Inventory",
+    configName: "showRarityUpgrade",
+    title: "Rarity upgrade",
+    description: "Render rarity upgrade for recombobulated fishing items (autorecombobulator).",
+    subcategory: "Item icon"
+})
+.addSwitch({
+    category: "Inventory",
+    configName: "showExpBoostPercentage",
+    title: "Exp Boost percentage",
+    description: "Render percentage for Exp Boost items.",
+    subcategory: "Item icon"
+})
+.addSwitch({
+    category: "Inventory",
+    configName: "showCaughtTrophyFishRaritiesInOdger",
+    title: "Caught trophy fish rarities",
+    description: "Render caught trophy fish rarities in Odger's Trophy Fishing GUI.",
+    subcategory: "Item icon"
+})
 
-    @SliderProperty({
-        name: "Maximum items count",
-        description: `Show top N lines for the most expensive items. Other cheaper items will be grouped under 'Cheap items' section.`,
-        category: "Overlays",
-        subcategory: "Fishing profit tracker",
-        min: 1,
-        max: 50
-    })
-    fishingProfitTracker_showTop = 20;
+.addSwitch({
+    category: "Inventory",
+    configName: "showFishingArmorAttributes",
+    title: "Armor attributes",
+    description: "Render attribute name and level as short abbreviations, for Thunder/Magma Lord/Lava Sea Creature armor and equipment.",
+    subcategory: "Armor attributes"
+})
+.addTextInput({
+    category: "Inventory",
+    configName: "accentedFishingArmorAttributes",
+    title: "Accented armor attributes",
+    description: "Render attributes from this list using another color. Use lower_case_with_underscore to specify an attribute code, and comma as a separator to specify multiple.",
+    value: "blazing_fortune,magic_find,fishing_experience",
+    placeHolder: "",
+    subcategory: "Armor attributes"
+})
+.addSwitch({
+    category: "Inventory",
+    configName: "showCrimsonArmorAttributes",
+    title: "Crimson armor / equipment attributes",
+    description: "Render attribute name and level as short abbreviations, for different crimson/kuudra armors and equipment.",
+    subcategory: "Armor attributes"
+})
+.addTextInput({
+    category: "Inventory",
+    configName: "accentedCrimsonArmorAttributes",
+    title: "Accented crimson armor / equipment attributes",
+    description: "Render attributes from this list using another color. Use lower_case_with_underscore to specify an attribute code, and comma as a separator to specify multiple.",
+    value: "magic_find,veteran,vitality,dominance,mana_pool,mana_regeneration,lifeline",
+    placeHolder: "",
+    subcategory: "Armor attributes"
+})
+.addSwitch({
+    category: "Inventory",
+    configName: "showFishingRodAttributes",
+    title: "Fishing rod attributes",
+    description: "Render fishing rod attribute name and level as short abbreviations.",
+    subcategory: "Fishing rod attributes"
+})
+.addTextInput({
+    category: "Inventory",
+    configName: "accentedFishingRodAttributes",
+    title: "Accented fishing rod attributes",
+    description: "Render attributes from this list using another color. Use lower_case_with_underscore to specify an attribute code, and comma as a separator to specify multiple.",
+    value: "double_hook,fishing_speed,trophy_hunter",
+    placeHolder: "",
+    subcategory: "Fishing rod attributes"
+})
 
-    @SwitchProperty({
-        name: "Announce rare drops",
-        description: "Send RARE DROP! message to player's chat when a rare item is added to the fishing profit tracker (for the items that have no RARE DROP! message from Hypixel by default).",
-        category: "Overlays",
-        subcategory: "Fishing profit tracker"
-    })
-    shouldAnnounceRareDropsWhenPickup = true;
-    
-    @SwitchProperty({
-        name: "Show profits in crimson essence",
-        description: "Calculate price in crimson essence for crimson fishing items e.g. Slug Boots, Moogma Leggings, Flaming Chestplate, Blade of the Volcano, Staff of the Volcano.",
-        category: "Overlays",
-        subcategory: "Fishing profit tracker"
-    })
-    calculateProfitInCrimsonEssence = false;
+.addSwitch({
+    category: "Inventory",
+    configName: "showFishingRodExpertiseKills",
+    title: "Fishing rod expertise",
+    description: "Render expertise kills in fishing rod's lore if it has Expertise enchant.",
+    subcategory: "Item lore"
+})
+.addSwitch({
+    category: "Inventory",
+    configName: "showPricePerT1Attribute",
+    title: "Price per T1 attribute shard",
+    description: "Render price per T1 attribute level in the auctioned Attribute Shard's lore, based on item's price. Helps to compare prices for high-tier attribute shards on AH.",
+    subcategory: "Item lore"
+})
 
-    @SwitchProperty({
-        name: "Reset on closing game",
-        description: "Automatically reset the fishing profit tracker when you close Minecraft or reload CT modules.",
-        category: "Overlays",
-        subcategory: "Fishing profit tracker"
-    })
-    resetFishingProfitTrackerOnGameClosed = false;
-
-    // ******* INVENTORY - Highlight ******* //
-
-    @SwitchProperty({
-        name: "Highlight cheap enchanted books",
-        description: `Use red background for the fishing enchanted books that are worth nothing (e.g. Corruption), when they are in your inventory and storages. ${DARK_GRAY}For people who accidentally throw away Blessing and Prosperity c:`,
-        category: "Inventory",
-        subcategory: "Highlight"
-    })
-    highlightCheapBooks = false;
-
-    @SwitchProperty({
-        name: "Highlight matching items in Attribute Fusion",
-        description: `Highlight matching items with the same attribute tier, when combining the gear / attribute shards in the Attribute Fusion menu.`,
-        category: "Inventory",
-        subcategory: "Highlight"
-    })
-    highlightMatchingItemsInAttributeFusion = false;
-
-    // ******* INVENTORY - Item tooltip ******* //
-
-    @SwitchProperty({
-        name: "Thunder bottle charge progress",
-        description: `Render Thunder / Storm / Hurricane bottle charge progress (percentage).`,
-        category: "Inventory",
-        subcategory: "Item tooltip"
-    })
-    showThunderBottleProgress = false;
-
-    @SwitchProperty({
-        name: "Pet level",
-        description: `Render pet rarity and level.`,
-        category: "Inventory",
-        subcategory: "Item tooltip"
-    })
-    showPetLevel = false;
-
-    @SwitchProperty({
-        name: "Rarity upgrade",
-        description: `Render rarity upgrade for recombobulated fishing items (autorecombobulator).`,
-        category: "Inventory",
-        subcategory: "Item tooltip"
-    })
-    showRarityUpgrade = false;
-
-    @SwitchProperty({
-        name: "Exp Boost percentage",
-        description: `Render percentage for Exp Boost items.`,
-        category: "Inventory",
-        subcategory: "Item tooltip"
-    })
-    showExpBoostPercentage = false;
-
-    @SwitchProperty({
-        name: "Caught trophy fish rarities",
-        description: `Render caught trophy fish rarities in Odger's Trophy Fishing GUI.`,
-        category: "Inventory",
-        subcategory: "Item tooltip"
-    })
-    showCaughtTrophyFishRaritiesInOdger = false;
-
-    // ******* INVENTORY - Armor attributes ******* //
-
-    @SwitchProperty({
-        name: "Armor attributes",
-        description: `Render attribute name and level as short abbreviations, for Thunder/Magma Lord/Lava Sea Creature armor and equipment.`,
-        category: "Inventory",
-        subcategory: "Armor attributes"
-    })
-    showFishingArmorAttributes = false;
-
-    @TextProperty({
-        name: "Accented armor attributes",
-        description: `Render attributes from this list using another color. Use lower_case_with_underscore to specify an attribute code, and comma as a separator to specify multiple.`,
-        category: "Inventory",
-        subcategory: "Armor attributes"
-    })
-    accentedFishingArmorAttributes = 'blazing_fortune,magic_find,fishing_experience';
-
-    @SwitchProperty({
-        name: "Crimson armor / equipment attributes",
-        description: `Render attribute name and level as short abbreviations, for different crimson/kuudra armors and equipment.`,
-        category: "Inventory",
-        subcategory: "Armor attributes"
-    })
-    showCrimsonArmorAttributes = false;
-
-    @TextProperty({
-        name: "Accented crimson armor / equipment attributes",
-        description: `Render attributes from this list using another color. Use lower_case_with_underscore to specify an attribute code, and comma as a separator to specify multiple.`,
-        category: "Inventory",
-        subcategory: "Armor attributes"
-    })
-    accentedCrimsonArmorAttributes = 'magic_find,veteran,vitality,dominance,mana_pool,mana_regeneration,lifeline';
-
-    // ******* INVENTORY - Fishing rod attributes ******* //
-
-    @SwitchProperty({
-        name: "Fishing rod attributes",
-        description: `Render fishing rod attribute name and level as short abbreviations.`,
-        category: "Inventory",
-        subcategory: "Fishing rod attributes"
-    })
-    showFishingRodAttributes = false;
-
-    @TextProperty({
-        name: "Accented fishing rod attributes",
-        description: `Render attributes from this list using another color. Use lower_case_with_underscore to specify an attribute code, and comma as a separator to specify multiple.`,
-        category: "Inventory",
-        subcategory: "Fishing rod attributes"
-    })
-    accentedFishingRodAttributes = 'double_hook,fishing_speed,trophy_hunter';
-
-    // ******* INVENTORY - Item lore ******* //
-
-    @SwitchProperty({
-        name: "Fishing rod expertise",
-        description: `Render expertise kills in fishing rod's lore if it has Expertise enchant.`,
-        category: "Inventory",
-        subcategory: "Item lore"
-    })
-    showFishingRodExpertiseKills = false;
-
-    @SwitchProperty({
-        name: "Price per T1 attribute shard",
-        description: `Render price per T1 attribute level in the auctioned Attribute Shard's lore, based on item's price. Helps to compare prices for high-tier attribute shards on AH.`,
-        category: "Inventory",
-        subcategory: "Item lore"
-    })
-    showPricePerT1Attribute = false;
-
-    // ******* COMMANDS ******* //
-
-    @ButtonProperty({
-        name: "Pets level up prices",
-        description: `Calculates the profits for leveling up the fishing pets from level 1 to level 100, and displays the statistics in the chat. Executes ${AQUA}/feeshPetLevelUpPrices`,
-        category: "Commands",
-        subcategory: "Pet prices",
-        placeholder: "Calculate"
-    })
-    calculateFishingPetsPrices() {
+.addButton({
+    category: "Commands",
+    configName: "calculateFishingPetsPrices",
+    title: "Pets level up prices",
+    description: `Calculates the profits for leveling up the fishing pets from level 1 to level 100, and displays the statistics in the chat. Executes ${AQUA}/feeshPetLevelUpPrices`,
+    subcategory: "Pet prices",
+    onClick() {
         ChatLib.command("feeshPetLevelUpPrices", true);
     }
-
-    @ButtonProperty({
-        name: "Gear craft prices",
-        description: `Calculates the profits for crafting different Magma Lord / Thunder / Nutcracker / Diver armor pieces, and displays the statistics in the chat. Executes ${AQUA}/feeshGearCraftPrices`,
-        category: "Commands",
-        subcategory: "Gear craft prices",
-        placeholder: "Calculate"
-    })
-    calculateGearCraftPrices() {
+})
+.addButton({
+    category: "Commands",
+    configName: "calculateGearCraftPrices",
+    title: "Gear craft prices",
+    description: `Calculates the profits for crafting different Magma Lord / Thunder / Nutcracker / Diver armor pieces, and displays the statistics in the chat. Executes ${AQUA}/feeshGearCraftPrices`,
+    subcategory: "Gear craft prices",
+    onClick() {
         ChatLib.command("feeshGearCraftPrices", true);
     }
-
-    @ButtonProperty({
-        name: "Spider's Den rain schedule",
-        description: `Displays the nearest Spider's Den Rain / Thunderstorm events in the chat. Executes ${AQUA}/feeshSpidersDenRainSchedule`,
-        category: "Commands",
-        subcategory: "Spider's Den rain schedule",
-        placeholder: "Calculate"
-    })
-    showSpiderDenRainSchedule() {
+})
+.addButton({
+    category: "Commands",
+    configName: "showSpiderDenRainSchedule",
+    title: "Spider's Den rain schedule",
+    description: `Displays the nearest Spider's Den Rain / Thunderstorm events in the chat. Executes ${AQUA}/feeshSpidersDenRainSchedule`,
+    subcategory: "Spider's Den rain schedule",
+    onClick() {
         ChatLib.command("feeshSpidersDenRainSchedule", true);
     }
-}
+})
 
-export default new Settings();
+const setting = new Settings("FeeshNotifier", config, "data/ColorScheme.json", `${AQUA}FeeshNotifier ${WHITE}v${JSON.parse(FileLib.read("FeeshNotifier", "metadata.json")).version}`);
 
-function showOverlayMoveHelp() {
+export default () => setting.settings;
+
+function moveOverlay(gui) {
+    if (!gui) return;
     ChatLib.chat(`${GOLD}[FeeshNotifier] ${WHITE}Make sure the overlay is visible before moving! Then drag the overlay to move it. Press +/- or mouse scroll to increase/decrease size. Press ESC when you're done.`);
+
+    setTimeout(() => gui.open(), 250); // Timeout is needed because click event propagates to opened GUI when Amaterasu button is clicked
 }

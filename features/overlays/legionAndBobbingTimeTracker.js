@@ -1,4 +1,4 @@
-import settings from "../../settings";
+import settings, { allOverlaysGui } from "../../settings";
 import { GOLD, GRAY, GREEN, WHITE } from "../../constants/formatting";
 import { EntityFishHook } from "../../constants/javaTypes";
 import { overlayCoordsData } from "../../data/overlayCoords";
@@ -22,7 +22,7 @@ register("worldUnload", () => {
 });
 
 function trackPlayersAndFishingHooksNearby() {
-    if (!settings.legionAndBobbingTimeOverlay ||
+    if (!settings().legionAndBobbingTimeOverlay ||
         !isInSkyblock() ||
         !hasFishingRodInHotbar() ||
         getWorldName() === KUUDRA
@@ -42,11 +42,11 @@ function trackPlayersAndFishingHooksNearby() {
 }
 
 function renderLegionAndBobbingTimeOverlay() {
-    if (!settings.legionAndBobbingTimeOverlay ||
+    if (!settings().legionAndBobbingTimeOverlay ||
         !isInSkyblock() ||
         !hasFishingRodInHotbar() ||
         getWorldName() === KUUDRA ||
-        settings.allOverlaysGui.isOpen()
+        allOverlaysGui.isOpen()
     ) {
         return;
     }

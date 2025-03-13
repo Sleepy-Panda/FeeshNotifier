@@ -3,7 +3,7 @@ import { getItemAttributes, addLineToLore, getLore, toShortNumber } from "../../
 import { isInSkyblock } from "../../utils/playerState";
 
 register("itemTooltip", (lore, item) => {
-    if (!item || !isInSkyblock() || !settings.showPricePerT1Attribute) {
+    if (!item || !isInSkyblock() || !settings().showPricePerT1Attribute) {
         return;
     }
 

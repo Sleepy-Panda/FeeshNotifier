@@ -9,7 +9,7 @@ let wormTheFishCount = 0;
 register("step", () => alertOnWormTheFishCatch()).setFps(2);
 
 function alertOnWormTheFishCatch() {
-    if (!settings.alertOnWormTheFishCaught ||
+    if (!settings().alertOnWormTheFishCaught ||
         !isInSkyblock() ||
         !hasDirtRodInHand()
     ) {
@@ -22,7 +22,7 @@ function alertOnWormTheFishCatch() {
     if (currentWormTheFishCount > wormTheFishCount) { // Alert only when a new item has spawned
         Client.showTitle(`${WHITE}Pickup ${RED}Worm the Fish`, '', 1, 45, 1);
         
-        if (settings.soundMode !== OFF_SOUND_MODE) {
+        if (settings().soundMode !== OFF_SOUND_MODE) {
             World.playSound('random.splash', 1, 1);
         }
     }

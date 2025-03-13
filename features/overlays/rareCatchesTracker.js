@@ -1,4 +1,4 @@
-import settings from "../../settings";
+import settings, { allOverlaysGui } from "../../settings";
 import * as triggers from '../../constants/triggers';
 import * as seaCreatures from '../../constants/seaCreatures';
 import { persistentData } from "../../data/data";
@@ -19,7 +19,7 @@ triggers.RARE_CATCH_TRIGGERS.forEach(entry => {
 register('renderOverlay', () => renderRareCatchTrackerOverlay());
 
 register("gameUnload", () => {
-    if (settings.rareCatchesTrackerOverlay && settings.resetRareCatchesTrackerOnGameClosed && persistentData.totalRareCatches > 0) {
+    if (settings().rareCatchesTrackerOverlay && settings().resetRareCatchesTrackerOnGameClosed && persistentData.totalRareCatches > 0) {
         resetRareCatchesTracker(true);
     }
 });
@@ -76,7 +76,7 @@ export function resetRareCatchesTracker(isConfirmed) {
 
 function trackCatch(options) {
     try {
-        if (!settings.rareCatchesTrackerOverlay || !isInSkyblock()) {
+        if (!settings().rareCatchesTrackerOverlay || !isInSkyblock()) {
             return;
         }
     
@@ -111,12 +111,12 @@ function trackCatch(options) {
 }
 
 function renderRareCatchTrackerOverlay() {
-    if (!settings.rareCatchesTrackerOverlay ||
+    if (!settings().rareCatchesTrackerOverlay ||
         !Object.entries(persistentData.rareCatches).length ||
         !isInSkyblock() ||
         getWorldName() === KUUDRA ||
         !hasFishingRodInHotbar() ||
-        settings.allOverlaysGui.isOpen()
+        allOverlaysGui.isOpen()
     ) {
         resetTrackerDisplay.hide();
         return;

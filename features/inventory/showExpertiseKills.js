@@ -5,7 +5,7 @@ import { isInSkyblock } from "../../utils/playerState";
 register("itemTooltip", (lore, item) => showFishingRodExpertiseKills(item));
 
 function showFishingRodExpertiseKills(item) {
-    if (!item || !isInSkyblock() || !settings.showFishingRodExpertiseKills || !isFishingRod(item)) {
+    if (!item || !isInSkyblock() || !settings().showFishingRodExpertiseKills || !isFishingRod(item)) {
         return;
     }
 
