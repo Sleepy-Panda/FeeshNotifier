@@ -91,6 +91,7 @@ export const ALL_SEA_CREATURES_NAMES = [
     'Banshee',
     'Snapping Turtle',
     'Bayou Sludge',
+    'Bayou Sludgling',
     'Alligator',
     'Blue Ringed Octopus',
     'Wiki Tiki',

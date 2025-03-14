@@ -3,7 +3,7 @@ import { BOLD, YELLOW } from "../../constants/formatting";
 import { EntityArmorStand } from "../../constants/javaTypes";
 import { overlayCoordsData } from "../../data/overlayCoords";
 import { getWorldName, hasFishingRodInHotbar, isInSkyblock } from "../../utils/playerState";
-import { CRIMSON_ISLE, JERRY_WORKSHOP } from "../../constants/areas";
+import { BACKWATER_BAYOU, CRIMSON_ISLE, JERRY_WORKSHOP } from "../../constants/areas";
 import { OFF_SOUND_MODE } from "../../constants/sounds";
 
 const LOOTSHARE_DISTANCE = 30;
@@ -32,6 +32,14 @@ const TRACKED_MOBS = [
         world: JERRY_WORKSHOP,
         mobShortName: 'Yeti',
     },
+    {
+        world: BACKWATER_BAYOU,
+        mobShortName: 'Wiki Tiki',
+    },
+    {
+        world: BACKWATER_BAYOU,
+        mobShortName: 'Titanoboa',
+    }
 ];
 const TRACKED_WORLD_NAMES = TRACKED_MOBS.map(m => m.world);
 

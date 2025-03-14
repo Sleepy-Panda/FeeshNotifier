@@ -899,7 +899,7 @@ const config = new DefaultConfig("FeeshNotifier", "config/settings.json")
     category: "Overlays",
     configName: "seaCreaturesHpOverlay",
     title: "Sea creatures HP",
-    description: `Shows an overlay with the HP of nearby Thunder / Lord Jawbus / Plhlegblast / Ragnarok / Reindrake / Yeti when they're in lootshare range. ${RED}Hidden if you have no fishing rod in your hotbar!`,
+    description: `Shows an overlay with the HP of nearby sea creatures when they're in lootshare range. Tracked creatures: Thunder, Lord Jawbus, Plhlegblast, Ragnarok, Reindrake, Yeti, Wiki Tiki, Titanoboa. ${RED}Hidden if you have no fishing rod in your hotbar!`,
     subcategory: "Sea creatures HP",
     value: true
 })

@@ -10,7 +10,6 @@
 - Check treasure messages
 - COINS_FISHED_TRIGGERS to work on both new and old versions of SB
 - Ice essense messages?
-- Glowstone Dust instead of GLowstone
 - Changed colors of good catch and great catch
 - Looking to add a "Hotspot Bait"
 - Autorecombed items support
@@ -20,12 +19,12 @@ Released: ???
 Features:
 - Adapted module to the new fishing update:
   - Removed Guardian Pet alert and profit tracker as it's not obtainable from fishing anymore.
-  - Removed Shredder and Phantom Rod from Fishing Profit tracker.
+  - Removed Shredder, Phantom Rod, Yeti Rod and Ice Rod from Fishing Profit tracker.
   - Added Legendary/Mythic Hermit Crab and Mythic Flying Fish to /feeshPetLevelUpPrices command.
   - Added new Legendary and Mythic mobs to the alerts and Rare Catches tracker.
   - Count new mobs towards Sea Creatures Count tracker.
   - Added new mobs support for compact sea creature catch messages.
-  - Display Ragnarok's HP in Sea Creatures HP tracker.
+  - Display Ragnarok's, Wiki Tiki's and Titanoboa's HP in Sea Creatures HP tracker.
   - Added option to share Ragnarok's location to ALL chat [disabled by default].
   - Added "killed by Ragnarok" reason to the Player's Death alert.
 
