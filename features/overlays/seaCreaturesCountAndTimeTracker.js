@@ -43,7 +43,7 @@ function resetTimer() {
 }
 
 function trackSeaCreaturesCount() {
-    if ((!settings().alertOnSeaCreaturesCountThreshold && !settings().alertOnSeaCreaturesTimerThreshold && !settings().seaCreaturesCountOverlay) || !isInSkyblock() || getWorldName() === KUUDRA) {
+    if ((!settings.alertOnSeaCreaturesCountThreshold && !settings.alertOnSeaCreaturesTimerThreshold && !settings.seaCreaturesCountOverlay) || !isInSkyblock() || getWorldName() === KUUDRA) {
         return;
     }
 
@@ -76,7 +76,7 @@ function trackSeaCreaturesCount() {
 }
 
 function alertOnSeaCreaturesCountThreshold() {
-    if (!settings().alertOnSeaCreaturesCountThreshold ||
+    if (!settings.alertOnSeaCreaturesCountThreshold ||
         !isInSkyblock() ||
         isInHunterArmor() ||
         getWorldName() === KUUDRA ||
@@ -91,7 +91,7 @@ function alertOnSeaCreaturesCountThreshold() {
         killMobsCountNotificationShown = true;
         Client.showTitle(`${RED}Kill sea creatures`, `${WHITE}${seaCreaturesCountThreshold}+ mobs`, 1, 45, 1);
 
-        if (settings().soundMode !== OFF_SOUND_MODE)
+        if (settings.soundMode !== OFF_SOUND_MODE)
         {
             new Sound(TIMER_SOUND_SOURCE).play();
         }
@@ -102,7 +102,7 @@ function alertOnSeaCreaturesCountThreshold() {
 
 function alertOnSeaCreaturesTimerThreshold() {
     if (!startTime ||
-        !settings().alertOnSeaCreaturesTimerThreshold ||
+        !settings.alertOnSeaCreaturesTimerThreshold ||
         !isInSkyblock() ||
         isInHunterArmor() ||
         getWorldName() === KUUDRA ||
@@ -118,7 +118,7 @@ function alertOnSeaCreaturesTimerThreshold() {
         killMobsTimerNotificationShown = true;
         Client.showTitle(`${RED}Kill sea creatures`, `${WHITE}${TIMER_THRESHOLD_IN_MINUTES}+ minutes`, 1, 45, 1);
 
-        if (settings().soundMode !== OFF_SOUND_MODE)
+        if (settings.soundMode !== OFF_SOUND_MODE)
         {
             new Sound(TIMER_SOUND_SOURCE).play();
         }
@@ -128,7 +128,7 @@ function alertOnSeaCreaturesTimerThreshold() {
 }
 
 function renderCountOverlay() {
-    if (!settings().seaCreaturesCountOverlay ||
+    if (!settings.seaCreaturesCountOverlay ||
         !mobsCount ||
         !startTime ||
         !isInSkyblock() ||
@@ -177,9 +177,9 @@ function getSeaCreaturesCountThreshold() {
 
     switch (worldName)
     {
-        case HUB: return settings().seaCreaturesCountThreshold_Hub;
-        case CRIMSON_ISLE: return settings().seaCreaturesCountThreshold_CrimsonIsle;
-        case CRYSTAL_HOLLOWS: return settings().seaCreaturesCountThreshold_CrystalHollows;
-        default: return settings().seaCreaturesCountThreshold_Default;
+        case HUB: return settings.seaCreaturesCountThreshold_Hub;
+        case CRIMSON_ISLE: return settings.seaCreaturesCountThreshold_CrimsonIsle;
+        case CRYSTAL_HOLLOWS: return settings.seaCreaturesCountThreshold_CrystalHollows;
+        default: return settings.seaCreaturesCountThreshold_Default;
     }
 }

@@ -15,7 +15,7 @@ register('renderSlot', (slot, gui, event) => {
 });
 
 function highlightCheapBooks(slot, gui) {
-    if (!settings().highlightCheapBooks || !isInSkyblock()) {
+    if (!settings.highlightCheapBooks || !isInSkyblock()) {
         return;
     }
 

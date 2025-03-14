@@ -57,7 +57,7 @@ register('guiClosed', (gui) => {
 });
 
 register("gameUnload", () => {
-    if (settings().fishingProfitTrackerOverlay && settings().resetFishingProfitTrackerOnGameClosed && (Object.keys(persistentData.fishingProfit.profitTrackerItems).length || persistentData.fishingProfit.elapsedSeconds)) {
+    if (settings.fishingProfitTrackerOverlay && settings.resetFishingProfitTrackerOnGameClosed && (Object.keys(persistentData.fishingProfit.profitTrackerItems).length || persistentData.fishingProfit.elapsedSeconds)) {
         resetFishingProfitTracker(true);
     }
 });
@@ -118,7 +118,7 @@ function pause() {
 function refreshIsVisible() {
     const previousIsVisible = isVisible;
 
-    if (!settings().fishingProfitTrackerOverlay ||
+    if (!settings.fishingProfitTrackerOverlay ||
         !persistentData || !persistentData.fishingProfit ||
         (!persistentData.fishingProfit.totalProfit && !Object.keys(persistentData.fishingProfit.profitTrackerItems).length && !persistentData.fishingProfit.elapsedSeconds) ||
         !isInSkyblock() ||
@@ -186,7 +186,7 @@ function changeItemAmount(itemId, isDelete, difference) {
 
 function activateSessionOnPlayersFishingHook() {
     try {
-        if (!settings().fishingProfitTrackerOverlay || !isWorldLoaded || !isInSkyblock() || !hasFishingRodInHotbar() || getWorldName() === KUUDRA) {
+        if (!settings.fishingProfitTrackerOverlay || !isWorldLoaded || !isInSkyblock() || !hasFishingRodInHotbar() || getWorldName() === KUUDRA) {
             return;
         }
     
@@ -277,20 +277,20 @@ function refreshPrices() {
     
         if (item.amountOfMagmaFish) { // Trophy Fish
             const magmaFishBazaarPrices = getBazaarItemPrices('MAGMA_FISH');
-            const magmaFishPrice = settings().fishingProfitTrackerMode === 1 ? magmaFishBazaarPrices?.instaSell : magmaFishBazaarPrices?.sellOffer;
+            const magmaFishPrice = settings.fishingProfitTrackerMode === 1 ? magmaFishBazaarPrices?.instaSell : magmaFishBazaarPrices?.sellOffer;
             return item.amountOfMagmaFish * (magmaFishPrice || 0);
         }
     
-        if (settings().calculateProfitInCrimsonEssence && item.salvage && item.salvage.essenceType === 'ESSENCE_CRIMSON') { // Salvageable
+        if (settings.calculateProfitInCrimsonEssence && item.salvage && item.salvage.essenceType === 'ESSENCE_CRIMSON') { // Salvageable
             const essenceBazaarPrices = getBazaarItemPrices(item.salvage.essenceType);
-            const essencePrice = settings().fishingProfitTrackerMode === 1 ? essenceBazaarPrices?.instaSell : essenceBazaarPrices?.sellOffer;
+            const essencePrice = settings.fishingProfitTrackerMode === 1 ? essenceBazaarPrices?.instaSell : essenceBazaarPrices?.sellOffer;
             return item.salvage.essenceCount * (essencePrice || 0);
         }
 
         const itemId = item.itemId;
         const bazaarPrices = getBazaarItemPrices(itemId);
     
-        let itemPrice = settings().fishingProfitTrackerMode === 1 ? bazaarPrices?.instaSell : bazaarPrices?.sellOffer;
+        let itemPrice = settings.fishingProfitTrackerMode === 1 ? bazaarPrices?.instaSell : bazaarPrices?.sellOffer;
     
         if (!bazaarPrices) {
             const auctionPrices = getAuctionItemPrices(itemId);
@@ -590,7 +590,7 @@ function detectInventoryChanges() {
             persistentData.save();
             refreshPrices();
 
-            if (settings().shouldAnnounceRareDropsWhenPickup && item.shouldAnnounceRareDrop) {
+            if (settings.shouldAnnounceRareDropsWhenPickup && item.shouldAnnounceRareDrop) {
                 const diffText = difference > 1 ? ` ${RESET}${GRAY}${difference}x` : '';
                 ChatLib.chat(`${GOLD}[FeeshNotifier] ${GOLD}${BOLD}RARE DROP! ${RESET}${item.itemDisplayName}${diffText}`);
                 playRareDropSound();
@@ -673,8 +673,8 @@ function refreshTrackerDisplayData() {
             })
             .sort((a, b) => b.profit - a.profit); // Most expensive at the top
     
-        const MIN_PRICE = +settings().fishingProfitTracker_hideCheaperThan || 0;
-        const TOP_N = settings().fishingProfitTracker_showTop || 50;
+        const MIN_PRICE = +settings.fishingProfitTracker_hideCheaperThan || 0;
+        const TOP_N = settings.fishingProfitTracker_showTop || 50;
     
         const expensiveEntries = entries.filter(e => e.profit >= MIN_PRICE || e.item.includes('Kuudra Key')); // Kuudra keys can't be sold but they're valuable to show in tracker
         const cheapEntries = entries.filter(e => e.profit < MIN_PRICE && !e.item.includes('Kuudra Key'));

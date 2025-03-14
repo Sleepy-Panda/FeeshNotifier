@@ -28,7 +28,7 @@ register("chat", () => {
 
 function handleFlareInteraction(action) {
     try {
-        if ((!settings().alertOnFlareExpiresSoon && !settings().flareRemainingTimeOverlay) ||
+        if ((!settings.alertOnFlareExpiresSoon && !settings.flareRemainingTimeOverlay) ||
             !isInSkyblock ||
             !action.toString().includes('RIGHT_CLICK') ||
             new Date() - lastFlarePlacedAt < 500 // sometimes playerInteract event happens multiple times
@@ -75,7 +75,7 @@ function handleFlareInteraction(action) {
 
 function trackFlareStatus() {
     try {
-        if ((!settings().alertOnFlareExpiresSoon && !settings().flareRemainingTimeOverlay) || !isInSkyblock) {
+        if ((!settings.alertOnFlareExpiresSoon && !settings.flareRemainingTimeOverlay) || !isInSkyblock) {
             return;
         }
 
@@ -86,11 +86,11 @@ function trackFlareStatus() {
         if (isFlarePlaced) {
             flareTimerRemainingSeconds -= 1;
     
-            if (settings().alertOnFlareExpiresSoon && flareTimerRemainingSeconds === secondsBeforeExpiration) {
+            if (settings.alertOnFlareExpiresSoon && flareTimerRemainingSeconds === secondsBeforeExpiration) {
                 Client.showTitle(`${flareName} ${RED}expires soon`, '', 1, 30, 1);
                 ChatLib.chat(`${GOLD}[FeeshNotifier] ${WHITE}Your ${flareName} ${WHITE}expires soon.`);
     
-                if (settings().soundMode !== OFF_SOUND_MODE)
+                if (settings.soundMode !== OFF_SOUND_MODE)
                 {
                     new Sound(TIMER_SOUND_SOURCE).play();
                 }
@@ -116,7 +116,7 @@ function resetFlare() {
 }
 
 function renderFlareOverlay() {
-    if (!settings().flareRemainingTimeOverlay ||
+    if (!settings.flareRemainingTimeOverlay ||
         !isFlarePlaced ||
         flareTimerRemainingSeconds <= 0 ||
         !isInSkyblock() ||

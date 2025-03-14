@@ -11,17 +11,17 @@ register(
 
 function playAlertOnSpiritMaskUsed() {
 	try {
-		if (!settings().alertOnSpiritMaskUsed || !isInSkyblock()) {
+		if (!settings.alertOnSpiritMaskUsed || !isInSkyblock()) {
 			return;
 		}
 		
 		Client.showTitle(`${YELLOW}Spirit Mask used`, '', 1, 30, 1);
 	
-		if (settings().soundMode !== OFF_SOUND_MODE) {
+		if (settings.soundMode !== OFF_SOUND_MODE) {
             World.playSound('random.orb', 1, 1);
         }
 
-		if (settings().alertOnSpiritMaskBack) {
+		if (settings.alertOnSpiritMaskBack) {
 			setTimeout(playAlertOnSpiritMaskBack, 30000);
 		}
 	} catch (e) {
@@ -35,7 +35,7 @@ function playAlertOnSpiritMaskBack() {
 		ChatLib.chat(`${GOLD}[FeeshNotifier] ${DARK_PURPLE}Spirit Mask ${WHITE}is ready!`);
 		Client.showTitle(`${GREEN}Spirit Mask ready`, '', 1, 30, 1);
 	
-		if (settings().soundMode !== OFF_SOUND_MODE) {
+		if (settings.soundMode !== OFF_SOUND_MODE) {
             World.playSound('random.orb', 1, 1);
         }
 	} catch (e) {

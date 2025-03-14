@@ -14,13 +14,13 @@ const title = getCatchTitle(reindrakeTrigger.seaCreature, reindrakeTrigger.rarit
 
 function playAlertOnReindrake() {
 	try {
-		if (!settings().alertOnAnyReindrakeCatch || !isInSkyblock()) {
+		if (!settings.alertOnAnyReindrakeCatch || !isInSkyblock()) {
 			return;
 		}
 		
 		Client.showTitle(title, '', 1, 30, 1);
 	
-		if (settings().soundMode !== OFF_SOUND_MODE) {
+		if (settings.soundMode !== OFF_SOUND_MODE) {
 			new Sound(NOTIFICATION_SOUND_SOURCE).play();
 		}
 	} catch (e) {

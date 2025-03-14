@@ -9,7 +9,7 @@ register('renderSlot', (slot, gui, event) => {
 });
 
 function showMissingTrophyFishRarities(slot, gui) {
-    if (!slot || !gui || !(gui instanceof net.minecraft.client.gui.inventory.GuiChest) || !settings().showCaughtTrophyFishRaritiesInOdger || !isInSkyblock()) {
+    if (!slot || !gui || !(gui instanceof net.minecraft.client.gui.inventory.GuiChest) || !settings.showCaughtTrophyFishRaritiesInOdger || !isInSkyblock()) {
         return;
     }
 

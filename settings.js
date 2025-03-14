@@ -1375,7 +1375,7 @@ const setting = new Settings("FeeshNotifier", config, "data/ColorScheme.json", `
     .setClickSound(() => World.playSound("gui.button.press", 0.25, 1))
     .apply();
 
-export default () => setting.settings;
+export default setting.settings;
 
 function moveOverlay(gui) {
     if (!gui) return;

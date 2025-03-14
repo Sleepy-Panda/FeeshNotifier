@@ -55,7 +55,7 @@ function trackSeaCreaturesHp() {
     try {
         const worldName = getWorldName();
 
-        if (!settings().seaCreaturesHpOverlay ||
+        if (!settings.seaCreaturesHpOverlay ||
             !isInSkyblock() ||
             !TRACKED_WORLD_NAMES.some(w => w === worldName) ||
             !hasFishingRodInHotbar()) {
@@ -80,7 +80,7 @@ function trackSeaCreaturesHp() {
             }
         });
     
-        if (currentMobs.length > mobs.length && settings().soundMode !== OFF_SOUND_MODE) {
+        if (currentMobs.length > mobs.length && settings.soundMode !== OFF_SOUND_MODE) {
             World.playSound('random.orb', 0.75, 1);
         }
     
@@ -92,7 +92,7 @@ function trackSeaCreaturesHp() {
 }
 
 function renderHpOverlay() {
-    if (!settings().seaCreaturesHpOverlay ||
+    if (!settings.seaCreaturesHpOverlay ||
         !mobs.length ||
         !isInSkyblock() ||
         !TRACKED_WORLD_NAMES.some(w => w === getWorldName()) ||

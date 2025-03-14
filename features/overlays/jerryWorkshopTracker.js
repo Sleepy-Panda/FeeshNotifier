@@ -35,7 +35,7 @@ register("worldUnload", () => {
 });
 
 register("gameUnload", () => {
-    if (settings().jerryWorkshopTrackerOverlay && settings().resetJerryWorkshopTrackerOnGameClosed && persistentData.jerryWorkshop && (
+    if (settings.jerryWorkshopTrackerOverlay && settings.resetJerryWorkshopTrackerOnGameClosed && persistentData.jerryWorkshop && (
         persistentData.jerryWorkshop.yeti.lastCatchTime ||
         persistentData.jerryWorkshop.reindrake.lastCatchTime ||
         persistentData.jerryWorkshop.yeti.catchesSinceLast ||
@@ -86,7 +86,7 @@ export function resetJerryWorkshopTracker(isConfirmed) {
 
 function trackYetiCatch() {
     try {
-        if (!settings().jerryWorkshopTrackerOverlay || !isInSkyblock() || getWorldName() !== JERRY_WORKSHOP) {
+        if (!settings.jerryWorkshopTrackerOverlay || !isInSkyblock() || getWorldName() !== JERRY_WORKSHOP) {
             return;
         }
 
@@ -118,7 +118,7 @@ function trackYetiCatch() {
 
 function trackReindrakeCatch() {
     try {
-        if (!settings().jerryWorkshopTrackerOverlay || !isInSkyblock() || getWorldName() !== JERRY_WORKSHOP) {
+        if (!settings.jerryWorkshopTrackerOverlay || !isInSkyblock() || getWorldName() !== JERRY_WORKSHOP) {
             return;
         }
 
@@ -150,7 +150,7 @@ function trackReindrakeCatch() {
 
 function trackRegularJerryWorkshopSeaCreatureCatch() {
     try {
-        if (!settings().jerryWorkshopTrackerOverlay || !isInSkyblock() || getWorldName() !== JERRY_WORKSHOP) {
+        if (!settings.jerryWorkshopTrackerOverlay || !isInSkyblock() || getWorldName() !== JERRY_WORKSHOP) {
             return;
         }
 
@@ -165,7 +165,7 @@ function trackRegularJerryWorkshopSeaCreatureCatch() {
 
 function trackEpicBabyYetiPetDrop() {
     try {
-        if (!settings().jerryWorkshopTrackerOverlay || !isInSkyblock() || getWorldName() !== JERRY_WORKSHOP) {
+        if (!settings.jerryWorkshopTrackerOverlay || !isInSkyblock() || getWorldName() !== JERRY_WORKSHOP) {
             return;
         }
 
@@ -179,7 +179,7 @@ function trackEpicBabyYetiPetDrop() {
 
 function trackLegendaryBabyYetiPetDrop() {
     try {
-        if (!settings().jerryWorkshopTrackerOverlay || !isInSkyblock() || getWorldName() !== JERRY_WORKSHOP) {
+        if (!settings.jerryWorkshopTrackerOverlay || !isInSkyblock() || getWorldName() !== JERRY_WORKSHOP) {
             return;
         }
 
@@ -192,7 +192,7 @@ function trackLegendaryBabyYetiPetDrop() {
 }
 
 function trackRemainingWorkshopTime() {
-    if (!settings().jerryWorkshopTrackerOverlay || !isInSkyblock() || getWorldName() !== JERRY_WORKSHOP) {
+    if (!settings.jerryWorkshopTrackerOverlay || !isInSkyblock() || getWorldName() !== JERRY_WORKSHOP) {
         return;
     }
     
@@ -215,7 +215,7 @@ function trackRemainingWorkshopTime() {
 }
 
 function renderJerryWorkshopOverlay() {
-    if (!settings().jerryWorkshopTrackerOverlay ||
+    if (!settings.jerryWorkshopTrackerOverlay ||
         !persistentData.jerryWorkshop ||
         (
             !persistentData.jerryWorkshop.yeti.lastCatchTime &&
