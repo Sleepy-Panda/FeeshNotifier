@@ -23,7 +23,7 @@ const BOTTLES = [
 ];
 
 function showThunderBottleProgress(item, x, y) {
-    if (!settings().showThunderBottleProgress || !isInSkyblock()) {
+    if (!settings.showThunderBottleProgress || !isInSkyblock()) {
         return;
     }
 

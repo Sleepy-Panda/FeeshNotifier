@@ -14,7 +14,7 @@ triggers.RARE_DROP_TRIGGERS.forEach(entry => {
                 itemName: entry.itemName,
                 rarityColorCode: entry.rarityColorCode,
                 sound: entry.sound,
-                isEnabled: settings()[entry.isAlertEnabledSettingKey],
+                isEnabled: settings[entry.isAlertEnabledSettingKey],
                 player: getColoredPlayerNameFromDisplayName(),
                 suppressIfSamePlayer: false
             });
@@ -25,7 +25,7 @@ triggers.RARE_DROP_TRIGGERS.forEach(entry => {
                 rarityColorCode: entry.rarityColorCode,
                 magicFind: magicFind,
                 shouldTrackDropNumber: entry.shouldTrackDropNumber,
-                isEnabled: settings()[entry.isMessageEnabledSettingKey]
+                isEnabled: settings[entry.isMessageEnabledSettingKey]
             });
         }
     ).setCriteria(entry.trigger).setContains();
@@ -37,7 +37,7 @@ triggers.RARE_DROP_TRIGGERS.forEach(entry => {
             itemName: entry.itemName,
             rarityColorCode: entry.rarityColorCode,
             sound: entry.sound,
-            isEnabled: settings()[entry.isAlertEnabledSettingKey],
+            isEnabled: settings[entry.isAlertEnabledSettingKey],
             player: getColoredPlayerNameFromPartyChat(rankAndPlayer),
             suppressIfSamePlayer: true
         })
@@ -54,7 +54,7 @@ triggers.OUTSTANDING_CATCH_TRIGGERS.forEach(entry => {
                 itemName: entry.itemName,
                 rarityColorCode: entry.rarityColorCode,
                 sound: entry.sound,
-                isEnabled: settings()[entry.isAlertEnabledSettingKey],
+                isEnabled: settings[entry.isAlertEnabledSettingKey],
                 player: getColoredPlayerNameFromDisplayName(),
                 suppressIfSamePlayer: false
             });
@@ -65,7 +65,7 @@ triggers.OUTSTANDING_CATCH_TRIGGERS.forEach(entry => {
                 rarityColorCode: entry.rarityColorCode,
                 magicFind: null,
                 shouldTrackDropNumber: entry.shouldTrackDropNumber,
-                isEnabled: settings()[entry.isMessageEnabledSettingKey]
+                isEnabled: settings[entry.isMessageEnabledSettingKey]
             });
         }
     ).setCriteria(entry.trigger).setContains();
@@ -77,7 +77,7 @@ triggers.OUTSTANDING_CATCH_TRIGGERS.forEach(entry => {
             itemName: entry.itemName,
             rarityColorCode: entry.rarityColorCode,
             sound: entry.sound,
-            isEnabled: settings()[entry.isAlertEnabledSettingKey],
+            isEnabled: settings[entry.isAlertEnabledSettingKey],
             player: getColoredPlayerNameFromPartyChat(rankAndPlayer),
             suppressIfSamePlayer: true
         })
@@ -97,7 +97,7 @@ triggers.DYE_TRIGGERS.forEach(entry => {
                 itemName: entry.itemName,
                 rarityColorCode: entry.rarityColorCode,
                 sound: entry.sound,
-                isEnabled: settings()[entry.isAlertEnabledSettingKey],
+                isEnabled: settings[entry.isAlertEnabledSettingKey],
                 player: getColoredPlayerNameFromDisplayName(),
                 suppressIfSamePlayer: false
             });
@@ -108,7 +108,7 @@ triggers.DYE_TRIGGERS.forEach(entry => {
                 rarityColorCode: entry.rarityColorCode,
                 magicFind: null,
                 shouldTrackDropNumber: entry.shouldTrackDropNumber,
-                isEnabled: settings()[entry.isMessageEnabledSettingKey]
+                isEnabled: settings[entry.isMessageEnabledSettingKey]
             });
         }
     ).setCriteria(entry.trigger).setContains();
@@ -120,7 +120,7 @@ triggers.DYE_TRIGGERS.forEach(entry => {
             itemName: entry.itemName,
             rarityColorCode: entry.rarityColorCode,
             sound: entry.sound,
-            isEnabled: settings()[entry.isAlertEnabledSettingKey],
+            isEnabled: settings[entry.isAlertEnabledSettingKey],
             player: getColoredPlayerNameFromPartyChat(rankAndPlayer),
             suppressIfSamePlayer: true
         })
@@ -142,7 +142,7 @@ function playAlertOnDrop(options) {
 		const title = getDropTitle(options.itemName, options.rarityColorCode);
 		Client.showTitle(title, options.player || '', 1, 45, 1);
 	
-		switch (settings().soundMode) {
+		switch (settings.soundMode) {
 			case MEME_SOUND_MODE:
 				new Sound(options.sound).play();
 				break;

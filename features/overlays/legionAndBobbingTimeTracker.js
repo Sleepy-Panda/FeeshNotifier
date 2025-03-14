@@ -22,7 +22,7 @@ register("worldUnload", () => {
 });
 
 function trackPlayersAndFishingHooksNearby() {
-    if (!settings().legionAndBobbingTimeOverlay ||
+    if (!settings.legionAndBobbingTimeOverlay ||
         !isInSkyblock() ||
         !hasFishingRodInHotbar() ||
         getWorldName() === KUUDRA
@@ -42,7 +42,7 @@ function trackPlayersAndFishingHooksNearby() {
 }
 
 function renderLegionAndBobbingTimeOverlay() {
-    if (!settings().legionAndBobbingTimeOverlay ||
+    if (!settings.legionAndBobbingTimeOverlay ||
         !isInSkyblock() ||
         !hasFishingRodInHotbar() ||
         getWorldName() === KUUDRA ||

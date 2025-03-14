@@ -11,7 +11,7 @@ register('renderItemIntoGui', (item, x, y, event) => {
 // {"ench":[],"HideFlags":254,"display":{"Lore":["§8Consumed on use","","§aPet Items §7can boost pets in many powerful ways!","§7A pet can only hold one §aPet Item §7at a time.","§7The pet must be §evisible §7to apply the item!","","§7§7Gives §a+20% §7pet exp for Fishing.","","§7§eRight-click on your summoned pet to","§egive it this item!","","§f§lCOMMON PET ITEM","","§7Cost","§658,200 Coins","","§eClick to trade!"],"Name":"§fFishing Exp Boost"},"ExtraAttributes":{"id":"PET_ITEM_FISHING_SKILL_BOOST_COMMON","uuid":"1293780f-cda9-464e-b8ee-824ae05f2d09","timestamp":1741702670362}}
 
 function showExpBoostPercent(item, x, y) {
-    if (!item || !settings().showExpBoostPercentage || !isInSkyblock()) {
+    if (!item || !settings.showExpBoostPercentage || !isInSkyblock()) {
         return;
     }
 

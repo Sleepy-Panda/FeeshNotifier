@@ -21,7 +21,7 @@ register('worldLoad', () => isAlerted = false);
 function alertOnFishingBagDisabled() {
     try {
         if (isAlerted
-            || !settings().alertOnFishingBagDisabled
+            || !settings.alertOnFishingBagDisabled
             || persistentData.isFishingBagEnabled !== false // False means fishing bag disabled, null/undefined means that fishing bag state is unknown
             || !isInSkyblock()
             || !hasFishingRodInHotbar()
@@ -40,7 +40,7 @@ function alertOnFishingBagDisabled() {
 
         Client.showTitle(`${RED}Enable fishing bag!`, '', 1, 25, 1);
     
-        if (settings().soundMode !== OFF_SOUND_MODE) {
+        if (settings.soundMode !== OFF_SOUND_MODE) {
             World.playSound('random.orb', 1, 1);
         }
 

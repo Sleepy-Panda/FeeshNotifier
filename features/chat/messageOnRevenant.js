@@ -11,7 +11,7 @@ register('step', () => sendMessageOnRevenantSpawn()).setFps(3);
 
 function sendMessageOnRevenantSpawn() {
 	try {
-		if (!settings().messageOnRevenantHorrorSpawn || !isInSkyblock() || getWorldName() === KUUDRA || getWorldName() === DUNGEONS) {
+		if (!settings.messageOnRevenantHorrorSpawn || !isInSkyblock() || getWorldName() === KUUDRA || getWorldName() === DUNGEONS) {
 			return;
 		}
 	

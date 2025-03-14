@@ -14,7 +14,7 @@ triggers.RARE_CATCH_TRIGGERS.forEach(entry => {
             playAlertOnCatch({ // Play alert immediately before sending to the party (in case when you're fishing solo)
                 seaCreature: entry.seaCreature,
                 rarityColorCode: entry.rarityColorCode,
-                isEnabled: settings()[entry.isAlertEnabledSettingKey],
+                isEnabled: settings[entry.isAlertEnabledSettingKey],
                 isDoubleHook: isDoubleHooked,
                 player: getColoredPlayerNameFromDisplayName(),
                 suppressIfSamePlayer: false
@@ -24,7 +24,7 @@ triggers.RARE_CATCH_TRIGGERS.forEach(entry => {
                 seaCreature: entry.seaCreature,
                 rarityColorCode: entry.rarityColorCode,
                 isDoubleHook: isDoubleHooked,
-                isEnabled: settings()[entry.isMessageEnabledSettingKey]
+                isEnabled: settings[entry.isMessageEnabledSettingKey]
             });
         }
     ).setCriteria(entry.trigger).setContains();
@@ -35,7 +35,7 @@ triggers.RARE_CATCH_TRIGGERS.forEach(entry => {
         (rankAndPlayer, event) => playAlertOnCatch({
             seaCreature: entry.seaCreature,
             rarityColorCode: entry.rarityColorCode,
-            isEnabled: settings()[entry.isAlertEnabledSettingKey],
+            isEnabled: settings[entry.isAlertEnabledSettingKey],
             isDoubleHook: false,
             player: getColoredPlayerNameFromPartyChat(rankAndPlayer),
             suppressIfSamePlayer: true
@@ -48,7 +48,7 @@ triggers.RARE_CATCH_TRIGGERS.forEach(entry => {
         (rankAndPlayer, event) => playAlertOnCatch({
             seaCreature: entry.seaCreature,
             rarityColorCode: entry.rarityColorCode,
-            isEnabled: settings()[entry.isAlertEnabledSettingKey],
+            isEnabled: settings[entry.isAlertEnabledSettingKey],
             isDoubleHook: true,
             player: getColoredPlayerNameFromPartyChat(rankAndPlayer),
             suppressIfSamePlayer: true
@@ -71,7 +71,7 @@ function playAlertOnCatch(options) {
 		const title = options.isDoubleHook ? getDoubleHookCatchTitle(options.seaCreature, options.rarityColorCode) : getCatchTitle(options.seaCreature, options.rarityColorCode);
 		Client.showTitle(title, options.player || '', 1, 45, 1);
 	
-		if (settings().soundMode !== OFF_SOUND_MODE) {
+		if (settings.soundMode !== OFF_SOUND_MODE) {
 			new Sound(NOTIFICATION_SOUND_SOURCE).play();
 		}
 	} catch (e) {

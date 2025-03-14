@@ -13,13 +13,13 @@ triggers.BOTTLE_CHARGED_TRIGGERS.forEach(entry => {
 
 function playAlertOnBottleCharged(bottleName) {
 	try {
-		if (!settings().alertOnThunderBottleCharged || !isInSkyblock()) {
+		if (!settings.alertOnThunderBottleCharged || !isInSkyblock()) {
 			return;
 		}
 		
 		Client.showTitle(`${AQUA}${bottleName} is full`, '', 1, 30, 1);
 	
-		if (settings().soundMode !== OFF_SOUND_MODE) {
+		if (settings.soundMode !== OFF_SOUND_MODE) {
             World.playSound('random.orb', 1, 1);
         }
 	} catch (e) {
