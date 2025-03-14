@@ -552,7 +552,7 @@ export const FISHING_PROFIT_ITEMS = [
         itemId: 'FRIED_FEATHER',
         itemName: 'Fried Feather',
         itemDisplayName: `${UNCOMMON}Fried Feather`,
-        npcPrice: 0,
+        npcPrice: 10000,
     },
     {
         itemId: 'SINGED_POWDER',
@@ -622,7 +622,7 @@ export const FISHING_PROFIT_ITEMS = [
         npcPrice: 1000000,
     },
     {
-        itemId: 'CHAIN_OF_THE_END_TIMES',
+        itemId: 'CHAIN_END_TIMES',
         itemName: 'Chain of the End Times',
         itemDisplayName: `${LEGENDARY}Chain of the End Times`,
         npcPrice: 1000000,
@@ -731,10 +731,10 @@ export const FISHING_PROFIT_ITEMS = [
         npcPrice: 250000,
     },
     {
-        itemId: 'OLD_LEATHER_BOOTS',
-        itemName: 'Old Leather Boots',
-        itemDisplayName: `${RARE}Old Leather Boots`,
-        npcPrice: 100000,
+        itemId: 'OLD_LEATHER_BOOT',
+        itemName: 'Old Leather Boot',
+        itemDisplayName: `${EPIC}Old Leather Boot`,
+        npcPrice: 25000,
     },
     {
         itemId: 'BOBBIN_SCRIPTURES',
@@ -844,6 +844,12 @@ export const FISHING_PROFIT_ITEMS = [
         itemName: 'Sponge',
         itemDisplayName: `${COMMON}Sponge`,
         npcPrice: 50,
+    },
+    {
+        itemId: 'ENCHANTED_SPONGE',
+        itemName: 'Enchanted Sponge',
+        itemDisplayName: `${UNCOMMON}Enchanted Sponge`,
+        npcPrice: 2000,
     },
     {
         itemId: 'CLAY_BALL',

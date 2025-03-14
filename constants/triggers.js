@@ -56,11 +56,11 @@ export const PYROCLASTIC_WORM_MESSAGE = `${GREEN}You feel the heat radiating as 
 export const LAVA_FLAME_MESSAGE = `${GREEN}A Lava Flame flies out from beneath the lava.`;
 export const FIRE_EEL_MESSAGE = `${GREEN}A Fire Eel slithers out from the depths.`;
 export const TAURUS_MESSAGE = `${GREEN}Taurus and his steed emerge.`;
-export const FIERY_SCUTTLER_MESSAGE = `${GREEN}A Fiery Scuttler inconspicuously waddles up to you, friends in tow.`;
+export const FIERY_SCUTTLER_MESSAGE = `${RESET}${GREEN}A Fiery Scuttler inconspicuously waddles up to you, friends in tow.${RESET}`; // &r&cA Fiery Scuttler inconspicuously waddles up to you, friends in tow.&r
 export const THUNDER_MESSAGE = `${RESET}${RED}${BOLD}You hear a massive rumble as Thunder emerges.`; // &r&c&lYou hear a massive rumble as Thunder emerges.
 export const LORD_JAWBUS_MESSAGE = `${RESET}${RED}${BOLD}You have angered a legendary creature... Lord Jawbus has arrived.`; // &r&c&lYou have angered a legendary creature... Lord Jawbus has arrived.
 export const PLHLEGBLAST_MESSAGE = `${GREEN}WOAH! A Plhlegblast appeared.`;
-export const RAGNAROK_MESSAGE = `${GREEN}Ragnarok appeared.`; // TODO
+export const RAGNAROK_MESSAGE = `${RESET}${RED}${RESET}${RED}${BOLD}The sky darkens and the air thickens. The end times are upon us: Ragnarok is here.${RESET}`; // &r&c&r&c&lThe sky darkens and the air thickens. The end times are upon us: Ragnarok is here.&r
 export const VANQUISHER_MESSAGE = `A ${RESET}${RED}Vanquisher ${RESET}${GREEN}is spawning nearby!`; // A &r&cVanquisher &r&ais spawning nearby!
 
 // OASIS SEA CREATURES
@@ -94,7 +94,7 @@ export const BANSHEE_MESSAGE = `${RESET}${GREEN}The desolate wail of a Banshee b
 export const SNAPPING_TURTLE_MESSAGE = `${RESET}${GREEN}A Snapping Turtle is coming your way, and it's ANGRY!${RESET}`;
 export const BAYOU_SLUDGE_MESSAGE = `${RESET}${GREEN}A swampy mass of slime emerges, the Bayou Sludge!${RESET}`;
 export const ALLIGATOR_MESSAGE = `${RESET}${GREEN}A long snout breaks the surface of the water. It's an Alligator!${RESET}`;
-export const TITANOBOA_MESSAGE = `${RESET}${GREEN}Titanoboa`; // TODO
+export const TITANOBOA_MESSAGE = `${RESET}${GREEN}${RESET}${RED}${BOLD}A massive Titanoboa surfaces. It's body stretches as far as the eye can see.${RESET}`; // &r&a&r&c&lA massive Titanoboa surfaces. It's body stretches as far as the eye can see.&r
 export const BLUE_RINGED_OCTOPUS_MESSAGE = `${RESET}${GREEN}A garish set of tentacles arise. It's a Blue Ringed Octopus!${RESET}`;
 export const WIKI_TIKI_MESSAGE = `${RESET}${RED}${RESET}${RED}${BOLD}The water bubbles and froths. A massive form emerges- you have disturbed the Wiki Tiki! You shall pay the price.${RESET}`;
 
@@ -126,7 +126,7 @@ export const SQUID_PET_LEG_MESSAGE = `${RESET}${GOLD}⛃ ${RESET}${GOLD}${BOLD}G
 export const SQUID_PET_EPIC_MESSAGE = `${RESET}${GOLD}⛃ ${RESET}${GOLD}${BOLD}GREAT CATCH! ${RESET}${WHITE}You caught a ${RESET}${GRAY}[Lvl 1] ${RESET}${DARK_PURPLE}Squid${RESET}${WHITE}!${RESET}`;
 export const SQUID_PET_RARE_MESSAGE = `${RESET}${GOLD}⛃ ${RESET}${GOLD}${BOLD}GREAT CATCH! ${RESET}${WHITE}You caught a ${RESET}${GRAY}[Lvl 1] ${RESET}${BLUE}Squid${RESET}${WHITE}!${RESET}`;
 export const SQUID_PET_UNCOMMON_MESSAGE = `${RESET}${GOLD}⛃ ${RESET}${GOLD}${BOLD}GREAT CATCH! ${RESET}${WHITE}You caught a ${RESET}${GRAY}[Lvl 1] ${RESET}${GREEN}Squid${RESET}${WHITE}!${RESET}`; // &r&6⛃ &r&6&lGREAT CATCH! &r&fYou caught a &r&7[Lvl 1] &r&aSquid&r&f!&r
-export const SQUID_PET_COMMON_MESSAGE = `${RESET}${GOLD}⛃ ${RESET}${GOLD}${BOLD}GREAT CATCH! ${RESET}${WHITE}You caught a ${RESET}${GRAY}[Lvl 1] ${RESET}${WHITE}Squid${RESET}${WHITE}!${RESET}`;
+export const SQUID_PET_COMMON_MESSAGE = `${RESET}${GOLD}⛃ ${RESET}${GOLD}${BOLD}GREAT CATCH! ${RESET}${WHITE}You caught a ${RESET}${GRAY}[Lvl 1] ${RESET}${WHITE}Squid${RESET}${WHITE}!${RESET}`; // &r&6⛃ &r&6&lGREAT CATCH! &r&fYou caught a &r&7[Lvl 1] &r&fSquid&r&f!&r
 
 // OTHER
 

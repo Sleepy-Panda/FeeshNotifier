@@ -2,6 +2,10 @@
 
 ## v1.31.0
 
+- 
+- register("pickupItem"
+- Reduced NPC sell price of Alligator Skin from 50,000 -> 5,000 coins.
+- Reduced NPC sell price of Scorched Crab Stick from 50,000 -> 5,000 coins.
 - Check IDs and NPC prices
 - Add new fishing drops to profit tracker, remove old ones
 - Add alerts on new drops?
@@ -10,7 +14,6 @@
 - Check treasure messages
 - COINS_FISHED_TRIGGERS to work on both new and old versions of SB
 - Ice essense messages?
-- Changed colors of good catch and great catch
 - Looking to add a "Hotspot Bait"
 - Autorecombed items support
 
@@ -18,7 +21,8 @@ Released: ???
 
 Features:
 - Adapted module to the new fishing update:
-  - Removed Guardian Pet alert and profit tracker as it's not obtainable from fishing anymore.
+  - Added new fishing drops to Fishing Profit tracker.
+  - Removed Guardian Pet from Fishing Profit tracker as well as its alert.
   - Removed Shredder, Phantom Rod, Yeti Rod and Ice Rod from Fishing Profit tracker.
   - Added Legendary/Mythic Hermit Crab and Mythic Flying Fish to /feeshPetLevelUpPrices command.
   - Added new Legendary and Mythic mobs to the alerts and Rare Catches tracker.
