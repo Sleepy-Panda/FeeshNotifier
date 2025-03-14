@@ -12,7 +12,7 @@ const CRIMSON_ARMOR_REGEX = /(Crimson|Aurora|Terror|Fervor|Hollow|Berserker|Ramp
 const CRIMSON_EQUIPMENT_REGEX = /Gauntlet of Contagion|Flaming Fist|((Molten|Implosion|Blaze|Scoville|Scourge|Delirium|Ghast|Lava Shell|Tera Shell|Magma|Glowstone) (Cloak|Belt|Necklace|Gauntlet|Bracelet))/;
 
 function showArmorAttributes(item, x, y) {
-    if (!item || (!settings().showFishingArmorAttributes && !settings().showCrimsonArmorAttributes) || !isInSkyblock()) {
+    if (!item || (!settings.showFishingArmorAttributes && !settings.showCrimsonArmorAttributes) || !isInSkyblock()) {
         return;
     }
 
@@ -24,9 +24,9 @@ function showArmorAttributes(item, x, y) {
     let isFishingGear = false;
     let isCrimsonGear = false;
 
-    if (settings().showFishingArmorAttributes && FISHING_GEAR_REGEX.test(name)) {
+    if (settings.showFishingArmorAttributes && FISHING_GEAR_REGEX.test(name)) {
         isFishingGear = true;
-    } else if (settings().showCrimsonArmorAttributes && (CRIMSON_ARMOR_REGEX.test(name) || CRIMSON_EQUIPMENT_REGEX.test(name))) {
+    } else if (settings.showCrimsonArmorAttributes && (CRIMSON_ARMOR_REGEX.test(name) || CRIMSON_EQUIPMENT_REGEX.test(name))) {
         isCrimsonGear = true;
     }
 
@@ -34,7 +34,7 @@ function showArmorAttributes(item, x, y) {
         return;
     }
 
-    const highlightedAttributeCodesString = isFishingGear ? (settings().accentedFishingArmorAttributes || '') : (settings().accentedCrimsonArmorAttributes || '');
+    const highlightedAttributeCodesString = isFishingGear ? (settings.accentedFishingArmorAttributes || '') : (settings.accentedCrimsonArmorAttributes || '');
     const highlightedAttributeCodes = highlightedAttributeCodesString.split(',');
 
     const itemAttributes = getItemAttributes(item);

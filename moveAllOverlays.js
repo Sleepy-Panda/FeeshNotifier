@@ -249,7 +249,7 @@ function isInOverlay(sampleGui, x, y) {
         return false;
     }
 
-    if (!settings()[sampleGui.toggleSettingKey]) {
+    if (!settings[sampleGui.toggleSettingKey]) {
         return false;
     }
 
@@ -267,7 +267,7 @@ function renderSampleOverlays() {
         return;
     }
 
-    SAMPLE_GUIS.filter(sampleGui => settings()[sampleGui.toggleSettingKey]).forEach(sampleGui => {
+    SAMPLE_GUIS.filter(sampleGui => settings[sampleGui.toggleSettingKey]).forEach(sampleGui => {
         const overlay = new Text(sampleGui.sampleText, sampleGui.guiSettings.x, sampleGui.guiSettings.y)
             .setShadow(true)
             .setScale(sampleGui.guiSettings.scale);

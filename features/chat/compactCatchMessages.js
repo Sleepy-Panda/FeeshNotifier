@@ -14,7 +14,7 @@ triggers.ALL_CATCHES_TRIGGERS.forEach(entry => {
 
 function compactDoubleHookChatMessage(event) {
     try {
-        if (!settings().compactCatchMessages || !isInSkyblock()) {
+        if (!settings.compactCatchMessages || !isInSkyblock()) {
             return;
         }
 
@@ -27,7 +27,7 @@ function compactDoubleHookChatMessage(event) {
 
 function compactSeaCreatureCatchChatMessage(entry, event) {
     try {
-        if (!settings().compactCatchMessages || !isInSkyblock()) {
+        if (!settings.compactCatchMessages || !isInSkyblock()) {
             return;
         }
 

@@ -19,7 +19,7 @@ mobTriggers.forEach(entry => {
 
 function announceMobSpawnToAllChat(seaCreature, isAnnounceToAllChatEnabledSettingKey) {
 	try {
-		if (!seaCreature || !isAnnounceToAllChatEnabledSettingKey || !settings()[isAnnounceToAllChatEnabledSettingKey] || !isInSkyblock()) {
+		if (!seaCreature || !isAnnounceToAllChatEnabledSettingKey || !settings[isAnnounceToAllChatEnabledSettingKey] || !isInSkyblock()) {
 			return;
 		}
 

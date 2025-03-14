@@ -6,7 +6,7 @@ import { isInSkyblock } from '../../utils/playerState';
 const chatCommand = 'pc';
 
 register("gameUnload", () => {
-	if (settings().fishingProfitTrackerOverlay && settings().resetFishingProfitTrackerOnGameClosed && Object.keys(persistentData.rareDropNotifications.items).length) {
+	if (settings.fishingProfitTrackerOverlay && settings.resetFishingProfitTrackerOnGameClosed && Object.keys(persistentData.rareDropNotifications.items).length) {
 		resetDropNumbers();
 	}
 });
@@ -25,11 +25,11 @@ export function sendMessageOnDrop(options) {
 		const dropNumber = getDropNumber(options);
 		const metadata = [];
 
-		if (settings().includeDropNumberIntoDropMessage && dropNumber) {
+		if (settings.includeDropNumberIntoDropMessage && dropNumber) {
 			metadata.push(`#${dropNumber}`);
 		}
 
-		if (settings().includeMagicFindIntoDropMessage && options.magicFind) {
+		if (settings.includeMagicFindIntoDropMessage && options.magicFind) {
 			metadata.push(`+${options.magicFind}% ✯ Magic Find`);
 		}
 
@@ -45,7 +45,7 @@ function getDropNumber(options) {
 	try {
 		const dropNumber = null;
 
-		if (!settings().includeDropNumberIntoDropMessage || !options.shouldTrackDropNumber || !settings().fishingProfitTrackerOverlay) {
+		if (!settings.includeDropNumberIntoDropMessage || !options.shouldTrackDropNumber || !settings.fishingProfitTrackerOverlay) {
 			return dropNumber;
 		}
 

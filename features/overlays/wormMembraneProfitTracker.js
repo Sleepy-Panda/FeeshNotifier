@@ -110,7 +110,7 @@ export function resetWormMembraneProfitTracker(isConfirmed) {
 
 function onAddedToSacks(event) {
     try {
-        if (!isSessionActive || !settings().wormProfitTrackerOverlay || !isInSkyblock() || !hasFishingRodInHotbar() || getWorldName() !== CRYSTAL_HOLLOWS) {
+        if (!isSessionActive || !settings.wormProfitTrackerOverlay || !isInSkyblock() || !hasFishingRodInHotbar() || getWorldName() !== CRYSTAL_HOLLOWS) {
             return;
         }
     
@@ -153,7 +153,7 @@ function onAddedToSacks(event) {
 
 function detectInventoryChanges() {
     try {
-        if (!isSessionActive || !settings().wormProfitTrackerOverlay || !isInSkyblock() || !hasFishingRodInHotbar() || getWorldName() !== CRYSTAL_HOLLOWS) {
+        if (!isSessionActive || !settings.wormProfitTrackerOverlay || !isInSkyblock() || !hasFishingRodInHotbar() || getWorldName() !== CRYSTAL_HOLLOWS) {
             previousInventory = [];
             previousInventoryTotal = 0;
             return;
@@ -215,7 +215,7 @@ function detectInventoryChanges() {
 
 function pauseWormMembraneProfitTracker() {
     try {
-        if (!settings().wormProfitTrackerOverlay || !isInSkyblock() || !hasFishingRodInHotbar() || getWorldName() !== CRYSTAL_HOLLOWS || !isSessionActive) {
+        if (!settings.wormProfitTrackerOverlay || !isInSkyblock() || !hasFishingRodInHotbar() || getWorldName() !== CRYSTAL_HOLLOWS || !isSessionActive) {
             return;
         }
     
@@ -229,7 +229,7 @@ function pauseWormMembraneProfitTracker() {
 
 function trackWormCatch(isDoubleHooked) {
     try {
-        if (!settings().wormProfitTrackerOverlay || !isInSkyblock() || !hasFishingRodInHotbar() || getWorldName() !== CRYSTAL_HOLLOWS) {
+        if (!settings.wormProfitTrackerOverlay || !isInSkyblock() || !hasFishingRodInHotbar() || getWorldName() !== CRYSTAL_HOLLOWS) {
             return;
         }
 
@@ -246,7 +246,7 @@ function trackWormCatch(isDoubleHooked) {
 
 function refreshElapsedTime() {
     try {
-        if (!settings().wormProfitTrackerOverlay || !isInSkyblock() || !hasFishingRodInHotbar() || getWorldName() !== CRYSTAL_HOLLOWS || !isSessionActive) {
+        if (!settings.wormProfitTrackerOverlay || !isInSkyblock() || !hasFishingRodInHotbar() || getWorldName() !== CRYSTAL_HOLLOWS || !isSessionActive) {
             return;
         }
 
@@ -267,7 +267,7 @@ function refreshElapsedTime() {
 
 function refreshValuesPerHour() {
     try {
-        if (!settings().wormProfitTrackerOverlay || !isInSkyblock() || !hasFishingRodInHotbar() || getWorldName() !== CRYSTAL_HOLLOWS) {
+        if (!settings.wormProfitTrackerOverlay || !isInSkyblock() || !hasFishingRodInHotbar() || getWorldName() !== CRYSTAL_HOLLOWS) {
             return;
         }
 
@@ -298,7 +298,7 @@ function refreshValuesPerHour() {
 }
 
 function renderWormMembraneProfitTrackerOverlay() {
-    if (!settings().wormProfitTrackerOverlay ||
+    if (!settings.wormProfitTrackerOverlay ||
         !isInSkyblock() ||
         !hasFishingRodInHotbar() ||
         getWorldName() !== CRYSTAL_HOLLOWS ||
@@ -311,7 +311,7 @@ function renderWormMembraneProfitTrackerOverlay() {
 
     let text = `${YELLOW}${BOLD}Worm profit tracker\n`;
     const pausedText = isSessionActive ? '' : ` ${YELLOW}[Paused]`;
-    const mode = settings().wormProfitTrackerMode;
+    const mode = settings.wormProfitTrackerMode;
     switch (mode) {
         case WORM_MEMBRANES_MODE:
             const wormMembranePrices = getBazaarItemPrices('WORM_MEMBRANE');

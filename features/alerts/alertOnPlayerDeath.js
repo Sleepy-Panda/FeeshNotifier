@@ -9,7 +9,7 @@ triggers.KILLED_BY_TRIGGERS.forEach(entry => {
     register(
         "Chat",
         (rankAndPlayer, event) => playAlertOnPlayerDeath({
-            isEnabled: settings().alertOnPartyMemberDeath,
+            isEnabled: settings.alertOnPartyMemberDeath,
             player: getColoredPlayerNameFromPartyChat(rankAndPlayer)
         })
     ).setCriteria(getPartyChatMessage(getPlayerDeathMessage()));
@@ -30,7 +30,7 @@ function playAlertOnPlayerDeath(options) {
 		const title = `${options.player || 'Party member'} ${RED}killed ☠`;
 		Client.showTitle(title, 'Wait for them to come back', 1, 30, 1);
 	
-		if (settings().soundMode !== OFF_SOUND_MODE) {
+		if (settings.soundMode !== OFF_SOUND_MODE) {
             World.playSound('mob.villager.death', 1, 1);
         }
 	} catch (e) {

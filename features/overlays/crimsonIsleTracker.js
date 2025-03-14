@@ -24,7 +24,7 @@ register("Chat", (magicFind, event) => trackRadioctiveVialDrop()).setCriteria(ra
 register('renderOverlay', () => renderCrimsonIsleTrackerOverlay());
 
 register("gameUnload", () => {
-    if (settings().crimsonIsleTrackerOverlay && settings().resetCrimsonIsleTrackerOnGameClosed && persistentData.crimsonIsle && (
+    if (settings.crimsonIsleTrackerOverlay && settings.resetCrimsonIsleTrackerOnGameClosed && persistentData.crimsonIsle && (
         persistentData.crimsonIsle.thunder.lastCatchTime ||
         persistentData.crimsonIsle.lordJawbus.lastCatchTime ||
         persistentData.crimsonIsle.thunder.catchesSinceLast ||
@@ -118,7 +118,7 @@ export function setRadioactiveVials(count, lastOn) {
 
 function trackThunderCatch() {
     try {
-        if (!isInSkyblock() || getWorldName() !== CRIMSON_ISLE || !settings().crimsonIsleTrackerOverlay) {
+        if (!isInSkyblock() || getWorldName() !== CRIMSON_ISLE || !settings.crimsonIsleTrackerOverlay) {
             return;
         }
 
@@ -150,7 +150,7 @@ function trackThunderCatch() {
 
 function trackLordJawbusCatch() {
     try {
-        if (!isInSkyblock() || getWorldName() !== CRIMSON_ISLE || !settings().crimsonIsleTrackerOverlay) {
+        if (!isInSkyblock() || getWorldName() !== CRIMSON_ISLE || !settings.crimsonIsleTrackerOverlay) {
             return;
         }
 
@@ -189,7 +189,7 @@ function trackLordJawbusCatch() {
 
 function trackRegularSeaCreatureCatch() {
     try {
-        if (!isInSkyblock() || getWorldName() !== CRIMSON_ISLE || !settings().crimsonIsleTrackerOverlay) {
+        if (!isInSkyblock() || getWorldName() !== CRIMSON_ISLE || !settings.crimsonIsleTrackerOverlay) {
             return;
         }
 
@@ -202,7 +202,7 @@ function trackRegularSeaCreatureCatch() {
             Client.showTitle('', `${RED}No ${LIGHT_PURPLE}Lord Jawbus ${RED}for ${persistentData.crimsonIsle.lordJawbus.catchesSinceLast} catches`, 1, 45, 1);
             ChatLib.chat(`${GOLD}[FeeshNotifier] ${RED}${BOLD}Yikes! ${RESET}${RED}No ${LIGHT_PURPLE}Lord Jawbus ${RED}for ${persistentData.crimsonIsle.lordJawbus.catchesSinceLast} catches...`);
 
-            switch (settings().soundMode) {
+            switch (settings.soundMode) {
                 case MEME_SOUND_MODE:
                     new Sound(SAD_TROMBONE_SOUND_SOURCE).play();
                     break;
@@ -221,7 +221,7 @@ function trackRegularSeaCreatureCatch() {
 
 function trackRadioctiveVialDrop() {
     try {
-        if (!settings().crimsonIsleTrackerOverlay || !isInSkyblock() || getWorldName() !== CRIMSON_ISLE) {
+        if (!settings.crimsonIsleTrackerOverlay || !isInSkyblock() || getWorldName() !== CRIMSON_ISLE) {
             return;
         }
 
@@ -250,7 +250,7 @@ function trackRadioctiveVialDrop() {
 }
 
 function renderCrimsonIsleTrackerOverlay() {
-    if (!settings().crimsonIsleTrackerOverlay ||
+    if (!settings.crimsonIsleTrackerOverlay ||
         !persistentData.crimsonIsle ||
         (
             !persistentData.crimsonIsle.thunder.lastCatchTime &&
