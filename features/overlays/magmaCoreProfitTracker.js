@@ -1,4 +1,4 @@
-import settings from "../../settings";
+import settings, { allOverlaysGui } from "../../settings";
 import * as triggers from '../../constants/triggers';
 import { overlayCoordsData } from "../../data/overlayCoords";
 import { BOLD, GOLD, RED, WHITE, BLUE, YELLOW, GREEN, AQUA, GRAY } from "../../constants/formatting";
@@ -98,7 +98,7 @@ export function resetMagmaCoreProfitTracker(isConfirmed) {
 
 function pauseMagmaCoreProfitTracker() {
     try {
-        if (!settings.magmaCoreProfitTrackerOverlay || !isInSkyblock() || !hasFishingRodInHotbar() || getWorldName() !== CRYSTAL_HOLLOWS || !isSessionActive) {
+        if (!settings().magmaCoreProfitTrackerOverlay || !isInSkyblock() || !hasFishingRodInHotbar() || getWorldName() !== CRYSTAL_HOLLOWS || !isSessionActive) {
             return;
         }
     
@@ -112,7 +112,7 @@ function pauseMagmaCoreProfitTracker() {
 
 function refreshElapsedTime() {
     try {
-        if (!isSessionActive || !settings.magmaCoreProfitTrackerOverlay || !isInSkyblock() || !hasFishingRodInHotbar() || getWorldName() !== CRYSTAL_HOLLOWS) {
+        if (!isSessionActive || !settings().magmaCoreProfitTrackerOverlay || !isInSkyblock() || !hasFishingRodInHotbar() || getWorldName() !== CRYSTAL_HOLLOWS) {
             return;
         }
 
@@ -133,7 +133,7 @@ function refreshElapsedTime() {
 
 function refreshTrackerData() {
     try {
-        if (!settings.magmaCoreProfitTrackerOverlay || !isInSkyblock() || !hasFishingRodInHotbar() || getWorldName() !== CRYSTAL_HOLLOWS) {
+        if (!settings().magmaCoreProfitTrackerOverlay || !isInSkyblock() || !hasFishingRodInHotbar() || getWorldName() !== CRYSTAL_HOLLOWS) {
             return;
         }
 
@@ -164,7 +164,7 @@ function refreshTrackerData() {
 
 function trackSeaCreatureCatch(isDoubleHooked) {
     try {
-        if (!settings.magmaCoreProfitTrackerOverlay || !isInSkyblock() || !hasFishingRodInHotbar() || getWorldName() !== CRYSTAL_HOLLOWS) {
+        if (!settings().magmaCoreProfitTrackerOverlay || !isInSkyblock() || !hasFishingRodInHotbar() || getWorldName() !== CRYSTAL_HOLLOWS) {
             return;
         }
 
@@ -183,7 +183,7 @@ function trackSeaCreatureCatch(isDoubleHooked) {
 
 function trackMagmaCoreDrop() {
     try {
-        if (!isSessionActive || !settings.magmaCoreProfitTrackerOverlay || !isInSkyblock() || getWorldName() !== CRYSTAL_HOLLOWS) {
+        if (!isSessionActive || !settings().magmaCoreProfitTrackerOverlay || !isInSkyblock() || getWorldName() !== CRYSTAL_HOLLOWS) {
             return;
         }
 
@@ -205,12 +205,12 @@ function trackMagmaCoreDrop() {
 }
 
 function renderMagmaCoreTrackerOverlay() {
-    if (!settings.magmaCoreProfitTrackerOverlay ||
+    if (!settings().magmaCoreProfitTrackerOverlay ||
         !isInSkyblock() ||
         !hasFishingRodInHotbar() ||
         getWorldName() !== CRYSTAL_HOLLOWS ||
         (!totalMagmaCoresCount && !totalSeaCreaturesCaughtCount) ||
-        settings.allOverlaysGui.isOpen()
+        allOverlaysGui.isOpen()
     ) {
         buttonsDisplay.hide();
         return;

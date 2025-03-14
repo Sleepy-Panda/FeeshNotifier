@@ -1,4 +1,4 @@
-import settings from "./settings";
+import settings, { allOverlaysGui } from "./settings";
 import { overlayCoordsData } from "./data/overlayCoords";
 import { AQUA, BLUE, BOLD, DARK_GRAY, DARK_PURPLE, DARK_RED, GOLD, GRAY, GREEN, LIGHT_PURPLE, RED, RESET, WHITE, YELLOW } from "./constants/formatting";
 import { isInSkyblock } from "./utils/playerState";
@@ -10,7 +10,7 @@ export function moveAllGuis() {
     }
 
     ChatLib.chat(`${GOLD}[FeeshNotifier] ${WHITE}Drag the overlay to move it. Click the overlay and then press +/- or mouse scroll to increase/decrease size. Press ESC when you're done.`);
-    settings.allOverlaysGui.open();
+    allOverlaysGui.open();
 }
 
 const SAMPLE_GUIS = [
@@ -176,11 +176,11 @@ ${AQUA}Elapsed time: ${WHITE}1:17:14`,
 register('renderOverlay', () => renderSampleOverlays());
 
 register("worldUnload", () => {
-    if (settings.allOverlaysGui.isOpen()) settings.allOverlaysGui.close();
+    if (allOverlaysGui.isOpen()) allOverlaysGui.close();
 });
 
-settings.allOverlaysGui.registerClicked((x, y, button) => {
-    if (!settings.allOverlaysGui.isOpen()) {
+allOverlaysGui.registerClicked((x, y, button) => {
+    if (!allOverlaysGui.isOpen()) {
         return;
     }
 
@@ -193,8 +193,8 @@ settings.allOverlaysGui.registerClicked((x, y, button) => {
     });
 });
 
-settings.allOverlaysGui.registerScrolled((x, y, direction) => {
-    if (!settings.allOverlaysGui.isOpen()) {
+allOverlaysGui.registerScrolled((x, y, direction) => {
+    if (!allOverlaysGui.isOpen()) {
         return;
     }
 
@@ -210,8 +210,8 @@ settings.allOverlaysGui.registerScrolled((x, y, direction) => {
     }
 });
 
-settings.allOverlaysGui.registerKeyTyped((char, keyCode) => {
-    if (!settings.allOverlaysGui.isOpen()) {
+allOverlaysGui.registerKeyTyped((char, keyCode) => {
+    if (!allOverlaysGui.isOpen()) {
         return;
     }
 
@@ -227,8 +227,8 @@ settings.allOverlaysGui.registerKeyTyped((char, keyCode) => {
     }
 });
 
-settings.allOverlaysGui.registerMouseDragged((x, y) => {
-    if (!settings.allOverlaysGui.isOpen()) {
+allOverlaysGui.registerMouseDragged((x, y) => {
+    if (!allOverlaysGui.isOpen()) {
         return;
     }
 
@@ -241,7 +241,7 @@ settings.allOverlaysGui.registerMouseDragged((x, y) => {
 });
 
 function isInOverlay(sampleGui, x, y) {
-    if (!settings.allOverlaysGui.isOpen()) {
+    if (!allOverlaysGui.isOpen()) {
         return false;
     }
 
@@ -249,7 +249,7 @@ function isInOverlay(sampleGui, x, y) {
         return false;
     }
 
-    if (!settings[sampleGui.toggleSettingKey]) {
+    if (!settings()[sampleGui.toggleSettingKey]) {
         return false;
     }
 
@@ -263,11 +263,11 @@ function isInOverlay(sampleGui, x, y) {
 }
 
 function renderSampleOverlays() {
-    if (!settings.allOverlaysGui.isOpen()) {
+    if (!allOverlaysGui.isOpen()) {
         return;
     }
 
-    SAMPLE_GUIS.filter(sampleGui => settings[sampleGui.toggleSettingKey]).forEach(sampleGui => {
+    SAMPLE_GUIS.filter(sampleGui => settings()[sampleGui.toggleSettingKey]).forEach(sampleGui => {
         const overlay = new Text(sampleGui.sampleText, sampleGui.guiSettings.x, sampleGui.guiSettings.y)
             .setShadow(true)
             .setScale(sampleGui.guiSettings.scale);

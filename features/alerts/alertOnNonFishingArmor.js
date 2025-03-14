@@ -16,7 +16,7 @@ register(net.minecraftforge.event.entity.EntityJoinWorldEvent, (event) => alertO
 
 function alertOnNonFishingArmor(event) {
     try {
-        if (!settings.alertOnNonFishingArmor || !isInSkyblock() || !hasFishingRodInHotbar() || getWorldName() === KUUDRA || getWorldName() === DUNGEONS || !(event.entity instanceof EntityFishHook)) {
+        if (!settings().alertOnNonFishingArmor || !isInSkyblock() || !hasFishingRodInHotbar() || getWorldName() === KUUDRA || getWorldName() === DUNGEONS || !(event.entity instanceof EntityFishHook)) {
             return;
         }
     
@@ -43,7 +43,7 @@ function alertOnNonFishingArmor(event) {
     
             Client.showTitle(`${RED}Equip fishing armor!`, '', 1, 25, 1);
     
-            if (settings.soundMode !== OFF_SOUND_MODE) {
+            if (settings().soundMode !== OFF_SOUND_MODE) {
                 World.playSound('random.orb', 1, 1);
             }
         }, 1000);    

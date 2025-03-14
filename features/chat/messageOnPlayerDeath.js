@@ -10,7 +10,7 @@ triggers.KILLED_BY_TRIGGERS.forEach(entry => {
         "Chat",
         (event) => {
             sendMessageOnPlayerDeath({
-                isEnabled: settings.messageOnDeath
+                isEnabled: settings().messageOnDeath
             });
         }
     ).setCriteria(entry.trigger).setContains();

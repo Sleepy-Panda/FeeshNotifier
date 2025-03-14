@@ -1,4 +1,4 @@
-import settings from "../../settings";
+import settings, { allOverlaysGui } from "../../settings";
 import { overlayCoordsData } from "../../data/overlayCoords";
 import { ABANDONED_QUARRY } from "../../constants/areas";
 import { AQUA, BOLD, GOLD, GRAY, GREEN, RED, WHITE, YELLOW } from "../../constants/formatting";
@@ -104,7 +104,7 @@ export function resetAbandonedQuarryTracker(isConfirmed) {
 
 function pauseAbandonedQuarryTracker() {
     try {
-        if (!isSessionActive || !settings.abandonedQuarryTrackerOverlay || !isInSkyblock() || !hasFishingRodInHotbar() || getZoneName() !== ABANDONED_QUARRY) {
+        if (!isSessionActive || !settings().abandonedQuarryTrackerOverlay || !isInSkyblock() || !hasFishingRodInHotbar() || getZoneName() !== ABANDONED_QUARRY) {
             return;
         }
     
@@ -123,7 +123,7 @@ function pauseSession() {
 
 function activateSessionOnPlayersFishingHook() {
     try {
-        if (!settings.abandonedQuarryTrackerOverlay || !isInSkyblock() || !hasFishingRodInHotbar() || getZoneName() !== ABANDONED_QUARRY) {
+        if (!settings().abandonedQuarryTrackerOverlay || !isInSkyblock() || !hasFishingRodInHotbar() || getZoneName() !== ABANDONED_QUARRY) {
             return;
         }
     
@@ -152,7 +152,7 @@ function activateSessionOnPlayersFishingHook() {
 
 function refreshElapsedTime() {
     try {
-        if (!isSessionActive || !settings.abandonedQuarryTrackerOverlay || !isInSkyblock() || !hasFishingRodInHotbar() || getZoneName() !== ABANDONED_QUARRY) {
+        if (!isSessionActive || !settings().abandonedQuarryTrackerOverlay || !isInSkyblock() || !hasFishingRodInHotbar() || getZoneName() !== ABANDONED_QUARRY) {
             pauseSession();
             return;
         }
@@ -174,7 +174,7 @@ function refreshElapsedTime() {
 
 function trackMithrilGrubberCatch(seaCreature, isDoubleHook) {
     try {
-        if (!seaCreature || !settings.abandonedQuarryTrackerOverlay || !isInSkyblock() || !hasFishingRodInHotbar() || getZoneName() !== ABANDONED_QUARRY) {
+        if (!seaCreature || !settings().abandonedQuarryTrackerOverlay || !isInSkyblock() || !hasFishingRodInHotbar() || getZoneName() !== ABANDONED_QUARRY) {
             return;
         }
   
@@ -213,7 +213,7 @@ function getMithrilPowder() {
 
 function detectMithrilPowderChanges() {
     try {
-        if (!isSessionActive || !settings.abandonedQuarryTrackerOverlay || !isInSkyblock() || !hasFishingRodInHotbar() || getZoneName() !== ABANDONED_QUARRY) {
+        if (!isSessionActive || !settings().abandonedQuarryTrackerOverlay || !isInSkyblock() || !hasFishingRodInHotbar() || getZoneName() !== ABANDONED_QUARRY) {
             return;
         }
 
@@ -248,7 +248,7 @@ function detectMithrilPowderChanges() {
 
 function refreshTrackerData() {
     try {
-        if (!isSessionActive || !settings.abandonedQuarryTrackerOverlay || !isInSkyblock() || !hasFishingRodInHotbar() || getZoneName() !== ABANDONED_QUARRY) {
+        if (!isSessionActive || !settings().abandonedQuarryTrackerOverlay || !isInSkyblock() || !hasFishingRodInHotbar() || getZoneName() !== ABANDONED_QUARRY) {
             return;
         }
 
@@ -269,13 +269,13 @@ function refreshTrackerData() {
 }
 
 function renderMithrilGrubberPowderTrackerOverlay() {
-    if (!settings.abandonedQuarryTrackerOverlay ||
+    if (!settings().abandonedQuarryTrackerOverlay ||
         !isInSkyblock() ||
         !hasFishingRodInHotbar() ||
         getZoneName() !== ABANDONED_QUARRY ||
         !trackerData ||
         !trackerData.elapsedSeconds ||
-        settings.allOverlaysGui.isOpen()
+        allOverlaysGui.isOpen()
     ) {
         buttonsDisplay.hide();
         return;

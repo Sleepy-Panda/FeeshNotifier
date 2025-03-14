@@ -1,4 +1,4 @@
-import settings from "../../settings";
+import settings, { allOverlaysGui } from "../../settings";
 import { overlayCoordsData } from "../../data/overlayCoords";
 import { EntityArmorStand } from "../../constants/javaTypes";
 import { TIMER_SOUND_SOURCE, OFF_SOUND_MODE } from "../../constants/sounds";
@@ -17,7 +17,7 @@ register("worldUnload", () => {
 });
 
 function trackTotemStatus() {
-    if ((!settings.alertOnTotemExpiresSoon && !settings.totemRemainingTimeOverlay) || !isInSkyblock()) {
+    if ((!settings().alertOnTotemExpiresSoon && !settings().totemRemainingTimeOverlay) || !isInSkyblock()) {
         return;
     }
 
@@ -42,11 +42,11 @@ function trackTotemStatus() {
             if (position.x === playerTotemPosition.x && position.z === playerTotemPosition.z) {
                 remainingTotemTime = name.split('Remaining: ').pop();
 
-                if (settings.alertOnTotemExpiresSoon && remainingTotemTime && remainingTotemTime === `${secondsBeforeExpiration}s`) {
+                if (settings().alertOnTotemExpiresSoon && remainingTotemTime && remainingTotemTime === `${secondsBeforeExpiration}s`) {
                     Client.showTitle(`${DARK_PURPLE}Totem ${RED}expires soon`, '', 1, 30, 1);
                     ChatLib.chat(`${GOLD}[FeeshNotifier] ${WHITE}Your ${DARK_PURPLE}Totem of Corruption ${WHITE}expires soon.`);
 
-                    if (settings.soundMode !== OFF_SOUND_MODE)
+                    if (settings().soundMode !== OFF_SOUND_MODE)
                     {
                         new Sound(TIMER_SOUND_SOURCE).play();
                     }
@@ -57,7 +57,7 @@ function trackTotemStatus() {
 }
 
 function renderTotemOverlay() {
-    if (!settings.totemRemainingTimeOverlay || !remainingTotemTime || remainingTotemTime === '00s' || !isInSkyblock() || settings.allOverlaysGui.isOpen()) {
+    if (!settings().totemRemainingTimeOverlay || !remainingTotemTime || remainingTotemTime === '00s' || !isInSkyblock() || allOverlaysGui.isOpen()) {
         return;
     }
 

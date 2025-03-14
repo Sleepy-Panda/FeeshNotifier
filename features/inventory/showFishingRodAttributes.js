@@ -8,7 +8,7 @@ register('renderItemIntoGui', (item, x, y, event) => {
 });
 
 function showFishingRodAttributes(item, x, y) {
-    if (!settings.showFishingRodAttributes || !isInSkyblock()) {
+    if (!settings().showFishingRodAttributes || !isInSkyblock()) {
         return;
     }
 
@@ -25,7 +25,7 @@ function showFishingRodAttributes(item, x, y) {
         return;
     }
 
-    const highlightedAttributeCodesString = settings.accentedFishingRodAttributes || '';
+    const highlightedAttributeCodesString = settings().accentedFishingRodAttributes || '';
     const highlightedAttributeCodes = highlightedAttributeCodesString.split(',');
 
     const itemAttributes = getItemAttributes(item);

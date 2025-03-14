@@ -7,7 +7,7 @@ register('renderItemIntoGui', (item, x, y, event) => {
 });
 
 function showRarityUpgrade(item, x, y) {
-    if (!settings.showRarityUpgrade || !isInSkyblock()) {
+    if (!settings().showRarityUpgrade || !isInSkyblock()) {
         return;
     }
 

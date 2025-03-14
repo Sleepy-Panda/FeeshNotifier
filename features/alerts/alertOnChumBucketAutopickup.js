@@ -16,7 +16,7 @@ register("worldUnload", () => {
 
 export function playAlertOnBucketAutoPickup() {
 	try {
-		if (!settings.alertOnChumBucketAutoPickedUp || !isInSkyblock() || !World.isLoaded) {
+		if (!settings().alertOnChumBucketAutoPickedUp || !isInSkyblock() || !World.isLoaded) {
 			return;
 		}
 
@@ -26,7 +26,7 @@ export function playAlertOnBucketAutoPickup() {
 
 		Client.showTitle(`${YELLOW}Chum Bucket is gone`, '', 1, 30, 1);
 	
-		if (settings.soundMode !== OFF_SOUND_MODE) {
+		if (settings().soundMode !== OFF_SOUND_MODE) {
             World.playSound('random.orb', 1, 1);
         }
 	} catch (e) {

@@ -13,7 +13,7 @@ import { moveAllGuis } from "./moveAllOverlays";
 import { resetAbandonedQuarryTracker } from "./features/overlays/abandonedQuarryTracker";
 
 register("command", (...args) => {
-    settings.openGUI();
+    settings().getConfig().openGui();
 }).setName("feesh").setAliases(["feeshnotifier"]);
 
 register("command", (...args) => {

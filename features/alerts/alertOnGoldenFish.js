@@ -8,13 +8,13 @@ register("Chat", (event) => playAlertOnGoldenFish()).setCriteria(triggers.GOLDEN
 
 function playAlertOnGoldenFish() {
 	try {
-		if (!settings.alertOnGoldenFishSpawned || !isInSkyblock()) {
+		if (!settings().alertOnGoldenFishSpawned || !isInSkyblock()) {
 			return;
 		}
 		
 		Client.showTitle(`${WHITE}Catch ${GOLD}Golden Fish`, '', 1, 30, 1);
 	
-		if (settings.soundMode !== OFF_SOUND_MODE) {
+		if (settings().soundMode !== OFF_SOUND_MODE) {
             World.playSound('random.splash', 1, 1);
         }
 	} catch (e) {

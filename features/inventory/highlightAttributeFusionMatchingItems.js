@@ -18,7 +18,7 @@ register('renderSlot', (slot, gui, event) => {
 });
 
 function highlightAttributeFusionMatchingItems(slot, gui) {
-    if (!settings.highlightMatchingItemsInAttributeFusion || !isInSkyblock()) {
+    if (!settings().highlightMatchingItemsInAttributeFusion || !isInSkyblock()) {
         return;
     }
 
