@@ -426,6 +426,12 @@ export const FISHING_PROFIT_ITEMS = [
         npcPrice: 10,
     },
     {
+        itemId: 'HOTSPOT_BAIT',
+        itemName: 'Hotspot Bait',
+        itemDisplayName: `${RARE}Hotspot Bait`,
+        npcPrice: 5000,
+    },
+    {
         itemId: 'GOLD_RECORD',
         itemName: 'Music Disc - 13',
         itemDisplayName: `${UNCOMMON}Music Disc - 13`,
@@ -692,7 +698,7 @@ export const FISHING_PROFIT_ITEMS = [
         itemId: 'ALLIGATOR_SKIN',
         itemName: 'Alligator Skin',
         itemDisplayName: `${EPIC}Alligator Skin`,
-        npcPrice: 50000,
+        npcPrice: 5000,
     },
     {
         itemId: 'TITANOBOA_SHED',

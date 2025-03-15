@@ -4,7 +4,7 @@
 
 - 
 - register("pickupItem"
-- Reduced NPC sell price of Alligator Skin from 50,000 -> 5,000 coins.
+- Added Severed Pincer as a 0.1% drop from the Flaming Scuttler.
 - Reduced NPC sell price of Scorched Crab Stick from 50,000 -> 5,000 coins.
 - Check IDs and NPC prices
 - Add new fishing drops to profit tracker, remove old ones
@@ -14,7 +14,6 @@
 - Check treasure messages
 - COINS_FISHED_TRIGGERS to work on both new and old versions of SB
 - Ice essense messages?
-- Looking to add a "Hotspot Bait"
 - Autorecombed items support
 
 Released: ???
