@@ -470,7 +470,7 @@ const config = new DefaultConfig("FeeshNotifier", "config/settings.json")
     title: "Sea creatures count threshold - CRIMSON ISLE",
     description: "Count of sea creatures nearby required to see the alert when you are in the Crimson Isle. Ignored if the sea creatures count alert is disabled.",
     options: [5, 60],
-    value: 5,
+    value: 20,
     subcategory: "Sea creatures count"
 })
 .addSlider({
