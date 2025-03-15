@@ -262,7 +262,7 @@ export const ALL_CATCHES_TRIGGERS = [
     {
         trigger: REINDRAKE_MESSAGE,
         seaCreature: `Reindrake`,
-        rarityColorCode: LEGENDARY,
+        rarityColorCode: MYTHIC,
     },
     {
         trigger: NUTCRACKER_MESSAGE,
@@ -515,7 +515,7 @@ export const RARE_CATCH_TRIGGERS = [
         seaCreature: seaCreatures.REINDRAKE,
         isMessageEnabledSettingKey: 'messageOnReindrakeCatch',
         isAlertEnabledSettingKey: 'alertOnReindrakeCatch',
-        rarityColorCode: LEGENDARY
+        rarityColorCode: MYTHIC
     },
     {
         trigger: NUTCRACKER_MESSAGE,

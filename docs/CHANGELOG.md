@@ -30,6 +30,7 @@ Features:
   - Display Ragnarok's, Wiki Tiki's and Titanoboa's HP in Sea Creatures HP tracker.
   - Added option to share Ragnarok's location to ALL chat [disabled by default].
   - Added "killed by Ragnarok" reason to the Player's Death alert.
+  - Increased Reindrake and Plhlegblast rarity from LEGENDARY to MYTHIC.
 
 ## v1.30.0
 
