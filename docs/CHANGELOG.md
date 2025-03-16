@@ -7,6 +7,7 @@ Released: ???
 Features:
 - Adapted module to the new fishing update:
   - Added new fishing drops to Fishing Profit tracker.
+  - Adapted to the new format of messages for functionality that relies on Good/Great/Outstanding cathes.
   - Removed Guardian Pet from Fishing Profit tracker as well as its alert.
   - Removed Shredder, Phantom Rod, Yeti Rod and Ice Rod from Fishing Profit tracker.
   - Added Legendary/Mythic Hermit Crab and Mythic Flying Fish to /feeshPetLevelUpPrices command.
