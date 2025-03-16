@@ -1,5 +1,5 @@
 import * as triggers from '../../constants/triggers';
-import settings from "../../settings";
+import settings, { allOverlaysGui, fishingProfitTrackerOverlayGui } from "../../settings";
 import { persistentData } from "../../data/data";
 import { overlayCoordsData } from "../../data/overlayCoords";
 import { CRIMSON_ISLE, JERRY_WORKSHOP, KUUDRA } from "../../constants/areas";
@@ -36,7 +36,7 @@ register('step', () => {
 }).setFps(2);
 register('step', () => refreshElapsedTime()).setFps(1);
 register('step', () => refreshPrices()).setDelay(30);
-register('step', () => { if (settings.fishingProfitTrackerOverlayGui.isOpen()) refreshTrackerDisplayData(); }).setFps(4); // Handle move/resize
+register('step', () => { if (fishingProfitTrackerOverlayGui.isOpen()) refreshTrackerDisplayData(); }).setFps(4); // Handle move/resize
 
 let isWorldLoaded = false;
 // World.isLoaded() doesn't give the same result for some reason
@@ -50,7 +50,7 @@ register("worldLoad", () => {
 }); 
 
 register('guiClosed', (gui) => {
-    if (gui?.toString()?.includes('vigilance')) { // Settings menu is closed, probably some settings have changed
+    if (gui?.toString()?.includes('adapter7')) { // Settings menu is closed, probably some settings have changed. Ugly but can't find other way to detect Amaterasu GUI closed
         refreshPrices();
         refreshTrackerDisplayData();
     }
@@ -124,7 +124,7 @@ function refreshIsVisible() {
         !isInSkyblock() ||
         getWorldName() === KUUDRA ||
         !hasFishingRodInHotbar() ||
-        settings.allOverlaysGui.isOpen()
+        allOverlaysGui.isOpen()
     ) {
         isVisible = false;
         pause();

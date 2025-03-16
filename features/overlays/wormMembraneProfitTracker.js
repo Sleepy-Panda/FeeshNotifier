@@ -1,4 +1,4 @@
-import settings from "../../settings";
+import settings, { allOverlaysGui } from "../../settings";
 import { AQUA, BOLD, DARK_PURPLE, GOLD, GRAY, GREEN, RED, WHITE, YELLOW } from "../../constants/formatting";
 import { getBazaarItemPrices } from "../../utils/bazaarPrices";
 import { formatElapsedTime, formatNumberWithSpaces, getItemsAddedToSacks, isDoubleHook, isInChatOrInventoryGui, isInSacksGui, toShortNumber } from "../../utils/common";
@@ -303,7 +303,7 @@ function renderWormMembraneProfitTrackerOverlay() {
         !hasFishingRodInHotbar() ||
         getWorldName() !== CRYSTAL_HOLLOWS ||
         (!totalWormsCount && !totalMembranesCount) ||
-        settings.allOverlaysGui.isOpen()
+        allOverlaysGui.isOpen()
     ) {
         buttonsDisplay.hide();
         return;

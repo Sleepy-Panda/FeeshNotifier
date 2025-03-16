@@ -1,4 +1,4 @@
-import settings from "../../settings";
+import settings, { allOverlaysGui } from "../../settings";
 import { overlayCoordsData } from "../../data/overlayCoords";
 import { ABANDONED_QUARRY } from "../../constants/areas";
 import { AQUA, BOLD, GOLD, GRAY, GREEN, RED, WHITE, YELLOW } from "../../constants/formatting";
@@ -275,7 +275,7 @@ function renderMithrilGrubberPowderTrackerOverlay() {
         getZoneName() !== ABANDONED_QUARRY ||
         !trackerData ||
         !trackerData.elapsedSeconds ||
-        settings.allOverlaysGui.isOpen()
+        allOverlaysGui.isOpen()
     ) {
         buttonsDisplay.hide();
         return;

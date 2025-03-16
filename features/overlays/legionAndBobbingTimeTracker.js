@@ -1,4 +1,4 @@
-import settings from "../../settings";
+import settings, { allOverlaysGui } from "../../settings";
 import { GOLD, GRAY, GREEN, WHITE } from "../../constants/formatting";
 import { EntityFishHook } from "../../constants/javaTypes";
 import { overlayCoordsData } from "../../data/overlayCoords";
@@ -46,7 +46,7 @@ function renderLegionAndBobbingTimeOverlay() {
         !isInSkyblock() ||
         !hasFishingRodInHotbar() ||
         getWorldName() === KUUDRA ||
-        settings.allOverlaysGui.isOpen()
+        allOverlaysGui.isOpen()
     ) {
         return;
     }
