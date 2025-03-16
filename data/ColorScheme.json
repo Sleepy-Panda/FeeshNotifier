@@ -1,10 +1,11 @@
 {
+    "$schema": "https://raw.githubusercontent.com/DocilElm/Amaterasu/main/ColorScheme.schema.json",
     "Button": {
         "background": {
             "color": [
-                50,
-                50,
-                50,
+                153,
+                163,
+                247,
                 255
             ],
             "outlineColor": [
@@ -14,34 +15,34 @@
                 255
             ],
             "outlineSize": 0,
-            "roundness": 0
+            "roundness": 3
         },
         "text": {
             "color": [
-                187,
-                187,
-                187,
+                255,
+                255,
+                255,
                 255
             ],
             "scale": 1
         },
         "mouseClickAnimation": {
             "color": [
-                45,
-                151,
+                85,
+                255,
                 255,
                 255
             ],
-            "type": "OUT_EXP",
-            "time": 0.3
+            "type": "IN_OUT_QUINT",
+            "time": 1
         }
     },
     "Button1": {
         "background": {
             "color": [
-                50,
-                50,
-                50,
+                59,
+                61,
+                71,
                 255
             ],
             "outlineColor": [
@@ -51,7 +52,7 @@
                 255
             ],
             "outlineSize": 0,
-            "roundness": 0
+            "roundness": 3
         },
         "lines": {
             "color": [
@@ -64,82 +65,170 @@
         },
         "text": {
             "color": [
-                187,
-                187,
-                187,
+                2,
+                147,
+                148,
                 255
             ],
             "scale": 1.5,
             "format": "§l",
             "centered": true,
             "selectedColor": [
-                41,
-                151,
+                85,
+                255,
                 255,
                 255
             ]
         },
         "mouseClickAnimation": {
             "color": [
-                70,
-                70,
-                70,
+                93,
+                95,
+                103,
                 255
             ],
-            "type": "OUT_EXP",
+            "type": "IN_OUT_QUINT",
             "time": 9999
         },
         "mouseEnterAnimation": {
             "color": [
-                70,
-                70,
-                70,
+                93,
+                95,
+                103,
                 255
             ],
-            "type": "OUT_EXP",
-            "time": 0.5
+            "type": "IN_OUT_QUINT",
+            "time": 1
         },
         "mouseLeaveAnimation": {
             "color": [
-                50,
-                50,
-                50,
+                59,
+                61,
+                71,
                 255
             ],
-            "type": "OUT_EXP",
-            "time": 0.5
+            "type": "IN_OUT_QUINT",
+            "time": 1
+        }
+    },
+    "Divider": {
+        "background": {
+            "color": [
+                0,
+                0,
+                0,
+                0
+            ],
+            "outlineColor": [
+                0,
+                0,
+                0,
+                0
+            ],
+            "outlineSize": 0,
+            "roundness": 3
+        },
+        "line": {
+            "color": [
+                149,
+                156,
+                174,
+                255
+            ],
+            "outlineColor": [
+                255,
+                255,
+                255,
+                255
+            ],
+            "outlineSize": 0,
+            "roundness": 3,
+            "size": 0.5
+        },
+        "text": {
+            "color": [
+                2,
+                147,
+                148,
+                255
+            ],
+            "scale": 1.7
+        }
+    },
+    "DividerSubcategory": {
+        "background": {
+            "color": [
+                0,
+                0,
+                0,
+                0
+            ],
+            "outlineColor": [
+                0,
+                0,
+                0,
+                0
+            ],
+            "outlineSize": 3,
+            "roundness": 3
+        },
+        "line": {
+            "color": [
+                149,
+                156,
+                174,
+                255
+            ],
+            "outlineColor": [
+                255,
+                255,
+                255,
+                255
+            ],
+            "outlineSize": 0,
+            "roundness": 3,
+            "size": 0.5
+        },
+        "text": {
+            "color": [
+                2,
+                147,
+                148,
+                255
+            ],
+            "scale": 1.7
         }
     },
     "TextInput": {
         "background": {
             "color": [
-                35,
-                35,
-                35,
+                36,
+                38,
+                46,
                 255
             ],
             "outlineColor": [
-                71,
-                71,
-                71,
+                255,
+                255,
+                255,
                 255
             ],
-            "outlineSize": 1,
-            "roundness": 0
+            "outlineSize": 0,
+            "roundness": 3
         },
         "text": {
             "color": [
-                187,
-                187,
-                187,
+                255,
+                255,
+                255,
                 255
             ],
             "scale": 1,
-            "padding": 3,
+            "padding": 1,
             "placeholderColor": [
-                187,
-                187,
-                187,
+                149,
+                156,
+                174,
                 255
             ]
         },
@@ -150,28 +239,28 @@
                 255,
                 255
             ],
-            "type": "OUT_EXP",
+            "type": "IN_OUT_QUINT",
             "time": 0.5,
             "placeholderColor": [
-                77,
-                77,
-                77,
+                149,
+                156,
+                174,
                 255
             ]
         },
         "mouseLeaveAnimation": {
             "color": [
-                187,
-                187,
-                187,
+                255,
+                255,
+                255,
                 255
             ],
-            "type": "OUT_EXP",
+            "type": "IN_OUT_QUINT",
             "time": 0.5,
             "placeholderColor": [
-                187,
-                187,
-                187,
+                149,
+                156,
+                174,
                 255
             ]
         }
@@ -179,48 +268,200 @@
     "Checkbox": {
         "background": {
             "enabledColor": [
-                85,
-                255,
-                85,
+                70,
+                223,
+                131,
                 255
             ],
             "disabledColor": [
-                170,
-                0,
-                0,
+                233,
+                96,
+                79,
                 255
             ],
             "outlineColor": [
-                41,
-                151,
+                255,
+                255,
+                255,
+                255
+            ],
+            "outlineSize": 0,
+            "roundness": 3
+        },
+        "check": {
+            "enabled": "§l✔",
+            "disabled": "§l✖",
+            "scale": 2
+        },
+        "mouseClickAnimation": {
+            "type": "OUT_EXP",
+            "time": 1
+        }
+    },
+    "MultiCheckBox": {
+        "background": {
+            "color": [
+                36,
+                38,
+                46,
+                255
+            ],
+            "outlineColor": [
+                255,
+                255,
+                255,
+                255
+            ],
+            "outlineSize": 0,
+            "roundness": 3
+        },
+        "selectionbackground": {
+            "color": [
+                0,
+                0,
+                0,
+                0
+            ],
+            "outlineColor": [
+                255,
+                255,
+                255,
+                255
+            ],
+            "outlineSize": 0,
+            "roundness": 3
+        },
+        "selectiontext": {
+            "color": [
+                255,
+                255,
+                255,
+                255
+            ],
+            "scale": 1.5
+        },
+        "text": {
+            "color": [
+                255,
+                255,
+                255,
+                255
+            ],
+            "scale": 3,
+            "openArrow": "§l↓",
+            "closeArrow": "§l↑"
+        },
+        "dropdownbackground": {
+            "color": [
+                36,
+                38,
+                46,
+                255
+            ],
+            "outlineColor": [
+                71,
+                71,
+                71,
+                255
+            ],
+            "outlineSize": 0,
+            "roundness": 3
+        },
+        "optionsbackground": {
+            "color": [
+                59,
+                61,
+                71,
+                255
+            ],
+            "outlineColor": [
+                255,
+                255,
                 255,
                 255
             ],
             "outlineSize": 0,
             "roundness": 0
         },
-        "check": {
-            "enabled": "§l✔",
-            "disabled": "§l✖",
-            "scale": 1
+        "optionstext": {
+            "color": [
+                149,
+                156,
+                174,
+                255
+            ],
+            "scale": 1.5
         },
-        "mouseClickAnimation": {
-            "type": "OUT_EXP",
-            "time": 0.5
+        "placeholderbackground": {
+            "color": [
+                0,
+                0,
+                0,
+                0
+            ],
+            "outlineColor": [
+                255,
+                255,
+                255,
+                255
+            ],
+            "outlineSize": 0,
+            "roundness": 3
+        },
+        "placeholdertext": {
+            "color": [
+                149,
+                156,
+                174,
+                255
+            ],
+            "scale": 1.5
+        },
+        "Checkbox": {
+            "background": {
+                "enabledColor": [
+                    70,
+                    223,
+                    131,
+                    255
+                ],
+                "disabledColor": [
+                    233,
+                    96,
+                    79,
+                    255
+                ],
+                "outlineColor": [
+                    255,
+                    255,
+                    255,
+                    255
+                ],
+                "outlineSize": 0,
+                "roundness": 3
+            },
+            "check": {
+                "enabled": "§l✔",
+                "disabled": "§l✖"
+            },
+            "mouseClickAnimation": {
+                "type": "OUT_EXP",
+                "time": 1
+            }
         }
     },
     "Switch": {
         "background": {
             "enabledColor": [
-                41,
-                151,
-                255,
+                153,
+                163,
+                247,
                 255
             ],
             "disabledColor": [
-                187,
-                187,
-                187,
+                149,
+                156,
+                174,
                 255
             ],
             "outlineColor": [
@@ -230,20 +471,20 @@
                 255
             ],
             "outlineSize": 0,
-            "roundness": 0
+            "roundness": 3
         },
         "switchbox": {
             "enabledColor": [
-                0,
-                0,
-                0,
-                200
+                36,
+                38,
+                46,
+                255
             ],
             "disabledColor": [
-                0,
-                0,
-                0,
-                200
+                36,
+                38,
+                46,
+                255
             ],
             "outlineColor": [
                 255,
@@ -255,16 +496,16 @@
             "roundness": 0
         },
         "mouseClickAnimation": {
-            "type": "OUT_EXP",
-            "time": 0.5
+            "type": "IN_OUT_QUINT",
+            "time": 0.75
         }
     },
     "Slider": {
         "background": {
             "color": [
-                41,
-                151,
-                255,
+                0,
+                0,
+                0,
                 0
             ],
             "outlineColor": [
@@ -278,9 +519,9 @@
         },
         "bar": {
             "color": [
-                35,
-                35,
-                35,
+                149,
+                156,
+                174,
                 255
             ],
             "outlineColor": [
@@ -289,14 +530,14 @@
                 71,
                 255
             ],
-            "outlineSize": 1,
-            "roundness": 0
+            "outlineSize": 0,
+            "roundness": 3
         },
         "completionbar": {
             "color": [
-                41,
-                151,
-                255,
+                153,
+                163,
+                247,
                 255
             ],
             "outlineColor": [
@@ -306,61 +547,61 @@
                 255
             ],
             "outlineSize": 0,
-            "roundness": 0
+            "roundness": 3
         },
         "sliderbox": {
             "color": [
-                41,
-                151,
-                255,
+                153,
+                163,
+                247,
                 255
             ],
             "outlineColor": [
-                255,
-                255,
-                255,
+                153,
+                163,
+                247,
                 255
             ],
-            "outlineSize": 1,
+            "outlineSize": 3,
             "roundness": 0
         },
         "text": {
             "color": [
-                187,
-                187,
-                187,
-                255
-            ],
-            "scale": 1.3
-        },
-        "mouseEnterAnimation": {
-            "color": [
-                41,
-                151,
+                255,
+                255,
                 255,
                 255
             ],
-            "type": "OUT_EXP",
+            "scale": 1.5
+        },
+        "mouseEnterAnimation": {
+            "color": [
+                153,
+                163,
+                247,
+                255
+            ],
+            "type": "IN_OUT_QUINT",
             "time": 0.5
         },
         "mouseLeaveAnimation": {
             "color": [
-                41,
-                151,
-                255,
+                153,
+                163,
+                247,
                 255
             ],
-            "type": "OUT_EXP",
+            "type": "IN_OUT_QUINT",
             "time": 0.5
         }
     },
     "Selection": {
         "background": {
             "color": [
-                0,
-                0,
-                0,
-                80
+                36,
+                38,
+                46,
+                255
             ],
             "outlineColor": [
                 255,
@@ -378,19 +619,19 @@
                 255,
                 255
             ],
-            "scale": 1,
+            "scale": 1.5,
             "leftArrow": "<",
             "rightArrow": ">"
         },
         "mouseEnterAnimation": {
             "color": [
-                0,
-                0,
-                0,
-                80
+                255,
+                255,
+                255,
+                255
             ],
-            "type": "OUT_EXP",
-            "time": 0.5
+            "type": "IN_OUT_QUINT",
+            "time": 1
         },
         "mouseLeaveAnimation": {
             "color": [
@@ -399,8 +640,8 @@
                 255,
                 255
             ],
-            "type": "OUT_EXP",
-            "time": 0.5
+            "type": "IN_OUT_QUINT",
+            "time": 1
         }
     },
     "ColorPicker": {
@@ -412,40 +653,40 @@
                 0
             ],
             "outlineColor": [
-                71,
-                71,
-                71,
+                255,
+                255,
+                255,
                 255
             ],
             "outlineSize": 0,
-            "roundness": 0
+            "roundness": 3
         },
         "text": {
             "color": [
-                187,
-                187,
-                187,
+                255,
+                255,
+                255,
                 255
             ],
-            "scale": 2,
+            "scale": 3,
             "openArrow": "§l↓",
             "closeArrow": "§l↑"
         },
         "colorpickerbackground": {
             "color": [
-                0,
-                0,
-                0,
-                0
-            ],
-            "outlineColor": [
-                71,
-                71,
-                71,
+                36,
+                38,
+                46,
                 255
             ],
-            "outlineSize": 1,
-            "roundness": 0
+            "outlineColor": [
+                255,
+                255,
+                255,
+                255
+            ],
+            "outlineSize": 0,
+            "roundness": 3
         },
         "gradientbackground": {
             "color": [
@@ -460,8 +701,8 @@
                 71,
                 255
             ],
-            "outlineSize": 1,
-            "roundness": 0
+            "outlineSize": 0,
+            "roundness": 3
         },
         "gradientpointer": {
             "outlineColor": [
@@ -470,7 +711,7 @@
                 255,
                 255
             ],
-            "outlineSize": 1
+            "outlineSize": 0
         },
         "huebackground": {
             "color": [
@@ -485,8 +726,8 @@
                 71,
                 255
             ],
-            "outlineSize": 1,
-            "roundness": 0
+            "outlineSize": 0,
+            "roundness": 3
         },
         "huepointer": {
             "outlineColor": [
@@ -495,7 +736,7 @@
                 255,
                 255
             ],
-            "outlineSize": 0.5
+            "outlineSize": 0
         },
         "heightAnimationIn": {
             "type": "IN_SIN",
@@ -524,17 +765,17 @@
             },
             "text": {
                 "color": [
-                    187,
-                    187,
-                    187,
+                    149,
+                    156,
+                    174,
                     255
                 ],
-                "scale": 1,
+                "scale": 1.5,
                 "padding": 5,
                 "placeholderColor": [
-                    187,
-                    187,
-                    187,
+                    149,
+                    156,
+                    174,
                     255
                 ]
             },
@@ -545,7 +786,7 @@
                     255,
                     255
                 ],
-                "type": "OUT_EXP",
+                "type": "IN_OUT_QUINT",
                 "time": 0.5,
                 "placeholderColor": [
                     77,
@@ -556,17 +797,17 @@
             },
             "mouseLeaveAnimation": {
                 "color": [
-                    187,
-                    187,
-                    187,
+                    149,
+                    156,
+                    174,
                     255
                 ],
-                "type": "OUT_EXP",
+                "type": "IN_OUT_QUINT",
                 "time": 0.5,
                 "placeholderColor": [
-                    187,
-                    187,
-                    187,
+                    149,
+                    156,
+                    174,
                     255
                 ]
             }
@@ -638,9 +879,9 @@
             },
             "text": {
                 "color": [
-                    187,
-                    187,
-                    187,
+                    255,
+                    255,
+                    255,
                     255
                 ],
                 "scale": 1
@@ -652,7 +893,7 @@
                     255,
                     255
                 ],
-                "type": "OUT_EXP",
+                "type": "IN_OUT_QUINT",
                 "time": 0.5
             },
             "mouseLeaveAnimation": {
@@ -662,7 +903,7 @@
                     255,
                     255
                 ],
-                "type": "OUT_EXP",
+                "type": "IN_OUT_QUINT",
                 "time": 0.5
             }
         }
@@ -678,55 +919,12 @@
             "scale": 1
         }
     },
-    "Divider": {
-        "background": {
-            "color": [
-                0,
-                0,
-                0,
-                0
-            ],
-            "outlineColor": [
-                255,
-                255,
-                255,
-                255
-            ],
-            "outlineSize": 0,
-            "roundness": 3
-        },
-        "line": {
-            "color": [
-                106,
-                106,
-                106,
-                255
-            ],
-            "outlineColor": [
-                255,
-                255,
-                255,
-                255
-            ],
-            "outlineSize": 0,
-            "roundness": 3
-        },
-        "text": {
-            "color": [
-                106,
-                106,
-                106,
-                255
-            ],
-            "scale": 1.1
-        }
-    },
     "DropDown": {
         "background": {
             "color": [
-                47,
-                47,
-                47,
+                36,
+                38,
+                46,
                 255
             ],
             "outlineColor": [
@@ -736,14 +934,14 @@
                 255
             ],
             "outlineSize": 0,
-            "roundness": 0
+            "roundness": 3
         },
         "selectionbackground": {
             "color": [
-                0,
-                0,
-                0,
-                0
+                36,
+                38,
+                46,
+                255
             ],
             "outlineColor": [
                 255,
@@ -752,33 +950,33 @@
                 255
             ],
             "outlineSize": 0,
-            "roundness": 5
+            "roundness": 3
         },
         "selectiontext": {
             "color": [
-                187,
-                187,
-                187,
+                255,
+                255,
+                255,
                 255
             ],
-            "scale": 1
+            "scale": 1.5
         },
         "text": {
             "color": [
-                187,
-                187,
-                187,
+                149,
+                156,
+                174,
                 255
             ],
-            "scale": 2,
+            "scale": 3,
             "openArrow": "§l↓",
             "closeArrow": "§l↑"
         },
         "dropdownbackground": {
             "color": [
-                35,
-                35,
-                35,
+                36,
+                38,
+                46,
                 255
             ],
             "outlineColor": [
@@ -787,14 +985,14 @@
                 71,
                 255
             ],
-            "outlineSize": 1,
+            "outlineSize": 0,
             "roundness": 0
         },
         "optionsbackground": {
             "color": [
-                50,
-                50,
-                50,
+                59,
+                61,
+                71,
                 255
             ],
             "outlineColor": [
@@ -804,22 +1002,22 @@
                 255
             ],
             "outlineSize": 0,
-            "roundness": 0
+            "roundness": 3
         },
         "optionstext": {
             "color": [
-                187,
-                187,
-                187,
+                149,
+                156,
+                174,
                 255
             ],
-            "scale": 1
+            "scale": 1.5
         },
         "selectedoptionbackground": {
             "color": [
-                0,
-                0,
-                0,
+                59,
+                61,
+                71,
                 150
             ],
             "outlineColor": [
@@ -829,176 +1027,24 @@
                 255
             ],
             "outlineSize": 0,
-            "roundness": 5
+            "roundness": 3
         },
         "selectedoptiontext": {
             "color": [
-                255,
-                255,
-                255,
+                149,
+                156,
+                174,
                 255
             ],
-            "scale": 1
-        }
-    },
-    "MultiCheckBox": {
-        "background": {
-            "color": [
-                47,
-                47,
-                47,
-                255
-            ],
-            "outlineColor": [
-                255,
-                255,
-                255,
-                255
-            ],
-            "outlineSize": 0,
-            "roundness": 0
-        },
-        "selectionbackground": {
-            "color": [
-                0,
-                0,
-                0,
-                0
-            ],
-            "outlineColor": [
-                255,
-                255,
-                255,
-                255
-            ],
-            "outlineSize": 0,
-            "roundness": 5
-        },
-        "selectiontext": {
-            "color": [
-                187,
-                187,
-                187,
-                255
-            ],
-            "scale": 1
-        },
-        "text": {
-            "color": [
-                187,
-                187,
-                187,
-                255
-            ],
-            "scale": 2,
-            "openArrow": "§l↓",
-            "closeArrow": "§l↑"
-        },
-        "dropdownbackground": {
-            "color": [
-                35,
-                35,
-                35,
-                255
-            ],
-            "outlineColor": [
-                71,
-                71,
-                71,
-                255
-            ],
-            "outlineSize": 1,
-            "roundness": 0
-        },
-        "optionsbackground": {
-            "color": [
-                50,
-                50,
-                50,
-                255
-            ],
-            "outlineColor": [
-                255,
-                255,
-                255,
-                255
-            ],
-            "outlineSize": 0,
-            "roundness": 0
-        },
-        "optionstext": {
-            "color": [
-                187,
-                187,
-                187,
-                255
-            ],
-            "scale": 1
-        },
-        "placeholderbackground": {
-            "color": [
-                0,
-                0,
-                0,
-                0
-            ],
-            "outlineColor": [
-                255,
-                255,
-                255,
-                255
-            ],
-            "outlineSize": 0,
-            "roundness": 0
-        },
-        "placeholdertext": {
-            "color": [
-                187,
-                187,
-                187,
-                255
-            ],
-            "scale": 1
-        },
-        "Checkbox": {
-            "background": {
-                "enabledColor": [
-                    85,
-                    255,
-                    85,
-                    255
-                ],
-                "disabledColor": [
-                    170,
-                    0,
-                    0,
-                    255
-                ],
-                "outlineColor": [
-                    41,
-                    151,
-                    255,
-                    255
-                ],
-                "outlineSize": 0,
-                "roundness": 0
-            },
-            "check": {
-                "enabled": "§l✔",
-                "disabled": "§l✖"
-            },
-            "mouseClickAnimation": {
-                "type": "OUT_EXP",
-                "time": 0.5
-            }
+            "scale": 1.5
         }
     },
     "Keybind": {
         "background": {
             "color": [
-                35,
-                35,
-                35,
+                36,
+                38,
+                46,
                 255
             ],
             "outlineColor": [
@@ -1007,8 +1053,8 @@
                 71,
                 255
             ],
-            "outlineSize": 1,
-            "roundness": 0
+            "outlineSize": 0,
+            "roundness": 3
         },
         "text": {
             "color": [
@@ -1017,23 +1063,23 @@
                 255,
                 255
             ],
-            "scale": 1,
-            "enabled": "§l****"
+            "scale": 1.5,
+            "enabled": "§l<Press key>"
         }
     },
     "Amaterasu": {
         "background": {
             "color": [
-                35,
-                35,
-                35,
+                36,
+                38,
+                46,
                 255
             ],
             "outlineColor": [
-                255,
-                170,
                 0,
-                80
+                0,
+                0,
+                0
             ],
             "outlineSize": 0,
             "roundness": 0
@@ -1057,23 +1103,23 @@
         },
         "panel": {
             "leftColor": [
-                24,
-                24,
-                24,
+                41,
+                43,
+                61,
                 255
             ],
             "rightColor": [
-                24,
-                24,
-                24,
+                41,
+                43,
+                61,
                 255
             ]
         },
         "scrollbar": {
             "color": [
-                84,
-                84,
-                84,
+                149,
+                156,
+                174,
                 255
             ]
         },
@@ -1088,20 +1134,20 @@
         },
         "descriptionbackground": {
             "color": [
-                35,
-                35,
-                35,
+                59,
+                61,
+                71,
                 255
             ],
             "size": 0.5,
             "outlineColor": [
-                71,
-                71,
-                71,
+                255,
+                255,
+                255,
                 255
             ],
-            "outlineSize": 1,
-            "roundness": 0
+            "outlineSize": 0,
+            "roundness": 3
         },
         "Text": {
             "text": {
@@ -1115,50 +1161,5 @@
                 "scaleType": "pixel"
             }
         }
-    },
-    "DividerSubcategory": {
-        "background": {
-            "color": [
-                0,
-                0,
-                0,
-                0
-            ],
-            "outlineColor": [
-                255,
-                255,
-                255,
-                255
-            ],
-            "outlineSize": 0,
-            "roundness": 3
-        },
-        "line": {
-            "color": [
-                106,
-                106,
-                106,
-                255
-            ],
-            "outlineColor": [
-                255,
-                255,
-                255,
-                255
-            ],
-            "outlineSize": 0,
-            "roundness": 3,
-            "size": 0.5
-        },
-        "text": {
-            "color": [
-                106,
-                106,
-                106,
-                255
-            ],
-            "scale": 1.3
-        }
-    },
-    "$schema": "https://raw.githubusercontent.com/DocilElm/Amaterasu/main/ColorScheme.schema.json"
+    }
 }
