@@ -1367,7 +1367,7 @@ ${RED}Hidden if you have no fishing rod in your hotbar!`,
     }
 })
 
-const setting = new Settings("FeeshNotifier", config, "data/ColorScheme.json", `${AQUA}${BOLD}FeeshNotifier ${RESET}${WHITE}v${JSON.parse(FileLib.read("FeeshNotifier", "metadata.json")).version}`)
+const setting = new Settings("FeeshNotifier", config, "data/ColorScheme.json", `${AQUA}α ${AQUA}${BOLD}FeeshNotifier ${RESET}${WHITE}v${JSON.parse(FileLib.read("FeeshNotifier", "metadata.json")).version}`)
     .setCategorySort((a, b) => categories.indexOf(a.category) - categories.indexOf(b.category))
     .setPos(0.0001, 0.0001) // Weird but if set to 0 it applies default value = 20 or so
     .setSize(100, 100)
