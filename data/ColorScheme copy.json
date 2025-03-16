@@ -3,9 +3,9 @@
     "Button": {
         "background": {
             "color": [
+                153,
                 163,
-                163,
-                237,
+                247,
                 255
             ],
             "outlineColor": [
@@ -33,7 +33,7 @@
                 255,
                 255
             ],
-            "type": "IN_OUT_CIRCULAR",
+            "type": "IN_OUT_QUINT",
             "time": 1
         }
     },
@@ -125,7 +125,7 @@
                 0,
                 0
             ],
-            "outlineSize": 3,
+            "outlineSize": 0,
             "roundness": 3
         },
         "line": {
@@ -333,21 +333,21 @@
         },
         "selectiontext": {
             "color": [
-                149,
-                156,
-                174,
+                255,
+                255,
+                255,
                 255
             ],
             "scale": 1.5
         },
         "text": {
             "color": [
-                149,
-                156,
-                174,
+                255,
+                255,
+                255,
                 255
             ],
-            "scale": 2,
+            "scale": 3,
             "openArrow": "§l↓",
             "closeArrow": "§l↑"
         },
@@ -453,9 +453,9 @@
     "Switch": {
         "background": {
             "enabledColor": [
+                153,
                 163,
-                163,
-                237,
+                247,
                 255
             ],
             "disabledColor": [
@@ -535,9 +535,9 @@
         },
         "completionbar": {
             "color": [
-                2,
-                147,
-                148,
+                153,
+                163,
+                247,
                 255
             ],
             "outlineColor": [
@@ -551,15 +551,15 @@
         },
         "sliderbox": {
             "color": [
-                2,
-                147,
-                148,
+                153,
+                163,
+                247,
                 255
             ],
             "outlineColor": [
-                2,
-                147,
-                148,
+                153,
+                163,
+                247,
                 255
             ],
             "outlineSize": 3,
@@ -567,18 +567,18 @@
         },
         "text": {
             "color": [
-                149,
-                156,
-                174,
+                255,
+                255,
+                255,
                 255
             ],
             "scale": 1.5
         },
         "mouseEnterAnimation": {
             "color": [
-                2,
-                147,
-                148,
+                153,
+                163,
+                247,
                 255
             ],
             "type": "OUT_EXP",
@@ -586,9 +586,9 @@
         },
         "mouseLeaveAnimation": {
             "color": [
-                2,
-                147,
-                148,
+                153,
+                163,
+                247,
                 255
             ],
             "type": "OUT_EXP",
@@ -614,9 +614,9 @@
         },
         "text": {
             "color": [
-                149,
-                156,
-                174,
+                255,
+                255,
+                255,
                 255
             ],
             "scale": 1.5,
@@ -635,9 +635,9 @@
         },
         "mouseLeaveAnimation": {
             "color": [
-                149,
-                156,
-                174,
+                255,
+                255,
+                255,
                 255
             ],
             "type": "OUT_EXP",
@@ -663,12 +663,12 @@
         },
         "text": {
             "color": [
-                149,
-                156,
-                174,
+                255,
+                255,
+                255,
                 255
             ],
-            "scale": 2,
+            "scale": 3,
             "openArrow": "§l↓",
             "closeArrow": "§l↑"
         },
@@ -954,9 +954,9 @@
         },
         "selectiontext": {
             "color": [
-                149,
-                156,
-                174,
+                255,
+                255,
+                255,
                 255
             ],
             "scale": 1.5
@@ -968,7 +968,7 @@
                 174,
                 255
             ],
-            "scale": 2,
+            "scale": 3,
             "openArrow": "§l↓",
             "closeArrow": "§l↑"
         },
@@ -1058,9 +1058,9 @@
         },
         "text": {
             "color": [
-                149,
-                156,
-                174,
+                255,
+                255,
+                255,
                 255
             ],
             "scale": 1.5,
@@ -1076,10 +1076,10 @@
                 255
             ],
             "outlineColor": [
-                255,
-                170,
                 0,
-                80
+                0,
+                0,
+                0
             ],
             "outlineSize": 0,
             "roundness": 0
