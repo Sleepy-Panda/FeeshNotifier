@@ -20,6 +20,46 @@ export const fishingProfitTrackerOverlayGui = new Gui();
 const categories = ["General", "Chat", "Alerts", "Overlays", "Items and storages", "Commands"]
 const config = new DefaultConfig("FeeshNotifier", "config/settings.json")
 
+.addColorPicker({
+    category: "General",
+    configName: "testColor",
+    title: "Color mode",
+    description: "Slider descr.",
+    subcategory: "Sounds"
+})
+.addSelection({
+    category: "General",
+    configName: "testSelection",
+    title: "Cehckbox mode",
+    description: "Slider descr.",
+    options: ["Meme","Normal","Off"],
+    value: 0,
+    subcategory: "Sounds"
+})
+.addToggle({
+    category: "General",
+    configName: "testToggle",
+    title: "Cehckbox mode",
+    description: "Slider descr.",
+    subcategory: "Sounds"
+})
+.addMultiCheckbox({
+    category: "General",
+    configName: "testMultiCheckbox",
+    title: "Cehckbox mode",
+    description: "Slider descr.",
+    options: ["Meme","Normal","Off"],
+    value: 0,
+    subcategory: "Sounds"
+})
+.addKeybind({
+    category: "General",
+    configName: "testKeybind",
+    title: "keybind  mode",
+    description: "Slider descr.",
+    subcategory: "Sounds"
+})
+
 .addButton({
     category: "General",
     configName: "discordLink",
