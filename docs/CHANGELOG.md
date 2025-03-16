@@ -1,8 +1,27 @@
 # Releases
 
-## v1.30.0
+## v1.31.0
 
 Released: ???
+
+Features:
+- Adapted module to the new fishing update:
+  - Added new fishing drops to Fishing Profit tracker.
+  - Adapted to the new format of messages for functionality that relies on Good/Great/Outstanding cathes.
+  - Removed Guardian Pet from Fishing Profit tracker as well as its alert.
+  - Removed Shredder, Phantom Rod, Yeti Rod and Ice Rod from Fishing Profit tracker.
+  - Added Legendary/Mythic Hermit Crab and Mythic Flying Fish to /feeshPetLevelUpPrices command.
+  - Added new Legendary and Mythic mobs to the alerts and Rare Catches tracker.
+  - Count new mobs towards Sea Creatures Count tracker.
+  - Added new mobs support for compact sea creature catch messages.
+  - Display Ragnarok's, Wiki Tiki's (and totems) and Titanoboa's HP in Sea Creatures HP tracker.
+  - Added option to share Ragnarok's location to ALL chat [disabled by default].
+  - Added "killed by Ragnarok" reason to the Player's Death alert.
+  - Increased Reindrake and Plhlegblast rarity from LEGENDARY to MYTHIC.
+
+## v1.30.0
+
+Released: 2025-03-16
 
 Breaking changes:
 - Migrated the config from Vigilance to Amaterasu. Users need to re-enable functions they need in /feesh!

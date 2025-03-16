@@ -131,7 +131,8 @@ function renderRareCatchTrackerOverlay() {
         .sort((a, b) => b.amount - a.amount); // Most catches at the top
 
     entries.forEach((entry) => {
-        const rarityColorCode = RARE_CATCH_TRIGGERS.find(t => t.seaCreature === entry.seaCreature).rarityColorCode;
+        const trigger = RARE_CATCH_TRIGGERS.find(t => t.seaCreature === entry.seaCreature);
+        const rarityColorCode = trigger.rarityColorCode || WHITE;
         overlayText += `${GRAY}- ${rarityColorCode}${fromUppercaseToCapitalizedFirstLetters(entry.seaCreature)}: ${WHITE}${formatNumberWithSpaces(entry.amount)} ${GRAY}(${entry.percent}%)\n`;
     });
 

@@ -8,10 +8,17 @@ export const GREAT_WHITE_SHARK = "GREAT WHITE SHARK";
 export const PHANTOM_FISHER = "PHANTOM FISHER";
 export const GRIM_REAPER = "GRIM REAPER";
 export const ABYSSAL_MINER = "ABYSSAL MINER";
+
+export const FIERY_SCUTTLER = "FIERY SCUTTLER";
 export const THUNDER = "THUNDER";
 export const LORD_JAWBUS = "LORD JAWBUS";
 export const PLHLEGBLAST = "PLHLEGBLAST";
+export const RAGNAROK = "RAGNAROK";
 export const VANQUISHER = "VANQUISHER";
+
+export const BLUE_RINGED_OCTOPUS = "BLUE RINGED OCTOPUS";
+export const WIKI_TIKI = "WIKI TIKI";
+export const TITANOBOA = "TITANOBOA";
 
 export const SMALL_MITHRIL_GRUBBER = "Mithril Grubber";
 export const MEDIUM_MITHRIL_GRUBBER = "Medium Mithril Grubber";
@@ -58,6 +65,8 @@ export const ALL_SEA_CREATURES_NAMES = [
     'Blue Shark',
     'Tiger Shark',
     'Great White Shark',
+    'Fried Chicken',
+    'Fireproof Witch',
     'Magma Slug',
     'Baby Magma Slug',
     'Moogma',
@@ -66,12 +75,25 @@ export const ALL_SEA_CREATURES_NAMES = [
     'Lava Flame',
     'Fire Eel',
     'Taurus',
+    'Fiery Scuttler',
     'Thunder',
     'Lord Jawbus',
     'Jawbus Follower',
     'Plhlegblast',
+    'Ragnarok',
     'Mithril Grubber', // A sea creature is called Small Mithril Grubber, but corrupted one is Corrupted Mithril Grubber (without "Small")
     'Medium Mithril Grubber',
     'Large Mithril Grubber',
     'Bloated Mithril Grubber',
+    'Frog Man',
+    'Trash Gobbler',
+    'Dumpster Diver',
+    'Banshee',
+    'Snapping Turtle',
+    'Bayou Sludge',
+    'Bayou Sludgling',
+    'Alligator',
+    'Blue Ringed Octopus',
+    'Wiki Tiki',
+    'Titanoboa',
 ];
