@@ -237,13 +237,13 @@
                 36,
                 38,
                 46,
-                200
+                255
             ],
             "disabledColor": [
                 36,
                 38,
                 46,
-                200
+                255
             ],
             "outlineColor": [
                 255,
@@ -675,7 +675,7 @@
                 255,
                 255
             ],
-            "scale": 1
+            "scale": 1.3
         }
     },
     "Divider": {
@@ -761,7 +761,7 @@
                 187,
                 255
             ],
-            "scale": 1
+            "scale": 1.3
         },
         "text": {
             "color": [
@@ -787,7 +787,7 @@
                 71,
                 255
             ],
-            "outlineSize": 1,
+            "outlineSize": 0,
             "roundness": 0
         },
         "optionsbackground": {
@@ -817,9 +817,9 @@
         },
         "selectedoptionbackground": {
             "color": [
-                93,
-                95,
-                103,
+                59,
+                61,
+                71,
                 150
             ],
             "outlineColor": [
@@ -833,9 +833,9 @@
         },
         "selectedoptiontext": {
             "color": [
-                85,
-                255,
-                255,
+                2,
+                147,
+                148,
                 255
             ],
             "scale": 1.3
