@@ -3,9 +3,9 @@
     "Button": {
         "background": {
             "color": [
-                2,
-                147,
-                148,
+                163,
+                163,
+                237,
                 255
             ],
             "outlineColor": [
@@ -33,7 +33,7 @@
                 255,
                 255
             ],
-            "type": "OUT_EXP",
+            "type": "IN_OUT_CIRCULAR",
             "time": 1
         }
     },
@@ -453,9 +453,9 @@
     "Switch": {
         "background": {
             "enabledColor": [
-                2,
-                147,
-                148,
+                163,
+                163,
+                237,
                 255
             ],
             "disabledColor": [
@@ -1103,15 +1103,15 @@
         },
         "panel": {
             "leftColor": [
-                39,
+                41,
                 43,
-                52,
+                61,
                 255
             ],
             "rightColor": [
-                39,
+                41,
                 43,
-                52,
+                61,
                 255
             ]
         },
