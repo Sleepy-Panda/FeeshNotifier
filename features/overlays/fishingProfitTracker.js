@@ -49,11 +49,9 @@ register("worldLoad", () => {
     isWorldLoaded = true;
 }); 
 
-register('guiClosed', (gui) => {
-    if (gui?.toString()?.includes('adapter7')) { // Settings menu is closed, probably some settings have changed. Ugly but can't find other way to detect Amaterasu GUI closed
-        refreshPrices();
-        refreshTrackerDisplayData();
-    }
+settings.getConfig().onCloseGui(() => {
+    refreshPrices();
+    refreshTrackerDisplayData();
 });
 
 register("gameUnload", () => {
