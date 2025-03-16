@@ -2,20 +2,6 @@
 
 ## v1.31.0
 
-- 
-- register("pickupItem"
-- Added Severed Pincer as a 0.1% drop from the Flaming Scuttler.
-- Reduced NPC sell price of Scorched Crab Stick from 50,000 -> 5,000 coins.
-- Check IDs and NPC prices
-- Add new fishing drops to profit tracker, remove old ones
-- Add alerts on new drops?
-- Track catches for Ragnarok in crimson isle tracker, and for 
-- Double hook + short message for all new SC
-- Check treasure messages
-- COINS_FISHED_TRIGGERS to work on both new and old versions of SB
-- Ice essense messages?
-- Autorecombed items support
-
 Released: ???
 
 Features:
@@ -27,14 +13,14 @@ Features:
   - Added new Legendary and Mythic mobs to the alerts and Rare Catches tracker.
   - Count new mobs towards Sea Creatures Count tracker.
   - Added new mobs support for compact sea creature catch messages.
-  - Display Ragnarok's, Wiki Tiki's and Titanoboa's HP in Sea Creatures HP tracker.
+  - Display Ragnarok's, Wiki Tiki's (and totems) and Titanoboa's HP in Sea Creatures HP tracker.
   - Added option to share Ragnarok's location to ALL chat [disabled by default].
   - Added "killed by Ragnarok" reason to the Player's Death alert.
   - Increased Reindrake and Plhlegblast rarity from LEGENDARY to MYTHIC.
 
 ## v1.30.0
 
-Released: ???
+Released: 2025-03-16
 
 Breaking changes:
 - Migrated the config from Vigilance to Amaterasu. Users need to re-enable functions they need in /feesh!
