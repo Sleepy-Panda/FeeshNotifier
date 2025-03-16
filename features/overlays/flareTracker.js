@@ -1,4 +1,4 @@
-import settings from "../../settings";
+import settings, { allOverlaysGui } from "../../settings";
 import { GOLD, RED, RESET, WHITE, YELLOW } from "../../constants/formatting";
 import { EntityFireworkRocket } from "../../constants/javaTypes";
 import { OFF_SOUND_MODE, TIMER_SOUND_SOURCE } from "../../constants/sounds";
@@ -120,7 +120,7 @@ function renderFlareOverlay() {
         !isFlarePlaced ||
         flareTimerRemainingSeconds <= 0 ||
         !isInSkyblock() ||
-        settings.allOverlaysGui.isOpen()
+        allOverlaysGui.isOpen()
     ) {
         return;
     }

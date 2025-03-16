@@ -1,53 +1,53 @@
-import settings from "./settings";
+import { abandonedQuarryTrackerOverlayGui, crimsonIsleTrackerOverlayGui, fishingProfitTrackerOverlayGui, flareRemainingTimeOverlayGui, jerryWorkshopTrackerOverlayGui, legionAndBobbingTimeOverlayGui, magmaCoreProfitTrackerOverlayGui, rareCatchesTrackerOverlayGui, seaCreaturesCountOverlayGui, seaCreaturesHpOverlayGui, totemRemainingTimeOverlayGui, wormProfitTrackerOverlayGui } from "./settings";
 import { overlayCoordsData } from "./data/overlayCoords";
 
 const GUIS = [
     {
-        gui: settings.totemRemainingTimeOverlayGui,
+        gui: totemRemainingTimeOverlayGui,
         guiSettings: overlayCoordsData.totemRemainingTimeOverlay,
     },
     {
-        gui: settings.flareRemainingTimeOverlayGui,
+        gui: flareRemainingTimeOverlayGui,
         guiSettings: overlayCoordsData.flareRemainingTimeOverlay,
     },
     {
-        gui: settings.rareCatchesTrackerOverlayGui,
+        gui: rareCatchesTrackerOverlayGui,
         guiSettings: overlayCoordsData.rareCatchesTrackerOverlay,
     },
     {
-        gui: settings.seaCreaturesHpOverlayGui,
+        gui: seaCreaturesHpOverlayGui,
         guiSettings: overlayCoordsData.seaCreaturesHpOverlay,
     },
     {
-        gui: settings.seaCreaturesCountOverlayGui,
+        gui: seaCreaturesCountOverlayGui,
         guiSettings: overlayCoordsData.seaCreaturesCountOverlay,
     },
     {
-        gui: settings.legionAndBobbingTimeOverlayGui,
+        gui: legionAndBobbingTimeOverlayGui,
         guiSettings: overlayCoordsData.legionAndBobbingTimeOverlay,
     },
     {
-        gui: settings.crimsonIsleTrackerOverlayGui,
+        gui: crimsonIsleTrackerOverlayGui,
         guiSettings: overlayCoordsData.crimsonIsleTrackerOverlay,
     },
     {
-        gui: settings.jerryWorkshopTrackerOverlayGui,
+        gui: jerryWorkshopTrackerOverlayGui,
         guiSettings: overlayCoordsData.jerryWorkshopTrackerOverlay,
     },
     {
-        gui: settings.wormProfitTrackerOverlayGui,
+        gui: wormProfitTrackerOverlayGui,
         guiSettings: overlayCoordsData.wormProfitTrackerOverlay,
     },
     {
-        gui: settings.magmaCoreProfitTrackerOverlayGui,
+        gui: magmaCoreProfitTrackerOverlayGui,
         guiSettings: overlayCoordsData.magmaCoreProfitTrackerOverlay,
     },
     {
-        gui: settings.abandonedQuarryTrackerOverlayGui,
+        gui: abandonedQuarryTrackerOverlayGui,
         guiSettings: overlayCoordsData.abandonedQuarryTrackerOverlay,
     },
     {
-        gui: settings.fishingProfitTrackerOverlayGui,
+        gui: fishingProfitTrackerOverlayGui,
         guiSettings: overlayCoordsData.fishingProfitTrackerOverlay,
     },
 ];

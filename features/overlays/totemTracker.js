@@ -1,4 +1,4 @@
-import settings from "../../settings";
+import settings, { allOverlaysGui } from "../../settings";
 import { overlayCoordsData } from "../../data/overlayCoords";
 import { EntityArmorStand } from "../../constants/javaTypes";
 import { TIMER_SOUND_SOURCE, OFF_SOUND_MODE } from "../../constants/sounds";
@@ -57,7 +57,7 @@ function trackTotemStatus() {
 }
 
 function renderTotemOverlay() {
-    if (!settings.totemRemainingTimeOverlay || !remainingTotemTime || remainingTotemTime === '00s' || !isInSkyblock() || settings.allOverlaysGui.isOpen()) {
+    if (!settings.totemRemainingTimeOverlay || !remainingTotemTime || remainingTotemTime === '00s' || !isInSkyblock() || allOverlaysGui.isOpen()) {
         return;
     }
 

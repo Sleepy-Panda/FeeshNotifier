@@ -1,4 +1,4 @@
-import settings from "../../settings";
+import settings, { allOverlaysGui } from "../../settings";
 import * as triggers from '../../constants/triggers';
 import * as seaCreatures from '../../constants/seaCreatures';
 import { persistentData } from "../../data/data";
@@ -262,7 +262,7 @@ function renderCrimsonIsleTrackerOverlay() {
         !isInSkyblock() ||
         getWorldName() !== CRIMSON_ISLE ||
         !hasFishingRodInHotbar() ||
-        settings.allOverlaysGui.isOpen()
+        allOverlaysGui.isOpen()
     ) {
         resetTrackerDisplay.hide();
         return;

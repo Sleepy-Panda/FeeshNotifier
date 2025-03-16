@@ -30,8 +30,7 @@
   - Toggle setting to enable customization
 - Render mob immunity flag
 - Highlight rare sea creatures
-- Total and session tracker
-- Total and session tracker, pr ability to load named session
+- Total and session tracker, or ability to load named session
 - Trading with other players adds items to the profit trackers
 - Multiple drops that happen at the same time lead to "You're sending messages too fast" error.
 - Personal cap alert (20 for CH, 5 for Crimson)

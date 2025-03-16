@@ -1,4 +1,4 @@
-import settings from "../../settings";
+import settings, { allOverlaysGui } from "../../settings";
 import * as triggers from '../../constants/triggers';
 import { overlayCoordsData } from "../../data/overlayCoords";
 import { BOLD, GOLD, RED, WHITE, BLUE, YELLOW, GREEN, AQUA, GRAY } from "../../constants/formatting";
@@ -210,7 +210,7 @@ function renderMagmaCoreTrackerOverlay() {
         !hasFishingRodInHotbar() ||
         getWorldName() !== CRYSTAL_HOLLOWS ||
         (!totalMagmaCoresCount && !totalSeaCreaturesCaughtCount) ||
-        settings.allOverlaysGui.isOpen()
+        allOverlaysGui.isOpen()
     ) {
         buttonsDisplay.hide();
         return;

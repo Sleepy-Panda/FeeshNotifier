@@ -1,4 +1,4 @@
-import settings from "../../settings";
+import settings, { allOverlaysGui } from "../../settings";
 import { GOLD, RED, DARK_GRAY, WHITE, GRAY, UNDERLINE } from "../../constants/formatting";
 import { TIMER_SOUND_SOURCE, OFF_SOUND_MODE } from "../../constants/sounds";
 import { ALL_SEA_CREATURES_NAMES } from "../../constants/seaCreatures";
@@ -135,7 +135,7 @@ function renderCountOverlay() {
         isInHunterArmor() ||
         getWorldName() === KUUDRA ||
         !hasFishingRodInHotbar() ||
-        settings.allOverlaysGui.isOpen()
+        allOverlaysGui.isOpen()
     ) {
         resetTrackerDisplay.hide();
         return;

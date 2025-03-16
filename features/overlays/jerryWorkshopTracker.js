@@ -1,4 +1,4 @@
-import settings from "../../settings";
+import settings, { allOverlaysGui } from "../../settings";
 import * as triggers from '../../constants/triggers';
 import * as seaCreatures from '../../constants/seaCreatures';
 import { persistentData } from "../../data/data";
@@ -228,7 +228,7 @@ function renderJerryWorkshopOverlay() {
         !isInSkyblock() ||
         getWorldName() !== JERRY_WORKSHOP ||
         !hasFishingRodInHotbar() ||
-        settings.allOverlaysGui.isOpen()
+        allOverlaysGui.isOpen()
     ) {
         resetTrackerDisplay.hide();
         return;
