@@ -378,6 +378,14 @@ const config = new DefaultConfig("FeeshNotifier", "config/settings.json")
 })
 .addSwitch({
     category: "Chat",
+    configName: "messageOnTreasureDyeDrop",
+    title: "Send a party chat message on TREASURE DYE drop",
+    description: "",
+    subcategory: "Rare Drops",
+    value: true
+})
+.addSwitch({
+    category: "Chat",
     configName: "messageOnPeriwinkleDyeDrop",
     title: "Send a party chat message on PERIWINKLE DYE drop",
     description: "",
@@ -800,6 +808,14 @@ const config = new DefaultConfig("FeeshNotifier", "config/settings.json")
     category: "Alerts",
     configName: "alertOnMidnightDyeDrop",
     title: "Alert on MIDNIGHT DYE drop",
+    description: "Shows a title and plays a sound when a rare item has dropped by you or your party members.",
+    subcategory: "Rare Drops",
+    value: true
+})
+.addSwitch({
+    category: "Alerts",
+    configName: "alertOnTreasureDyeDrop",
+    title: "Alert on TREASURE DYE drop",
     description: "Shows a title and plays a sound when a rare item has dropped by you or your party members.",
     subcategory: "Rare Drops",
     value: true

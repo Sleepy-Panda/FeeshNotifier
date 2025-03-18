@@ -1,8 +1,17 @@
 # Releases
 
-## v1.31.0
+## v1.31.1
 
 Released: ???
+
+Bugfixes:
+- Added alert and party message for Treasure Dye catch (not tested for obvious reasons so might not work).
+- Removed Golden Apple and Baits from treasure loot pool.
+- Added new treasure loot pool items as per Wiki https://wiki.hypixel.net/Fishing#Drops.
+
+## v1.31.0
+
+Released: 2025-03-18
 
 Features:
 - Adapted module to the new fishing update:
