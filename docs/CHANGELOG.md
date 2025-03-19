@@ -5,9 +5,11 @@
 Released: ???
 
 Bugfixes:
+- Actualized loot pool items in the Fishing Profit Tracker as per Wiki https://wiki.hypixel.net/Fishing#Drops.
 - Added alert and party message for Treasure Dye catch (not tested for obvious reasons so might not work).
-- Removed Golden Apple and Baits from treasure loot pool.
-- Added new treasure loot pool items as per Wiki https://wiki.hypixel.net/Fishing#Drops.
+- Fixed alert for Fiery Scuttler.
+- Fixed trigger message for Ice Essence catch.
+- Changed Alligator rarity to Legendary.
 
 ## v1.31.0
 
