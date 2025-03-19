@@ -937,6 +937,12 @@ export const FISHING_PROFIT_ITEMS = [
         shouldAnnounceRareDrop: true,
     },
     {
+        itemId: 'SHREDDED_LINE',
+        itemName: 'Shredded Line',
+        itemDisplayName: `${RARE}Shredded Line`,
+        npcPrice: 250000,
+    },
+    {
         itemId: 'FLYING_FISH;2',
         itemName: '[Lvl 1] Flying Fish (RARE)',
         itemDisplayName: `${RARE}Flying Fish`,
@@ -1077,12 +1083,6 @@ export const FISHING_PROFIT_ITEMS = [
         itemName: 'Titanoboa Shed',
         itemDisplayName: `${LEGENDARY}Titanoboa Shed`,
         npcPrice: 500000,
-    },
-    {
-        itemId: 'SHREDDED_LINE',
-        itemName: 'Shredded Line',
-        itemDisplayName: `${RARE}Shredded Line`,
-        npcPrice: 250000,
     },
     {
         itemId: 'ENCHANTED_CLAY_BLOCK',
