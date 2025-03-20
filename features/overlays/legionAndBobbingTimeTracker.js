@@ -4,7 +4,7 @@ import { EntityFishHook } from "../../constants/javaTypes";
 import { overlayCoordsData } from "../../data/overlayCoords";
 import { getWorldName, hasFishingRodInHotbar, isInSkyblock } from "../../utils/playerState";
 import { KUUDRA } from "../../constants/areas";
-import { getPlayerNamesInRange } from "../../utils/common";
+import { getPlayerNamesInRange } from "../../utils/entityDetection";
 
 let playersCount = 0;
 let fishingHooksCount = 0;

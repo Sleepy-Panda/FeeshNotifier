@@ -2,8 +2,9 @@ import settings from "../../settings";
 import { getWorldName, isInSkyblock } from "../../utils/playerState";
 import { HOTSPOT_WORLDS } from "../../constants/areas";
 import { BLUE, BOLD, GOLD, LIGHT_PURPLE, RESET, WHITE } from "../../constants/formatting";
-import { EntityArmorStand } from "../../constants/javaTypes";
 import { getMessageId, getZoneName } from "../../utils/common";
+import { OFF_SOUND_MODE } from "../../constants/sounds";
+import { findClosestHotspotInRange } from "../../utils/entityDetection";
 
 let lastClosestHotspot = null;
 
@@ -11,30 +12,6 @@ register("step", (event) => sendMessageOnHotspotFound()).setDelay(1);
 register("worldUnload", () => {
     lastClosestHotspot = null;
 });
-
-function findClosestHotspotTo(entity, radius) {
-    if (!entity || !radius) return;
-
-    const armorStands = World.getAllEntitiesOfType(EntityArmorStand).filter(as => as.distanceTo(entity) <= radius);
-    const closestHotspotArmorStand = armorStands
-        .filter(as => as?.getName()?.removeFormatting() === 'HOTSPOT')
-        .sort((a, b) => a.distanceTo(entity) < b.distanceTo(entity))
-        .find(() => true); // Find first or null
-
-    const closestHotspot = closestHotspotArmorStand
-        ? {
-            position: closestHotspotArmorStand.getPos(),
-            perk: armorStands.find(e =>
-                e.getX() === closestHotspotArmorStand.getX() &&
-                e.getY() < closestHotspotArmorStand.getY() &&
-                closestHotspotArmorStand.getY() - e.getY() < 2 &&
-                e.getZ() === closestHotspotArmorStand.getZ() &&
-                e.getPitch() === closestHotspotArmorStand.getPitch())?.getName()
-        }
-        : null;
-
-    return closestHotspot;
-}
 
 function sendMessageOnHotspotFound() {
 	try {
@@ -45,7 +22,7 @@ function sendMessageOnHotspotFound() {
 			return;
 		}
 		
-        const closestHotspot = findClosestHotspotTo(Player.getPlayer(), 6);
+        const closestHotspot = findClosestHotspotInRange(Player.getPlayer(), 6);
 
         if ((!lastClosestHotspot && closestHotspot) ||
             (lastClosestHotspot && closestHotspot &&
@@ -79,6 +56,10 @@ function sendChatMessage(position, perk) {
             .setClickAction('run_command')
             .setClickValue('/ac ' + message),
     ).chat();
+
+    if (settings.soundMode !== OFF_SOUND_MODE) {
+        World.playSound('random.orb', 1, 1);
+    }
 }
 
 function getMessage(position, perk) {

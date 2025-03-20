@@ -233,21 +233,6 @@ export function isInSupercraftGui() {
 	return (!!chestName && chestName.endsWith('Recipe'));
 }
 
-export function getPlayerNamesInRange(distance) {
-	const players = World
-		.getAllPlayers()
-		.filter(player =>
-			(player.getUUID().version() === 4 || player.getUUID().version() === 1) && // Players and Watchdog have version 4, nicked players have version 1, this is done to exclude NPCs
-			player.ping === 1 && // -1 is watchdog and ghost players, also there is a ghost player with high ping value when joining a world
-			player.name != Player.getName() && // Exclude current player because they do not count for legion
-			player.distanceTo(Player.getPlayer()) <= distance
-		)
-		.map(player => player.name)
-		.filter((x, i, a) => a.indexOf(x) == i); // Distinct, sometimes the players are duplicated in the list
-		
-	return players;
-}
-
 export function getItemsAddedToSacks(eventMessage) {
 	let items = [];
 
@@ -300,6 +285,14 @@ export function isFishingRod(item) {
 }
 
 /**
+ * Gets current player's fishing hook entity.
+ * @returns {EntityFishHook}
+ */
+export function getPlayerFishingHook() {
+	return World.getAllEntitiesOfType(EntityFishHook).find(e => Player.getPlayer().field_71104_cf == e.getEntity()); // field_71104_cf = fishEntity
+}
+
+/**
  * Checks if a fishing rod is casted (fishing hook is in water or lava).
  * @returns {boolean}
  */
@@ -309,7 +302,7 @@ export function isFishingHookActive() {
         return false;
     }
 
-	const playerHook = World.getAllEntitiesOfType(EntityFishHook).find(e => Player.getPlayer().field_71104_cf == e.getEntity()); // field_71104_cf = fishEntity
+	const playerHook = getPlayerFishingHook();
 	if (!playerHook) {
 		return false;
 	}
