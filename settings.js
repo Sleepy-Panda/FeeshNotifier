@@ -66,6 +66,14 @@ const config = new DefaultConfig("FeeshNotifier", "config/settings.json")
     subcategory: "Player's death",
     value: true
 })
+.addSwitch({
+    category: "Chat",
+    configName: "messageOnHotspotFound",
+    title: "Offer sharing the found hotspots",
+    description: "Shows clickable chat message that offers sharing Hotspot location and its perk to ALL chat or PARTY chat. You need to be close to the hotspot to trigger it.",
+    subcategory: "Hotspot",
+    value: true
+})
 
 .addSwitch({
     category: "Chat",
@@ -479,6 +487,14 @@ const config = new DefaultConfig("FeeshNotifier", "config/settings.json")
     title: "Alert when a Spirit Mask is ready after being used",
     description: "Shows a title and plays a sound when your Spirit Mask's Second Wind ability is back after it was activated.",
     subcategory: "Spirit Mask"
+})
+.addSwitch({
+    category: "Alerts",
+    configName: "alertOnHotspotGone",
+    title: "Alert when the hotspot is gone",
+    description: "Shows a title and plays a sound when the hotspot you recently fished in, is gone.",
+    subcategory: "Hotspot",
+    value: true
 })
 .addSwitch({
     category: "Alerts",

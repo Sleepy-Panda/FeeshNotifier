@@ -16,6 +16,7 @@ import "./features/alerts/alertOnThunderBottleCharged";
 import "./features/alerts/alertOnSpiritMaskUsed";
 import "./features/alerts/alertOnGoldenFish";
 import "./features/alerts/alertOnFishingBagDisabled";
+import "./features/alerts/alertOnHotspotGone";
 
 import "./features/overlays/rareCatchesTracker";
 import "./features/overlays/totemTracker";
@@ -45,6 +46,7 @@ import "./features/inventory/showExpBoostPercentage";
 import "./features/chat/announceMobSpawnToAllChat";
 import "./features/chat/messageOnPlayerDeath";
 import "./features/chat/messageOnRevenant";
+import "./features/chat/messageOnHotspotFound";
 import "./features/chat/compactCatchMessages";
 
 register('worldLoad', () => {

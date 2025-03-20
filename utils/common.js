@@ -430,6 +430,24 @@ export function getArticle(str) {
 	return isFirstLetterVowel ? 'An' : 'A';
 }
 
+/**
+ * Get random characters substring to make message content unique and prevent "You cannot say the same message twice" error. Inspired by VolcAddons
+ * @returns {string} Random substring
+ */
+export function getMessageId() {
+	const messageId = ` @${(Math.random() + 1).toString(36).substring(4)}`;
+	return messageId;
+}
+
+/**
+ * Get current zone name.
+ * @returns {string} Formatted zone name if exists, or empty string
+ */
+export function getZoneName() {
+	const zoneLine = Scoreboard.getLines().find((line) => line.getName().includes('⏣'));
+	return zoneLine || '';
+}
+
 function getCurrentGuiChestName() {
 	if (Client.isInGui() && Client.currentGui?.getClassName() === 'GuiChest') {
 		const chestName = Client.currentGui?.get()?.field_147002_h?.func_85151_d()?.func_145748_c_()?.text;
