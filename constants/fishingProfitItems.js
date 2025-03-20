@@ -1137,6 +1137,12 @@ export const FISHING_PROFIT_ITEMS = [
         npcPrice: 1000000,
     },
     {
+        itemId: 'SEVERED_PINCER',
+        itemName: 'Severed Pincer',
+        itemDisplayName: `${LEGENDARY}Severed Pincer`,
+        npcPrice: 1000000,
+    },
+    {
         itemId: 'BRIMSTONE_HANDLE',
         itemName: 'Brimstone Handle',
         itemDisplayName: `${EPIC}Brimstone Handle`,
