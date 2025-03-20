@@ -1,8 +1,17 @@
 # Releases
 
-## v1.31.1
+## v1.32.0
 
 Released: ???
+
+Features:
+
+Bugfixes:
+- Added Severed Pincer drop to Fishing Profit Tracker.
+
+## v1.31.1
+
+Released: 2025-03-20
 
 Bugfixes:
 - Actualized loot pool items in the Fishing Profit Tracker as per Wiki https://wiki.hypixel.net/Fishing#Drops.
