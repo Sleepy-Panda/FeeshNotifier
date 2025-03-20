@@ -23,7 +23,7 @@ function playAlertOnHotspotGone() {
 			return;
 		}
 		
-        const nearbyHotspots = findHotspotsInRange(Player.getPlayer(), 30);
+        const nearbyHotspots = findHotspotsInRange(Player.getPlayer(), 20);
 
         if (lastClosestHotspot && lastClosestHotspot.entity.distanceTo(Player.getPlayer()) > 20) { // Player moved away
             lastClosestHotspot = null;

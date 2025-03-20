@@ -23,6 +23,7 @@ function sendMessageOnHotspotFound() {
 		}
 		
         const closestHotspot = findClosestHotspotInRange(Player.getPlayer(), 6);
+        console.log(new Date() + ' ' + JSON.stringify(lastClosestHotspot?.position?.x) + ' ' + JSON.stringify(closestHotspot?.position?.x));
 
         if ((!lastClosestHotspot && closestHotspot) ||
             (lastClosestHotspot && closestHotspot &&
@@ -31,6 +32,7 @@ function sendMessageOnHotspotFound() {
                 closestHotspot.position.z !== lastClosestHotspot.position.z
             )
         ) {
+            console.log('Alert');
             sendChatMessage(closestHotspot.position, closestHotspot.perk);
         }
 
@@ -44,7 +46,10 @@ function sendMessageOnHotspotFound() {
 }
 
 function sendChatMessage(position, perk) {
-    if (!position || !perk) return;
+    if (!position || !perk) {
+        ChatLib.chat('DEBUG - no perk found') // TODO
+        return;
+    }
 
     const message = getMessage(position, perk);
     new Message(
