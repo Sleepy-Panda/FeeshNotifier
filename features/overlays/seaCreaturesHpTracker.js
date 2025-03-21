@@ -3,45 +3,61 @@ import { BOLD, YELLOW } from "../../constants/formatting";
 import { EntityArmorStand } from "../../constants/javaTypes";
 import { overlayCoordsData } from "../../data/overlayCoords";
 import { getWorldName, hasFishingRodInHotbar, isInSkyblock } from "../../utils/playerState";
-import { BACKWATER_BAYOU, CRIMSON_ISLE, JERRY_WORKSHOP } from "../../constants/areas";
+import { BACKWATER_BAYOU, CRIMSON_ISLE, JERRY_WORKSHOP, WATER_HOTSPOT_WORLDS } from "../../constants/areas";
 import { OFF_SOUND_MODE } from "../../constants/sounds";
 
 const LOOTSHARE_DISTANCE = 30;
 const TRACKED_MOBS = [
     {
-        world: CRIMSON_ISLE,
+        worlds: [CRIMSON_ISLE],
+        mobShortName: 'Fiery Scuttler',
+    },
+    {
+        worlds: [CRIMSON_ISLE],
         mobShortName: 'Lord Jawbus',
     },
     {
-        world: CRIMSON_ISLE,
+        worlds: [CRIMSON_ISLE],
         mobShortName: 'Thunder',
     },
     {
-        world: CRIMSON_ISLE,
+        worlds: [CRIMSON_ISLE],
         mobShortName: 'Plhlegblast',
     },
     {
-        world: CRIMSON_ISLE,
+        worlds: [CRIMSON_ISLE],
         mobShortName: 'Ragnarok',
     },
     {
-        world: JERRY_WORKSHOP,
+        worlds: [JERRY_WORKSHOP],
         mobShortName: 'Reindrake',
     },
     {
-        world: JERRY_WORKSHOP,
+        worlds: [JERRY_WORKSHOP],
         mobShortName: 'Yeti',
     },
     {
-        world: BACKWATER_BAYOU,
+        worlds: WATER_HOTSPOT_WORLDS,
+        mobShortName: 'Alligator',
+    },
+    {
+        worlds: WATER_HOTSPOT_WORLDS,
+        mobShortName: 'Blue Ringed Octopus',
+    },
+    {
+        worlds: WATER_HOTSPOT_WORLDS,
         mobShortName: 'Wiki Tiki',
     },
     {
-        world: BACKWATER_BAYOU,
+        worlds: [BACKWATER_BAYOU],
         mobShortName: 'Titanoboa',
     }
 ];
-const TRACKED_WORLD_NAMES = TRACKED_MOBS.map(m => m.world);
+
+const TRACKED_WORLD_NAMES = TRACKED_MOBS
+    .map(function (m) { return m.worlds; })
+    .reduce(function (a, b) { return a.concat(b); }, [])
+    .filter((value, index, array) => array.indexOf(value) === index);
 
 let mobs = [];
 
@@ -71,7 +87,7 @@ function trackSeaCreaturesHp() {
             const plainName = entity?.getName()?.removeFormatting();
     
             if (plainName.includes('[Lv') && plainName.includes('❤') && // Distinguish mobs from pets (e.g. Squid)
-                TRACKED_MOBS.filter(m => m.world === worldName).some(m => plainName.includes(m.mobShortName)) &&
+                TRACKED_MOBS.filter(m => m.worlds.includes(worldName)).some(m => plainName.includes(m.mobShortName)) &&
                 (plainName.includes('Reindrake') || entity.distanceTo(player) <= LOOTSHARE_DISTANCE)
             ) {
                 // Original nametag: §e﴾ §8[§7Lv400§8] §c§lThunder§r§r §e17M§f/§a35M§c❤ §e﴿ §b✯

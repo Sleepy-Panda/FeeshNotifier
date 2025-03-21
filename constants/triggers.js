@@ -576,6 +576,13 @@ export const RARE_CATCH_TRIGGERS = [
         rarityColorCode: LEGENDARY
     },
     {
+        trigger: ALLIGATOR_MESSAGE,
+        seaCreature: seaCreatures.ALLIGATOR,
+        isMessageEnabledSettingKey: 'messageOnAlligatorCatch',
+        isAlertEnabledSettingKey: 'alertOnAlligatorCatch',
+        rarityColorCode: LEGENDARY
+    },
+    {
         trigger: BLUE_RINGED_OCTOPUS_MESSAGE,
         seaCreature: seaCreatures.BLUE_RINGED_OCTOPUS,
         isMessageEnabledSettingKey: 'messageOnBlueRingedOctopusCatch',
