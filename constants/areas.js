@@ -14,3 +14,10 @@ export const WATER_HOTSPOT_WORLDS = [
     SPIDERS_DEN,
     HUB
 ];
+
+export const HOTSPOT_WORLDS = [
+    BACKWATER_BAYOU,
+    SPIDERS_DEN,
+    HUB,
+    CRIMSON_ISLE
+];

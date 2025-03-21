@@ -1,7 +1,7 @@
 import settings from '../../settings';
 import * as triggers from '../../constants/triggers';
 import * as seaCreatures from '../../constants/seaCreatures';
-import { isDoubleHook } from '../../utils/common';
+import { getMessageId, getZoneName, isDoubleHook } from '../../utils/common';
 import { isInSkyblock } from '../../utils/playerState';
 
 const chatCommand = 'ac';
@@ -40,8 +40,8 @@ function announceMobSpawnToAllChat(seaCreature, isAnnounceToAllChatEnabledSettin
 
 function getMessage(seaCreature, isDoubleHooked) {
     const location = `x: ${Math.round(Player.getX())}, y: ${Math.round(Player.getY())}, z: ${Math.round(Player.getZ())}`;
-    const zone = Scoreboard.getLines().find((line) => line.getName().includes('⏣'));
-    const messageId = ` @${(Math.random() + 1).toString(36).substring(4)}`; // Inspired by VolcAddons - to prevent "You cannot say the same message twice" error
+    const zone = getZoneName();
+    const messageId = getMessageId();
 
     let message = '';
     message += `${location} | ${seaCreature} ${isDoubleHooked ? 'x2' : '' }${zone ? ' at ' + zone.getName().removeFormatting() : ''} | ${messageId}`;
