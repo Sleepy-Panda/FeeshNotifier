@@ -23,16 +23,14 @@ function sendMessageOnHotspotFound() {
 		}
 		
         const closestHotspot = findClosestHotspotInRange(Player.getPlayer(), 6);
-        console.log(new Date() + ' ' + JSON.stringify(lastClosestHotspot?.position?.x) + ' ' + JSON.stringify(closestHotspot?.position?.x));
 
         if ((!lastClosestHotspot && closestHotspot) ||
-            (lastClosestHotspot && closestHotspot &&
-                closestHotspot.position.x !== lastClosestHotspot.position.x &&
-                closestHotspot.position.y !== lastClosestHotspot.position.y &&
-                closestHotspot.position.z !== lastClosestHotspot.position.z
+            (lastClosestHotspot && closestHotspot && !(
+                closestHotspot.position.x === lastClosestHotspot.position.x &&
+                closestHotspot.position.y === lastClosestHotspot.position.y &&
+                closestHotspot.position.z === lastClosestHotspot.position.z)
             )
         ) {
-            console.log('Alert');
             sendChatMessage(closestHotspot.position, closestHotspot.perk);
         }
 
@@ -47,17 +45,16 @@ function sendMessageOnHotspotFound() {
 
 function sendChatMessage(position, perk) {
     if (!position || !perk) {
-        ChatLib.chat('DEBUG - no perk found') // TODO
         return;
     }
 
     const message = getMessage(position, perk);
     new Message(
         `${GOLD}[FeeshNotifier] ${WHITE}You found ${perk} ${RESET}${LIGHT_PURPLE}Hotspot${WHITE}.\n`,
-        new TextComponent(`${BLUE}${BOLD}[Click to share to PARTY chat]\n`)
+        new TextComponent(`${WHITE}${BOLD}[Share to ${BLUE}${BOLD}PARTY ${WHITE}${BOLD}chat]\n`)
             .setClickAction('run_command')
             .setClickValue('/pc ' + message),
-        new TextComponent(`${WHITE}${BOLD}[Click to share to ALL chat]`)
+        new TextComponent(`${WHITE}${BOLD}[Share to ALL chat]`)
             .setClickAction('run_command')
             .setClickValue('/ac ' + message),
     ).chat();

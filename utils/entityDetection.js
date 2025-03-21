@@ -18,7 +18,7 @@ export function findHotspotsInRange(entity, distance) {
 				perk: armorStands.find(e =>
 					e.getX() === as.getX() &&
 					e.getY() < as.getY() &&
-					as.getY() - e.getY() < 2 &&
+					as.getY() - e.getY() <= 1 &&
 					e.getZ() === as.getZ() &&
 					e.getPitch() === as.getPitch())?.getName()
 			};
@@ -48,7 +48,7 @@ export function findClosestHotspotInRange(entity, distance) {
 			perk: armorStands.find(e =>
 				e.getX() === closestHotspotArmorStand.getX() &&
 				e.getY() < closestHotspotArmorStand.getY() &&
-				closestHotspotArmorStand.getY() - e.getY() < 2 &&
+				closestHotspotArmorStand.getY() - e.getY() <= 1 &&
 				e.getZ() === closestHotspotArmorStand.getZ() &&
 				e.getPitch() === closestHotspotArmorStand.getPitch())?.getName()
 		}
