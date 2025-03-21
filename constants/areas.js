@@ -9,9 +9,15 @@ export const SPIDERS_DEN = 'Spider\'s Den';
 export const KUUDRA = 'Kuudra';
 export const DUNGEONS = 'Catacombs';
 
+export const WATER_HOTSPOT_WORLDS = [
+    BACKWATER_BAYOU,
+    SPIDERS_DEN,
+    HUB
+];
+
 export const HOTSPOT_WORLDS = [
     BACKWATER_BAYOU,
-    CRIMSON_ISLE,
+    SPIDERS_DEN,
     HUB,
-    SPIDERS_DEN
+    CRIMSON_ISLE
 ];

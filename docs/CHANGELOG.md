@@ -5,6 +5,9 @@
 Released: ???
 
 Features:
+- Added alert on Alligator.
+- Added Alligator to Rare Catches Tracker.
+- Added Alligator, Blue Ringed Octopus and Fiery Scuttler to Sea Creatures HP widget.
 - Added alert when the Hotspot you recently fished in, is gone.
 - Added option to share Hotspot location and its perk to ALL chat or PARTY chat on chat message click. You need to be close to the hotspot in order to trigger it.
 

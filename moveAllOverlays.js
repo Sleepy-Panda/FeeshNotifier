@@ -37,7 +37,8 @@ const SAMPLE_GUIS = [
 `${YELLOW}${BOLD}Rare catches tracker
 ${GRAY}- ${LIGHT_PURPLE}Thunder: ${WHITE}10
 ${GRAY}- ${DARK_PURPLE}Vanquisher: ${WHITE}8
-${GRAY}- ${LIGHT_PURPLE}Lord Jawbus: ${WHITE}2`,
+${GRAY}- ${LIGHT_PURPLE}Lord Jawbus: ${WHITE}2
+${GRAY}- ${LIGHT_PURPLE}Ragnarok: ${WHITE}1`,
         isActive: false,
         width: 0,
         height: 0

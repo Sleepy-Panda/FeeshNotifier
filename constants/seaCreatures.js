@@ -16,6 +16,7 @@ export const PLHLEGBLAST = "PLHLEGBLAST";
 export const RAGNAROK = "RAGNAROK";
 export const VANQUISHER = "VANQUISHER";
 
+export const ALLIGATOR = "ALLIGATOR";
 export const BLUE_RINGED_OCTOPUS = "BLUE RINGED OCTOPUS";
 export const WIKI_TIKI = "WIKI TIKI";
 export const TITANOBOA = "TITANOBOA";
