@@ -645,7 +645,7 @@ const config = new DefaultConfig("FeeshNotifier", "config/settings.json")
 })
 .addSwitch({
     category: "Alerts",
-    configName: "alertOAlligatorCatch",
+    configName: "alertOnAlligatorCatch",
     title: "Alert on ALLIGATOR catch",
     description: "Shows a title and plays a sound when a rare sea creature has caught by you or your party members.",
     subcategory: "Rare Catches",
