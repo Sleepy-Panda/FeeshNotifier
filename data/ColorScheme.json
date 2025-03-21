@@ -70,7 +70,7 @@
                 148,
                 255
             ],
-            "scale": 1.5,
+            "scale": 1,
             "format": "§l",
             "centered": true,
             "selectedColor": [
@@ -152,7 +152,7 @@
                 148,
                 255
             ],
-            "scale": 1.7
+            "scale": 1
         }
     },
     "DividerSubcategory": {
@@ -196,7 +196,7 @@
                 148,
                 255
             ],
-            "scale": 1.7
+            "scale": 1
         }
     },
     "TextInput": {
@@ -291,7 +291,7 @@
         "check": {
             "enabled": "§l✔",
             "disabled": "§l✖",
-            "scale": 2
+            "scale": 1.5
         },
         "mouseClickAnimation": {
             "type": "OUT_EXP",
@@ -338,7 +338,7 @@
                 255,
                 255
             ],
-            "scale": 1.5
+            "scale": 1
         },
         "text": {
             "color": [
@@ -347,7 +347,7 @@
                 255,
                 255
             ],
-            "scale": 3,
+            "scale": 2,
             "openArrow": "§l↓",
             "closeArrow": "§l↑"
         },
@@ -390,7 +390,7 @@
                 174,
                 255
             ],
-            "scale": 1.5
+            "scale": 1
         },
         "placeholderbackground": {
             "color": [
@@ -415,7 +415,7 @@
                 174,
                 255
             ],
-            "scale": 1.5
+            "scale": 1
         },
         "Checkbox": {
             "background": {
@@ -572,7 +572,7 @@
                 255,
                 255
             ],
-            "scale": 1.5
+            "scale": 1
         },
         "mouseEnterAnimation": {
             "color": [
@@ -619,7 +619,7 @@
                 255,
                 255
             ],
-            "scale": 1.5,
+            "scale": 1,
             "leftArrow": "<",
             "rightArrow": ">"
         },
@@ -668,7 +668,7 @@
                 255,
                 255
             ],
-            "scale": 3,
+            "scale": 2,
             "openArrow": "§l↓",
             "closeArrow": "§l↑"
         },
@@ -770,7 +770,7 @@
                     174,
                     255
                 ],
-                "scale": 1.5,
+                "scale": 1,
                 "padding": 5,
                 "placeholderColor": [
                     149,
@@ -959,7 +959,7 @@
                 255,
                 255
             ],
-            "scale": 1.5
+            "scale": 1
         },
         "text": {
             "color": [
@@ -968,7 +968,7 @@
                 174,
                 255
             ],
-            "scale": 3,
+            "scale": 2,
             "openArrow": "§l↓",
             "closeArrow": "§l↑"
         },
@@ -1011,7 +1011,7 @@
                 174,
                 255
             ],
-            "scale": 1.5
+            "scale": 1
         },
         "selectedoptionbackground": {
             "color": [
@@ -1036,7 +1036,7 @@
                 174,
                 255
             ],
-            "scale": 1.5
+            "scale": 1
         }
     },
     "Keybind": {
@@ -1063,7 +1063,7 @@
                 255,
                 255
             ],
-            "scale": 1.5,
+            "scale": 1,
             "enabled": "§l<Press key>"
         }
     },
@@ -1130,7 +1130,7 @@
                 255,
                 255
             ],
-            "scale": 2
+            "scale": 1.5
         },
         "descriptionbackground": {
             "color": [
@@ -1157,7 +1157,7 @@
                     255,
                     255
                 ],
-                "scale": 1.5,
+                "scale": 1,
                 "scaleType": "pixel"
             }
         }

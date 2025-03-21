@@ -79,7 +79,7 @@ const config = new DefaultConfig("FeeshNotifier", "config/settings.json")
     category: "Chat",
     configName: "messageOnYetiCatch",
     title: "Send a party chat message on YETI catch",
-    description: "",
+    description: "Sends a party chat message when a rare sea creature has caught by you.",
     subcategory: "Rare Catches",
     value: true
 })
@@ -87,7 +87,7 @@ const config = new DefaultConfig("FeeshNotifier", "config/settings.json")
     category: "Chat",
     configName: "messageOnReindrakeCatch",
     title: "Send a party chat message on REINDRAKE catch",
-    description: "",
+    description: "Sends a party chat message when a rare sea creature has caught by you.",
     subcategory: "Rare Catches",
     value: true
 })
@@ -95,7 +95,7 @@ const config = new DefaultConfig("FeeshNotifier", "config/settings.json")
     category: "Chat",
     configName: "messageOnNutcrackerCatch",
     title: "Send a party chat message on NUTCRACKER catch",
-    description: "",
+    description: "Sends a party chat message when a rare sea creature has caught by you.",
     subcategory: "Rare Catches",
     value: true
 })
@@ -103,7 +103,7 @@ const config = new DefaultConfig("FeeshNotifier", "config/settings.json")
     category: "Chat",
     configName: "messageOnWaterHydraCatch",
     title: "Send a party chat message on WATER HYDRA catch",
-    description: "",
+    description: "Sends a party chat message when a rare sea creature has caught by you.",
     subcategory: "Rare Catches",
     value: true
 })
@@ -111,7 +111,7 @@ const config = new DefaultConfig("FeeshNotifier", "config/settings.json")
     category: "Chat",
     configName: "messageOnSeaEmperorCatch",
     title: "Send a party chat message on SEA EMPEROR catch",
-    description: "",
+    description: "Sends a party chat message when a rare sea creature has caught by you.",
     subcategory: "Rare Catches",
     value: true
 })
@@ -119,7 +119,7 @@ const config = new DefaultConfig("FeeshNotifier", "config/settings.json")
     category: "Chat",
     configName: "messageOnCarrotKingCatch",
     title: "Send a party chat message on CARROT KING catch",
-    description: "",
+    description: "Sends a party chat message when a rare sea creature has caught by you.",
     subcategory: "Rare Catches",
     value: true
 })
@@ -127,7 +127,7 @@ const config = new DefaultConfig("FeeshNotifier", "config/settings.json")
     category: "Chat",
     configName: "messageOnGreatWhiteSharkCatch",
     title: "Send a party chat message on GREAT WHITE SHARK catch",
-    description: "",
+    description: "Sends a party chat message when a rare sea creature has caught by you.",
     subcategory: "Rare Catches",
     value: true
 })
@@ -135,7 +135,7 @@ const config = new DefaultConfig("FeeshNotifier", "config/settings.json")
     category: "Chat",
     configName: "messageOnPhantomFisherCatch",
     title: "Send a party chat message on PHANTOM FISHER catch",
-    description: "",
+    description: "Sends a party chat message when a rare sea creature has caught by you.",
     subcategory: "Rare Catches",
     value: true
 })
@@ -143,7 +143,7 @@ const config = new DefaultConfig("FeeshNotifier", "config/settings.json")
     category: "Chat",
     configName: "messageOnGrimReaperCatch",
     title: "Send a party chat message on GRIM REAPER catch",
-    description: "",
+    description: "Sends a party chat message when a rare sea creature has caught by you.",
     subcategory: "Rare Catches",
     value: true
 })
@@ -151,7 +151,7 @@ const config = new DefaultConfig("FeeshNotifier", "config/settings.json")
     category: "Chat",
     configName: "messageOnAbyssalMinerCatch",
     title: "Send a party chat message on ABYSSAL MINER catch",
-    description: "",
+    description: "Sends a party chat message when a rare sea creature has caught by you.",
     subcategory: "Rare Catches",
     value: true
 })
@@ -159,7 +159,7 @@ const config = new DefaultConfig("FeeshNotifier", "config/settings.json")
     category: "Chat",
     configName: "messageOnAlligatorCatch",
     title: "Send a party chat message on ALLIGATOR catch",
-    description: "",
+    description: "Sends a party chat message when a rare sea creature has caught by you.",
     subcategory: "Rare Catches",
     value: true
 })
@@ -167,7 +167,7 @@ const config = new DefaultConfig("FeeshNotifier", "config/settings.json")
     category: "Chat",
     configName: "messageOnBlueRingedOctopusCatch",
     title: "Send a party chat message on BLUE RINGED OCTOPUS catch",
-    description: "",
+    description: "Sends a party chat message when a rare sea creature has caught by you.",
     subcategory: "Rare Catches",
     value: true
 })
@@ -175,7 +175,7 @@ const config = new DefaultConfig("FeeshNotifier", "config/settings.json")
     category: "Chat",
     configName: "messageOnWikiTikiCatch",
     title: "Send a party chat message on WIKI TIKI catch",
-    description: "",
+    description: "Sends a party chat message when a rare sea creature has caught by you.",
     subcategory: "Rare Catches",
     value: true
 })
@@ -183,7 +183,7 @@ const config = new DefaultConfig("FeeshNotifier", "config/settings.json")
     category: "Chat",
     configName: "messageOnTitanoboaCatch",
     title: "Send a party chat message on TITANOBOA catch",
-    description: "",
+    description: "Sends a party chat message when a rare sea creature has caught by you.",
     subcategory: "Rare Catches",
     value: true
 })
@@ -191,7 +191,7 @@ const config = new DefaultConfig("FeeshNotifier", "config/settings.json")
     category: "Chat",
     configName: "messageOnFieryScuttlerCatch",
     title: "Send a party chat message on FIERY SCUTTLER catch",
-    description: "",
+    description: "Sends a party chat message when a rare sea creature has caught by you.",
     subcategory: "Rare Catches",
     value: true
 })
@@ -199,7 +199,7 @@ const config = new DefaultConfig("FeeshNotifier", "config/settings.json")
     category: "Chat",
     configName: "messageOnThunderCatch",
     title: "Send a party chat message on THUNDER catch",
-    description: "",
+    description: "Sends a party chat message when a rare sea creature has caught by you.",
     subcategory: "Rare Catches",
     value: true
 })
@@ -207,7 +207,7 @@ const config = new DefaultConfig("FeeshNotifier", "config/settings.json")
     category: "Chat",
     configName: "messageOnLordJawbusCatch",
     title: "Send a party chat message on LORD JAWBUS catch",
-    description: "",
+    description: "Sends a party chat message when a rare sea creature has caught by you.",
     subcategory: "Rare Catches",
     value: true
 })
@@ -215,7 +215,7 @@ const config = new DefaultConfig("FeeshNotifier", "config/settings.json")
     category: "Chat",
     configName: "messageOnPlhlegblastCatch",
     title: "Send a party chat message on PLHLEGBLAST catch",
-    description: "",
+    description: "Sends a party chat message when a rare sea creature has caught by you.",
     subcategory: "Rare Catches",
     value: true
 })
@@ -223,7 +223,7 @@ const config = new DefaultConfig("FeeshNotifier", "config/settings.json")
     category: "Chat",
     configName: "messageOnRagnarokCatch",
     title: "Send a party chat message on RAGNAROK catch",
-    description: "",
+    description: "Sends a party chat message when a rare sea creature has caught by you.",
     subcategory: "Rare Catches",
     value: true
 })
@@ -231,7 +231,7 @@ const config = new DefaultConfig("FeeshNotifier", "config/settings.json")
     category: "Chat",
     configName: "messageOnVanquisherCatch",
     title: "Send a party chat message on VANQUISHER spawn",
-    description: "",
+    description: "Sends a party chat message when a Vanquisher has spawned by you.",
     subcategory: "Rare Catches",
     value: true
 })
@@ -240,35 +240,35 @@ const config = new DefaultConfig("FeeshNotifier", "config/settings.json")
     category: "Chat",
     configName: "announceToAllChatOnThunderCatch",
     title: "Share the location to ALL chat on THUNDER catch",
-    description: "",
+    description: "Sends an ALL chat message when a rare sea creature has caught by you.",
     subcategory: "Rare Catches - All Chat"
 })
 .addSwitch({
     category: "Chat",
     configName: "announceToAllChatOnLordJawbusCatch",
     title: "Share the location to ALL chat on LORD JAWBUS catch",
-    description: "",
+    description: "Sends an ALL chat message when a rare sea creature has caught by you.",
     subcategory: "Rare Catches - All Chat"
 })
 .addSwitch({
     category: "Chat",
     configName: "announceToAllChatOnPlhlegblastCatch",
     title: "Share the location to ALL chat on PLHLEGBLAST catch",
-    description: "",
+    description: "Sends an ALL chat message when a rare sea creature has caught by you.",
     subcategory: "Rare Catches - All Chat"
 })
 .addSwitch({
     category: "Chat",
     configName: "announceToAllChatOnRagnarokCatch",
     title: "Share the location to ALL chat on RAGNAROK catch",
-    description: "",
+    description: "Sends an ALL chat message when a rare sea creature has caught by you.",
     subcategory: "Rare Catches - All Chat"
 })
 .addSwitch({
     category: "Chat",
     configName: "announceToAllChatOnVanquisherCatch",
     title: "Share the location to ALL chat on VANQUISHER spawn",
-    description: "",
+    description: "Sends an ALL chat message when a Vanquisher has spawned by you.",
     subcategory: "Rare Catches - All Chat"
 })
 
@@ -292,7 +292,7 @@ const config = new DefaultConfig("FeeshNotifier", "config/settings.json")
     category: "Chat",
     configName: "messageOnBabyYetiPetDrop",
     title: "Send a party chat message on BABY YETI PET drop",
-    description: "",
+    description: "Sends a party chat message when a rare item has dropped by you.",
     subcategory: "Rare Drops",
     value: true
 })
@@ -300,7 +300,7 @@ const config = new DefaultConfig("FeeshNotifier", "config/settings.json")
     category: "Chat",
     configName: "messageOnFlyingFishPetDrop",
     title: "Send a party chat message on FLYING FISH PET drop",
-    description: "",
+    description: "Sends a party chat message when a rare item has dropped by you.",
     subcategory: "Rare Drops",
     value: true
 })
@@ -308,7 +308,7 @@ const config = new DefaultConfig("FeeshNotifier", "config/settings.json")
     category: "Chat",
     configName: "messageOnLuckyCloverCoreDrop",
     title: "Send a party chat message on LUCKY CLOVER CORE drop",
-    description: "",
+    description: "Sends a party chat message when a rare item has dropped by you.",
     subcategory: "Rare Drops",
     value: true
 })
@@ -316,7 +316,7 @@ const config = new DefaultConfig("FeeshNotifier", "config/settings.json")
     category: "Chat",
     configName: "messageOnMegalodonPetDrop",
     title: "Send a party chat message on MEGALODON PET drop",
-    description: "",
+    description: "Sends a party chat message when a rare item has dropped by you.",
     subcategory: "Rare Drops",
     value: true
 })
@@ -324,7 +324,7 @@ const config = new DefaultConfig("FeeshNotifier", "config/settings.json")
     category: "Chat",
     configName: "messageOnDeepSeaOrbDrop",
     title: "Send a party chat message on DEEP SEA ORB drop",
-    description: "",
+    description: "Sends a party chat message when a rare item has dropped by you.",
     subcategory: "Rare Drops",
     value: true
 })
@@ -332,7 +332,7 @@ const config = new DefaultConfig("FeeshNotifier", "config/settings.json")
     category: "Chat",
     configName: "messageOnRadioactiveVialDrop",
     title: "Send a party chat message on RADIOACTIVE VIAL drop",
-    description: "",
+    description: "Sends a party chat message when a rare item has dropped by you.",
     subcategory: "Rare Drops",
     value: true
 })
@@ -340,7 +340,7 @@ const config = new DefaultConfig("FeeshNotifier", "config/settings.json")
     category: "Chat",
     configName: "messageOnMagmaCoreDrop",
     title: "Send a party chat message on MAGMA CORE drop",
-    description: "",
+    description: "Sends a party chat message when a rare item has dropped by you.",
     subcategory: "Rare Drops",
     value: true
 })
@@ -348,7 +348,7 @@ const config = new DefaultConfig("FeeshNotifier", "config/settings.json")
     category: "Chat",
     configName: "messageOnMusicRuneDrop",
     title: "Send a party chat message on MUSIC RUNE I drop",
-    description: "",
+    description: "Sends a party chat message when a rare item has dropped by you.",
     subcategory: "Rare Drops",
     value: true
 })
@@ -356,7 +356,7 @@ const config = new DefaultConfig("FeeshNotifier", "config/settings.json")
     category: "Chat",
     configName: "messageOnSquidPetDrop",
     title: "Send a party chat message on SQUID PET drop",
-    description: "",
+    description: "Sends a party chat message when a rare item has dropped by you.",
     subcategory: "Rare Drops",
     value: true
 })
@@ -364,7 +364,7 @@ const config = new DefaultConfig("FeeshNotifier", "config/settings.json")
     category: "Chat",
     configName: "messageOnCarmineDyeDrop",
     title: "Send a party chat message on CARMINE DYE drop",
-    description: "",
+    description: "Sends a party chat message when a rare item has dropped by you.",
     subcategory: "Rare Drops",
     value: true
 })
@@ -372,7 +372,7 @@ const config = new DefaultConfig("FeeshNotifier", "config/settings.json")
     category: "Chat",
     configName: "messageOnAqumarineDyeDrop",
     title: "Send a party chat message on AQUAMARINE DYE drop",
-    description: "",
+    description: "Sends a party chat message when a rare item has dropped by you.",
     subcategory: "Rare Drops",
     value: true
 })
@@ -380,7 +380,7 @@ const config = new DefaultConfig("FeeshNotifier", "config/settings.json")
     category: "Chat",
     configName: "messageOnIcebergDyeDrop",
     title: "Send a party chat message on ICEBERG DYE drop",
-    description: "",
+    description: "Sends a party chat message when a rare item has dropped by you.",
     subcategory: "Rare Drops",
     value: true
 })
@@ -388,7 +388,7 @@ const config = new DefaultConfig("FeeshNotifier", "config/settings.json")
     category: "Chat",
     configName: "messageOnMidnightDyeDrop",
     title: "Send a party chat message on MIDNIGHT DYE drop",
-    description: "",
+    description: "Sends a party chat message when a rare item has dropped by you.",
     subcategory: "Rare Drops",
     value: true
 })
@@ -396,7 +396,7 @@ const config = new DefaultConfig("FeeshNotifier", "config/settings.json")
     category: "Chat",
     configName: "messageOnTreasureDyeDrop",
     title: "Send a party chat message on TREASURE DYE drop",
-    description: "",
+    description: "Sends a party chat message when a rare item has dropped by you.",
     subcategory: "Rare Drops",
     value: true
 })
@@ -404,7 +404,7 @@ const config = new DefaultConfig("FeeshNotifier", "config/settings.json")
     category: "Chat",
     configName: "messageOnPeriwinkleDyeDrop",
     title: "Send a party chat message on PERIWINKLE DYE drop",
-    description: "",
+    description: "Sends a party chat message when a rare item has dropped by you.",
     subcategory: "Rare Drops",
     value: true
 })
@@ -412,7 +412,7 @@ const config = new DefaultConfig("FeeshNotifier", "config/settings.json")
     category: "Chat",
     configName: "messageOnBoneDyeDrop",
     title: "Send a party chat message on BONE DYE drop",
-    description: "",
+    description: "Sends a party chat message when a rare item has dropped by you.",
     subcategory: "Rare Drops",
     value: true
 })
@@ -735,7 +735,7 @@ const config = new DefaultConfig("FeeshNotifier", "config/settings.json")
     category: "Alerts",
     configName: "alertOnVanquisherCatch",
     title: "Alert on VANQUISHER spawn",
-    description: "Shows a title and plays a sound when a rare sea creature has caught by you or your party members.",
+    description: "Shows a title and plays a sound when a Vanquisher has spawned by you or your party members.",
     subcategory: "Rare Catches",
     value: true
 })
