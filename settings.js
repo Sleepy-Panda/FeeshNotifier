@@ -149,6 +149,14 @@ const config = new DefaultConfig("FeeshNotifier", "config/settings.json")
 })
 .addSwitch({
     category: "Chat",
+    configName: "messageOnAlligatorCatch",
+    title: "Send a party chat message on ALLIGATOR catch",
+    description: "",
+    subcategory: "Rare Catches",
+    value: true
+})
+.addSwitch({
+    category: "Chat",
     configName: "messageOnBlueRingedOctopusCatch",
     title: "Send a party chat message on BLUE RINGED OCTOPUS catch",
     description: "",
@@ -637,6 +645,14 @@ const config = new DefaultConfig("FeeshNotifier", "config/settings.json")
 })
 .addSwitch({
     category: "Alerts",
+    configName: "alertOAlligatorCatch",
+    title: "Alert on ALLIGATOR catch",
+    description: "Shows a title and plays a sound when a rare sea creature has caught by you or your party members.",
+    subcategory: "Rare Catches",
+    value: true
+})
+.addSwitch({
+    category: "Alerts",
     configName: "alertOnBlueRingedOctopusCatch",
     title: "Alert on BLUE RINGED OCTOPUS catch",
     description: "Shows a title and plays a sound when a rare sea creature has caught by you or your party members.",
@@ -915,7 +931,7 @@ const config = new DefaultConfig("FeeshNotifier", "config/settings.json")
     category: "Overlays",
     configName: "seaCreaturesHpOverlay",
     title: "Sea creatures HP",
-    description: `Shows an overlay with the HP of nearby sea creatures when they're in lootshare range. Tracked creatures: Thunder, Lord Jawbus, Plhlegblast, Ragnarok, Reindrake, Yeti, Wiki Tiki, Titanoboa. ${RED}Hidden if you have no fishing rod in your hotbar!`,
+    description: `Shows an overlay with the HP of nearby sea creatures when they're in lootshare range. Tracked creatures: Fiery Scuttler, Thunder, Lord Jawbus, Plhlegblast, Ragnarok, Reindrake, Yeti, Alligator, Blue Ringed Octopus, Wiki Tiki, Titanoboa.\n${RED}Hidden if you have no fishing rod in your hotbar!`,
     subcategory: "Sea creatures HP",
     value: true
 })
@@ -934,7 +950,7 @@ const config = new DefaultConfig("FeeshNotifier", "config/settings.json")
     category: "Overlays",
     configName: "seaCreaturesCountOverlay",
     title: "Sea creatures count",
-    description: `Shows an overlay with the count of nearby sea creatures, and timer for how long they are alive. Useful to detect cap when barn fishing. ${RED}Hidden if you have no fishing rod in your hotbar!`,
+    description: `Shows an overlay with the count of nearby sea creatures, and timer for how long they are alive. Useful to detect cap when barn fishing.\n${RED}Hidden if you have no fishing rod in your hotbar!`,
     subcategory: "Sea creatures count",
     value: true
 })
@@ -953,7 +969,7 @@ const config = new DefaultConfig("FeeshNotifier", "config/settings.json")
     category: "Overlays",
     configName: "legionAndBobbingTimeOverlay",
     title: "Legion & Bobbing Time",
-    description: `Shows an overlay with the amount of players within 30 blocks (excluding you), and amount of fishing hooks within 30 blocks (including your own hook). ${RED}Hidden if you have no fishing rod in your hotbar!\n\n${DARK_GRAY}If you have other players' hooks hidden by the mods, this may not work correctly. E.g. it works with NEU hooks hider, but doesn't work with Skytils.`,
+    description: `Shows an overlay with the amount of players within 30 blocks (excluding you), and amount of fishing hooks within 30 blocks (including your own hook).\n${RED}Hidden if you have no fishing rod in your hotbar!\n\n${DARK_GRAY}If you have other players' hooks hidden by the mods, this may not work correctly. E.g. it works with NEU hooks hider, but doesn't work with Skytils.`,
     subcategory: "Legion & Bobbing Time"
 })
 .addButton({

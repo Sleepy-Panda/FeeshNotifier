@@ -5,6 +5,9 @@
 Released: ???
 
 Features:
+- Added alert on Alligator.
+- Added Alligator to Rare Catches Tracker.
+- Added Alligator, Blue Ringed Octopus and Fiery Scuttler to Sea Creatures HP widget.
 
 Bugfixes:
 - Added Severed Pincer drop to Fishing Profit Tracker.
