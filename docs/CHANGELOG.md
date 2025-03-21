@@ -13,6 +13,7 @@ Features:
 
 Bugfixes:
 - Added Severed Pincer drop to Fishing Profit Tracker.
+- Scaled settings to default font size.
 - Changed empty descriptions for settings, as the user reported they look really bad on a small display (even title is not shown for such settings, just empty panel).
 
 ## v1.31.1
