@@ -7,10 +7,12 @@ import { OFF_SOUND_MODE } from "../../constants/sounds";
 import { findClosestHotspotInRange } from "../../utils/entityDetection";
 
 let lastClosestHotspot = null;
+let lastFoundHotspotIds = []; // Remember 2 last found hotspots, to avoid announcing the same hotspots placed close to each other, when user is moving between them
 
 register("step", (event) => sendMessageOnHotspotFound()).setDelay(1);
 register("worldUnload", () => {
     lastClosestHotspot = null;
+    lastFoundHotspotIds = [];
 });
 
 function sendMessageOnHotspotFound() {
@@ -23,15 +25,21 @@ function sendMessageOnHotspotFound() {
 		}
 		
         const closestHotspot = findClosestHotspotInRange(Player.getPlayer(), 6);
+        const closestHotspotId = closestHotspot ? closestHotspot.entity.getUUID() : null;
 
-        if ((!lastClosestHotspot && closestHotspot) ||
+        if (closestHotspot && !lastFoundHotspotIds.includes(closestHotspotId) && (
+            !lastClosestHotspot ||
             (lastClosestHotspot && closestHotspot && !(
                 closestHotspot.position.x === lastClosestHotspot.position.x &&
                 closestHotspot.position.y === lastClosestHotspot.position.y &&
                 closestHotspot.position.z === lastClosestHotspot.position.z)
-            )
+            ))      
         ) {
             sendChatMessage(closestHotspot.position, closestHotspot.perk);
+
+            ChatLib.chat(closestHotspotId);
+            lastFoundHotspotIds.unshift(closestHotspotId);
+            lastFoundHotspotIds.length = Math.min(lastFoundHotspotIds.length, 2);
         }
 
         if (closestHotspot) { // Do not share the same hotspot
