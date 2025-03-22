@@ -37,7 +37,6 @@ function sendMessageOnHotspotFound() {
         ) {
             sendChatMessage(closestHotspot.position, closestHotspot.perk);
 
-            ChatLib.chat(closestHotspotId);
             lastFoundHotspotIds.unshift(closestHotspotId);
             lastFoundHotspotIds.length = Math.min(lastFoundHotspotIds.length, 2);
         }
