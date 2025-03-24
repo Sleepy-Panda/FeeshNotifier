@@ -1,8 +1,24 @@
 # Releases
 
-## v1.31.1
+## v1.32.0
 
 Released: ???
+
+Features:
+- Added alert on Alligator.
+- Added Alligator to Rare Catches Tracker.
+- Added Alligator, Blue Ringed Octopus and Fiery Scuttler to Sea Creatures HP widget.
+- Added alert when the Hotspot you recently fished in, is gone.
+- Added option to share Hotspot location and its perk to ALL chat or PARTY chat on chat message click. You need to be close to the hotspot in order to trigger it.
+
+Bugfixes:
+- Added Severed Pincer drop to Fishing Profit Tracker.
+- Scaled settings to default font size.
+- Changed empty descriptions for settings, as the user reported they look really bad on a small display (even title is not shown for such settings, just empty panel).
+
+## v1.31.1
+
+Released: 2025-03-20
 
 Bugfixes:
 - Actualized loot pool items in the Fishing Profit Tracker as per Wiki https://wiki.hypixel.net/Fishing#Drops.
