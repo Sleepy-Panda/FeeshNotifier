@@ -21,6 +21,7 @@ import "./features/alerts/alertOnHotspotGone";
 import "./features/overlays/rareCatchesTracker";
 import "./features/overlays/totemTracker";
 import "./features/overlays/flareTracker";
+import "./features/overlays/umberellaTracker";
 import "./features/overlays/seaCreaturesHpTracker";
 import "./features/overlays/seaCreaturesCountAndTimeTracker";
 import "./features/overlays/legionAndBobbingTimeTracker";
