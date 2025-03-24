@@ -1,8 +1,16 @@
 # Releases
 
-## v1.32.0
+## v1.33.0
 
 Released: ???
+
+Features:
+
+Bugfixes:
+
+## v1.32.0
+
+Released: 2025-03-24
 
 Features:
 - Added alert on Alligator.
