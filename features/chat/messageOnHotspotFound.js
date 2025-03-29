@@ -1,7 +1,7 @@
 import settings from "../../settings";
 import { getWorldName, isInSkyblock } from "../../utils/playerState";
 import { HOTSPOT_WORLDS } from "../../constants/areas";
-import { BLUE, BOLD, GOLD, GRAY, LIGHT_PURPLE, RED, RESET, WHITE, YELLOW } from "../../constants/formatting";
+import { BLUE, BOLD, GOLD, GRAY, LIGHT_PURPLE, RESET, WHITE, YELLOW } from "../../constants/formatting";
 import { getMessageId, getZoneName } from "../../utils/common";
 import { OFF_SOUND_MODE } from "../../constants/sounds";
 import { findClosestHotspotInRange } from "../../utils/entityDetection";
