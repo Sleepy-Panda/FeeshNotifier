@@ -1,7 +1,7 @@
 import settings from "../../settings";
 import { getWorldName, isInSkyblock } from "../../utils/playerState";
 import { HOTSPOT_WORLDS } from "../../constants/areas";
-import { BLUE, BOLD, GOLD, LIGHT_PURPLE, RESET, WHITE } from "../../constants/formatting";
+import { BLUE, BOLD, GOLD, GRAY, LIGHT_PURPLE, RED, RESET, WHITE, YELLOW } from "../../constants/formatting";
 import { getMessageId, getZoneName } from "../../utils/common";
 import { OFF_SOUND_MODE } from "../../constants/sounds";
 import { findClosestHotspotInRange } from "../../utils/entityDetection";
@@ -58,10 +58,11 @@ function sendChatMessage(position, perk) {
     const message = getMessage(position, perk);
     new Message(
         `${GOLD}[FeeshNotifier] ${WHITE}You found ${perk} ${RESET}${LIGHT_PURPLE}Hotspot${WHITE}.\n`,
-        new TextComponent(`${WHITE}${BOLD}[Share to ${BLUE}${BOLD}PARTY ${WHITE}${BOLD}chat]\n`)
+        new TextComponent(`${WHITE}${BOLD}[Share to ${BLUE}${BOLD}PARTY ${WHITE}${BOLD}chat]`)
             .setClickAction('run_command')
             .setClickValue('/pc ' + message),
-        new TextComponent(`${WHITE}${BOLD}[Share to ALL chat]`)
+        ` ${GRAY}or `,
+        new TextComponent(`${WHITE}${BOLD}[Share to ${YELLOW}${BOLD}ALL ${WHITE}${BOLD}chat]`)
             .setClickAction('run_command')
             .setClickValue('/ac ' + message),
     ).chat();
@@ -77,6 +78,6 @@ function getMessage(position, perk) {
     const messageId = getMessageId();
 
     let message = '';
-    message += `${location} | ${perk ? perk.removeFormatting() + ' ' : ''}Hotspot ${zone ? ' at ' + zone.getName().removeFormatting() : ''} | ${messageId}`;
+    message += `${location} | ${perk ? perk.removeFormatting() + ' ' : ''}Hotspot${zone ? ' at ' + zone.getName().removeFormatting() : ''} | ${messageId}`;
     return message;
 }
