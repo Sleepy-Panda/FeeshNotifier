@@ -5,6 +5,7 @@
 Released: ???
 
 Features:
+- Added alerts & chat message on Tiki Mask, Titanoboa Shed, Scuttler Shell.
 - Added "rare drop" announcements for some items not having it by default.
 
 Bugfixes:
