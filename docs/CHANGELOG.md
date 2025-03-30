@@ -5,8 +5,10 @@
 Released: ???
 
 Features:
+- Added "rare drop" announcements for some items not having it by default.
 
 Bugfixes:
+- Changed formatting and fixed extra spaces in Hostpot Found chat message.
 
 ## v1.32.0
 
