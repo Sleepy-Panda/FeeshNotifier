@@ -261,6 +261,12 @@ export const FISHING_PROFIT_ITEMS = [
         npcPrice: 320,
     },
     {
+        itemId: 'ENCHANTED_GLOWSTONE',
+        itemName: 'Enchanted Glowstone',
+        itemDisplayName: `${UNCOMMON}Enchanted Glowstone`,
+        npcPrice: 51200,
+    },
+    {
         itemId: 'QUARTZ',
         itemName: 'Nether Quartz',
         itemDisplayName: `${COMMON}Nether Quartz`,

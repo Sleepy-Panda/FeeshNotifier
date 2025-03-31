@@ -9,6 +9,7 @@ Features:
 - Added "rare drop" announcements for some items not having it by default.
 
 Bugfixes:
+- Added Enchanted Glowstone to the fishing profit tracker.
 - Changed formatting and fixed extra spaces in Hostpot Found chat message.
 
 ## v1.32.0
