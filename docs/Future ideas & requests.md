@@ -2,7 +2,8 @@
 - Track double hooks in Rare Catches Tracker
 - Box Wiki Tiki totems, Jawbus followers
 - Hotspot search
-- Offer supercrafting when items like raw fish goes to inventory (sacks are full).
+- Offer supercrafting or BZ sell when items like raw fish goes to inventory (sacks are full).
+- Some items are tracked by profit tracker when dropped, but drop was prevented by SB settings (basically it drops and picks up again).
 - Scavenged coins
 - Ice Essence drop from mobs
 - [Bug] Some items are tracked by profit tracker when dropped, but drop was prevented by SB settings (basically it drops and picks up again).

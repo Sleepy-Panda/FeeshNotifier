@@ -1,4 +1,5 @@
 import { RED, DARK_GRAY, BLUE, WHITE, BOLD, RESET } from '../constants/formatting';
+import { NBTTagString } from '../constants/javaTypes';
 import { EntityFishHook, NBTTagString } from '../constants/javaTypes';
 import { DOUBLE_HOOK_MESSAGES } from '../constants/triggers';
 
