@@ -1370,15 +1370,15 @@ ${RED}Hidden if you have no fishing rod in your hotbar!`,
 
 .addSwitch({
     category: "Items and storages",
-    configName: "showFishingArmorAttributes",
-    title: "Armor attributes",
-    description: "Render attribute name and level as short abbreviations, for Thunder/Magma Lord/Lava Sea Creature armor and equipment.",
+    configName: "showAttributesOnFishingGear",
+    title: "Fishing gear attributes",
+    description: "Render attributes name and level as short abbreviations, for Thunder/Magma Lord/Lava Sea Creature armor and equipment.",
     subcategory: "Attributes"
 })
 .addTextInput({
     category: "Items and storages",
-    configName: "accentedFishingArmorAttributes",
-    title: "Accented armor attributes",
+    configName: "accentedAttributesOnFishingGear",
+    title: "Accented fishing gear attributes",
     description: "Render attributes from this list using another color. Use lower_case_with_underscore to specify an attribute code, and comma as a separator to specify multiple.",
     value: "blazing_fortune,magic_find,fishing_experience",
     placeHolder: "",
@@ -1386,33 +1386,49 @@ ${RED}Hidden if you have no fishing rod in your hotbar!`,
 })
 .addSwitch({
     category: "Items and storages",
-    configName: "showCrimsonArmorAttributes",
-    title: "Crimson armor / equipment attributes",
-    description: "Render attribute name and level as short abbreviations, for different crimson/kuudra armors and equipment.",
+    configName: "showAttributesOnFishingRod",
+    title: "Fishing rod attributes",
+    description: "Render attributes name and level as short abbreviations, for lava fishing rods.",
     subcategory: "Attributes"
 })
 .addTextInput({
     category: "Items and storages",
-    configName: "accentedCrimsonArmorAttributes",
-    title: "Accented crimson armor / equipment attributes",
+    configName: "accentedAttributesOnFishingRod",
+    title: "Accented fishing rod attributes",
     description: "Render attributes from this list using another color. Use lower_case_with_underscore to specify an attribute code, and comma as a separator to specify multiple.",
-    value: "magic_find,veteran,vitality,dominance,mana_pool,mana_regeneration,lifeline",
+    value: "double_hook,fishing_speed,trophy_hunter,fisherman",
     placeHolder: "",
     subcategory: "Attributes"
 })
 .addSwitch({
     category: "Items and storages",
-    configName: "showFishingRodAttributes",
-    title: "Fishing rod attributes",
-    description: "Render fishing rod attribute name and level as short abbreviations.",
+    configName: "showAttributesOnShard",
+    title: "Attribute Shard attributes",
+    description: "Render attribute name and level as short abbreviations, for Attribute Shards.",
     subcategory: "Attributes"
 })
 .addTextInput({
     category: "Items and storages",
-    configName: "accentedFishingRodAttributes",
-    title: "Accented fishing rod attributes",
+    configName: "accentedAttributesOnShard",
+    title: "Accented Attribute Shard attributes",
     description: "Render attributes from this list using another color. Use lower_case_with_underscore to specify an attribute code, and comma as a separator to specify multiple.",
-    value: "double_hook,fishing_speed,trophy_hunter",
+    value: "magic_find,veteran,vitality,dominance,mana_pool,mana_regeneration,lifeline,blazing_fortune,magic_find,fishing_experience",
+    placeHolder: "",
+    subcategory: "Attributes"
+})
+.addSwitch({
+    category: "Items and storages",
+    configName: "showAttributesOnEverythingElse",
+    title: "Attributes on everything else",
+    description: "Render attributes name and level as short abbreviations, for every other gear that has attributes.",
+    subcategory: "Attributes"
+})
+.addTextInput({
+    category: "Items and storages",
+    configName: "accentedAttributesOnEverythingElse",
+    title: "Accented attributes for everything else",
+    description: "Render attributes from this list using another color. Use lower_case_with_underscore to specify an attribute code, and comma as a separator to specify multiple.",
+    value: "magic_find,veteran,vitality,dominance,mana_pool,mana_regeneration,lifeline",
     placeHolder: "",
     subcategory: "Attributes"
 })

@@ -33,7 +33,7 @@ function showPetLevel(item, x, y) {
     Tessellator.pushMatrix();
     Tessellator.disableLighting();
 
-    Renderer.translate(x, y, 275); // z coord = 275 to be on top of the item icon and below the tooltip
+    Renderer.translate(x, y - 1, 275); // z coord = 275 to be on top of the item icon and below the tooltip
     Renderer.scale(0.7, 0.7);
     Renderer.drawString(color + level, 0, 16, true);
 

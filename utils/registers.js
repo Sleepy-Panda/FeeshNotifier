@@ -9,7 +9,6 @@ settings.getConfig().onCloseGui(() => {
 });
 
 export function updateRegisters() {
-    console.log('DEBUG - Registers update requested'); // TODO
     try {
         registers.forEach(register => {
             if (!register.conditionFunc() && register.isTriggerEnabled) {

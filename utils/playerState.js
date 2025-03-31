@@ -37,7 +37,6 @@ function trackPlayerState() {
 		setZoneName();
 
 		if (prevInSkyblock !== inSkyblock || prevWorldName !== worldName) {
-			console.log('SB ' + prevInSkyblock + ' -> ' +  inSkyblock +  ' | world ' + prevWorldName + ' -> ' + worldName);
 			updateRegisters();
 		}
 
