@@ -2,10 +2,12 @@ import settings from "../../settings";
 import { BOLD, GREEN, WHITE } from "../../constants/formatting";
 import { isInSkyblock } from "../../utils/playerState";
 import { getItemAttributes } from "../../utils/common";
+import { registerIf } from "../../utils/registers";
 
-register('renderItemIntoGui', (item, x, y, event) => {
-    showArmorAttributes(item, x, y);
-});
+registerIf(
+    register('renderItemIntoGui', (item, x, y, event) => showArmorAttributes(item, x, y)),
+    () => (settings.showFishingArmorAttributes || settings.showCrimsonArmorAttributes) && isInSkyblock()
+);
 
 const FISHING_GEAR_REGEX = /(Thunder|Thunderbolt|Magma Lord|Slug|Moogma|Flaming|Taurus) (Helmet|Chestplate|Leggings|Boots|Gauntlet|Necklace)/;
 const CRIMSON_ARMOR_REGEX = /(Crimson|Aurora|Terror|Fervor|Hollow|Berserker|Rampart) (Helmet|Chestplate|Leggings|Boots)/;

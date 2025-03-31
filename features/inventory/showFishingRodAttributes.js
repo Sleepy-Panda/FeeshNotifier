@@ -2,10 +2,12 @@ import { BOLD, GREEN, WHITE } from "../../constants/formatting";
 import settings from "../../settings";
 import { getItemAttributes } from "../../utils/common";
 import { isInSkyblock } from "../../utils/playerState";
+import { registerIf } from "../../utils/registers";
 
-register('renderItemIntoGui', (item, x, y, event) => {
-    showFishingRodAttributes(item, x, y);
-});
+registerIf(
+    register('renderItemIntoGui', (item, x, y, event) => showFishingRodAttributes(item, x, y)),
+    () => settings.showFishingRodAttributes && isInSkyblock()
+);
 
 function showFishingRodAttributes(item, x, y) {
     if (!settings.showFishingRodAttributes || !isInSkyblock()) {

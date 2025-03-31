@@ -1,5 +1,6 @@
 import settings from "../../settings";
 import { isInSkyblock } from "../../utils/playerState";
+import { registerIf } from "../../utils/registers";
 
 const BOOK_NAMES_TO_HIGHLIGHT = [
     'CORRUPTION_1',
@@ -10,9 +11,10 @@ const BOOK_NAMES_TO_HIGHLIGHT = [
     'SPIKED_HOOK_6'
 ];
 
-register('renderSlot', (slot, gui, event) => {
-    highlightCheapBooks(slot, gui);
-});
+registerIf(
+    register('renderSlot', (slot, gui, event) => highlightCheapBooks(slot, gui)),
+    () => settings.highlightCheapBooks && isInSkyblock()
+);
 
 function highlightCheapBooks(slot, gui) {
     if (!settings.highlightCheapBooks || !isInSkyblock()) {

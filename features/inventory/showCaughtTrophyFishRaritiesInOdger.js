@@ -3,10 +3,12 @@ import { AQUA, DARK_GRAY, GOLD, GRAY } from "../../constants/formatting";
 import settings from "../../settings";
 import { getLore } from "../../utils/common";
 import { isInSkyblock } from "../../utils/playerState";
+import { registerIf } from "../../utils/registers";
 
-register('renderSlot', (slot, gui, event) => {
-    showMissingTrophyFishRarities(slot, gui);
-});
+registerIf(
+    register('renderSlot', (slot, gui, event) => showMissingTrophyFishRarities(slot, gui)),
+    () => settings.showCaughtTrophyFishRaritiesInOdger && isInSkyblock()
+);
 
 function showMissingTrophyFishRarities(slot, gui) {
     if (!slot || !gui || !(gui instanceof net.minecraft.client.gui.inventory.GuiChest) || !settings.showCaughtTrophyFishRaritiesInOdger || !isInSkyblock()) {
