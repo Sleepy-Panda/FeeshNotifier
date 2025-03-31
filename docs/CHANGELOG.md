@@ -1,8 +1,16 @@
 # Releases
 
-## v1.33.0
+## v1.34.0
 
 Released: ???
+
+Features:
+
+Bugfixes:
+
+## v1.33.0
+
+Released: 2025-03-31
 
 Features:
 - Added alerts & chat message on Tiki Mask, Titanoboa Shed, Scuttler Shell.
