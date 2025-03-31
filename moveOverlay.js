@@ -1,4 +1,4 @@
-import { abandonedQuarryTrackerOverlayGui, crimsonIsleTrackerOverlayGui, fishingProfitTrackerOverlayGui, flareRemainingTimeOverlayGui, jerryWorkshopTrackerOverlayGui, legionAndBobbingTimeOverlayGui, magmaCoreProfitTrackerOverlayGui, rareCatchesTrackerOverlayGui, seaCreaturesCountOverlayGui, seaCreaturesHpOverlayGui, totemRemainingTimeOverlayGui, wormProfitTrackerOverlayGui } from "./settings";
+import { abandonedQuarryTrackerOverlayGui, backwaterBayouTrackerOverlayGui, crimsonIsleTrackerOverlayGui, fishingProfitTrackerOverlayGui, flareRemainingTimeOverlayGui, jerryWorkshopTrackerOverlayGui, legionAndBobbingTimeOverlayGui, magmaCoreProfitTrackerOverlayGui, rareCatchesTrackerOverlayGui, seaCreaturesCountOverlayGui, seaCreaturesHpOverlayGui, totemRemainingTimeOverlayGui, wormProfitTrackerOverlayGui } from "./settings";
 import { overlayCoordsData } from "./data/overlayCoords";
 
 const GUIS = [
@@ -45,6 +45,10 @@ const GUIS = [
     {
         gui: abandonedQuarryTrackerOverlayGui,
         guiSettings: overlayCoordsData.abandonedQuarryTrackerOverlay,
+    },
+    {
+        gui: backwaterBayouTrackerOverlayGui,
+        guiSettings: overlayCoordsData.backwaterBayouTrackerOverlay,
     },
     {
         gui: fishingProfitTrackerOverlayGui,

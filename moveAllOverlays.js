@@ -1,6 +1,6 @@
 import settings, { allOverlaysGui } from "./settings";
 import { overlayCoordsData } from "./data/overlayCoords";
-import { AQUA, BLUE, BOLD, DARK_GRAY, DARK_PURPLE, DARK_RED, GOLD, GRAY, GREEN, LIGHT_PURPLE, RED, RESET, WHITE, YELLOW } from "./constants/formatting";
+import { AQUA, BLUE, BOLD, DARK_GRAY, DARK_GREEN, DARK_PURPLE, DARK_RED, GOLD, GRAY, GREEN, LIGHT_PURPLE, RED, RESET, WHITE, YELLOW } from "./constants/formatting";
 import { isInSkyblock } from "./utils/playerState";
 import { decreaseScaleOrSetToMinimal } from "./moveOverlay";
 
@@ -90,7 +90,7 @@ ${GRAY}Last on: ${WHITE}6 Jawbuses ago`,
 `${AQUA}${BOLD}Jerry Workshop tracker
 ${GOLD}Yeti: ${WHITE}70 ${GRAY}catches ago ${DARK_GRAY}(${GRAY}avg: ${WHITE}85${DARK_GRAY})
 ${GRAY}Last on: ${WHITE}2d 5h 8m ${GRAY}(${WHITE}2024-11-30 12:00:00${GRAY})
-${GOLD}Reindrake: ${WHITE}417 ${GRAY}catches ago ${DARK_GRAY}(${GRAY}avg: ${WHITE}654${DARK_GRAY})
+${LIGHT_PURPLE}Reindrake: ${WHITE}417 ${GRAY}catches ago ${DARK_GRAY}(${GRAY}avg: ${WHITE}654${DARK_GRAY})
 ${GRAY}Last on: ${WHITE}2d 9h 8m ${GRAY}(${WHITE}2024-11-30 08:00:00${GRAY})
 ${GRAY}Baby Yeti pets: ${GOLD}3 ${DARK_PURPLE}7`,
         isActive: false,
@@ -150,6 +150,26 @@ ${GREEN}Mithril Grubbers caught/h: ${WHITE}238
 ${GREEN}Mithril Powder/h: ${WHITE}427 000
 
 ${AQUA}Elapsed time: ${WHITE}3:16`,
+        isActive: false,
+        width: 0,
+        height: 0
+    },
+    {
+        toggleSettingKey: 'backwaterBayouTrackerOverlay',
+        guiSettings: overlayCoordsData.backwaterBayouTrackerOverlay,
+        sampleText:
+`${DARK_GREEN}${BOLD}Backwater Bayou tracker
+${LIGHT_PURPLE}Wiki Tiki: ${WHITE}70 ${GRAY}catches ago ${DARK_GRAY}(${GRAY}avg: ${WHITE}85${DARK_GRAY})
+${GRAY}Last on: ${WHITE}2d 5h 8m ${GRAY}(${WHITE}2024-11-30 12:00:00${GRAY})
+${GOLD}Tiki Masks: ${WHITE}5
+${GRAY}Last on: ${WHITE}1d 0h 0m ${GRAY}(${WHITE}2024-11-29 12:15:00${GRAY})
+${GRAY}Last on: ${WHITE}6 Wiki Tikis ago
+
+${LIGHT_PURPLE}Titanoboa: ${WHITE}417 ${GRAY}catches ago ${DARK_GRAY}(${GRAY}avg: ${WHITE}654${DARK_GRAY})
+${GRAY}Last on: ${WHITE}2d 9h 8m ${GRAY}(${WHITE}2024-11-30 08:00:00${GRAY})
+${GOLD}Titanoboa Sheds: ${WHITE}2
+${GRAY}Last on: ${WHITE}1d 0h 0m ${GRAY}(${WHITE}2024-11-29 12:15:00${GRAY})
+${GRAY}Last on: ${WHITE}10 Titanoboas ago`,
         isActive: false,
         width: 0,
         height: 0

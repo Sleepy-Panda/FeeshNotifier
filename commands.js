@@ -11,6 +11,7 @@ import { calculateGearCraftPrices } from "./features/commands/calculateGearCraft
 import { showSpidersDenRainSchedule } from "./features/commands/showSpidersDenRainSchedule";
 import { moveAllGuis } from "./moveAllOverlays";
 import { resetAbandonedQuarryTracker } from "./features/overlays/abandonedQuarryTracker";
+import { resetBackwaterBayouTracker } from "./features/overlays/backwaterBayouTracker";
 
 register("command", (...args) => {
     settings.getConfig().openGui();
@@ -45,6 +46,11 @@ register("command", (...args) => {
     const isConfirmed = args[0] && args[0] === "noconfirm";
     resetAbandonedQuarryTracker(!!isConfirmed);
 }).setName("feeshResetAbandonedQuarry");
+
+register("command", (...args) => {
+    const isConfirmed = args[0] && args[0] === "noconfirm";
+    resetBackwaterBayouTracker(!!isConfirmed);
+}).setName("feeshResetBackwaterBayou");
 
 register("command", (...args) => {
     const isConfirmed = args[0] && args[0] === "noconfirm";

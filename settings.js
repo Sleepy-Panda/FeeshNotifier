@@ -15,6 +15,7 @@ export const jerryWorkshopTrackerOverlayGui = new Gui();
 export const wormProfitTrackerOverlayGui = new Gui();
 export const magmaCoreProfitTrackerOverlayGui = new Gui();
 export const abandonedQuarryTrackerOverlayGui = new Gui();
+export const backwaterBayouTrackerOverlayGui = new Gui();
 export const fishingProfitTrackerOverlayGui = new Gui();
 
 const categories = ["General", "Chat", "Alerts", "Overlays", "Items and storages", "Commands"]
@@ -1232,6 +1233,42 @@ Example: ${AQUA}/feeshSetRadioactiveVials 5 2024-03-18T14:05:00Z`);
     subcategory: "Abandoned Quarry tracker",
     onClick() {
         ChatLib.command("feeshResetAbandonedQuarry noconfirm", true);
+    }
+})
+
+.addSwitch({
+    category: "Overlays",
+    configName: "backwaterBayouTrackerOverlay",
+    title: "Backwater Bayou tracker",
+    description: `Shows an overlay with Wiki Tiki / Titanoboa catch statistics while in the Backwater Bayou.\nDo ${AQUA}/feeshResetBackwaterBayou${GRAY} to reset.\n${RED}Hidden if you have no fishing rod in your hotbar!`,
+    subcategory: "Backwater Bayou tracker",
+    value: true
+})
+.addSwitch({
+    category: "Overlays",
+    configName: "resetBackwaterBayouTrackerOnGameClosed",
+    title: "Reset on closing game",
+    description: "Automatically reset the Backwater Bayou tracker when you close Minecraft or reload CT modules.",
+    subcategory: "Backwater Bayou tracker"
+})
+.addButton({
+    category: "Overlays",
+    configName: "moveBackwaterBayouTrackerOverlay",
+    title: "Move Backwater Bayou tracker",
+    description: "Allows to move and resize the overlay text.",
+    subcategory: "Backwater Bayou tracker",
+    onClick() {
+        moveOverlay(backwaterBayouTrackerOverlayGui);
+    }
+})
+.addButton({
+    category: "Overlays",
+    configName: "resetBackwaterBayouTracker",
+    title: "Reset Backwater Bayou tracker",
+    description: `Resets tracking for Backwater Bayou tracker. Executes ${AQUA}/feeshResetBackwaterBayou`,
+    subcategory: "Backwater Bayou tracker",
+    onClick() {
+        ChatLib.command("feeshResetBackwaterBayou noconfirm", true);
     }
 })
 

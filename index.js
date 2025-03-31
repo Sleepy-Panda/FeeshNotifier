@@ -4,6 +4,7 @@ import "./moveAllOverlays";
 import "./utils/playerState";
 import "./utils/bazaarPrices";
 import "./utils/auctionPrices";
+import "./utils/registers";
 
 import "./features/alerts/alertOnCatch";
 import "./features/alerts/alertOnDrop";
@@ -29,6 +30,7 @@ import "./features/overlays/jerryWorkshopTracker";
 import "./features/overlays/wormMembraneProfitTracker";
 import "./features/overlays/magmaCoreProfitTracker";
 import "./features/overlays/abandonedQuarryTracker";
+import "./features/overlays/backwaterBayouTracker";
 import "./features/overlays/fishingProfitTracker";
 
 import "./features/inventory/highlightCheapBooks";
