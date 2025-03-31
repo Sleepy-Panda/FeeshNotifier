@@ -7,6 +7,7 @@ Released: ???
 Features:
 
 Bugfixes:
+- Changed Reindrake's rarity to mythic in Jerry Workshop Tracker.
 
 ## v1.33.0
 
