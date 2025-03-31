@@ -29,6 +29,7 @@ import "./features/overlays/jerryWorkshopTracker";
 import "./features/overlays/wormMembraneProfitTracker";
 import "./features/overlays/magmaCoreProfitTracker";
 import "./features/overlays/abandonedQuarryTracker";
+import "./features/overlays/seaCreaturesPerHourTracker";
 import "./features/overlays/fishingProfitTracker";
 
 import "./features/inventory/highlightCheapBooks";
