@@ -1,8 +1,20 @@
 # Releases
 
-## v1.32.0
+## v1.33.0
 
 Released: ???
+
+Features:
+- Added alerts & chat message on Tiki Mask, Titanoboa Shed, Scuttler Shell.
+- Added "rare drop" announcements for some items not having it by default.
+
+Bugfixes:
+- Added Enchanted Glowstone to the fishing profit tracker.
+- Changed formatting and fixed extra spaces in Hostpot Found chat message.
+
+## v1.32.0
+
+Released: 2025-03-24
 
 Features:
 - Added alert on Alligator.

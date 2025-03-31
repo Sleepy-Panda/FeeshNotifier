@@ -261,6 +261,12 @@ export const FISHING_PROFIT_ITEMS = [
         npcPrice: 320,
     },
     {
+        itemId: 'ENCHANTED_GLOWSTONE',
+        itemName: 'Enchanted Glowstone',
+        itemDisplayName: `${UNCOMMON}Enchanted Glowstone`,
+        npcPrice: 51200,
+    },
+    {
         itemId: 'QUARTZ',
         itemName: 'Nether Quartz',
         itemDisplayName: `${COMMON}Nether Quartz`,
@@ -941,6 +947,7 @@ export const FISHING_PROFIT_ITEMS = [
         itemName: 'Shredded Line',
         itemDisplayName: `${RARE}Shredded Line`,
         npcPrice: 250000,
+        shouldAnnounceRareDrop: true
     },
     {
         itemId: 'FLYING_FISH;2',
@@ -1147,18 +1154,21 @@ export const FISHING_PROFIT_ITEMS = [
         itemName: 'Brimstone Handle',
         itemDisplayName: `${EPIC}Brimstone Handle`,
         npcPrice: 25000,
+        shouldAnnounceRareDrop: true
     },
     {
         itemId: 'BURNT_TEXTS',
         itemName: 'Burnt Texts',
         itemDisplayName: `${LEGENDARY}Burnt Texts`,
         npcPrice: 1000000,
+        shouldAnnounceRareDrop: true
     },
     {
         itemId: 'CHAIN_END_TIMES',
         itemName: 'Chain of the End Times',
         itemDisplayName: `${LEGENDARY}Chain of the End Times`,
         npcPrice: 1000000,
+        shouldAnnounceRareDrop: true
     },
     {
         itemId: 'LUMP_OF_MAGMA',

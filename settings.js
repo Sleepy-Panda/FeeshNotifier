@@ -346,6 +346,30 @@ const config = new DefaultConfig("FeeshNotifier", "config/settings.json")
 })
 .addSwitch({
     category: "Chat",
+    configName: "messageOnTikiMaskDrop",
+    title: "Send a party chat message on TIKI MASK drop",
+    description: "Sends a party chat message when a rare item has dropped by you.",
+    subcategory: "Rare Drops",
+    value: true
+})
+.addSwitch({
+    category: "Chat",
+    configName: "messageOnTitanoboaShedDrop",
+    title: "Send a party chat message on TITANOBOA SHED drop",
+    description: "Sends a party chat message when a rare item has dropped by you.",
+    subcategory: "Rare Drops",
+    value: true
+})
+.addSwitch({
+    category: "Chat",
+    configName: "messageOnScuttlerShellDrop",
+    title: "Send a party chat message on SCUTTLER SHELL drop",
+    description: "Sends a party chat message when a rare item has dropped by you.",
+    subcategory: "Rare Drops",
+    value: true
+})
+.addSwitch({
+    category: "Chat",
     configName: "messageOnMusicRuneDrop",
     title: "Send a party chat message on MUSIC RUNE I drop",
     description: "Sends a party chat message when a rare item has dropped by you.",
@@ -792,6 +816,30 @@ const config = new DefaultConfig("FeeshNotifier", "config/settings.json")
     category: "Alerts",
     configName: "alertOnMagmaCoreDrop",
     title: "Alert on MAGMA CORE drop",
+    description: "Shows a title and plays a sound when a rare item has dropped by you or your party members.",
+    subcategory: "Rare Drops",
+    value: true
+})
+.addSwitch({
+    category: "Alerts",
+    configName: "alertOnTikiMaskDrop",
+    title: "Alert on TIKI MASK drop",
+    description: "Shows a title and plays a sound when a rare item has dropped by you or your party members.",
+    subcategory: "Rare Drops",
+    value: true
+})
+.addSwitch({
+    category: "Alerts",
+    configName: "alertOnTitanoboaShedDrop",
+    title: "Alert on TITANOBOA SHED drop",
+    description: "Shows a title and plays a sound when a rare item has dropped by you or your party members.",
+    subcategory: "Rare Drops",
+    value: true
+})
+.addSwitch({
+    category: "Alerts",
+    configName: "alertOnScuttlerShellDrop",
+    title: "Alert on SCUTTLER SHELL drop",
     description: "Shows a title and plays a sound when a rare item has dropped by you or your party members.",
     subcategory: "Rare Drops",
     value: true

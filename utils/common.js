@@ -429,7 +429,7 @@ export function getArticle(str) {
  * @returns {string} Random substring
  */
 export function getMessageId() {
-	const messageId = ` @${(Math.random() + 1).toString(36).substring(4)}`;
+	const messageId = `@${(Math.random() + 1).toString(36).substring(4)}`;
 	return messageId;
 }
 
@@ -439,7 +439,7 @@ export function getMessageId() {
  */
 export function getZoneName() {
 	const zoneLine = Scoreboard.getLines().find((line) => line.getName().includes('⏣'));
-	return zoneLine || '';
+	return zoneLine?.trim() || '';
 }
 
 function getCurrentGuiChestName() {
