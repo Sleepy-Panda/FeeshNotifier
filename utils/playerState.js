@@ -1,6 +1,7 @@
 import { isFishingRod } from "./common";
+import { updateRegisters } from "./registers";
 
-var isInSkyblock = false;
+var inSkyblock = false;
 var worldName = null;
 var zoneName = null;
 
@@ -28,9 +29,18 @@ register('step', () => trackPlayerState()).setFps(2);
 
 function trackPlayerState() {
 	try {
-		setIsInSkyblock();
+		const prevInSkyblock = inSkyblock;
+		const prevWorldName = worldName;
+
+		setInSkyblock();
 		setWorldName();
 		setZoneName();
+
+		if (prevInSkyblock !== inSkyblock || prevWorldName !== worldName) {
+			console.log('SB ' + prevInSkyblock + ' -> ' +  inSkyblock +  ' | world ' + prevWorldName + ' -> ' + worldName);
+			updateRegisters();
+		}
+
 		setHasFishingRodInHotbar();
 		setHasDirtRodInHand();
 		setIsInHunterArmor();	
@@ -82,7 +92,7 @@ register("guiClosed", (gui) => {
 });
 
 export function isInSkyblock() {
-	return isInSkyblock;
+	return inSkyblock;
 }
 
 export function getWorldName() {
@@ -113,13 +123,13 @@ export function getLastKatUpgrade() {
 	return lastKatUpgrade;
 }
 
-function setIsInSkyblock() {
+function setInSkyblock() {
 	const scoreboardTitle = Scoreboard.getTitle()?.removeFormatting();
-	isInSkyblock = scoreboardTitle && scoreboardTitle.includes('SKYBLOCK');
+	inSkyblock = scoreboardTitle ? scoreboardTitle.includes('SKYBLOCK') : false;
 }
 
 function setWorldName() {
-	if (!isInSkyblock) {
+	if (!inSkyblock) {
 		worldName = null;
 		return;
 	}
@@ -134,7 +144,7 @@ function setWorldName() {
 }
 
 function setZoneName() {
-	if (!isInSkyblock || !worldName) {
+	if (!inSkyblock || !worldName) {
 		zoneName = null;
 		return;
 	}
@@ -149,7 +159,7 @@ function setZoneName() {
 }
 
 function setHasFishingRodInHotbar() {
-	if (!isInSkyblock) {
+	if (!inSkyblock) {
 		hasFishingRodInHotbar = false;
 		return;
 	}
@@ -164,7 +174,7 @@ function setHasFishingRodInHotbar() {
 }
 
 function setHasDirtRodInHand() {
-	if (!isInSkyblock) {
+	if (!inSkyblock) {
 		hasDirtRodInHand = false;
 		return;
 	}
@@ -179,7 +189,7 @@ function setHasDirtRodInHand() {
 }
 
 function setIsInHunterArmor() {
-	if (!isInSkyblock) {
+	if (!inSkyblock) {
 		isInHunterArmor = false;
 		return;
 	}

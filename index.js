@@ -2,6 +2,7 @@ import "./commands";
 import "./moveOverlay";
 import "./moveAllOverlays";
 import "./utils/playerState";
+import "./utils/registers";
 import "./utils/bazaarPrices";
 import "./utils/auctionPrices";
 
