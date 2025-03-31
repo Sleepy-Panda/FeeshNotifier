@@ -3,7 +3,7 @@ import * as triggers from '../../constants/triggers';
 import * as seaCreatures from '../../constants/seaCreatures';
 import { persistentData } from "../../data/data";
 import { overlayCoordsData } from "../../data/overlayCoords";
-import { BOLD, GOLD, RED, WHITE, UNDERLINE, DARK_PURPLE, GRAY, AQUA, DARK_GRAY } from "../../constants/formatting";
+import { BOLD, GOLD, RED, WHITE, UNDERLINE, DARK_PURPLE, GRAY, AQUA, DARK_GRAY, LIGHT_PURPLE } from "../../constants/formatting";
 import { getWorldName, hasFishingRodInHotbar, isInSkyblock } from "../../utils/playerState";
 import { formatDate, formatNumberWithSpaces, formatTimeElapsedBetweenDates, isInChatOrInventoryGui } from "../../utils/common";
 import { JERRY_WORKSHOP } from "../../constants/areas";
@@ -141,7 +141,7 @@ function trackReindrakeCatch() {
 
         persistentData.save();
 
-        ChatLib.chat(`${GOLD}[FeeshNotifier] ${GRAY}It took ${WHITE}${catchesSinceLast} ${GRAY}${catchesSinceLast === 1 ? 'catch' : 'catches'}${elapsedTime} to get the ${GOLD}Reindrake${GRAY}.`);
+        ChatLib.chat(`${GOLD}[FeeshNotifier] ${GRAY}It took ${WHITE}${catchesSinceLast} ${GRAY}${catchesSinceLast === 1 ? 'catch' : 'catches'}${elapsedTime} to get the ${LIGHT_PURPLE}Reindrake${GRAY}.`);
     } catch (e) {
 		console.error(e);
 		console.log(`[FeeshNotifier] Failed to track Reindrake catch.`);
@@ -246,7 +246,7 @@ function renderJerryWorkshopOverlay() {
     let overlayText = `${AQUA}${BOLD}Jerry Workshop tracker`;
     overlayText += `\n${GOLD}Yeti: ${WHITE}${formatNumberWithSpaces(persistentData.jerryWorkshop.yeti.catchesSinceLast)} ${GRAY}${persistentData.jerryWorkshop.yeti.catchesSinceLast !== 1 ? 'catches' : 'catch'} ago ${DARK_GRAY}(${GRAY}avg: ${WHITE}${averageYeti}${DARK_GRAY})`;
     overlayText += `\n${GRAY}Last on: ${lastCatchTimeYeti}`;
-    overlayText += `\n${GOLD}Reindrake: ${WHITE}${formatNumberWithSpaces(persistentData.jerryWorkshop.reindrake.catchesSinceLast)} ${GRAY}${persistentData.jerryWorkshop.reindrake.catchesSinceLast !== 1 ? 'catches' : 'catch'} ago ${DARK_GRAY}(${GRAY}avg: ${WHITE}${averageReindrake}${DARK_GRAY})`;
+    overlayText += `\n${LIGHT_PURPLE}Reindrake: ${WHITE}${formatNumberWithSpaces(persistentData.jerryWorkshop.reindrake.catchesSinceLast)} ${GRAY}${persistentData.jerryWorkshop.reindrake.catchesSinceLast !== 1 ? 'catches' : 'catch'} ago ${DARK_GRAY}(${GRAY}avg: ${WHITE}${averageReindrake}${DARK_GRAY})`;
     overlayText += `\n${GRAY}Last on: ${lastCatchTimeReindrake}`;
     overlayText += `\n${GRAY}Baby Yeti pets: ${GOLD}${formatNumberWithSpaces(persistentData.jerryWorkshop.babyYetiPets.legendary.count)} ${DARK_PURPLE}${formatNumberWithSpaces(persistentData.jerryWorkshop.babyYetiPets.epic.count)}`;
 
