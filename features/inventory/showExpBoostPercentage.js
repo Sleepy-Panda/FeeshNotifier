@@ -3,6 +3,14 @@ import { isInSkyblock } from "../../utils/playerState";
 import { getCleanItemName, getLore } from "../../utils/common";
 import { registerIf } from "../../utils/registers";
 
+const CACHED_ITEMS = new (Java.type('java.util.WeakHashMap'))();
+
+register("guiClosed", (gui) => {
+    if (!gui) return;
+    CACHED_ITEMS.clear();
+    //ChatLib.chat('Cleared ');
+});
+
 registerIf(
     register('renderItemIntoGui', (item, x, y, event) => showExpBoostPercent(item, x, y)),
     () => settings.showExpBoostPercentage && isInSkyblock()
@@ -17,12 +25,24 @@ function showExpBoostPercent(item, x, y) {
         return;
     }
 
-    const name = getCleanItemName(item.getName());
+    const stack = item.itemStack;
+    if (!stack) return;
+
+    let data = CACHED_ITEMS.get(stack);
+
+    if (!data) {
+        const name = getCleanItemName(item.getName());
+        const lore = getLore(item);
+        data = { name: name, lore: lore };
+        CACHED_ITEMS.put(stack, data);
+    }
+
+    const name = data.name;
     if (!name.endsWith(' Exp Boost')) {
         return;
     }
 
-    const lore = getLore(item);
+    const lore = data.lore;
     const percentageLine = lore.find(line => line?.removeFormatting()?.startsWith('Gives +')); // §7§7Gives §a+20% §7pet exp for Fishing.
     if (!percentageLine) {
         return;

@@ -4,6 +4,14 @@ import { isInSkyblock } from "../../utils/playerState";
 import { getCleanItemName } from "../../utils/common";
 import { registerIf } from "../../utils/registers";
 
+const CACHED_ITEMS = new (Java.type('java.util.WeakHashMap'))();
+
+register("guiClosed", (gui) => {
+    if (!gui) return;
+    CACHED_ITEMS.clear();
+    //ChatLib.chat('Cleared ');
+});
+
 registerIf(
     register('renderItemIntoGui', (item, x, y, event) => showThunderBottleProgress(item, x, y)),
     () => settings.showThunderBottleProgress && isInSkyblock()
@@ -33,13 +41,25 @@ function showThunderBottleProgress(item, x, y) {
         return;
     }
 
-    const name = getCleanItemName(item.getName());
+    const stack = item.itemStack;
+    if (!stack) return;
+
+    let data = CACHED_ITEMS.get(stack);
+
+    if (!data) {
+        const name = getCleanItemName(item.getName());
+        const charge = item.getNBT()?.getCompoundTag('tag')?.getCompoundTag('ExtraAttributes')?.getDouble('thunder_charge');
+        data = { name: name, charge: charge };
+        CACHED_ITEMS.put(stack, data);
+    }
+
+    const name = data.name;
 
     if (!BOTTLES.map(b => b.name).includes(name)) {
         return;
     }
 
-    const charge = item.getNBT()?.getCompoundTag('tag')?.getCompoundTag('ExtraAttributes')?.getDouble('thunder_charge');
+    const charge = data.charge;
     if (!charge && charge !== 0) {
         return;
     }

@@ -4,6 +4,14 @@ import { isInSkyblock } from "../../utils/playerState";
 import { getItemAttributes } from "../../utils/common";
 import { registerIf } from "../../utils/registers";
 
+const CACHED_ITEMS = new (Java.type('java.util.WeakHashMap'))();
+
+register("guiClosed", (gui) => {
+    if (!gui) return;
+    CACHED_ITEMS.clear();
+    //ChatLib.chat('Cleared ');
+});
+
 registerIf(
     register('renderItemIntoGui', (item, x, y, event) => showAttributes(item, x, y)),
     () => (settings.showAttributesOnFishingGear || settings.showAttributesOnFishingRod || settings.showAttributesOnShard || settings.showAttributesOnEverythingElse) && isInSkyblock()
@@ -16,7 +24,23 @@ function showAttributes(item, x, y) {
         return;
     }
 
-    const name = item.getName()?.removeFormatting();
+    // let isInChest = Client.isInGui() && Client.currentGui?.getClassName() === 'GuiChest';
+    // if (!isInChest) return;
+    
+    const stack = item.itemStack;
+    if (!stack) return;
+
+    let data = CACHED_ITEMS.get(stack);
+
+    if (!data) {
+        const name = item.getName()?.removeFormatting();
+        const itemAttributes = getItemAttributes(item);
+        data = { name: name, itemAttributes: itemAttributes };
+        CACHED_ITEMS.put(stack, data);
+        console.log('Added entry for ' + name + stack.toString())
+    }
+
+    const name = data.name;
     if (!name || name === 'AUCTION FOR ITEM:') {
         return;
     }
@@ -40,7 +64,7 @@ function showAttributes(item, x, y) {
 
     const highlightedAttributeCodes = highlightedAttributeCodesString.split(',');
 
-    const itemAttributes = getItemAttributes(item);
+    const itemAttributes = data.itemAttributes;
     if (!itemAttributes || !itemAttributes.length) {
         return;
     }
