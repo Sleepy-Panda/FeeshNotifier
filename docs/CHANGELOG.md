@@ -1,8 +1,24 @@
 # Releases
 
-## v1.33.0
+## v1.34.0
 
 Released: ???
+
+Features:
+- Added option to render attribute name / level for Attribute Shards [disabled by default].
+- Changed options to render attributes on different items - *please re-enable whatever you need in settings*.
+
+Bugfixes:
+- Changed Reindrake's rarity to mythic in Jerry Workshop Tracker.
+
+Other:
+- Refactored all inventory features, in order to not execute item/slot rendering triggers if setting is not enabled.
+- Unified code for all attributes rendering features.
+^ The aforementioned changes are attempt to improve performance.
+
+## v1.33.0
+
+Released: 2025-03-31
 
 Features:
 - Added alerts & chat message on Tiki Mask, Titanoboa Shed, Scuttler Shell.

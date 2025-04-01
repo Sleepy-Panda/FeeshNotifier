@@ -90,7 +90,7 @@ ${GRAY}Last on: ${WHITE}6 Jawbuses ago`,
 `${AQUA}${BOLD}Jerry Workshop tracker
 ${GOLD}Yeti: ${WHITE}70 ${GRAY}catches ago ${DARK_GRAY}(${GRAY}avg: ${WHITE}85${DARK_GRAY})
 ${GRAY}Last on: ${WHITE}2d 5h 8m ${GRAY}(${WHITE}2024-11-30 12:00:00${GRAY})
-${GOLD}Reindrake: ${WHITE}417 ${GRAY}catches ago ${DARK_GRAY}(${GRAY}avg: ${WHITE}654${DARK_GRAY})
+${LIGHT_PURPLE}Reindrake: ${WHITE}417 ${GRAY}catches ago ${DARK_GRAY}(${GRAY}avg: ${WHITE}654${DARK_GRAY})
 ${GRAY}Last on: ${WHITE}2d 9h 8m ${GRAY}(${WHITE}2024-11-30 08:00:00${GRAY})
 ${GRAY}Baby Yeti pets: ${GOLD}3 ${DARK_PURPLE}7`,
         isActive: false,

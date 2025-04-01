@@ -1,4 +1,8 @@
-- Offer supercrafting of bazaar when items like raw fish goes to inventory (sacks are full)
+- Track catches for Ragnarok in crimson isle tracker (when in hotspot).
+- Track double hooks in Rare Catches Tracker
+- Box Wiki Tiki totems, Jawbus followers
+- Hotspot search
+- Offer supercrafting or BZ sell when items like raw fish goes to inventory (sacks are full).
 - Some items are tracked by profit tracker when dropped, but drop was prevented by SB settings (basically it drops and picks up again).
 - Scavenged coins
 - Ice Essence drop from mobs
@@ -8,7 +12,7 @@
 - Remove double hook reindrake logic because DH is not possible now
 - Probably remove calculation of profits in Pulse Rings
 - [Bug] Total price is set to 0 in Profit tracker while other lines being normal (very rare and seems random).
-- Sea creatures/hour
+- Sea creatures/hour [Aidan]
 - Disable functionalities in Dungeons, Garden same way as it's done for Kuudra.
 - Rain/Thunder widget
 - Find out price calculation for Kuudra Keys in profit tracker

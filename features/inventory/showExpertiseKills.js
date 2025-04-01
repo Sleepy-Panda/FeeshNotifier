@@ -1,8 +1,12 @@
 import settings from "../../settings";
 import { addLineToLore, isFishingRod, toShortNumber } from "../../utils/common";
 import { isInSkyblock } from "../../utils/playerState";
+import { registerIf } from "../../utils/registers";
 
-register("itemTooltip", (lore, item) => showFishingRodExpertiseKills(item));
+registerIf(
+    register('itemTooltip', (lore, item) => showFishingRodExpertiseKills(item)),
+    () => settings.showFishingRodExpertiseKills && isInSkyblock()
+);
 
 function showFishingRodExpertiseKills(item) {
     if (!item || !isInSkyblock() || !settings.showFishingRodExpertiseKills || !isFishingRod(item)) {
