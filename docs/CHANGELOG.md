@@ -7,6 +7,7 @@ Released: ???
 Features:
 
 Bugfixes:
+- Changed total profit in Fishing Profit Tracker being 0 after leveling up a soulbound pet.
 
 ## v1.34.0
 
