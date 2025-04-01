@@ -2,6 +2,7 @@ import "./commands";
 import "./moveOverlay";
 import "./moveAllOverlays";
 import "./utils/playerState";
+import "./utils/registers";
 import "./utils/bazaarPrices";
 import "./utils/auctionPrices";
 
@@ -34,8 +35,7 @@ import "./features/overlays/fishingProfitTracker";
 import "./features/inventory/highlightCheapBooks";
 import "./features/inventory/showThunderBottleProgress";
 import "./features/inventory/showPetLevel";
-import "./features/inventory/showArmorAttributes";
-import "./features/inventory/showFishingRodAttributes";
+import "./features/inventory/showAttributes";
 import "./features/inventory/showRarityUpgrade";
 import "./features/inventory/highlightAttributeFusionMatchingItems";
 import "./features/inventory/showPricePerT1Shard";
