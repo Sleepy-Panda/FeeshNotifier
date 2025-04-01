@@ -17,7 +17,7 @@ function showAttributes(item, x, y) {
     }
 
     const name = item.getName()?.removeFormatting();
-    if (!name) {
+    if (!name || name === 'AUCTION FOR ITEM:') {
         return;
     }
 
