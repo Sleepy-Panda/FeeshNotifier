@@ -440,7 +440,7 @@ function onPetReachedMaxLevel(level, petDisplayName) {
         const itemIdMaxLevel = baseItemId + ';' + rarityCode + '+' + level; // FLYING_FISH;4+100 GOLDEN_DRAGON;4+200
         const item = persistentData.fishingProfit.profitTrackerItems[itemIdMaxLevel];
         const auctionPrices = getAuctionItemPrices(itemIdMaxLevel);
-        const itemPrice = auctionPrices?.lbin;
+        const itemPrice = auctionPrices?.lbin || 0;
 
         const currentAmount = item?.amount || 0;
         const currentProfit = item?.totalItemProfit || 0;
