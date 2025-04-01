@@ -1,8 +1,16 @@
 # Releases
 
-## v1.34.0
+## v1.35.0
 
 Released: ???
+
+Features:
+
+Bugfixes:
+
+## v1.34.0
+
+Released: 2025-04-01
 
 Features:
 - Added option to render attribute name / level for Attribute Shards [disabled by default].
