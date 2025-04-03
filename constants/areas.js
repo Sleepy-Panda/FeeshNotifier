@@ -21,3 +21,13 @@ export const HOTSPOT_WORLDS = [
     HUB,
     CRIMSON_ISLE
 ];
+
+export const NO_FISHING_WORLDS = [
+    'Rift Dimension',
+    'Garden',
+    KUUDRA,
+    DUNGEONS,
+    'Dungeon Hub',
+    'The End',
+    'Glacite Mineshafts'
+];

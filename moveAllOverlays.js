@@ -60,6 +60,14 @@ ${GRAY}- ${LIGHT_PURPLE}Ragnarok: ${WHITE}1`,
         height: 0
     },
     {
+        toggleSettingKey: 'seaCreaturesPerHourTrackerOverlay',
+        guiSettings: overlayCoordsData.seaCreaturesPerHourTrackerOverlay,
+        sampleText: `${GOLD}1000 ${GRAY}sea creatures/hour`,
+        isActive: false,
+        width: 0,
+        height: 0
+    },
+    {
         toggleSettingKey: 'legionAndBobbingTimeOverlay',
         guiSettings: overlayCoordsData.legionAndBobbingTimeOverlay,
         sampleText: `${GOLD}Legion: ${WHITE}5 ${GRAY}players\n${GOLD}Bobbin' time: ${WHITE}3 hooks`,

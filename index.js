@@ -24,6 +24,7 @@ import "./features/overlays/totemTracker";
 import "./features/overlays/flareTracker";
 import "./features/overlays/seaCreaturesHpTracker";
 import "./features/overlays/seaCreaturesCountAndTimeTracker";
+import "./features/overlays/seaCreaturesPerHourTracker";
 import "./features/overlays/legionAndBobbingTimeTracker";
 import "./features/overlays/crimsonIsleTracker";
 import "./features/overlays/jerryWorkshopTracker";
