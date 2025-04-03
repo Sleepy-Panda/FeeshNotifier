@@ -1432,6 +1432,15 @@ ${RED}Hidden if you have no fishing rod in your hotbar!`,
     placeHolder: "",
     subcategory: "Attributes"
 })
+.addTextInput({
+    category: "Items and storages",
+    configName: "showAttributesIgnoredItems",
+    title: "Ignored items",
+    description: "Do not render attributes on items from this list. Specify base item name, and comma as a separator to specify multiple.\nExample: Staff of the Volcano,Blade of the Volcano,Fire Fury Staff,Fire Veil Wand,Ragnarock Axe",
+    value: "",
+    placeHolder: "",
+    subcategory: "Attributes"
+})
 
 .addSwitch({
     category: "Items and storages",

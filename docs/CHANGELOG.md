@@ -5,6 +5,7 @@
 Released: ???
 
 Features:
+- Added setting to ignore renderong of attributes for specific items. Search for "Ignored items" in Attributes section, and fill in item names to not see attributes on them.
 
 Bugfixes:
 - Changed total profit in Fishing Profit Tracker being 0 after leveling up a soulbound pet.
