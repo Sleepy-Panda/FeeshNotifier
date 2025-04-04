@@ -3,10 +3,11 @@ import * as triggers from '../../constants/triggers';
 import * as seaCreatures from '../../constants/seaCreatures';
 import { persistentData } from "../../data/data";
 import { overlayCoordsData } from "../../data/overlayCoords";
-import { BOLD, GOLD, RED, WHITE, UNDERLINE, DARK_PURPLE, GRAY, AQUA, DARK_GRAY, LIGHT_PURPLE } from "../../constants/formatting";
+import { BOLD, GOLD, RED, WHITE, DARK_PURPLE, GRAY, AQUA, DARK_GRAY, LIGHT_PURPLE } from "../../constants/formatting";
 import { getWorldName, hasFishingRodInHotbar, isInSkyblock } from "../../utils/playerState";
-import { formatDate, formatNumberWithSpaces, formatTimeElapsedBetweenDates, isInChatOrInventoryGui } from "../../utils/common";
+import { formatDate, formatNumberWithSpaces, formatTimeElapsedBetweenDates } from "../../utils/common";
 import { JERRY_WORKSHOP } from "../../constants/areas";
+import { createButtonsDisplay, toggleButtonsDisplay } from "../../utils/overlays";
 import { registerIf } from "../../utils/registers";
 
 let remainingWorkshopTime = null;
@@ -77,17 +78,7 @@ register("gameUnload", () => {
     }
 });
 
-// DisplayLine is initialized once in order to avoid multiple method calls on click.
-let resetTrackerDisplay = new Display().hide();
-let resetTrackerDisplayLine = new DisplayLine(`${RED}[Click to reset]`).setShadow(true);
-resetTrackerDisplayLine.registerClicked((x, y, mouseButton, buttonState) => {
-    if (mouseButton === 0 && buttonState === false) { // When left mouse button is UP. 0 is left mouse button, false is UP, true is DOWN. 
-        resetJerryWorkshopTracker(false);
-    }
-});
-resetTrackerDisplayLine.registerHovered(() => resetTrackerDisplayLine.setText(`${RED}${UNDERLINE}[Click to reset]`).setShadow(true));
-resetTrackerDisplayLine.registerMouseLeave(() => resetTrackerDisplayLine.setText(`${RED}[Click to reset]`).setShadow(true));
-resetTrackerDisplay.addLine(resetTrackerDisplayLine);
+const buttonsDisplay = createButtonsDisplay(true, () => resetJerryWorkshopTracker(false), false, null);
 
 export function resetJerryWorkshopTracker(isConfirmed) {
     try {
@@ -260,7 +251,7 @@ function renderJerryWorkshopOverlay() {
         !hasFishingRodInHotbar() ||
         allOverlaysGui.isOpen()
     ) {
-        resetTrackerDisplay.hide();
+        buttonsDisplay.hide();
         return;
     }
 
@@ -289,13 +280,5 @@ function renderJerryWorkshopOverlay() {
         .setScale(overlayCoordsData.jerryWorkshopTrackerOverlay.scale);
     overlay.draw();
 
-    const shouldShowReset = isInChatOrInventoryGui();
-    if (shouldShowReset) {
-        resetTrackerDisplayLine.setScale(overlayCoordsData.jerryWorkshopTrackerOverlay.scale - 0.2);
-        resetTrackerDisplay
-            .setRenderX(overlayCoordsData.jerryWorkshopTrackerOverlay.x)
-            .setRenderY(overlayCoordsData.jerryWorkshopTrackerOverlay.y + overlay.getHeight() + 2).show();
-    } else {
-        resetTrackerDisplay.hide();
-    }
+    toggleButtonsDisplay(buttonsDisplay, overlay, overlayCoordsData.jerryWorkshopTrackerOverlay);
 }

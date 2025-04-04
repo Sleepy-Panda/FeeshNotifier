@@ -4,12 +4,13 @@ import { persistentData } from "../../data/data";
 import { overlayCoordsData } from "../../data/overlayCoords";
 import { CRIMSON_ISLE, JERRY_WORKSHOP, KUUDRA } from "../../constants/areas";
 import { FISHING_PROFIT_ITEMS } from "../../constants/fishingProfitItems";
-import { AQUA, BOLD, GOLD, GRAY, RESET, WHITE, YELLOW, RED, GREEN, BLUE } from "../../constants/formatting";
+import { AQUA, BOLD, GOLD, GRAY, RESET, WHITE, RED, GREEN, BLUE } from "../../constants/formatting";
 import { getAuctionItemPrices, getPetRarityCode } from "../../utils/auctionPrices";
 import { getBazaarItemPrices } from "../../utils/bazaarPrices";
 import { formatElapsedTime, getCleanItemName, getItemsAddedToSacks, getLore, isFishingHookActive, isInChatOrInventoryGui, isInSacksGui, isInSupercraftGui, splitArray, toShortNumber } from "../../utils/common";
 import { getLastGuisClosed, getLastKatUpgrade, getWorldName, hasFishingRodInHotbar, isInSkyblock } from "../../utils/playerState";
 import { playRareDropSound } from '../../utils/sound';
+import { createButtonsDisplay, getButtonsDisplayRenderY } from '../../utils/overlays';
 
 let isVisible = false;
 let areActionsVisible = false;
@@ -60,6 +61,7 @@ register("gameUnload", () => {
     }
 });
 
+const buttonsDisplay = createButtonsDisplay(true, () => resetFishingProfitTracker(false), true, () => pauseFishingProfitTracker());
 let profitTrackerDisplay = new Display().hide();
 
 export function resetFishingProfitTracker(isConfirmed) {
@@ -246,18 +248,8 @@ function refreshPrices() {
                 return;
             }
 
-            if (item.itemId === 'ORB_OF_ENERGY') { // Calculate Orbs of Energy price as Pulse Rings + remainder in Orb of Energy
-                const pulseRingPrices = getAuctionItemPrices('PULSE_RING');
-                const pulseRingPrice = pulseRingPrices?.lbin || 0;
-                const pulseRingsCount = pulseRingPrice ? Math.floor(value.amount / 256) : 0;
-                const remainder = pulseRingsCount ? value.amount % 256 : value.amount;
-
-                const itemPrice = getItemPrice(item);
-                value.totalItemProfit = (pulseRingsCount * pulseRingPrice) + (remainder * itemPrice);
-            } else {
-                const itemPrice = getItemPrice(item);
-                value.totalItemProfit = value.amount * itemPrice;    
-            }
+            const itemPrice = getItemPrice(item);
+            value.totalItemProfit = value.amount * itemPrice;  
         });
     
         const total = Object.values(persistentData.fishingProfit.profitTrackerItems).reduce((accumulator, currentValue) => { return accumulator + currentValue.totalItemProfit }, 0);
@@ -651,6 +643,7 @@ function refreshTrackerDisplayData() {
                 clearDisplay();
                 profitTrackerDisplay.hide();  
             }
+            buttonsDisplay.hide();
             return;
         }
     
@@ -698,6 +691,7 @@ function refreshTrackerDisplayData() {
         }
         
         clearDisplay();
+
         profitTrackerDisplay.addLine(new DisplayLine(`${AQUA}${BOLD}Fishing profit tracker`).setShadow(true).setScale(overlayCoordsData.fishingProfitTrackerOverlay.scale));
 
         displayTrackerData.entriesToShow.forEach((entry) => {
@@ -733,28 +727,23 @@ function refreshTrackerDisplayData() {
         profitTrackerDisplay.addLine(new DisplayLine(`\n${AQUA}Total: ${GOLD}${BOLD}${toShortNumber(displayTrackerData.totalProfit)} ${RESET}${GRAY}(${GOLD}${toShortNumber(displayTrackerData.profitPerHour)}${GRAY}/h)`).setShadow(true).setScale(overlayCoordsData.fishingProfitTrackerOverlay.scale));
         profitTrackerDisplay.addLine(new DisplayLine(getElapsedTimeLineText(displayTrackerData.elapsedTime)).setShadow(true).setScale(overlayCoordsData.fishingProfitTrackerOverlay.scale));  
 
-        if (areActionsVisible) {
-            let pauseTrackerDisplayLine = new DisplayLine(`\n${YELLOW}[Click to pause]`).setShadow(true).setScale(overlayCoordsData.fishingProfitTrackerOverlay.scale - 0.2);
-            pauseTrackerDisplayLine.registerClicked((x, y, mouseButton, buttonState) => {
-                if (mouseButton === 0 && buttonState === false) { // When left mouse button is UP. 0 is left mouse button, false is UP, true is DOWN. 
-                    pauseFishingProfitTracker();
-                }
-            });
-            profitTrackerDisplay.addLine(pauseTrackerDisplayLine);
-            
-            let resetTrackerDisplayLine = new DisplayLine(`${RED}[Click to reset]`).setShadow(true).setScale(overlayCoordsData.fishingProfitTrackerOverlay.scale - 0.2);
-            resetTrackerDisplayLine.registerClicked((x, y, mouseButton, buttonState) => {
-                if (mouseButton === 0 && buttonState === false) {
-                    resetFishingProfitTracker(false);
-                }
-            });
-            profitTrackerDisplay.addLine(resetTrackerDisplayLine);
-        }
-
         profitTrackerDisplay
             .setRenderX(overlayCoordsData.fishingProfitTrackerOverlay.x)
             .setRenderY(overlayCoordsData.fishingProfitTrackerOverlay.y)
             .show();
+
+        if (areActionsVisible) {
+            Client.scheduleTask(1, () => { // To let Display recalculate its .getHeight()
+            const buttonsY = getButtonsDisplayRenderY(buttonsDisplay, profitTrackerDisplay, overlayCoordsData.fishingProfitTrackerOverlay);
+            buttonsDisplay.getLines().forEach(line => { line.setScale(overlayCoordsData.fishingProfitTrackerOverlay.scale - 0.2); });
+            buttonsDisplay
+                .setRenderX(overlayCoordsData.fishingProfitTrackerOverlay.x)
+                .setRenderY(buttonsY)
+                .show();
+            });
+        } else {
+            buttonsDisplay.hide();
+        }
     } catch (e) {
 		console.error(e);
 		console.log(`[FeeshNotifier] [ProfitTracker] Failed to refresh tracker data.`);
