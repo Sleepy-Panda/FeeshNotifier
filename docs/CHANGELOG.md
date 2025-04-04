@@ -11,6 +11,7 @@ Features:
 Bugfixes:
 - Fixed Frozen Steve catch message not being compacted.
 - Fixed total profit in Fishing Profit Tracker being 0 after leveling up a soulbound pet.
+- Fixed error when new item is added to bazaar by SB and has not full details exposed from the Hypixel API.
 
 ## v1.34.0
 
