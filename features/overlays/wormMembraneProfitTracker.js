@@ -1,12 +1,13 @@
 import settings, { allOverlaysGui } from "../../settings";
 import { AQUA, BOLD, DARK_PURPLE, GOLD, GRAY, GREEN, RED, WHITE, YELLOW } from "../../constants/formatting";
 import { getBazaarItemPrices } from "../../utils/bazaarPrices";
-import { formatElapsedTime, formatNumberWithSpaces, getItemsAddedToSacks, isDoubleHook, isInChatOrInventoryGui, isInSacksGui, toShortNumber } from "../../utils/common";
+import { formatElapsedTime, formatNumberWithSpaces, getItemsAddedToSacks, isDoubleHook, isInSacksGui, toShortNumber } from "../../utils/common";
 import * as triggers from '../../constants/triggers';
 import { getLastGuisClosed, getWorldName, hasFishingRodInHotbar, isInSkyblock } from "../../utils/playerState";
 import { CRYSTAL_HOLLOWS } from "../../constants/areas";
 import { overlayCoordsData } from "../../data/overlayCoords";
 import { getAuctionItemPrices } from "../../utils/auctionPrices";
+import { createButtonsDisplay, toggleButtonsDisplay } from "../../utils/overlays";
 
 var totalMembranesCount = 0;
 var totalChambersCount = 0;
@@ -50,25 +51,7 @@ register("worldUnload", () => {
     isSessionActive = false;
 });
 
-
-// DisplayLine is initialized once in order to avoid multiple method calls on click.
-let buttonsDisplay = new Display().hide();
-
-let pauseTrackerDisplayLine = new DisplayLine(`${YELLOW}[Click to pause]`).setShadow(true);
-pauseTrackerDisplayLine.registerClicked((x, y, mouseButton, buttonState) => {
-    if (mouseButton === 0 && buttonState === false) { // When left mouse button is UP. 0 is left mouse button, false is UP, true is DOWN. 
-        pauseWormMembraneProfitTracker();
-    }
-});
-buttonsDisplay.addLine(pauseTrackerDisplayLine);
-
-let resetTrackerDisplayLine = new DisplayLine(`${RED}[Click to reset]`).setShadow(true);
-resetTrackerDisplayLine.registerClicked((x, y, mouseButton, buttonState) => {
-    if (mouseButton === 0 && buttonState === false) { // When left mouse button is UP. 0 is left mouse button, false is UP, true is DOWN. 
-        resetWormMembraneProfitTracker(false);
-    }
-});
-buttonsDisplay.addLine(resetTrackerDisplayLine);
+const buttonsDisplay = createButtonsDisplay(true, () => resetWormMembraneProfitTracker(false), true, () => pauseWormMembraneProfitTracker());
 
 export function resetWormMembraneProfitTracker(isConfirmed) {
     try {
@@ -356,16 +339,7 @@ function renderWormMembraneProfitTrackerOverlay() {
         .setScale(overlayCoordsData.wormProfitTrackerOverlay.scale);
     overlay.draw();
 
-    const shouldShowButtons = isInChatOrInventoryGui();
-    if (shouldShowButtons) {
-        resetTrackerDisplayLine.setScale(overlayCoordsData.wormProfitTrackerOverlay.scale - 0.2);
-        pauseTrackerDisplayLine.setScale(overlayCoordsData.wormProfitTrackerOverlay.scale - 0.2);
-        buttonsDisplay
-            .setRenderX(overlayCoordsData.wormProfitTrackerOverlay.x)
-            .setRenderY(overlayCoordsData.wormProfitTrackerOverlay.y + overlay.getHeight() + 2).show();
-    } else {
-        buttonsDisplay.hide();
-    }
+    toggleButtonsDisplay(buttonsDisplay, overlay, overlayCoordsData.wormProfitTrackerOverlay);
 }
 
 // Returns array of inventory slots, each array item is membranes count in this slot.

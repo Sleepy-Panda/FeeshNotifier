@@ -26,10 +26,10 @@ function trackBazaarPrices() {
             Object.keys(response.products).forEach(itemId => {
                 const itemSellSummary = response.products[itemId].sell_summary || [];
                 const itemBuySummary = response.products[itemId].buy_summary || [];
-                const itemQuickStatus = response.products[itemId].quick_status;
+                const itemQuickStatus = response.products[itemId].quick_status || null;
                 bazaarPrices[itemId] = {
-                    instaSell: itemSellSummary.length ? itemSellSummary[0].pricePerUnit : itemQuickStatus.sellPrice,
-                    sellOffer: itemBuySummary.length ? itemBuySummary[0].pricePerUnit : itemQuickStatus.buyPrice
+                    instaSell: itemSellSummary.length ? itemSellSummary[0].pricePerUnit : (itemQuickStatus?.sellPrice || 0),
+                    sellOffer: itemBuySummary.length ? itemBuySummary[0].pricePerUnit : (itemQuickStatus?.buyPrice || 0)
                 };
             });
         })

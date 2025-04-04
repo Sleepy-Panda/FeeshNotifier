@@ -1,8 +1,24 @@
 # Releases
 
-## v1.34.0
+## v1.35.0
 
 Released: ???
+
+Features:
+- Added setting to ignore rendering of attributes for specific items. Search for "Ignored items" in Attributes section, and fill in item names to not see attributes on them.
+- Added setting to display overlay buttons (Reset / Pause) on top of the overlay. Search for "Buttons position" setting in Overlays section.
+
+Bugfixes:
+- Fixed Frozen Steve catch message not being compacted.
+- Fixed total profit in Fishing Profit Tracker being 0 after leveling up a soulbound pet.
+- Fixed error when new item is added to bazaar by SB and has not full details exposed from the Hypixel API.
+
+Other:
+- Removed calculation of Orb of Energy profits as Pulse Rings (justification - it was added when Orb of Energy was soulbound, but now it can be sold on bazaar, so removed recalculation for consistency).
+
+## v1.34.0
+
+Released: 2025-04-01
 
 Features:
 - Added option to render attribute name / level for Attribute Shards [disabled by default].

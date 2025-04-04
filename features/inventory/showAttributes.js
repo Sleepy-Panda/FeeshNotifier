@@ -4,6 +4,14 @@ import { isInSkyblock } from "../../utils/playerState";
 import { getItemAttributes } from "../../utils/common";
 import { registerIf } from "../../utils/registers";
 
+let ignoredItemNames = [];
+
+setIgnoredItemNames();
+
+settings.getConfig().onCloseGui(() => {
+    setIgnoredItemNames();
+});
+
 registerIf(
     register('renderItemIntoGui', (item, x, y, event) => showAttributes(item, x, y)),
     () => (settings.showAttributesOnFishingGear || settings.showAttributesOnFishingRod || settings.showAttributesOnShard || settings.showAttributesOnEverythingElse) && isInSkyblock()
@@ -19,6 +27,10 @@ function showAttributes(item, x, y) {
     const name = item.getName()?.removeFormatting();
     if (!name || name === 'AUCTION FOR ITEM:') {
         return;
+    }
+
+    if (ignoredItemNames.length) {
+        if (ignoredItemNames.some(itemName => name.toLowerCase().includes(itemName.toLowerCase().trim()))) return;
     }
 
     let highlightedAttributeCodesString = '';
@@ -77,4 +89,14 @@ function getAttributeAbbreviation(attribute) {
             : (a === 'vitality' ? 'Vi' : a.substring(0, 1).toUpperCase()))
         .join('');
     return `${attributeAbbreviation}${attribute.attributeLevel}`;
+}
+
+function setIgnoredItemNames() {
+    if (settings.showAttributesIgnoredItems) {
+        const itemNames = settings.showAttributesIgnoredItems.split(',').filter(i => !!i);
+        ignoredItemNames = itemNames;
+        return;
+    }
+
+    ignoredItemNames = [];
 }

@@ -917,6 +917,15 @@ const config = new DefaultConfig("FeeshNotifier", "config/settings.json")
     value: true
 })
 
+.addDropDown({
+    category: "Overlays",
+    configName: "buttonsPosition",
+    title: "Buttons position",
+    description: "Where to place Reset / Pause buttons relatively to an overlay.",
+    options: ["Bottom","Top"],
+    value: 0,
+    subcategory: "General"
+})
 .addSwitch({
     category: "Overlays",
     configName: "totemRemainingTimeOverlay",
@@ -1429,6 +1438,15 @@ ${RED}Hidden if you have no fishing rod in your hotbar!`,
     title: "Accented attributes for everything else",
     description: "Render attributes from this list using another color. Use lower_case_with_underscore to specify an attribute code, and comma as a separator to specify multiple.",
     value: "magic_find,veteran,vitality,dominance,mana_pool,mana_regeneration,lifeline",
+    placeHolder: "",
+    subcategory: "Attributes"
+})
+.addTextInput({
+    category: "Items and storages",
+    configName: "showAttributesIgnoredItems",
+    title: "Ignored items",
+    description: "Do not render attributes on items from this list. Specify base item name, and comma as a separator to specify multiple.\nExample: Staff of the Volcano,Blade of the Volcano,Fire Fury Staff,Fire Veil Wand,Ragnarock Axe",
+    value: "",
     placeHolder: "",
     subcategory: "Attributes"
 })
