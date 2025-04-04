@@ -248,18 +248,8 @@ function refreshPrices() {
                 return;
             }
 
-            if (item.itemId === 'ORB_OF_ENERGY') { // Calculate Orbs of Energy price as Pulse Rings + remainder in Orb of Energy
-                const pulseRingPrices = getAuctionItemPrices('PULSE_RING');
-                const pulseRingPrice = pulseRingPrices?.lbin || 0;
-                const pulseRingsCount = pulseRingPrice ? Math.floor(value.amount / 256) : 0;
-                const remainder = pulseRingsCount ? value.amount % 256 : value.amount;
-
-                const itemPrice = getItemPrice(item);
-                value.totalItemProfit = (pulseRingsCount * pulseRingPrice) + (remainder * itemPrice);
-            } else {
-                const itemPrice = getItemPrice(item);
-                value.totalItemProfit = value.amount * itemPrice;    
-            }
+            const itemPrice = getItemPrice(item);
+            value.totalItemProfit = value.amount * itemPrice;  
         });
     
         const total = Object.values(persistentData.fishingProfit.profitTrackerItems).reduce((accumulator, currentValue) => { return accumulator + currentValue.totalItemProfit }, 0);

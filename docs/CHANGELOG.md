@@ -10,7 +10,10 @@ Features:
 
 Bugfixes:
 - Fixed Frozen Steve catch message not being compacted.
-- Fixed total profit in Fishing Profit Tracker being 0 after leveling up a soulbound pet.
+- Fixed total profit in Fishing Profit Tracker being 0 after leveling up a pet with unknown price.
+
+Other:
+- Removed calculation of Orb of Energy profits as Pulse Rings (justification - it was added when Orb of Energy was soulbound, but now it can be sold on bazaar, so removed recalculation for consistency).
 
 ## v1.34.0
 
