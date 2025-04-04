@@ -17,7 +17,7 @@ export const magmaCoreProfitTrackerOverlayGui = new Gui();
 export const abandonedQuarryTrackerOverlayGui = new Gui();
 export const fishingProfitTrackerOverlayGui = new Gui();
 
-const categories = ["General", "Chat", "Alerts", "Overlays", "Items and storages", "Commands"]
+const categories = ["General", "Chat", "Alerts", "Overlays", "Items and storages", "World", "Commands"]
 const config = new DefaultConfig("FeeshNotifier", "config/settings.json")
 
 .addButton({
@@ -1464,6 +1464,21 @@ ${RED}Hidden if you have no fishing rod in your hotbar!`,
     title: "Price per T1 attribute shard",
     description: "Render price per T1 attribute level in the auctioned Attribute Shard's lore, based on item's price. Helps to compare prices for high-tier attribute shards on AH.",
     subcategory: "Item lore"
+})
+
+.addSwitch({
+    category: "World",
+    configName: "boxWikiTikiLaserTotems",
+    title: "Box Wiki Tiki Laser Totems",
+    description: "Render box around Wiki Tiki Laser Totems nearby. Not visible through walls!",
+    subcategory: "Boxing"
+})
+.addSwitch({
+    category: "World",
+    configName: "boxTitanoboaHead",
+    title: "Box Titanoboa Head",
+    description: "Render box around Titanoboa Heads nearby. Not visible through walls!",
+    subcategory: "Boxing"
 })
 
 .addButton({
