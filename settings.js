@@ -1466,6 +1466,15 @@ ${RED}Hidden if you have no fishing rod in your hotbar!`,
     subcategory: "Item lore"
 })
 
+.addSlider({
+    category: "World",
+    configName: "boxLineWidth",
+    title: "Box line width",
+    description: "The line width for boxing the entities.",
+    options: [2, 10],
+    value: 5,
+    subcategory: "Boxing"
+})
 .addSwitch({
     category: "World",
     configName: "boxWikiTikiLaserTotems",
@@ -1475,9 +1484,23 @@ ${RED}Hidden if you have no fishing rod in your hotbar!`,
 })
 .addSwitch({
     category: "World",
+    configName: "boxBlueRingedOctopus",
+    title: "Box Blue Ringed Octopus",
+    description: "Render box around Blue Ringed Octopuses nearby. Not visible through walls!",
+    subcategory: "Boxing"
+})
+.addSwitch({
+    category: "World",
     configName: "boxTitanoboaHead",
     title: "Box Titanoboa Head",
     description: "Render box around Titanoboa Heads nearby. Not visible through walls!",
+    subcategory: "Boxing"
+})
+.addSwitch({
+    category: "World",
+    configName: "boxJawbusFollowers",
+    title: "Box Jawbus Followers",
+    description: "Render box around Jawbus Followers nearby. Not visible through walls!",
     subcategory: "Boxing"
 })
 
