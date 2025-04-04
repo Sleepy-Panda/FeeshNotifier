@@ -3,11 +3,12 @@ import * as triggers from '../../constants/triggers';
 import * as seaCreatures from '../../constants/seaCreatures';
 import { persistentData } from "../../data/data";
 import { overlayCoordsData } from "../../data/overlayCoords";
-import { BOLD, GOLD, LIGHT_PURPLE, RED, WHITE, UNDERLINE, GRAY, DARK_RED, DARK_GRAY, RESET } from "../../constants/formatting";
+import { BOLD, GOLD, LIGHT_PURPLE, RED, WHITE, GRAY, DARK_RED, DARK_GRAY, RESET } from "../../constants/formatting";
 import { getWorldName, hasFishingRodInHotbar, isInSkyblock } from "../../utils/playerState";
-import { formatDate, formatNumberWithSpaces, formatTimeElapsedBetweenDates, isDoubleHook, isInChatOrInventoryGui } from "../../utils/common";
+import { formatDate, formatNumberWithSpaces, formatTimeElapsedBetweenDates, isDoubleHook } from "../../utils/common";
 import { CRIMSON_ISLE } from "../../constants/areas";
 import { MEME_SOUND_MODE, NORMAL_SOUND_MODE, SAD_TROMBONE_SOUND_SOURCE } from "../../constants/sounds";
+import { createButtonsDisplay, toggleButtonsDisplay } from "../../utils/overlays";
 
 triggers.REGULAR_CRIMSON_CATCH_TRIGGERS.forEach(entry => {
     register("Chat", (event) => trackRegularSeaCreatureCatch()).setCriteria(entry.trigger).setContains();
@@ -35,17 +36,7 @@ register("gameUnload", () => {
     }
 });
 
-// DisplayLine is initialized once in order to avoid multiple method calls on click.
-let resetTrackerDisplay = new Display().hide();
-let resetTrackerDisplayLine = new DisplayLine(`${RED}[Click to reset]`).setShadow(true);
-resetTrackerDisplayLine.registerClicked((x, y, mouseButton, buttonState) => {
-    if (mouseButton === 0 && buttonState === false) { // When left mouse button is UP. 0 is left mouse button, false is UP, true is DOWN. 
-        resetCrimsonIsleTracker(false);
-    }
-});
-resetTrackerDisplayLine.registerHovered(() => resetTrackerDisplayLine.setText(`${RED}${UNDERLINE}[Click to reset]`).setShadow(true));
-resetTrackerDisplayLine.registerMouseLeave(() => resetTrackerDisplayLine.setText(`${RED}[Click to reset]`).setShadow(true));
-resetTrackerDisplay.addLine(resetTrackerDisplayLine);
+const buttonsDisplay = createButtonsDisplay(true, () => resetCrimsonIsleTracker(false), false, null);
 
 export function resetCrimsonIsleTracker(isConfirmed) {
     try {
@@ -264,7 +255,7 @@ function renderCrimsonIsleTrackerOverlay() {
         !hasFishingRodInHotbar() ||
         allOverlaysGui.isOpen()
     ) {
-        resetTrackerDisplay.hide();
+        buttonsDisplay.hide();
         return;
     }
 
@@ -295,13 +286,5 @@ function renderCrimsonIsleTrackerOverlay() {
         .setScale(overlayCoordsData.crimsonIsleTrackerOverlay.scale);
     overlay.draw();
 
-    const shouldShowReset = isInChatOrInventoryGui();
-    if (shouldShowReset) {
-        resetTrackerDisplayLine.setScale(overlayCoordsData.crimsonIsleTrackerOverlay.scale - 0.2);
-        resetTrackerDisplay
-            .setRenderX(overlayCoordsData.crimsonIsleTrackerOverlay.x)
-            .setRenderY(overlayCoordsData.crimsonIsleTrackerOverlay.y + overlay.getHeight() + 2).show();
-    } else {
-        resetTrackerDisplay.hide();
-    }
+    toggleButtonsDisplay(buttonsDisplay, overlay, overlayCoordsData.crimsonIsleTrackerOverlay);
 }

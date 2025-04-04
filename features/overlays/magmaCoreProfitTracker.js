@@ -3,9 +3,10 @@ import * as triggers from '../../constants/triggers';
 import { overlayCoordsData } from "../../data/overlayCoords";
 import { BOLD, GOLD, RED, WHITE, BLUE, YELLOW, GREEN, AQUA, GRAY } from "../../constants/formatting";
 import { getWorldName, hasFishingRodInHotbar, isInSkyblock } from "../../utils/playerState";
-import {  formatElapsedTime, formatNumberWithSpaces, isDoubleHook, isInChatOrInventoryGui, toShortNumber } from "../../utils/common";
+import {  formatElapsedTime, formatNumberWithSpaces, isDoubleHook, toShortNumber } from "../../utils/common";
 import { CRYSTAL_HOLLOWS } from "../../constants/areas";
 import { getBazaarItemPrices } from "../../utils/bazaarPrices";
+import { createButtonsDisplay, toggleButtonsDisplay } from "../../utils/overlays";
 
 var totalMagmaCoresCount = 0;
 var lastAddedMagmaCoresCount = 0;
@@ -43,24 +44,7 @@ register('step', () => refreshTrackerData()).setDelay(5);
 
 register('renderOverlay', () => renderMagmaCoreTrackerOverlay());
 
-// DisplayLine is initialized once in order to avoid multiple method calls on click.
-let buttonsDisplay = new Display().hide();
-
-let pauseTrackerDisplayLine = new DisplayLine(`${YELLOW}[Click to pause]`).setShadow(true);
-pauseTrackerDisplayLine.registerClicked((x, y, mouseButton, buttonState) => {
-    if (mouseButton === 0 && buttonState === false) { // When left mouse button is UP. 0 is left mouse button, false is UP, true is DOWN. 
-        pauseMagmaCoreProfitTracker();
-    }
-});
-buttonsDisplay.addLine(pauseTrackerDisplayLine);
-
-let resetTrackerDisplayLine = new DisplayLine(`${RED}[Click to reset]`).setShadow(true);
-resetTrackerDisplayLine.registerClicked((x, y, mouseButton, buttonState) => {
-    if (mouseButton === 0 && buttonState === false) { // When left mouse button is UP. 0 is left mouse button, false is UP, true is DOWN. 
-        resetMagmaCoreProfitTracker(false);
-    }
-});
-buttonsDisplay.addLine(resetTrackerDisplayLine);
+const buttonsDisplay = createButtonsDisplay(true, () => resetMagmaCoreProfitTracker(false), true, () => pauseMagmaCoreProfitTracker());
 
 export function resetMagmaCoreProfitTracker(isConfirmed) {
     try {
@@ -235,14 +219,5 @@ function renderMagmaCoreTrackerOverlay() {
         .setScale(overlayCoordsData.magmaCoreProfitTrackerOverlay.scale);
     overlay.draw();
 
-    const shouldShowButtons = isInChatOrInventoryGui();
-    if (shouldShowButtons) {
-        resetTrackerDisplayLine.setScale(overlayCoordsData.magmaCoreProfitTrackerOverlay.scale - 0.2);
-        pauseTrackerDisplayLine.setScale(overlayCoordsData.magmaCoreProfitTrackerOverlay.scale - 0.2);
-        buttonsDisplay
-            .setRenderX(overlayCoordsData.magmaCoreProfitTrackerOverlay.x)
-            .setRenderY(overlayCoordsData.magmaCoreProfitTrackerOverlay.y + overlay.getHeight() + 2).show();
-    } else {
-        buttonsDisplay.hide();
-    }
+    toggleButtonsDisplay(buttonsDisplay, overlay, overlayCoordsData.magmaCoreProfitTrackerOverlay);
 }

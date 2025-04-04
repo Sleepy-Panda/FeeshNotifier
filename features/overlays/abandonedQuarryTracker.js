@@ -3,9 +3,10 @@ import { overlayCoordsData } from "../../data/overlayCoords";
 import { ABANDONED_QUARRY } from "../../constants/areas";
 import { AQUA, BOLD, GOLD, GRAY, GREEN, RED, WHITE, YELLOW } from "../../constants/formatting";
 import { ANY_MITHRIL_GRUBBER_MESSAGE } from "../../constants/triggers";
-import { formatElapsedTime, formatNumberWithSpaces, isDoubleHook, isFishingHookActive, isInChatOrInventoryGui } from "../../utils/common";
+import { formatElapsedTime, formatNumberWithSpaces, isDoubleHook, isFishingHookActive } from "../../utils/common";
 import { getLastGuisClosed, getZoneName, hasFishingRodInHotbar, isInSkyblock } from "../../utils/playerState";
 import { BLOATED_MITHRIL_GRUBBER, LARGE_MITHRIL_GRUBBER, MEDIUM_MITHRIL_GRUBBER, SMALL_MITHRIL_GRUBBER } from "../../constants/seaCreatures";
+import { createButtonsDisplay, toggleButtonsDisplay } from "../../utils/overlays";
 
 const SMALL_MITHRIL_GRUBBER_KEY = SMALL_MITHRIL_GRUBBER.toUpperCase();
 const MEDIUM_MITHRIL_GRUBBER_KEY = MEDIUM_MITHRIL_GRUBBER.toUpperCase();
@@ -32,24 +33,7 @@ let isSessionActive = false;
 let lastHookSeenAt = null;
 let previousMithrilPowder = null;
 
-// DisplayLine is initialized once in order to avoid multiple method calls on click.
-let buttonsDisplay = new Display().hide();
-
-let pauseTrackerDisplayLine = new DisplayLine(`${YELLOW}[Click to pause]`).setShadow(true);
-pauseTrackerDisplayLine.registerClicked((x, y, mouseButton, buttonState) => {
-    if (mouseButton === 0 && buttonState === false) { // When left mouse button is UP. 0 is left mouse button, false is UP, true is DOWN. 
-        pauseAbandonedQuarryTracker();
-    }
-});
-buttonsDisplay.addLine(pauseTrackerDisplayLine);
-
-let resetTrackerDisplayLine = new DisplayLine(`${RED}[Click to reset]`).setShadow(true);
-resetTrackerDisplayLine.registerClicked((x, y, mouseButton, buttonState) => {
-    if (mouseButton === 0 && buttonState === false) { // When left mouse button is UP. 0 is left mouse button, false is UP, true is DOWN. 
-        resetAbandonedQuarryTracker(false);
-    }
-});
-buttonsDisplay.addLine(resetTrackerDisplayLine);
+const buttonsDisplay = createButtonsDisplay(true, () => resetAbandonedQuarryTracker(false), true, () => pauseAbandonedQuarryTracker());
 
 register("Chat", (seaCreature, event) => {
     const isDoubleHooked = isDoubleHook();
@@ -298,14 +282,5 @@ function renderMithrilGrubberPowderTrackerOverlay() {
         .setScale(overlayCoordsData.abandonedQuarryTrackerOverlay.scale);
     overlay.draw();
 
-    const shouldShowButtons = isInChatOrInventoryGui();
-    if (shouldShowButtons) {
-        resetTrackerDisplayLine.setScale(overlayCoordsData.abandonedQuarryTrackerOverlay.scale - 0.2);
-        pauseTrackerDisplayLine.setScale(overlayCoordsData.abandonedQuarryTrackerOverlay.scale - 0.2);
-        buttonsDisplay
-            .setRenderX(overlayCoordsData.abandonedQuarryTrackerOverlay.x)
-            .setRenderY(overlayCoordsData.abandonedQuarryTrackerOverlay.y + overlay.getHeight() + 2).show();
-    } else {
-        buttonsDisplay.hide();
-    }
+    toggleButtonsDisplay(buttonsDisplay, overlay, overlayCoordsData.abandonedQuarryTrackerOverlay);
 }
