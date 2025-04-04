@@ -917,6 +917,15 @@ const config = new DefaultConfig("FeeshNotifier", "config/settings.json")
     value: true
 })
 
+.addDropDown({
+    category: "Overlays",
+    configName: "buttonsPosition",
+    title: "Buttons position",
+    description: "Where to place Reset / Pause buttons relatively to an overlay.",
+    options: ["Bottom","Top"],
+    value: 0,
+    subcategory: "General"
+})
 .addSwitch({
     category: "Overlays",
     configName: "totemRemainingTimeOverlay",

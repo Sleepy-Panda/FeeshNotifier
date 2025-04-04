@@ -5,7 +5,8 @@
 Released: ???
 
 Features:
-- Added setting to ignore renderong of attributes for specific items. Search for "Ignored items" in Attributes section, and fill in item names to not see attributes on them.
+- Added setting to ignore rendering of attributes for specific items. Search for "Ignored items" in Attributes section, and fill in item names to not see attributes on them.
+- Added setting to display overlay buttons (Reset / Pause) on top of the overlay. Search for "Buttons position" setting in Overlays section.
 
 Bugfixes:
 - Fixed Frozen Steve catch message not being compacted.
