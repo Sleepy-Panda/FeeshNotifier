@@ -1,8 +1,16 @@
 # Releases
 
-## v1.35.0
+## v1.36.0
 
 Released: ???
+
+Features:
+
+Bugfixes:
+
+## v1.35.0
+
+Released: 2025-04-04
 
 Features:
 - Added setting to ignore rendering of attributes for specific items. Search for "Ignored items" in Attributes section, and fill in item names to not see attributes on them.
