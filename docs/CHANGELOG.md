@@ -10,7 +10,8 @@ Features:
 
 Bugfixes:
 - Fixed Frozen Steve catch message not being compacted.
-- Fixed total profit in Fishing Profit Tracker being 0 after leveling up a pet with unknown price.
+- Fixed total profit in Fishing Profit Tracker being 0 after leveling up a soulbound pet.
+- Fixed error when new item is added to bazaar by SB and has not full details exposed from the Hypixel API.
 
 Other:
 - Removed calculation of Orb of Energy profits as Pulse Rings (justification - it was added when Orb of Energy was soulbound, but now it can be sold on bazaar, so removed recalculation for consistency).
