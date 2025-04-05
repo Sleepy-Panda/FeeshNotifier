@@ -1466,6 +1466,14 @@ ${RED}Hidden if you have no fishing rod in your hotbar!`,
     subcategory: "Item lore"
 })
 
+.addTextParagraph({
+    category: "World",
+    configName: "worldBoxingText",
+    title: "Boxing",
+    description: `This section allows to draw boxes around some entities. ${BOLD}Boxes are not visible through walls!\n${RED}Hidden if you have no fishing rod in your hotbar!`,
+    centered: false,
+    subcategory: "Boxing"
+})
 .addSlider({
     category: "World",
     configName: "boxLineWidth",
@@ -1477,30 +1485,37 @@ ${RED}Hidden if you have no fishing rod in your hotbar!`,
 })
 .addSwitch({
     category: "World",
-    configName: "boxWikiTikiLaserTotems",
+    configName: "boxWikiTikiLaserTotem",
     title: "Box Wiki Tiki Laser Totems",
-    description: "Render box around Wiki Tiki Laser Totems nearby. Not visible through walls!",
+    description: "Render box around Wiki Tiki Laser Totems nearby.",
     subcategory: "Boxing"
 })
 .addSwitch({
     category: "World",
     configName: "boxBlueRingedOctopus",
-    title: "Box Blue Ringed Octopus",
-    description: "Render box around Blue Ringed Octopuses nearby. Not visible through walls!",
+    title: "Box Blue Ringed Octopuses",
+    description: "Render box around Blue Ringed Octopuses nearby.",
     subcategory: "Boxing"
 })
 .addSwitch({
     category: "World",
     configName: "boxTitanoboaHead",
-    title: "Box Titanoboa Head",
-    description: "Render box around Titanoboa Heads nearby. Not visible through walls!",
+    title: "Box Titanoboa Heads",
+    description: "Render box around Titanoboa Heads nearby.",
+    subcategory: "Boxing"
+})
+.addSwitch({
+    category: "World",
+    configName: "boxFieryScuttler",
+    title: "Box Fiery Scuttlers",
+    description: "Render box around Fiery Scuttlers nearby.",
     subcategory: "Boxing"
 })
 .addSwitch({
     category: "World",
     configName: "boxJawbusFollowers",
     title: "Box Jawbus Followers",
-    description: "Render box around Jawbus Followers nearby. Not visible through walls!",
+    description: "Render box around Jawbus Followers nearby.",
     subcategory: "Boxing"
 })
 

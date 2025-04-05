@@ -1,12 +1,14 @@
 import settings from "../../settings";
 import { BACKWATER_BAYOU, CRIMSON_ISLE, WATER_HOTSPOT_WORLDS } from "../../constants/areas";
-import { getWorldName, isInSkyblock } from "../../utils/playerState";
+import { getWorldName, hasFishingRodInHotbar, isInSkyblock } from "../../utils/playerState";
 import { registerIf } from "../../utils/registers";
 import RenderLibV2 from "../../../RenderLibV2";
 import { EntityArmorStand } from "../../constants/javaTypes";
 
 let boxedEntities = [];
-const boxColor = {
+
+const CAN_SEE_THROUGH_WALLS = false;
+const BOX_COLOR = {
     r: 85 / 255,
     g: 255 / 255,
     b: 255 / 255,
@@ -31,16 +33,17 @@ function isRegisterEnabled() {
     const worldName = getWorldName();
     return isInSkyblock() &&
     (
-        (settings.boxWikiTikiLaserTotems && WATER_HOTSPOT_WORLDS.includes(worldName)) ||
+        (settings.boxWikiTikiLaserTotem && WATER_HOTSPOT_WORLDS.includes(worldName)) ||
         (settings.boxTitanoboaHead && worldName === BACKWATER_BAYOU) ||
         (settings.boxBlueRingedOctopus && WATER_HOTSPOT_WORLDS.includes(worldName)) ||
+        (settings.boxFieryScuttler && worldName === CRIMSON_ISLE) ||
         (settings.boxJawbusFollowers && worldName === CRIMSON_ISLE)
     );
 }
 
 function trackEntitiesToBox() {
     try {
-        if (!isRegisterEnabled()) {
+        if (!isRegisterEnabled() || !hasFishingRodInHotbar()) {
             return;
         }
     
@@ -51,13 +54,13 @@ function trackEntitiesToBox() {
         entities.forEach(entity => {
             const plainName = entity?.getName()?.removeFormatting();
     
-            if (
-                (
-                    settings.boxWikiTikiLaserTotems && plainName.includes('Wiki Tiki Laser Totem') ||
-                    settings.boxTitanoboaHead && plainName.includes('Titanoboa') ||
-                    settings.boxBlueRingedOctopus && plainName.includes('Blue Ringed Octopus') ||
-                    settings.boxJawbusFollowers && plainName.includes('Jawbus Follower')
-                ) && plainName.includes('❤') && entity.distanceTo(player) <= 30
+            if (plainName.includes('❤') && (
+                    (settings.boxWikiTikiLaserTotem && plainName.includes('Wiki Tiki Laser Totem')) ||
+                    (settings.boxTitanoboaHead && plainName.includes('Titanoboa')) ||
+                    (settings.boxBlueRingedOctopus && plainName.includes('Blue Ringed Octopus')) ||
+                    (settings.boxFieryScuttler && plainName.includes('Fiery Scuttler')) ||
+                    (settings.boxJawbusFollowers && plainName.includes('Jawbus Follower'))
+                ) && entity.distanceTo(player) <= 30
             ) {
                 const boxParameters = getBoxParameters(plainName);
                 currentEntities.push({
@@ -65,7 +68,7 @@ function trackEntitiesToBox() {
                     x: entity.getX(),
                     y: entity.getY(),
                     z: entity.getZ(),
-                    wz: boxParameters.wx,
+                    wx: boxParameters.wx,
                     wy: boxParameters.wy,
                     wz: boxParameters.wz
                 });
@@ -83,25 +86,19 @@ function getBoxParameters(plainName) {
     if (!plainName) return;
 
     switch (true) {
-        // case plainName.includes('Wiki Tiki Laser Totem'):
-        //     return { wx: 1, wy: 1, wz: 1 };
-        // case plainName.includes('Titanoboa'):
-        //     return { wx: 1, wy: 1, wz: 1 };
-        // case plainName.includes('Blue Ringed Octopus'):
-        //     return { wx: 1, wy: 1, wz: 1 };
         case plainName.includes('Jawbus Follower'):
-            return { wx: 2, wy: 2, wz: 2 };
+            return { wx: 1, wy: 2, wz: 1 };
         default:
             return { wx: 1, wy: 1, wz: 1 };
     }
 }
 
 function boxEntities() {
-    if (!boxedEntities.length || !isRegisterEnabled()) {
+    if (!boxedEntities.length || !isRegisterEnabled() || !hasFishingRodInHotbar()) {
         return;
     }
 
     boxedEntities.forEach((entity) => {
-        RenderLibV2.drawEspBoxV2(entity.x, entity.y - 1, entity.z, entity.wx, entity.wy, entity.wz, boxColor.r, boxColor.g, boxColor.b, boxColor.a, false, settings.boxLineWidth);
+        RenderLibV2.drawEspBoxV2(entity.x, entity.y - entity.wy, entity.z, entity.wx, entity.wy, entity.wz, BOX_COLOR.r, BOX_COLOR.g, BOX_COLOR.b, BOX_COLOR.a, CAN_SEE_THROUGH_WALLS, settings.boxLineWidth);
     });
 }

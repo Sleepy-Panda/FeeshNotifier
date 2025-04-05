@@ -81,8 +81,8 @@ function trackSeaCreaturesHp() {
         let currentMobs = [];
         const entities = World.getAllEntitiesOfType(EntityArmorStand);
     
+        const player = Player.getPlayer();
         entities.forEach(entity => {
-            const player = Player.getPlayer();
             const name = entity?.getName();
             const plainName = entity?.getName()?.removeFormatting();
     
