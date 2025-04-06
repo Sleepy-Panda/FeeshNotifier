@@ -3,11 +3,12 @@ import * as triggers from '../../constants/triggers';
 import * as seaCreatures from '../../constants/seaCreatures';
 import { persistentData } from "../../data/data";
 import { overlayCoordsData } from "../../data/overlayCoords";
-import { formatNumberWithSpaces, fromUppercaseToCapitalizedFirstLetters, isDoubleHook, isInChatOrInventoryGui, pluralize } from '../../utils/common';
-import { WHITE, GOLD, BOLD, YELLOW, GRAY, RED, UNDERLINE } from "../../constants/formatting";
+import { formatNumberWithSpaces, fromUppercaseToCapitalizedFirstLetters, isDoubleHook, pluralize } from '../../utils/common';
+import { WHITE, GOLD, BOLD, YELLOW, GRAY, RED } from "../../constants/formatting";
 import { RARE_CATCH_TRIGGERS } from "../../constants/triggers";
 import { getWorldName, hasFishingRodInHotbar, isInSkyblock } from "../../utils/playerState";
 import { KUUDRA } from "../../constants/areas";
+import { createButtonsDisplay, toggleButtonsDisplay } from "../../utils/overlays";
 
 triggers.RARE_CATCH_TRIGGERS.forEach(entry => {
     register("Chat", (event) => {
@@ -24,17 +25,7 @@ register("gameUnload", () => {
     }
 });
 
-// DisplayLine is initialized once in order to avoid multiple method calls on click.
-let resetTrackerDisplay = new Display().hide();
-let resetTrackerDisplayLine = new DisplayLine(`${RED}[Click to reset]`).setShadow(true);
-resetTrackerDisplayLine.registerClicked((x, y, mouseButton, buttonState) => {
-    if (mouseButton === 0 && buttonState === false) { // When left mouse button is UP. 0 is left mouse button, false is UP, true is DOWN. 
-        resetRareCatchesTracker(false);
-    }
-});
-resetTrackerDisplayLine.registerHovered(() => resetTrackerDisplayLine.setText(`${RED}${UNDERLINE}[Click to reset]`).setShadow(true));
-resetTrackerDisplayLine.registerMouseLeave(() => resetTrackerDisplayLine.setText(`${RED}[Click to reset]`).setShadow(true));
-resetTrackerDisplay.addLine(resetTrackerDisplayLine);
+const buttonsDisplay = createButtonsDisplay(true, () => resetRareCatchesTracker(false), false, null);
 
 export function resetRareCatchesTracker(isConfirmed) {
     try {
@@ -118,7 +109,7 @@ function renderRareCatchTrackerOverlay() {
         !hasFishingRodInHotbar() ||
         allOverlaysGui.isOpen()
     ) {
-        resetTrackerDisplay.hide();
+        buttonsDisplay.hide();
         return;
     }
 
@@ -143,13 +134,5 @@ function renderRareCatchTrackerOverlay() {
         .setScale(overlayCoordsData.rareCatchesTrackerOverlay.scale);
     overlay.draw();
 
-    const shouldShowReset = isInChatOrInventoryGui();
-    if (shouldShowReset) {
-        resetTrackerDisplayLine.setScale(overlayCoordsData.rareCatchesTrackerOverlay.scale - 0.2);
-        resetTrackerDisplay
-            .setRenderX(overlayCoordsData.rareCatchesTrackerOverlay.x)
-            .setRenderY(overlayCoordsData.rareCatchesTrackerOverlay.y + overlay.getHeight() + 2).show(); 
-    } else {
-        resetTrackerDisplay.hide();
-    }
+    toggleButtonsDisplay(buttonsDisplay, overlay, overlayCoordsData.rareCatchesTrackerOverlay);
 }

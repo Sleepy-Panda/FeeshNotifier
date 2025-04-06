@@ -1,21 +1,19 @@
 - Track catches for Ragnarok in crimson isle tracker (when in hotspot).
-- Track double hooks in Rare Catches Tracker
-- Box Wiki Tiki totems, Jawbus followers
+- Track double hooks count and % in Rare Catches Tracker
 - Hotspot search
 - Offer supercrafting or BZ sell when items like raw fish goes to inventory (sacks are full).
-- Some items are tracked by profit tracker when dropped, but drop was prevented by SB settings (basically it drops and picks up again).
-- Scavenged coins
-- Ice Essence drop from mobs
-- [Bug] Some items are tracked by profit tracker when dropped, but drop was prevented by SB settings (basically it drops and picks up again).
-- Calculate pet price in profit tracker as difference between lvl 1 and lvl 100
+- Track scavenged coins in Fishing Profit Tracker
+- Track Ice Essence drop from mobs in Fishing Profit Tracker
+- [Bug] Some items are tracked by Fishing Profit Tracker when dropped, but drop was prevented by SB settings (basically it drops and picks up again).
+- [Bug] Fishing Profit Tracker recalculates profits/h too often when in "display buttons" mode.
+- [Bug] Trading with other players adds items to the profit trackers.
+- Calculate pet price in Fishing Profit Tracker as difference between lvl 1 and lvl 100
   - Also, there are requests to track pet level progress in coins
 - Remove double hook reindrake logic because DH is not possible now
-- Probably remove calculation of profits in Pulse Rings
-- [Bug] Total price is set to 0 in Profit tracker while other lines being normal (very rare and seems random).
-- Sea creatures/hour [Aidan]
+- Sea creatures/hour
 - Disable functionalities in Dungeons, Garden same way as it's done for Kuudra.
 - Rain/Thunder widget
-- Find out price calculation for Kuudra Keys in profit tracker
+- Find out price calculation for Kuudra Keys in Fishing Profit Tracker
 - Achievements (ScathaPro / SBO as reference)
 - Party chat commands
   - !feeshsincejawbus
@@ -33,9 +31,8 @@
   - Ability to test sound from settings
   - Toggle setting to enable customization
 - Render mob immunity flag
-- Highlight rare sea creatures
+- Highlight / box rare sea creatures (make this not visible through walls)
 - Total and session tracker, or ability to load named session
-- Trading with other players adds items to the profit trackers
 - Multiple drops that happen at the same time lead to "You're sending messages too fast" error.
 - Personal cap alert (20 for CH, 5 for Crimson)
 - Expertise widget
