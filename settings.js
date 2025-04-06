@@ -1480,7 +1480,7 @@ ${RED}Hidden if you have no fishing rod in your hotbar!`,
     title: "Box line width",
     description: "The line width for boxing the entities.",
     options: [1, 10],
-    value: 5,
+    value: 2,
     subcategory: "Boxing"
 })
 .addSwitch({
