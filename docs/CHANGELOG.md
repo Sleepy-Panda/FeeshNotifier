@@ -8,7 +8,7 @@ Features:
 - Added option to box some entities hardly visible in the world [disabled by default]:
   - Boxing added for Wiki Tiki, Wiki Tiki Laser Totem, Blue Ringed Octopus, Titanoboa's Head, Fiery Scuttler, Jawbus Follower.
   - Rendered box is not visible through walls.
-  - Observe new settings category named World, to enable.
+  - Observe new settings category named Rendering, to enable.
 
 Bugfixes:
 - Changed Nether Star rarity to Legendary in Fishing Profit Tracker.
