@@ -8,11 +8,6 @@ import { registerIf } from "../../utils/registers";
 import { NO_FISHING_WORLDS } from "../../constants/areas";
 import { createButtonsDisplay, toggleButtonsDisplay } from "../../utils/overlays";
 
-// Recalculate evry second or more rare?
-// Reset
-// Pause button
-// Sample
-
 let seaCreaturesPerHour = 0;
 let totalSeaCreaturesCaughtCount = 0;
 let lastSeaCreatureCaughtAt = null;
@@ -62,7 +57,7 @@ export function resetSeaCreaturesPerHourTracker(isConfirmed) {
         ChatLib.chat(`${GOLD}[FeeshNotifier] ${WHITE}Sea creatures per hour tracker was reset.`);
     } catch (e) {
         console.error(e);
-        console.log(`[FeeshNotifier] [SeaCreaturesPerHour] Failed to reset Sea creatures per hour.`);
+        console.log(`[FeeshNotifier] [SeaCreaturesPerHour] Failed to reset Sea creatures per hour tracker.`);
     }
 }
 
@@ -83,6 +78,7 @@ function pauseSeaCreaturesPerHourTracker() {
 function refreshElapsedTime() {
     try {
         if (!isSessionActive || !settings.seaCreaturesPerHourTrackerOverlay || !isInSkyblock() || !hasFishingRodInHotbar()) {
+            isSessionActive = false;
             return;
         }
 
@@ -143,7 +139,7 @@ function renderTrackerOverlay() {
     if (!settings.seaCreaturesPerHourTrackerOverlay ||
         !isInSkyblock() ||
         !hasFishingRodInHotbar() ||
-        (!totalSeaCreaturesCaughtCount || !seaCreaturesPerHour) ||
+        (!totalSeaCreaturesCaughtCount && !seaCreaturesPerHour) ||
         allOverlaysGui.isOpen()
     ) {
         buttonsDisplay.hide();
