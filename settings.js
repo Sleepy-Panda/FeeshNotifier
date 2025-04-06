@@ -1479,8 +1479,15 @@ ${RED}Hidden if you have no fishing rod in your hotbar!`,
     configName: "boxLineWidth",
     title: "Box line width",
     description: "The line width for boxing the entities.",
-    options: [2, 10],
+    options: [1, 10],
     value: 5,
+    subcategory: "Boxing"
+})
+.addSwitch({
+    category: "World",
+    configName: "boxWikiTiki",
+    title: "Box Wiki Tikis",
+    description: "Render box around Wiki Tikis nearby.",
     subcategory: "Boxing"
 })
 .addSwitch({
