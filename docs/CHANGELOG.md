@@ -11,6 +11,7 @@ Features:
   - Observe new settings category named World, to enable.
 
 Bugfixes:
+- Changed Nether Star rarity to Legendary in Fishing Profit Tracker.
 
 ## v1.35.0
 
