@@ -48,7 +48,7 @@ function trackEntitiesToBox() {
         entities.forEach(entity => {
             const plainName = entity?.getName()?.removeFormatting();
     
-            if (plainName.includes('❤') && (
+            if (plainName.includes('[Lv') && plainName.includes('❤') && (
                     (settings.boxWikiTiki && plainName.includes('Wiki Tiki') && !plainName.includes('Laser Totem')) ||
                     (settings.boxWikiTikiLaserTotem && plainName.includes('Wiki Tiki Laser Totem')) ||
                     (settings.boxTitanoboaHead && plainName.includes('Titanoboa')) ||
