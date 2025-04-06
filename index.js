@@ -49,7 +49,7 @@ import "./features/chat/messageOnRevenant";
 import "./features/chat/messageOnHotspotFound";
 import "./features/chat/compactCatchMessages";
 
-import "./features/world/boxEntities";
+import "./features/rendering/boxEntities";
 
 register('worldLoad', () => {
     Client.showTitle('', '', 1, 1, 1); // Shitty fix for a title not showing for the 1st time
