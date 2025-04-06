@@ -9,6 +9,7 @@ Features:
   - Boxing added for Wiki Tiki, Wiki Tiki Laser Totem, Blue Ringed Octopus, Titanoboa's Head, Fiery Scuttler, Jawbus Follower.
   - Rendered box is not visible through walls.
   - Observe new settings category named Rendering, to enable.
+- Added "sea creatures per hour" tracker [disabled by default].
 
 Bugfixes:
 - Changed Nether Star rarity to Legendary in Fishing Profit Tracker.

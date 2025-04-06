@@ -1,11 +1,12 @@
 import settings, { allOverlaysGui } from "../../settings";
 import * as triggers from "../../constants/triggers";
-import { AQUA, BOLD, GOLD, RED, WHITE, YELLOW } from "../../constants/formatting";
+import { AQUA, BOLD, GOLD, GRAY, RED, WHITE, YELLOW } from "../../constants/formatting";
 import { overlayCoordsData } from "../../data/overlayCoords";
-import { formatElapsedTime, formatNumberWithSpaces, isDoubleHook, isInChatOrInventoryGui } from "../../utils/common";
+import { formatElapsedTime, formatNumberWithSpaces, isDoubleHook } from "../../utils/common";
 import { getWorldName, hasFishingRodInHotbar, isInSkyblock } from '../../utils/playerState';
 import { registerIf } from "../../utils/registers";
 import { NO_FISHING_WORLDS } from "../../constants/areas";
+import { createButtonsDisplay, toggleButtonsDisplay } from "../../utils/overlays";
 
 // Recalculate evry second or more rare?
 // Reset
@@ -39,22 +40,13 @@ register("worldUnload", () => {
     isSessionActive = false;
 });
 
-let buttonsDisplay = new Display().hide();
-let resetTrackerDisplayLine = new DisplayLine(`${RED}[Click to reset]`).setShadow(true);
-resetTrackerDisplayLine.registerClicked((x, y, mouseButton, buttonState) => {
-    if (mouseButton === 0 && buttonState === false) { // When left mouse button is UP. 0 is left mouse button, false is UP, true is DOWN. 
-        resetSeaCreaturesPerHourTracker(false);
-    }
-});
-resetTrackerDisplayLine.registerHovered(() => resetTrackerDisplayLine.setText(`${RED}${UNDERLINE}[Click to reset]`).setShadow(true));
-resetTrackerDisplayLine.registerMouseLeave(() => resetTrackerDisplayLine.setText(`${RED}[Click to reset]`).setShadow(true));
-buttonsDisplay.addLine(resetTrackerDisplayLine);
+const buttonsDisplay = createButtonsDisplay(true, () => resetSeaCreaturesPerHourTracker(false), true, () => pauseSeaCreaturesPerHourTracker());
 
 export function resetSeaCreaturesPerHourTracker(isConfirmed) {
     try {
         if (!isConfirmed) {
             new Message(
-                new TextComponent(`${GOLD}[FeeshNotifier] ${WHITE}Do you want to reset Sea creatures per hour? ${RED}${BOLD}[Click to confirm]`)
+                new TextComponent(`${GOLD}[FeeshNotifier] ${WHITE}Do you want to reset Sea creatures per hour tracker? ${RED}${BOLD}[Click to confirm]`)
                     .setClickAction('run_command')
                     .setClickValue('/feeshResetSeaCreaturesPerHour noconfirm')
             ).chat();
@@ -74,9 +66,23 @@ export function resetSeaCreaturesPerHourTracker(isConfirmed) {
     }
 }
 
+function pauseSeaCreaturesPerHourTracker() {
+    try {
+        if (!settings.seaCreaturesPerHourTrackerOverlay || !isInSkyblock() || !hasFishingRodInHotbar() || !isSessionActive) {
+            return;
+        }
+    
+        isSessionActive = false;
+        ChatLib.chat(`${GOLD}[FeeshNotifier] ${WHITE}Sea creatures per hour tracker is paused. Continue fishing to resume it.`);       
+    } catch (e) {
+        console.error(e);
+		console.log(`[FeeshNotifier] Failed to pause Sea creatures per hour tracker.`);
+    }
+}
+
 function refreshElapsedTime() {
     try {
-        if (!isSessionActive || !settings.seaCreaturesPerHourOverlay || !isInSkyblock() || !hasFishingRodInHotbar()) {
+        if (!isSessionActive || !settings.seaCreaturesPerHourTrackerOverlay || !isInSkyblock() || !hasFishingRodInHotbar()) {
             return;
         }
 
@@ -98,7 +104,7 @@ function refreshElapsedTime() {
 
 function trackSeaCreatureCatch() {
     try {
-        if (!settings.seaCreaturesPerHourOverlay || !isInSkyblock() || !hasFishingRodInHotbar()) {
+        if (!settings.seaCreaturesPerHourTrackerOverlay || !isInSkyblock() || !hasFishingRodInHotbar() || NO_FISHING_WORLDS.includes(getWorldName())) {
             return;
         }
 
@@ -113,7 +119,7 @@ function trackSeaCreatureCatch() {
         refreshTrackerData();
     } catch (e) {
         console.error(e);
-        console.log(`[FeeshNotifier] [SeaCreaturesPerHour] Failed to track magma fields catch.`);
+        console.log(`[FeeshNotifier] [SeaCreaturesPerHour] Failed to track sea creature catch.`);
     }
 }
 
@@ -145,25 +151,15 @@ function renderTrackerOverlay() {
     }
 
     const pausedText = isSessionActive ? '' : ` ${YELLOW}[Paused]`;
-    let text = `${GOLD}${BOLD}Sea creatures/hour: `;
-    text += `${WHITE}${formatNumberWithSpaces(seaCreaturesPerHour)}`;
-
-    text += `\n${GOLD}${BOLD}Total: ${WHITE}${formatNumberWithSpaces(totalSeaCreaturesCaughtCount)}`; //  TODO
-    text += `\n${AQUA}${BOLD}Elapsed time: ${WHITE}${formatElapsedTime(elapsedSeconds)}${pausedText}`;
+    let text = `${YELLOW}${BOLD}Sea creatures per hour`;
+    text += `\n${WHITE}${formatNumberWithSpaces(seaCreaturesPerHour)} ${GRAY}per hour ${GRAY}(${WHITE}${formatNumberWithSpaces(totalSeaCreaturesCaughtCount)} ${GRAY}total)`;
+    text += `\n`;
+    text += `\n${AQUA}Elapsed time: ${WHITE}${formatElapsedTime(elapsedSeconds)}${pausedText}`;
 
     const overlay = new Text(text, overlayCoordsData.seaCreaturesPerHourTrackerOverlay.x, overlayCoordsData.seaCreaturesPerHourTrackerOverlay.y)
         .setShadow(true)
         .setScale(overlayCoordsData.seaCreaturesPerHourTrackerOverlay.scale);
     overlay.draw();
 
-    const shouldShowButtons = isInChatOrInventoryGui();
-    if (shouldShowButtons) {
-        resetTrackerDisplayLine.setScale(overlayCoordsData.seaCreaturesPerHourTrackerOverlay.scale - 0.2);
-        //pauseTrackerDisplayLine.setScale(overlayCoordsData.magmaCoreProfitTrackerOverlay.scale - 0.2);
-        buttonsDisplay
-            .setRenderX(overlayCoordsData.seaCreaturesPerHourTrackerOverlay.x)
-            .setRenderY(overlayCoordsData.seaCreaturesPerHourTrackerOverlay.y + overlay.getHeight() + 2).show();
-    } else {
-        buttonsDisplay.hide();
-    }
+    toggleButtonsDisplay(buttonsDisplay, overlay, overlayCoordsData.seaCreaturesPerHourTrackerOverlay);
 }
