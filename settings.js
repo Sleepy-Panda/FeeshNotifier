@@ -17,7 +17,7 @@ export const magmaCoreProfitTrackerOverlayGui = new Gui();
 export const abandonedQuarryTrackerOverlayGui = new Gui();
 export const fishingProfitTrackerOverlayGui = new Gui();
 
-const categories = ["General", "Chat", "Alerts", "Overlays", "Items and storages", "World", "Commands"]
+const categories = ["General", "Chat", "Alerts", "Overlays", "Items and storages", "Rendering", "Commands"]
 const config = new DefaultConfig("FeeshNotifier", "config/settings.json")
 
 .addButton({
@@ -1467,15 +1467,15 @@ ${RED}Hidden if you have no fishing rod in your hotbar!`,
 })
 
 .addTextParagraph({
-    category: "World",
-    configName: "worldBoxingText",
+    category: "Rendering",
+    configName: "renderingBoxingText",
     title: "Boxing",
     description: `This section allows to draw boxes around some entities. ${BOLD}Boxes are not visible through walls!\n${RED}Hidden if you have no fishing rod in your hotbar!`,
     centered: false,
     subcategory: "Boxing"
 })
 .addSlider({
-    category: "World",
+    category: "Rendering",
     configName: "boxLineWidth",
     title: "Box line width",
     description: "The line width for boxing the entities.",
@@ -1484,42 +1484,42 @@ ${RED}Hidden if you have no fishing rod in your hotbar!`,
     subcategory: "Boxing"
 })
 .addSwitch({
-    category: "World",
+    category: "Rendering",
     configName: "boxWikiTiki",
     title: "Box Wiki Tikis",
     description: "Render box around Wiki Tikis nearby.",
     subcategory: "Boxing"
 })
 .addSwitch({
-    category: "World",
+    category: "Rendering",
     configName: "boxWikiTikiLaserTotem",
     title: "Box Wiki Tiki Laser Totems",
     description: "Render box around Wiki Tiki Laser Totems nearby.",
     subcategory: "Boxing"
 })
 .addSwitch({
-    category: "World",
+    category: "Rendering",
     configName: "boxBlueRingedOctopus",
     title: "Box Blue Ringed Octopuses",
     description: "Render box around Blue Ringed Octopuses nearby.",
     subcategory: "Boxing"
 })
 .addSwitch({
-    category: "World",
+    category: "Rendering",
     configName: "boxTitanoboaHead",
     title: "Box Titanoboa Heads",
     description: "Render box around Titanoboa Heads nearby.",
     subcategory: "Boxing"
 })
 .addSwitch({
-    category: "World",
+    category: "Rendering",
     configName: "boxFieryScuttler",
     title: "Box Fiery Scuttlers",
     description: "Render box around Fiery Scuttlers nearby.",
     subcategory: "Boxing"
 })
 .addSwitch({
-    category: "World",
+    category: "Rendering",
     configName: "boxJawbusFollowers",
     title: "Box Jawbus Followers",
     description: "Render box around Jawbus Followers nearby.",
