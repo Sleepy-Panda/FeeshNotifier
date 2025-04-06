@@ -1043,7 +1043,7 @@ const config = new DefaultConfig("FeeshNotifier", "config/settings.json")
     category: "Overlays",
     configName: "seaCreaturesPerHourTrackerOverlay",
     title: "Sea creatures per hour tracker",
-    description: `Shows an overlay with the sea creatures per hour statistics. Not persistent - resets on MC restart.\n${RED}Hidden if you have no fishing rod in your hotbar!`,
+    description: `Shows an overlay with the sea creatures per hour, and total sea creatures caught per session. Not persistent - resets on MC restart.\n${RED}Hidden if you have no fishing rod in your hotbar!`,
     subcategory: "Sea creatures per hour tracker"
 })
 .addButton({

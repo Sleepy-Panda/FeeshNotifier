@@ -8,6 +8,11 @@ export const JERRY_WORKSHOP = 'Jerry\'s Workshop';
 export const SPIDERS_DEN = 'Spider\'s Den';
 export const KUUDRA = 'Kuudra';
 export const DUNGEONS = 'Catacombs';
+export const GARDEN = 'Garden';
+export const DUNGEON_HUB = 'Dungeon Hub';
+export const THE_END = 'The End';
+export const GLACITE_MINESHAFTS = 'Glacite Mineshafts';
+export const RIFT = 'Rift Dimension';
 
 export const WATER_HOTSPOT_WORLDS = [
     BACKWATER_BAYOU,
@@ -23,11 +28,11 @@ export const HOTSPOT_WORLDS = [
 ];
 
 export const NO_FISHING_WORLDS = [
-    'Rift Dimension',
-    'Garden',
+    RIFT,
+    GARDEN,
     KUUDRA,
     DUNGEONS,
-    'Dungeon Hub',
-    'The End',
-    'Glacite Mineshafts'
+    DUNGEON_HUB,
+    THE_END,
+    GLACITE_MINESHAFTS
 ];

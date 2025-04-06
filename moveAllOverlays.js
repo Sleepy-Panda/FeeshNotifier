@@ -62,7 +62,12 @@ ${GRAY}- ${LIGHT_PURPLE}Ragnarok: ${WHITE}1`,
     {
         toggleSettingKey: 'seaCreaturesPerHourTrackerOverlay',
         guiSettings: overlayCoordsData.seaCreaturesPerHourTrackerOverlay,
-        sampleText: `${GOLD}1000 ${GRAY}sea creatures/hour`,
+        sampleText: `
+${YELLOW}${BOLD}Sea creatures per hour
+${WHITE}1 000 ${GRAY}per hour (${WHITE}2 000 ${GRAY}total)
+
+${AQUA}Elapsed time: ${WHITE}2:00:00
+`,
         isActive: false,
         width: 0,
         height: 0

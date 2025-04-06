@@ -152,7 +152,7 @@ function renderTrackerOverlay() {
 
     const pausedText = isSessionActive ? '' : ` ${YELLOW}[Paused]`;
     let text = `${YELLOW}${BOLD}Sea creatures per hour`;
-    text += `\n${WHITE}${formatNumberWithSpaces(seaCreaturesPerHour)} ${GRAY}per hour ${GRAY}(${WHITE}${formatNumberWithSpaces(totalSeaCreaturesCaughtCount)} ${GRAY}total)`;
+    text += `\n${WHITE}${formatNumberWithSpaces(seaCreaturesPerHour)} ${GRAY}per hour (${WHITE}${formatNumberWithSpaces(totalSeaCreaturesCaughtCount)} ${GRAY}total)`;
     text += `\n`;
     text += `\n${AQUA}Elapsed time: ${WHITE}${formatElapsedTime(elapsedSeconds)}${pausedText}`;
 
