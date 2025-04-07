@@ -7,6 +7,7 @@
 - [Bug] Some items are tracked by Fishing Profit Tracker when dropped, but drop was prevented by SB settings (basically it drops and picks up again).
 - [Bug] Fishing Profit Tracker recalculates profits/h too often when in "display buttons" mode.
 - [Bug] Trading with other players adds items to the profit trackers.
+- [Bug] Magma Core Profit Tracker does not stop timer if move out rod and then return it back.
 - Calculate pet price in Fishing Profit Tracker as difference between lvl 1 and lvl 100
   - Also, there are requests to track pet level progress in coins
 - Remove double hook reindrake logic because DH is not possible now

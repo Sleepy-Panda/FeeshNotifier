@@ -9,6 +9,7 @@ export const flareRemainingTimeOverlayGui = new Gui();
 export const rareCatchesTrackerOverlayGui = new Gui();
 export const seaCreaturesHpOverlayGui = new Gui();
 export const seaCreaturesCountOverlayGui = new Gui();
+export const seaCreaturesPerHourTrackerOverlayGui = new Gui();
 export const legionAndBobbingTimeOverlayGui = new Gui();
 export const crimsonIsleTrackerOverlayGui = new Gui();
 export const jerryWorkshopTrackerOverlayGui = new Gui();
@@ -1035,6 +1036,34 @@ const config = new DefaultConfig("FeeshNotifier", "config/settings.json")
     subcategory: "Sea creatures count",
     onClick() {
         moveOverlay(seaCreaturesCountOverlayGui);
+    }
+})
+
+.addSwitch({
+    category: "Overlays",
+    configName: "seaCreaturesPerHourTrackerOverlay",
+    title: "Sea creatures per hour tracker",
+    description: `Shows an overlay with the sea creatures per hour, and total sea creatures caught per session. Not persistent - resets on MC restart.\n${RED}Hidden if you have no fishing rod in your hotbar!`,
+    subcategory: "Sea creatures per hour tracker"
+})
+.addButton({
+    category: "Overlays",
+    configName: "moveSeaCreaturesPerHourTrackerOverlay",
+    title: "Move Sea creatures per hour tracker",
+    description: "Allows to move and resize the overlay text.",
+    subcategory: "Sea creatures per hour tracker",
+    onClick() {
+        moveOverlay(seaCreaturesPerHourTrackerOverlayGui);
+    }
+})
+.addButton({
+    category: "Overlays",
+    configName: "resetSeaCreaturesPerHourTrackerOverlay",
+    title: "Reset Sea creatures per hour tracker",
+    description: `Resets tracking for Sea creatures per hour tracker. Executes ${AQUA}/feeshResetSeaCreaturesPerHour`,
+    subcategory: "Sea creatures per hour tracker",
+    onClick() {
+        ChatLib.command("feeshResetSeaCreaturesPerHour noconfirm", true);
     }
 })
 
