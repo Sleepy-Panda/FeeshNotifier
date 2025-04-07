@@ -14,6 +14,9 @@ Features:
 Bugfixes:
 - Changed Nether Star rarity to Legendary in Fishing Profit Tracker.
 
+Other:
+- Refactored Sea creature HP tracker to not execute any checks when setting is disabled / when being in a wrong world.
+
 ## v1.35.0
 
 Released: 2025-04-04
