@@ -109,10 +109,12 @@ function trackCatch(options) {
 }
 
 function renderRareCatchTrackerOverlay() {
+    const worldName = getWorldName();
     if (!settings.rareCatchesTrackerOverlay ||
         !Object.entries(persistentData.rareCatches).length ||
         !isInSkyblock() ||
-        NO_FISHING_WORLDS.includes(getWorldName()) ||
+        !worldName ||
+        NO_FISHING_WORLDS.includes(worldName) ||
         !hasFishingRodInHotbar() ||
         allOverlaysGui.isOpen()
     ) {
