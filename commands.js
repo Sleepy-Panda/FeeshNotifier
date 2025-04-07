@@ -1,4 +1,5 @@
 import settings from "./settings";
+import { moveAllGuis } from "./moveAllOverlays";
 import { resetRareCatchesTracker } from './features/overlays/rareCatchesTracker';
 import { resetCrimsonIsleTracker, setRadioactiveVials } from "./features/overlays/crimsonIsleTracker";
 import { resetJerryWorkshopTracker } from "./features/overlays/jerryWorkshopTracker";
@@ -9,8 +10,8 @@ import { resetDropNumbers } from "./features/chat/messageOnDrop";
 import { calculateFishingPetPrices } from "./features/commands/calculateFishingPetsPrices";
 import { calculateGearCraftPrices } from "./features/commands/calculateGearCraftPrices";
 import { showSpidersDenRainSchedule } from "./features/commands/showSpidersDenRainSchedule";
-import { moveAllGuis } from "./moveAllOverlays";
 import { resetAbandonedQuarryTracker } from "./features/overlays/abandonedQuarryTracker";
+import { resetSeaCreaturesPerHourTracker } from "./features/overlays/seaCreaturesPerHourTracker";
 
 register("command", (...args) => {
     settings.getConfig().openGui();
@@ -20,6 +21,11 @@ register("command", (...args) => {
     const isConfirmed = args[0] && args[0] === "noconfirm";
     resetRareCatchesTracker(!!isConfirmed);
 }).setName("feeshResetRareCatches");
+
+register("command", (...args) => {
+    const isConfirmed = args[0] && args[0] === "noconfirm";
+    resetSeaCreaturesPerHourTracker(!!isConfirmed);
+}).setName("feeshResetSeaCreaturesPerHour");
 
 register("command", (...args) => {
     const isConfirmed = args[0] && args[0] === "noconfirm";

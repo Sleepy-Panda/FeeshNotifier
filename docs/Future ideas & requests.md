@@ -1,14 +1,13 @@
 - Track catches for Ragnarok in crimson isle tracker (when in hotspot).
 - Track double hooks count and % in Rare Catches Tracker
-- Box Wiki Tiki totems, Jawbus followers
 - Hotspot search
 - Offer supercrafting or BZ sell when items like raw fish goes to inventory (sacks are full).
 - Track scavenged coins in Fishing Profit Tracker
 - Track Ice Essence drop from mobs in Fishing Profit Tracker
 - [Bug] Some items are tracked by Fishing Profit Tracker when dropped, but drop was prevented by SB settings (basically it drops and picks up again).
 - [Bug] Fishing Profit Tracker recalculates profits/h too often when in "display buttons" mode.
-- [Bug] Some items are tracked by Fishing Profit Tracker when dropped, but drop was prevented by SB settings (basically it drops and picks up again).
 - [Bug] Trading with other players adds items to the profit trackers.
+- [Bug] Magma Core Profit Tracker does not stop timer if move out rod and then return it back.
 - Calculate pet price in Fishing Profit Tracker as difference between lvl 1 and lvl 100
   - Also, there are requests to track pet level progress in coins
 - Remove double hook reindrake logic because DH is not possible now

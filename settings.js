@@ -9,6 +9,7 @@ export const flareRemainingTimeOverlayGui = new Gui();
 export const rareCatchesTrackerOverlayGui = new Gui();
 export const seaCreaturesHpOverlayGui = new Gui();
 export const seaCreaturesCountOverlayGui = new Gui();
+export const seaCreaturesPerHourTrackerOverlayGui = new Gui();
 export const legionAndBobbingTimeOverlayGui = new Gui();
 export const crimsonIsleTrackerOverlayGui = new Gui();
 export const jerryWorkshopTrackerOverlayGui = new Gui();
@@ -17,7 +18,7 @@ export const magmaCoreProfitTrackerOverlayGui = new Gui();
 export const abandonedQuarryTrackerOverlayGui = new Gui();
 export const fishingProfitTrackerOverlayGui = new Gui();
 
-const categories = ["General", "Chat", "Alerts", "Overlays", "Items and storages", "Commands"]
+const categories = ["General", "Chat", "Alerts", "Overlays", "Items and storages", "Rendering", "Commands"]
 const config = new DefaultConfig("FeeshNotifier", "config/settings.json")
 
 .addButton({
@@ -1040,6 +1041,34 @@ const config = new DefaultConfig("FeeshNotifier", "config/settings.json")
 
 .addSwitch({
     category: "Overlays",
+    configName: "seaCreaturesPerHourTrackerOverlay",
+    title: "Sea creatures per hour tracker",
+    description: `Shows an overlay with the sea creatures per hour, and total sea creatures caught per session. Not persistent - resets on MC restart.\n${RED}Hidden if you have no fishing rod in your hotbar!`,
+    subcategory: "Sea creatures per hour tracker"
+})
+.addButton({
+    category: "Overlays",
+    configName: "moveSeaCreaturesPerHourTrackerOverlay",
+    title: "Move Sea creatures per hour tracker",
+    description: "Allows to move and resize the overlay text.",
+    subcategory: "Sea creatures per hour tracker",
+    onClick() {
+        moveOverlay(seaCreaturesPerHourTrackerOverlayGui);
+    }
+})
+.addButton({
+    category: "Overlays",
+    configName: "resetSeaCreaturesPerHourTrackerOverlay",
+    title: "Reset Sea creatures per hour tracker",
+    description: `Resets tracking for Sea creatures per hour tracker. Executes ${AQUA}/feeshResetSeaCreaturesPerHour`,
+    subcategory: "Sea creatures per hour tracker",
+    onClick() {
+        ChatLib.command("feeshResetSeaCreaturesPerHour noconfirm", true);
+    }
+})
+
+.addSwitch({
+    category: "Overlays",
     configName: "legionAndBobbingTimeOverlay",
     title: "Legion & Bobbing Time",
     description: `Shows an overlay with the amount of players within 30 blocks (excluding you), and amount of fishing hooks within 30 blocks (including your own hook).\n${RED}Hidden if you have no fishing rod in your hotbar!\n\n${DARK_GRAY}If you have other players' hooks hidden by the mods, this may not work correctly. E.g. it works with NEU hooks hider, but doesn't work with Skytils.`,
@@ -1464,6 +1493,66 @@ ${RED}Hidden if you have no fishing rod in your hotbar!`,
     title: "Price per T1 attribute shard",
     description: "Render price per T1 attribute level in the auctioned Attribute Shard's lore, based on item's price. Helps to compare prices for high-tier attribute shards on AH.",
     subcategory: "Item lore"
+})
+
+.addTextParagraph({
+    category: "Rendering",
+    configName: "renderingBoxingText",
+    title: "Boxing",
+    description: `This section allows to draw boxes around some entities. ${BOLD}Boxes are not visible through walls!\n${RED}Hidden if you have no fishing rod in your hotbar!`,
+    centered: false,
+    subcategory: "Boxing"
+})
+.addSlider({
+    category: "Rendering",
+    configName: "boxLineWidth",
+    title: "Box line width",
+    description: "The line width for boxing the entities.",
+    options: [1, 10],
+    value: 2,
+    subcategory: "Boxing"
+})
+.addSwitch({
+    category: "Rendering",
+    configName: "boxWikiTiki",
+    title: "Box Wiki Tikis",
+    description: "Render box around Wiki Tikis nearby.",
+    subcategory: "Boxing"
+})
+.addSwitch({
+    category: "Rendering",
+    configName: "boxWikiTikiLaserTotem",
+    title: "Box Wiki Tiki Laser Totems",
+    description: "Render box around Wiki Tiki Laser Totems nearby.",
+    subcategory: "Boxing"
+})
+.addSwitch({
+    category: "Rendering",
+    configName: "boxBlueRingedOctopus",
+    title: "Box Blue Ringed Octopuses",
+    description: "Render box around Blue Ringed Octopuses nearby.",
+    subcategory: "Boxing"
+})
+.addSwitch({
+    category: "Rendering",
+    configName: "boxTitanoboaHead",
+    title: "Box Titanoboa Heads",
+    description: "Render box around Titanoboa Heads nearby.",
+    subcategory: "Boxing"
+})
+.addSwitch({
+    category: "Rendering",
+    configName: "boxFieryScuttler",
+    title: "Box Fiery Scuttlers",
+    description: "Render box around Fiery Scuttlers nearby.",
+    subcategory: "Boxing"
+})
+.addSwitch({
+    category: "Rendering",
+    configName: "boxJawbusFollowers",
+    title: "Box Jawbus Followers",
+    description: "Render box around Jawbus Followers nearby.",
+    subcategory: "Boxing"
 })
 
 .addButton({
