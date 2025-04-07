@@ -2,10 +2,9 @@ import settings, { allOverlaysGui } from "../../settings";
 import * as triggers from "../../constants/triggers";
 import { AQUA, BOLD, GOLD, GRAY, RED, WHITE, YELLOW } from "../../constants/formatting";
 import { overlayCoordsData } from "../../data/overlayCoords";
-import { formatElapsedTime, formatNumberWithSpaces, isDoubleHook } from "../../utils/common";
+import { formatElapsedTime, formatNumberWithSpaces, isDoubleHook, isInFishingWorld } from "../../utils/common";
 import { getWorldName, hasFishingRodInHotbar, isInSkyblock } from '../../utils/playerState';
 import { registerIf } from "../../utils/registers";
-import { NO_FISHING_WORLDS } from "../../constants/areas";
 import { createButtonsDisplay, toggleButtonsDisplay } from "../../utils/overlays";
 
 let seaCreaturesPerHour = 0;
@@ -17,18 +16,18 @@ let elapsedSeconds = 0;
 triggers.ALL_CATCHES_TRIGGERS.forEach(entry => {
     registerIf(
         register("Chat", (event) => trackSeaCreatureCatch()).setCriteria(entry.trigger).setContains(),
-        () => settings.seaCreaturesPerHourTrackerOverlay && isInSkyblock() && !NO_FISHING_WORLDS.includes(getWorldName())
+        () => settings.seaCreaturesPerHourTrackerOverlay && isInSkyblock() && isInFishingWorld(getWorldName())
     );  
 });
 
 registerIf(
     register('step', () => refreshElapsedTime()).setDelay(1),
-    () => settings.seaCreaturesPerHourTrackerOverlay && isInSkyblock() && !NO_FISHING_WORLDS.includes(getWorldName())
+    () => settings.seaCreaturesPerHourTrackerOverlay && isInSkyblock() && isInFishingWorld(getWorldName())
 );
 
 registerIf(
     register('renderOverlay', () => renderTrackerOverlay()),
-    () => settings.seaCreaturesPerHourTrackerOverlay && isInSkyblock() && !NO_FISHING_WORLDS.includes(getWorldName())
+    () => settings.seaCreaturesPerHourTrackerOverlay && isInSkyblock() && isInFishingWorld(getWorldName())
 );
 
 register("worldUnload", () => {
@@ -100,7 +99,7 @@ function refreshElapsedTime() {
 
 function trackSeaCreatureCatch() {
     try {
-        if (!settings.seaCreaturesPerHourTrackerOverlay || !isInSkyblock() || !hasFishingRodInHotbar() || NO_FISHING_WORLDS.includes(getWorldName())) {
+        if (!settings.seaCreaturesPerHourTrackerOverlay || !isInSkyblock() || !hasFishingRodInHotbar() || !isInFishingWorld(getWorldName())) {
             return;
         }
 
@@ -138,6 +137,7 @@ function refreshTrackerData() {
 function renderTrackerOverlay() {
     if (!settings.seaCreaturesPerHourTrackerOverlay ||
         !isInSkyblock() ||
+        !isInFishingWorld(getWorldName()) ||
         !hasFishingRodInHotbar() ||
         (!totalSeaCreaturesCaughtCount && !seaCreaturesPerHour) ||
         allOverlaysGui.isOpen()
