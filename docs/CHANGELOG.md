@@ -1,8 +1,18 @@
 # Releases
 
-## v1.36.0
+## v1.37.0
 
 Released: ???
+
+Features:
+- 
+
+Bugfixes:
+- 
+
+## v1.36.0
+
+Released: 2025-04-07
 
 Features:
 - Added option to box some entities hardly visible in the world [disabled by default]:

@@ -11,7 +11,6 @@
 - Calculate pet price in Fishing Profit Tracker as difference between lvl 1 and lvl 100
   - Also, there are requests to track pet level progress in coins
 - Remove double hook reindrake logic because DH is not possible now
-- Sea creatures/hour
 - Disable functionalities in Dungeons, Garden same way as it's done for Kuudra.
 - Rain/Thunder widget
 - Find out price calculation for Kuudra Keys in Fishing Profit Tracker
