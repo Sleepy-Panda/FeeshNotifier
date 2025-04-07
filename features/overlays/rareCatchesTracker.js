@@ -3,11 +3,10 @@ import * as triggers from '../../constants/triggers';
 import * as seaCreatures from '../../constants/seaCreatures';
 import { persistentData } from "../../data/data";
 import { overlayCoordsData } from "../../data/overlayCoords";
-import { formatNumberWithSpaces, fromUppercaseToCapitalizedFirstLetters, isDoubleHook, pluralize } from '../../utils/common';
+import { formatNumberWithSpaces, fromUppercaseToCapitalizedFirstLetters, isDoubleHook, isInFishingWorld, pluralize } from '../../utils/common';
 import { WHITE, GOLD, BOLD, YELLOW, GRAY, RED } from "../../constants/formatting";
 import { RARE_CATCH_TRIGGERS } from "../../constants/triggers";
 import { getWorldName, hasFishingRodInHotbar, isInSkyblock } from "../../utils/playerState";
-import { NO_FISHING_WORLDS } from "../../constants/areas";
 import { createButtonsDisplay, toggleButtonsDisplay } from "../../utils/overlays";
 import { registerIf } from "../../utils/registers";
 
@@ -17,13 +16,13 @@ triggers.RARE_CATCH_TRIGGERS.forEach(entry => {
             const isDoubleHooked = isDoubleHook();
             trackCatch({ seaCreature: entry.seaCreature, rarityColorCode: entry.rarityColorCode, isDoubleHook: isDoubleHooked });
         }).setCriteria(entry.trigger).setContains(),
-        () => settings.rareCatchesTrackerOverlay && isInSkyblock() && !NO_FISHING_WORLDS.includes(getWorldName())
+        () => settings.rareCatchesTrackerOverlay && isInSkyblock() && isInFishingWorld(getWorldName())
     );
 });
 
 registerIf(
     register('renderOverlay', () => renderRareCatchTrackerOverlay()),
-    () => settings.rareCatchesTrackerOverlay && isInSkyblock() && !NO_FISHING_WORLDS.includes(getWorldName())
+    () => settings.rareCatchesTrackerOverlay && isInSkyblock() && isInFishingWorld(getWorldName())
 );
 
 register("gameUnload", () => {
@@ -74,7 +73,7 @@ export function resetRareCatchesTracker(isConfirmed) {
 
 function trackCatch(options) {
     try {
-        if (!settings.rareCatchesTrackerOverlay || !isInSkyblock() || NO_FISHING_WORLDS.includes(getWorldName())) {
+        if (!settings.rareCatchesTrackerOverlay || !isInSkyblock() || !isInFishingWorld(getWorldName())) {
             return;
         }
     
@@ -109,12 +108,10 @@ function trackCatch(options) {
 }
 
 function renderRareCatchTrackerOverlay() {
-    const worldName = getWorldName();
     if (!settings.rareCatchesTrackerOverlay ||
         !Object.entries(persistentData.rareCatches).length ||
         !isInSkyblock() ||
-        !worldName ||
-        NO_FISHING_WORLDS.includes(worldName) ||
+        !isInFishingWorld(getWorldName()) ||
         !hasFishingRodInHotbar() ||
         allOverlaysGui.isOpen()
     ) {

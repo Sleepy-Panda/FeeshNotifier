@@ -1,3 +1,4 @@
+import { NO_FISHING_WORLDS } from '../constants/areas';
 import { RED, DARK_GRAY, BLUE, WHITE, BOLD, RESET } from '../constants/formatting';
 import { NBTTagString } from '../constants/javaTypes';
 import { EntityFishHook, NBTTagString } from '../constants/javaTypes';
@@ -440,6 +441,15 @@ export function getMessageId() {
 export function getZoneName() {
 	const zoneLine = Scoreboard.getLines().find((line) => line.getName().includes('⏣'));
 	return zoneLine?.trim() || '';
+}
+
+/**
+ * Check whether current world name supports fishing features.
+ * @returns {boolean}
+ */
+export function isInFishingWorld(worldName) {
+	if (!worldName) return false;
+	return !NO_FISHING_WORLDS.includes(worldName);
 }
 
 function getCurrentGuiChestName() {
