@@ -13,6 +13,7 @@ Bugfixes:
 Other:
 - Refactored Rare catches tracker to not execute any checks when setting is disabled / when being in a wrong world.
 - Refactored Abandoned Quarry tracker to not execute any checks when setting is disabled / when being in a wrong world.
+- Refactored Jerry Workshop tracker to not execute any checks when setting is disabled / when being in a wrong world.
 
 ## v1.36.0
 

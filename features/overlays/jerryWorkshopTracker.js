@@ -62,7 +62,7 @@ registerIf(
 register("worldUnload", () => {
     remainingWorkshopTime = null;
     sawWorkshopClosingMessage = false;
-    resetTrackerDisplay.hide();
+    buttonsDisplay.hide();
 });
 
 register("gameUnload", () => {
