@@ -1,8 +1,39 @@
 # Releases
 
-## v1.35.0
+## v1.37.0
 
 Released: ???
+
+Features:
+- 
+
+Bugfixes:
+- 
+
+Other:
+- Refactored Rare catches tracker to not execute any checks when setting is disabled / when being in a wrong world.
+- Refactored Abandoned Quarry tracker to not execute any checks when setting is disabled / when being in a wrong world.
+
+## v1.36.0
+
+Released: 2025-04-07
+
+Features:
+- Added option to box some entities hardly visible in the world [disabled by default]:
+  - Boxing added for Wiki Tiki, Wiki Tiki Laser Totem, Blue Ringed Octopus, Titanoboa's Head, Fiery Scuttler, Jawbus Follower.
+  - Rendered box is not visible through walls.
+  - Observe new settings category named Rendering, to enable.
+- Added "sea creatures per hour" tracker [disabled by default].
+
+Bugfixes:
+- Changed Nether Star rarity to Legendary in Fishing Profit Tracker.
+
+Other:
+- Refactored Sea creature HP tracker to not execute any checks when setting is disabled / when being in a wrong world.
+
+## v1.35.0
+
+Released: 2025-04-04
 
 Features:
 - Added setting to ignore rendering of attributes for specific items. Search for "Ignored items" in Attributes section, and fill in item names to not see attributes on them.

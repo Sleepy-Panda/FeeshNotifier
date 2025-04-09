@@ -1233,7 +1233,7 @@ export const FISHING_PROFIT_ITEMS = [
     {
         itemId: 'CORRUPTED_NETHER_STAR',
         itemName: 'Nether Star',
-        itemDisplayName: `${UNCOMMON}Nether Star`,
+        itemDisplayName: `${LEGENDARY}Nether Star`,
         npcPrice: 10000,
     },
     {
