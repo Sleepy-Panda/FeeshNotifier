@@ -8,7 +8,8 @@ Features:
 - 
 
 Bugfixes:
-- 
+- Fixed Totem of Corruption expiration alert triggering twice sometimes.
+- Fixed Totem of Corruption expiration alert triggering on other player's totem sometimes.
 
 Other:
 - Refactored Rare catches tracker to not execute any checks when setting is disabled / when being in a wrong world.
