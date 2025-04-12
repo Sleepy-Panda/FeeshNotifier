@@ -452,6 +452,26 @@ export function isInFishingWorld(worldName) {
 	return !NO_FISHING_WORLDS.includes(worldName);
 }
 
+/**
+ * Get MC entity ID.
+ * @param {Entity} entity
+ * @returns {number} ID
+ */
+export function getMcEntityId(entity) {
+    if (!entity || !entity.entity) return;
+    return entity.entity.func_145782_y(); // func_145782_y() -> getEntityId()
+}
+
+/**
+ * Get MC entity ID.
+ * @param {number} id MC entity ID
+ * @returns {object} MC entity
+ */
+export function getMcEntityById(id) {
+    if (!id) return;
+    return World.getWorld()?.func_73045_a(id); // func_73045_a() -> getEntityByID()
+}
+
 function getCurrentGuiChestName() {
 	if (Client.isInGui() && Client.currentGui?.getClassName() === 'GuiChest') {
 		const chestName = Client.currentGui?.get()?.field_147002_h?.func_85151_d()?.func_145748_c_()?.text;

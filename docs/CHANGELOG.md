@@ -8,13 +8,15 @@ Features:
 - 
 
 Bugfixes:
-- 
+- Fixed Totem of Corruption expiration alert triggering twice sometimes.
+- Fixed Totem of Corruption expiration alert triggering on other player's totem sometimes.
 
 Other:
 - Refactored Legion & Bobbing Time tracker to not execute any checks when setting is disabled / when being in a wrong world.
 - Refactored Rare catches tracker to not execute any checks when setting is disabled / when being in a wrong world.
 - Refactored Abandoned Quarry tracker to not execute any checks when setting is disabled / when being in a wrong world.
 - Refactored Jerry Workshop tracker to not execute any checks when setting is disabled / when being in a wrong world.
+- Refactored Totem tracker to not execute any checks when setting is disabled / when being in a wrong world.
 
 ## v1.36.0
 
