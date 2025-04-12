@@ -9,20 +9,37 @@ import { formatDate, formatNumberWithSpaces, formatTimeElapsedBetweenDates, isDo
 import { CRIMSON_ISLE } from "../../constants/areas";
 import { MEME_SOUND_MODE, NORMAL_SOUND_MODE, SAD_TROMBONE_SOUND_SOURCE } from "../../constants/sounds";
 import { createButtonsDisplay, toggleButtonsDisplay } from "../../utils/overlays";
+import { registerIf } from "../../utils/registers";
 
 triggers.REGULAR_CRIMSON_CATCH_TRIGGERS.forEach(entry => {
-    register("Chat", (event) => trackRegularSeaCreatureCatch()).setCriteria(entry.trigger).setContains();
+    registerIf(
+        register("Chat", (event) => trackRegularSeaCreatureCatch()).setCriteria(entry.trigger).setContains(),
+        () => settings.crimsonIsleTrackerOverlay && isInSkyblock() && getWorldName() === CRIMSON_ISLE
+    );
 });
 
 const thunderTrigger = triggers.RARE_CATCH_TRIGGERS.find(entry => entry.seaCreature === seaCreatures.THUNDER);
+registerIf(
+    register("Chat", (event) => trackThunderCatch()).setCriteria(thunderTrigger.trigger).setContains(),
+    () => settings.crimsonIsleTrackerOverlay && isInSkyblock() && getWorldName() === CRIMSON_ISLE
+);
+
 const lordJawbusTrigger = triggers.RARE_CATCH_TRIGGERS.find(entry => entry.seaCreature === seaCreatures.LORD_JAWBUS);
-register("Chat", (event) => trackThunderCatch()).setCriteria(thunderTrigger.trigger).setContains();
-register("Chat", (event) => trackLordJawbusCatch()).setCriteria(lordJawbusTrigger.trigger).setContains();
+registerIf(
+    register("Chat", (event) => trackLordJawbusCatch()).setCriteria(lordJawbusTrigger.trigger).setContains(),
+    () => settings.crimsonIsleTrackerOverlay && isInSkyblock() && getWorldName() === CRIMSON_ISLE
+);
 
 const radioactiveVialTrigger = triggers.RARE_DROP_TRIGGERS.find(entry => entry.trigger === triggers.RADIOACTIVE_VIAL_MESSAGE);
-register("Chat", (magicFind, event) => trackRadioctiveVialDrop()).setCriteria(radioactiveVialTrigger.trigger).setContains();
+registerIf(
+    register("Chat", (magicFind, event) => trackRadioctiveVialDrop()).setCriteria(radioactiveVialTrigger.trigger).setContains(),
+    () => settings.crimsonIsleTrackerOverlay && isInSkyblock() && getWorldName() === CRIMSON_ISLE
+);
 
-register('renderOverlay', () => renderCrimsonIsleTrackerOverlay());
+registerIf(
+    register('renderOverlay', () => renderCrimsonIsleTrackerOverlay()),
+    () => settings.crimsonIsleTrackerOverlay && isInSkyblock() && getWorldName() === CRIMSON_ISLE
+);
 
 register("gameUnload", () => {
     if (settings.crimsonIsleTrackerOverlay && settings.resetCrimsonIsleTrackerOnGameClosed && persistentData.crimsonIsle && (

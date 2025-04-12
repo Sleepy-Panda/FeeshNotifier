@@ -18,6 +18,7 @@ Other:
   - Rare catches tracker
   - Abandoned Quarry tracker
   - Jerry Workshop tracker
+  - Crimson Isle tracker
   - Totem of Corruption tracker
   - Flare tracker
 
