@@ -10,6 +10,7 @@ Features:
 Bugfixes:
 - Fixed Totem of Corruption expiration alert triggering twice sometimes.
 - Fixed Totem of Corruption expiration alert triggering on other player's totem sometimes.
+- Fixed double message when moving far away from Revenant slayer boss and then coming back.
 
 Other:
 - Refactored different functionality to not execute any checks when setting is disabled / when being in a wrong world:

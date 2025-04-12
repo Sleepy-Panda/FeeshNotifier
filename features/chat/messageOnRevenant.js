@@ -1,18 +1,24 @@
 import settings from '../../settings';
-import { DUNGEON_HUB, DUNGEONS, GARDEN, GLACITE_MINESHAFTS, KUUDRA, RIFT, THE_END } from '../../constants/areas';
+import { DUNGEON_HUB, DUNGEONS, GARDEN, GLACITE_MINESHAFTS, KUUDRA, PRIVATE_ISLAND, RIFT, THE_END } from '../../constants/areas';
 import { EntityArmorStand } from '../../constants/javaTypes';
 import { getWorldName, isInSkyblock } from '../../utils/playerState';
 import { registerIf } from '../../utils/registers';
+import { getMcEntityById, getMcEntityId } from '../../utils/common';
 
 const CHAT_COMMAND = 'pc';
-const EXCLUDED_WORLDS = [RIFT, GARDEN, KUUDRA, DUNGEON_HUB, DUNGEONS, THE_END, GLACITE_MINESHAFTS];
+const EXCLUDED_WORLDS = [PRIVATE_ISLAND, RIFT, GARDEN, KUUDRA, DUNGEON_HUB, DUNGEONS, THE_END, GLACITE_MINESHAFTS];
 
-let slayerUUID = null;
+let slayerID = null;
 
 registerIf(
     register('step', () => sendMessageOnRevenantSpawn()).setFps(3),
     () => settings.messageOnRevenantHorrorSpawn && isInSkyblock() && !EXCLUDED_WORLDS.includes(getWorldName())
 );
+
+register("worldUnload", () => {
+    slayerID = null;
+});
+
 
 function sendMessageOnRevenantSpawn() {
 	try {
@@ -22,37 +28,39 @@ function sendMessageOnRevenantSpawn() {
 	
         const entities = World.getAllEntitiesOfType(EntityArmorStand);
 
-        const slayerOwner = entities.find(entity => {
+        // ☠ Revenant Horror: 255719
+        // Timer: 255720
+        // Spawned by: 255721
+
+        const slayerOwnerArmorStand = entities.find(entity => {
             const plainName = entity?.getName()?.removeFormatting();
             return plainName.includes('Spawned by: ' + Player.getName());
         });
 
-        if (!slayerOwner) {
+        if (!slayerOwnerArmorStand) {
             return;
         }
 
-        const currentSlayerUUID = slayerOwner.getUUID();
+        const slayerOwnerArmorStandId = getMcEntityId(slayerOwnerArmorStand);
 
-        if (currentSlayerUUID === slayerUUID) {
+        const slayerTypeArmorStand = getMcEntityById(slayerOwnerArmorStandId - 2);
+        if (!slayerTypeArmorStand || !(slayerTypeArmorStand instanceof net.minecraft.entity.item.EntityArmorStand)) {
+            return;
+        }
+    
+        const slayerTypeArmorStandName = slayerTypeArmorStand.func_95999_t()?.removeFormatting(); // func_95999_t -> getCustomNameTag()
+        if (slayerTypeArmorStandName.endsWith(' 0❤') || (!slayerTypeArmorStandName.includes('☠ Revenant Horror') && !slayerTypeArmorStandName.includes('☠ Atoned Horror'))) {
             return;
         }
 
-        slayerUUID = currentSlayerUUID;
-
-	    const slayer = entities.find(entity => {
-            const plainName = entity?.getName()?.removeFormatting();
-            const position = entity.getPos();
-            return (plainName.includes('☠ Atoned Horror') || plainName.includes('☠ Revenant Horror'))
-                && !plainName?.endsWith(' 0❤')
-                && position.x === slayerOwner.getPos().x && position.z === slayerOwner.getPos().z
-                && entity.getPitch() === slayerOwner.getPitch()
-        });
-
-        if (!slayer) {
+        const currentSlayerID = slayerOwnerArmorStandId;
+        if (currentSlayerID === slayerID) {
             return;
         }
 
-        const location = `x: ${Math.round(slayer.getX())}, y: ${Math.round(slayer.getY())}, z: ${Math.round(slayer.getZ())}`;
+        slayerID = currentSlayerID;
+
+        const location = `x: ${Math.round(slayerOwnerArmorStand.getX())}, y: ${Math.round(slayerOwnerArmorStand.getY())}, z: ${Math.round(slayerOwnerArmorStand.getZ())}`;
 		const message = `${location} | Revenant Horror`;
 		ChatLib.command(CHAT_COMMAND + ' ' + message);
 	} catch (e) {
