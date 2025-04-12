@@ -3,8 +3,9 @@ import { GOLD, GRAY, GREEN, WHITE } from "../../constants/formatting";
 import { EntityFishHook } from "../../constants/javaTypes";
 import { overlayCoordsData } from "../../data/overlayCoords";
 import { getWorldName, hasFishingRodInHotbar, isInSkyblock } from "../../utils/playerState";
-import { KUUDRA } from "../../constants/areas";
 import { getPlayerNamesInRange } from "../../utils/entityDetection";
+import { registerIf } from "../../utils/registers";
+import { isInFishingWorld } from "../../utils/common";
 
 let playersCount = 0;
 let fishingHooksCount = 0;
@@ -14,8 +15,16 @@ const maxLegionCount = 20;
 const bobbingTimeDistance = 30;
 const maxBobbingTimeCount = 10;
 
-register('step', () => trackPlayersAndFishingHooksNearby()).setFps(2);
-register('renderOverlay', () => renderLegionAndBobbingTimeOverlay());
+registerIf(
+    register('step', () => trackPlayersAndFishingHooksNearby()).setFps(2),
+    () => settings.legionAndBobbingTimeOverlay && isInSkyblock() && isInFishingWorld(getWorldName())
+);
+
+registerIf(
+    register('renderOverlay', () => renderLegionAndBobbingTimeOverlay()),
+    () => settings.legionAndBobbingTimeOverlay && isInSkyblock() && isInFishingWorld(getWorldName())
+);
+
 register("worldUnload", () => {
     playersCount = 0;
     fishingHooksCount = 0;
@@ -25,7 +34,7 @@ function trackPlayersAndFishingHooksNearby() {
     if (!settings.legionAndBobbingTimeOverlay ||
         !isInSkyblock() ||
         !hasFishingRodInHotbar() ||
-        getWorldName() === KUUDRA
+        !isInFishingWorld(getWorldName())
     ) {
         return;
     }
@@ -45,7 +54,7 @@ function renderLegionAndBobbingTimeOverlay() {
     if (!settings.legionAndBobbingTimeOverlay ||
         !isInSkyblock() ||
         !hasFishingRodInHotbar() ||
-        getWorldName() === KUUDRA ||
+        !isInFishingWorld(getWorldName()) ||
         allOverlaysGui.isOpen()
     ) {
         return;
