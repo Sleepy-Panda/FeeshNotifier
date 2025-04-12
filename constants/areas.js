@@ -1,5 +1,6 @@
 export const CRIMSON_ISLE = 'Crimson Isle';
 export const HUB = 'Hub';
+export const PRIVATE_ISLAND = 'Private Island';
 export const CRYSTAL_HOLLOWS = 'Crystal Hollows';
 export const DWARVEN_MINES = 'Dwarven Mines';
 export const ABANDONED_QUARRY = 'Abandoned Quarry';
