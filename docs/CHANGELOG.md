@@ -19,6 +19,7 @@ Other:
   - Abandoned Quarry tracker
   - Jerry Workshop tracker
   - Crimson Isle tracker
+  - Magma Core profit tracker
   - Totem of Corruption tracker
   - Flare tracker
 
