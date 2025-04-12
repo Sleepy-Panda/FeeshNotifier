@@ -1,17 +1,22 @@
 import settings from '../../settings';
-import { DUNGEONS, KUUDRA } from '../../constants/areas';
+import { DUNGEON_HUB, DUNGEONS, GARDEN, GLACITE_MINESHAFTS, KUUDRA, RIFT, THE_END } from '../../constants/areas';
 import { EntityArmorStand } from '../../constants/javaTypes';
 import { getWorldName, isInSkyblock } from '../../utils/playerState';
+import { registerIf } from '../../utils/registers';
 
-const chatCommand = 'pc';
+const CHAT_COMMAND = 'pc';
+const EXCLUDED_WORLDS = [RIFT, GARDEN, KUUDRA, DUNGEON_HUB, DUNGEONS, THE_END, GLACITE_MINESHAFTS];
 
 let slayerUUID = null;
 
-register('step', () => sendMessageOnRevenantSpawn()).setFps(3);
+registerIf(
+    register('step', () => sendMessageOnRevenantSpawn()).setFps(3),
+    () => settings.messageOnRevenantHorrorSpawn && isInSkyblock() && !EXCLUDED_WORLDS.includes(getWorldName())
+);
 
 function sendMessageOnRevenantSpawn() {
 	try {
-		if (!settings.messageOnRevenantHorrorSpawn || !isInSkyblock() || getWorldName() === KUUDRA || getWorldName() === DUNGEONS) {
+		if (!settings.messageOnRevenantHorrorSpawn || !isInSkyblock() || EXCLUDED_WORLDS.includes(getWorldName())) {
 			return;
 		}
 	
@@ -49,7 +54,7 @@ function sendMessageOnRevenantSpawn() {
 
         const location = `x: ${Math.round(slayer.getX())}, y: ${Math.round(slayer.getY())}, z: ${Math.round(slayer.getZ())}`;
 		const message = `${location} | Revenant Horror`;
-		ChatLib.command(chatCommand + ' ' + message);
+		ChatLib.command(CHAT_COMMAND + ' ' + message);
 	} catch (e) {
 		console.error(e);
 		console.log(`[FeeshNotifier] Failed to send the message on Revenant spawn.`);

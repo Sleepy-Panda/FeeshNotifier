@@ -2,9 +2,9 @@ import settings from "../../settings";
 import { RED } from "../../constants/formatting";
 import { getWorldName, hasFishingRodInHotbar, isInSkyblock } from "../../utils/playerState";
 import { OFF_SOUND_MODE } from "../../constants/sounds";
-import { DUNGEONS, KUUDRA } from "../../constants/areas";
 import { EntityFishHook } from "../../constants/javaTypes";
-import { getLore, isFishingHookActive } from "../../utils/common";
+import { getLore, isFishingHookActive, isInFishingWorld } from "../../utils/common";
+import { registerIf } from "../../utils/registers";
 
 let lastHookDetectedAt = null;
 
@@ -12,11 +12,14 @@ register("worldUnload", () => {
     lastHookDetectedAt = null; 
 });
 
-register(net.minecraftforge.event.entity.EntityJoinWorldEvent, (event) => alertOnNonFishingArmor(event));
+registerIf(
+    register(net.minecraftforge.event.entity.EntityJoinWorldEvent, (event) => alertOnNonFishingArmor(event)),
+    () => settings.alertOnNonFishingArmor && isInSkyblock() && isInFishingWorld(getWorldName())
+);
 
 function alertOnNonFishingArmor(event) {
     try {
-        if (!settings.alertOnNonFishingArmor || !isInSkyblock() || !hasFishingRodInHotbar() || getWorldName() === KUUDRA || getWorldName() === DUNGEONS || !(event.entity instanceof EntityFishHook)) {
+        if (!settings.alertOnNonFishingArmor || !isInSkyblock() || !isInFishingWorld(getWorldName()) || !hasFishingRodInHotbar() || !(event.entity instanceof EntityFishHook)) {
             return;
         }
     
