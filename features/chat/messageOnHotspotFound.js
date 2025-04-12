@@ -5,11 +5,16 @@ import { BLUE, BOLD, GOLD, GRAY, LIGHT_PURPLE, RESET, WHITE, YELLOW } from "../.
 import { getMessageId, getZoneName } from "../../utils/common";
 import { OFF_SOUND_MODE } from "../../constants/sounds";
 import { findClosestHotspotInRange } from "../../utils/entityDetection";
+import { registerIf } from "../../utils/registers";
 
 let lastClosestHotspot = null;
 let lastFoundHotspotIds = []; // Remember 2 last found hotspots, to avoid announcing the same hotspots placed close to each other, when user is moving between them
 
-register("step", (event) => sendMessageOnHotspotFound()).setDelay(1);
+registerIf(
+    register("step", (event) => sendMessageOnHotspotFound()).setDelay(1),
+    () => settings.messageOnHotspotFound && isInSkyblock() && HOTSPOT_WORLDS.includes(getWorldName())
+);
+
 register("worldUnload", () => {
     lastClosestHotspot = null;
     lastFoundHotspotIds = [];

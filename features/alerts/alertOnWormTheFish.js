@@ -1,16 +1,22 @@
 import settings from "../../settings";
 import { RED, WHITE } from "../../constants/formatting";
 import { EntityItem } from "../../constants/javaTypes";
-import { hasDirtRodInHand, isInSkyblock } from "../../utils/playerState";
+import { getWorldName, hasDirtRodInHand, isInSkyblock } from "../../utils/playerState";
 import { OFF_SOUND_MODE } from "../../constants/sounds";
+import { registerIf } from "../../utils/registers";
+import { isInFishingWorld } from "../../utils/common";
 
 let wormTheFishCount = 0;
 
-register("step", () => alertOnWormTheFishCatch()).setFps(2);
+registerIf(
+    register("step", () => alertOnWormTheFishCatch()).setFps(2),
+    () => settings.alertOnWormTheFishCaught && isInSkyblock() && isInFishingWorld(getWorldName())
+);
 
 function alertOnWormTheFishCatch() {
     if (!settings.alertOnWormTheFishCaught ||
         !isInSkyblock() ||
+        !isInFishingWorld(getWorldName()) ||
         !hasDirtRodInHand()
     ) {
         return;

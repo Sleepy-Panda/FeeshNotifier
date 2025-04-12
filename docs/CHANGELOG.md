@@ -12,8 +12,8 @@ Bugfixes:
 - Fixed Totem of Corruption expiration alert triggering on other player's totem sometimes.
 
 Other:
-- Refactored different trackers to not execute any checks when setting is disabled / when being in a wrong world:
-  - Legion & Bobbing Time
+- Refactored different functionality to not execute any checks when setting is disabled / when being in a wrong world:
+  - Legion & Bobbing Time tracker
     - Also made it work only in "fishing" worlds.
   - Rare catches tracker
   - Abandoned Quarry tracker
@@ -22,6 +22,11 @@ Other:
   - Magma Core profit tracker
   - Totem of Corruption tracker
   - Flare tracker
+  - Alert of Hotspot gone
+  - Message on Hotspot found
+  - Message on Revenant spawned
+  - Alert on non-fishing armor
+  - Alert on Worm the Fish caught
 
 ## v1.36.0
 
