@@ -4,6 +4,7 @@ import { EntityFireworkRocket } from "../../constants/javaTypes";
 import { OFF_SOUND_MODE, TIMER_SOUND_SOURCE } from "../../constants/sounds";
 import { overlayCoordsData } from "../../data/overlayCoords";
 import { isInSkyblock } from "../../utils/playerState";
+import { registerIf } from "../../utils/registers";
 
 let isFlarePlaced = false;
 let flareName = null;
@@ -16,15 +17,29 @@ const secondsBeforeExpiration = 10;
 const flareDistance = 40;
 
 // We check for interaction with a flare, to minimize triggering on other people flares & other types of firework rockets e.g. Bat Fireworks.
-register("playerInteract", (action, pos, event) => handleFlareInteraction(action));
-register('step', () => trackFlareStatus()).setFps(1);
-register('renderOverlay', () => renderFlareOverlay());
+registerIf(
+    register("playerInteract", (action, pos, event) => handleFlareInteraction(action)),
+    () => (settings.alertOnFlareExpiresSoon || settings.flareRemainingTimeOverlay) && isInSkyblock()
+);
+
+registerIf(
+    register('step', () => trackFlareStatus()).setFps(1),
+    () => (settings.alertOnFlareExpiresSoon || settings.flareRemainingTimeOverlay) && isInSkyblock()
+);
+
+registerIf(
+    register('renderOverlay', () => renderFlareOverlay()),
+    () => settings.flareRemainingTimeOverlay && isInSkyblock()
+);
+
+registerIf(
+    register("chat", () => resetFlare()).setCriteria(`${RESET}${YELLOW}Your flare disappeared because you were too far away!${RESET}`),
+    () => (settings.alertOnFlareExpiresSoon || settings.flareRemainingTimeOverlay) && isInSkyblock()
+);
+
 register("worldUnload", () => {
     resetFlare();
 });
-register("chat", () => {
-    resetFlare();
-}).setCriteria(`${RESET}${YELLOW}Your flare disappeared because you were too far away!${RESET}`);
 
 function handleFlareInteraction(action) {
     try {
