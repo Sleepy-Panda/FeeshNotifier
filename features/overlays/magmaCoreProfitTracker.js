@@ -7,6 +7,7 @@ import {  formatElapsedTime, formatNumberWithSpaces, isDoubleHook, toShortNumber
 import { CRYSTAL_HOLLOWS } from "../../constants/areas";
 import { getBazaarItemPrices } from "../../utils/bazaarPrices";
 import { createButtonsDisplay, toggleButtonsDisplay } from "../../utils/overlays";
+import { registerIf } from "../../utils/registers";
 
 var totalMagmaCoresCount = 0;
 var lastAddedMagmaCoresCount = 0;
@@ -25,24 +26,40 @@ var lastSeaCreatureCaughtAt = null;
 var lastMagmaCoreDroppedAt = null;
 
 triggers.MAGMA_FIELDS_TRIGGERS.forEach(trigger => {
-    register("Chat", (event) => {
-        const isDoubleHooked = isDoubleHook();
-        trackSeaCreatureCatch(isDoubleHooked);
-    }).setCriteria(trigger.trigger).setContains();
+    registerIf(
+        register("Chat", (event) => {
+            const isDoubleHooked = isDoubleHook();
+            trackSeaCreatureCatch(isDoubleHooked);
+        }).setCriteria(trigger.trigger).setContains(),
+        () => settings.magmaCoreProfitTrackerOverlay && isInSkyblock() && getWorldName() === CRYSTAL_HOLLOWS
+    );
 });
 
 const magmaCoreTrigger = triggers.RARE_DROP_TRIGGERS.find(entry => entry.trigger === triggers.MAGMA_CORE_MESSAGE);
-register("Chat", (magicFind, event) => trackMagmaCoreDrop()).setCriteria(magmaCoreTrigger.trigger).setContains();
+registerIf(
+    register("Chat", (magicFind, event) => trackMagmaCoreDrop()).setCriteria(magmaCoreTrigger.trigger).setContains(),
+    () => settings.magmaCoreProfitTrackerOverlay && isInSkyblock() && getWorldName() === CRYSTAL_HOLLOWS
+);
+
+registerIf(
+    register('step', () => refreshElapsedTime()).setDelay(1),
+    () => settings.magmaCoreProfitTrackerOverlay && isInSkyblock() && getWorldName() === CRYSTAL_HOLLOWS
+);
+
+registerIf(
+    register('step', () => refreshTrackerData()).setDelay(5),
+    () => settings.magmaCoreProfitTrackerOverlay && isInSkyblock() && getWorldName() === CRYSTAL_HOLLOWS
+);
+
+registerIf(
+    register('renderOverlay', () => renderMagmaCoreTrackerOverlay()),
+    () => settings.magmaCoreProfitTrackerOverlay && isInSkyblock() && getWorldName() === CRYSTAL_HOLLOWS
+);
 
 register("worldUnload", () => {
     isSessionActive = false;
+    buttonsDisplay.hide();
 });
-
-register('step', () => refreshElapsedTime()).setDelay(1);
-
-register('step', () => refreshTrackerData()).setDelay(5);
-
-register('renderOverlay', () => renderMagmaCoreTrackerOverlay());
 
 const buttonsDisplay = createButtonsDisplay(true, () => resetMagmaCoreProfitTracker(false), true, () => pauseMagmaCoreProfitTracker());
 
