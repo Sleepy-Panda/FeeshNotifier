@@ -1,8 +1,18 @@
 # Releases
 
-## v1.37.0
+## v1.38.0
 
 Released: ???
+
+Features:
+- 
+
+Bugfixes:
+-
+
+## v1.38.0
+
+Released: 2025-04-13
 
 Features:
 - 
