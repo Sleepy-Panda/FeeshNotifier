@@ -5,7 +5,7 @@
 Released: ???
 
 Features:
-- 
+- Added Double Hook information to Rare Catches Tracker.
 
 Bugfixes:
 -

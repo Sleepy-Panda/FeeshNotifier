@@ -83,10 +83,13 @@ function trackCatch(options) {
 
         const valueToAdd = options.isDoubleHook ? 2 : 1;
         const currentAmount = persistentData.rareCatches[options.seaCreature] ? persistentData.rareCatches[options.seaCreature].amount : 0;
-    
+        const currentDoubleHookAmount = persistentData.rareCatches[options.seaCreature] ? persistentData.rareCatches[options.seaCreature].doubleHookAmount || 0 : 0;
+
         persistentData.rareCatches[options.seaCreature] = {
             amount: currentAmount ? currentAmount + valueToAdd : valueToAdd,
-            percent: null
+            percent: null,
+            doubleHookAmount: options.isDoubleHook ? currentDoubleHookAmount + 1 : currentDoubleHookAmount,
+            doubleHookPercent: null
         };
     
         const total = Object.values(persistentData.rareCatches).reduce((accumulator, currentValue) => {
@@ -96,8 +99,11 @@ function trackCatch(options) {
     
         Object.keys(persistentData.rareCatches).forEach((key) => {
             const entry = persistentData.rareCatches[key];
-            const percent = persistentData.totalRareCatches ? ((entry.amount / persistentData.totalRareCatches) * 100).toFixed(2) : 0;
+            const percent = persistentData.totalRareCatches ? ((entry.amount / persistentData.totalRareCatches) * 100).toFixed(1) : 0;
             entry.percent = percent;
+            const doubleHookAmount = entry.doubleHookAmount || 0;
+            const doubleHookPercent = entry.amount ? ((doubleHookAmount / (entry.amount - doubleHookAmount)) * 100).toFixed(1) : 0;
+            entry.doubleHookPercent = doubleHookPercent;
         });
     
         persistentData.save();    
@@ -123,14 +129,17 @@ function renderRareCatchTrackerOverlay() {
 
     const entries = Object.entries(persistentData.rareCatches)
         .map(([key, value]) => {
-            return { seaCreature: key, amount: value.amount, percent: value.percent };
+            return { seaCreature: key, amount: value.amount || 0, doubleHookAmount: value.doubleHookAmount || 0, doubleHookPercent: value.doubleHookPercent || 0 };
         })
         .sort((a, b) => b.amount - a.amount); // Most catches at the top
 
     entries.forEach((entry) => {
         const trigger = RARE_CATCH_TRIGGERS.find(t => t.seaCreature === entry.seaCreature);
         const rarityColorCode = trigger.rarityColorCode || WHITE;
-        overlayText += `${GRAY}- ${rarityColorCode}${fromUppercaseToCapitalizedFirstLetters(entry.seaCreature)}: ${WHITE}${formatNumberWithSpaces(entry.amount)} ${GRAY}(${entry.percent}%)\n`;
+        const doubleHookInfo = trigger.seaCreature === seaCreatures.VANQUISHER
+            ? ''
+            : ` ${GRAY}| DH: ${WHITE}${formatNumberWithSpaces(entry.doubleHookAmount)} ${GRAY}(${entry.doubleHookPercent}${GRAY}%)`;
+        overlayText += `${GRAY}- ${rarityColorCode}${fromUppercaseToCapitalizedFirstLetters(entry.seaCreature)}${GRAY}: ${WHITE}${formatNumberWithSpaces(entry.amount)}${doubleHookInfo}\n`;
     });
 
     overlayText += `${YELLOW}Total: ${WHITE}${persistentData.totalRareCatches}`;

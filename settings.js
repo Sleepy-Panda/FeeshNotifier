@@ -969,7 +969,7 @@ const config = new DefaultConfig("FeeshNotifier", "config/settings.json")
     category: "Overlays",
     configName: "rareCatchesTrackerOverlay",
     title: "Rare catches tracker",
-    description: `Shows an overlay with the statistics of rare sea creatures caught per session.\nDo ${AQUA}/feeshResetRareCatches${GRAY} to reset.\n${RED}Hidden if you have no fishing rod in your hotbar!`,
+    description: `Shows an overlay with the statistics of rare sea creatures caught, and frequency of double hooking them.\nDo ${AQUA}/feeshResetRareCatches${GRAY} to reset.\n${RED}Hidden if you have no fishing rod in your hotbar!`,
     subcategory: "Rare catches",
     value: true
 })

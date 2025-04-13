@@ -35,10 +35,10 @@ const SAMPLE_GUIS = [
         guiSettings: overlayCoordsData.rareCatchesTrackerOverlay,
         sampleText: 
 `${YELLOW}${BOLD}Rare catches tracker
-${GRAY}- ${LIGHT_PURPLE}Thunder: ${WHITE}10
-${GRAY}- ${DARK_PURPLE}Vanquisher: ${WHITE}8
-${GRAY}- ${LIGHT_PURPLE}Lord Jawbus: ${WHITE}2
-${GRAY}- ${LIGHT_PURPLE}Ragnarok: ${WHITE}1`,
+${GRAY}- ${LIGHT_PURPLE}Thunder${GRAY}: ${WHITE}10 ${GRAY}| DH: ${WHITE}2 ${GRAY}(25%)
+${GRAY}- ${DARK_PURPLE}Vanquisher${GRAY}: ${WHITE}8
+${GRAY}- ${LIGHT_PURPLE}Lord Jawbus${GRAY}: ${WHITE}2 ${GRAY}| DH: ${WHITE}1 ${GRAY}(100%)
+${GRAY}- ${LIGHT_PURPLE}Ragnarok${GRAY}: ${WHITE}1 ${GRAY}| DH: ${WHITE}0 ${GRAY}(0%)`,
         isActive: false,
         width: 0,
         height: 0
