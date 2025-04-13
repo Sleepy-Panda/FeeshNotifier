@@ -1,12 +1,13 @@
 import settings, { allOverlaysGui } from "../../settings";
 import { overlayCoordsData } from "../../data/overlayCoords";
-import { ABANDONED_QUARRY } from "../../constants/areas";
+import { ABANDONED_QUARRY, DWARVEN_MINES } from "../../constants/areas";
 import { AQUA, BOLD, GOLD, GRAY, GREEN, RED, WHITE, YELLOW } from "../../constants/formatting";
 import { ANY_MITHRIL_GRUBBER_MESSAGE } from "../../constants/triggers";
 import { formatElapsedTime, formatNumberWithSpaces, isDoubleHook, isFishingHookActive } from "../../utils/common";
-import { getLastGuisClosed, getZoneName, hasFishingRodInHotbar, isInSkyblock } from "../../utils/playerState";
+import { getLastGuisClosed, getWorldName, getZoneName, hasFishingRodInHotbar, isInSkyblock } from "../../utils/playerState";
 import { BLOATED_MITHRIL_GRUBBER, LARGE_MITHRIL_GRUBBER, MEDIUM_MITHRIL_GRUBBER, SMALL_MITHRIL_GRUBBER } from "../../constants/seaCreatures";
 import { createButtonsDisplay, toggleButtonsDisplay } from "../../utils/overlays";
+import { registerIf } from "../../utils/registers";
 
 const SMALL_MITHRIL_GRUBBER_KEY = SMALL_MITHRIL_GRUBBER.toUpperCase();
 const MEDIUM_MITHRIL_GRUBBER_KEY = MEDIUM_MITHRIL_GRUBBER.toUpperCase();
@@ -35,18 +36,27 @@ let previousMithrilPowder = null;
 
 const buttonsDisplay = createButtonsDisplay(true, () => resetAbandonedQuarryTracker(false), true, () => pauseAbandonedQuarryTracker());
 
-register("Chat", (seaCreature, event) => {
-    const isDoubleHooked = isDoubleHook();
-    trackMithrilGrubberCatch(seaCreature, isDoubleHooked);
-}).setCriteria(ANY_MITHRIL_GRUBBER_MESSAGE);
+registerIf(
+    register("Chat", (seaCreature, event) => {
+        const isDoubleHooked = isDoubleHook();
+        trackMithrilGrubberCatch(seaCreature, isDoubleHooked);
+    }).setCriteria(ANY_MITHRIL_GRUBBER_MESSAGE),
+    () => settings.abandonedQuarryTrackerOverlay && isInSkyblock() && getWorldName() === DWARVEN_MINES
+);
 
-register('step', () => {
-    activateSessionOnPlayersFishingHook();
-    refreshElapsedTime();
-    detectMithrilPowderChanges();
-}).setFps(1);
+registerIf(
+    register('step', () => {
+        activateSessionOnPlayersFishingHook();
+        refreshElapsedTime();
+        detectMithrilPowderChanges();
+    }).setFps(1),
+    () => settings.abandonedQuarryTrackerOverlay && isInSkyblock() && getWorldName() === DWARVEN_MINES
+);
 
-register('renderOverlay', () => renderMithrilGrubberPowderTrackerOverlay());
+registerIf(
+    register('renderOverlay', () => renderMithrilGrubberPowderTrackerOverlay()),
+    () => settings.abandonedQuarryTrackerOverlay && isInSkyblock() && getWorldName() === DWARVEN_MINES
+);
 
 export function resetAbandonedQuarryTracker(isConfirmed) {
     try {

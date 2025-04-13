@@ -5,10 +5,15 @@ import { HOTSPOT_WORLDS } from "../../constants/areas";
 import { GOLD, LIGHT_PURPLE, RED, RESET, WHITE } from "../../constants/formatting";
 import { getPlayerFishingHook, isFishingHookActive } from "../../utils/common";
 import { findClosestHotspotInRange, findHotspotsInRange } from "../../utils/entityDetection";
+import { registerIf } from "../../utils/registers";
 
 let lastClosestHotspot = null;
 
-register("step", (event) => playAlertOnHotspotGone()).setDelay(1);
+registerIf(
+    register("step", (event) => playAlertOnHotspotGone()).setDelay(1),
+    () => settings.alertOnHotspotGone && isInSkyblock() && HOTSPOT_WORLDS.includes(getWorldName())
+);
+
 register("worldUnload", () => {
     lastClosestHotspot = null;
 });

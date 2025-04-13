@@ -1,8 +1,37 @@
 # Releases
 
-## v1.36.0
+## v1.37.0
 
 Released: ???
+
+Features:
+- 
+
+Bugfixes:
+- Fixed Totem of Corruption expiration alert triggering twice sometimes.
+- Fixed Totem of Corruption expiration alert triggering on other player's totem sometimes.
+- Fixed double message when moving far away from Revenant slayer boss and then coming back.
+
+Other:
+- Refactored different functionality to not execute any checks when setting is disabled / when being in a wrong world:
+  - Legion & Bobbing Time tracker
+    - Also made it work only in "fishing" worlds.
+  - Rare catches tracker
+  - Abandoned Quarry tracker
+  - Jerry Workshop tracker
+  - Crimson Isle tracker
+  - Magma Core profit tracker
+  - Totem of Corruption tracker
+  - Flare tracker
+  - Alert of Hotspot gone
+  - Message on Hotspot found
+  - Message on Revenant spawned
+  - Alert on non-fishing armor
+  - Alert on Worm the Fish caught
+
+## v1.36.0
+
+Released: 2025-04-07
 
 Features:
 - Added option to box some entities hardly visible in the world [disabled by default]:
