@@ -2,7 +2,7 @@
 export const NOTIFICATION_SOUND_SOURCE = { source: "feesh_notification.ogg", priority: true };
 export const TIMER_SOUND_SOURCE = { source: "feesh_notification-bell.ogg" };
 export const OH_MY_GOD_SOUND_SOURCE = { source: "feesh_oh-my-god.ogg", priority: true };
-export const INSANE_SOUND_SOURCE = { source: "feesh_insane.ogg", priority: true };
+export const GIGA_CHAD_SOUND_SOURCE = { source: "feesh_giga-chad.ogg", priority: true };
 export const MC_RARE_ACHIEVEMENT_SOURCE = { source: "feesh_minecraft-challenge-completed.ogg", priority: true };
 export const AUGH_SOUND_SOURCE = { source: "feesh_augh.ogg", priority: true };
 export const GOOFY_LAUGH_SOUND_SOURCE = { source: "feesh_goofy-laugh.ogg", priority: true };
