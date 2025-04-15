@@ -5,6 +5,7 @@
 Released: ???
 
 Features:
+- REPLACED SOUND FOR DYE DROPS to more calm sound. No more jumpscare!
 - Added Double Hook information to Rare Catches Tracker.
 
 Bugfixes:
