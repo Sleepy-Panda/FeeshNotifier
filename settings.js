@@ -486,7 +486,7 @@ const config = new DefaultConfig("FeeshNotifier", "config/settings.json")
     category: "Alerts",
     configName: "alertOnFishingBagDisabled",
     title: "Alert when Fishing Bag is disabled",
-    description: "Shows a title and plays a sound when current player starts fishing with Fishing Bag disabled.",
+    description: `Shows a title and plays a sound when current player starts fishing with Fishing Bag disabled.\n${RED}After enabling the setting, please open your fishing bag once to initialize its state!`,
     subcategory: "Fishing bag",
     value: true
 })

@@ -3,11 +3,12 @@ import * as triggers from '../../constants/triggers';
 import { OFF_SOUND_MODE } from "../../constants/sounds";
 import { DARK_PURPLE, GOLD, GREEN, WHITE, YELLOW } from "../../constants/formatting";
 import { isInSkyblock } from "../../utils/playerState";
+import { registerIf } from "../../utils/registers";
 
-register(
-	"Chat",
-	(event) => playAlertOnSpiritMaskUsed()
-).setCriteria(triggers.SPIRIT_MASK_USED_MESSAGE);
+registerIf(
+	register("Chat", (event) => playAlertOnSpiritMaskUsed()).setCriteria(triggers.SPIRIT_MASK_USED_MESSAGE),
+	() => settings.alertOnSpiritMaskUsed && isInSkyblock()
+);
 
 function playAlertOnSpiritMaskUsed() {
 	try {

@@ -3,12 +3,16 @@ import * as triggers from '../../constants/triggers';
 import { OFF_SOUND_MODE } from "../../constants/sounds";
 import { AQUA } from "../../constants/formatting";
 import { isInSkyblock } from "../../utils/playerState";
+import { registerIf } from "../../utils/registers";
 
 triggers.BOTTLE_CHARGED_TRIGGERS.forEach(entry => {
-    register(
-        "Chat",
-        (event) => setTimeout(() => playAlertOnBottleCharged(entry.bottleName), 1000) // Delay because the alert is often overriden by the Thunder spawn alert
-    ).setCriteria(entry.trigger).setContains();
+	registerIf(
+		register(
+			"Chat",
+			(event) => setTimeout(() => playAlertOnBottleCharged(entry.bottleName), 1000) // Delay because the alert is often overriden by the Thunder spawn alert
+		).setCriteria(entry.trigger).setContains(),
+		() => settings.alertOnThunderBottleCharged && isInSkyblock()
+	);
 });
 
 function playAlertOnBottleCharged(bottleName) {

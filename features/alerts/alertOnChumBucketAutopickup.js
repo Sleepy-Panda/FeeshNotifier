@@ -4,11 +4,16 @@ import settings from "../../settings";
 import * as triggers from '../../constants/triggers';
 import { OFF_SOUND_MODE } from "../../constants/sounds";
 import { YELLOW } from "../../constants/formatting";
-import { isInSkyblock } from "../../utils/playerState";
+import { getWorldName, isInSkyblock } from "../../utils/playerState";
+import { registerIf } from "../../utils/registers";
+import { isInFishingWorld } from "../../utils/common";
 
 let worldChangedAt = null;
 
-register("Chat", (event) => setTimeout(playAlertOnBucketAutoPickup, 500)).setCriteria(triggers.CHUM_BUCKET_AUTO_PICKED_UP_MESSAGE);
+registerIf(
+	register("Chat", (event) => setTimeout(playAlertOnBucketAutoPickup, 500)).setCriteria(triggers.CHUM_BUCKET_AUTO_PICKED_UP_MESSAGE),
+	() => settings.alertOnChumBucketAutoPickedUp && isInSkyblock() && isInFishingWorld(getWorldName())
+);
 
 register("worldUnload", () => {
     worldChangedAt = new Date();
@@ -16,7 +21,7 @@ register("worldUnload", () => {
 
 export function playAlertOnBucketAutoPickup() {
 	try {
-		if (!settings.alertOnChumBucketAutoPickedUp || !isInSkyblock() || !World.isLoaded) {
+		if (!settings.alertOnChumBucketAutoPickedUp || !isInSkyblock() || !isInFishingWorld(getWorldName()) || !World.isLoaded) {
 			return;
 		}
 
