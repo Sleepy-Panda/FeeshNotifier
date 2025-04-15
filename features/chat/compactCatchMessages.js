@@ -1,20 +1,27 @@
 import settings from "../../settings";
 import { AQUA, BOLD, GRAY, RESET } from "../../constants/formatting";
 import * as triggers from "../../constants/triggers";
-import { getArticle, isDoubleHook } from "../../utils/common";
-import { isInSkyblock } from '../../utils/playerState';
+import { getArticle, isDoubleHook, isInFishingWorld } from "../../utils/common";
+import { getWorldName, isInSkyblock } from '../../utils/playerState';
+import { registerIf } from "../../utils/registers";
 
 triggers.DOUBLE_HOOK_MESSAGES.forEach(entry => {
-    register("Chat", (event) => compactDoubleHookChatMessage(event)).setCriteria(entry);
+    registerIf(
+        register("Chat", (event) => compactDoubleHookChatMessage(event)).setCriteria(entry),
+        () => settings.compactCatchMessages && isInSkyblock() && isInFishingWorld(getWorldName())
+    );
 });
 
 triggers.ALL_CATCHES_TRIGGERS.forEach(entry => {
-    register("Chat", (event) => compactSeaCreatureCatchChatMessage(entry, event)).setCriteria(entry.trigger).setContains();
+    registerIf(
+        register("Chat", (event) => compactSeaCreatureCatchChatMessage(entry, event)).setCriteria(entry.trigger).setContains(),
+        () => settings.compactCatchMessages && isInSkyblock() && isInFishingWorld(getWorldName())
+    );
 });
 
 function compactDoubleHookChatMessage(event) {
     try {
-        if (!settings.compactCatchMessages || !isInSkyblock()) {
+        if (!settings.compactCatchMessages || !isInSkyblock() || !isInFishingWorld(getWorldName())) {
             return;
         }
 
@@ -27,7 +34,7 @@ function compactDoubleHookChatMessage(event) {
 
 function compactSeaCreatureCatchChatMessage(entry, event) {
     try {
-        if (!settings.compactCatchMessages || !isInSkyblock()) {
+        if (!settings.compactCatchMessages || !isInSkyblock() || !isInFishingWorld(getWorldName())) {
             return;
         }
 

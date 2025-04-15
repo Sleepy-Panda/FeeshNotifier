@@ -3,18 +3,32 @@ import { persistentData } from "../../data/data";
 import { GOLD, RED, WHITE } from "../../constants/formatting";
 import { getWorldName, hasFishingRodInHotbar, isInSkyblock } from "../../utils/playerState";
 import { OFF_SOUND_MODE } from "../../constants/sounds";
-import { DUNGEONS, KUUDRA } from "../../constants/areas";
-import { getLore, isFishingHookActive } from "../../utils/common";
+import { getLore, isFishingHookActive, isInFishingWorld } from "../../utils/common";
 import { USE_BAITS_FROM_FISHING_BAG_DISABLED, USE_BAITS_FROM_FISHING_BAG_ENABLED } from "../../constants/triggers";
+import { registerIf } from "../../utils/registers";
 
 // Alert once after each world load, do not alert on each rod cast
 let isAlerted = false;
 
-register('step', () => alertOnFishingBagDisabled()).setFps(1);
+registerIf(
+    register('step', () => alertOnFishingBagDisabled()).setFps(1),
+    () => settings.alertOnFishingBagDisabled && isInSkyblock() && isInFishingWorld(getWorldName())
+);
 
-register('Chat', (event) => setFishingBagState(false)).setCriteria(USE_BAITS_FROM_FISHING_BAG_DISABLED);
-register('Chat', (event) => setFishingBagState(true)).setCriteria(USE_BAITS_FROM_FISHING_BAG_ENABLED);
-register('guiOpened', (event) => onFishingBagOpened(event));
+registerIf(
+    register('Chat', (event) => setFishingBagState(false)).setCriteria(USE_BAITS_FROM_FISHING_BAG_DISABLED),
+    () => settings.alertOnFishingBagDisabled && isInSkyblock()
+);
+
+registerIf(
+    register('Chat', (event) => setFishingBagState(true)).setCriteria(USE_BAITS_FROM_FISHING_BAG_ENABLED),
+    () => settings.alertOnFishingBagDisabled && isInSkyblock()
+);
+
+registerIf(
+    register('guiOpened', (event) => onFishingBagOpened(event)),
+    () => settings.alertOnFishingBagDisabled && isInSkyblock()
+);
 
 register('worldLoad', () => isAlerted = false);
 
@@ -25,8 +39,7 @@ function alertOnFishingBagDisabled() {
             || persistentData.isFishingBagEnabled !== false // False means fishing bag disabled, null/undefined means that fishing bag state is unknown
             || !isInSkyblock()
             || !hasFishingRodInHotbar()
-            || getWorldName() === KUUDRA
-            || getWorldName() === DUNGEONS
+            || !isInFishingWorld(getWorldName())
         ) {
             return;
         }
