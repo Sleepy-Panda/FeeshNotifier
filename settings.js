@@ -548,7 +548,7 @@ const config = new DefaultConfig("FeeshNotifier", "config/settings.json")
     category: "Alerts",
     configName: "alertOnPetLevelUp",
     title: "Alert when a pet reached max level",
-    description: "Shows a title and plays a pet reached max level.",
+    description: "Shows a title and plays a sound when a pet reached max level.",
     subcategory: "Pet",
     value: true
 })
