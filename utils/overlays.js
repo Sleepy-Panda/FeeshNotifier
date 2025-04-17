@@ -10,9 +10,19 @@ import { isInChatOrInventoryGui } from "./common";
  * @param {Function} pauseFn - Callback function executed when Pause button pressed
  * @returns {Display}
  */
-export function createButtonsDisplay(isResetable, resetFn, isPausable, pauseFn) {
+export function createButtonsDisplay(isResetable, resetFn, isPausable, pauseFn, hasViewModes, changeViewModeFn) {
     let buttonsDisplay = new Display().hide();
 
+    if (hasViewModes && changeViewModeFn) {
+        let viewModeDisplayLine = new DisplayLine(`${YELLOW}[Click to change view mode]`).setShadow(true);
+        viewModeDisplayLine.registerClicked((x, y, mouseButton, buttonState) => {
+            if (mouseButton === 0 && buttonState === false) { // When left mouse button is UP. 0 is left mouse button, false is UP, true is DOWN. 
+                changeViewModeFn();
+            }
+        });    
+        buttonsDisplay.addLine(viewModeDisplayLine);
+    }
+    
     if (isPausable && pauseFn) {
         let pauseTrackerDisplayLine = new DisplayLine(`${YELLOW}[Click to pause]`).setShadow(true);
         pauseTrackerDisplayLine.registerClicked((x, y, mouseButton, buttonState) => {
