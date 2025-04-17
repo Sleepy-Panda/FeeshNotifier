@@ -160,6 +160,8 @@ export const OUTSTANDING_CATCH_ICE_ESSENCE_MESSAGE = `${RESET}${LIGHT_PURPLE}⛃
 export const USE_BAITS_FROM_FISHING_BAG_DISABLED = `${RESET}${RED}Use Baits From Bag is now disabled!${RESET}`;
 export const USE_BAITS_FROM_FISHING_BAG_ENABLED = `${RESET}${GREEN}Use Baits From Bag is now enabled!${RESET}`;
 
+export const PET_LEVEL_UP_MESSAGE = `${RESET}${GREEN}Your ${RESET}` + "${petDisplayName}" + ` ${RESET}${GREEN}leveled up to level ${RESET}${BLUE}` + "${level}" + `${RESET}${GREEN}!${RESET}`; // &r&aYour &r&5Ender Dragon &r&aleveled up to level &r&981&r&a!&r
+
 export const ALL_CATCHES_TRIGGERS = [
     // WATER SEA CREATURES
     {
