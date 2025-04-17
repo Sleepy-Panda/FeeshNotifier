@@ -5,7 +5,7 @@
 Released: ???
 
 Features:
--
+- Added alert on Pet reached max level.
 
 Bugfixes:
 -
