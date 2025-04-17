@@ -1,8 +1,18 @@
 # Releases
 
-## v1.38.0
+## v1.39.0
 
 Released: ???
+
+Features:
+-
+
+Bugfixes:
+-
+
+## v1.38.0
+
+Released: 2025-04-17
 
 Features:
 - REPLACED SOUND FOR DYE DROPS to more calm sound. No more jumpscare!
