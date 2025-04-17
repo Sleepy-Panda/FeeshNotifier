@@ -1,8 +1,31 @@
 # Releases
 
-## v1.37.0
+## v1.38.0
 
 Released: ???
+
+Features:
+- REPLACED SOUND FOR DYE DROPS to more calm sound. No more jumpscare!
+- Added Double Hook information to Rare Catches Tracker.
+
+Bugfixes:
+-
+
+Other:
+- Refactored different functionality to not execute any checks when setting is disabled / when being in a wrong world:
+  - Announce mob spawn to ALL chat
+  - Compact catch messages
+  - Message / alert on player's death
+  - Alert on thunder bottle charged
+  - Alert on chum bucket autopickup
+  - Alert on reindrake in lobby
+  - Alert on golden fish
+  - Alert on spirit mask used
+  - Alert on fishing with bag disabled
+
+## v1.38.0
+
+Released: 2025-04-13
 
 Features:
 - 

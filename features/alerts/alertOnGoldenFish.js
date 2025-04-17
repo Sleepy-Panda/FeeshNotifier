@@ -2,13 +2,18 @@ import settings from "../../settings";
 import * as triggers from '../../constants/triggers';
 import { OFF_SOUND_MODE } from "../../constants/sounds";
 import { GOLD, WHITE } from "../../constants/formatting";
-import { isInSkyblock } from "../../utils/playerState";
+import { getWorldName, isInSkyblock } from "../../utils/playerState";
+import { registerIf } from "../../utils/registers";
+import { CRIMSON_ISLE } from "../../constants/areas";
 
-register("Chat", (event) => playAlertOnGoldenFish()).setCriteria(triggers.GOLDEN_FISH_MESSAGE);
+registerIf(
+	register("Chat", (event) => playAlertOnGoldenFish()).setCriteria(triggers.GOLDEN_FISH_MESSAGE),
+	() => settings.alertOnGoldenFishSpawned && isInSkyblock() && getWorldName() === CRIMSON_ISLE
+);
 
 function playAlertOnGoldenFish() {
 	try {
-		if (!settings.alertOnGoldenFishSpawned || !isInSkyblock()) {
+		if (!settings.alertOnGoldenFishSpawned || !isInSkyblock() || getWorldName() !== CRIMSON_ISLE) {
 			return;
 		}
 		

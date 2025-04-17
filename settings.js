@@ -486,7 +486,7 @@ const config = new DefaultConfig("FeeshNotifier", "config/settings.json")
     category: "Alerts",
     configName: "alertOnFishingBagDisabled",
     title: "Alert when Fishing Bag is disabled",
-    description: "Shows a title and plays a sound when current player starts fishing with Fishing Bag disabled.",
+    description: `Shows a title and plays a sound when current player starts fishing with Fishing Bag disabled.\n${RED}After enabling the setting, please open your fishing bag once to initialize its state!`,
     subcategory: "Fishing bag",
     value: true
 })
@@ -969,7 +969,7 @@ const config = new DefaultConfig("FeeshNotifier", "config/settings.json")
     category: "Overlays",
     configName: "rareCatchesTrackerOverlay",
     title: "Rare catches tracker",
-    description: `Shows an overlay with the statistics of rare sea creatures caught per session.\nDo ${AQUA}/feeshResetRareCatches${GRAY} to reset.\n${RED}Hidden if you have no fishing rod in your hotbar!`,
+    description: `Shows an overlay with the statistics of rare sea creatures caught, and frequency of double hooking them.\nDo ${AQUA}/feeshResetRareCatches${GRAY} to reset.\n${RED}Hidden if you have no fishing rod in your hotbar!`,
     subcategory: "Rare catches",
     value: true
 })
