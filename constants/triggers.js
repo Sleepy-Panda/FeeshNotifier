@@ -162,6 +162,16 @@ export const USE_BAITS_FROM_FISHING_BAG_ENABLED = `${RESET}${GREEN}Use Baits Fro
 
 export const PET_LEVEL_UP_MESSAGE = `${RESET}${GREEN}Your ${RESET}` + "${petDisplayName}" + ` ${RESET}${GREEN}leveled up to level ${RESET}${BLUE}` + "${level}" + `${RESET}${GREEN}!${RESET}`; // &r&aYour &r&5Ender Dragon &r&aleveled up to level &r&981&r&a!&r
 
+// &r&eYour &r&5Archfiend Dice &r&erolled a &r&a5&r&e! Bonus: &r&c+60❤&r
+// &r&eYour &r&5Archfiend Dice &r&erolled a &r&c3&r&e! Bonus: &r&c-30❤&r
+// &r&eYour &r&5Archfiend Dice &r&erolled a &r&56&r&e! Nice! Bonus: &r&c+120❤&r
+export const ARCHFIEND_DICE_ROLL_MESSAGE = `${RESET}${YELLOW}Your ${RESET}${DARK_PURPLE}Archfiend Dice ${RESET}${YELLOW}rolled a ${RESET}` + "${color}" + "${number}" + `${RESET}${YELLOW}!`;
+// &r&eYour &r&6High Class Archfiend Dice &r&erolled a &r&56&r&e! Nice! Bonus: &r&c+300❤&r
+// &r&eYour &r&6High Class Archfiend Dice &r&erolled a &r&a5&r&e! Bonus: &r&c+200❤&r
+// &r&eYour &r&6High Class Archfiend Dice &r&erolled a &r&c1&r&e! Bonus: &r&c-300❤&r
+// &r&eYour &r&6High Class Archfiend Dice &r&erolled a &r&57&r&e!
+export const HIGH_CLASS_ARCHFIEND_DICE_ROLL_MESSAGE = `${RESET}${YELLOW}Your ${RESET}${GOLD}High Class Archfiend Dice ${RESET}${YELLOW}rolled a ${RESET}` + "${color}" + "${number}" + `${RESET}${YELLOW}!`;
+
 export const ALL_CATCHES_TRIGGERS = [
     // WATER SEA CREATURES
     {

@@ -1,5 +1,5 @@
 import settings from "../settings";
-import { RED, YELLOW } from "../constants/formatting";
+import { GREEN, RED, YELLOW } from "../constants/formatting";
 import { isInChatOrInventoryGui } from "./common";
 
 /**
@@ -14,7 +14,7 @@ export function createButtonsDisplay(isResetable, resetFn, isPausable, pauseFn, 
     let buttonsDisplay = new Display().hide();
 
     if (hasViewModes && changeViewModeFn) {
-        let viewModeDisplayLine = new DisplayLine(`${YELLOW}[Click to change view mode]`).setShadow(true);
+        let viewModeDisplayLine = new DisplayLine(`${GREEN}[Click to change view mode]`).setShadow(true);
         viewModeDisplayLine.registerClicked((x, y, mouseButton, buttonState) => {
             if (mouseButton === 0 && buttonState === false) { // When left mouse button is UP. 0 is left mouse button, false is UP, true is DOWN. 
                 changeViewModeFn();

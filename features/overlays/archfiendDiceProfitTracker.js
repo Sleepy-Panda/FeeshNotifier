@@ -1,12 +1,14 @@
 import settings, { allOverlaysGui } from "../../settings";
 import { overlayCoordsData } from "../../data/overlayCoords";
 import { persistentData } from "../../data/data";
-import { AQUA, BOLD, DARK_GRAY, DARK_PURPLE, EPIC, GOLD, GRAY, GREEN, LEGENDARY, RED, RESET, WHITE, YELLOW } from "../../constants/formatting";
+import { AQUA, BOLD, DARK_PURPLE, EPIC, GOLD, GRAY, GREEN, LEGENDARY, RED, RESET, WHITE, YELLOW } from "../../constants/formatting";
 import { getAuctionItemPrices } from "../../utils/auctionPrices";
 import { isInSkyblock } from "../../utils/playerState";
 import { formatNumberWithSpaces, toShortNumber } from "../../utils/common";
 import { registerIf } from "../../utils/registers";
 import { createButtonsDisplay, toggleButtonsDisplay } from "../../utils/overlays";
+import { SESSION_VIEW_MODE, TOTAL_VIEW_MODE } from "../../constants/viewModes";
+import { ARCHFIEND_DICE_ROLL_MESSAGE, HIGH_CLASS_ARCHFIEND_DICE_ROLL_MESSAGE } from "../../constants/triggers";
 
 // Hide after N minutes of having no dices in inventory?
 // Move, move all
@@ -15,7 +17,8 @@ import { createButtonsDisplay, toggleButtonsDisplay } from "../../utils/overlays
 // Reset on close game - total?
 // Separate reset of session and total
 // Sound effects on 6
-// Reset on game unload?
+
+let lastDiceRolledAt = null;
 
 const ARCHFIEND_DICE_ID = 'ARCHFIEND_DICE';
 const HIGH_CLASS_ARCHFIEND_DICE_ID = 'HIGH_CLASS_ARCHFIEND_DICE';
@@ -35,35 +38,29 @@ const DICES_INFO = [
     }
 ];
 
-// &r&eYour &r&5Archfiend Dice &r&erolled a &r&a5&r&e! Bonus: &r&c+60❤&r
-// &r&eYour &r&5Archfiend Dice &r&erolled a &r&c3&r&e! Bonus: &r&c-30❤&r
-// &r&eYour &r&5Archfiend Dice &r&erolled a &r&56&r&e! Nice! Bonus: &r&c+120❤&r
+
 registerIf(
     register("chat", (color, number, event) => {
-        trackArchfiendRoll(persistentData.diceProfit.session, +number);
-        trackArchfiendRoll(persistentData.diceProfit.total, +number);
-    }).setCriteria(`${RESET}${YELLOW}Your ${RESET}${DARK_PURPLE}Archfiend Dice ${RESET}${YELLOW}rolled a ${RESET}` + "${color}" + "${number}" + `${RESET}${YELLOW}!`).setContains(),
-    () => settings.legionAndBobbingTimeOverlay && isInSkyblock() // TODO
+        trackArchfiendRoll(persistentData.archfiendDiceProfit.session, +number);
+        trackArchfiendRoll(persistentData.archfiendDiceProfit.total, +number);
+    }).setCriteria(ARCHFIEND_DICE_ROLL_MESSAGE).setContains(),
+    () => settings.archfiendDiceProfitTrackerOverlay && isInSkyblock()
 );
 
-// &r&eYour &r&6High Class Archfiend Dice &r&erolled a &r&56&r&e! Nice! Bonus: &r&c+300❤&r
-// &r&eYour &r&6High Class Archfiend Dice &r&erolled a &r&a5&r&e! Bonus: &r&c+200❤&r
-// &r&eYour &r&6High Class Archfiend Dice &r&erolled a &r&c1&r&e! Bonus: &r&c-300❤&r
-// &r&eYour &r&6High Class Archfiend Dice &r&erolled a &r&57&r&e!
 registerIf(
     register("chat", (color, number, event) => {
-        trackHighClassArchfiendRoll(persistentData.diceProfit.session, +number);
-        trackHighClassArchfiendRoll(persistentData.diceProfit.total, +number);
-    }).setCriteria(`${RESET}${YELLOW}Your ${RESET}${GOLD}High Class Archfiend Dice ${RESET}${YELLOW}rolled a ${RESET}` + "${color}" + "${number}" + `${RESET}${YELLOW}!`).setContains(),
-    () => settings.legionAndBobbingTimeOverlay && isInSkyblock() // TODO
+        trackHighClassArchfiendRoll(persistentData.archfiendDiceProfit.session, +number);
+        trackHighClassArchfiendRoll(persistentData.archfiendDiceProfit.total, +number);
+    }).setCriteria(HIGH_CLASS_ARCHFIEND_DICE_ROLL_MESSAGE).setContains(),
+    () => settings.archfiendDiceProfitTrackerOverlay && isInSkyblock()
 );
 
 registerIf(
     register('renderOverlay', () => renderOverlay()),
-    () => settings.legionAndBobbingTimeOverlay && isInSkyblock() // TODO
+    () => settings.archfiendDiceProfitTrackerOverlay && isInSkyblock()
 );
 
-register("worldUnload", () => {
+register("gameUnload", () => {
     resetSession();
 });
 
@@ -71,27 +68,35 @@ const buttonsDisplay = createButtonsDisplay(true, () => resetDiceProfitTracker(f
 
 function resetDiceProfitTracker(isConfirmed) {
     try {
+        const isSession = isSessionViewMode();
+        const viewMode = isSession ? '[Session]' : '[Total]';
+
         if (!isConfirmed) {
             new Message(
-                new TextComponent(`${GOLD}[FeeshNotifier] ${WHITE}Do you want to reset Dice profit tracker? ${RED}${BOLD}[Click to confirm]`)
+                new TextComponent(`${GOLD}[FeeshNotifier] ${WHITE}Do you want to reset Archfiend Dice profit tracker ${viewMode}? ${RED}${BOLD}[Click to confirm]`)
                     .setClickAction('run_command')
-                    .setClickValue('/feeshResetDiceProfit noconfirm') // TODO
+                    .setClickValue(isSession ? '/feeshResetArchfiendDiceProfit noconfirm' : '/feeshResetArchfiendDiceProfitTotal noconfirm')
             ).chat();
             return;
         }
     
-        resetSession();
-        resetTotal();
+        lastDiceRolledAt = null;
 
-        ChatLib.chat(`${GOLD}[FeeshNotifier] ${WHITE}Dice profit tracker was reset.`);    
+        if (isSession) {
+            resetSession();
+        } else {
+            resetTotal();
+        }
+
+        ChatLib.chat(`${GOLD}[FeeshNotifier] ${WHITE}Archfiend Dice profit tracker ${viewMode} was reset.`);    
     } catch (e) {
 		console.error(e);
-		console.log(`[FeeshNotifier] [DiceProfitTracker] Failed to reset Dice profit tracker.`);
+		console.log(`[FeeshNotifier] [DiceProfitTracker] Failed to reset Archfiend Dice profit tracker.`);
 	}
 }
 
 function resetSession() {
-    persistentData.diceProfit.session = {
+    persistentData.archfiendDiceProfit.session = {
         archfiend: {
             rollsCount: 0,
             rollsCost: 0,  
@@ -116,7 +121,7 @@ function resetSession() {
 }
 
 function resetTotal() {
-    persistentData.diceProfit.total = {
+    persistentData.archfiendDiceProfit.total = {
         archfiend: {
             rollsCount: 0,
             rollsCost: 0,  
@@ -142,9 +147,9 @@ function resetTotal() {
 
 function toggleViewMode() {
     try {
-        const currentViewMode = persistentData.diceProfit.viewMode || 'SESSION';
-        const newViewMode = currentViewMode === 'SESSION' ? 'TOTAL' : 'SESSION';
-        persistentData.diceProfit.viewMode = newViewMode;
+        const currentViewMode = persistentData.archfiendDiceProfit.viewMode || SESSION_VIEW_MODE;
+        const newViewMode = currentViewMode === SESSION_VIEW_MODE ? TOTAL_VIEW_MODE : SESSION_VIEW_MODE;
+        persistentData.archfiendDiceProfit.viewMode = newViewMode;
         persistentData.save();    
     } catch (e) {
 		console.error(e);
@@ -154,10 +159,12 @@ function toggleViewMode() {
 
 function trackArchfiendRoll(sourceObj, number) {
     try {
-        if (number < 1 || number > 7) {
+        if (!settings.archfiendDiceProfitTrackerOverlay || !isInSkyblock() || number < 1 || number > 7) {
             return;
         }
     
+        lastDiceRolledAt = new Date();
+
         const itemId = ARCHFIEND_DICE_ID;
         const diceInfo = DICES_INFO.find(d => d.itemId === itemId);
         const dicePrice = getAuctionItemPrices(itemId)?.lbin || 0;
@@ -197,10 +204,12 @@ function trackArchfiendRoll(sourceObj, number) {
 
 function trackHighClassArchfiendRoll(sourceObj, number) {
     try {
-        if (number < 1 || number > 7) {
+        if (!settings.archfiendDiceProfitTrackerOverlay || !isInSkyblock() || number < 1 || number > 7) {
             return;
         }
     
+        lastDiceRolledAt = new Date();
+
         const itemId = HIGH_CLASS_ARCHFIEND_DICE_ID;
         const diceInfo = DICES_INFO.find(d => d.itemId === itemId);
         const dicePrice = getAuctionItemPrices(itemId)?.lbin || 0;
@@ -239,57 +248,47 @@ function trackHighClassArchfiendRoll(sourceObj, number) {
 }
 
 function renderOverlay() {
-    // TODO!!!!!!! setting
     // If session view & session is empty - hide?
     // If total view and total is empty - hide?
-    const isSessionViewMode = persistentData.diceProfit.viewMode === 'SESSION';
+    const isSession = isSessionViewMode();
 
-    // TODO setting
-    if (!settings.legionAndBobbingTimeOverlay ||
+    if (!settings.archfiendDiceProfitTrackerOverlay ||
         !isInSkyblock() ||
-        (isSessionViewMode && !persistentData.diceProfit.session.archfiend.rollsCount && !persistentData.diceProfit.session.highClass.rollsCount) ||
-        (!isSessionViewMode && !persistentData.diceProfit.session.archfiend.rollsCount && !persistentData.diceProfit.session.highClass.rollsCount && !persistentData.diceProfit.total.archfiend.rollsCount && !persistentData.diceProfit.total.highClass.rollsCount) ||
+        !lastDiceRolledAt ||
+        (new Date() - lastDiceRolledAt > 60000) || // Hide in 1 minute after last roll
+        (isSession && !persistentData.archfiendDiceProfit.session.archfiend.rollsCount && !persistentData.archfiendDiceProfit.session.highClass.rollsCount) ||
+        //(!isSession && !persistentData.archfiendDiceProfit.session.archfiend.rollsCount && !persistentData.archfiendDiceProfit.session.highClass.rollsCount && !persistentData.archfiendDiceProfit.total.archfiend.rollsCount && !persistentData.archfiendDiceProfit.total.highClass.rollsCount) ||
         allOverlaysGui.isOpen()
     ) {
         buttonsDisplay.hide();
         return;
     }
 
-    const sourceObj = isSessionViewMode ? persistentData.diceProfit.session : persistentData.diceProfit.total;
-    let text = `${YELLOW}${BOLD}Dice profit tracker`;
-    text += isSessionViewMode ? `\n${GRAY}View mode: ${WHITE}[Session]` : `\n${GRAY}View mode: ${WHITE}[Total]`;
+    const sourceObj = isSession ? persistentData.archfiendDiceProfit.session : persistentData.archfiendDiceProfit.total;
+    let text = `${YELLOW}${BOLD}Archfiend Dice profit tracker`;
+    text += isSession ? ` ${GREEN}[Session]` : ` ${GREEN}[Total]`;
+
     text += `\n\n${DARK_PURPLE}${BOLD}Archfiend Dice`;
     text += `\n${WHITE}${formatNumberWithSpaces(sourceObj.archfiend.rollsCount)}${GRAY}x rolls | ${WHITE}${formatNumberWithSpaces(sourceObj.archfiend.count6)}${GRAY}x ${DARK_PURPLE}6 ${GRAY}| ${WHITE}${formatNumberWithSpaces(sourceObj.archfiend.count7)}${GRAY}x ${DARK_PURPLE}7`;
-    //text += `\n- ${GRAY}Rolled ${DARK_PURPLE}6${GRAY}: ${WHITE}${formatNumberWithSpaces(sourceObj.archfiend.count6)}${GRAY}x`;
-    //text += `\n- ${GRAY}Rolled ${DARK_PURPLE}7${GRAY}: ${WHITE}${formatNumberWithSpaces(sourceObj.archfiend.count7)}${GRAY}x`;
     text += `\n${AQUA}Profit: ${sourceObj.archfiend.profit >= 0 ? GREEN : RED}${toShortNumber(sourceObj.archfiend.profit)}`;
-
-    //text += `\n- ${YELLOW}Rolls cost: ${RED}${toShortNumber(sourceObj.archfiend.rollsCost) || 'N/A'}`;
-    //text += `\n- ${YELLOW}Lost dices cost: ${RED}${toShortNumber(sourceObj.archfiend.lostDicesCost) || 'N/A'}`;
-    //text += `\n- ${YELLOW}Earned: ${GREEN}${toShortNumber(sourceObj.archfiend.earnedCost) || 'N/A'}`;
 
     text += `\n\n${GOLD}${BOLD}High Class Archfiend Dice`;
     text += `\n${WHITE}${formatNumberWithSpaces(sourceObj.highClass.rollsCount)}${GRAY}x rolls | ${WHITE}${formatNumberWithSpaces(sourceObj.highClass.count6)}${GRAY}x ${DARK_PURPLE}6 ${GRAY}| ${WHITE}${formatNumberWithSpaces(sourceObj.highClass.count7)}${GRAY}x ${DARK_PURPLE}7`;
 
-    //text += `\n- ${GRAY}Rolls: ${WHITE}${formatNumberWithSpaces(sourceObj.highClass.rollsCount)}${GRAY}x`;
-    //text += `\n- ${GRAY}Rolled ${DARK_PURPLE}6${GRAY}: ${WHITE}${formatNumberWithSpaces(sourceObj.highClass.count6)}${GRAY}x`;
-    //text += `\n- ${GRAY}Rolled ${DARK_PURPLE}7${GRAY}: ${WHITE}${formatNumberWithSpaces(sourceObj.highClass.count7)}${GRAY}x`;
     text += `\n${AQUA}Profit: ${sourceObj.highClass.profit >= 0 ? GREEN : RED}${toShortNumber(sourceObj.highClass.profit)}`;
-
-
-    //text += `\n- ${YELLOW}Rolls: ${WHITE}${sourceObj.highClass.rollsCount}`;
-    //text += `\n${GRAY}6: ${WHITE}${sourceObj.highClass.count6} ${GRAY}time(s), ${GRAY}7: ${WHITE}${sourceObj.highClass.count7} ${GRAY}time(s)`;
-    //text += `\n- ${YELLOW}Rolls cost: ${RED}${toShortNumber(sourceObj.highClass.rollsCost) || 'N/A'}`;
-    //text += `\n- ${YELLOW}Lost dices cost: ${RED}${toShortNumber(sourceObj.highClass.lostDicesCost) || 'N/A'}`;
-    //text += `\n- ${YELLOW}Earned: ${GREEN}${toShortNumber(sourceObj.highClass.earnedCost) || 'N/A'}`;
 
     const profitColor = sourceObj.profit >= 0 ? GREEN : RED;
     text += `\n\n${AQUA}${BOLD}Total profit: ${profitColor}${toShortNumber(sourceObj.profit)}`;
 
-    const overlay = new Text(text, overlayCoordsData.legionAndBobbingTimeOverlay.x, overlayCoordsData.legionAndBobbingTimeOverlay.y) // TODO!!!!!!!
+    const overlay = new Text(text, overlayCoordsData.archfiendDiceProfitTrackerOverlay.x, overlayCoordsData.archfiendDiceProfitTrackerOverlay.y)
         .setShadow(true)
-        .setScale(overlayCoordsData.legionAndBobbingTimeOverlay.scale); // TODO!!!!!!!
+        .setScale(overlayCoordsData.archfiendDiceProfitTrackerOverlay.scale);
     overlay.draw();
 
-    toggleButtonsDisplay(buttonsDisplay, overlay, overlayCoordsData.legionAndBobbingTimeOverlay); // TODO
+    toggleButtonsDisplay(buttonsDisplay, overlay, overlayCoordsData.archfiendDiceProfitTrackerOverlay);
+}
+
+function isSessionViewMode() {
+    const isSession = persistentData.archfiendDiceProfit.viewMode === SESSION_VIEW_MODE;
+    return isSession;
 }

@@ -16,6 +16,7 @@ export const jerryWorkshopTrackerOverlayGui = new Gui();
 export const wormProfitTrackerOverlayGui = new Gui();
 export const magmaCoreProfitTrackerOverlayGui = new Gui();
 export const abandonedQuarryTrackerOverlayGui = new Gui();
+export const archfiendDiceProfitTrackerOverlayGui = new Gui();
 export const fishingProfitTrackerOverlayGui = new Gui();
 
 const categories = ["General", "Chat", "Alerts", "Overlays", "Items and storages", "Rendering", "Commands"]
@@ -1278,6 +1279,45 @@ Example: ${AQUA}/feeshSetRadioactiveVials 5 2024-03-18T14:05:00Z`);
     subcategory: "Abandoned Quarry tracker",
     onClick() {
         ChatLib.command("feeshResetAbandonedQuarry noconfirm", true);
+    }
+})
+
+.addSwitch({
+    category: "Overlays",
+    configName: "archfiendDiceProfitTrackerOverlay",
+    title: "Archfiend Dice profit tracker",
+    description: `Shows an overlay with your Archfiend Dice / High Class Archfiend Dice profits. This overlay has Session and Total view mode. \nDo ${AQUA}/feeshResetJerryWorkshop${GRAY} to reset.\n`,
+    subcategory: "Archfiend Dice profit tracker",
+    value: true
+})
+.addButton({
+    category: "Overlays",
+    configName: "moveArchfiendDiceProfitTrackerOverlay",
+    title: "Move Archfiend Dice profit tracker",
+    description: "Allows to move and resize the overlay text.",
+    subcategory: "Archfiend Dice profit tracker",
+    onClick() {
+        moveOverlay(archfiendDiceProfitTrackerOverlayGui);
+    }
+})
+.addButton({
+    category: "Overlays",
+    configName: "resetArchfiendDiceProfitTrackerSession",
+    title: "Reset Archfiend Dice profit tracker [Session]",
+    description: `Resets tracking for Archfiend Dice profit tracker [Session]. Executes ${AQUA}/feeshResetArchfiendDiceProfit`,
+    subcategory: "Archfiend Dice profit tracker",
+    onClick() {
+        ChatLib.command("feeshResetArchfiendDiceProfit noconfirm", true);
+    }
+})
+.addButton({
+    category: "Overlays",
+    configName: "resetArchfiendDiceProfitTrackerTotal",
+    title: "Reset Archfiend Dice profit tracker [Total]",
+    description: `Resets tracking for Archfiend Dice profit tracker [Total]. Executes ${AQUA}/feeshResetArchfiendDiceProfitTotal`,
+    subcategory: "Archfiend Dice profit tracker",
+    onClick() {
+        ChatLib.command("feeshResetArchfiendDiceProfitTotal noconfirm", true);
     }
 })
 

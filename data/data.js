@@ -44,7 +44,7 @@ export const persistentData = new PogObject("FeeshNotifier", {
             },
         }
     },
-    "diceProfit": {
+    "archfiendDiceProfit": {
         "session": {
             "archfiend": {
                 "rollsCount": 0,
