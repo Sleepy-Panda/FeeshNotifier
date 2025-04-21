@@ -232,7 +232,7 @@ function renderOverlay() {
     if (!settings.archfiendDiceProfitTrackerOverlay ||
         !isInSkyblock() ||
         !lastDiceRolledAt ||
-        (new Date() - lastDiceRolledAt > 60000) || // Hide in 1 minute after last roll
+        (new Date() - lastDiceRolledAt > 60_000) || // Hide in 1 minute after last roll
         (isSessionViewMode() && !persistentData.archfiendDiceProfit.session.archfiend.rollsCount && !persistentData.archfiendDiceProfit.session.highClass.rollsCount) ||
         allOverlaysGui.isOpen()
     ) {
