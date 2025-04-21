@@ -44,6 +44,15 @@ export const persistentData = new PogObject("FeeshNotifier", {
             },
         }
     },
+    "fishingProfit": {
+        "profitTrackerItems": {},
+        "totalProfit": 0,
+        "elapsedSeconds": 0
+    },
+    "rareDropNotifications": {
+        "items": {}
+    },
+    "isFishingBagEnabled": null,
     "archfiendDiceProfit": {
         "session": {
             "archfiend": {
@@ -87,15 +96,6 @@ export const persistentData = new PogObject("FeeshNotifier", {
             },
             "profit": 0,
         },
-        "viewMode": 'SESSION'
-    },
-    "fishingProfit": {
-        "profitTrackerItems": {},
-        "totalProfit": 0,
-        "elapsedSeconds": 0
-    },
-    "rareDropNotifications": {
-        "items": {}
-    },
-    "isFishingBagEnabled": null
+        "viewMode": "SESSION"
+    }
 }, 'config/data.json');
