@@ -1286,7 +1286,7 @@ Example: ${AQUA}/feeshSetRadioactiveVials 5 2024-03-18T14:05:00Z`);
     category: "Overlays",
     configName: "archfiendDiceProfitTrackerOverlay",
     title: "Archfiend Dice profit tracker",
-    description: `Shows an overlay with your Archfiend Dice / High Class Archfiend Dice profits. This overlay has Session and Total view mode. \nDo ${AQUA}/feeshResetJerryWorkshop${GRAY} to reset.\n`,
+    description: `Shows an overlay with your Archfiend Dice / High Class Archfiend Dice profits. This overlay has [Session] and [Total] view mode.`,
     subcategory: "Archfiend Dice profit tracker",
     value: true
 })

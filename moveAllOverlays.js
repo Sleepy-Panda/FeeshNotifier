@@ -168,6 +168,25 @@ ${AQUA}Elapsed time: ${WHITE}3:16`,
         height: 0
     },
     {
+        toggleSettingKey: 'archfiendDiceProfitTrackerOverlay',
+        guiSettings: overlayCoordsData.archfiendDiceProfitTrackerOverlay,
+        sampleText:
+`${YELLOW}${BOLD}Archfiend Dice profit tracker ${GREEN}[Session]
+
+${DARK_PURPLE}${BOLD}Archfiend Dice
+${WHITE}10${GRAY}x rolls | ${WHITE}1${GRAY}x ${DARK_PURPLE}6 ${GRAY}| ${WHITE}0${GRAY}x ${DARK_PURPLE}7
+${AQUA}Profit: ${GREEN}5M
+
+${GOLD}${BOLD}High Class Archfiend Dice
+${WHITE}0${GRAY}x rolls | ${WHITE}0${GRAY}x ${DARK_PURPLE}6 ${GRAY}| ${WHITE}0${GRAY}x ${DARK_PURPLE}7
+${AQUA}Profit: ${GREEN}0
+
+${AQUA}${BOLD}Total profit: ${GREEN}5M`,
+        isActive: false,
+        width: 0,
+        height: 0
+    },
+    {
         toggleSettingKey: 'fishingProfitTrackerOverlay',
         guiSettings: overlayCoordsData.fishingProfitTrackerOverlay,
         sampleText:
