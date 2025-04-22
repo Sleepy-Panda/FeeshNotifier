@@ -168,13 +168,13 @@ export function toShortNumber(number) {
 
 	number = Math.floor(number);
 
-	if (number >= 1000000000) {
+	if (Math.abs(number) >= 1000000000) {
 		return roundToFixed(number / 1000000000, 2) + 'B';
 	}
-	if (number >= 1000000) {
+	if (Math.abs(number) >= 1000000) {
 		return roundToFixed(number / 1000000, 1) + 'M';
 	}
-	if (number >= 1000) {
+	if (Math.abs(number) >= 1000) {
 		return roundToFixed(number / 1000, 1) + 'K';
 	}
 
