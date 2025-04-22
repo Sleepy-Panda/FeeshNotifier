@@ -52,7 +52,9 @@ registerIf(
 );
 
 register("gameLoad", () => {
-    if (persistentData.archfiendDiceProfit.session.archfiend.rollsCount > 0 || persistentData.archfiendDiceProfit.session.highClass.rollsCount > 0) {
+    if (persistentData?.archfiendDiceProfit?.session &&
+        (persistentData.archfiendDiceProfit.session.archfiend.rollsCount > 0 || persistentData.archfiendDiceProfit.session.highClass.rollsCount > 0)
+    ) {
         resetSession();
     }
 });
