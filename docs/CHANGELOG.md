@@ -1,8 +1,18 @@
 # Releases
 
-## v1.39.0
+## v1.40.0
 
 Released: ???
+
+Features:
+-
+
+Bugfixes:
+-
+
+## v1.39.0
+
+Released: 2025-04-23
 
 Features:
 - Added Archfiend Dice profit tracker with Session and Total view modes.
