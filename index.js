@@ -19,6 +19,7 @@ import "./features/alerts/alertOnGoldenFish";
 import "./features/alerts/alertOnFishingBagDisabled";
 import "./features/alerts/alertOnHotspotGone";
 import "./features/alerts/alertOnPetLevelUp";
+import "./features/alerts/alertOnFishingFestivalEnded";
 
 import "./features/overlays/rareCatchesTracker";
 import "./features/overlays/totemTracker";

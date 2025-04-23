@@ -21,6 +21,10 @@ export const BLUE_RINGED_OCTOPUS = "BLUE RINGED OCTOPUS";
 export const WIKI_TIKI = "WIKI TIKI";
 export const TITANOBOA = "TITANOBOA";
 
+export const NURSE_SHARK = "Nurse Shark";
+export const BLUE_SHARK = "Blue Shark";
+export const TIGER_SHARK = "Tiger Shark";
+
 export const SMALL_MITHRIL_GRUBBER = "Mithril Grubber";
 export const MEDIUM_MITHRIL_GRUBBER = "Medium Mithril Grubber";
 export const LARGE_MITHRIL_GRUBBER = "Large Mithril Grubber";
