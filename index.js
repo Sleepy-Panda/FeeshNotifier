@@ -18,6 +18,8 @@ import "./features/alerts/alertOnSpiritMaskUsed";
 import "./features/alerts/alertOnGoldenFish";
 import "./features/alerts/alertOnFishingBagDisabled";
 import "./features/alerts/alertOnHotspotGone";
+import "./features/alerts/alertOnPetLevelUp";
+import "./features/alerts/alertOnFishingFestivalEnded";
 
 import "./features/overlays/rareCatchesTracker";
 import "./features/overlays/totemTracker";
@@ -32,6 +34,7 @@ import "./features/overlays/wormMembraneProfitTracker";
 import "./features/overlays/magmaCoreProfitTracker";
 import "./features/overlays/abandonedQuarryTracker";
 import "./features/overlays/fishingProfitTracker";
+import "./features/overlays/archfiendDiceProfitTracker";
 
 import "./features/inventory/highlightCheapBooks";
 import "./features/inventory/showThunderBottleProgress";

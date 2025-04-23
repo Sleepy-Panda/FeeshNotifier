@@ -12,6 +12,8 @@ import { calculateGearCraftPrices } from "./features/commands/calculateGearCraft
 import { showSpidersDenRainSchedule } from "./features/commands/showSpidersDenRainSchedule";
 import { resetAbandonedQuarryTracker } from "./features/overlays/abandonedQuarryTracker";
 import { resetSeaCreaturesPerHourTracker } from "./features/overlays/seaCreaturesPerHourTracker";
+import { resetArchfiendDiceProfitTracker } from "./features/overlays/archfiendDiceProfitTracker";
+import { SESSION_VIEW_MODE, TOTAL_VIEW_MODE } from "./constants/viewModes";
 
 register("command", (...args) => {
     settings.getConfig().openGui();
@@ -51,6 +53,16 @@ register("command", (...args) => {
     const isConfirmed = args[0] && args[0] === "noconfirm";
     resetAbandonedQuarryTracker(!!isConfirmed);
 }).setName("feeshResetAbandonedQuarry");
+
+register("command", (...args) => {
+    const isConfirmed = args[0] && args[0] === "noconfirm";
+    resetArchfiendDiceProfitTracker(!!isConfirmed, SESSION_VIEW_MODE);
+}).setName("feeshResetArchfiendDiceProfit");
+
+register("command", (...args) => {
+    const isConfirmed = args[0] && args[0] === "noconfirm";
+    resetArchfiendDiceProfitTracker(!!isConfirmed, TOTAL_VIEW_MODE);
+}).setName("feeshResetArchfiendDiceProfitTotal");
 
 register("command", (...args) => {
     const isConfirmed = args[0] && args[0] === "noconfirm";

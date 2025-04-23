@@ -1,5 +1,4 @@
 - Track catches for Ragnarok in crimson isle tracker (when in hotspot).
-- Track double hooks count and % in Rare Catches Tracker
 - Hotspot search
 - Offer supercrafting or BZ sell when items like raw fish goes to inventory (sacks are full).
 - Track scavenged coins in Fishing Profit Tracker

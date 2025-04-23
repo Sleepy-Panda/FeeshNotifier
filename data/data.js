@@ -52,5 +52,50 @@ export const persistentData = new PogObject("FeeshNotifier", {
     "rareDropNotifications": {
         "items": {}
     },
-    "isFishingBagEnabled": null
+    "isFishingBagEnabled": null,
+    "archfiendDiceProfit": {
+        "session": {
+            "archfiend": {
+                "rollsCount": 0,
+                "rollsCost": 0,  
+                "count6": 0,
+                "count7": 0,
+                "lostDicesCost": 0,
+                "earnedCost": 0,
+                "profit": 0
+            },
+            "highClass": {
+                "rollsCount": 0,
+                "rollsCost": 0,  
+                "count6": 0,
+                "count7": 0,
+                "lostDicesCost": 0,
+                "earnedCost": 0,
+                "profit": 0
+            },
+            "profit": 0,
+        },
+        "total": {
+            "archfiend": {
+                "rollsCount": 0,
+                "rollsCost": 0,  
+                "count6": 0,
+                "count7": 0,
+                "lostDicesCost": 0,
+                "earnedCost": 0,
+                "profit": 0
+            },
+            "highClass": {
+                "rollsCount": 0,
+                "rollsCost": 0,  
+                "count6": 0,
+                "count7": 0,
+                "lostDicesCost": 0,
+                "earnedCost": 0,
+                "profit": 0
+            },
+            "profit": 0,
+        },
+        "viewMode": "SESSION"
+    }
 }, 'config/data.json');

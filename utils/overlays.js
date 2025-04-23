@@ -1,5 +1,5 @@
 import settings from "../settings";
-import { RED, YELLOW } from "../constants/formatting";
+import { GREEN, RED, YELLOW } from "../constants/formatting";
 import { isInChatOrInventoryGui } from "./common";
 
 /**
@@ -8,15 +8,27 @@ import { isInChatOrInventoryGui } from "./common";
  * @param {Function} resetFn - Callback function executed when Reset button pressed
  * @param {boolean} isPausable
  * @param {Function} pauseFn - Callback function executed when Pause button pressed
+ * @param {boolean} hasViewModes
+ * @param {Function} changeViewModeFn - Callback function executed when Change view mode button pressed
  * @returns {Display}
  */
-export function createButtonsDisplay(isResetable, resetFn, isPausable, pauseFn) {
+export function createButtonsDisplay(isResetable, resetFn, isPausable, pauseFn, hasViewModes, changeViewModeFn) {
     let buttonsDisplay = new Display().hide();
 
+    if (hasViewModes && changeViewModeFn) {
+        let viewModeDisplayLine = new DisplayLine(`${GREEN}[Click to change view mode]`).setShadow(true);
+        viewModeDisplayLine.registerClicked((x, y, mouseButton, buttonState) => {
+            if (isLeftMouseButtonUp(mouseButton, buttonState)) {
+                changeViewModeFn();
+            }
+        });    
+        buttonsDisplay.addLine(viewModeDisplayLine);
+    }
+    
     if (isPausable && pauseFn) {
         let pauseTrackerDisplayLine = new DisplayLine(`${YELLOW}[Click to pause]`).setShadow(true);
         pauseTrackerDisplayLine.registerClicked((x, y, mouseButton, buttonState) => {
-            if (mouseButton === 0 && buttonState === false) { // When left mouse button is UP. 0 is left mouse button, false is UP, true is DOWN. 
+            if (isLeftMouseButtonUp(mouseButton, buttonState)) {
                 pauseFn();
             }
         });
@@ -26,7 +38,7 @@ export function createButtonsDisplay(isResetable, resetFn, isPausable, pauseFn) 
     if (isResetable && resetFn) {
         let resetTrackerDisplayLine = new DisplayLine(`${RED}[Click to reset]`).setShadow(true);
         resetTrackerDisplayLine.registerClicked((x, y, mouseButton, buttonState) => {
-            if (mouseButton === 0 && buttonState === false) { // When left mouse button is UP. 0 is left mouse button, false is UP, true is DOWN. 
+            if (isLeftMouseButtonUp(mouseButton, buttonState)) {
                 resetFn();
             }
         });    
@@ -34,6 +46,10 @@ export function createButtonsDisplay(isResetable, resetFn, isPausable, pauseFn) 
     }
 
     return buttonsDisplay;
+
+    function isLeftMouseButtonUp(mouseButton, buttonState) {
+        return mouseButton === 0 && buttonState === false; // When left mouse button is UP. 0 is left mouse button, false is UP, true is DOWN. 
+    }
 }
 
 /**

@@ -1,8 +1,20 @@
 # Releases
 
-## v1.38.0
+## v1.39.0
 
 Released: ???
+
+Features:
+- Added Archfiend Dice profit tracker with Session and Total view modes.
+- Added alert on Fishing Festival ended. It also shows the amount of different sharks caught during that Fishing Festival.
+- Added alert on Pet reached max level.
+
+Bugfixes:
+-
+
+## v1.38.0
+
+Released: 2025-04-17
 
 Features:
 - REPLACED SOUND FOR DYE DROPS to more calm sound. No more jumpscare!
