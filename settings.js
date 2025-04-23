@@ -555,6 +555,14 @@ const config = new DefaultConfig("FeeshNotifier", "config/settings.json")
 })
 .addSwitch({
     category: "Alerts",
+    configName: "alertOnFishingFestivalEnded",
+    title: "Alert when Fishing Festival is ended",
+    description: "Shows a title and plays a sound when a Fishing Festival is ended. Additionally, shows statistics with the amount of different sharks caught during that Fishing Festival.",
+    subcategory: "Fishing Festival",
+    value: true
+})
+.addSwitch({
+    category: "Alerts",
     configName: "alertOnSeaCreaturesCountThreshold",
     title: "Alert when sea creatures count hits threshold",
     description: `Shows a title and plays a sound when amount of sea creatures nearby hits the specified threshold. Useful to detect cap when barn fishing. ${RED}Disabled if you have no fishing rod in your hotbar!`,

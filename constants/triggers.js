@@ -162,6 +162,8 @@ export const USE_BAITS_FROM_FISHING_BAG_ENABLED = `${RESET}${GREEN}Use Baits Fro
 
 export const PET_LEVEL_UP_MESSAGE = `${RESET}${GREEN}Your ${RESET}` + "${petDisplayName}" + ` ${RESET}${GREEN}leveled up to level ${RESET}${BLUE}` + "${level}" + `${RESET}${GREEN}!${RESET}`; // &r&aYour &r&5Ender Dragon &r&aleveled up to level &r&981&r&a!&r
 
+export const FISHING_FESTIVAL_ENDED_MESSAGE = `${RESET}${AQUA}${BOLD}FISHING FESTIVAL ${RESET}${YELLOW}The festival has concluded! Time to dry off and repair your rods!${RESET}`; // &r&b&lFISHING FESTIVAL &r&eThe festival has concluded! Time to dry off and repair your rods!&r
+
 // &r&eYour &r&5Archfiend Dice &r&erolled a &r&a5&r&e! Bonus: &r&c+60❤&r
 // &r&eYour &r&5Archfiend Dice &r&erolled a &r&c3&r&e! Bonus: &r&c-30❤&r
 // &r&eYour &r&5Archfiend Dice &r&erolled a &r&56&r&e! Nice! Bonus: &r&c+120❤&r
@@ -1141,4 +1143,27 @@ export const ICE_ESSENCE_FISHED_TRIGGERS = [
     {
         trigger: OUTSTANDING_CATCH_ICE_ESSENCE_MESSAGE
     }
+];
+
+export const SHARK_CATCH_TRIGGERS = [
+    {
+        trigger: NURSE_SHARK_MESSAGE,
+        rarityColorCode: UNCOMMON,
+        seaCreature: seaCreatures.NURSE_SHARK
+    },
+    {
+        trigger: BLUE_SHARK_MESSAGE,
+        rarityColorCode: RARE,
+        seaCreature: seaCreatures.BLUE_SHARK
+    },
+    {
+        trigger: TIGER_SHARK_MESSAGE,
+        rarityColorCode: EPIC,
+        seaCreature: seaCreatures.TIGER_SHARK
+    },
+    {
+        trigger: GREAT_WHITE_SHARK_MESSAGE,
+        rarityColorCode: LEGENDARY,
+        seaCreature: seaCreatures.GREAT_WHITE_SHARK
+    },
 ];

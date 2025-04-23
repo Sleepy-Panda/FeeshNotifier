@@ -6,6 +6,7 @@ Released: ???
 
 Features:
 - Added Archfiend Dice profit tracker with Session and Total view modes.
+- Added alert on Fishing Festival ended. It also shows the amount of different sharks caught during that Fishing Festival.
 - Added alert on Pet reached max level.
 
 Bugfixes:
