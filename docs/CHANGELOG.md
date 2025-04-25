@@ -5,7 +5,7 @@
 Released: ???
 
 Features:
--
+- Announce RARE DROP! on Caster VI book dropped.
 
 Bugfixes:
 -

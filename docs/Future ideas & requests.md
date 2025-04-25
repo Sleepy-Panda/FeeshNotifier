@@ -1,5 +1,7 @@
 - Track catches for Ragnarok in crimson isle tracker (when in hotspot).
 - Hotspot search
+- Auto announce hotspots
+- Hide elapsed time in Fishing Profit Tracker
 - Offer supercrafting or BZ sell when items like raw fish goes to inventory (sacks are full).
 - Track scavenged coins in Fishing Profit Tracker
 - Track Ice Essence drop from mobs in Fishing Profit Tracker
