@@ -68,13 +68,31 @@ const config = new DefaultConfig("FeeshNotifier", "config/settings.json")
     subcategory: "Player's death",
     value: true
 })
+
 .addSwitch({
     category: "Chat",
     configName: "messageOnHotspotFound",
-    title: "Offer sharing the found hotspots",
+    title: "Offer sharing the found hotspots on click",
     description: "Shows clickable chat message that offers sharing Hotspot location and its perk to ALL chat or PARTY chat. You need to be close to the hotspot in order to trigger it.",
     subcategory: "Hotspot",
     value: true
+})
+.addSwitch({
+    category: "Chat",
+    configName: "autoMessageOnHotspotFound",
+    title: "Autoshare the found hotspots",
+    description: "Sends a chat message with Hotspot location and its perk to the selected chat. You need to be close to the hotspot in order to trigger it.",
+    subcategory: "Hotspot"
+})
+.addDropDown({
+    category: "Chat",
+    configName: "autoMessageOnHotspotFoundSource",
+    title: "Autoshare to",
+    description: "Source chat type to autoshare the found hotspots (if autosharing enabled).",
+    options: ["Party chat", "All chat"],
+    value: 0,
+    shouldShow: data => data.autoMessageOnHotspotFound,
+    subcategory: "Hotspot"
 })
 
 .addSwitch({

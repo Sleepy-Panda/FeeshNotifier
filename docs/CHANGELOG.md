@@ -5,6 +5,7 @@
 Released: ???
 
 Features:
+- Added option to auto-share found hotspots to the selected chat [disabled by default].
 - Announce RARE DROP! on Caster VI book dropped.
 
 Bugfixes:

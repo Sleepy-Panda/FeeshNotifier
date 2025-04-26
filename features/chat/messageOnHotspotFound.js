@@ -12,7 +12,7 @@ let lastFoundHotspotIds = []; // Remember 2 last found hotspots, to avoid announ
 
 registerIf(
     register("step", (event) => sendMessageOnHotspotFound()).setDelay(1),
-    () => settings.messageOnHotspotFound && isInSkyblock() && HOTSPOT_WORLDS.includes(getWorldName())
+    () => (settings.messageOnHotspotFound || settings.autoMessageOnHotspotFound) && isInSkyblock() && HOTSPOT_WORLDS.includes(getWorldName())
 );
 
 register("worldUnload", () => {
@@ -22,7 +22,7 @@ register("worldUnload", () => {
 
 function sendMessageOnHotspotFound() {
 	try {
-		if (!settings.messageOnHotspotFound ||
+		if ((!settings.messageOnHotspotFound && !settings.autoMessageOnHotspotFound) ||
             !HOTSPOT_WORLDS.includes(getWorldName()) ||
             !isInSkyblock()
         ) {
@@ -61,19 +61,27 @@ function sendChatMessage(position, perk) {
     }
 
     const message = getMessage(position, perk);
-    new Message(
-        `${GOLD}[FeeshNotifier] ${WHITE}You found ${perk} ${RESET}${LIGHT_PURPLE}Hotspot${WHITE}.\n`,
-        new TextComponent(`${WHITE}${BOLD}[Share to ${BLUE}${BOLD}PARTY ${WHITE}${BOLD}chat]`)
-            .setClickAction('run_command')
-            .setClickValue('/pc ' + message),
-        ` ${GRAY}or `,
-        new TextComponent(`${WHITE}${BOLD}[Share to ${YELLOW}${BOLD}ALL ${WHITE}${BOLD}chat]`)
-            .setClickAction('run_command')
-            .setClickValue('/ac ' + message),
-    ).chat();
 
-    if (settings.soundMode !== OFF_SOUND_MODE) {
-        World.playSound('random.orb', 1, 1);
+    if (settings.messageOnHotspotFound) {
+        new Message(
+            `${GOLD}[FeeshNotifier] ${WHITE}You found ${perk} ${RESET}${LIGHT_PURPLE}Hotspot${WHITE}.\n`,
+            new TextComponent(`${WHITE}${BOLD}[Share to ${BLUE}${BOLD}PARTY ${WHITE}${BOLD}chat]`)
+                .setClickAction('run_command')
+                .setClickValue('/pc ' + message),
+            ` ${GRAY}or `,
+            new TextComponent(`${WHITE}${BOLD}[Share to ${YELLOW}${BOLD}ALL ${WHITE}${BOLD}chat]`)
+                .setClickAction('run_command')
+                .setClickValue('/ac ' + message),
+        ).chat();
+    
+        if (settings.soundMode !== OFF_SOUND_MODE) {
+            World.playSound('random.orb', 1, 1);
+        }
+    }
+
+    if (settings.autoMessageOnHotspotFound) {
+        const command = settings.autoMessageOnHotspotFoundSource === 0 ? 'pc' : 'ac';
+        ChatLib.command(command + ' ' + message);
     }
 }
 
