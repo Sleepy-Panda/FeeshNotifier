@@ -1,6 +1,7 @@
 import "./commands";
 import "./moveOverlay";
 import "./moveAllOverlays";
+import "./keybinds";
 import "./utils/playerState";
 import "./utils/registers";
 import "./utils/bazaarPrices";

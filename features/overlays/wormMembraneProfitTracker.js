@@ -217,7 +217,7 @@ function detectInventoryChanges() {
     }
 }
 
-function pauseWormMembraneProfitTracker() {
+export function pauseWormMembraneProfitTracker() {
     try {
         if (!settings.wormProfitTrackerOverlay || !isInSkyblock() || getWorldName() !== CRYSTAL_HOLLOWS || !isSessionActive) {
             return;

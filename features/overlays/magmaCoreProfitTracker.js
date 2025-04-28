@@ -97,7 +97,7 @@ export function resetMagmaCoreProfitTracker(isConfirmed) {
 	}
 }
 
-function pauseMagmaCoreProfitTracker() {
+export function pauseMagmaCoreProfitTracker() {
     try {
         if (!settings.magmaCoreProfitTrackerOverlay || !isInSkyblock() || getWorldName() !== CRYSTAL_HOLLOWS || !isSessionActive) {
             return;

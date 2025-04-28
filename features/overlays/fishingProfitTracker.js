@@ -71,14 +71,6 @@ registerIf(
     () => settings.fishingProfitTrackerOverlay && isInSkyblock() && isInFishingWorld(getWorldName())
 );
 
-const keyBind = new Keybind("Pause active trackers", Keyboard.KEY_NONE, "FeeshNotifier");
-keyBind.registerKeyRelease(() => {
-    if (!settings.fishingProfitTrackerOverlay || !isInSkyblock() || !isInFishingWorld(getWorldName())) {
-        return;
-    }
-    pauseFishingProfitTracker();
-});
-
 let isWorldLoaded = false;
 // World.isLoaded() doesn't give the same result for some reason
 // Items in the inventory are re-added to the profit tracker when swapping lobbies (probably inventory is partially empty when world is unloaded)
@@ -135,13 +127,14 @@ export function resetFishingProfitTracker(isConfirmed) {
 	}
 }
 
-function pauseFishingProfitTracker() {
+export function pauseFishingProfitTracker() {
     try {
         if (!isVisible || !isSessionActive) {
             return;
         }
 
         pause();
+        refreshTrackerDisplayData();
         ChatLib.chat(`${GOLD}[FeeshNotifier] ${WHITE}Fishing profit tracker is paused. Continue fishing to resume it.`);       
     } catch (e) {
         console.error(e);
