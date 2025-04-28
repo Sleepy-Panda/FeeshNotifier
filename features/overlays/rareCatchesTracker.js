@@ -4,7 +4,7 @@ import * as seaCreatures from '../../constants/seaCreatures';
 import { persistentData } from "../../data/data";
 import { overlayCoordsData } from "../../data/overlayCoords";
 import { formatNumberWithSpaces, fromUppercaseToCapitalizedFirstLetters, isDoubleHook, isInFishingWorld, pluralize } from '../../utils/common';
-import { WHITE, GOLD, BOLD, YELLOW, GRAY, RED } from "../../constants/formatting";
+import { WHITE, GOLD, BOLD, GRAY, RED, AQUA } from "../../constants/formatting";
 import { RARE_CATCH_TRIGGERS } from "../../constants/triggers";
 import { getLastFishingHookSeenAt, getWorldName, isInSkyblock } from "../../utils/playerState";
 import { createButtonsDisplay, toggleButtonsDisplay } from "../../utils/overlays";
@@ -125,7 +125,7 @@ function renderRareCatchTrackerOverlay() {
         return;
     }
 
-    let overlayText = `${YELLOW}${BOLD}Rare catches tracker\n`;
+    let overlayText = `${AQUA}${BOLD}Rare catches tracker\n`;
 
     const entries = Object.entries(persistentData.rareCatches)
         .map(([key, value]) => {
@@ -142,7 +142,7 @@ function renderRareCatchTrackerOverlay() {
         overlayText += `${GRAY}- ${rarityColorCode}${fromUppercaseToCapitalizedFirstLetters(entry.seaCreature)}${GRAY}: ${WHITE}${formatNumberWithSpaces(entry.amount)}${doubleHookInfo}\n`;
     });
 
-    overlayText += `${YELLOW}Total: ${WHITE}${persistentData.totalRareCatches}`;
+    overlayText += `${GRAY}Total: ${WHITE}${persistentData.totalRareCatches}`;
 
     const overlay = new Text(overlayText, overlayCoordsData.rareCatchesTrackerOverlay.x, overlayCoordsData.rareCatchesTrackerOverlay.y)
         .setShadow(true)
