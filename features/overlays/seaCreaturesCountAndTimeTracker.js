@@ -1,12 +1,14 @@
 import settings, { allOverlaysGui } from "../../settings";
-import { GOLD, RED, DARK_GRAY, WHITE, GRAY, UNDERLINE } from "../../constants/formatting";
+import { GOLD, RED, DARK_GRAY, WHITE, GRAY } from "../../constants/formatting";
 import { TIMER_SOUND_SOURCE, OFF_SOUND_MODE } from "../../constants/sounds";
 import { ALL_SEA_CREATURES_NAMES } from "../../constants/seaCreatures";
 import { EntityArmorStand } from "../../constants/javaTypes";
 import { overlayCoordsData } from "../../data/overlayCoords";
 import { getWorldName, hasFishingRodInHotbar, isInHunterArmor, isInSkyblock } from "../../utils/playerState";
-import { CRIMSON_ISLE, CRYSTAL_HOLLOWS, HUB, KUUDRA } from "../../constants/areas";
+import { CRIMSON_ISLE, CRYSTAL_HOLLOWS, HUB } from "../../constants/areas";
 import { createButtonsDisplay, toggleButtonsDisplay } from "../../utils/overlays";
+import { registerIf } from "../../utils/registers";
+import { isInFishingWorld } from "../../utils/common";
 
 const TIMER_THRESHOLD_IN_MINUTES = 5;
 
@@ -15,12 +17,24 @@ let startTime = null;
 let killMobsCountNotificationShown = false;
 let killMobsTimerNotificationShown = false;
 
-register('step', () => trackSeaCreaturesCount()).setFps(2);
-register('step', () => {
-    alertOnSeaCreaturesCountThreshold();
-    alertOnSeaCreaturesTimerThreshold();
-}).setFps(1);
-register('renderOverlay', () => renderCountOverlay());
+registerIf(
+    register('step', () => trackSeaCreaturesCount()).setFps(2),
+    () => (settings.alertOnSeaCreaturesCountThreshold || settings.alertOnSeaCreaturesTimerThreshold || settings.seaCreaturesCountOverlay) && isInSkyblock() && isInFishingWorld(getWorldName())
+);
+
+registerIf(
+    register('step', () => {
+        alertOnSeaCreaturesCountThreshold();
+        alertOnSeaCreaturesTimerThreshold();
+    }).setFps(1),
+    () => (settings.alertOnSeaCreaturesCountThreshold || settings.alertOnSeaCreaturesTimerThreshold) && isInSkyblock() && isInFishingWorld(getWorldName())
+);
+
+registerIf(
+    register('renderOverlay', () => renderCountOverlay()),
+    () => settings.seaCreaturesCountOverlay && isInSkyblock() && isInFishingWorld(getWorldName())
+);
+
 register("worldUnload", () => {
     resetTimer();
 });
@@ -33,7 +47,7 @@ function resetTimer() {
 }
 
 function trackSeaCreaturesCount() {
-    if ((!settings.alertOnSeaCreaturesCountThreshold && !settings.alertOnSeaCreaturesTimerThreshold && !settings.seaCreaturesCountOverlay) || !isInSkyblock() || getWorldName() === KUUDRA) {
+    if ((!settings.alertOnSeaCreaturesCountThreshold && !settings.alertOnSeaCreaturesTimerThreshold && !settings.seaCreaturesCountOverlay) || !isInSkyblock() || !isInFishingWorld(getWorldName())) {
         return;
     }
 
@@ -68,8 +82,8 @@ function trackSeaCreaturesCount() {
 function alertOnSeaCreaturesCountThreshold() {
     if (!settings.alertOnSeaCreaturesCountThreshold ||
         !isInSkyblock() ||
+        !isInFishingWorld(getWorldName()) ||
         isInHunterArmor() ||
-        getWorldName() === KUUDRA ||
         !hasFishingRodInHotbar()
     ) {
         return;
@@ -94,8 +108,8 @@ function alertOnSeaCreaturesTimerThreshold() {
     if (!startTime ||
         !settings.alertOnSeaCreaturesTimerThreshold ||
         !isInSkyblock() ||
+        !isInFishingWorld(getWorldName()) ||
         isInHunterArmor() ||
-        getWorldName() === KUUDRA ||
         !hasFishingRodInHotbar()
     ) {
         return;
@@ -122,8 +136,8 @@ function renderCountOverlay() {
         !mobsCount ||
         !startTime ||
         !isInSkyblock() ||
+        !isInFishingWorld(getWorldName()) ||
         isInHunterArmor() ||
-        getWorldName() === KUUDRA ||
         !hasFishingRodInHotbar() ||
         allOverlaysGui.isOpen()
     ) {

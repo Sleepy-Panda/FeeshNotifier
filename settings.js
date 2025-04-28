@@ -1,6 +1,6 @@
 import Settings from "../Amaterasu/core/Settings";
 import DefaultConfig from "../Amaterasu/core/DefaultConfig";
-import { AQUA, GOLD, GRAY, RED, WHITE, BLUE, DARK_GRAY, RESET, BOLD, LIGHT_PURPLE } from "./constants/formatting";
+import { AQUA, GOLD, GRAY, RED, WHITE, BLUE, DARK_GRAY, RESET, BOLD, LIGHT_PURPLE, YELLOW } from "./constants/formatting";
 
 export const allOverlaysGui = new Gui(); // Sample overlays GUI to move/resize them all at once
 
@@ -95,6 +95,14 @@ const config = new DefaultConfig("FeeshNotifier", "config/settings.json")
     subcategory: "Hotspot"
 })
 
+.addTextParagraph({
+    category: "Chat",
+    configName: "messageOnCatchInformationText",
+    title: "Information",
+    description: `You need to enable ${YELLOW}Skyblock Settings -> Personal -> Fishing Settings -> Sea Creature Chat ${RESET}for this functionality to work!`,
+    centered: false,
+    subcategory: "Rare Catches"
+})
 .addSwitch({
     category: "Chat",
     configName: "messageOnYetiCatch",
@@ -632,6 +640,13 @@ const config = new DefaultConfig("FeeshNotifier", "config/settings.json")
     value: true
 })
 
+.addTextParagraph({
+    category: "Alerts",
+    configName: "alertOnCatchInformationText",
+    title: "Information",
+    description: `You need to enable ${YELLOW}Skyblock Settings -> Personal -> Fishing Settings -> Sea Creature Chat ${RESET}for this functionality to work!`,    centered: false,
+    subcategory: "Rare Catches"
+})
 .addSwitch({
     category: "Alerts",
     configName: "alertOnYetiCatch",
@@ -957,7 +972,7 @@ const config = new DefaultConfig("FeeshNotifier", "config/settings.json")
     category: "Overlays",
     configName: "buttonsPosition",
     title: "Buttons position",
-    description: "Where to place Reset / Pause buttons relatively to an overlay.",
+    description: "Where to place Reset / Pause / other buttons relatively to an overlay.",
     options: ["Bottom","Top"],
     value: 0,
     subcategory: "General"
@@ -1004,7 +1019,7 @@ const config = new DefaultConfig("FeeshNotifier", "config/settings.json")
     category: "Overlays",
     configName: "rareCatchesTrackerOverlay",
     title: "Rare catches tracker",
-    description: `Shows an overlay with the statistics of rare sea creatures caught, and frequency of double hooking them.\nDo ${AQUA}/feeshResetRareCatches${GRAY} to reset.\n${RED}Hidden if you have no fishing rod in your hotbar!`,
+    description: `Shows an overlay with the statistics of rare sea creatures caught, and frequency of double hooking them.\nDo ${AQUA}/feeshResetRareCatches${GRAY} to reset.`,
     subcategory: "Rare catches",
     value: true
 })
@@ -1040,7 +1055,7 @@ const config = new DefaultConfig("FeeshNotifier", "config/settings.json")
     category: "Overlays",
     configName: "seaCreaturesHpOverlay",
     title: "Sea creatures HP",
-    description: `Shows an overlay with the HP of nearby sea creatures when they're in lootshare range. Tracked creatures: Fiery Scuttler, Thunder, Lord Jawbus, Plhlegblast, Ragnarok, Reindrake, Yeti, Alligator, Blue Ringed Octopus, Wiki Tiki, Titanoboa.\n${RED}Hidden if you have no fishing rod in your hotbar!`,
+    description: `Shows an overlay with the HP of nearby sea creatures when they're in lootshare range. Tracked creatures: Fiery Scuttler, Thunder, Lord Jawbus, Plhlegblast, Ragnarok, Reindrake, Yeti, Alligator, Blue Ringed Octopus, Wiki Tiki, Titanoboa.`,
     subcategory: "Sea creatures HP",
     value: true
 })
@@ -1078,7 +1093,7 @@ const config = new DefaultConfig("FeeshNotifier", "config/settings.json")
     category: "Overlays",
     configName: "seaCreaturesPerHourTrackerOverlay",
     title: "Sea creatures per hour tracker",
-    description: `Shows an overlay with the sea creatures per hour, and total sea creatures caught per session. Not persistent - resets on MC restart.\n${RED}Hidden if you have no fishing rod in your hotbar!`,
+    description: `Shows an overlay with the sea creatures per hour, and total sea creatures caught per session. Not persistent - resets on MC restart.`,
     subcategory: "Sea creatures per hour tracker"
 })
 .addButton({
@@ -1124,7 +1139,7 @@ const config = new DefaultConfig("FeeshNotifier", "config/settings.json")
     category: "Overlays",
     configName: "jerryWorkshopTrackerOverlay",
     title: "Jerry Workshop tracker",
-    description: `Shows an overlay with Yeti / Reindrake catch statistics and Baby Yeti pet drops statistics while in the Jerry Workshop.\nDo ${AQUA}/feeshResetJerryWorkshop${GRAY} to reset.\n${RED}Hidden if you have no fishing rod in your hotbar!`,
+    description: `Shows an overlay with Yeti / Reindrake catch statistics and Baby Yeti pet drops statistics while in the Jerry Workshop.\nDo ${AQUA}/feeshResetJerryWorkshop${GRAY} to reset.`,
     subcategory: "Jerry Workshop tracker",
     value: true
 })
@@ -1162,8 +1177,7 @@ const config = new DefaultConfig("FeeshNotifier", "config/settings.json")
     title: "Crimson Isle tracker",
     description: `
 Shows an overlay with Thunder / Lord Jawbus catch statistics and Radioactive Vial drop statistics while in the Crimson Isle.
-Do ${AQUA}/feeshResetCrimsonIsle${GRAY} to reset.
-${RED}Hidden if you have no fishing rod in your hotbar!`,
+Do ${AQUA}/feeshResetCrimsonIsle${GRAY} to reset.`,
     subcategory: "Crimson Isle tracker",
     value: true
 })
@@ -1216,7 +1230,7 @@ Example: ${AQUA}/feeshSetRadioactiveVials 5 2024-03-18T14:05:00Z`);
     category: "Overlays",
     configName: "wormProfitTrackerOverlay",
     title: "Worm profit tracker",
-    description: `Shows an overlay with the worm fishing statistics - total and per hour, when in Crystal Hollows. Not persistent - resets on MC restart.\nDo ${AQUA}/feeshResetWormProfit${GRAY} to reset.\n${RED}Hidden if you have no fishing rod in your hotbar!`,
+    description: `Shows an overlay with the worm fishing statistics - total and per hour, when in Crystal Hollows. Not persistent - resets on MC restart.\nDo ${AQUA}/feeshResetWormProfit${GRAY} to reset.`,
     subcategory: "Worm profit tracker",
     value: true
 })
@@ -1254,7 +1268,7 @@ Example: ${AQUA}/feeshSetRadioactiveVials 5 2024-03-18T14:05:00Z`);
     category: "Overlays",
     configName: "magmaCoreProfitTrackerOverlay",
     title: "Magma Core profit tracker",
-    description: `Shows an overlay with the Magma Core fishing statistics - total and per hour, when in Crystal Hollows. Not persistent - resets on MC restart. \nDo ${AQUA}/feeshResetMagmaCoreProfit${GRAY} to reset.\n${RED}Hidden if you have no fishing rod in your hotbar!`,
+    description: `Shows an overlay with the Magma Core fishing statistics - total and per hour, when in Crystal Hollows. Not persistent - resets on MC restart. \nDo ${AQUA}/feeshResetMagmaCoreProfit${GRAY} to reset.`,
     subcategory: "Magma Core profit tracker",
     value: true
 })
@@ -1283,7 +1297,7 @@ Example: ${AQUA}/feeshSetRadioactiveVials 5 2024-03-18T14:05:00Z`);
     category: "Overlays",
     configName: "abandonedQuarryTrackerOverlay",
     title: "Abandoned Quarry tracker",
-    description: `Shows an overlay with the Mithril Grubber and Mithril Powder statistics, when in Abandoned Quarry. Not persistent - resets on MC restart.\n${DARK_GRAY}This requires Powder Widget to be enabled in /tablist.\nDo ${AQUA}/feeshResetAbandonedQuarry${GRAY} to reset.\n${RED}Hidden if you have no fishing rod in your hotbar!`,
+    description: `Shows an overlay with the Mithril Grubber and Mithril Powder statistics, when in Abandoned Quarry. Not persistent - resets on MC restart.\nThis requires ${YELLOW}Powder Widget ${RESET}to be enabled in /tablist.\nDo ${AQUA}/feeshResetAbandonedQuarry${GRAY} to reset.`,
     subcategory: "Abandoned Quarry tracker",
     value: true
 })
@@ -1353,9 +1367,8 @@ Example: ${AQUA}/feeshSetRadioactiveVials 5 2024-03-18T14:05:00Z`);
     title: "Fishing profit tracker",
     description: `
 Shows an overlay with your profits per fishing session.
-${DARK_GRAY}For this to work, make sure to enable Settings - Personal -> Chat Feedback -> Sack Notifications in Skyblock.
-${GRAY}Do ${AQUA}/feeshResetProfitTracker${GRAY} to reset.
-${RED}Hidden if you have no fishing rod in your hotbar!`,
+Make sure to enable ${YELLOW}Skyblock Settings -> Personal -> Chat Feedback -> Sack Notifications${RESET} to count items added to your sacks.
+${GRAY}Do ${AQUA}/feeshResetProfitTracker${GRAY} to reset.`,
     subcategory: "Fishing profit tracker",
     value: true
 })
@@ -1573,7 +1586,7 @@ ${RED}Hidden if you have no fishing rod in your hotbar!`,
     category: "Rendering",
     configName: "renderingBoxingText",
     title: "Boxing",
-    description: `This section allows to draw boxes around some entities. ${BOLD}Boxes are not visible through walls!\n${RED}Hidden if you have no fishing rod in your hotbar!`,
+    description: `This section allows to draw boxes around some entities. ${BOLD}Boxes are not visible through walls!`,
     centered: false,
     subcategory: "Boxing"
 })

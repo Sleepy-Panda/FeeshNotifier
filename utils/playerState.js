@@ -1,4 +1,4 @@
-import { isFishingRod } from "./common";
+import { isFishingHookActive, isFishingRod } from "./common";
 import { updateRegisters } from "./registers";
 
 var inSkyblock = false;
@@ -8,6 +8,7 @@ var zoneName = null;
 var hasFishingRodInHotbar = false;
 var hasDirtRodInHand = false;
 var isInHunterArmor = false;
+var lastFishingHookSeenAt = null;
 
 var lastKatUpgrade = {
 	lastPetClaimedAt: null,
@@ -38,9 +39,11 @@ function trackPlayerState() {
 
 		if (prevInSkyblock !== inSkyblock || prevWorldName !== worldName) {
 			updateRegisters();
+			lastFishingHookSeenAt = null;
 		}
 
 		setHasFishingRodInHotbar();
+		setLastFishingHookSeenAt();
 		setHasDirtRodInHand();
 		setIsInHunterArmor();	
 	} catch (e) {
@@ -112,6 +115,10 @@ export function hasDirtRodInHand() {
 
 export function isInHunterArmor() {
 	return isInHunterArmor;
+}
+
+export function getLastFishingHookSeenAt() {
+	return lastFishingHookSeenAt;
 }
 
 export function getLastGuisClosed() {
@@ -210,4 +217,15 @@ function setIsInHunterArmor() {
 	} else {
 		isInHunterArmor = false;
 	}
+}
+
+function setLastFishingHookSeenAt() {
+	if (!inSkyblock) {
+		return;
+	}
+
+	const isHookActive = isFishingHookActive();
+    if (isHookActive) {
+        lastFishingHookSeenAt = new Date();
+    }
 }

@@ -4,7 +4,7 @@ import * as seaCreatures from '../../constants/seaCreatures';
 import { persistentData } from "../../data/data";
 import { overlayCoordsData } from "../../data/overlayCoords";
 import { BOLD, GOLD, RED, WHITE, DARK_PURPLE, GRAY, AQUA, DARK_GRAY, LIGHT_PURPLE } from "../../constants/formatting";
-import { getWorldName, hasFishingRodInHotbar, isInSkyblock } from "../../utils/playerState";
+import { getLastFishingHookSeenAt, getWorldName, isInSkyblock } from "../../utils/playerState";
 import { formatDate, formatNumberWithSpaces, formatTimeElapsedBetweenDates } from "../../utils/common";
 import { JERRY_WORKSHOP } from "../../constants/areas";
 import { createButtonsDisplay, toggleButtonsDisplay } from "../../utils/overlays";
@@ -248,7 +248,7 @@ function renderJerryWorkshopOverlay() {
         ) ||
         !isInSkyblock() ||
         getWorldName() !== JERRY_WORKSHOP ||
-        !hasFishingRodInHotbar() ||
+        (new Date() - getLastFishingHookSeenAt() > 10 * 60 * 1000) ||
         allOverlaysGui.isOpen()
     ) {
         buttonsDisplay.hide();

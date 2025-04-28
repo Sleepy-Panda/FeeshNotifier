@@ -3,7 +3,7 @@ import * as triggers from "../../constants/triggers";
 import { AQUA, BOLD, GOLD, GRAY, RED, WHITE, YELLOW } from "../../constants/formatting";
 import { overlayCoordsData } from "../../data/overlayCoords";
 import { formatElapsedTime, formatNumberWithSpaces, isDoubleHook, isInFishingWorld } from "../../utils/common";
-import { getWorldName, hasFishingRodInHotbar, isInSkyblock } from '../../utils/playerState';
+import { getLastFishingHookSeenAt, getWorldName, isInSkyblock } from '../../utils/playerState';
 import { registerIf } from "../../utils/registers";
 import { createButtonsDisplay, toggleButtonsDisplay } from "../../utils/overlays";
 
@@ -62,7 +62,7 @@ export function resetSeaCreaturesPerHourTracker(isConfirmed) {
 
 function pauseSeaCreaturesPerHourTracker() {
     try {
-        if (!settings.seaCreaturesPerHourTrackerOverlay || !isInSkyblock() || !hasFishingRodInHotbar() || !isSessionActive) {
+        if (!settings.seaCreaturesPerHourTrackerOverlay || !isInSkyblock() || !isSessionActive) {
             return;
         }
     
@@ -76,7 +76,7 @@ function pauseSeaCreaturesPerHourTracker() {
 
 function refreshElapsedTime() {
     try {
-        if (!isSessionActive || !settings.seaCreaturesPerHourTrackerOverlay || !isInSkyblock() || !hasFishingRodInHotbar()) {
+        if (!isSessionActive || !settings.seaCreaturesPerHourTrackerOverlay || !isInSkyblock() || !isInFishingWorld(getWorldName())) {
             isSessionActive = false;
             return;
         }
@@ -99,7 +99,7 @@ function refreshElapsedTime() {
 
 function trackSeaCreatureCatch() {
     try {
-        if (!settings.seaCreaturesPerHourTrackerOverlay || !isInSkyblock() || !hasFishingRodInHotbar() || !isInFishingWorld(getWorldName())) {
+        if (!settings.seaCreaturesPerHourTrackerOverlay || !isInSkyblock() || !isInFishingWorld(getWorldName())) {
             return;
         }
 
@@ -120,7 +120,7 @@ function trackSeaCreatureCatch() {
 
 function refreshTrackerData() {
     try {
-        if (!settings.seaCreaturesPerHourTrackerOverlay || !isInSkyblock() || !hasFishingRodInHotbar()) {
+        if (!settings.seaCreaturesPerHourTrackerOverlay || !isInSkyblock()) {
             return;
         }
 
@@ -138,15 +138,15 @@ function renderTrackerOverlay() {
     if (!settings.seaCreaturesPerHourTrackerOverlay ||
         !isInSkyblock() ||
         !isInFishingWorld(getWorldName()) ||
-        !hasFishingRodInHotbar() ||
         (!totalSeaCreaturesCaughtCount && !seaCreaturesPerHour) ||
+        (new Date() - getLastFishingHookSeenAt() > 10 * 60 * 1000) ||
         allOverlaysGui.isOpen()
     ) {
         buttonsDisplay.hide();
         return;
     }
 
-    const pausedText = isSessionActive ? '' : ` ${YELLOW}[Paused]`;
+    const pausedText = isSessionActive ? '' : ` ${GRAY}[Paused]`;
     let text = `${YELLOW}${BOLD}Sea creatures per hour`;
     text += `\n${WHITE}${formatNumberWithSpaces(seaCreaturesPerHour)} ${GRAY}per hour (${WHITE}${formatNumberWithSpaces(totalSeaCreaturesCaughtCount)} ${GRAY}total)`;
     text += `\n`;
