@@ -6,7 +6,7 @@ import { overlayCoordsData } from "../../data/overlayCoords";
 import { formatNumberWithSpaces, fromUppercaseToCapitalizedFirstLetters, isDoubleHook, isInFishingWorld, pluralize } from '../../utils/common';
 import { WHITE, GOLD, BOLD, YELLOW, GRAY, RED } from "../../constants/formatting";
 import { RARE_CATCH_TRIGGERS } from "../../constants/triggers";
-import { getWorldName, hasFishingRodInHotbar, isInSkyblock } from "../../utils/playerState";
+import { getLastFishingHookSeenAt, getWorldName, isInSkyblock } from "../../utils/playerState";
 import { createButtonsDisplay, toggleButtonsDisplay } from "../../utils/overlays";
 import { registerIf } from "../../utils/registers";
 
@@ -37,7 +37,7 @@ export function resetRareCatchesTracker(isConfirmed) {
     try {
         if (!isConfirmed) {
             new Message(
-                new TextComponent(`${GOLD}[FeeshNotifier] ${WHITE}Do you want to reset rare catches tracker? ${RED}${BOLD}[Click to confirm]`)
+                new TextComponent(`${GOLD}[FeeshNotifier] ${WHITE}Do you want to reset Rare catches tracker? ${RED}${BOLD}[Click to confirm]`)
                     .setClickAction('run_command')
                     .setClickValue('/feeshResetRareCatches noconfirm')
             ).chat();
@@ -77,7 +77,7 @@ function trackCatch(options) {
             return;
         }
     
-        if (options.seaCreature === seaCreatures.VANQUISHER && !hasFishingRodInHotbar()) {
+        if (options.seaCreature === seaCreatures.VANQUISHER && (new Date() - getLastFishingHookSeenAt() > 6 * 60 * 1000)) {
             return;
         }
 
@@ -118,7 +118,7 @@ function renderRareCatchTrackerOverlay() {
         !Object.entries(persistentData.rareCatches).length ||
         !isInSkyblock() ||
         !isInFishingWorld(getWorldName()) ||
-        !hasFishingRodInHotbar() ||
+        (new Date() - getLastFishingHookSeenAt() > 10 * 60 * 1000) ||
         allOverlaysGui.isOpen()
     ) {
         buttonsDisplay.hide();

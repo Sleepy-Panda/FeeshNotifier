@@ -3,11 +3,12 @@ import { AQUA, BOLD, DARK_PURPLE, GOLD, GRAY, GREEN, RED, WHITE, YELLOW } from "
 import { getBazaarItemPrices } from "../../utils/bazaarPrices";
 import { formatElapsedTime, formatNumberWithSpaces, getItemsAddedToSacks, isDoubleHook, isInSacksGui, toShortNumber } from "../../utils/common";
 import * as triggers from '../../constants/triggers';
-import { getLastGuisClosed, getWorldName, hasFishingRodInHotbar, isInSkyblock } from "../../utils/playerState";
+import { getLastFishingHookSeenAt, getLastGuisClosed, getWorldName, isInSkyblock } from "../../utils/playerState";
 import { CRYSTAL_HOLLOWS } from "../../constants/areas";
 import { overlayCoordsData } from "../../data/overlayCoords";
 import { getAuctionItemPrices } from "../../utils/auctionPrices";
 import { createButtonsDisplay, toggleButtonsDisplay } from "../../utils/overlays";
+import { registerIf } from "../../utils/registers";
 
 var totalMembranesCount = 0;
 var totalChambersCount = 0;
@@ -33,19 +34,39 @@ const WORM_MEMBRANES_MODE = 0;
 const GEMSTONE_CHAMBERS_MODE = 1;
 
 triggers.WORM_CATCH_TRIGGERS.forEach(trigger => {
-    register("Chat", (event) => {
-        const isDoubleHooked = isDoubleHook();
-        trackWormCatch(isDoubleHooked);
-    }).setCriteria(trigger.trigger).setContains();
+    registerIf(
+        register("Chat", (event) => {
+            const isDoubleHooked = isDoubleHook();
+            trackWormCatch(isDoubleHooked);
+        }).setCriteria(trigger.trigger).setContains(),
+        () => settings.wormProfitTrackerOverlay && isInSkyblock() && getWorldName() === CRYSTAL_HOLLOWS
+    );
 });
 
-register('renderOverlay', () => renderWormMembraneProfitTrackerOverlay());
+registerIf(
+    register('renderOverlay', () => renderWormMembraneProfitTrackerOverlay()),
+    () => settings.wormProfitTrackerOverlay && isInSkyblock() && getWorldName() === CRYSTAL_HOLLOWS
+);
 
-register('step', () => refreshElapsedTime()).setDelay(1);
-register('step', () => refreshValuesPerHour()).setDelay(5);
+registerIf(
+    register('step', () => refreshElapsedTime()).setDelay(1),
+    () => settings.wormProfitTrackerOverlay && isInSkyblock() && getWorldName() === CRYSTAL_HOLLOWS
+);
 
-register("Chat", (event) => onAddedToSacks(event)).setCriteria('&6[Sacks] &r&a+').setStart();
-register('step', () => detectInventoryChanges()).setFps(5);
+registerIf(
+    register('step', () => refreshValuesPerHour()).setDelay(5),
+    () => settings.wormProfitTrackerOverlay && isInSkyblock() && getWorldName() === CRYSTAL_HOLLOWS
+);
+
+registerIf(
+    register("Chat", (event) => onAddedToSacks(event)).setCriteria('&6[Sacks] &r&a+').setStart(),
+    () => settings.wormProfitTrackerOverlay && isInSkyblock() && getWorldName() === CRYSTAL_HOLLOWS
+);
+
+registerIf(
+    register('step', () => detectInventoryChanges()).setFps(5),
+    () => settings.wormProfitTrackerOverlay && isInSkyblock() && getWorldName() === CRYSTAL_HOLLOWS
+);
 
 register("worldUnload", () => {
     isSessionActive = false;
@@ -93,7 +114,7 @@ export function resetWormMembraneProfitTracker(isConfirmed) {
 
 function onAddedToSacks(event) {
     try {
-        if (!isSessionActive || !settings.wormProfitTrackerOverlay || !isInSkyblock() || !hasFishingRodInHotbar() || getWorldName() !== CRYSTAL_HOLLOWS) {
+        if (!isSessionActive || !settings.wormProfitTrackerOverlay || !isInSkyblock() || getWorldName() !== CRYSTAL_HOLLOWS) {
             return;
         }
     
@@ -136,7 +157,7 @@ function onAddedToSacks(event) {
 
 function detectInventoryChanges() {
     try {
-        if (!isSessionActive || !settings.wormProfitTrackerOverlay || !isInSkyblock() || !hasFishingRodInHotbar() || getWorldName() !== CRYSTAL_HOLLOWS) {
+        if (!isSessionActive || !settings.wormProfitTrackerOverlay || !isInSkyblock() || getWorldName() !== CRYSTAL_HOLLOWS) {
             previousInventory = [];
             previousInventoryTotal = 0;
             return;
@@ -198,7 +219,7 @@ function detectInventoryChanges() {
 
 function pauseWormMembraneProfitTracker() {
     try {
-        if (!settings.wormProfitTrackerOverlay || !isInSkyblock() || !hasFishingRodInHotbar() || getWorldName() !== CRYSTAL_HOLLOWS || !isSessionActive) {
+        if (!settings.wormProfitTrackerOverlay || !isInSkyblock() || getWorldName() !== CRYSTAL_HOLLOWS || !isSessionActive) {
             return;
         }
     
@@ -212,7 +233,7 @@ function pauseWormMembraneProfitTracker() {
 
 function trackWormCatch(isDoubleHooked) {
     try {
-        if (!settings.wormProfitTrackerOverlay || !isInSkyblock() || !hasFishingRodInHotbar() || getWorldName() !== CRYSTAL_HOLLOWS) {
+        if (!settings.wormProfitTrackerOverlay || !isInSkyblock() || getWorldName() !== CRYSTAL_HOLLOWS) {
             return;
         }
 
@@ -229,7 +250,8 @@ function trackWormCatch(isDoubleHooked) {
 
 function refreshElapsedTime() {
     try {
-        if (!settings.wormProfitTrackerOverlay || !isInSkyblock() || !hasFishingRodInHotbar() || getWorldName() !== CRYSTAL_HOLLOWS || !isSessionActive) {
+        if (!settings.wormProfitTrackerOverlay || !isInSkyblock() || getWorldName() !== CRYSTAL_HOLLOWS || !isSessionActive) {
+            isSessionActive = false;
             return;
         }
 
@@ -250,7 +272,7 @@ function refreshElapsedTime() {
 
 function refreshValuesPerHour() {
     try {
-        if (!settings.wormProfitTrackerOverlay || !isInSkyblock() || !hasFishingRodInHotbar() || getWorldName() !== CRYSTAL_HOLLOWS) {
+        if (!settings.wormProfitTrackerOverlay || !isInSkyblock() || getWorldName() !== CRYSTAL_HOLLOWS) {
             return;
         }
 
@@ -283,9 +305,9 @@ function refreshValuesPerHour() {
 function renderWormMembraneProfitTrackerOverlay() {
     if (!settings.wormProfitTrackerOverlay ||
         !isInSkyblock() ||
-        !hasFishingRodInHotbar() ||
         getWorldName() !== CRYSTAL_HOLLOWS ||
         (!totalWormsCount && !totalMembranesCount) ||
+        (new Date() - getLastFishingHookSeenAt() > 10 * 60 * 1000) ||
         allOverlaysGui.isOpen()
     ) {
         buttonsDisplay.hide();
@@ -293,7 +315,7 @@ function renderWormMembraneProfitTrackerOverlay() {
     }
 
     let text = `${YELLOW}${BOLD}Worm profit tracker\n`;
-    const pausedText = isSessionActive ? '' : ` ${YELLOW}[Paused]`;
+    const pausedText = isSessionActive ? '' : ` ${GRAY}[Paused]`;
     const mode = settings.wormProfitTrackerMode;
     switch (mode) {
         case WORM_MEMBRANES_MODE:

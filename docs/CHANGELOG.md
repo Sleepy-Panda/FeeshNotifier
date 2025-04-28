@@ -7,9 +7,28 @@ Released: ???
 Features:
 - Added option to auto-share found hotspots to the selected chat [disabled by default].
 - Announce RARE DROP! on Caster VI book dropped.
+- Do not show Abandoned Quarry tracker when in Trophy Hunter armor (as it's often used to just catch treasure).
+- Show Sea creature HP overlay and render boxes even if no fishing rod in hotbar.
+- Changed different overlays to hide them when player is not fishing.
+  - Before this change, overlays were visible if player had a fishing rod in hotbar (which is a case for many other activities other than fishing).
+  - Now the overlays appear after player starts fishing in water/lava, and are hidden after 10 minutes of inactivity or after swapping server.
+  - Also, overlays with timers are not paused now when taking off a rod from hotbar.
+  - The following overlays affected:
+    - Fishing Profit tracker
+    - Rare Catches tracker
+    - Crimson Isle tracker
+    - Jerry Workshop tracker
+    - Magma Core profit tracker
+    - Worm membrane profit tracker
+    - Sea creatures per hour tracker
 
 Bugfixes:
 -
+
+Other:
+- Refactored different functionality to not execute any checks when setting is disabled / when being in a wrong world:
+  - Sea creatures count overlay & alert
+  - Worm membrane profit tracker
 
 ## v1.39.0
 

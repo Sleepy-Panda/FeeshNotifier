@@ -1,7 +1,7 @@
 import settings from "../../settings";
 import RenderLibV2 from "../../../RenderLibV2";
 import { BACKWATER_BAYOU, CRIMSON_ISLE, WATER_HOTSPOT_WORLDS } from "../../constants/areas";
-import { getWorldName, hasFishingRodInHotbar, isInSkyblock } from "../../utils/playerState";
+import { getWorldName, isInSkyblock } from "../../utils/playerState";
 import { registerIf } from "../../utils/registers";
 import { EntityArmorStand } from "../../constants/javaTypes";
 
@@ -38,7 +38,7 @@ function isRegisterEnabled() {
 
 function trackEntitiesToBox() {
     try {
-        if (!isRegisterEnabled() || !hasFishingRodInHotbar()) {
+        if (!isRegisterEnabled()) {
             return;
         }
     
@@ -105,7 +105,7 @@ function getBoxColor(plainName) {
 }
 
 function boxEntities() {
-    if (!boxedEntities.length || !isRegisterEnabled() || !hasFishingRodInHotbar()) {
+    if (!boxedEntities.length || !isRegisterEnabled()) {
         return;
     }
 
