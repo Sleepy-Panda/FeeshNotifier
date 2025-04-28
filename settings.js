@@ -977,6 +977,14 @@ const config = new DefaultConfig("FeeshNotifier", "config/settings.json")
     value: 0,
     subcategory: "General"
 })
+.addKeybind({
+    category: "Overlays",
+    configName: "pauseButtonKeybind",
+    title: "Pause button",
+    description: "Button keybind to pause all active overlays which have a timer.",
+    subcategory: "General"
+})
+
 .addSwitch({
     category: "Overlays",
     configName: "totemRemainingTimeOverlay",

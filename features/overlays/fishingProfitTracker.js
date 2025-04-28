@@ -12,6 +12,7 @@ import { getLastFishingHookSeenAt, getLastGuisClosed, getLastKatUpgrade, getWorl
 import { playRareDropSound } from '../../utils/sound';
 import { createButtonsDisplay, getButtonsDisplayRenderY } from '../../utils/overlays';
 import { registerIf } from '../../utils/registers';
+import { Keybind } from "../../../KeybindFix"
 
 let isVisible = false;
 let areActionsVisible = false;
@@ -69,6 +70,14 @@ registerIf(
     register('step', () => { if (fishingProfitTrackerOverlayGui.isOpen()) refreshTrackerDisplayData(); }).setFps(4), // Handle move/resize
     () => settings.fishingProfitTrackerOverlay && isInSkyblock() && isInFishingWorld(getWorldName())
 );
+
+const keyBind = new Keybind("Pause active trackers", Keyboard.KEY_NONE, "FeeshNotifier");
+keyBind.registerKeyRelease(() => {
+    if (!settings.fishingProfitTrackerOverlay || !isInSkyblock() || !isInFishingWorld(getWorldName())) {
+        return;
+    }
+    pauseFishingProfitTracker();
+});
 
 let isWorldLoaded = false;
 // World.isLoaded() doesn't give the same result for some reason
