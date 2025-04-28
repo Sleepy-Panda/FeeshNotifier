@@ -12,6 +12,7 @@ import { getLastFishingHookSeenAt, getLastGuisClosed, getLastKatUpgrade, getWorl
 import { playRareDropSound } from '../../utils/sound';
 import { createButtonsDisplay, getButtonsDisplayRenderY } from '../../utils/overlays';
 import { registerIf } from '../../utils/registers';
+import { Keybind } from "../../../KeybindFix"
 
 let isVisible = false;
 let areActionsVisible = false;
@@ -126,13 +127,14 @@ export function resetFishingProfitTracker(isConfirmed) {
 	}
 }
 
-function pauseFishingProfitTracker() {
+export function pauseFishingProfitTracker() {
     try {
         if (!isVisible || !isSessionActive) {
             return;
         }
 
         pause();
+        refreshTrackerDisplayData();
         ChatLib.chat(`${GOLD}[FeeshNotifier] ${WHITE}Fishing profit tracker is paused. Continue fishing to resume it.`);       
     } catch (e) {
         console.error(e);

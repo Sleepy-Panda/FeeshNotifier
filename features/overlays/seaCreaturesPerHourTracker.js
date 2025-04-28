@@ -60,7 +60,7 @@ export function resetSeaCreaturesPerHourTracker(isConfirmed) {
     }
 }
 
-function pauseSeaCreaturesPerHourTracker() {
+export function pauseSeaCreaturesPerHourTracker() {
     try {
         if (!settings.seaCreaturesPerHourTrackerOverlay || !isInSkyblock() || !isSessionActive) {
             return;

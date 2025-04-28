@@ -977,6 +977,14 @@ const config = new DefaultConfig("FeeshNotifier", "config/settings.json")
     value: 0,
     subcategory: "General"
 })
+.addTextParagraph({
+    category: "Overlays",
+    configName: "pauseButtonKeybindInformationText",
+    title: "Pause button",
+    description: "Set a keybind in Minecraft's Controls menu to pause all active overlays on button pressed. Default button is PAUSE.",
+    subcategory: "General"
+})
+
 .addSwitch({
     category: "Overlays",
     configName: "totemRemainingTimeOverlay",

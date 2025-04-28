@@ -101,7 +101,7 @@ export function resetAbandonedQuarryTracker(isConfirmed) {
     }
 }
 
-function pauseAbandonedQuarryTracker() {
+export function pauseAbandonedQuarryTracker() {
     try {
         if (!isSessionActive || !settings.abandonedQuarryTrackerOverlay || !isInSkyblock() || getZoneName() !== ABANDONED_QUARRY) {
             return;
