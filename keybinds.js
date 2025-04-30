@@ -7,7 +7,7 @@ import { pauseWormMembraneProfitTracker } from "./features/overlays/wormMembrane
 
 const pauseKeyBind = new Keybind("Pause active overlays", Keyboard.KEY_PAUSE, "FeeshNotifier");
 pauseKeyBind.registerKeyRelease(() => {
-    pauseFishingProfitTracker();
+    pauseFishingProfitTracker(true);
     pauseSeaCreaturesPerHourTracker();
     pauseAbandonedQuarryTracker();
     pauseMagmaCoreProfitTracker();
