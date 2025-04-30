@@ -25,7 +25,7 @@ Features:
     - Sea creatures per hour tracker
 
 Bugfixes:
--
+- Fixed issue with DisplayLine being clickable for disabled&invisible widgets, for some users.
 
 Other:
 - Refactored different functionality to not execute any checks when setting is disabled / when being in a wrong world:

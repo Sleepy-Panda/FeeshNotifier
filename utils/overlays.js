@@ -18,7 +18,7 @@ export function createButtonsDisplay(isResetable, resetFn, isPausable, pauseFn, 
     if (hasViewModes && changeViewModeFn) {
         let viewModeDisplayLine = new DisplayLine(`${GREEN}[Click to change view mode]`).setShadow(true);
         viewModeDisplayLine.registerClicked((x, y, mouseButton, buttonState) => {
-            if (isLeftMouseButtonUp(mouseButton, buttonState)) {
+            if (buttonsDisplay.getShouldRender() && isLeftMouseButtonUp(mouseButton, buttonState)) {
                 changeViewModeFn();
             }
         });    
@@ -28,7 +28,7 @@ export function createButtonsDisplay(isResetable, resetFn, isPausable, pauseFn, 
     if (isPausable && pauseFn) {
         let pauseTrackerDisplayLine = new DisplayLine(`${YELLOW}[Click to pause]`).setShadow(true);
         pauseTrackerDisplayLine.registerClicked((x, y, mouseButton, buttonState) => {
-            if (isLeftMouseButtonUp(mouseButton, buttonState)) {
+            if (buttonsDisplay.getShouldRender() && isLeftMouseButtonUp(mouseButton, buttonState)) {
                 pauseFn();
             }
         });
@@ -38,7 +38,7 @@ export function createButtonsDisplay(isResetable, resetFn, isPausable, pauseFn, 
     if (isResetable && resetFn) {
         let resetTrackerDisplayLine = new DisplayLine(`${RED}[Click to reset]`).setShadow(true);
         resetTrackerDisplayLine.registerClicked((x, y, mouseButton, buttonState) => {
-            if (isLeftMouseButtonUp(mouseButton, buttonState)) {
+            if (buttonsDisplay.getShouldRender() && isLeftMouseButtonUp(mouseButton, buttonState)) {
                 resetFn();
             }
         });    
