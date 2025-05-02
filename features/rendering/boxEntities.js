@@ -61,9 +61,9 @@ function trackEntitiesToBox() {
                 const boxColor = getBoxColor(plainName);
                 currentEntities.push({
                     color: boxColor,
-                    x: entity.getX(),
-                    y: entity.getY(),
-                    z: entity.getZ(),
+                    x: entity.getRenderX(),
+                    y: entity.getRenderY(),
+                    z: entity.getRenderZ(),
                     wx: boxParameters.wx,
                     wy: boxParameters.wy,
                     wz: boxParameters.wz
