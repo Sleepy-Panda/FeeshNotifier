@@ -814,6 +814,7 @@ export const FISHING_PROFIT_ITEMS = [
         itemAlternateNames: [ 'Enchanted Book (Caster 6)' ],
         itemDisplayName: `${RARE}Caster VI ${WHITE}Book`,
         npcPrice: 0,
+        shouldAnnounceRareDrop: true,
     },
     {
         itemId: 'ENCHANTMENT_BLESSING_6',

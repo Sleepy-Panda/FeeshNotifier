@@ -1,8 +1,41 @@
 # Releases
 
-## v1.39.0
+## v1.40.0
 
 Released: ???
+
+Features:
+- Added option to set a keybind in Minecraft's Controls menu to pause all active overlays on button pressed. Default button is PAUSE.
+  - The effect is the same as pressing [Click to pause] line on each active overlay.
+- Added option to auto-share found hotspots to the selected chat [disabled by default].
+- Announce RARE DROP! on Caster VI book dropped.
+- Do not show Abandoned Quarry tracker when in Trophy Hunter armor (as it's often used to just catch treasure).
+- Show Sea creature HP overlay and render boxes even if no fishing rod in hotbar.
+- Changed different overlays to hide them when player is not fishing.
+  - Before this change, overlays were visible if player had a fishing rod in hotbar (which is a case for many other activities other than fishing).
+  - Now the overlays appear after player starts fishing in water/lava, and hide after 10 minutes of inactivity / after swapping server.
+  - Also, overlays with timers are not paused now when taking off a rod from hotbar.
+  - The following overlays affected:
+    - Fishing Profit tracker
+    - Rare Catches tracker
+    - Crimson Isle tracker
+    - Jerry Workshop tracker
+    - Magma Core profit tracker
+    - Worm membrane profit tracker
+    - Sea creatures per hour tracker
+
+Bugfixes:
+- Fixed issue with DisplayLine being clickable for disabled&invisible widgets, for some users.
+
+Other:
+- Refactored different functionality to not execute any checks when setting is disabled / when being in a wrong world:
+  - Fishing profit tracker
+  - Sea creatures count overlay & alert
+  - Worm membrane profit tracker
+
+## v1.39.0
+
+Released: 2025-04-23
 
 Features:
 - Added Archfiend Dice profit tracker with Session and Total view modes.

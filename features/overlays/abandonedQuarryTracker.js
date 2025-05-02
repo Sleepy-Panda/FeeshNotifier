@@ -4,7 +4,7 @@ import { ABANDONED_QUARRY, DWARVEN_MINES } from "../../constants/areas";
 import { AQUA, BOLD, GOLD, GRAY, GREEN, RED, WHITE, YELLOW } from "../../constants/formatting";
 import { ANY_MITHRIL_GRUBBER_MESSAGE } from "../../constants/triggers";
 import { formatElapsedTime, formatNumberWithSpaces, isDoubleHook, isFishingHookActive } from "../../utils/common";
-import { getLastGuisClosed, getWorldName, getZoneName, hasFishingRodInHotbar, isInSkyblock } from "../../utils/playerState";
+import { getLastFishingHookSeenAt, getLastGuisClosed, getWorldName, getZoneName, isInHunterArmor, isInSkyblock } from "../../utils/playerState";
 import { BLOATED_MITHRIL_GRUBBER, LARGE_MITHRIL_GRUBBER, MEDIUM_MITHRIL_GRUBBER, SMALL_MITHRIL_GRUBBER } from "../../constants/seaCreatures";
 import { createButtonsDisplay, toggleButtonsDisplay } from "../../utils/overlays";
 import { registerIf } from "../../utils/registers";
@@ -58,6 +58,11 @@ registerIf(
     () => settings.abandonedQuarryTrackerOverlay && isInSkyblock() && getWorldName() === DWARVEN_MINES
 );
 
+register("worldUnload", () => {
+    pauseSession();
+    buttonsDisplay.hide();
+});
+
 export function resetAbandonedQuarryTracker(isConfirmed) {
     try {
         if (!isConfirmed) {
@@ -96,9 +101,9 @@ export function resetAbandonedQuarryTracker(isConfirmed) {
     }
 }
 
-function pauseAbandonedQuarryTracker() {
+export function pauseAbandonedQuarryTracker() {
     try {
-        if (!isSessionActive || !settings.abandonedQuarryTrackerOverlay || !isInSkyblock() || !hasFishingRodInHotbar() || getZoneName() !== ABANDONED_QUARRY) {
+        if (!isSessionActive || !settings.abandonedQuarryTrackerOverlay || !isInSkyblock() || getZoneName() !== ABANDONED_QUARRY) {
             return;
         }
     
@@ -117,7 +122,7 @@ function pauseSession() {
 
 function activateSessionOnPlayersFishingHook() {
     try {
-        if (!settings.abandonedQuarryTrackerOverlay || !isInSkyblock() || !hasFishingRodInHotbar() || getZoneName() !== ABANDONED_QUARRY) {
+        if (!settings.abandonedQuarryTrackerOverlay || !isInSkyblock() || getZoneName() !== ABANDONED_QUARRY || isInHunterArmor()) {
             return;
         }
     
@@ -146,7 +151,7 @@ function activateSessionOnPlayersFishingHook() {
 
 function refreshElapsedTime() {
     try {
-        if (!isSessionActive || !settings.abandonedQuarryTrackerOverlay || !isInSkyblock() || !hasFishingRodInHotbar() || getZoneName() !== ABANDONED_QUARRY) {
+        if (!isSessionActive || !settings.abandonedQuarryTrackerOverlay || !isInSkyblock() || getZoneName() !== ABANDONED_QUARRY || isInHunterArmor()) {
             pauseSession();
             return;
         }
@@ -168,7 +173,7 @@ function refreshElapsedTime() {
 
 function trackMithrilGrubberCatch(seaCreature, isDoubleHook) {
     try {
-        if (!seaCreature || !settings.abandonedQuarryTrackerOverlay || !isInSkyblock() || !hasFishingRodInHotbar() || getZoneName() !== ABANDONED_QUARRY) {
+        if (!seaCreature || !settings.abandonedQuarryTrackerOverlay || !isInSkyblock() || getZoneName() !== ABANDONED_QUARRY) {
             return;
         }
   
@@ -207,7 +212,7 @@ function getMithrilPowder() {
 
 function detectMithrilPowderChanges() {
     try {
-        if (!isSessionActive || !settings.abandonedQuarryTrackerOverlay || !isInSkyblock() || !hasFishingRodInHotbar() || getZoneName() !== ABANDONED_QUARRY) {
+        if (!isSessionActive || !settings.abandonedQuarryTrackerOverlay || !isInSkyblock() || getZoneName() !== ABANDONED_QUARRY) {
             return;
         }
 
@@ -242,7 +247,7 @@ function detectMithrilPowderChanges() {
 
 function refreshTrackerData() {
     try {
-        if (!isSessionActive || !settings.abandonedQuarryTrackerOverlay || !isInSkyblock() || !hasFishingRodInHotbar() || getZoneName() !== ABANDONED_QUARRY) {
+        if (!isSessionActive || !settings.abandonedQuarryTrackerOverlay || !isInSkyblock() || getZoneName() !== ABANDONED_QUARRY) {
             return;
         }
 
@@ -265,10 +270,11 @@ function refreshTrackerData() {
 function renderMithrilGrubberPowderTrackerOverlay() {
     if (!settings.abandonedQuarryTrackerOverlay ||
         !isInSkyblock() ||
-        !hasFishingRodInHotbar() ||
         getZoneName() !== ABANDONED_QUARRY ||
+        isInHunterArmor() ||
         !trackerData ||
         !trackerData.elapsedSeconds ||
+        (new Date() - getLastFishingHookSeenAt() > 10 * 60 * 1000) ||
         allOverlaysGui.isOpen()
     ) {
         buttonsDisplay.hide();
@@ -276,7 +282,7 @@ function renderMithrilGrubberPowderTrackerOverlay() {
     }
 
     const lastPowderGainText = trackerData.lastPowderGain ? ` ${GRAY}[+${formatNumberWithSpaces(trackerData.lastPowderGain)} last added]` : '';
-    const pausedText = isSessionActive ? '' : ` ${YELLOW}[Paused]`;
+    const pausedText = isSessionActive ? '' : ` ${GRAY}[Paused]`;
     let text = `${YELLOW}${BOLD}Abandoned Quarry tracker\n`;
     text += `${GREEN}Total Mithril Grubbers caught: ${WHITE}${formatNumberWithSpaces(trackerData.totalCatches)} ${GRAY}(${WHITE}${formatNumberWithSpaces(trackerData.catches[SMALL_MITHRIL_GRUBBER_KEY])} ${formatNumberWithSpaces(trackerData.catches[MEDIUM_MITHRIL_GRUBBER_KEY])} ${formatNumberWithSpaces(trackerData.catches[LARGE_MITHRIL_GRUBBER_KEY])} ${formatNumberWithSpaces(trackerData.catches[BLOATED_MITHRIL_GRUBBER_KEY])}${GRAY})\n`;
     text += `${GREEN}Total Mithril Powder: ${WHITE}${formatNumberWithSpaces(trackerData.totalPowder)}${lastPowderGainText}\n`;

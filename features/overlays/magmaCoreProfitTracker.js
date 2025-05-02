@@ -2,7 +2,7 @@ import settings, { allOverlaysGui } from "../../settings";
 import * as triggers from '../../constants/triggers';
 import { overlayCoordsData } from "../../data/overlayCoords";
 import { BOLD, GOLD, RED, WHITE, BLUE, YELLOW, GREEN, AQUA, GRAY } from "../../constants/formatting";
-import { getWorldName, hasFishingRodInHotbar, isInSkyblock } from "../../utils/playerState";
+import { getLastFishingHookSeenAt, getWorldName, isInSkyblock } from "../../utils/playerState";
 import {  formatElapsedTime, formatNumberWithSpaces, isDoubleHook, toShortNumber } from "../../utils/common";
 import { CRYSTAL_HOLLOWS } from "../../constants/areas";
 import { getBazaarItemPrices } from "../../utils/bazaarPrices";
@@ -97,9 +97,9 @@ export function resetMagmaCoreProfitTracker(isConfirmed) {
 	}
 }
 
-function pauseMagmaCoreProfitTracker() {
+export function pauseMagmaCoreProfitTracker() {
     try {
-        if (!settings.magmaCoreProfitTrackerOverlay || !isInSkyblock() || !hasFishingRodInHotbar() || getWorldName() !== CRYSTAL_HOLLOWS || !isSessionActive) {
+        if (!settings.magmaCoreProfitTrackerOverlay || !isInSkyblock() || getWorldName() !== CRYSTAL_HOLLOWS || !isSessionActive) {
             return;
         }
     
@@ -113,7 +113,8 @@ function pauseMagmaCoreProfitTracker() {
 
 function refreshElapsedTime() {
     try {
-        if (!isSessionActive || !settings.magmaCoreProfitTrackerOverlay || !isInSkyblock() || !hasFishingRodInHotbar() || getWorldName() !== CRYSTAL_HOLLOWS) {
+        if (!isSessionActive || !settings.magmaCoreProfitTrackerOverlay || !isInSkyblock() || getWorldName() !== CRYSTAL_HOLLOWS) {
+            isSessionActive = false;
             return;
         }
 
@@ -134,7 +135,7 @@ function refreshElapsedTime() {
 
 function refreshTrackerData() {
     try {
-        if (!settings.magmaCoreProfitTrackerOverlay || !isInSkyblock() || !hasFishingRodInHotbar() || getWorldName() !== CRYSTAL_HOLLOWS) {
+        if (!settings.magmaCoreProfitTrackerOverlay || !isInSkyblock() || getWorldName() !== CRYSTAL_HOLLOWS) {
             return;
         }
 
@@ -165,7 +166,7 @@ function refreshTrackerData() {
 
 function trackSeaCreatureCatch(isDoubleHooked) {
     try {
-        if (!settings.magmaCoreProfitTrackerOverlay || !isInSkyblock() || !hasFishingRodInHotbar() || getWorldName() !== CRYSTAL_HOLLOWS) {
+        if (!settings.magmaCoreProfitTrackerOverlay || !isInSkyblock() || getWorldName() !== CRYSTAL_HOLLOWS) {
             return;
         }
 
@@ -191,7 +192,7 @@ function trackMagmaCoreDrop() {
         totalMagmaCoresCount += 1;
 
         const now = new Date();
-        if (now - lastMagmaCoreDroppedAt < 10 * 1000) { // If players kill a cap slowly, the membranes are added a few times nearly at the same time
+        if (now - lastMagmaCoreDroppedAt < 10 * 1000) { // If players kill a cap slowly, the cores are added a few times nearly at the same time
             lastAddedMagmaCoresCount += 1;
         } else {
             lastAddedMagmaCoresCount = 1;
@@ -208,16 +209,16 @@ function trackMagmaCoreDrop() {
 function renderMagmaCoreTrackerOverlay() {
     if (!settings.magmaCoreProfitTrackerOverlay ||
         !isInSkyblock() ||
-        !hasFishingRodInHotbar() ||
         getWorldName() !== CRYSTAL_HOLLOWS ||
         (!totalMagmaCoresCount && !totalSeaCreaturesCaughtCount) ||
+        (new Date() - getLastFishingHookSeenAt() > 10 * 60 * 1000) ||
         allOverlaysGui.isOpen()
     ) {
         buttonsDisplay.hide();
         return;
     }
 
-    const pausedText = isSessionActive ? '' : ` ${YELLOW}[Paused]`;
+    const pausedText = isSessionActive ? '' : ` ${GRAY}[Paused]`;
     let text = `${YELLOW}${BOLD}Magma Core profit tracker\n`;
     text += `${GREEN}Total sea creatures caught: ${WHITE}${formatNumberWithSpaces(totalSeaCreaturesCaughtCount)}\n`;
     text += `${BLUE}Total magma cores: ${WHITE}${formatNumberWithSpaces(totalMagmaCoresCount)} ${GRAY}[+${formatNumberWithSpaces(lastAddedMagmaCoresCount)} last added]\n`;

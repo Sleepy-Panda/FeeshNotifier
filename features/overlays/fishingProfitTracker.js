@@ -2,42 +2,73 @@ import * as triggers from '../../constants/triggers';
 import settings, { allOverlaysGui, fishingProfitTrackerOverlayGui } from "../../settings";
 import { persistentData } from "../../data/data";
 import { overlayCoordsData } from "../../data/overlayCoords";
-import { CRIMSON_ISLE, JERRY_WORKSHOP, KUUDRA } from "../../constants/areas";
+import { CRIMSON_ISLE, JERRY_WORKSHOP } from "../../constants/areas";
 import { FISHING_PROFIT_ITEMS } from "../../constants/fishingProfitItems";
-import { AQUA, BOLD, GOLD, GRAY, RESET, WHITE, RED, GREEN, BLUE } from "../../constants/formatting";
+import { AQUA, BOLD, GOLD, GRAY, RESET, WHITE, RED } from "../../constants/formatting";
 import { getAuctionItemPrices, getPetRarityCode } from "../../utils/auctionPrices";
 import { getBazaarItemPrices } from "../../utils/bazaarPrices";
-import { formatElapsedTime, getCleanItemName, getItemsAddedToSacks, getLore, isFishingHookActive, isInChatOrInventoryGui, isInSacksGui, isInSupercraftGui, splitArray, toShortNumber } from "../../utils/common";
-import { getLastGuisClosed, getLastKatUpgrade, getWorldName, hasFishingRodInHotbar, isInSkyblock } from "../../utils/playerState";
+import { formatElapsedTime, getCleanItemName, getItemsAddedToSacks, getLore, isFishingHookActive, isInChatOrInventoryGui, isInFishingWorld, isInSacksGui, isInSupercraftGui, splitArray, toShortNumber } from "../../utils/common";
+import { getLastFishingHookSeenAt, getLastGuisClosed, getLastKatUpgrade, getWorldName, isInSkyblock } from "../../utils/playerState";
 import { playRareDropSound } from '../../utils/sound';
 import { createButtonsDisplay, getButtonsDisplayRenderY } from '../../utils/overlays';
+import { registerIf } from '../../utils/registers';
 
 let isVisible = false;
 let areActionsVisible = false;
 let previousInventory = [];
 let isSessionActive = false;
-let lastHookSeenAt = null;
 
-register("Chat", (event) => onAddedToSacks(event)).setCriteria('&6[Sacks] &r&a+').setStart(); // Items added to the sacks
-register('step', () => detectInventoryChanges()).setFps(4); // Items added to the inventory
+registerIf(
+    register("Chat", (event) => onAddedToSacks(event)).setCriteria('&6[Sacks] &r&a+').setStart(), // Items added to the sacks
+    () => settings.fishingProfitTrackerOverlay && isInSkyblock() && isInFishingWorld(getWorldName())
+);
 
-triggers.COINS_FISHED_TRIGGERS.forEach(trigger => { register("Chat", (coins, event) => onCoinsFished(coins)).setCriteria(trigger.trigger); });
-triggers.ICE_ESSENCE_FISHED_TRIGGERS.forEach(trigger => { register("Chat", (count, event) => onIceEssenceFished(count)).setCriteria(trigger.trigger); });
+registerIf(
+    register('step', () => detectInventoryChanges()).setFps(4), // Items added to the inventory
+    () => settings.fishingProfitTrackerOverlay && isInSkyblock() && isInFishingWorld(getWorldName())
+);
 
-// &r&aYour &r&5Ender Dragon &r&aleveled up to level &r&981&r&a!&r
-// &r&aYour &r&6Mammoth &r&aleveled up to level &r&92&r&a!&r
-register("Chat", (petDisplayName, level, event) => onPetReachedMaxLevel(+level, petDisplayName))
-    .setCriteria(`${RESET}${GREEN}Your ${RESET}` + "${petDisplayName}" + ` ${RESET}${GREEN}leveled up to level ${RESET}${BLUE}` + "${level}" + `${RESET}${GREEN}!${RESET}`)
-    .setContains();
+triggers.COINS_FISHED_TRIGGERS.forEach(trigger => {
+    registerIf(
+        register("Chat", (coins, event) => onCoinsFished(coins)).setCriteria(trigger.trigger),
+        () => settings.fishingProfitTrackerOverlay && isInSkyblock() && isInFishingWorld(getWorldName())
+    );
+});
+
+triggers.ICE_ESSENCE_FISHED_TRIGGERS.forEach(trigger => {
+    registerIf(
+        register("Chat", (count, event) => onIceEssenceFished(count)).setCriteria(trigger.trigger),
+        () => settings.fishingProfitTrackerOverlay && isInSkyblock() && getWorldName() === JERRY_WORKSHOP
+    );
+});
+
+registerIf(
+    register("Chat", (petDisplayName, level, event) => onPetReachedMaxLevel(+level, petDisplayName))
+        .setCriteria(triggers.PET_LEVEL_UP_MESSAGE)
+        .setContains(),
+    () => settings.fishingProfitTrackerOverlay && isInSkyblock() && getWorldName() === CRIMSON_ISLE
+);
 
 register('step', () => {
     activateSessionOnPlayersFishingHook();
     refreshIsVisible();
     refreshAreActionsVisible();
 }).setFps(2);
-register('step', () => refreshElapsedTime()).setFps(1);
-register('step', () => refreshPrices()).setDelay(30);
-register('step', () => { if (fishingProfitTrackerOverlayGui.isOpen()) refreshTrackerDisplayData(); }).setFps(4); // Handle move/resize
+
+registerIf(
+    register('step', () => refreshElapsedTime()).setFps(1),    
+    () => settings.fishingProfitTrackerOverlay && isInSkyblock() && isInFishingWorld(getWorldName())
+);
+
+registerIf(
+    register('step', () => refreshPrices()).setDelay(30),
+    () => settings.fishingProfitTrackerOverlay && isInSkyblock() && isInFishingWorld(getWorldName())
+);
+
+registerIf(
+    register('step', () => { if (fishingProfitTrackerOverlayGui.isOpen()) refreshTrackerDisplayData(); }).setFps(4), // Handle move/resize
+    () => settings.fishingProfitTrackerOverlay && isInSkyblock() && isInFishingWorld(getWorldName())
+);
 
 let isWorldLoaded = false;
 // World.isLoaded() doesn't give the same result for some reason
@@ -95,14 +126,16 @@ export function resetFishingProfitTracker(isConfirmed) {
 	}
 }
 
-function pauseFishingProfitTracker() {
+export function pauseFishingProfitTracker(forceRefreshDisplay) {
     try {
         if (!isVisible || !isSessionActive) {
             return;
         }
 
         pause();
-        ChatLib.chat(`${GOLD}[FeeshNotifier] ${WHITE}Fishing profit tracker is paused. Continue fishing to resume it.`);       
+        ChatLib.chat(`${GOLD}[FeeshNotifier] ${WHITE}Fishing profit tracker is paused. Continue fishing to resume it.`);
+        
+        if (forceRefreshDisplay) refreshTrackerDisplayData();
     } catch (e) {
         console.error(e);
 		console.log(`[FeeshNotifier] [ProfitTracker] Failed to pause Fishing profit tracker.`);
@@ -111,7 +144,6 @@ function pauseFishingProfitTracker() {
 
 function pause() {
     previousInventory = [];
-    lastHookSeenAt = null;
     isSessionActive = false;
 }
 
@@ -122,8 +154,8 @@ function refreshIsVisible() {
         !persistentData || !persistentData.fishingProfit ||
         (!persistentData.fishingProfit.totalProfit && !Object.keys(persistentData.fishingProfit.profitTrackerItems).length && !persistentData.fishingProfit.elapsedSeconds) ||
         !isInSkyblock() ||
-        getWorldName() === KUUDRA ||
-        !hasFishingRodInHotbar() ||
+        !isInFishingWorld(getWorldName()) ||
+        (new Date() - getLastFishingHookSeenAt() > 10 * 60 * 1000) ||
         allOverlaysGui.isOpen()
     ) {
         isVisible = false;
@@ -186,12 +218,11 @@ function changeItemAmount(itemId, isDelete, difference) {
 
 function activateSessionOnPlayersFishingHook() {
     try {
-        if (!settings.fishingProfitTrackerOverlay || !isWorldLoaded || !isInSkyblock() || !hasFishingRodInHotbar() || getWorldName() === KUUDRA) {
+        if (!settings.fishingProfitTrackerOverlay || !isWorldLoaded || !isInSkyblock() || !isInFishingWorld(getWorldName())) {
             return;
         }
     
         const isHookActive = isFishingHookActive();
-
         if (isHookActive) {
             activateTimer();
         }
@@ -201,7 +232,6 @@ function activateSessionOnPlayersFishingHook() {
 	}
 
     function activateTimer() {
-        lastHookSeenAt = new Date();
         isSessionActive = true;
 
         if (!persistentData.fishingProfit.elapsedSeconds) {
@@ -218,6 +248,7 @@ function refreshElapsedTime() {
         }
 
         const maxSecondsElapsedSinceLastAction = 60 * 6; // Time to kill any mob before despawn, e.g. Jawbus
+        const lastHookSeenAt = getLastFishingHookSeenAt();
         const elapsedSecondsSinceLastAction = (new Date() - lastHookSeenAt) / 1000;
 
         if (lastHookSeenAt && elapsedSecondsSinceLastAction < maxSecondsElapsedSinceLastAction) {
@@ -633,7 +664,8 @@ function getFishingProfitItemByName(itemName) {
 }
 
 function getElapsedTimeLineText(elapsedTime) {
-    return `\n${AQUA}Elapsed time: ${WHITE}${formatElapsedTime(elapsedTime)}`
+    const pausedText = isSessionActive ? '' : ` ${GRAY}[Paused]`;
+    return `\n${AQUA}Elapsed time: ${WHITE}${formatElapsedTime(elapsedTime)}${pausedText}`
 }
 
 function refreshTrackerDisplayData() {

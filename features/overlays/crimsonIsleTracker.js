@@ -4,7 +4,7 @@ import * as seaCreatures from '../../constants/seaCreatures';
 import { persistentData } from "../../data/data";
 import { overlayCoordsData } from "../../data/overlayCoords";
 import { BOLD, GOLD, LIGHT_PURPLE, RED, WHITE, GRAY, DARK_RED, DARK_GRAY, RESET } from "../../constants/formatting";
-import { getWorldName, hasFishingRodInHotbar, isInSkyblock } from "../../utils/playerState";
+import { getLastFishingHookSeenAt, getWorldName, isInSkyblock } from "../../utils/playerState";
 import { formatDate, formatNumberWithSpaces, formatTimeElapsedBetweenDates, isDoubleHook } from "../../utils/common";
 import { CRIMSON_ISLE } from "../../constants/areas";
 import { MEME_SOUND_MODE, NORMAL_SOUND_MODE, SAD_TROMBONE_SOUND_SOURCE } from "../../constants/sounds";
@@ -269,7 +269,7 @@ function renderCrimsonIsleTrackerOverlay() {
         ) ||
         !isInSkyblock() ||
         getWorldName() !== CRIMSON_ISLE ||
-        !hasFishingRodInHotbar() ||
+        (new Date() - getLastFishingHookSeenAt() > 10 * 60 * 1000) ||
         allOverlaysGui.isOpen()
     ) {
         buttonsDisplay.hide();

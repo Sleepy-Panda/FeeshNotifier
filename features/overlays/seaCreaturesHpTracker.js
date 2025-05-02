@@ -2,7 +2,7 @@ import settings, { allOverlaysGui } from "../../settings";
 import { BOLD, YELLOW } from "../../constants/formatting";
 import { EntityArmorStand } from "../../constants/javaTypes";
 import { overlayCoordsData } from "../../data/overlayCoords";
-import { getWorldName, hasFishingRodInHotbar, isInSkyblock } from "../../utils/playerState";
+import { getWorldName, isInSkyblock } from "../../utils/playerState";
 import { BACKWATER_BAYOU, CRIMSON_ISLE, JERRY_WORKSHOP, WATER_HOTSPOT_WORLDS } from "../../constants/areas";
 import { OFF_SOUND_MODE } from "../../constants/sounds";
 import { registerIf } from "../../utils/registers";
@@ -82,8 +82,8 @@ function trackSeaCreaturesHp() {
 
         if (!settings.seaCreaturesHpOverlay ||
             !isInSkyblock() ||
-            !TRACKED_WORLD_NAMES.includes(getWorldName()) ||
-            !hasFishingRodInHotbar()) {
+            !TRACKED_WORLD_NAMES.includes(getWorldName())
+        ) {
             return;
         }
     
@@ -121,7 +121,6 @@ function renderHpOverlay() {
         !mobs.length ||
         !isInSkyblock() ||
         !TRACKED_WORLD_NAMES.includes(getWorldName()) ||
-        !hasFishingRodInHotbar() ||
         allOverlaysGui.isOpen()
     ) {
         return;
