@@ -1,8 +1,18 @@
 # Releases
 
-## v1.40.0
+## v1.41.0
 
 Released: ???
+
+Features:
+-
+
+Bugfixes:
+-
+
+## v1.40.0
+
+Released: 2025-05-02
 
 Features:
 - Added option to set a keybind in Minecraft's Controls menu to pause all active overlays on button pressed. Default button is PAUSE.
