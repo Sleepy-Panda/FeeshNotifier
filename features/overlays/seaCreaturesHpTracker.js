@@ -1,9 +1,9 @@
-import settings, { allOverlaysGui } from "../../settings";
+import settings, { allOverlaysGui, seaCreaturesHpOverlayGui } from "../../settings";
 import { BOLD, YELLOW } from "../../constants/formatting";
 import { EntityArmorStand } from "../../constants/javaTypes";
 import { overlayCoordsData } from "../../data/overlayCoords";
 import { getWorldName, isInSkyblock } from "../../utils/playerState";
-import { BACKWATER_BAYOU, CRIMSON_ISLE, JERRY_WORKSHOP, WATER_HOTSPOT_WORLDS } from "../../constants/areas";
+import { BACKWATER_BAYOU, CRIMSON_ISLE, CRYSTAL_HOLLOWS, JERRY_WORKSHOP, WATER_FISHING_WORLDS, WATER_HOTSPOT_WORLDS } from "../../constants/areas";
 import { OFF_SOUND_MODE } from "../../constants/sounds";
 import { registerIf } from "../../utils/registers";
 
@@ -11,48 +11,72 @@ const LOOTSHARE_DISTANCE = 30;
 const TRACKED_MOBS = [
     {
         worlds: [CRIMSON_ISLE],
-        mobShortName: 'Fiery Scuttler',
+        baseMobName: 'Fiery Scuttler',
     },
     {
         worlds: [CRIMSON_ISLE],
-        mobShortName: 'Lord Jawbus',
+        baseMobName: 'Lord Jawbus',
     },
     {
         worlds: [CRIMSON_ISLE],
-        mobShortName: 'Thunder',
+        baseMobName: 'Thunder',
     },
     {
         worlds: [CRIMSON_ISLE],
-        mobShortName: 'Plhlegblast',
+        baseMobName: 'Plhlegblast',
     },
     {
         worlds: [CRIMSON_ISLE],
-        mobShortName: 'Ragnarok',
+        baseMobName: 'Ragnarok',
     },
     {
         worlds: [JERRY_WORKSHOP],
-        mobShortName: 'Reindrake',
+        baseMobName: 'Reindrake',
     },
     {
         worlds: [JERRY_WORKSHOP],
-        mobShortName: 'Yeti',
+        baseMobName: 'Yeti',
     },
     {
         worlds: WATER_HOTSPOT_WORLDS,
-        mobShortName: 'Alligator',
+        baseMobName: 'Alligator',
     },
     {
         worlds: WATER_HOTSPOT_WORLDS,
-        mobShortName: 'Blue Ringed Octopus',
+        baseMobName: 'Blue Ringed Octopus',
     },
     {
         worlds: WATER_HOTSPOT_WORLDS,
-        mobShortName: 'Wiki Tiki',
+        baseMobName: 'Wiki Tiki',
     },
     {
         worlds: [BACKWATER_BAYOU],
-        mobShortName: 'Titanoboa',
-    }
+        baseMobName: 'Titanoboa',
+    },
+    {
+        worlds: [CRYSTAL_HOLLOWS],
+        baseMobName: 'Abyssal Miner',
+    },
+    {
+        worlds: WATER_FISHING_WORLDS,
+        baseMobName: 'Sea Emperor',
+    },
+    {
+        worlds: WATER_FISHING_WORLDS,
+        baseMobName: 'Water Hydra',
+    },
+    {
+        worlds: WATER_FISHING_WORLDS,
+        baseMobName: 'Phantom Fisher',
+    },
+    {
+        worlds: WATER_FISHING_WORLDS,
+        baseMobName: 'Grim Reaper',
+    },
+    {
+        worlds: WATER_FISHING_WORLDS,
+        baseMobName: 'Great White Shark',
+    },
 ];
 
 const TRACKED_WORLD_NAMES = TRACKED_MOBS
@@ -96,7 +120,7 @@ function trackSeaCreaturesHp() {
             const plainName = entity?.getName()?.removeFormatting();
     
             if (plainName.includes('[Lv') && plainName.includes('❤') && // Distinguish mobs from pets (e.g. Squid)
-                TRACKED_MOBS.filter(m => m.worlds.includes(worldName)).some(m => plainName.includes(m.mobShortName)) &&
+                TRACKED_MOBS.filter(m => m.worlds.includes(worldName)).some(m => plainName.includes(m.baseMobName)) &&
                 (plainName.includes('Reindrake') || entity.distanceTo(player) <= LOOTSHARE_DISTANCE)
             ) {
                 // Original nametag: §e﴾ §8[§7Lv400§8] §c§lThunder§r§r §e17M§f/§a35M§c❤ §e﴿ §b✯
@@ -104,6 +128,8 @@ function trackSeaCreaturesHp() {
                 currentMobs.push(cleanName);          
             }
         });
+
+        currentMobs = currentMobs.slice(0, settings.seaCreaturesHpOverlay_maxCount); // Top N
     
         if (currentMobs.length > mobs.length && settings.soundMode !== OFF_SOUND_MODE) {
             World.playSound('random.orb', 0.75, 1);
@@ -118,7 +144,6 @@ function trackSeaCreaturesHp() {
 
 function renderHpOverlay() {
     if (!settings.seaCreaturesHpOverlay ||
-        !mobs.length ||
         !isInSkyblock() ||
         !TRACKED_WORLD_NAMES.includes(getWorldName()) ||
         allOverlaysGui.isOpen()
@@ -126,13 +151,24 @@ function renderHpOverlay() {
         return;
     }
 
-    let overlayText = `${YELLOW}${BOLD}Sea creatures HP\n`;
-    mobs.forEach((mob) => {
-        overlayText += `${mob}\n`;
-    });
+    if (!mobs.length && seaCreaturesHpOverlayGui.isOpen()) {
+        const overlayText = `${YELLOW}${BOLD}Sea creatures HP`;
+        drawText(overlayText);
+        return;
+    }
+    
+    if (mobs.length) {
+        let overlayText = `${YELLOW}${BOLD}Sea creatures HP\n`;
+        mobs.forEach((mob) => {
+            overlayText += `${mob}\n`;
+        });
+        drawText(overlayText);
+    }
 
-    const overlay = new Text(overlayText, overlayCoordsData.seaCreaturesHpOverlay.x, overlayCoordsData.seaCreaturesHpOverlay.y)
-        .setShadow(true)
-        .setScale(overlayCoordsData.seaCreaturesHpOverlay.scale);
-    overlay.draw();
+    function drawText(overlayText) {
+        const overlay = new Text(overlayText, overlayCoordsData.seaCreaturesHpOverlay.x, overlayCoordsData.seaCreaturesHpOverlay.y)
+            .setShadow(true)
+            .setScale(overlayCoordsData.seaCreaturesHpOverlay.scale);
+        overlay.draw();
+    }
 }
