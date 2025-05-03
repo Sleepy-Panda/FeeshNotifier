@@ -1067,6 +1067,15 @@ const config = new DefaultConfig("FeeshNotifier", "config/settings.json")
     subcategory: "Sea creatures HP",
     value: true
 })
+.addSlider({
+    category: "Overlays",
+    configName: "seaCreaturesHpOverlay_maxCount",
+    title: "Maximum sea creatures count to display",
+    description: "Show top N sea creatures nearby.",
+    options: [1, 15],
+    value: 5,
+    subcategory: "Sea creatures HP"
+})
 .addButton({
     category: "Overlays",
     configName: "moveSeaCreaturesHpOverlay",

@@ -1,4 +1,6 @@
 import { EntityArmorStand } from '../constants/javaTypes';
+import { ALL_SEA_CREATURES_NAMES } from '../constants/seaCreatures';
+import { getMcEntityId } from './common';
 
 /**
  * Find all Hotspots within the specified range from the specified entity.
@@ -74,4 +76,57 @@ export function getPlayerNamesInRange(distance) {
 		.filter((x, i, a) => a.indexOf(x) == i); // Distinct, sometimes the players are duplicated in the list
 		
 	return players;
+}
+
+/**
+ * Find the specific sea creatures in the specified range from the current player.
+ * @param {Array} includedSeaCreatureNames Array of sea creature names without formatting, to find them in the world
+ * @returns {Array} Sea creatures info in the format { entity, baseMobName, nameHpModifiers, currentHp, nameModifiers }
+ */
+export function getSeaCreaturesInRange(includedSeaCreatureNames, distance) {
+	const entities = World.getAllEntitiesOfType(EntityArmorStand);
+    const player = Player.getPlayer();
+
+	const seaCreatures = entities
+		.filter(entity => entity.distanceTo(player) <= distance)
+		.map(entity => {
+			const seaCreatureInfo = parseSeaCreatureNametag(entity);
+        	if (!seaCreatureInfo) return null;
+			return includedSeaCreatureNames.some(n => seaCreatureInfo.baseMobName === n) ? seaCreatureInfo : null;
+		})
+		.filter(seaCreatureInfo => !!seaCreatureInfo);
+
+	return seaCreatures;
+
+	// Original nametag: §e﴾ §8[§7Lv400§8] §c§lThunder§r§r §e17M§f/§a35M§c❤ §e﴿ §b✯
+	// §8[§7Lv1§8] §5§ka§5Corrupted Squid§5§ka§r §a300§f/§a300§c❤
+	function parseSeaCreatureNametag(entity) { 
+		if (!entity) return null;
+	
+		const plainName = entity?.getName()?.removeFormatting();
+		if (!plainName || !plainName.includes('[Lv') || !plainName.includes('❤') || !ALL_SEA_CREATURES_NAMES.some(n => plainName.includes(n))) return null;
+	
+		const name = entity.getName().replace('§e﴾ ', '').replace(' §e﴿', '').trim() || '';
+		const shortName = name.split('] ')[1]; // §c§lThunder§r§r §e17M§f/§a35M§c❤ §b✯
+		const baseMobName = takeWhile(shortName.split(' '), part => !part.includes('/'))
+			.join(' ')
+			.replaceAll('§ka', '') // Corrupted character before and after mob name
+			.replace('Corrupted ', '')
+			.removeFormatting(); // Result is plain mob name, e.g. Thunder
+
+		return {
+			mcEntityId: getMcEntityId(entity),
+			baseMobName: baseMobName,
+			nameHpModifiers: shortName, 
+			currentHp: shortName.split('§f/')[0].split(' ').slice(-1)[0] + '§c❤', // §e17M❤
+			//fullHp: shortName.split(' ').find(part => part.includes('§f/')), // §e17M§f/§a35M§c❤
+			nameModifiers: shortName.split(' ').filter(part => !part.includes('/')).join(' '), // §c§lThunder§r§r §b✯
+		};
+
+		function takeWhile(a, predicate) {
+			if (!a || !a.length) return [];
+			const i = a.findIndex(x => !predicate(x));                
+			return i >= 0 ? a.slice(0, i) : a;
+		}
+	}
 }

@@ -7,6 +7,8 @@ export const ABANDONED_QUARRY = 'Abandoned Quarry';
 export const BACKWATER_BAYOU = 'Backwater Bayou';
 export const JERRY_WORKSHOP = 'Jerry\'s Workshop';
 export const SPIDERS_DEN = 'Spider\'s Den';
+export const PARK = 'The Park';
+export const FARMING_ISLANDS = 'The Farming Islands';
 export const KUUDRA = 'Kuudra';
 export const DUNGEONS = 'Catacombs';
 export const GARDEN = 'Garden';
@@ -36,4 +38,15 @@ export const NO_FISHING_WORLDS = [
     DUNGEON_HUB,
     THE_END,
     GLACITE_MINESHAFTS
+];
+
+export const WATER_FISHING_WORLDS = [
+    BACKWATER_BAYOU,
+    SPIDERS_DEN,
+    HUB,
+    CRYSTAL_HOLLOWS,
+    DWARVEN_MINES,
+    JERRY_WORKSHOP,
+    PARK,
+    FARMING_ISLANDS
 ];
