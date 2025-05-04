@@ -187,6 +187,33 @@ export function toShortNumber(number) {
 }
 
 /**
+ * Converts a short string number format into a normal number.
+ * Examples: "100,500" => 100500, "1.2B" => 1200000000, "1M" => 1000000, "6.5k" => 6500
+ * @param {string} str - The string to convert
+ * @returns {number} The converted number
+ */
+export function parseShortNumber(str) {
+    if (!str) return 0;
+    
+    str = str.replace(/,/g, '').toLowerCase();
+    
+    const multipliers = {
+        'k': 1e3,
+        'm': 1e6,
+        'b': 1e9,
+        't': 1e12,
+    };
+    
+    const lastChar = str.slice(-1);
+    if (multipliers[lastChar]) {
+        const number = parseFloat(str.slice(0, -1));
+        return number * multipliers[lastChar];
+    }
+    
+    return parseFloat(str);
+} 
+
+/**
  * Converts elapsed seconds to hours, minutes and seconds. Examples: "1:05", "2:03:49", "27:03:17"
  * @param {Number} elapsedSeconds - Elapsed seconds
  * @returns {string}
