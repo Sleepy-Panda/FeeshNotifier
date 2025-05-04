@@ -1,5 +1,5 @@
 import settings, { allOverlaysGui, seaCreaturesHpOverlayGui } from "../../settings";
-import { BOLD, YELLOW } from "../../constants/formatting";
+import { AQUA, BOLD } from "../../constants/formatting";
 import { EntityArmorStand } from "../../constants/javaTypes";
 import { overlayCoordsData } from "../../data/overlayCoords";
 import { getWorldName, isInSkyblock } from "../../utils/playerState";
@@ -152,13 +152,13 @@ function renderHpOverlay() {
     }
 
     if (!mobs.length && seaCreaturesHpOverlayGui.isOpen()) {
-        const overlayText = `${YELLOW}${BOLD}Sea creatures HP`;
+        const overlayText = `${AQUA}${BOLD}Sea creatures HP`;
         drawText(overlayText);
         return;
     }
     
     if (mobs.length) {
-        let overlayText = `${YELLOW}${BOLD}Sea creatures HP\n`;
+        let overlayText = `${AQUA}${BOLD}Sea creatures HP\n`;
         mobs.forEach((mob) => {
             overlayText += `${mob}\n`;
         });
