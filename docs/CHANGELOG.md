@@ -10,7 +10,7 @@ Features:
 - Made Sea creature HP tracker moveable even when no sea creatures displayed.
 
 Bugfixes:
--
+- Fixed Dark Bait not tracked by Fishing Profit tracker.
 
 ## v1.40.0
 

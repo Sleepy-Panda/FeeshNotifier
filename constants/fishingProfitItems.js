@@ -760,6 +760,12 @@ export const FISHING_PROFIT_ITEMS = [
         npcPrice: 2050,
     },
     {
+        itemId: 'DARK_BAIT',
+        itemName: 'Dark Bait',
+        itemDisplayName: `${COMMON}Dark Bait`,
+        npcPrice: 8,
+    },
+    {
         itemId: 'ENCHANTMENT_CORRUPTION_1',
         itemName: 'Enchanted Book (Corruption I)',
         itemDisplayName: `${RARE}Corruption I ${WHITE}Book`,
