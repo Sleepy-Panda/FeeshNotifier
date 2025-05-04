@@ -111,10 +111,18 @@ function trackSeaCreaturesHp() {
     
         const currentMobs = getSeaCreaturesInRange(TRACKED_MOBS.map(n => n.baseMobName), LOOTSHARE_DISTANCE)
             .sort((a, b) => a.currentHpNumber - b.currentHpNumber) // Lowest HP comes first
-            .map(sc => sc.shortNametag)
+            .map(sc => ({ nametag: sc.shortNametag, baseMobName: sc.baseMobName }))
             .slice(0, settings.seaCreaturesHpOverlay_maxCount); // Top N
 
-        if (currentMobs.length > mobs.length && settings.soundMode !== OFF_SOUND_MODE) {
+        const addedMobNames = currentMobs.filter(cm => {
+            return !mobs.some(m => m.baseMobName === cm.baseMobName);
+         });
+
+        if (
+            currentMobs.length > mobs.length &&
+            settings.soundMode !== OFF_SOUND_MODE &&
+            !addedMobNames.every(m => m.baseMobName === 'Reindrake') // Reindrake flies around and goes out of nametags render distance periodically, we don't need sound for it
+        ) {
             World.playSound('random.orb', 0.75, 1);
         }
     
@@ -143,7 +151,7 @@ function renderHpOverlay() {
     if (mobs.length) {
         let overlayText = `${AQUA}${BOLD}Sea creatures HP\n`;
         mobs.forEach((mob) => {
-            overlayText += `${mob}\n`;
+            overlayText += `${mob.nametag}\n`;
         });
         drawText(overlayText);
     }
