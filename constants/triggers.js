@@ -183,7 +183,7 @@ export const ALL_CATCHES_TRIGGERS = [
     },
     {
         trigger: SEA_EMPEROR_MESSAGE,
-        seaCreature: `Sea Emperor`,
+        seaCreature: `The Sea Emperor`,
         rarityColorCode: LEGENDARY,
     },
     {
