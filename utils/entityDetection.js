@@ -87,6 +87,7 @@ export function getPlayerNamesInRange(distance) {
     currentHp: string;
     currentHpNumber: number;
     nameWithModifiers: string;
+	renderPos: object;
   } 
  */
 export function getSeaCreaturesInRange(includedSeaCreatureNames, distance) {
@@ -130,6 +131,11 @@ export function getSeaCreaturesInRange(includedSeaCreatureNames, distance) {
 			currentHpNumber: parseShortNumber(currentHp.removeFormatting()),
 			//fullHp: shortName.split(' ').find(part => part.includes('§f/')), // §e17M§f/§a35M§c❤
 			nameWithModifiers: shortName.split(' ').filter(part => !part.includes('/')).join(' '), // §c§lThunder§r§r §b✯
+			renderPos: {
+				x: entity.getRenderX(),
+                y: entity.getRenderY(),
+                z: entity.getRenderZ(),
+			},
 		};
 
 		function takeWhile(arr, predicate) {
