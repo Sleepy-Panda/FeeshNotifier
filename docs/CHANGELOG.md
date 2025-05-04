@@ -5,7 +5,9 @@
 Released: ???
 
 Features:
--
+- Added all Legendary and Mythic mobs to Sea creature HP tracker.
+- Added setting for maximum count of sea creatures to display in Sea creature HP tracker.
+- Made Sea creature HP tracker moveable even when no sea creatures displayed.
 
 Bugfixes:
 -

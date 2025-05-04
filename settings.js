@@ -1063,7 +1063,7 @@ const config = new DefaultConfig("FeeshNotifier", "config/settings.json")
     category: "Overlays",
     configName: "seaCreaturesHpOverlay",
     title: "Sea creatures HP",
-    description: `Shows an overlay with the HP of nearby sea creatures when they're in lootshare range. Tracked creatures: Fiery Scuttler, Thunder, Lord Jawbus, Plhlegblast, Ragnarok, Reindrake, Yeti, Alligator, Blue Ringed Octopus, Wiki Tiki, Titanoboa.`,
+    description: `Shows an overlay with the HP of nearby Legendary/Mythic sea creatures when they're in lootshare range.`,
     subcategory: "Sea creatures HP",
     value: true
 })
