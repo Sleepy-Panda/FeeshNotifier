@@ -49,7 +49,7 @@ const TRACKED_ENTITY_NAMES = [
     {
         baseMobName: 'Thunder',
         hasImmunity: true,
-        height: 3
+        height: 2
     },
     {
         baseMobName: 'Lord Jawbus',
