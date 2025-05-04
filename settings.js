@@ -1063,7 +1063,7 @@ const config = new DefaultConfig("FeeshNotifier", "config/settings.json")
     category: "Overlays",
     configName: "seaCreaturesHpOverlay",
     title: "Sea creatures HP",
-    description: `Shows an overlay with the HP of nearby Legendary/Mythic sea creatures when they're in lootshare range.`,
+    description: `Shows an overlay with the HP of nearby Legendary/Mythic sea creatures when they're in lootshare range. Sea creatures with lower HP come first.`,
     subcategory: "Sea creatures HP",
     value: true
 })

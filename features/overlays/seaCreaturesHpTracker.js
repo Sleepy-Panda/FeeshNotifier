@@ -1,11 +1,11 @@
 import settings, { allOverlaysGui, seaCreaturesHpOverlayGui } from "../../settings";
 import { AQUA, BOLD } from "../../constants/formatting";
-import { EntityArmorStand } from "../../constants/javaTypes";
 import { overlayCoordsData } from "../../data/overlayCoords";
 import { getWorldName, isInSkyblock } from "../../utils/playerState";
 import { BACKWATER_BAYOU, CRIMSON_ISLE, CRYSTAL_HOLLOWS, JERRY_WORKSHOP, WATER_FISHING_WORLDS, WATER_HOTSPOT_WORLDS } from "../../constants/areas";
 import { OFF_SOUND_MODE } from "../../constants/sounds";
 import { registerIf } from "../../utils/registers";
+import { getSeaCreaturesInRange } from "../../utils/entityDetection";
 
 const LOOTSHARE_DISTANCE = 30;
 const TRACKED_MOBS = [
@@ -102,8 +102,6 @@ register("worldUnload", () => {
 
 function trackSeaCreaturesHp() {
     try {
-        const worldName = getWorldName();
-
         if (!settings.seaCreaturesHpOverlay ||
             !isInSkyblock() ||
             !TRACKED_WORLD_NAMES.includes(getWorldName())
@@ -111,26 +109,11 @@ function trackSeaCreaturesHp() {
             return;
         }
     
-        let currentMobs = [];
-        const entities = World.getAllEntitiesOfType(EntityArmorStand);
-    
-        const player = Player.getPlayer();
-        entities.forEach(entity => {
-            const name = entity?.getName();
-            const plainName = entity?.getName()?.removeFormatting();
-    
-            if (plainName.includes('[Lv') && plainName.includes('❤') && // Distinguish mobs from pets (e.g. Squid)
-                TRACKED_MOBS.filter(m => m.worlds.includes(worldName)).some(m => plainName.includes(m.baseMobName)) &&
-                (plainName.includes('Reindrake') || entity.distanceTo(player) <= LOOTSHARE_DISTANCE)
-            ) {
-                // Original nametag: §e﴾ §8[§7Lv400§8] §c§lThunder§r§r §e17M§f/§a35M§c❤ §e﴿ §b✯
-                const cleanName = name.replace('§e﴾ ', '').replace(' §e﴿', '').trim().split('] ')[1];
-                currentMobs.push(cleanName);          
-            }
-        });
+        const currentMobs = getSeaCreaturesInRange(TRACKED_MOBS.map(n => n.baseMobName), LOOTSHARE_DISTANCE)
+            .sort((a, b) => a.currentHpNumber - b.currentHpNumber) // Lowest HP comes first
+            .map(sc => sc.shortNametag)
+            .slice(0, settings.seaCreaturesHpOverlay_maxCount); // Top N
 
-        currentMobs = currentMobs.slice(0, settings.seaCreaturesHpOverlay_maxCount); // Top N
-    
         if (currentMobs.length > mobs.length && settings.soundMode !== OFF_SOUND_MODE) {
             World.playSound('random.orb', 0.75, 1);
         }
