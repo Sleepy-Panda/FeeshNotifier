@@ -50,6 +50,10 @@ const TRACKED_MOBS = [
         baseMobName: 'Wiki Tiki',
     },
     {
+        worlds: WATER_HOTSPOT_WORLDS,
+        baseMobName: 'Wiki Tiki Laser Totem',
+    },
+    {
         worlds: [BACKWATER_BAYOU],
         baseMobName: 'Titanoboa',
     },
