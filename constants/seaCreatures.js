@@ -44,7 +44,7 @@ export const ALL_SEA_CREATURES_NAMES = [
     'Guardian Defender',
     'Deep Sea Protector',
     'Water Hydra',
-    'Sea Emperor',
+    'The Sea Emperor',
     'Agarimoo',
     'Carrot King',
     'Frosty',

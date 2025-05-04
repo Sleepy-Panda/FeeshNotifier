@@ -59,7 +59,7 @@ const TRACKED_MOBS = [
     },
     {
         worlds: WATER_FISHING_WORLDS,
-        baseMobName: 'Sea Emperor',
+        baseMobName: 'The Sea Emperor',
     },
     {
         worlds: WATER_FISHING_WORLDS,
