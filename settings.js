@@ -1063,9 +1063,18 @@ const config = new DefaultConfig("FeeshNotifier", "config/settings.json")
     category: "Overlays",
     configName: "seaCreaturesHpOverlay",
     title: "Sea creatures HP",
-    description: `Shows an overlay with the HP of nearby sea creatures when they're in lootshare range. Tracked creatures: Fiery Scuttler, Thunder, Lord Jawbus, Plhlegblast, Ragnarok, Reindrake, Yeti, Alligator, Blue Ringed Octopus, Wiki Tiki, Titanoboa.`,
+    description: `Shows an overlay with the HP of nearby Legendary/Mythic sea creatures when they're in lootshare range.`,
     subcategory: "Sea creatures HP",
     value: true
+})
+.addSlider({
+    category: "Overlays",
+    configName: "seaCreaturesHpOverlay_maxCount",
+    title: "Maximum sea creatures HP count",
+    description: "Show maximum N sea creatures nearby (to limit overlay size).",
+    options: [1, 20],
+    value: 5,
+    subcategory: "Sea creatures HP"
 })
 .addButton({
     category: "Overlays",
