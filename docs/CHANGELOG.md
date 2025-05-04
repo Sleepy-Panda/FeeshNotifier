@@ -12,6 +12,9 @@ Features:
 Bugfixes:
 - Fixed Dark Bait not tracked by Fishing Profit tracker.
 
+Other:
+- Refactored box rendering to reuse sea creatures detection function.
+
 ## v1.40.0
 
 Released: 2025-05-02
