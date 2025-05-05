@@ -121,6 +121,12 @@ export function getSeaCreaturesInRange(includedSeaCreatureNames, distance) {
 			currentHp: shortName.split('§f/')[0].split(' ').slice(-1)[0] + '§c❤', // §e17M❤
 			//fullHp: shortName.split(' ').find(part => part.includes('§f/')), // §e17M§f/§a35M§c❤
 			nameModifiers: shortName.split(' ').filter(part => !part.includes('/')).join(' '), // §c§lThunder§r§r §b✯
+			ticksExisted: entity.getTicksExisted(),
+			position: {
+				x: entity.getRenderX(),
+				y: entity.getRenderY(),
+				z: entity.getRenderZ(),
+			}
 		};
 
 		function takeWhile(a, predicate) {

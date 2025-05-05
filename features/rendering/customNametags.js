@@ -6,17 +6,18 @@ import { BOLD, RED } from "../../constants/formatting";
 import { getSeaCreaturesInRange } from "../../utils/entityDetection";
 import { getMcEntityId } from "../../utils/common";
 
+// To get render position in render world?
+
 // Render nametag + star (MF) + Immunity flag
 // Render HP
-registerIf(
-    register('step', () => trackEntitiesToProcess()).setFps(4),
-    () => isInSkyblock()// && getWorldName() === CRIMSON_ISLE // TODO Setting
-);
-
-registerIf(
-    register("renderEntity", (entity, position, partialTick, event) => renderCustomNametags(entity, position)),
-    () =>  isInSkyblock()// && getWorldName() === CRIMSON_ISLE
-);
+//registerIf(
+//    register('step', () => trackEntitiesToProcess()).setFps(4),
+//    () => isInSkyblock()// && getWorldName() === CRIMSON_ISLE // TODO Setting
+//)
+//registerIf(
+//    register("renderEntity", (entity, position, partialTick, event) => renderCustomNametags(entity, position)),
+//    () =>  isInSkyblock()// && getWorldName() === CRIMSON_ISLE
+//);
 
 register("worldUnload", () => {
     entitiesForNametags.clear();
@@ -26,11 +27,16 @@ let entitiesForNametags = new (Java.type('java.util.WeakHashMap'))();
 
 const LOOTSHARE_DISTANCE = 30;
 const TRACKED_ENTITY_NAMES = [
-    //{
-    //    baseMobName: 'Squid',
-    //    hasImmunity: true,
-    //    height: 1
-    //},
+    {
+        baseMobName: 'Nutcracker',
+        hasImmunity: true,
+        height: 2
+    },
+    {
+        baseMobName: 'Yeti',
+        hasImmunity: true,
+        height: 2
+    },
     {
         baseMobName: 'Titanoboa',
         hasImmunity: true,
@@ -41,11 +47,11 @@ const TRACKED_ENTITY_NAMES = [
         hasImmunity: false,
         height: 3
     },
-    //{
-    //    baseMobName: 'Magma Slug',
-    //    hasImmunity: true,
-    //    height: 2
-    //},
+    {
+        baseMobName: 'Frozen Steve',
+        hasImmunity: true,
+        height: 2
+    },
     {
         baseMobName: 'Thunder',
         hasImmunity: true,
@@ -68,36 +74,105 @@ const TRACKED_ENTITY_NAMES = [
     }
 ];
 
-function renderCustomNametags(entity, position) {
-    if (!entity) return;
+//function renderCustomNametags(entity, position) {
+//    if (!entity) return;
+//    if (!entitiesForNametags.size() || !isInSkyblock()/* || getWorldName() !== CRIMSON_ISLE*/) return;
+//
+//    const entityId = getMcEntityId(entity);
+//    if (entitiesForNametags.containsKey(entityId)) {
+//        const trackedEntityInfo = entitiesForNametags.get(entityId);
+//        
+//        let text = trackedEntityInfo.displayName + '\n' + trackedEntityInfo.hp;
+//
+//        if (trackedEntityInfo.hasImmunity) {
+//            const ticksExisted = entity.getTicksExisted();
+//            if (ticksExisted <= 20 * 5) {
+//                text += ` ${RED}[Immune]`; // 5000 - ticksExisted / 20 * 1000
+//            }
+//        }
+//
+//        drawString(
+//            text,
+//            Player.getRenderX() + position.x,
+//            Player.getRenderY() + position.y + trackedEntityInfo.height + 2,
+//            Player.getRenderZ() + position.z,
+//            0xffffff,
+//            false,
+//            2,
+//            true,
+//            true,
+//            false
+//        );
+//    }
+//}
+//
+//function trackEntitiesToProcess() {
+//    try {
+//        if (!isInSkyblock()/* || getWorldName() !== CRIMSON_ISLE*/) { // Setting
+//            return;
+//        }
+//
+//        let currentEntityIds = new (Java.type('java.util.WeakHashMap'))();
+//        const seaCreatures = getSeaCreaturesInRange(TRACKED_ENTITY_NAMES.map(n => n.baseMobName), LOOTSHARE_DISTANCE);
+//
+//        seaCreatures.forEach(seaCreatureInfo => {
+//            if (!seaCreatureInfo) return;
+//
+//            const trackedEntityInfo = TRACKED_ENTITY_NAMES.find(n => seaCreatureInfo.baseMobName === n.baseMobName);
+//            const entityId = seaCreatureInfo.mcEntityId;
+//            if (entityId && trackedEntityInfo) {
+//                const mobEntityId = entityId - 1;
+//                currentEntityIds.put(mobEntityId, {
+//                    displayName: seaCreatureInfo.nameModifiers,
+//                    hp: seaCreatureInfo.currentHp,
+//                    hasImmunity: trackedEntityInfo.hasImmunity,
+//                    height: trackedEntityInfo.height
+//                });
+//            }
+//        });
+//
+//        entitiesForNametags = currentEntityIds;
+//    } catch (e) {
+//		console.error(e);
+//		console.log(`[FeeshNotifier] Failed to track nearby entities to render custom nametags.`);
+//    }
+//}
+
+registerIf(
+    register('tick', () => trackEntitiesToProcess()),
+    () => isInSkyblock()
+);
+registerIf(
+    register("renderWorld", () => renderCustomNametags()),
+    () => isInSkyblock()
+)
+
+function renderCustomNametags() {
+    //if (!entity) return;
     if (!entitiesForNametags.size() || !isInSkyblock()/* || getWorldName() !== CRIMSON_ISLE*/) return;
 
-    const entityId = getMcEntityId(entity);
-    if (entitiesForNametags.containsKey(entityId)) {
-        const trackedEntityInfo = entitiesForNametags.get(entityId);
-        
+    entitiesForNametags.forEach((entityId, trackedEntityInfo) => {
         let text = trackedEntityInfo.displayName + '\n' + trackedEntityInfo.hp;
 
         if (trackedEntityInfo.hasImmunity) {
-            const ticksExisted = entity.getTicksExisted();
-            if (ticksExisted <= 20 * 5) {
+            if (trackedEntityInfo.ticksExisted <= 20 * 5) {
                 text += ` ${RED}[Immune]`; // 5000 - ticksExisted / 20 * 1000
             }
         }
 
         drawString(
             text,
-            Player.getRenderX() + position.x,
-            Player.getRenderY() + position.y + trackedEntityInfo.height + 2,
-            Player.getRenderZ() + position.z,
+            trackedEntityInfo.position.x,
+            trackedEntityInfo.position.y + 1.5,
+            trackedEntityInfo.position.z,
             0xffffff,
             false,
-            2,
+            3,
             true,
             true,
-            true
+            false
         );
-    }
+    });
 }
 
 function trackEntitiesToProcess() {
@@ -120,7 +195,9 @@ function trackEntitiesToProcess() {
                     displayName: seaCreatureInfo.nameModifiers,
                     hp: seaCreatureInfo.currentHp,
                     hasImmunity: trackedEntityInfo.hasImmunity,
-                    height: trackedEntityInfo.height
+                    height: trackedEntityInfo.height,
+                    position: seaCreatureInfo.position,
+                    ticksExisted: seaCreatureInfo.ticksExisted
                 });
             }
         });
@@ -189,16 +266,16 @@ function drawString(
     const l = lines.length;
     const maxWidth = Math.max(...lines.map(it => Renderer.getStringWidth(it))) / 2;
 
-    if (renderBlackBox) {
-        GlStateManager.func_179090_x(); //disableTexture2D
-        WorldRenderer.func_181668_a(7, DefaultVertexFormats.field_181706_f); // begin
-        WorldRenderer.func_181662_b(-maxWidth - 1, -1 * l, 0).func_181666_a(0, 0, 0, 0.25).func_181675_d(); // pos, color, endvertex
-        WorldRenderer.func_181662_b(-maxWidth - 1, 9 * l, 0).func_181666_a(0, 0, 0, 0.25).func_181675_d(); // pos, color, endvertex
-        WorldRenderer.func_181662_b(maxWidth + 1, 9 * l, 0).func_181666_a(0, 0, 0, 0.25).func_181675_d(); // pos, color, endvertex
-        WorldRenderer.func_181662_b(maxWidth + 1, -1 * l, 0).func_181666_a(0, 0, 0, 0.25).func_181675_d(); // pos, color, endvertex
-        MCTessellator.func_78381_a(); // draw
-        GlStateManager.func_179098_w(); // enableTexture2D
-    }
+    //if (renderBlackBox) {
+    //    GlStateManager.func_179090_x(); //disableTexture2D
+    //    WorldRenderer.func_181668_a(7, DefaultVertexFormats.field_181706_f); // begin
+    //    WorldRenderer.func_181662_b(-maxWidth - 1, -1 * l, 0).func_181666_a(0, 0, 0, 0.25).func_181675_d(); // pos, color, endvertex
+    //    WorldRenderer.func_181662_b(-maxWidth - 1, 9 * l, 0).func_181666_a(0, 0, 0, 0.25).func_181675_d(); // pos, color, endvertex
+    //    WorldRenderer.func_181662_b(maxWidth + 1, 9 * l, 0).func_181666_a(0, 0, 0, 0.25).func_181675_d(); // pos, color, endvertex
+    //    WorldRenderer.func_181662_b(maxWidth + 1, -1 * l, 0).func_181666_a(0, 0, 0, 0.25).func_181675_d(); // pos, color, endvertex
+    //    MCTessellator.func_78381_a(); // draw
+    //    GlStateManager.func_179098_w(); // enableTexture2D
+    //}
 
     lines.forEach((it, idx) => {
         Renderer.getFontRenderer().func_175065_a(it, -Renderer.getStringWidth(it) / 2, idx * 9, color, shadow); // drawString
