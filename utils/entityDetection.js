@@ -84,9 +84,7 @@ export function getPlayerNamesInRange(distance) {
     mcEntityId: number;
     baseMobName: string;
     shortNametag: string;
-    currentHp: string;
     currentHpNumber: number;
-    nameWithModifiers: string;
 	renderPos: object;
   } 
  */
@@ -105,7 +103,8 @@ export function getSeaCreaturesInRange(includedSeaCreatureNames, distance) {
 
 	return seaCreatures;
 
-	// Original nametag: §e﴾ §8[§7Lv400§8] §c§lThunder§r§r §e17M§f/§a35M§c❤ §e﴿ §b✯
+	// Original nametag sample:
+	// §e﴾ §8[§7Lv400§8] §c§lThunder§r§r §e17M§f/§a35M§c❤ §e﴿ §b✯
 	// §8[§7Lv1§8] §5§ka§5Corrupted Squid§5§ka§r §a300§f/§a300§c❤
 	function parseSeaCreatureNametag(entity, includedSeaCreatureNames) { 
 		if (!entity) return null;
@@ -121,16 +120,12 @@ export function getSeaCreaturesInRange(includedSeaCreatureNames, distance) {
 			.removeFormatting();
 
 		const currentHp = shortName.split('§f/')[0].split(' ').slice(-1)[0];
-		const currentHpStr = currentHp + '§c❤';
 
 		return {
 			mcEntityId: getMcEntityId(entity),
 			baseMobName: baseMobName, // Thunder or Squid
 			shortNametag: shortName, // §c§lThunder§r§r §e17M§f/§a35M§c❤ §b✯ or §5§ka§5Squid§5§ka§r §a300§f/§a300§c❤
-			currentHp: currentHpStr, // §e17M❤
 			currentHpNumber: parseShortNumber(currentHp.removeFormatting()),
-			//fullHp: shortName.split(' ').find(part => part.includes('§f/')), // §e17M§f/§a35M§c❤
-			nameWithModifiers: shortName.split(' ').filter(part => !part.includes('/')).join(' '), // §c§lThunder§r§r §b✯
 			renderPos: {
 				x: entity.getRenderX(),
                 y: entity.getRenderY(),

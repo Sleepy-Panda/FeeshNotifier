@@ -5,9 +5,11 @@
 Released: ???
 
 Features:
-- Added all Legendary and Mythic mobs to Sea creature HP tracker.
-- Added setting for maximum count of sea creatures to display in Sea creature HP tracker. Lower HP sea creatures come first.
-- Made sea creature HP text shorter for corrupted sea creatures.
+- Sea creature HP tracker reworked:
+  - Added all missing Legendary and Mythic mobs.
+  - Added immunity indicator for sea creatures that have 5 seconds damage reduction period.
+  - Added setting for maximum count of sea creatures to display. Lower HP sea creatures come first.
+  - Made text more compact for corrupted sea creatures.
 
 Bugfixes:
 - Fixed Dark Bait not tracked by Fishing Profit tracker.
