@@ -13,6 +13,7 @@ Features:
 
 Bugfixes:
 - Fixed Dark Bait not tracked by Fishing Profit tracker.
+- Fixed Double Hook not being recognized when Thunder bottle charged on Thunder spawn.
 
 Other:
 - Refactored box rendering to reuse sea creatures detection function.

@@ -4,7 +4,7 @@
 - Offer supercrafting or BZ sell when items like raw fish goes to inventory (sacks are full).
 - Track scavenged coins in Fishing Profit Tracker
 - Track Ice Essence drop from mobs in Fishing Profit Tracker
-- PogData resets data file on PC crash - consider doing regular backups / research tska libraryas replacement for PogData
+- PogData resets data file on PC crash - consider doing regular backups / research tska library as replacement for PogData
 - Kill time for fishing bosses
 - [Bug] Reset confirmation messages appear for disabled overlays for no reason, for one person.
 - [Bug] Some items are tracked by Fishing Profit Tracker when dropped, but drop was prevented by SB settings (basically it drops and picks up again).
@@ -55,6 +55,7 @@
 Refactoring:
 
 - Do not run registers if feature is disabled.
+- Rewrite way to ignore compacted loot in profit tracker
 - [Faangorn] Profit tracker causes lags after a while (memory consumption grows)
 
 

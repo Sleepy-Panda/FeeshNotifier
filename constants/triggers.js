@@ -140,7 +140,7 @@ export const KILLED_BY_THUNDER_MESSAGE = `${RESET}${GRAY}You were killed by Thun
 export const KILLED_BY_LORD_JAWBUS_MESSAGE = `${RESET}${GRAY}You were killed by Lord Jawbus${RESET}${GRAY}${RESET}${GRAY}.`; // &r&7You were killed by Lord Jawbus&r&7&r&7.
 export const KILLED_BY_RAGNAROK_MESSAGE = `${RESET}${GRAY}You were killed by Ragnarok${RESET}${GRAY}${RESET}${GRAY}.`; // &r&7You were killed by Ragnarok&r&7&r&7.
 
-export const THUNDER_BOTTLE_CHARGED_MESSAGE = `${RESET}${YELLOW}> Your bottle of thunder has fully charged!`;
+export const THUNDER_BOTTLE_CHARGED_MESSAGE = `${RESET}${YELLOW}> Your bottle of thunder has fully charged!${RESET}`;
 export const STORM_BOTTLE_CHARGED_MESSAGE = `${RESET}${YELLOW}> Your Storm in a Bottle has fully charged!${RESET}`;
 export const HURRICANE_BOTTLE_CHARGED_MESSAGE = `${RESET}${YELLOW}> Your Hurricane in a Bottle has fully charged!${RESET}`;
 export const REINDRAKE_SPAWNED_BY_ANYONE_MESSAGE = `${RESET}${RED}${BOLD}WOAH! ${RESET}${RED}A ${RESET}${DARK_RED}Reindrake ${RESET}${RED}was summoned from the depths!${RESET}`;
