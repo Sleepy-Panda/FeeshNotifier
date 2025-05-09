@@ -2,7 +2,7 @@ import { NO_FISHING_WORLDS } from '../constants/areas';
 import { RED, DARK_GRAY, BLUE, WHITE, BOLD, RESET } from '../constants/formatting';
 import { NBTTagString } from '../constants/javaTypes';
 import { EntityFishHook, NBTTagString } from '../constants/javaTypes';
-import { DOUBLE_HOOK_MESSAGES } from '../constants/triggers';
+import { DOUBLE_HOOK_MESSAGES, HURRICANE_BOTTLE_CHARGED_MESSAGE, STORM_BOTTLE_CHARGED_MESSAGE, THUNDER_BOTTLE_CHARGED_MESSAGE } from '../constants/triggers';
 
 // Double hook reindrakes may produce the following messages history:
 // [CHAT] &r&eIt's a &r&aDouble Hook&r&e!&r
@@ -22,7 +22,9 @@ export function isDoubleHook() {
 	const history = ChatLib.getChatLines()?.filter(l => // Those messages appear between double hook and catch messages for Reindrake / Thunder
 		l !== '&r' &&
 		l !== '&r&c&lWOAH! &r&cA &r&4Reindrake &r&cwas summoned from the depths!&r' &&
-		l !== '&r&e> Your bottle of thunder has fully charged!&r'
+		l !== THUNDER_BOTTLE_CHARGED_MESSAGE &&
+		l !== STORM_BOTTLE_CHARGED_MESSAGE &&
+		l !== HURRICANE_BOTTLE_CHARGED_MESSAGE
 	);
 	const isDoubleHooked = (!!history && history.length > 1)
 		? DOUBLE_HOOK_MESSAGES.includes(history[1])
