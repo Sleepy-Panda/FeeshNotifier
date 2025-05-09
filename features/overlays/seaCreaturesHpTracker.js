@@ -94,11 +94,11 @@ const TRACKED_MOBS = [
         baseMobName: 'Great White Shark',
         hasImmunity: true,
     },
-    {
-        worlds: WATER_FISHING_WORLDS,
-        baseMobName: 'Squid',
-        hasImmunity: true,
-    },
+    //{
+    //    worlds: WATER_FISHING_WORLDS,
+    //    baseMobName: 'Squid',
+    //    hasImmunity: true,
+    //},
 ];
 
 const TRACKED_MOB_NAMES = TRACKED_MOBS.map(n => n.baseMobName);
@@ -109,6 +109,7 @@ const TRACKED_WORLD_NAMES = TRACKED_MOBS
     .filter((value, index, array) => array.indexOf(value) === index);
 
 let mobs = [];
+let seenMobEntityIds = new Map();
 
 registerIf(
     register('step', () => trackSeaCreaturesHp()).setFps(4),
@@ -122,6 +123,7 @@ registerIf(
 
 register("worldUnload", () => {
     mobs = [];
+    seenMobEntityIds.clear();
 });
 
 // Track seen entity ID and based on it define ticksexisted
@@ -134,18 +136,37 @@ function trackSeaCreaturesHp() {
             return;
         }
     
-        const currentMobs = getSeaCreaturesInRange(TRACKED_MOB_NAMES, LOOTSHARE_DISTANCE)
+        const seaCreatures = getSeaCreaturesInRange(TRACKED_MOB_NAMES, LOOTSHARE_DISTANCE);
+
+        //seaCreatures
+        //    .map(sc => sc.mcEntityId)
+        //    .forEach((id) => {
+        //        if (seenMobEntityIds.has(id) && new Date() - seenMobEntityIds.get(id) > 6*60*1000) {
+        //            seenMobEntityIds.delete(id);
+        //            seenMobEntityIds.set(id, new Date());
+        //        }
+        //        if (seenMobEntityIds.has(id)) return;
+        //        
+        //        seenMobEntityIds.set(id, new Date());
+        //        console.log('Set size is ' + seenMobEntityIds.size());
+        //    });
+
+        const currentMobs = seaCreatures
             .sort((a, b) => a.currentHpNumber - b.currentHpNumber) // Lowest HP comes first
             .slice(0, settings.seaCreaturesHpOverlay_maxCount) // Top N
             .map(sc => {
-                const mobEntity = getMcEntityById(sc.mcEntityId - 1);
-                const ticksExisted = mobEntity && mobEntity instanceof net.minecraft.entity.Entity
-                    ? mobEntity.field_70173_aa
-                    : 0;
-                console.log((sc.mcEntityId - 1).toString() + ' existed for Ticks ' + ticksExisted);
-                const isImmune = TRACKED_MOBS.find(m => m.baseMobName === sc.baseMobName)?.hasImmunity 
-                    ? ticksExisted < 20 * 5 // field_70173_aa -> ticksExisted less than 5 seconds
-                    : false;
+                const hasImmunity = TRACKED_MOBS.find(m => m.baseMobName === sc.baseMobName)?.hasImmunity;
+                let isImmune = false;
+
+                if (hasImmunity) {
+                    const mobEntity = getMcEntityById(sc.mcEntityId - 1);
+                    const ticksExisted = mobEntity && mobEntity instanceof net.minecraft.entity.Entity
+                        ? mobEntity.field_70173_aa
+                        : 0;
+                    //console.log((sc.mcEntityId - 1).toString() + ' existed for Ticks ' + ticksExisted);
+                    isImmune = ticksExisted < 20 * 5; // field_70173_aa -> ticksExisted less than 5 seconds
+                }
+
                 return { nametag: sc.shortNametag, baseMobName: sc.baseMobName, isImmune: isImmune };
             }); 
 
