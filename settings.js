@@ -1067,6 +1067,14 @@ const config = new DefaultConfig("FeeshNotifier", "config/settings.json")
     subcategory: "Sea creatures HP",
     value: true
 })
+.addSwitch({
+    category: "Overlays",
+    configName: "seaCreaturesHpOverlay_immunity",
+    title: "Display immunity",
+    description: `Display ~5 seconds damage reduction period that some sea creature types have.`,
+    subcategory: "Sea creatures HP",
+    value: true
+})
 .addSlider({
     category: "Overlays",
     configName: "seaCreaturesHpOverlay_maxCount",

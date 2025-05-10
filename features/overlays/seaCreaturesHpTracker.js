@@ -8,6 +8,12 @@ import { registerIf } from "../../utils/registers";
 import { getSeaCreaturesInRange } from "../../utils/entityDetection";
 import { getMcEntityById } from "../../utils/common";
 
+let mobs = [];
+
+// Entities seen within last 10 minutes,
+// to not render Immunity flag again if entity went out of render distance and then player came back
+let seenMobEntityIds = new Map(); 
+
 const LOOTSHARE_DISTANCE = 30;
 const TRACKED_MOBS = [
     {
@@ -108,9 +114,6 @@ const TRACKED_WORLD_NAMES = TRACKED_MOBS
     .reduce(function (a, b) { return a.concat(b); }, [])
     .filter((value, index, array) => array.indexOf(value) === index);
 
-let mobs = [];
-let seenMobEntityIds = new Map();
-
 registerIf(
     register('step', () => trackSeaCreaturesHp()).setFps(4),
     () => settings.seaCreaturesHpOverlay && isInSkyblock() && TRACKED_WORLD_NAMES.includes(getWorldName())
@@ -121,12 +124,34 @@ registerIf(
     () => settings.seaCreaturesHpOverlay && isInSkyblock() && TRACKED_WORLD_NAMES.includes(getWorldName())
 );
 
+registerIf(
+    register('step', () => cleanupOutdatedSeenEntityIds()).setDelay(30),
+    () => settings.seaCreaturesHpOverlay && settings.seaCreaturesHpOverlay_immunity && isInSkyblock() && TRACKED_WORLD_NAMES.includes(getWorldName())
+);
+
 register("worldUnload", () => {
     mobs = [];
     seenMobEntityIds.clear();
 });
 
-// Track seen entity ID and based on it define ticksexisted
+function cleanupOutdatedSeenEntityIds() {
+    if (!settings.seaCreaturesHpOverlay_immunity || !seenMobEntityIds || !seenMobEntityIds.size) return;
+
+    console.log('Cleanup - Set size BEFORE is ' + seenMobEntityIds.size);
+    for (const [id, timestamp] of seenMobEntityIds.entries()) {
+        if (isExpired(timestamp)) {
+            seenMobEntityIds.delete(id);
+        }
+    }
+    console.log('Cleanup - Set size AFTER is ' + seenMobEntityIds.size);
+}
+
+function isExpired(timestamp) {
+    const now = Date.now();
+    const expirationTime = 6 * 60 * 1000; // 6 minutes
+    return now - timestamp > expirationTime;
+}
+
 function trackSeaCreaturesHp() {
     try {
         if (!settings.seaCreaturesHpOverlay ||
@@ -137,19 +162,7 @@ function trackSeaCreaturesHp() {
         }
     
         const seaCreatures = getSeaCreaturesInRange(TRACKED_MOB_NAMES, LOOTSHARE_DISTANCE);
-
-        //seaCreatures
-        //    .map(sc => sc.mcEntityId)
-        //    .forEach((id) => {
-        //        if (seenMobEntityIds.has(id) && new Date() - seenMobEntityIds.get(id) > 6*60*1000) {
-        //            seenMobEntityIds.delete(id);
-        //            seenMobEntityIds.set(id, new Date());
-        //        }
-        //        if (seenMobEntityIds.has(id)) return;
-        //        
-        //        seenMobEntityIds.set(id, new Date());
-        //        console.log('Set size is ' + seenMobEntityIds.size());
-        //    });
+        trackSeenEntityIds(seaCreatures);
 
         const currentMobs = seaCreatures
             .sort((a, b) => a.currentHpNumber - b.currentHpNumber) // Lowest HP comes first
@@ -160,11 +173,14 @@ function trackSeaCreaturesHp() {
 
                 if (hasImmunity) {
                     const mobEntity = getMcEntityById(sc.mcEntityId - 1);
+                    // Mob's ticksExisted is not reset while the mob is visible even if name armorstand is not visible (because of bigger render distance)
+                    // However it's reset when chunk with the mob is unloaded
                     const ticksExisted = mobEntity && mobEntity instanceof net.minecraft.entity.Entity
-                        ? mobEntity.field_70173_aa
+                        ? mobEntity.field_70173_aa // field_70173_aa -> ticksExisted 
                         : 0;
-                    //console.log((sc.mcEntityId - 1).toString() + ' existed for Ticks ' + ticksExisted);
-                    isImmune = ticksExisted < 20 * 5; // field_70173_aa -> ticksExisted less than 5 seconds
+                    isImmune = 
+                        ticksExisted <= 20 * 5 && // ~5 seconds
+                        new Date() - seenMobEntityIds.get(sc.mcEntityId - 1) <= 5000;
                 }
 
                 return { nametag: sc.shortNametag, baseMobName: sc.baseMobName, isImmune: isImmune };
@@ -187,6 +203,26 @@ function trackSeaCreaturesHp() {
 		console.error(e);
 		console.log(`[FeeshNotifier] Failed to track nearby sea creatures HP.`);
 	}
+
+    function trackSeenEntityIds(seaCreatures) {
+        if (!settings.seaCreaturesHpOverlay_immunity || !seaCreatures || !seaCreatures.length) return;
+
+        seaCreatures
+            .map(sc => sc.mcEntityId - 1) // Mob entity ID
+            .forEach((id) => {
+                if (seenMobEntityIds.has(id) && isExpired(seenMobEntityIds.get(id))) {
+                    seenMobEntityIds.delete(id);
+                    seenMobEntityIds.set(id, new Date());
+                    console.log('Added ' + id)
+                }
+
+                if (seenMobEntityIds.has(id)) return;
+
+                seenMobEntityIds.set(id, new Date());
+                console.log('2Added ' + id)
+                console.log('Set size is ' + seenMobEntityIds.size);
+            });
+    }
 }
 
 function renderHpOverlay() {
@@ -207,7 +243,7 @@ function renderHpOverlay() {
     if (mobs.length) {
         let overlayText = `${AQUA}${BOLD}Sea creatures HP\n`;
         mobs.forEach((mob) => {
-            const immunityText = mob.isImmune ? ` ${RED}${BOLD}[Immune]` : '';
+            const immunityText = settings.seaCreaturesHpOverlay_immunity && mob.isImmune ? ` ${RED}${BOLD}[Immune]` : '';
             overlayText += `${mob.nametag}${immunityText}\n`;
         });
         drawText(overlayText);
