@@ -1774,13 +1774,6 @@ export const FISHING_PROFIT_ITEMS = [
         itemDisplayName: `${LEGENDARY}Tidal Rune I`,
         npcPrice: 1,
     },
-    {
-        itemId: 'MUSIC_RUNE;1',
-        itemName: '◆ Music Rune I',
-        itemAlternateNames: [ '◆ Music Rune 1' ],
-        itemDisplayName: `${EPIC}Music Rune I`,
-        npcPrice: 1,
-    },
 
     // Trophy
 

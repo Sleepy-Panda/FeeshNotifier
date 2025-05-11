@@ -124,8 +124,6 @@ export const TREASURE_DYE_MESSAGE = `${RESET}${LIGHT_PURPLE}${BOLD}WOW! ` + '${p
 export const PERIWINKLE_DYE_MESSAGE = `${RESET}${LIGHT_PURPLE}${BOLD}WOW! ` + '${playerNameAndRank}' + ` ${RESET}${GOLD}found ${RESET}${DARK_AQUA}Periwinkle Dye`; // &r&d&lWOW! &r&b[MVP&r&c+&r&b] &bMoonTheSadFisher&r&r&f &r&6found &r&3Periwinkle Dye&r
 export const BONE_DYE_MESSAGE = `${RESET}${LIGHT_PURPLE}${BOLD}WOW! ` + '${playerNameAndRank}' + ` ${RESET}${GOLD}found ${RESET}${WHITE}Bone Dye`; // &r&d&lWOW! &r&b[MVP&r&c+&r&b] &bMoonTheSadFisher&r&r&f &r&6found &r&fBone Dye&r
 
-export const MUSIC_RUNE_MESSAGE = `${RESET}${LIGHT_PURPLE}⛃ ${RESET}${LIGHT_PURPLE}${BOLD}OUTSTANDING CATCH! ${RESET}${WHITE}You caught a ${RESET}${AQUA}◆ Music Rune I${RESET}${WHITE}!${RESET}`;
-
 export const SQUID_PET_LEG_MESSAGE = `${RESET}${LIGHT_PURPLE}⛃ ${RESET}${LIGHT_PURPLE}${BOLD}OUTSTANDING CATCH! ${RESET}${WHITE}You caught a ${RESET}${GRAY}[Lvl 1] ${RESET}${GOLD}Squid${RESET}${WHITE}!${RESET}`;
 export const SQUID_PET_EPIC_MESSAGE = `${RESET}${LIGHT_PURPLE}⛃ ${RESET}${LIGHT_PURPLE}${BOLD}OUTSTANDING CATCH! ${RESET}${WHITE}You caught a ${RESET}${GRAY}[Lvl 1] ${RESET}${DARK_PURPLE}Squid${RESET}${WHITE}!${RESET}`;
 export const SQUID_PET_RARE_MESSAGE = `${RESET}${GOLD}⛃ ${RESET}${GOLD}${BOLD}GREAT CATCH! ${RESET}${WHITE}You caught a ${RESET}${GRAY}[Lvl 1] ${RESET}${BLUE}Squid${RESET}${WHITE}!${RESET}`;
@@ -813,16 +811,6 @@ export const RARE_DROP_TRIGGERS = [
 ];
 
 export const OUTSTANDING_CATCH_TRIGGERS = [
-    {
-        trigger: MUSIC_RUNE_MESSAGE,
-        itemId: 'MUSIC_RUNE;1',
-        itemName: drops.MUSIC_RUNE,
-        sound: sounds.MUSIC_RUNE_SOUND_SOURCE,
-        isMessageEnabledSettingKey: 'messageOnMusicRuneDrop',
-        isAlertEnabledSettingKey: 'alertOnMusicRuneDrop',
-        rarityColorCode: EPIC,
-        shouldTrackDropNumber: true,
-    },
     {
         trigger: SQUID_PET_LEG_MESSAGE,
         itemId: 'SQUID;4',
