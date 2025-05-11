@@ -10,7 +10,7 @@ import { getMcEntityById } from "../../utils/common";
 
 let mobs = [];
 
-// Entities seen within last 10 minutes,
+// Entities seen within last 6 minutes,
 // to not render Immunity flag again if entity went out of render distance and then player came back
 let seenMobEntityIds = new Map(); 
 
@@ -100,11 +100,6 @@ const TRACKED_MOBS = [
         baseMobName: 'Great White Shark',
         hasImmunity: true,
     },
-    //{
-    //    worlds: WATER_FISHING_WORLDS,
-    //    baseMobName: 'Squid',
-    //    hasImmunity: true,
-    //},
 ];
 
 const TRACKED_MOB_NAMES = TRACKED_MOBS.map(n => n.baseMobName);
@@ -137,13 +132,11 @@ register("worldUnload", () => {
 function cleanupOutdatedSeenEntityIds() {
     if (!settings.seaCreaturesHpOverlay_immunity || !seenMobEntityIds || !seenMobEntityIds.size) return;
 
-    console.log('Cleanup - Set size BEFORE is ' + seenMobEntityIds.size);
     for (const [id, timestamp] of seenMobEntityIds.entries()) {
         if (isExpired(timestamp)) {
             seenMobEntityIds.delete(id);
         }
     }
-    console.log('Cleanup - Set size AFTER is ' + seenMobEntityIds.size);
 }
 
 function isExpired(timestamp) {
@@ -188,7 +181,7 @@ function trackSeaCreaturesHp() {
 
         const addedMobNames = currentMobs.filter(cm => {
             return !mobs.some(m => m.baseMobName === cm.baseMobName);
-         });
+        });
 
         if (
             currentMobs.length > mobs.length &&
@@ -213,14 +206,11 @@ function trackSeaCreaturesHp() {
                 if (seenMobEntityIds.has(id) && isExpired(seenMobEntityIds.get(id))) {
                     seenMobEntityIds.delete(id);
                     seenMobEntityIds.set(id, new Date());
-                    console.log('Added ' + id)
                 }
 
                 if (seenMobEntityIds.has(id)) return;
 
                 seenMobEntityIds.set(id, new Date());
-                console.log('2Added ' + id)
-                console.log('Set size is ' + seenMobEntityIds.size);
             });
     }
 }
