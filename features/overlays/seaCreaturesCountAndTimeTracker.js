@@ -36,12 +36,12 @@ registerIf(
 );
 
 register("worldUnload", () => {
-    resetTimer();
+    resetSeaCreaturesTimer();
 });
 
-const buttonsDisplay = createButtonsDisplay(true, () => resetTimer(), false, null);
+const buttonsDisplay = createButtonsDisplay(true, () => resetSeaCreaturesTimer(), false, null);
 
-function resetTimer() {
+export function resetSeaCreaturesTimer() {
     startTime = null;
     mobsCount = 0;
 }

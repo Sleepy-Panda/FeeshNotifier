@@ -5,6 +5,7 @@
 Released: ???
 
 Features:
+- Added option to set a keybind in Minecraft's Controls menu to reset Sea creatures count/timer on button pressed.
 - Added all Legendary and Mythic mobs to Sea creature HP tracker.
 - Added setting for maximum count of sea creatures to display in Sea creature HP tracker. Lower HP sea creatures come first.
 - Made sea creature HP text shorter for corrupted sea creatures.
