@@ -5,7 +5,7 @@
 Released: ???
 
 Features:
--
+- Removed Music Rune alert because it's not in treasure fishing loot pool anymore.
 
 Bugfixes:
 -
