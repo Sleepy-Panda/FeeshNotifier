@@ -5,6 +5,7 @@
 Released: ???
 
 Features:
+- Sea creature HP tracker: Added immunity indicator for sea creatures that have 5 seconds damage reduction period.
 - Removed Music Rune alert because it's not in treasure fishing loot pool anymore.
 
 Bugfixes:
@@ -18,7 +19,6 @@ Features:
 - Added option to set a keybind in Minecraft's Controls menu to reset Sea creatures count/timer on button pressed.
 - Sea creature HP tracker reworked:
   - Added all missing Legendary and Mythic mobs.
-  - Added immunity indicator for sea creatures that have 5 seconds damage reduction period.
   - Added setting for maximum count of sea creatures to display. Lower HP sea creatures come first.
   - Made text more compact for corrupted sea creatures.
 
