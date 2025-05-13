@@ -27,6 +27,10 @@ const TRACKED_MOBS = [
     },
     {
         worlds: [CRIMSON_ISLE],
+        baseMobName: 'Jawbus Follower',
+    },
+    {
+        worlds: [CRIMSON_ISLE],
         baseMobName: 'Thunder',
         hasImmunity: true,
     },
@@ -60,6 +64,7 @@ const TRACKED_MOBS = [
     {
         worlds: WATER_HOTSPOT_WORLDS,
         baseMobName: 'Wiki Tiki',
+        hasImmunity: true,
     },
     {
         worlds: WATER_HOTSPOT_WORLDS,
