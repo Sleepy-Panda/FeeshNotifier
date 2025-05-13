@@ -1047,7 +1047,15 @@ const config = new DefaultConfig("FeeshNotifier", "config/settings.json")
     category: "Overlays",
     configName: "seaCreaturesHpOverlay",
     title: "Sea creatures HP",
-    description: `Shows an overlay with the HP of nearby Legendary/Mythic sea creatures when they're in lootshare range. Sea creatures with lower HP come first.`,
+    description: `Shows an overlay with the HP of nearby Legendary/Mythic sea creatures when they're in lootshare range.`,
+    subcategory: "Sea creatures HP",
+    value: true
+})
+.addSwitch({
+    category: "Overlays",
+    configName: "seaCreaturesHpOverlay_immunity",
+    title: "Display immunity",
+    description: `Display ~5 seconds immunity indicator for damage reduction period that some sea creature types have.`,
     subcategory: "Sea creatures HP",
     value: true
 })
@@ -1055,7 +1063,7 @@ const config = new DefaultConfig("FeeshNotifier", "config/settings.json")
     category: "Overlays",
     configName: "seaCreaturesHpOverlay_maxCount",
     title: "Maximum sea creatures HP count",
-    description: "Show maximum N sea creatures nearby (to limit overlay size).",
+    description: "Show maximum N sea creatures nearby (to limit overlay size). Sea creatures with lower HP come first.",
     options: [1, 20],
     value: 5,
     subcategory: "Sea creatures HP"

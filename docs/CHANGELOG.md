@@ -5,6 +5,7 @@
 Released: ???
 
 Features:
+- Sea creature HP tracker: Added immunity indicator for sea creatures that have 5 seconds damage reduction period.
 - Removed Music Rune alert because it's not in treasure fishing loot pool anymore.
 
 Bugfixes:
