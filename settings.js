@@ -1063,9 +1063,18 @@ const config = new DefaultConfig("FeeshNotifier", "config/settings.json")
     category: "Overlays",
     configName: "seaCreaturesHpOverlay",
     title: "Sea creatures HP",
-    description: `Shows an overlay with the HP of nearby sea creatures when they're in lootshare range. Tracked creatures: Fiery Scuttler, Thunder, Lord Jawbus, Plhlegblast, Ragnarok, Reindrake, Yeti, Alligator, Blue Ringed Octopus, Wiki Tiki, Titanoboa.`,
+    description: `Shows an overlay with the HP of nearby Legendary/Mythic sea creatures when they're in lootshare range. Sea creatures with lower HP come first.`,
     subcategory: "Sea creatures HP",
     value: true
+})
+.addSlider({
+    category: "Overlays",
+    configName: "seaCreaturesHpOverlay_maxCount",
+    title: "Maximum sea creatures HP count",
+    description: "Show maximum N sea creatures nearby (to limit overlay size).",
+    options: [1, 20],
+    value: 5,
+    subcategory: "Sea creatures HP"
 })
 .addButton({
     category: "Overlays",
@@ -1085,6 +1094,13 @@ const config = new DefaultConfig("FeeshNotifier", "config/settings.json")
     description: `Shows an overlay with the count of nearby sea creatures, and timer for how long they are alive. Useful to detect cap when barn fishing.\n${RED}Hidden if you have no fishing rod in your hotbar!`,
     subcategory: "Sea creatures count",
     value: true
+})
+.addTextParagraph({
+    category: "Overlays",
+    configName: "resetSeaCreaturesCountKeybindInformationText",
+    title: "Reset button",
+    description: "Set a keybind in Minecraft's Controls menu to reset Sea creatures count/timer on button pressed.",
+    subcategory: "Sea creatures count"
 })
 .addButton({
     category: "Overlays",

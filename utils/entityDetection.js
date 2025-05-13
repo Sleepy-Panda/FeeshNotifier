@@ -1,4 +1,5 @@
 import { EntityArmorStand } from '../constants/javaTypes';
+import { getMcEntityId, parseShortNumber } from './common';
 
 /**
  * Find all Hotspots within the specified range from the specified entity.
@@ -74,4 +75,73 @@ export function getPlayerNamesInRange(distance) {
 		.filter((x, i, a) => a.indexOf(x) == i); // Distinct, sometimes the players are duplicated in the list
 		
 	return players;
+}
+
+/**
+ * Find the specific sea creatures in the specified range from the current player.
+ * @param {Array} includedSeaCreatureNames Array of sea creature names without formatting, to find them in the world
+ * @returns {Array} Sea creatures info in format: {
+    mcEntityId: number;
+    baseMobName: string;
+    shortNametag: string;
+    currentHp: string;
+    currentHpNumber: number;
+    nameWithModifiers: string;
+	renderPos: object;
+  } 
+ */
+export function getSeaCreaturesInRange(includedSeaCreatureNames, distance) {
+	const entities = World.getAllEntitiesOfType(EntityArmorStand);
+    const player = Player.getPlayer();
+
+	const seaCreatures = entities
+		.filter(entity => entity.distanceTo(player) <= distance)
+		.map(entity => {
+			const seaCreatureInfo = parseSeaCreatureNametag(entity, includedSeaCreatureNames);
+        	if (!seaCreatureInfo) return null;
+			return includedSeaCreatureNames.some(n => seaCreatureInfo.baseMobName === n) ? seaCreatureInfo : null; // Exact mob name match (e.g. exclude Night Squid if we search for Squid)
+		})
+		.filter(seaCreatureInfo => !!seaCreatureInfo);
+
+	return seaCreatures;
+
+	// Original nametag: §e﴾ §8[§7Lv400§8] §c§lThunder§r§r §e17M§f/§a35M§c❤ §e﴿ §b✯
+	// §8[§7Lv1§8] §5§ka§5Corrupted Squid§5§ka§r §a300§f/§a300§c❤
+	function parseSeaCreatureNametag(entity, includedSeaCreatureNames) { 
+		if (!entity) return null;
+
+		const plainName = entity?.getName()?.removeFormatting();
+		if (!plainName || !plainName.includes('[Lv') || !plainName.includes(']') || !plainName.includes('❤') || !includedSeaCreatureNames.some(n => plainName.includes(n))) return null;
+
+		const name = entity.getName().replace('§e﴾ ', '').replace(' §e﴿', '').trim() || '';
+		const shortName = name.split('] ')[1].replace('Corrupted ', '');
+		const baseMobName = takeWhile(shortName.split(' '), part => !part.includes('/'))
+			.join(' ')
+			.replaceAll('§ka', '') // Corrupted character before and after mob name
+			.removeFormatting();
+
+		const currentHp = shortName.split('§f/')[0].split(' ').slice(-1)[0];
+		const currentHpStr = currentHp + '§c❤';
+
+		return {
+			mcEntityId: getMcEntityId(entity),
+			baseMobName: baseMobName, // Thunder or Squid
+			shortNametag: shortName, // §c§lThunder§r§r §e17M§f/§a35M§c❤ §b✯ or §5§ka§5Squid§5§ka§r §a300§f/§a300§c❤
+			currentHp: currentHpStr, // §e17M❤
+			currentHpNumber: parseShortNumber(currentHp.removeFormatting()),
+			//fullHp: shortName.split(' ').find(part => part.includes('§f/')), // §e17M§f/§a35M§c❤
+			nameWithModifiers: shortName.split(' ').filter(part => !part.includes('/')).join(' '), // §c§lThunder§r§r §b✯
+			renderPos: {
+				x: entity.getRenderX(),
+                y: entity.getRenderY(),
+                z: entity.getRenderZ(),
+			},
+		};
+
+		function takeWhile(arr, predicate) {
+			if (!arr || !arr.length) return [];
+			const i = arr.findIndex(x => !predicate(x));                
+			return i >= 0 ? arr.slice(0, i) : arr;
+		}
+	}
 }

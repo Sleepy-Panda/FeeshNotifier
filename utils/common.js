@@ -2,7 +2,7 @@ import { NO_FISHING_WORLDS } from '../constants/areas';
 import { RED, DARK_GRAY, BLUE, WHITE, BOLD, RESET } from '../constants/formatting';
 import { NBTTagString } from '../constants/javaTypes';
 import { EntityFishHook, NBTTagString } from '../constants/javaTypes';
-import { DOUBLE_HOOK_MESSAGES } from '../constants/triggers';
+import { DOUBLE_HOOK_MESSAGES, HURRICANE_BOTTLE_CHARGED_MESSAGE, STORM_BOTTLE_CHARGED_MESSAGE, THUNDER_BOTTLE_CHARGED_MESSAGE } from '../constants/triggers';
 
 // Double hook reindrakes may produce the following messages history:
 // [CHAT] &r&eIt's a &r&aDouble Hook&r&e!&r
@@ -22,7 +22,9 @@ export function isDoubleHook() {
 	const history = ChatLib.getChatLines()?.filter(l => // Those messages appear between double hook and catch messages for Reindrake / Thunder
 		l !== '&r' &&
 		l !== '&r&c&lWOAH! &r&cA &r&4Reindrake &r&cwas summoned from the depths!&r' &&
-		l !== '&r&e> Your bottle of thunder has fully charged!&r'
+		l !== THUNDER_BOTTLE_CHARGED_MESSAGE &&
+		l !== STORM_BOTTLE_CHARGED_MESSAGE &&
+		l !== HURRICANE_BOTTLE_CHARGED_MESSAGE
 	);
 	const isDoubleHooked = (!!history && history.length > 1)
 		? DOUBLE_HOOK_MESSAGES.includes(history[1])
@@ -185,6 +187,33 @@ export function toShortNumber(number) {
 		return Math.floor(number * m) / m;
 	}
 }
+
+/**
+ * Converts a short string number format into a normal number.
+ * Examples: "100,500" => 100500, "1.2B" => 1200000000, "1M" => 1000000, "6.5k" => 6500
+ * @param {string} str - The string to convert
+ * @returns {number} The converted number
+ */
+export function parseShortNumber(str) {
+    if (!str) return 0;
+    
+    str = str.replace(/,/g, '').toLowerCase();
+    
+    const multipliers = {
+        'k': 1e3,
+        'm': 1e6,
+        'b': 1e9,
+        't': 1e12,
+    };
+    
+    const lastChar = str.slice(-1);
+    if (multipliers[lastChar]) {
+        const number = parseFloat(str.slice(0, -1));
+        return number * multipliers[lastChar];
+    }
+    
+    return parseFloat(str);
+} 
 
 /**
  * Converts elapsed seconds to hours, minutes and seconds. Examples: "1:05", "2:03:49", "27:03:17"

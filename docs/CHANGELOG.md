@@ -1,8 +1,25 @@
 # Releases
 
-## v1.40.0
+## v1.41.0
 
 Released: ???
+
+Features:
+- Added option to set a keybind in Minecraft's Controls menu to reset Sea creatures count/timer on button pressed.
+- Added all Legendary and Mythic mobs to Sea creature HP tracker.
+- Added setting for maximum count of sea creatures to display in Sea creature HP tracker. Lower HP sea creatures come first.
+- Made sea creature HP text shorter for corrupted sea creatures.
+
+Bugfixes:
+- Fixed Dark Bait not tracked by Fishing Profit tracker.
+- Fixed Double Hook not being recognized when Thunder bottle charged on Thunder spawn.
+
+Other:
+- Refactored box rendering to reuse sea creatures detection function.
+
+## v1.40.0
+
+Released: 2025-05-02
 
 Features:
 - Added option to set a keybind in Minecraft's Controls menu to pause all active overlays on button pressed. Default button is PAUSE.
