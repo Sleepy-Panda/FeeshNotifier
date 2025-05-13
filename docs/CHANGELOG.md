@@ -1,8 +1,18 @@
 # Releases
 
-## v1.41.0
+## v1.42.0
 
 Released: ???
+
+Features:
+- Removed Music Rune alert because it's not in treasure fishing loot pool anymore.
+
+Bugfixes:
+-
+
+## v1.41.0
+
+Released: 2025-05-13
 
 Features:
 - Added option to set a keybind in Minecraft's Controls menu to reset Sea creatures count/timer on button pressed.
