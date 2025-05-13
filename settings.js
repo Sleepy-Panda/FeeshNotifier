@@ -1047,7 +1047,7 @@ const config = new DefaultConfig("FeeshNotifier", "config/settings.json")
     category: "Overlays",
     configName: "seaCreaturesHpOverlay",
     title: "Sea creatures HP",
-    description: `Shows an overlay with the HP of nearby Legendary/Mythic sea creatures when they're in lootshare range. It also has immunity indicator for sea creatures that have 5 seconds damage reduction period.`,
+    description: `Shows an overlay with the HP of nearby Legendary/Mythic sea creatures when they're in lootshare range.`,
     subcategory: "Sea creatures HP",
     value: true
 })
@@ -1055,7 +1055,7 @@ const config = new DefaultConfig("FeeshNotifier", "config/settings.json")
     category: "Overlays",
     configName: "seaCreaturesHpOverlay_immunity",
     title: "Display immunity",
-    description: `Display ~5 seconds damage reduction period that some sea creature types have.`,
+    description: `Display ~5 seconds immunity indicator for damage reduction period that some sea creature types have.`,
     subcategory: "Sea creatures HP",
     value: true
 })
