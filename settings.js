@@ -398,14 +398,6 @@ const config = new DefaultConfig("FeeshNotifier", "config/settings.json")
 })
 .addSwitch({
     category: "Chat",
-    configName: "messageOnMusicRuneDrop",
-    title: "Send a party chat message on MUSIC RUNE I drop",
-    description: "Sends a party chat message when a rare item has dropped by you.",
-    subcategory: "Rare Drops",
-    value: true
-})
-.addSwitch({
-    category: "Chat",
     configName: "messageOnSquidPetDrop",
     title: "Send a party chat message on SQUID PET drop",
     description: "Sends a party chat message when a rare item has dropped by you.",
@@ -891,14 +883,6 @@ const config = new DefaultConfig("FeeshNotifier", "config/settings.json")
     category: "Alerts",
     configName: "alertOnScuttlerShellDrop",
     title: "Alert on SCUTTLER SHELL drop",
-    description: "Shows a title and plays a sound when a rare item has dropped by you or your party members.",
-    subcategory: "Rare Drops",
-    value: true
-})
-.addSwitch({
-    category: "Alerts",
-    configName: "alertOnMusicRuneDrop",
-    title: "Alert on MUSIC RUNE I drop",
     description: "Shows a title and plays a sound when a rare item has dropped by you or your party members.",
     subcategory: "Rare Drops",
     value: true
