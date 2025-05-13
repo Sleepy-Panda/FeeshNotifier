@@ -2,6 +2,7 @@ import { Keybind } from "../KeybindFix";
 import { pauseAbandonedQuarryTracker } from "./features/overlays/abandonedQuarryTracker";
 import { pauseFishingProfitTracker } from "./features/overlays/fishingProfitTracker";
 import { pauseMagmaCoreProfitTracker } from "./features/overlays/magmaCoreProfitTracker";
+import { resetSeaCreaturesCountAndTimer } from "./features/overlays/seaCreaturesCountAndTimeTracker";
 import { pauseSeaCreaturesPerHourTracker } from "./features/overlays/seaCreaturesPerHourTracker";
 import { pauseWormMembraneProfitTracker } from "./features/overlays/wormMembraneProfitTracker";
 
@@ -12,4 +13,9 @@ pauseKeyBind.registerKeyRelease(() => {
     pauseAbandonedQuarryTracker();
     pauseMagmaCoreProfitTracker();
     pauseWormMembraneProfitTracker();
+});
+
+const resetSeaCreaturesTimerKeyBind = new Keybind("Reset sea creatures count/timer", Keyboard.KEY_NONE, "FeeshNotifier");
+resetSeaCreaturesTimerKeyBind.registerKeyRelease(() => {
+    resetSeaCreaturesCountAndTimer();
 });

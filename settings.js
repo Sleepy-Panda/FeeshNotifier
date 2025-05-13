@@ -1103,6 +1103,13 @@ const config = new DefaultConfig("FeeshNotifier", "config/settings.json")
     subcategory: "Sea creatures count",
     value: true
 })
+.addTextParagraph({
+    category: "Overlays",
+    configName: "resetSeaCreaturesCountKeybindInformationText",
+    title: "Reset button",
+    description: "Set a keybind in Minecraft's Controls menu to reset Sea creatures count/timer on button pressed.",
+    subcategory: "Sea creatures count"
+})
 .addButton({
     category: "Overlays",
     configName: "moveSeaCreaturesCountOverlay",

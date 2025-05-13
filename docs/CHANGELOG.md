@@ -5,6 +5,7 @@
 Released: ???
 
 Features:
+- Added option to set a keybind in Minecraft's Controls menu to reset Sea creatures count/timer on button pressed.
 - Sea creature HP tracker reworked:
   - Added all missing Legendary and Mythic mobs.
   - Added immunity indicator for sea creatures that have 5 seconds damage reduction period.
