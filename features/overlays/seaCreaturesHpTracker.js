@@ -135,7 +135,7 @@ register("worldUnload", () => {
 });
 
 function cleanupOutdatedSeenEntityIds() {
-    if (!settings.seaCreaturesHpOverlay_immunity || !seenMobEntityIds || !seenMobEntityIds.size) return;
+    if (!settings.seaCreaturesHpOverlay || !settings.seaCreaturesHpOverlay_immunity || !isInSkyblock() || !seenMobEntityIds || !seenMobEntityIds.size) return;
 
     for (const [id, timestamp] of seenMobEntityIds.entries()) {
         if (isExpired(timestamp)) {
