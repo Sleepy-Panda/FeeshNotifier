@@ -47,6 +47,7 @@ import "./features/inventory/showPricePerT1Shard";
 import "./features/inventory/showExpertiseKills";
 import "./features/inventory/showCaughtTrophyFishRaritiesInOdger";
 import "./features/inventory/showExpBoostPercentage";
+import "./features/inventory/showMobyDuckProgress";
 
 import "./features/chat/messageOnCatch";
 import "./features/chat/announceMobSpawnToAllChat";
