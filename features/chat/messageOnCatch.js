@@ -14,7 +14,6 @@ triggers.RARE_CATCH_TRIGGERS.forEach(entry => {
                 const isDoubleHooked = isDoubleHook();
                 sendMessageOnCatch({
                     seaCreature: entry.seaCreature,
-                    rarityColorCode: entry.rarityColorCode,
                     isDoubleHook: isDoubleHooked,
                     isEnabled: settings[entry.isMessageEnabledSettingKey]
                 });
