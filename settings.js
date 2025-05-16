@@ -1508,6 +1508,13 @@ ${GRAY}Do ${AQUA}/feeshResetProfitTracker${GRAY} to reset.`,
     description: "Render caught trophy fish rarities in Odger's Trophy Fishing GUI.",
     subcategory: "Item icon"
 })
+.addSwitch({
+    category: "Items and storages",
+    configName: "showMobyDuckProgress",
+    title: "Moby-Duck progress",
+    description: "Render percentage of Moby-Duck evolving progress.",
+    subcategory: "Item icon"
+})
 
 .addSwitch({
     category: "Items and storages",
