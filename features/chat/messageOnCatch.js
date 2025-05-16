@@ -1,11 +1,32 @@
-import { getDoubleHookCatchMessage, getCatchMessage } from '../../utils/common';
-import { isInSkyblock } from '../../utils/playerState';
+import settings from "../../settings";
+import * as triggers from '../../constants/triggers';
+import { getDoubleHookCatchMessage, getCatchMessage, isDoubleHook, isInFishingWorld } from '../../utils/common';
+import { getWorldName, isInSkyblock } from '../../utils/playerState';
+import { registerIf } from '../../utils/registers';
 
 const chatCommand = 'pc';
 
-export function sendMessageOnCatch(options) {
+triggers.RARE_CATCH_TRIGGERS.forEach(entry => {
+    registerIf(
+        register(
+            "Chat",
+            (event) => {
+                const isDoubleHooked = isDoubleHook();
+                sendMessageOnCatch({
+                    seaCreature: entry.seaCreature,
+                    rarityColorCode: entry.rarityColorCode,
+                    isDoubleHook: isDoubleHooked,
+                    isEnabled: settings[entry.isMessageEnabledSettingKey]
+                });
+            }
+        ).setCriteria(entry.trigger).setContains(),
+        () => settings[entry.isMessageEnabledSettingKey] && isInSkyblock() && isInFishingWorld(getWorldName())
+    );
+});
+
+function sendMessageOnCatch(options) {
 	try {
-		if (!options.isEnabled || !isInSkyblock()) {
+		if (!options.isEnabled || !isInSkyblock() || !isInFishingWorld(getWorldName())) {
 			return;
 		}
 	
@@ -13,6 +34,6 @@ export function sendMessageOnCatch(options) {
 		ChatLib.command(chatCommand + ' ' + message);	
 	} catch (e) {
 		console.error(e);
-		console.log(`[FeeshNotifier] Failed to send the message and play alert on catch.`);
+		console.log(`[FeeshNotifier] Failed to send the message on catch.`);
 	}
 }

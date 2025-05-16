@@ -11,6 +11,9 @@ Features:
 Bugfixes:
 -
 
+Other:
+- Refactored Message on catch and Alert on catch to not execute any checks when setting is disabled / when being in a wrong world.
+
 ## v1.41.0
 
 Released: 2025-05-13
