@@ -51,6 +51,16 @@ const config = new DefaultConfig("FeeshNotifier", "config/settings.json")
         ChatLib.command("feeshMoveAllGuis", true);
     }
 })
+.addButton({
+    category: "General",
+    configName: "colorCodes",
+    title: `Customization`,
+    description: `For settings that provide custom text templates, please explore color codes and formatting codes.`,
+    subcategory: "Other",
+    onClick() {
+        java.awt.Desktop.getDesktop().browse(new java.net.URI("https://github.com/Sleepy-Panda/FeeshNotifier/blob/main/constants/formatting.js"));
+    }
+})
 
 .addSwitch({
     category: "Chat",
@@ -1605,6 +1615,41 @@ ${GRAY}Do ${AQUA}/feeshResetProfitTracker${GRAY} to reset.`,
     subcategory: "Item lore"
 })
 
+.addSwitch({
+    category: "Rendering",
+    configName: "renderFishingHookTimer",
+    title: "Render fishing hook timer",
+    description: `Displays the sign when fish arrived at your fishing hook, as well as a hook timer.\nYou need to enable ${YELLOW}Skyblock Settings -> Personal -> Fishing Settings -> Fishing Timer ${RESET}for this functionality to work!`,
+    subcategory: "Fishing Hook"
+})
+.addTextInput({
+    category: "Rendering",
+    configName: "renderFishingHookFishArrivedTemplate",
+    title: "Custom fish arrived template",
+    description: `Replace default ${RED}${BOLD}! ${RESET}with your custom text when a fish arrived to your hook. Leave empty to use default.`,
+    value: "&c&l!",
+    placeHolder: "e.g. &c&l!",
+    subcategory: "Fishing Hook"
+})
+.addTextInput({
+    category: "Rendering",
+    configName: "renderFishingHookFishTimerTemplate",
+    title: "Custom timer format",
+    description: `Replace default ${YELLOW}${BOLD}{timer} ${RESET}with your custom timer text. Use {timer} to insert timer seconds into the template. Leave empty to use default.`,
+    value: "&e&l{timer}",
+    placeHolder: "e.g. &e&l{timer}",
+    subcategory: "Fishing Hook"
+})
+.addDropDown({
+    category: "Rendering",
+    configName: "renderFishingHookTimerMode",
+    title: "Fishing hook timer mode",
+    description: "",
+    options: ["Countdown until reel in", "Since casted"],
+    value: 0,
+    subcategory: "Fishing Hook"
+})
+
 .addTextParagraph({
     category: "Rendering",
     configName: "renderingBoxingText",
@@ -1663,14 +1708,6 @@ ${GRAY}Do ${AQUA}/feeshResetProfitTracker${GRAY} to reset.`,
     title: "Box Jawbus Followers",
     description: "Render box around Jawbus Followers nearby.",
     subcategory: "Boxing"
-})
-
-.addSwitch({
-    category: "Rendering",
-    configName: "renderFishingHookTimer",
-    title: "Render fishing hook timer",
-    description: "",
-    subcategory: "Fishing Hook"
 })
 
 .addButton({
