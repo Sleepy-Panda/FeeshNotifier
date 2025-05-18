@@ -57,6 +57,7 @@ import "./features/chat/messageOnHotspotFound";
 import "./features/chat/compactCatchMessages";
 
 import "./features/rendering/boxEntities";
+import "./features/rendering/fishingHook";
 
 register('worldLoad', () => {
     Client.showTitle('', '', 1, 1, 1); // Shitty fix for a title not showing for the 1st time

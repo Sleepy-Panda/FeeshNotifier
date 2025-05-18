@@ -1665,6 +1665,14 @@ ${GRAY}Do ${AQUA}/feeshResetProfitTracker${GRAY} to reset.`,
     subcategory: "Boxing"
 })
 
+.addSwitch({
+    category: "Rendering",
+    configName: "renderFishingHookTimer",
+    title: "Render fishing hook timer",
+    description: "",
+    subcategory: "Fishing Hook"
+})
+
 .addButton({
     category: "Commands",
     configName: "calculateFishingPetsPrices",
