@@ -51,16 +51,6 @@ const config = new DefaultConfig("FeeshNotifier", "config/settings.json")
         ChatLib.command("feeshMoveAllGuis", true);
     }
 })
-.addButton({
-    category: "General",
-    configName: "colorCodes",
-    title: `Customization`,
-    description: `For settings that provide custom text templates, please explore color codes and formatting codes.`,
-    subcategory: "Other",
-    onClick() {
-        java.awt.Desktop.getDesktop().browse(new java.net.URI("https://github.com/Sleepy-Panda/FeeshNotifier/blob/main/constants/formatting.js"));
-    }
-})
 
 .addSwitch({
     category: "Chat",
@@ -1619,7 +1609,25 @@ ${GRAY}Do ${AQUA}/feeshResetProfitTracker${GRAY} to reset.`,
     category: "Rendering",
     configName: "renderFishingHookTimer",
     title: "Render fishing hook timer",
-    description: `Displays the sign when fish arrived at your fishing hook, as well as a hook timer.\nYou need to enable ${YELLOW}Skyblock Settings -> Personal -> Fishing Settings -> Fishing Timer ${RESET}for this functionality to work!`,
+    description: `Displays the timer on your fishing hook, as well as the sign when a fish arrived and can be reeled in.\nYou need to enable ${YELLOW}Skyblock Settings -> Personal -> Fishing Settings -> Fishing Timer ${RESET}for this functionality to work!`,
+    subcategory: "Fishing Hook"
+})
+.addDropDown({
+    category: "Rendering",
+    configName: "renderFishingHookTimerMode",
+    title: "Fishing hook timer mode. 'Until reel in' shows countdown while fish is swimming towards the fishing hook. 'Since casted' shows the timer while the fishing hook is casted.",
+    description: "",
+    options: ["Until reel in", "Since casted"],
+    value: 0,
+    subcategory: "Fishing Hook"
+})
+.addSlider({
+    category: "Rendering",
+    configName: "renderFishingHookTimerSize",
+    title: "Fishing hook timer size",
+    description: "Text size for rendered fishing hook timer.",
+    options: [1, 25],
+    value: 5,
     subcategory: "Fishing Hook"
 })
 .addTextInput({
@@ -1640,23 +1648,15 @@ ${GRAY}Do ${AQUA}/feeshResetProfitTracker${GRAY} to reset.`,
     placeHolder: "e.g. &e&l{timer}",
     subcategory: "Fishing Hook"
 })
-.addDropDown({
+.addButton({
     category: "Rendering",
-    configName: "renderFishingHookTimerMode",
-    title: "Fishing hook timer mode",
-    description: "",
-    options: ["Countdown until reel in", "Since casted"],
-    value: 0,
-    subcategory: "Fishing Hook"
-})
-.addSlider({
-    category: "Rendering",
-    configName: "renderFishingHookTimerSize",
-    title: "Fishing hook timer size",
-    description: "",
-    options: [1, 100],
-    value: 7,
-    subcategory: "Fishing Hook"
+    configName: "colorCodes",
+    title: `Color codes`,
+    description: `For settings above with custom text templates, please explore color codes and formatting codes.`,
+    subcategory: "Fishing Hook",
+    onClick() {
+        java.awt.Desktop.getDesktop().browse(new java.net.URI("https://github.com/Sleepy-Panda/FeeshNotifier/blob/main/constants/formatting.js"));
+    }
 })
 
 .addTextParagraph({
