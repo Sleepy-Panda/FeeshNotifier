@@ -1,10 +1,11 @@
 import settings from "../../settings";
 import { BOLD, RED, YELLOW } from "../../constants/formatting";
-import { EntityArmorStand } from "../../constants/javaTypes";
 import { getPlayerFishingHook, isInFishingWorld } from "../../utils/common";
 import { getWorldName, hasFishingRodInHotbar, isInSkyblock } from "../../utils/playerState";
 import { registerIf } from "../../utils/registers";
 import { drawString } from "../../utils/worldRendering";
+import { FISH_STATE_ARRIVED, FISH_STATE_ARRIVING, FISH_STATE_NONE } from "../../constants/fishingHookStates";
+import { getHypixelFishingHookTimer } from "../../utils/entityDetection";
 
 // Stick overlay to specific position on screen
 // Or just render bigger on original hook position?
@@ -12,9 +13,6 @@ import { drawString } from "../../utils/worldRendering";
 // lastPos + (currentPos - lastPos) * partialTicks
 
 let fishingHookTimer = null;
-
-const FISH_ARRIVED = '§c§l!!!';
-const FISHING_TIME_UNTIL_REEL_IN_REGEX = /§e§l(\d+(\\.\d+)?)/;
 
 const DEFAULT_FISH_ARRIVED_TEMPLATE = `${RED}${BOLD}!`;
 const DEFAULT_TIMER_TEMPLATE = `${YELLOW}${BOLD}{timer}`;
@@ -51,32 +49,28 @@ function trackHypixelFishingHookTimer() {
         return;
     }
 
-    const entities = World.getAllEntitiesOfType(EntityArmorStand);
-	const hypixelHookTimer = entities
-		.filter(entity => entity.distanceTo(fishingHook) <= 1)
-		.find(e => e.getName() === FISH_ARRIVED || FISHING_TIME_UNTIL_REEL_IN_REGEX.test(e.getName()));
+    fishingHookTimer = {
+        ticksExisted: fishingHook.getTicksExisted(),
+        x: fishingHook.getX(),
+        y: fishingHook.getY(),
+        z: fishingHook.getZ(),
+        lastX: fishingHook.getLastX(),
+        lastY: fishingHook.getLastY(),
+        lastZ: fishingHook.getLastZ(),
+        fishState: FISH_STATE_NONE
+    };
 
+	const hypixelHookTimer = getHypixelFishingHookTimer(fishingHook);
     if (!hypixelHookTimer) {
-        fishingHookTimer = null;
         return;
     }
 
-    fishingHookTimer = {
-        uuid: hypixelHookTimer.getUUID(),
-        ticksExisted: hypixelHookTimer.getTicksExisted(),
-        name: hypixelHookTimer.getName(),
-        lastX: hypixelHookTimer.getLastX(),
-        lastY: hypixelHookTimer.getLastY(),
-        lastZ: hypixelHookTimer.getLastZ(),
-        x: hypixelHookTimer.getX(),
-        y: hypixelHookTimer.getY(),
-        z: hypixelHookTimer.getZ(),
-    };
+    fishingHookTimer = Object.assign(fishingHookTimer, { hypixelTimerUuid: hypixelHookTimer.uuid, fishState: hypixelHookTimer.fishState, hypixelTimerText: hypixelHookTimer.name });
 }
 
 function cancelHypixelFishingHookTimer(entity, event) {
     if (!settings.renderFishingHookTimer || !isInSkyblock() || !isInFishingWorld(getWorldName()) || !hasFishingRodInHotbar()) return;
-    if (entity && fishingHookTimer && entity.getUUID() === fishingHookTimer.uuid) cancel(event);
+    if (entity && fishingHookTimer && fishingHookTimer.hypixelTimerUuid && entity.getUUID() === fishingHookTimer.hypixelTimerUuid) cancel(event);
 }
 
 function drawFishingHook(partialTick) {
@@ -87,34 +81,31 @@ function drawFishingHook(partialTick) {
     const x = fishingHookTimer.lastX + (fishingHookTimer.x - fishingHookTimer.lastX) * partialTick;
     const y = fishingHookTimer.lastY + (fishingHookTimer.y - fishingHookTimer.lastY) * partialTick;
     const z = fishingHookTimer.lastZ + (fishingHookTimer.z - fishingHookTimer.lastZ) * partialTick;
+    const scale = settings.renderFishingHookTimerSize / 100;
 
-    if (fishingHookTimer.name === FISH_ARRIVED) {
-        drawString(
-            settings.renderFishingHookFishArrivedTemplate || DEFAULT_FISH_ARRIVED_TEMPLATE,
-            x,
-            y,
-            z,
-            0xffffff,
-            false,
-            0.1,
-            false,
-            true,
-            true
-        );
-    } else if (FISHING_TIME_UNTIL_REEL_IN_REGEX.test(fishingHookTimer.name)) {
-        const template = settings.renderFishingHookFishTimerTemplate || DEFAULT_TIMER_TEMPLATE;
-        const text = template.replace('{timer}', fishingHookTimer.name.removeFormatting());
-        drawString(
-            text,
-            x,
-            y,
-            z,
-            0xffffff,
-            false,
-            0.1,
-            false,
-            true,
-            true
-        );
-    }
+    switch (true) {
+        case fishingHookTimer.fishState === FISH_STATE_ARRIVED: {
+            const text = settings.renderFishingHookFishArrivedTemplate || DEFAULT_FISH_ARRIVED_TEMPLATE;
+            drawString(text, x, y, z, 0xffffff, false, scale, false, true, true);
+            break;
+        }
+        
+        case fishingHookTimer.fishState === FISH_STATE_ARRIVING && settings.renderFishingHookTimerMode === 0: { // Countdown until reel in   
+            const template = settings.renderFishingHookFishTimerTemplate || DEFAULT_TIMER_TEMPLATE;
+            const text = template.replace('{timer}', fishingHookTimer.hypixelTimerText.removeFormatting());
+            drawString(text, x, y, z, 0xffffff, false, scale, false, true, true);
+            break;
+        }
+
+        case settings.renderFishingHookTimerMode === 1: { // Since casted
+            const template = settings.renderFishingHookFishTimerTemplate || DEFAULT_TIMER_TEMPLATE;
+            const seconds = (fishingHookTimer.ticksExisted / 20).toFixed(1);
+            const text = template.replace('{timer}', seconds);
+            drawString(text, x, y, z, 0xffffff, false, scale, false, true, true);
+            break;
+        }
+
+        default:
+            break;
+    };
 }

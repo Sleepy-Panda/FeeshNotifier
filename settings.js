@@ -1649,6 +1649,15 @@ ${GRAY}Do ${AQUA}/feeshResetProfitTracker${GRAY} to reset.`,
     value: 0,
     subcategory: "Fishing Hook"
 })
+.addSlider({
+    category: "Rendering",
+    configName: "renderFishingHookTimerSize",
+    title: "Fishing hook timer size",
+    description: "",
+    options: [1, 100],
+    value: 7,
+    subcategory: "Fishing Hook"
+})
 
 .addTextParagraph({
     category: "Rendering",
