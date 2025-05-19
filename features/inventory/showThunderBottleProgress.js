@@ -4,6 +4,11 @@ import { isInSkyblock } from "../../utils/playerState";
 import { getCleanItemName } from "../../utils/common";
 import { registerIf } from "../../utils/registers";
 
+
+// THIS HAS A PROBLEM
+// With items moved across single GUI
+// Also 0% charge not rendered
+
 const CACHED_ITEMS = new Map();
 
 register("guiClosed", (gui) => {
