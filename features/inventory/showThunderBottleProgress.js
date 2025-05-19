@@ -66,7 +66,7 @@ function showThunderBottleProgress(item, x, y) {
     }
 
     const charge = data.charge;
-    if (!charge) {
+    if (!charge && charge !== 0) {
         return;
     }
 
