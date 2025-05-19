@@ -37,17 +37,17 @@ import "./features/overlays/abandonedQuarryTracker";
 import "./features/overlays/fishingProfitTracker";
 import "./features/overlays/archfiendDiceProfitTracker";
 
-import "./features/inventory/highlightCheapBooks";
+//import "./features/inventory/highlightCheapBooks";
 import "./features/inventory/showThunderBottleProgress";
-import "./features/inventory/showPetLevel";
-import "./features/inventory/showAttributes";
-import "./features/inventory/showRarityUpgrade";
-import "./features/inventory/highlightAttributeFusionMatchingItems";
-import "./features/inventory/showPricePerT1Shard";
-import "./features/inventory/showExpertiseKills";
-import "./features/inventory/showCaughtTrophyFishRaritiesInOdger";
-import "./features/inventory/showExpBoostPercentage";
-import "./features/inventory/showMobyDuckProgress";
+//import "./features/inventory/showPetLevel";
+//import "./features/inventory/showAttributes";
+//import "./features/inventory/showRarityUpgrade";
+//import "./features/inventory/highlightAttributeFusionMatchingItems";
+//import "./features/inventory/showPricePerT1Shard";
+//import "./features/inventory/showExpertiseKills";
+//import "./features/inventory/showCaughtTrophyFishRaritiesInOdger";
+//import "./features/inventory/showExpBoostPercentage";
+//import "./features/inventory/showMobyDuckProgress";
 
 import "./features/chat/messageOnCatch";
 import "./features/chat/announceMobSpawnToAllChat";
