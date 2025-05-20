@@ -1,8 +1,18 @@
 # Releases
 
-## v1.42.0
+## v1.43.0
 
 Released: ???
+
+Features:
+-
+
+Bugfixes:
+-
+
+## v1.42.0
+
+Released: 2025-05-20
 
 Features:
 - Sea creature HP tracker: Added immunity indicator for sea creatures that have 5 seconds damage reduction period.
