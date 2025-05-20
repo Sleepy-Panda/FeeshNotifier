@@ -9,7 +9,7 @@ import { getHypixelFishingHookTimer } from "../../utils/entityDetection";
 
 let fishingHookTimer = null;
 
-const DEFAULT_FISH_ARRIVED_TEMPLATE = `${RED}${BOLD}!`;
+const DEFAULT_FISH_ARRIVED_TEMPLATE = `${RED}${BOLD}!!!`;
 const DEFAULT_TIMER_TEMPLATE = `${YELLOW}${BOLD}{timer}`;
 
 registerIf(

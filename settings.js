@@ -1634,9 +1634,9 @@ ${GRAY}Do ${AQUA}/feeshResetProfitTracker${GRAY} to reset.`,
     category: "Rendering",
     configName: "renderFishingHookFishArrivedTemplate",
     title: "Custom fish arrived template",
-    description: `Replace default ${RED}${BOLD}! ${RESET}with your custom text when a fish arrived to your hook. Leave empty to use default.`,
-    value: "&c&l!",
-    placeHolder: "e.g. &c&l!",
+    description: `Replace default ${RED}${BOLD}!!! ${RESET}with your custom text when a fish arrived to your hook. Leave empty to use default.`,
+    value: "&c&l!!!",
+    placeHolder: "e.g. &c&l!!!",
     subcategory: "Fishing Hook"
 })
 .addTextInput({
