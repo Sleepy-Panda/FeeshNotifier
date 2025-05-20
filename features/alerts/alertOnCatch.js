@@ -1,65 +1,68 @@
 import settings from "../../settings";
 import * as triggers from '../../constants/triggers';
-import { sendMessageOnCatch } from '../chat/messageOnCatch';
-import { getDoubleHookCatchTitle, getCatchTitle, getCatchMessage, getColoredPlayerNameFromDisplayName, getColoredPlayerNameFromPartyChat, getDoubleHookCatchMessage, getPartyChatMessage, isDoubleHook } from '../../utils/common';
+import { getDoubleHookCatchTitle, getCatchTitle, getCatchMessage, getColoredPlayerNameFromDisplayName, getColoredPlayerNameFromPartyChat, getDoubleHookCatchMessage, getPartyChatMessage, isDoubleHook, isInFishingWorld } from '../../utils/common';
 import { NOTIFICATION_SOUND_SOURCE, OFF_SOUND_MODE } from '../../constants/sounds';
-import { isInSkyblock } from "../../utils/playerState";
+import { getWorldName, isInSkyblock } from "../../utils/playerState";
+import { registerIf } from "../../utils/registers";
 
 triggers.RARE_CATCH_TRIGGERS.forEach(entry => {
-    // Triggers on original "all chat" catch message sent by Hypixel.
-    register(
-        "Chat",
-        (event) => {
-            const isDoubleHooked = isDoubleHook();
-            playAlertOnCatch({ // Play alert immediately before sending to the party (in case when you're fishing solo)
+    registerIf(
+        // Triggers on original "all chat" catch message sent by Hypixel.
+        register(
+            "Chat",
+            (event) => {
+                const isDoubleHooked = isDoubleHook();
+                playAlertOnCatch({ // Play alert immediately before sending to the party (in case when you're fishing solo)
+                    seaCreature: entry.seaCreature,
+                    rarityColorCode: entry.rarityColorCode,
+                    isEnabled: settings[entry.isAlertEnabledSettingKey],
+                    isDoubleHook: isDoubleHooked,
+                    player: getColoredPlayerNameFromDisplayName(),
+                    suppressIfSamePlayer: false
+                });
+            }
+        ).setCriteria(entry.trigger).setContains(),
+        () => settings[entry.isAlertEnabledSettingKey] && isInSkyblock() && isInFishingWorld(getWorldName())
+    );
+
+    registerIf(
+        // Triggers on automated party chat message sent by the module (no double hook):
+        // --> A YETI has spawned <--
+        register(
+            "Chat",
+            (rankAndPlayer, event) => playAlertOnCatch({
                 seaCreature: entry.seaCreature,
                 rarityColorCode: entry.rarityColorCode,
                 isEnabled: settings[entry.isAlertEnabledSettingKey],
-                isDoubleHook: isDoubleHooked,
-                player: getColoredPlayerNameFromDisplayName(),
-                suppressIfSamePlayer: false
-            });
+                isDoubleHook: false,
+                player: getColoredPlayerNameFromPartyChat(rankAndPlayer),
+                suppressIfSamePlayer: true
+            })
+        ).setCriteria(getPartyChatMessage(getCatchMessage(entry.seaCreature))),
+        () => settings[entry.isAlertEnabledSettingKey] && isInSkyblock() && isInFishingWorld(getWorldName())
+    );
 
-            sendMessageOnCatch({
+    registerIf(
+        // Triggers on automated party chat message sent by the module (double hook).
+        // --> DOUBLE HOOK! Two YETIs have spawned <--
+        register(
+            "Chat",
+            (rankAndPlayer, event) => playAlertOnCatch({
                 seaCreature: entry.seaCreature,
                 rarityColorCode: entry.rarityColorCode,
-                isDoubleHook: isDoubleHooked,
-                isEnabled: settings[entry.isMessageEnabledSettingKey]
-            });
-        }
-    ).setCriteria(entry.trigger).setContains();
-
-    // Triggers on automated party chat message sent by the module (no double hook).
-    register(
-        "Chat",
-        (rankAndPlayer, event) => playAlertOnCatch({
-            seaCreature: entry.seaCreature,
-            rarityColorCode: entry.rarityColorCode,
-            isEnabled: settings[entry.isAlertEnabledSettingKey],
-            isDoubleHook: false,
-            player: getColoredPlayerNameFromPartyChat(rankAndPlayer),
-            suppressIfSamePlayer: true
-        })
-    ).setCriteria(getPartyChatMessage(getCatchMessage(entry.seaCreature)));
-
-    // Triggers on automated party chat message sent by the module (double hook).
-    register(
-        "Chat",
-        (rankAndPlayer, event) => playAlertOnCatch({
-            seaCreature: entry.seaCreature,
-            rarityColorCode: entry.rarityColorCode,
-            isEnabled: settings[entry.isAlertEnabledSettingKey],
-            isDoubleHook: true,
-            player: getColoredPlayerNameFromPartyChat(rankAndPlayer),
-            suppressIfSamePlayer: true
-        })
-    ).setCriteria(getPartyChatMessage(getDoubleHookCatchMessage(entry.seaCreature)));
+                isEnabled: settings[entry.isAlertEnabledSettingKey],
+                isDoubleHook: true,
+                player: getColoredPlayerNameFromPartyChat(rankAndPlayer),
+                suppressIfSamePlayer: true
+            })
+        ).setCriteria(getPartyChatMessage(getDoubleHookCatchMessage(entry.seaCreature))),
+        () => settings[entry.isAlertEnabledSettingKey] && isInSkyblock() && isInFishingWorld(getWorldName())
+    );
 });
 
-// Shows a title and plays a sound on automated rare catch message sent by this module.
 function playAlertOnCatch(options) {
 	try {
-		if (!options.isEnabled || !isInSkyblock()) {
+		if (!options.isEnabled || !isInSkyblock() || !isInFishingWorld(getWorldName())) {
 			return;
 		}
 

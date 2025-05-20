@@ -9,7 +9,6 @@ export const GOOFY_LAUGH_SOUND_SOURCE = { source: "feesh_goofy-laugh.ogg", prior
 export const WOW_SOUND_SOURCE = { source: "feesh_wow.ogg", priority: true };
 export const SHEESH_SOUND_SOURCE = { source: "feesh_sheesh.ogg", priority: true };
 export const SAD_TROMBONE_SOUND_SOURCE = { source: "feesh_sad-trombone.ogg", priority: true };
-export const MUSIC_RUNE_SOUND_SOURCE = { source: "feesh_music-rune.ogg", priority: true };
 
 export const MEME_SOUND_MODE = 0;
 export const NORMAL_SOUND_MODE = 1;

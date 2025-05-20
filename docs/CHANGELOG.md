@@ -1,8 +1,23 @@
 # Releases
 
-## v1.41.0
+## v1.42.0
 
 Released: ???
+
+Features:
+- Sea creature HP tracker: Added immunity indicator for sea creatures that have 5 seconds damage reduction period.
+- Render percentage of Moby-Duck evolving progress [disabled by default].
+- Removed Music Rune alert because it's not in treasure fishing loot pool anymore.
+
+Bugfixes:
+-
+
+Other:
+- Refactored Message on catch and Alert on catch to not execute any checks when setting is disabled / when being in a wrong world.
+
+## v1.41.0
+
+Released: 2025-05-13
 
 Features:
 - Added option to set a keybind in Minecraft's Controls menu to reset Sea creatures count/timer on button pressed.
