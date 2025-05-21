@@ -38,6 +38,13 @@ export function sendMessageWithNearestHotspot(chatCommand) {
 		console.error(e);
 		console.log(`[FeeshNotifier] Failed to share nearby Hotspot.`);
 	}
+
+    function announceNearestHotspot(position, perk, chatCommand) {
+        if (!position || !perk || !chatCommand) return;
+    
+        const message = getMessage(position, perk);
+        ChatLib.command(chatCommand + ' ' + message);
+    }
 }
 
 function sendMessageOnHotspotFound() {
@@ -101,13 +108,6 @@ function announceFoundHotspot(position, perk) {
         const command = settings.autoMessageOnHotspotFoundSource === 0 ? 'pc' : 'ac';
         ChatLib.command(command + ' ' + message);
     }
-}
-
-function announceNearestHotspot(position, perk, chatCommand) {
-    if (!position || !perk || !chatCommand) return;
-
-    const message = getMessage(position, perk);
-    ChatLib.command(chatCommand + ' ' + message);
 }
 
 function getMessage(position, perk) {
