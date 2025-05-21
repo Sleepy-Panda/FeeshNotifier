@@ -1,7 +1,5 @@
 // https://github.com/Will0mane/ChatLib/blob/master/src/main/java/me/will0mane/libs/chatlib/ChatColors.java
 
-// BOLD should be applied after COLOR, e.g. bold red text is &c&l
-
 export const BLACK = '&0';
 export const DARK_BLUE = '&1';
 export const DARK_GREEN = '&2';
