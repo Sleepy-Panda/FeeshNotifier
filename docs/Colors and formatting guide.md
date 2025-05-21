@@ -36,10 +36,11 @@ The following table represents formatting codes applied style to a text:
 | `&m`  | Strikethrough text     |
 | `&n`  | Underlined text        |
 | `&o`  | Italic text            |
-| `&k`  | Obfuscated (random) text|
+| `&k`  | Obfuscated text        |
 
 ## How to use these codes
 
 - Insert the code directly before the text you want to format.
 - Insert formatting code after color code, e.g. &l (bold) should follow after &b (aqua) if you want aqua bold text.
+- By default, white color is used if no other color codes applied.
 - Example: `&cThis text is red &land bold&r and normal again.`

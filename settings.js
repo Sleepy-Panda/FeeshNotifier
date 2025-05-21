@@ -1655,7 +1655,7 @@ ${GRAY}Do ${AQUA}/feeshResetProfitTracker${GRAY} to reset.`,
     description: `For settings above with custom text templates, please explore color codes and formatting codes.`,
     subcategory: "Fishing Hook",
     onClick() {
-        java.awt.Desktop.getDesktop().browse(new java.net.URI("https://github.com/Sleepy-Panda/FeeshNotifier/blob/main/constants/formatting.js"));
+        java.awt.Desktop.getDesktop().browse(new java.net.URI("https://github.com/Sleepy-Panda/FeeshNotifier/blob/main/docs/Colors%20and%20formatting%20guide.md"));
     }
 })
 
