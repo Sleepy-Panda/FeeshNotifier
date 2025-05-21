@@ -5,7 +5,8 @@
 Released: ???
 
 Features:
--
+- Added custom Fishing Hook timer which extends functionality of default Hypixel's one. Explore /feesh -> Rendering -> Fishing Hook section to enable and customize.
+- Added option to set a keybind in Minecraft's Controls menu to share the nearest Hotspot to PARTY or ALL chat on button pressed.
 
 Bugfixes:
 -
