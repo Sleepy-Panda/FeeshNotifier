@@ -77,6 +77,13 @@ const config = new DefaultConfig("FeeshNotifier", "config/settings.json")
     subcategory: "Hotspot",
     value: true
 })
+.addTextParagraph({
+    category: "Chat",
+    configName: "shareHotspotKeybindInformationText",
+    title: "Share hotspot button",
+    description: "Set a keybind in Minecraft's Controls menu to share the nearest Hotspot to PARTY chat or ALL chat on button pressed. You need to be close to the hotspot when pressing the button.",
+    subcategory: "Hotspot"
+})
 .addSwitch({
     category: "Chat",
     configName: "autoMessageOnHotspotFound",

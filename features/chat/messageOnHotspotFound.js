@@ -10,6 +10,8 @@ import { registerIf } from "../../utils/registers";
 let lastClosestHotspot = null;
 let lastFoundHotspotIds = []; // Remember 2 last found hotspots, to avoid announcing the same hotspots placed close to each other, when user is moving between them
 
+const HOTSPOT_RANGE = 6;
+
 registerIf(
     register("step", (event) => sendMessageOnHotspotFound()).setDelay(1),
     () => (settings.messageOnHotspotFound || settings.autoMessageOnHotspotFound) && isInSkyblock() && HOTSPOT_WORLDS.includes(getWorldName())
@@ -20,6 +22,31 @@ register("worldUnload", () => {
     lastFoundHotspotIds = [];
 });
 
+export function sendMessageWithNearestHotspot(chatCommand) {
+	try {
+		if (!HOTSPOT_WORLDS.includes(getWorldName()) || !isInSkyblock()) {
+			return;
+		}
+		
+        const closestHotspot = findClosestHotspotInRange(Player.getPlayer(), HOTSPOT_RANGE);
+        if (closestHotspot) {
+            announceNearestHotspot(closestHotspot.position, closestHotspot.perk, chatCommand);
+        } else {
+            ChatLib.chat(`${GOLD}[FeeshNotifier] ${WHITE}No Hotspot found nearby.`);
+        }
+	} catch (e) {
+		console.error(e);
+		console.log(`[FeeshNotifier] Failed to share nearby Hotspot.`);
+	}
+
+    function announceNearestHotspot(position, perk, chatCommand) {
+        if (!position || !perk || !chatCommand) return;
+    
+        const message = getMessage(position, perk);
+        ChatLib.command(chatCommand + ' ' + message);
+    }
+}
+
 function sendMessageOnHotspotFound() {
 	try {
 		if ((!settings.messageOnHotspotFound && !settings.autoMessageOnHotspotFound) ||
@@ -29,7 +56,7 @@ function sendMessageOnHotspotFound() {
 			return;
 		}
 		
-        const closestHotspot = findClosestHotspotInRange(Player.getPlayer(), 6);
+        const closestHotspot = findClosestHotspotInRange(Player.getPlayer(), HOTSPOT_RANGE);
         const closestHotspotId = closestHotspot ? closestHotspot.entity.getUUID() : null;
 
         if (closestHotspot && !lastFoundHotspotIds.includes(closestHotspotId) && (
@@ -40,7 +67,7 @@ function sendMessageOnHotspotFound() {
                 closestHotspot.position.z === lastClosestHotspot.position.z)
             ))      
         ) {
-            sendChatMessage(closestHotspot.position, closestHotspot.perk);
+            announceFoundHotspot(closestHotspot.position, closestHotspot.perk);
 
             lastFoundHotspotIds.unshift(closestHotspotId);
             lastFoundHotspotIds.length = Math.min(lastFoundHotspotIds.length, 2);
@@ -55,10 +82,8 @@ function sendMessageOnHotspotFound() {
 	}
 }
 
-function sendChatMessage(position, perk) {
-    if (!position || !perk) {
-        return;
-    }
+function announceFoundHotspot(position, perk) {
+    if (!position || !perk) return;
 
     const message = getMessage(position, perk);
 
