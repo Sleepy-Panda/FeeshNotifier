@@ -1,5 +1,4 @@
 // https://github.com/Will0mane/ChatLib/blob/master/src/main/java/me/will0mane/libs/chatlib/ChatColors.java
-
 export const BLACK = '&0';
 export const DARK_BLUE = '&1';
 export const DARK_GREEN = '&2';
