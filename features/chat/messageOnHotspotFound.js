@@ -32,7 +32,7 @@ export function sendMessageWithNearestHotspot(chatCommand) {
         if (closestHotspot) {
             announceNearestHotspot(closestHotspot.position, closestHotspot.perk, chatCommand);
         } else {
-            ChatLib.chat(`${GOLD}[FeeshNotifier] ${WHITE}No Hotspot found nearby.`);
+            ChatLib.chat(`${GOLD}[FeeshNotifier] ${WHITE}No Hotspot found nearby, move closer to be in ${HOTSPOT_RANGE} blocks range!`);
         }
 	} catch (e) {
 		console.error(e);
