@@ -1,5 +1,7 @@
-- Track catches for Ragnarok in crimson isle tracker (when in hotspot).
+- Track catches for Ragnarok and Scuttler in crimson isle tracker (when in hotspot).
+- Hotspot sharing on keybind
 - Hotspot search
+- Fishing XP tracker
 - Decrease elapsed time in Fishing Profit Tracker (when user forgot to stop tracker being afk)
 - Offer supercrafting or BZ sell when items like raw fish goes to inventory (sacks are full).
 - Track scavenged coins in Fishing Profit Tracker
@@ -13,11 +15,11 @@
 - Calculate pet price in Fishing Profit Tracker as difference between lvl 1 and lvl 100
   - Also, there are requests to track pet level progress in coins
 - Remove double hook reindrake logic because DH is not possible now
-- Disable functionalities in Dungeons, Garden same way as it's done for Kuudra.
 - Rain/Thunder widget
 - Find out price calculation for Kuudra Keys in Fishing Profit Tracker
 - Achievements (ScathaPro / SBO as reference)
 - Party chat commands
+  - something to explore profit tracker
   - !feeshsincejawbus
   - !feeshsincethunder
   - !feeshsinceyeti
@@ -38,7 +40,7 @@
 - Multiple drops that happen at the same time lead to "You're sending messages too fast" error.
 - Personal cap alert (20 for CH, 5 for Crimson)
 - Expertise widget
-- Fishing XP tracker, skill level tracking above fishing 60
+- Skill level tracking above fishing 60
 - Attach Vials drop number to the pchat message
 - Track all mobs caught, not only rare
 - Golden fish timer

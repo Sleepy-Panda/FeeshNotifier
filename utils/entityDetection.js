@@ -1,5 +1,6 @@
 import { EntityArmorStand } from '../constants/javaTypes';
 import { getMcEntityId, parseShortNumber } from './common';
+import { FISH_ARRIVED, FISH_STATE_ARRIVED, FISH_STATE_ARRIVING, FISHING_HOOK_TIMER_UNTIL_REEL_IN_REGEX } from '../constants/fishingHookStates';
 
 /**
  * Find all Hotspots within the specified range from the specified entity.
@@ -139,4 +140,27 @@ export function getSeaCreaturesInRange(includedSeaCreatureNames, distance) {
 			return i >= 0 ? arr.slice(0, i) : arr;
 		}
 	}
+}
+
+/**
+ * Find Hypixel's fishing hook timer near player's fishing hook.
+ * @param {Entity} fishingHook player's fishing hook entity
+ * @returns {Object|null} Fishing hook timer info
+ */
+export function getHypixelFishingHookTimer(fishingHook) {
+	if (!fishingHook) return null;
+
+	const entities = World.getAllEntitiesOfType(EntityArmorStand);
+	const hypixelHookTimer = entities
+		.filter(entity => entity.distanceTo(fishingHook) <= 1)
+		.find(e => e.getName() === FISH_ARRIVED || FISHING_HOOK_TIMER_UNTIL_REEL_IN_REGEX.test(e.getName()));
+	if (!hypixelHookTimer) return null;
+
+	const result = {
+		uuid: hypixelHookTimer.getUUID(),
+		name: hypixelHookTimer.getName(),
+		fishState: hypixelHookTimer.getName() === FISH_ARRIVED ? FISH_STATE_ARRIVED : FISH_STATE_ARRIVING,
+	};
+
+	return result;
 }

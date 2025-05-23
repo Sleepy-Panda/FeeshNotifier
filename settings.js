@@ -77,6 +77,13 @@ const config = new DefaultConfig("FeeshNotifier", "config/settings.json")
     subcategory: "Hotspot",
     value: true
 })
+.addTextParagraph({
+    category: "Chat",
+    configName: "shareHotspotKeybindInformationText",
+    title: "Share hotspot button",
+    description: "Set a keybind in Minecraft's Controls menu to share the nearest Hotspot to PARTY chat or ALL chat on button pressed. You need to be close to the hotspot when pressing the button.",
+    subcategory: "Hotspot"
+})
 .addSwitch({
     category: "Chat",
     configName: "autoMessageOnHotspotFound",
@@ -1603,6 +1610,60 @@ ${GRAY}Do ${AQUA}/feeshResetProfitTracker${GRAY} to reset.`,
     title: "Price per T1 attribute shard",
     description: "Render price per T1 attribute level in the auctioned Attribute Shard's lore, based on item's price. Helps to compare prices for high-tier attribute shards on AH.",
     subcategory: "Item lore"
+})
+
+.addSwitch({
+    category: "Rendering",
+    configName: "renderFishingHookTimer",
+    title: "Render fishing hook timer",
+    description: `Displays the timer on your fishing hook, as well as the sign when a fish arrived and can be reeled in.\nYou need to enable ${YELLOW}Skyblock Settings -> Personal -> Fishing Settings -> Fishing Timer ${RESET}for this functionality to work!`,
+    subcategory: "Fishing Hook"
+})
+.addDropDown({
+    category: "Rendering",
+    configName: "renderFishingHookTimerMode",
+    title: "Fishing hook timer mode. 'Until reel in' shows countdown while fish is swimming towards the fishing hook. 'Since casted' shows the timer while the fishing hook is casted.",
+    description: "",
+    options: ["Until reel in", "Since casted"],
+    value: 0,
+    subcategory: "Fishing Hook"
+})
+.addSlider({
+    category: "Rendering",
+    configName: "renderFishingHookTimerSize",
+    title: "Fishing hook timer size",
+    description: "Text size for rendered fishing hook timer.",
+    options: [1, 25],
+    value: 5,
+    subcategory: "Fishing Hook"
+})
+.addTextInput({
+    category: "Rendering",
+    configName: "renderFishingHookFishArrivedTemplate",
+    title: "Custom fish arrived template",
+    description: `Replace default ${RED}${BOLD}!!! ${RESET}with your custom text when a fish arrived to your hook. Leave empty to use default.`,
+    value: "&c&l!!!",
+    placeHolder: "e.g. &c&l!!!",
+    subcategory: "Fishing Hook"
+})
+.addTextInput({
+    category: "Rendering",
+    configName: "renderFishingHookFishTimerTemplate",
+    title: "Custom timer format",
+    description: `Replace default ${YELLOW}${BOLD}{timer} ${RESET}with your custom timer text. Use {timer} to insert timer seconds into the template. Leave empty to use default.`,
+    value: "&e&l{timer}",
+    placeHolder: "e.g. &e&l{timer}",
+    subcategory: "Fishing Hook"
+})
+.addButton({
+    category: "Rendering",
+    configName: "colorCodes",
+    title: `Color codes`,
+    description: `For settings above with custom text templates, please explore color codes and formatting codes.`,
+    subcategory: "Fishing Hook",
+    onClick() {
+        java.awt.Desktop.getDesktop().browse(new java.net.URI("https://github.com/Sleepy-Panda/FeeshNotifier/blob/main/docs/Colors%20and%20formatting%20guide.md"));
+    }
 })
 
 .addTextParagraph({
