@@ -10,7 +10,7 @@ import { registerIf } from "../../utils/registers";
 let lastClosestHotspot = null;
 let lastFoundHotspotIds = []; // Remember 2 last found hotspots, to avoid announcing the same hotspots placed close to each other, when user is moving between them
 
-const HOTSPOT_RANGE = 6;
+const HOTSPOT_RANGE = 7;
 
 registerIf(
     register("step", (event) => sendMessageOnHotspotFound()).setDelay(1),
@@ -32,7 +32,7 @@ export function sendMessageWithNearestHotspot(chatCommand) {
         if (closestHotspot) {
             announceNearestHotspot(closestHotspot.position, closestHotspot.perk, chatCommand);
         } else {
-            ChatLib.chat(`${GOLD}[FeeshNotifier] ${WHITE}No Hotspot found nearby.`);
+            ChatLib.chat(`${GOLD}[FeeshNotifier] ${WHITE}No Hotspot found nearby, move closer to be in ${HOTSPOT_RANGE} blocks range!`);
         }
 	} catch (e) {
 		console.error(e);
