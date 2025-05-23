@@ -4,6 +4,18 @@ export const persistentData = new PogObject("FeeshNotifier", {
     "rareCatches": {},
     "totalRareCatches": 0,
     "crimsonIsle": {
+        "fieryScuttler": {
+            "catchesSinceLast": 0,
+            "lastCatchTime": null,
+            "catchesHistory": [],
+            "averageCatches": 0
+        },
+        "ragnarok": {
+            "catchesSinceLast": 0,
+            "lastCatchTime": null,
+            "catchesHistory": [],
+            "averageCatches": 0
+        },
         "thunder": {
             "catchesSinceLast": 0,
             "lastCatchTime": null,

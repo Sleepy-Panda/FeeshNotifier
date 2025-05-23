@@ -975,16 +975,10 @@ export const REGULAR_CRIMSON_CATCH_TRIGGERS = [
         trigger: PLHLEGBLAST_MESSAGE
     },
     {
-        trigger: RAGNAROK_MESSAGE
-    },
-    {
         trigger: FRIED_CHICKEN_MESSAGE
     },
     {
         trigger: FIREPROOF_WITCH_MESSAGE
-    },
-    {
-        trigger: FIERY_SCUTTLER_MESSAGE
     },
 ];
 

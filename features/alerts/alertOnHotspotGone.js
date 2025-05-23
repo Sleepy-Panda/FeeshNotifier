@@ -49,7 +49,7 @@ function playAlertOnHotspotGone() {
         const isHookActive = isFishingHookActive();
         if (isHookActive) {
             const playerHook = getPlayerFishingHook();
-            const closestHotspot = findClosestHotspotInRange(playerHook, 6);
+            const closestHotspot = findClosestHotspotInRange(playerHook, 7);
 
             if (closestHotspot) {
                 lastClosestHotspot = closestHotspot;

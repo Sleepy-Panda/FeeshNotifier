@@ -10,7 +10,7 @@ import { registerIf } from "../../utils/registers";
 let lastClosestHotspot = null;
 let lastFoundHotspotIds = []; // Remember 2 last found hotspots, to avoid announcing the same hotspots placed close to each other, when user is moving between them
 
-const HOTSPOT_RANGE = 6;
+const HOTSPOT_RANGE = 7;
 
 registerIf(
     register("step", (event) => sendMessageOnHotspotFound()).setDelay(1),

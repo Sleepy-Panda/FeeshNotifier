@@ -111,7 +111,7 @@ function trackYetiCatch() {
             return;
         }
 
-        const catchesSinceLast = persistentData.jerryWorkshop.yeti.catchesSinceLast;
+        const catchesSinceLast = persistentData.jerryWorkshop.yeti.catchesSinceLast + 1;
         const lastCatchTime = persistentData.jerryWorkshop.yeti.lastCatchTime;
         const elapsedTime = lastCatchTime ? ` ${GRAY}(${WHITE}${formatTimeElapsedBetweenDates(new Date(lastCatchTime))}${GRAY})` : '';
 
@@ -143,7 +143,7 @@ function trackReindrakeCatch() {
             return;
         }
 
-        const catchesSinceLast = persistentData.jerryWorkshop.reindrake.catchesSinceLast;
+        const catchesSinceLast = persistentData.jerryWorkshop.reindrake.catchesSinceLast + 1;
         const lastCatchTime = persistentData.jerryWorkshop.reindrake.lastCatchTime;
         const elapsedTime = lastCatchTime ? ` ${GRAY}(${WHITE}${formatTimeElapsedBetweenDates(new Date(lastCatchTime))}${GRAY})` : '';
 
@@ -267,9 +267,9 @@ function renderJerryWorkshopOverlay() {
     let overlayText = `${AQUA}${BOLD}Jerry Workshop tracker`;
     overlayText += `\n${GOLD}Yeti: ${WHITE}${formatNumberWithSpaces(persistentData.jerryWorkshop.yeti.catchesSinceLast)} ${GRAY}${persistentData.jerryWorkshop.yeti.catchesSinceLast !== 1 ? 'catches' : 'catch'} ago ${DARK_GRAY}(${GRAY}avg: ${WHITE}${averageYeti}${DARK_GRAY})`;
     overlayText += `\n${GRAY}Last on: ${lastCatchTimeYeti}`;
+    overlayText += `\n${GRAY}Baby Yeti pets: ${GOLD}${formatNumberWithSpaces(persistentData.jerryWorkshop.babyYetiPets.legendary.count)} ${DARK_PURPLE}${formatNumberWithSpaces(persistentData.jerryWorkshop.babyYetiPets.epic.count)}`;
     overlayText += `\n${LIGHT_PURPLE}Reindrake: ${WHITE}${formatNumberWithSpaces(persistentData.jerryWorkshop.reindrake.catchesSinceLast)} ${GRAY}${persistentData.jerryWorkshop.reindrake.catchesSinceLast !== 1 ? 'catches' : 'catch'} ago ${DARK_GRAY}(${GRAY}avg: ${WHITE}${averageReindrake}${DARK_GRAY})`;
     overlayText += `\n${GRAY}Last on: ${lastCatchTimeReindrake}`;
-    overlayText += `\n${GRAY}Baby Yeti pets: ${GOLD}${formatNumberWithSpaces(persistentData.jerryWorkshop.babyYetiPets.legendary.count)} ${DARK_PURPLE}${formatNumberWithSpaces(persistentData.jerryWorkshop.babyYetiPets.epic.count)}`;
 
     if (remainingWorkshopTime) {
         overlayText += `\n\n${GRAY}Closes in: ${remainingWorkshopTime}`;
