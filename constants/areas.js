@@ -16,6 +16,7 @@ export const DUNGEON_HUB = 'Dungeon Hub';
 export const THE_END = 'The End';
 export const GLACITE_MINESHAFTS = 'Glacite Mineshafts';
 export const RIFT = 'Rift Dimension';
+export const PLHLEGBLAST_POOL = 'Plhlegblast Pool';
 
 export const WATER_HOTSPOT_WORLDS = [
     BACKWATER_BAYOU,

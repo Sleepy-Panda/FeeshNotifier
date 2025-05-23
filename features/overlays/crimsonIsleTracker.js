@@ -4,45 +4,49 @@ import * as seaCreatures from '../../constants/seaCreatures';
 import { persistentData } from "../../data/data";
 import { overlayCoordsData } from "../../data/overlayCoords";
 import { BOLD, GOLD, LIGHT_PURPLE, RED, WHITE, GRAY, DARK_GRAY, RESET, AQUA } from "../../constants/formatting";
-import { getLastFishingHookSeenAt, getWorldName, isInSkyblock } from "../../utils/playerState";
+import { getLastFishingHookInHotspotSeenAt, getLastFishingHookSeenAt, getWorldName, getZoneName, isInSkyblock } from "../../utils/playerState";
 import { formatDate, formatNumberWithSpaces, formatTimeElapsedBetweenDates, isDoubleHook } from "../../utils/common";
-import { CRIMSON_ISLE } from "../../constants/areas";
+import { CRIMSON_ISLE, PLHLEGBLAST_POOL } from "../../constants/areas";
 import { MEME_SOUND_MODE, NORMAL_SOUND_MODE, SAD_TROMBONE_SOUND_SOURCE } from "../../constants/sounds";
 import { createButtonsDisplay, toggleButtonsDisplay } from "../../utils/overlays";
 import { registerIf } from "../../utils/registers";
 
-const isInHotspot = true; // TODO
+const TRACKED_TRIGGERS = [
+    {
+        seaCreatureInfo: triggers.RARE_CATCH_TRIGGERS.find(entry => entry.seaCreature === seaCreatures.FIERY_SCUTTLER),
+        callback: () => trackFieryScuttlerCatch(),
+    },
+    {
+        seaCreatureInfo: triggers.RARE_CATCH_TRIGGERS.find(entry => entry.seaCreature === seaCreatures.RAGNAROK),
+        callback: () => trackRagnarokCatch(),
+    },
+    {
+        seaCreatureInfo: triggers.RARE_CATCH_TRIGGERS.find(entry => entry.seaCreature === seaCreatures.PLHLEGBLAST),
+        callback: () => trackPlhlegblastCatch(),
+    },
+    {
+        seaCreatureInfo: triggers.RARE_CATCH_TRIGGERS.find(entry => entry.seaCreature === seaCreatures.THUNDER),
+        callback: () => trackThunderCatch(),
+    },
+    {
+        seaCreatureInfo: triggers.RARE_CATCH_TRIGGERS.find(entry => entry.seaCreature === seaCreatures.LORD_JAWBUS),
+        callback: () => trackLordJawbusCatch(),
+    }
+];
 
-triggers.REGULAR_CRIMSON_CATCH_TRIGGERS.forEach(entry => {
+triggers.REGULAR_CRIMSON_CATCH_TRIGGERS.forEach(seaCreatureInfo => {
     registerIf(
-        register("Chat", (event) => trackRegularSeaCreatureCatch()).setCriteria(entry.trigger).setContains(),
+        register("Chat", (event) => trackRegularSeaCreatureCatch()).setCriteria(seaCreatureInfo.trigger).setContains(),
         () => settings.crimsonIsleTrackerOverlay && isInSkyblock() && getWorldName() === CRIMSON_ISLE
     );
 });
 
-const fieryScuttlerTrigger = triggers.RARE_CATCH_TRIGGERS.find(entry => entry.seaCreature === seaCreatures.FIERY_SCUTTLER);
-registerIf(
-    register("Chat", (event) => trackFieryScuttlerCatch()).setCriteria(fieryScuttlerTrigger.trigger).setContains(),
-    () => settings.crimsonIsleTrackerOverlay && isInSkyblock() && getWorldName() === CRIMSON_ISLE
-);
-
-const ragnarokTrigger = triggers.RARE_CATCH_TRIGGERS.find(entry => entry.seaCreature === seaCreatures.RAGNAROK);
-registerIf(
-    register("Chat", (event) => trackRagnarokCatch()).setCriteria(ragnarokTrigger.trigger).setContains(),
-    () => settings.crimsonIsleTrackerOverlay && isInSkyblock() && getWorldName() === CRIMSON_ISLE
-);
-
-const thunderTrigger = triggers.RARE_CATCH_TRIGGERS.find(entry => entry.seaCreature === seaCreatures.THUNDER);
-registerIf(
-    register("Chat", (event) => trackThunderCatch()).setCriteria(thunderTrigger.trigger).setContains(),
-    () => settings.crimsonIsleTrackerOverlay && isInSkyblock() && getWorldName() === CRIMSON_ISLE
-);
-
-const lordJawbusTrigger = triggers.RARE_CATCH_TRIGGERS.find(entry => entry.seaCreature === seaCreatures.LORD_JAWBUS);
-registerIf(
-    register("Chat", (event) => trackLordJawbusCatch()).setCriteria(lordJawbusTrigger.trigger).setContains(),
-    () => settings.crimsonIsleTrackerOverlay && isInSkyblock() && getWorldName() === CRIMSON_ISLE
-);
+TRACKED_TRIGGERS.forEach(entry => {
+    registerIf(
+        register("Chat", (event) => entry.callback()).setCriteria(entry.seaCreatureInfo.trigger).setContains(),
+        () => settings.crimsonIsleTrackerOverlay && isInSkyblock() && getWorldName() === CRIMSON_ISLE
+    );
+});
 
 const radioactiveVialTrigger = triggers.RARE_DROP_TRIGGERS.find(entry => entry.trigger === triggers.RADIOACTIVE_VIAL_MESSAGE);
 registerIf(
@@ -61,6 +65,8 @@ register("gameUnload", () => {
         persistentData.crimsonIsle.fieryScuttler?.catchesSinceLast ||
         persistentData.crimsonIsle.ragnarok?.lastCatchTime ||
         persistentData.crimsonIsle.ragnarok?.catchesSinceLast ||
+        persistentData.crimsonIsle.plhlegblast?.lastCatchTime ||
+        persistentData.crimsonIsle.plhlegblast?.catchesSinceLast ||
         persistentData.crimsonIsle.thunder?.lastCatchTime ||
         persistentData.crimsonIsle.thunder?.catchesSinceLast ||
         persistentData.crimsonIsle.lordJawbus?.lastCatchTime ||
@@ -142,6 +148,7 @@ function initMissingPersistentData() { // Init data added later and missing for 
     if (!persistentData.crimsonIsle) return;
     if (!persistentData.crimsonIsle.fieryScuttler) persistentData.crimsonIsle.fieryScuttler = getDefaultSeaCreatureSectionObject();
     if (!persistentData.crimsonIsle.ragnarok) persistentData.crimsonIsle.ragnarok = getDefaultSeaCreatureSectionObject();
+    if (!persistentData.crimsonIsle.plhlegblast) persistentData.crimsonIsle.plhlegblast = getDefaultSeaCreatureSectionObject();
 }
 
 function getDefaultSeaCreatureSectionObject() {
@@ -152,10 +159,21 @@ function getDefaultObject() {
     return {
         fieryScuttler: getDefaultSeaCreatureSectionObject(),
         ragnarok: getDefaultSeaCreatureSectionObject(),
+        plhlegblast: getDefaultSeaCreatureSectionObject(),
         thunder: getDefaultSeaCreatureSectionObject(),
         lordJawbus: getDefaultSeaCreatureSectionObject(),
         radioactiveVials: { count: 0, lordJawbusCatchesSinceLast: 0, dropsHistory: [] }
     };
+}
+
+function isFishingInHotspot() {
+    const lastFishingHookInHotspotSeenAt = getLastFishingHookInHotspotSeenAt();
+    return lastFishingHookInHotspotSeenAt && new Date() - lastFishingHookInHotspotSeenAt <= 60 * 1000;
+}
+
+function isInPlhlegblastPool() {
+    const zoneName = getZoneName();
+    return zoneName && zoneName === PLHLEGBLAST_POOL;
 }
 
 function trackFieryScuttlerCatch() {
@@ -184,8 +202,12 @@ function trackFieryScuttlerCatch() {
         persistentData.crimsonIsle.thunder.catchesSinceLast += 1;
         persistentData.crimsonIsle.lordJawbus.catchesSinceLast += 1;
 
-        if (isInHotspot) {
+        if (isFishingInHotspot()) {
             persistentData.crimsonIsle.ragnarok.catchesSinceLast += 1;
+        }
+
+        if (isInPlhlegblastPool()) {
+            persistentData.crimsonIsle.plhlegblast.catchesSinceLast += 1;
         }
 
         persistentData.save();
@@ -223,8 +245,12 @@ function trackRagnarokCatch() {
         persistentData.crimsonIsle.thunder.catchesSinceLast += 1;
         persistentData.crimsonIsle.lordJawbus.catchesSinceLast += 1;
 
-        if (isInHotspot) {
+        if (isFishingInHotspot()) {
             persistentData.crimsonIsle.fieryScuttler.catchesSinceLast += 1;
+        }
+
+        if (isInPlhlegblastPool()) {
+            persistentData.crimsonIsle.plhlegblast.catchesSinceLast += 1;
         }
 
         persistentData.save();
@@ -233,6 +259,46 @@ function trackRagnarokCatch() {
     } catch (e) {
 		console.error(e);
 		console.log(`[FeeshNotifier] Failed to track Ragnarok catch.`);
+	}
+}
+
+function trackPlhlegblastCatch() {
+    try {
+        if (!isInSkyblock() || getWorldName() !== CRIMSON_ISLE || !settings.crimsonIsleTrackerOverlay) {
+            return;
+        }
+
+        initMissingPersistentData();
+
+        const catchesSinceLast = persistentData.crimsonIsle.plhlegblast.catchesSinceLast + 1;
+        const lastCatchTime = persistentData.crimsonIsle.plhlegblast.lastCatchTime;
+        const elapsedTime = lastCatchTime ? ` ${GRAY}(${WHITE}${formatTimeElapsedBetweenDates(new Date(lastCatchTime))}${GRAY})` : '';
+
+        let catchesHistory = persistentData.crimsonIsle.plhlegblast.catchesHistory || [];
+        catchesHistory.unshift(catchesSinceLast); // Most recent counts at the start of array
+        catchesHistory.length = Math.min(catchesHistory.length, 100); // Store last 100
+        persistentData.crimsonIsle.plhlegblast.catchesHistory = catchesHistory;
+
+        const sumCatches = catchesHistory.reduce(function(a, b) { return a + b; }, 0);
+        persistentData.crimsonIsle.plhlegblast.averageCatches = catchesHistory.length ? Math.round(sumCatches / catchesHistory.length) : 0;
+
+        persistentData.crimsonIsle.plhlegblast.catchesSinceLast = 0;
+        persistentData.crimsonIsle.plhlegblast.lastCatchTime = new Date();
+
+        persistentData.crimsonIsle.thunder.catchesSinceLast += 1;
+        persistentData.crimsonIsle.lordJawbus.catchesSinceLast += 1;
+
+        if (isFishingInHotspot()) {
+            persistentData.crimsonIsle.fieryScuttler.catchesSinceLast += 1;
+            persistentData.crimsonIsle.ragnarok.catchesSinceLast += 1;
+        }
+
+        persistentData.save();
+
+        ChatLib.chat(`${GOLD}[FeeshNotifier] ${GRAY}It took ${WHITE}${catchesSinceLast} ${GRAY}${catchesSinceLast === 1 ? 'catch' : 'catches'}${elapsedTime} to get the ${LIGHT_PURPLE}Plhlegblast${GRAY}.`);
+    } catch (e) {
+		console.error(e);
+		console.log(`[FeeshNotifier] Failed to track Plhlegblast catch.`);
 	}
 }
 
@@ -261,9 +327,13 @@ function trackThunderCatch() {
 
         persistentData.crimsonIsle.lordJawbus.catchesSinceLast += 1;
 
-        if (isInHotspot) {
+        if (isFishingInHotspot()) {
             persistentData.crimsonIsle.fieryScuttler.catchesSinceLast += 1;
             persistentData.crimsonIsle.ragnarok.catchesSinceLast += 1;    
+        }
+
+        if (isInPlhlegblastPool()) {
+            persistentData.crimsonIsle.plhlegblast.catchesSinceLast += 1;
         }
 
         persistentData.save();
@@ -300,9 +370,13 @@ function trackLordJawbusCatch() {
 
         persistentData.crimsonIsle.thunder.catchesSinceLast += 1;
 
-        if (isInHotspot) {
+        if (isFishingInHotspot()) {
             persistentData.crimsonIsle.fieryScuttler.catchesSinceLast += 1;
             persistentData.crimsonIsle.ragnarok.catchesSinceLast += 1;    
+        }
+
+        if (isInPlhlegblastPool()) {
+            persistentData.crimsonIsle.plhlegblast.catchesSinceLast += 1;
         }
 
         const isDoubleHooked = isDoubleHook();
@@ -331,9 +405,13 @@ function trackRegularSeaCreatureCatch() {
         persistentData.crimsonIsle.thunder.catchesSinceLast += 1;
         persistentData.crimsonIsle.lordJawbus.catchesSinceLast += 1;
 
-        if (isInHotspot) {
+        if (isFishingInHotspot()) {
             persistentData.crimsonIsle.fieryScuttler.catchesSinceLast += 1;
             persistentData.crimsonIsle.ragnarok.catchesSinceLast += 1;    
+        }
+
+        if (isInPlhlegblastPool()) {
+            persistentData.crimsonIsle.plhlegblast.catchesSinceLast += 1;
         }
 
         persistentData.save();
@@ -397,6 +475,8 @@ function renderCrimsonIsleTrackerOverlay() {
             !persistentData.crimsonIsle.fieryScuttler?.catchesSinceLast &&
             !persistentData.crimsonIsle.ragnarok?.lastCatchTime &&
             !persistentData.crimsonIsle.ragnarok?.catchesSinceLast &&
+            !persistentData.crimsonIsle.plhlegblast?.lastCatchTime &&
+            !persistentData.crimsonIsle.plhlegblast?.catchesSinceLast &&
             !persistentData.crimsonIsle.thunder?.lastCatchTime &&
             !persistentData.crimsonIsle.thunder?.catchesSinceLast &&
             !persistentData.crimsonIsle.lordJawbus?.lastCatchTime &&
@@ -415,6 +495,7 @@ function renderCrimsonIsleTrackerOverlay() {
     let overlayText = `${AQUA}${BOLD}Crimson Isle tracker\n`;
     overlayText += getFieryScuttlerOverlayText();
     overlayText += getRagnarokOverlayText();
+    overlayText += getPlhlegblastOverlayText();
     overlayText += getThunderOverlayText();
     overlayText += getLordJawbusOverlayText();
 
@@ -435,7 +516,7 @@ function renderCrimsonIsleTrackerOverlay() {
     toggleButtonsDisplay(buttonsDisplay, overlay, overlayCoordsData.crimsonIsleTrackerOverlay);
 
     function getFieryScuttlerOverlayText() {
-        if (!isInHotspot) return '';
+        if (!isFishingInHotspot()) return '';
 
         let overlayText = '';
         const obj = persistentData.crimsonIsle.fieryScuttler;
@@ -446,7 +527,7 @@ function renderCrimsonIsleTrackerOverlay() {
     }
 
     function getRagnarokOverlayText() {
-        if (!isInHotspot) return '';
+        if (!isFishingInHotspot()) return '';
 
         let overlayText = '';
         const obj = persistentData.crimsonIsle.ragnarok;
@@ -456,9 +537,18 @@ function renderCrimsonIsleTrackerOverlay() {
         return overlayText;
     }
 
-    function getThunderOverlayText() {
-        if (!isInHotspot) return '';
+    function getPlhlegblastOverlayText() {
+        if (!isInPlhlegblastPool()) return '';
 
+        let overlayText = '';
+        const obj = persistentData.crimsonIsle.plhlegblast;
+        overlayText += `${LIGHT_PURPLE}Plhlegblast: ${getCatchesSinceLastOverlayText(obj)} ${getAverageCatchesOverlayText(obj)}\n`;
+        overlayText += `${getLastCatchTimeOverlayText(obj)}\n`;
+
+        return overlayText;
+    }
+
+    function getThunderOverlayText() {
         let overlayText = '';
         const obj = persistentData.crimsonIsle.thunder;
         overlayText += `${LIGHT_PURPLE}Thunder: ${getCatchesSinceLastOverlayText(obj)} ${getAverageCatchesOverlayText(obj)}\n`;
@@ -468,8 +558,6 @@ function renderCrimsonIsleTrackerOverlay() {
     }
 
     function getLordJawbusOverlayText() {
-        if (!isInHotspot) return '';
-
         let overlayText = '';
         const obj = persistentData.crimsonIsle.lordJawbus;
         overlayText += `${LIGHT_PURPLE}Lord Jawbus: ${getCatchesSinceLastOverlayText(obj)} ${getAverageCatchesOverlayText(obj)}\n`;

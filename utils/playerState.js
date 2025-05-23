@@ -1,4 +1,5 @@
-import { isFishingHookActive, isFishingRod } from "./common";
+import { getPlayerFishingHook, isFishingHookActive, isFishingRod } from "./common";
+import { findClosestHotspotInRange } from "./entityDetection";
 import { updateRegisters } from "./registers";
 
 var inSkyblock = false;
@@ -9,6 +10,7 @@ var hasFishingRodInHotbar = false;
 var hasDirtRodInHand = false;
 var isInHunterArmor = false;
 var lastFishingHookSeenAt = null;
+var lastFishingHookInHotspotSeenAt = null;
 
 var lastKatUpgrade = {
 	lastPetClaimedAt: null,
@@ -40,10 +42,12 @@ function trackPlayerState() {
 		if (prevInSkyblock !== inSkyblock || prevWorldName !== worldName) {
 			updateRegisters();
 			lastFishingHookSeenAt = null;
+			lastFishingHookInHotspotSeenAt = null;
 		}
 
 		setHasFishingRodInHotbar();
 		setLastFishingHookSeenAt();
+		setLastFishingHookInHotspotSeenAt();
 		setHasDirtRodInHand();
 		setIsInHunterArmor();	
 	} catch (e) {
@@ -119,6 +123,10 @@ export function isInHunterArmor() {
 
 export function getLastFishingHookSeenAt() {
 	return lastFishingHookSeenAt;
+}
+
+export function getLastFishingHookInHotspotSeenAt() {
+	return lastFishingHookInHotspotSeenAt;
 }
 
 export function getLastGuisClosed() {
@@ -228,4 +236,22 @@ function setLastFishingHookSeenAt() {
     if (isHookActive) {
         lastFishingHookSeenAt = new Date();
     }
+}
+
+function setLastFishingHookInHotspotSeenAt() {
+	if (!inSkyblock) {
+		return;
+	}
+
+	const isHookActive = isFishingHookActive();
+	if (!isHookActive) return;
+
+	var playerHook = getPlayerFishingHook();
+	if (!playerHook) return;
+
+	const HOTSPOT_RANGE = 7;
+	const closestHotspot = findClosestHotspotInRange(playerHook, HOTSPOT_RANGE);
+	if (closestHotspot) {
+		lastFishingHookInHotspotSeenAt = new Date();
+	}
 }

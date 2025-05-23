@@ -16,6 +16,12 @@ export const persistentData = new PogObject("FeeshNotifier", {
             "catchesHistory": [],
             "averageCatches": 0
         },
+        "plhlegblast": {
+            "catchesSinceLast": 0,
+            "lastCatchTime": null,
+            "catchesHistory": [],
+            "averageCatches": 0
+        },
         "thunder": {
             "catchesSinceLast": 0,
             "lastCatchTime": null,
