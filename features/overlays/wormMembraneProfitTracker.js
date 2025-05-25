@@ -278,8 +278,10 @@ function refreshValuesPerHour() {
 
         const elapsedHours = elapsedSeconds / 3600;
         const membranePrices = getBazaarItemPrices('WORM_MEMBRANE');
-        const chamberPrices = getAuctionItemPrices('GEMSTONE_CHAMBER');
-
+	const chamberPrices = getAuctionItemPrices('GEMSTONE_CHAMBER');
+	const mixturePrices = getBazaarItemPrices('GEMSTONE_MIXTURE');
+	const mixturePrice = Math.floor(mixturePrices?.instaSell || 0);
+	const adjustedChamberPrice = Math.max(0, Math.floor(chamberPrices?.lbin || 0) - mixturePrice);
         membranesPerHour = elapsedHours
             ? Math.floor(totalMembranesCount / elapsedHours)
             : 0;
@@ -294,8 +296,8 @@ function refreshValuesPerHour() {
             ? membranesPerHour * Math.floor(membranePrices?.instaSell || 0)
             : 0;
         
-        chambersPerHour = Math.floor(membranesPerHour / 100);     
-        chamberCoinsPerHour = chambersPerHour * Math.floor(chamberPrices?.lbin || 0);
+	chambersPerHour = Math.floor(membranesPerHour / 100);
+	chamberCoinsPerHour = chambersPerHour * adjustedChamberPrice;
     } catch (e) {
 		console.error(e);
 		console.log(`[FeeshNotifier] Failed to refresh values per hour.`);
@@ -338,7 +340,10 @@ function renderWormMembraneProfitTrackerOverlay() {
 
         case GEMSTONE_CHAMBERS_MODE:
             const gemstoneChamberPrices = getAuctionItemPrices('GEMSTONE_CHAMBER');
-            const gemstoneChamberTotalCoins = totalChambersCount * Math.floor(gemstoneChamberPrices?.lbin || 0);
+            const mixturePrices = getBazaarItemPrices('GEMSTONE_MIXTURE');
+	    const mixturePrice = Math.floor(MixturePrices?.instaSell || 0); 
+	    const adjustedChamberPrice = Math.max(0, Math.floor(gemstoneChamberPrices?.lbin || 0) - mixturePrice);
+            const gemstoneChamberTotalCoins = totalChambersCount * adjustedChamerPrice;
         
             text += `${GREEN}Total worms: ${WHITE}${formatNumberWithSpaces(totalWormsCount)}\n`;
             text += `${GREEN}Total membranes: ${WHITE}${formatNumberWithSpaces(totalMembranesCount)} ${GRAY}[+${formatNumberWithSpaces(lastAddedMembranesCount)} last added]\n`;
