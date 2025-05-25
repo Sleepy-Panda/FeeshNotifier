@@ -280,7 +280,7 @@ function refreshValuesPerHour() {
         const membranePrices = getBazaarItemPrices('WORM_MEMBRANE');
 	const chamberPrices = getAuctionItemPrices('GEMSTONE_CHAMBER');
 	const mixturePrices = getBazaarItemPrices('GEMSTONE_MIXTURE');
-	const mixturePrice = Math.floor(mixturePrices?.instaSell || 0);
+	const mixturePrice = Math.floor(mixturePrices?.buyOrder || 0);
 	const adjustedChamberPrice = Math.max(0, Math.floor(chamberPrices?.lbin || 0) - mixturePrice);
         membranesPerHour = elapsedHours
             ? Math.floor(totalMembranesCount / elapsedHours)
