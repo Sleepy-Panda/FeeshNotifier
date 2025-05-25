@@ -341,9 +341,9 @@ function renderWormMembraneProfitTrackerOverlay() {
         case GEMSTONE_CHAMBERS_MODE:
             const gemstoneChamberPrices = getAuctionItemPrices('GEMSTONE_CHAMBER');
             const mixturePrices = getBazaarItemPrices('GEMSTONE_MIXTURE');
-	    const mixturePrice = Math.floor(MixturePrices?.instaSell || 0); 
+	    const mixturePrice = Math.floor(mixturePrices?.instaSell || 0); 
 	    const adjustedChamberPrice = Math.max(0, Math.floor(gemstoneChamberPrices?.lbin || 0) - mixturePrice);
-            const gemstoneChamberTotalCoins = totalChambersCount * adjustedChamerPrice;
+            const gemstoneChamberTotalCoins = totalChambersCount * adjustedChamberPrice;
         
             text += `${GREEN}Total worms: ${WHITE}${formatNumberWithSpaces(totalWormsCount)}\n`;
             text += `${GREEN}Total membranes: ${WHITE}${formatNumberWithSpaces(totalMembranesCount)} ${GRAY}[+${formatNumberWithSpaces(lastAddedMembranesCount)} last added]\n`;
