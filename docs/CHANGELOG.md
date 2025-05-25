@@ -1,8 +1,18 @@
 # Releases
 
-## v1.43.0
+## v1.44.0
 
 Released: ???
+
+Features:
+- 
+
+Bugfixes:
+-
+
+## v1.43.0
+
+Released: 2025-05-25
 
 Features:
 - Added custom Fishing Hook timer which extends functionality of default Hypixel's one. Explore /feesh -> Rendering -> Fishing Hook section to enable and customize.

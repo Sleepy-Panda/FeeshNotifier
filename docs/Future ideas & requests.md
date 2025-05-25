@@ -1,11 +1,11 @@
 - Track catches for Ragnarok and Scuttler in crimson isle tracker (when in hotspot).
-- Hotspot sharing on keybind
 - Hotspot search
 - Fishing XP tracker
 - Decrease elapsed time in Fishing Profit Tracker (when user forgot to stop tracker being afk)
 - Offer supercrafting or BZ sell when items like raw fish goes to inventory (sacks are full).
 - Track scavenged coins in Fishing Profit Tracker
 - Track Ice Essence drop from mobs in Fishing Profit Tracker
+- Option for Worm profit tracker that calculates the profit with [Gemstone Chamber - the price from Gemstone Mixtures]
 - PogData resets data file on PC crash - consider doing regular backups / research tska library as replacement for PogData
 - Kill time for fishing bosses
 - [Bug] Reset confirmation messages appear for disabled overlays for no reason, for one person.
