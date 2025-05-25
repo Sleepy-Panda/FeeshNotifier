@@ -1199,7 +1199,7 @@ const config = new DefaultConfig("FeeshNotifier", "config/settings.json")
     configName: "crimsonIsleTrackerOverlay",
     title: "Crimson Isle tracker",
     description: `
-Shows an overlay with Fiery Scuttler / Ragnarok / Thunder / Lord Jawbus catch statistics and Radioactive Vial drop statistics while in the Crimson Isle.
+Shows an overlay with Fiery Scuttler & Ragnarok (when fishing in hotspot), Plhlegblast (when in Plhlegblast Pool), Thunder & Lord Jawbus catch statistics. Also has Radioactive Vial drop statistics. Shown only when in the Crimson Isle!
 Do ${AQUA}/feeshResetCrimsonIsle${GRAY} to reset.`,
     subcategory: "Crimson Isle tracker",
     value: true

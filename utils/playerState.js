@@ -1,3 +1,4 @@
+import { CRIMSON_ISLE, PLHLEGBLAST_POOL } from "../constants/areas";
 import { getPlayerFishingHook, isFishingHookActive, isFishingRod } from "./common";
 import { findClosestHotspotInRange } from "./entityDetection";
 import { updateRegisters } from "./registers";
@@ -169,6 +170,21 @@ function setZoneName() {
 	} else {
 		const plainName = zone.getName()?.removeFormatting();
 		zoneName = plainName?.replace(/[^\u0000-\u007F]/g, '')?.trim(); // Abandoned🐍 Quarry
+
+		// Some lava in Phlegblast area does not belong to Phlegblast Pool zone but needs to be counted
+		if (worldName === CRIMSON_ISLE && zoneName === CRIMSON_ISLE) {
+			const x = Player.getX();
+			const y = Player.getY();
+			const z = Player.getZ();
+		
+			if (isBetweenIncluding(x, -381, -370) && isBetweenIncluding(y, 68, 72) && isBetweenIncluding(z, -708, -697)) {
+				zoneName = PLHLEGBLAST_POOL;
+			}
+		}
+	}
+
+	function isBetweenIncluding(value, num1, num2) {
+		return value >= num1 && value <= num2;
 	}
 }
 

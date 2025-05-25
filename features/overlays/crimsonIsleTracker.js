@@ -173,7 +173,7 @@ function isFishingInHotspot() {
 
 function isInPlhlegblastPool() {
     const zoneName = getZoneName();
-    return zoneName && zoneName === PLHLEGBLAST_POOL;
+    return zoneName === PLHLEGBLAST_POOL;
 }
 
 function trackFieryScuttlerCatch() {
