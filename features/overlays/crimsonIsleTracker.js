@@ -5,7 +5,7 @@ import { persistentData } from "../../data/data";
 import { overlayCoordsData } from "../../data/overlayCoords";
 import { BOLD, GOLD, LIGHT_PURPLE, RED, WHITE, GRAY, DARK_GRAY, RESET, AQUA } from "../../constants/formatting";
 import { getLastFishingHookInHotspotSeenAt, getLastFishingHookSeenAt, getWorldName, getZoneName, isInSkyblock } from "../../utils/playerState";
-import { formatDate, formatNumberWithSpaces, formatTimeElapsedBetweenDates, isDoubleHook } from "../../utils/common";
+import { formatDate, formatNumberWithSpaces, formatTimeElapsedBetweenDates, getCatchesCounterChatMessage, isDoubleHook } from "../../utils/common";
 import { CRIMSON_ISLE, PLHLEGBLAST_POOL } from "../../constants/areas";
 import { MEME_SOUND_MODE, NORMAL_SOUND_MODE, SAD_TROMBONE_SOUND_SOURCE } from "../../constants/sounds";
 import { createButtonsDisplay, toggleButtonsDisplay } from "../../utils/overlays";
@@ -14,23 +14,23 @@ import { registerIf } from "../../utils/registers";
 const TRACKED_TRIGGERS = [
     {
         seaCreatureInfo: triggers.RARE_CATCH_TRIGGERS.find(entry => entry.seaCreature === seaCreatures.FIERY_SCUTTLER),
-        callback: () => trackFieryScuttlerCatch(),
+        callback: (seaCreatureInfo) => trackFieryScuttlerCatch(seaCreatureInfo),
     },
     {
         seaCreatureInfo: triggers.RARE_CATCH_TRIGGERS.find(entry => entry.seaCreature === seaCreatures.RAGNAROK),
-        callback: () => trackRagnarokCatch(),
+        callback: (seaCreatureInfo) => trackRagnarokCatch(seaCreatureInfo),
     },
     {
         seaCreatureInfo: triggers.RARE_CATCH_TRIGGERS.find(entry => entry.seaCreature === seaCreatures.PLHLEGBLAST),
-        callback: () => trackPlhlegblastCatch(),
+        callback: (seaCreatureInfo) => trackPlhlegblastCatch(seaCreatureInfo),
     },
     {
         seaCreatureInfo: triggers.RARE_CATCH_TRIGGERS.find(entry => entry.seaCreature === seaCreatures.THUNDER),
-        callback: () => trackThunderCatch(),
+        callback: (seaCreatureInfo) => trackThunderCatch(seaCreatureInfo),
     },
     {
         seaCreatureInfo: triggers.RARE_CATCH_TRIGGERS.find(entry => entry.seaCreature === seaCreatures.LORD_JAWBUS),
-        callback: () => trackLordJawbusCatch(),
+        callback: (seaCreatureInfo) => trackLordJawbusCatch(seaCreatureInfo),
     }
 ];
 
@@ -43,7 +43,7 @@ triggers.REGULAR_CRIMSON_CATCH_TRIGGERS.forEach(seaCreatureInfo => {
 
 TRACKED_TRIGGERS.forEach(entry => {
     registerIf(
-        register("Chat", (event) => entry.callback()).setCriteria(entry.seaCreatureInfo.trigger).setContains(),
+        register("Chat", (event) => entry.callback(entry.seaCreatureInfo)).setCriteria(entry.seaCreatureInfo.trigger).setContains(),
         () => settings.crimsonIsleTrackerOverlay && isInSkyblock() && getWorldName() === CRIMSON_ISLE
     );
 });
@@ -176,7 +176,7 @@ function isInPlhlegblastPool() {
     return zoneName === PLHLEGBLAST_POOL;
 }
 
-function trackFieryScuttlerCatch() {
+function trackFieryScuttlerCatch(seaCreatureInfo) {
     try {
         if (!isInSkyblock() || getWorldName() !== CRIMSON_ISLE || !settings.crimsonIsleTrackerOverlay) {
             return;
@@ -186,7 +186,6 @@ function trackFieryScuttlerCatch() {
 
         const catchesSinceLast = persistentData.crimsonIsle.fieryScuttler.catchesSinceLast + 1;
         const lastCatchTime = persistentData.crimsonIsle.fieryScuttler.lastCatchTime;
-        const elapsedTime = lastCatchTime ? ` ${GRAY}(${WHITE}${formatTimeElapsedBetweenDates(new Date(lastCatchTime))}${GRAY})` : '';
 
         let catchesHistory = persistentData.crimsonIsle.fieryScuttler.catchesHistory || [];
         catchesHistory.unshift(catchesSinceLast); // Most recent counts at the start of array
@@ -212,14 +211,15 @@ function trackFieryScuttlerCatch() {
 
         persistentData.save();
 
-        ChatLib.chat(`${GOLD}[FeeshNotifier] ${GRAY}It took ${WHITE}${catchesSinceLast} ${GRAY}${catchesSinceLast === 1 ? 'catch' : 'catches'}${elapsedTime} to get the ${GOLD}Fiery Scuttler${GRAY}.`);
+        const message = getCatchesCounterChatMessage(seaCreatureInfo.seaCreature, seaCreatureInfo.rarityColorCode, catchesSinceLast, lastCatchTime);
+        ChatLib.chat(message);
     } catch (e) {
 		console.error(e);
 		console.log(`[FeeshNotifier] Failed to track Fiery Scuttler catch.`);
 	}
 }
 
-function trackRagnarokCatch() {
+function trackRagnarokCatch(seaCreatureInfo) {
     try {
         if (!isInSkyblock() || getWorldName() !== CRIMSON_ISLE || !settings.crimsonIsleTrackerOverlay) {
             return;
@@ -229,7 +229,6 @@ function trackRagnarokCatch() {
 
         const catchesSinceLast = persistentData.crimsonIsle.ragnarok.catchesSinceLast + 1;
         const lastCatchTime = persistentData.crimsonIsle.ragnarok.lastCatchTime;
-        const elapsedTime = lastCatchTime ? ` ${GRAY}(${WHITE}${formatTimeElapsedBetweenDates(new Date(lastCatchTime))}${GRAY})` : '';
 
         let catchesHistory = persistentData.crimsonIsle.ragnarok.catchesHistory || [];
         catchesHistory.unshift(catchesSinceLast); // Most recent counts at the start of array
@@ -255,14 +254,15 @@ function trackRagnarokCatch() {
 
         persistentData.save();
 
-        ChatLib.chat(`${GOLD}[FeeshNotifier] ${GRAY}It took ${WHITE}${catchesSinceLast} ${GRAY}${catchesSinceLast === 1 ? 'catch' : 'catches'}${elapsedTime} to get the ${LIGHT_PURPLE}Ragnarok${GRAY}.`);
+        const message = getCatchesCounterChatMessage(seaCreatureInfo.seaCreature, seaCreatureInfo.rarityColorCode, catchesSinceLast, lastCatchTime);
+        ChatLib.chat(message);
     } catch (e) {
 		console.error(e);
 		console.log(`[FeeshNotifier] Failed to track Ragnarok catch.`);
 	}
 }
 
-function trackPlhlegblastCatch() {
+function trackPlhlegblastCatch(seaCreatureInfo) {
     try {
         if (!isInSkyblock() || getWorldName() !== CRIMSON_ISLE || !settings.crimsonIsleTrackerOverlay) {
             return;
@@ -272,7 +272,6 @@ function trackPlhlegblastCatch() {
 
         const catchesSinceLast = persistentData.crimsonIsle.plhlegblast.catchesSinceLast + 1;
         const lastCatchTime = persistentData.crimsonIsle.plhlegblast.lastCatchTime;
-        const elapsedTime = lastCatchTime ? ` ${GRAY}(${WHITE}${formatTimeElapsedBetweenDates(new Date(lastCatchTime))}${GRAY})` : '';
 
         let catchesHistory = persistentData.crimsonIsle.plhlegblast.catchesHistory || [];
         catchesHistory.unshift(catchesSinceLast); // Most recent counts at the start of array
@@ -295,14 +294,15 @@ function trackPlhlegblastCatch() {
 
         persistentData.save();
 
-        ChatLib.chat(`${GOLD}[FeeshNotifier] ${GRAY}It took ${WHITE}${catchesSinceLast} ${GRAY}${catchesSinceLast === 1 ? 'catch' : 'catches'}${elapsedTime} to get the ${LIGHT_PURPLE}Plhlegblast${GRAY}.`);
+        const message = getCatchesCounterChatMessage(seaCreatureInfo.seaCreature, seaCreatureInfo.rarityColorCode, catchesSinceLast, lastCatchTime);
+        ChatLib.chat(message);
     } catch (e) {
 		console.error(e);
 		console.log(`[FeeshNotifier] Failed to track Plhlegblast catch.`);
 	}
 }
 
-function trackThunderCatch() {
+function trackThunderCatch(seaCreatureInfo) {
     try {
         if (!isInSkyblock() || getWorldName() !== CRIMSON_ISLE || !settings.crimsonIsleTrackerOverlay) {
             return;
@@ -312,7 +312,6 @@ function trackThunderCatch() {
 
         const catchesSinceLast = persistentData.crimsonIsle.thunder.catchesSinceLast + 1;
         const lastCatchTime = persistentData.crimsonIsle.thunder.lastCatchTime || null;
-        const elapsedTime = lastCatchTime ? ` ${GRAY}(${WHITE}${formatTimeElapsedBetweenDates(new Date(lastCatchTime))}${GRAY})` : '';
 
         let catchesHistory = persistentData.crimsonIsle.thunder.catchesHistory || [];
         catchesHistory.unshift(catchesSinceLast); // Most recent counts at the start of array
@@ -338,14 +337,15 @@ function trackThunderCatch() {
 
         persistentData.save();
 
-        ChatLib.chat(`${GOLD}[FeeshNotifier] ${GRAY}It took ${WHITE}${catchesSinceLast} ${GRAY}${catchesSinceLast === 1 ? 'catch' : 'catches'}${elapsedTime} to get the ${LIGHT_PURPLE}Thunder${GRAY}.`);
+        const message = getCatchesCounterChatMessage(seaCreatureInfo.seaCreature, seaCreatureInfo.rarityColorCode, catchesSinceLast, lastCatchTime);
+        ChatLib.chat(message);
     } catch (e) {
 		console.error(e);
 		console.log(`[FeeshNotifier] Failed to track Thunder catch.`);
 	}
 }
 
-function trackLordJawbusCatch() {
+function trackLordJawbusCatch(seaCreatureInfo) {
     try {
         if (!isInSkyblock() || getWorldName() !== CRIMSON_ISLE || !settings.crimsonIsleTrackerOverlay) {
             return;
@@ -355,7 +355,6 @@ function trackLordJawbusCatch() {
 
         const catchesSinceLast = persistentData.crimsonIsle.lordJawbus.catchesSinceLast + 1;
         const lastCatchTime = persistentData.crimsonIsle.lordJawbus.lastCatchTime;
-        const elapsedTime = lastCatchTime ? ` ${GRAY}(${WHITE}${formatTimeElapsedBetweenDates(new Date(lastCatchTime))}${GRAY})` : '';
 
         let catchesHistory = persistentData.crimsonIsle.lordJawbus.catchesHistory || [];
         catchesHistory.unshift(catchesSinceLast); // Most recent counts at the start of array
@@ -387,7 +386,8 @@ function trackLordJawbusCatch() {
 
         persistentData.save();
 
-        ChatLib.chat(`${GOLD}[FeeshNotifier] ${GRAY}It took ${WHITE}${catchesSinceLast} ${GRAY}${catchesSinceLast === 1 ? 'catch' : 'catches'}${elapsedTime} to get the ${LIGHT_PURPLE}Lord Jawbus${GRAY}.`);
+        const message = getCatchesCounterChatMessage(seaCreatureInfo.seaCreature, seaCreatureInfo.rarityColorCode, catchesSinceLast, lastCatchTime);
+        ChatLib.chat(message);
     } catch (e) {
 		console.error(e);
 		console.log(`[FeeshNotifier] Failed to track Lord Jawbus catch.`);

@@ -5,7 +5,7 @@ import { persistentData } from "../../data/data";
 import { overlayCoordsData } from "../../data/overlayCoords";
 import { BOLD, GOLD, RED, WHITE, DARK_PURPLE, GRAY, AQUA, DARK_GRAY, LIGHT_PURPLE } from "../../constants/formatting";
 import { getLastFishingHookSeenAt, getWorldName, isInSkyblock } from "../../utils/playerState";
-import { formatDate, formatNumberWithSpaces, formatTimeElapsedBetweenDates } from "../../utils/common";
+import { formatDate, formatNumberWithSpaces, formatTimeElapsedBetweenDates, getCatchesCounterChatMessage } from "../../utils/common";
 import { JERRY_WORKSHOP } from "../../constants/areas";
 import { createButtonsDisplay, toggleButtonsDisplay } from "../../utils/overlays";
 import { registerIf } from "../../utils/registers";
@@ -22,13 +22,13 @@ triggers.REGULAR_JERRY_WORKSHOP_CATCH_TRIGGERS.forEach(entry => {
 
 const yetiTrigger = triggers.RARE_CATCH_TRIGGERS.find(entry => entry.seaCreature === seaCreatures.YETI);
 registerIf(
-    register("Chat", (event) => trackYetiCatch()).setCriteria(yetiTrigger.trigger).setContains(),
+    register("Chat", (event) => trackYetiCatch(yetiTrigger)).setCriteria(yetiTrigger.trigger).setContains(),
     () => settings.jerryWorkshopTrackerOverlay && isInSkyblock() && getWorldName() === JERRY_WORKSHOP
 );
 
 const reindrakeTrigger = triggers.RARE_CATCH_TRIGGERS.find(entry => entry.seaCreature === seaCreatures.REINDRAKE);
 registerIf(
-    register("Chat", (event) => trackReindrakeCatch()).setCriteria(reindrakeTrigger.trigger).setContains(),
+    register("Chat", (event) => trackReindrakeCatch(reindrakeTrigger)).setCriteria(reindrakeTrigger.trigger).setContains(),
     () => settings.jerryWorkshopTrackerOverlay && isInSkyblock() && getWorldName() === JERRY_WORKSHOP
 );
 
@@ -105,7 +105,7 @@ export function resetJerryWorkshopTracker(isConfirmed) {
 	}
 }
 
-function trackYetiCatch() {
+function trackYetiCatch(seaCreatureInfo) {
     try {
         if (!settings.jerryWorkshopTrackerOverlay || !isInSkyblock() || getWorldName() !== JERRY_WORKSHOP) {
             return;
@@ -113,7 +113,6 @@ function trackYetiCatch() {
 
         const catchesSinceLast = persistentData.jerryWorkshop.yeti.catchesSinceLast + 1;
         const lastCatchTime = persistentData.jerryWorkshop.yeti.lastCatchTime;
-        const elapsedTime = lastCatchTime ? ` ${GRAY}(${WHITE}${formatTimeElapsedBetweenDates(new Date(lastCatchTime))}${GRAY})` : '';
 
         let catchesHistory = persistentData.jerryWorkshop.yeti.catchesHistory || [];
         catchesHistory.unshift(catchesSinceLast); // Most recent counts at the start of array
@@ -130,14 +129,15 @@ function trackYetiCatch() {
 
         persistentData.save();
 
-        ChatLib.chat(`${GOLD}[FeeshNotifier] ${GRAY}It took ${WHITE}${catchesSinceLast} ${GRAY}${catchesSinceLast === 1 ? 'catch' : 'catches'}${elapsedTime} to get the ${GOLD}Yeti${GRAY}.`);
+        const message = getCatchesCounterChatMessage(seaCreatureInfo.seaCreature, seaCreatureInfo.rarityColorCode, catchesSinceLast, lastCatchTime);
+        ChatLib.chat(message);
     } catch (e) {
 		console.error(e);
 		console.log(`[FeeshNotifier] Failed to track Yeti catch.`);
 	}
 }
 
-function trackReindrakeCatch() {
+function trackReindrakeCatch(seaCreatureInfo) {
     try {
         if (!settings.jerryWorkshopTrackerOverlay || !isInSkyblock() || getWorldName() !== JERRY_WORKSHOP) {
             return;
@@ -145,7 +145,6 @@ function trackReindrakeCatch() {
 
         const catchesSinceLast = persistentData.jerryWorkshop.reindrake.catchesSinceLast + 1;
         const lastCatchTime = persistentData.jerryWorkshop.reindrake.lastCatchTime;
-        const elapsedTime = lastCatchTime ? ` ${GRAY}(${WHITE}${formatTimeElapsedBetweenDates(new Date(lastCatchTime))}${GRAY})` : '';
 
         let catchesHistory = persistentData.jerryWorkshop.reindrake.catchesHistory || [];
         catchesHistory.unshift(catchesSinceLast); // Most recent counts at the start of array
@@ -162,7 +161,8 @@ function trackReindrakeCatch() {
 
         persistentData.save();
 
-        ChatLib.chat(`${GOLD}[FeeshNotifier] ${GRAY}It took ${WHITE}${catchesSinceLast} ${GRAY}${catchesSinceLast === 1 ? 'catch' : 'catches'}${elapsedTime} to get the ${LIGHT_PURPLE}Reindrake${GRAY}.`);
+        const message = getCatchesCounterChatMessage(seaCreatureInfo.seaCreature, seaCreatureInfo.rarityColorCode, catchesSinceLast, lastCatchTime);
+        ChatLib.chat(message);
     } catch (e) {
 		console.error(e);
 		console.log(`[FeeshNotifier] Failed to track Reindrake catch.`);
