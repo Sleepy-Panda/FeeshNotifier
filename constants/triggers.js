@@ -948,7 +948,7 @@ export const KILLED_BY_TRIGGERS = [
     },
 ];
 
-// All mobs that can spawn on Crimson Isle except Thunder / Lord Jawbus
+// All sea creatures that can spawn on Crimson Isle except creatures tracked by Crimson Isle tracker
 export const REGULAR_CRIMSON_CATCH_TRIGGERS = [
     {
         trigger: MAGMA_SLUG_MESSAGE
@@ -972,19 +972,10 @@ export const REGULAR_CRIMSON_CATCH_TRIGGERS = [
         trigger: TAURUS_MESSAGE
     },
     {
-        trigger: PLHLEGBLAST_MESSAGE
-    },
-    {
-        trigger: RAGNAROK_MESSAGE
-    },
-    {
         trigger: FRIED_CHICKEN_MESSAGE
     },
     {
         trigger: FIREPROOF_WITCH_MESSAGE
-    },
-    {
-        trigger: FIERY_SCUTTLER_MESSAGE
     },
 ];
 
