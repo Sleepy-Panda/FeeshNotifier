@@ -15,8 +15,11 @@ import { registerIf } from "../../utils/registers";
 // Hotspot & bayou logic
 // Set count command
 // Get rid of copypasted methods here and in similar trackers
+// Register trackers in water hotspot worlds
+// Show Titanoboa part when in Bayou
+// Show Wiki Tiki part when fishing in hotspot
 
-const TRACKED_TRIGGERS = [
+const TRACKED_SEA_CREATURES = [
     {
         seaCreatureInfo: triggers.RARE_CATCH_TRIGGERS.find(entry => entry.seaCreature === seaCreatures.TITANOBOA),
         callback: (seaCreatureInfo) => trackTitanoboaCatch(seaCreatureInfo),
@@ -27,6 +30,17 @@ const TRACKED_TRIGGERS = [
     }
 ];
 
+const TRACKED_DROPS = [
+    {
+        dropInfo: triggers.RARE_DROP_TRIGGERS.find(entry => entry.trigger === triggers.TITANOBOA_SHED_MESSAGE),
+        callback: () => trackTitanoboaShedDrop(),
+    },
+    {
+        seaCreatureInfo: triggers.RARE_DROP_TRIGGERS.find(entry => entry.trigger === triggers.TIKI_MASK_MESSAGE),
+        callback: () => trackTikiMaskDrop(),
+    }
+];
+
 triggers.REGULAR_WATER_HOTSPOT_AND_BAYOU_CATCH_TRIGGERS.forEach(seaCreatureInfo => {
     registerIf(
         register("Chat", (event) => trackRegularSeaCreatureCatch()).setCriteria(seaCreatureInfo.trigger).setContains(),
@@ -34,24 +48,19 @@ triggers.REGULAR_WATER_HOTSPOT_AND_BAYOU_CATCH_TRIGGERS.forEach(seaCreatureInfo 
     );
 });
 
-TRACKED_TRIGGERS.forEach(entry => {
+TRACKED_SEA_CREATURES.forEach(entry => {
     registerIf(
         register("Chat", (event) => entry.callback(entry.seaCreatureInfo)).setCriteria(entry.seaCreatureInfo.trigger).setContains(),
         () => settings.waterHotspotsAndBayouTrackerOverlay && isInSkyblock() && WATER_HOTSPOT_WORLDS.includes(getWorldName())
     );
 });
 
-const titanoboaShedTrigger = triggers.RARE_DROP_TRIGGERS.find(entry => entry.trigger === triggers.TITANOBOA_SHED_MESSAGE);
-registerIf(
-    register("Chat", (magicFind, event) => trackTitanoboaShedDrop()).setCriteria(titanoboaShedTrigger.trigger).setContains(),
-    () => settings.waterHotspotsAndBayouTrackerOverlay && isInSkyblock() && WATER_HOTSPOT_WORLDS.includes(getWorldName())
-);
-
-const tikiMaskTrigger = triggers.RARE_DROP_TRIGGERS.find(entry => entry.trigger === triggers.TIKI_MASK_MESSAGE);
-registerIf(
-    register("Chat", (magicFind, event) => trackTikiMaskDrop()).setCriteria(tikiMaskTrigger.trigger).setContains(),
-    () => settings.waterHotspotsAndBayouTrackerOverlay && isInSkyblock() && WATER_HOTSPOT_WORLDS.includes(getWorldName())
-);
+TRACKED_DROPS.forEach(entry => {
+    registerIf(
+        register("Chat", (magicFind, event) => entry.callback()).setCriteria(entry.dropInfo.trigger).setContains(),
+        () => settings.waterHotspotsAndBayouTrackerOverlay && isInSkyblock() && WATER_HOTSPOT_WORLDS.includes(getWorldName())
+    );
+});
 
 registerIf(
     register('renderOverlay', () => renderOverlay()),
@@ -176,17 +185,15 @@ function trackTitanoboaCatch(seaCreatureInfo) {
         persistentData.waterHotspotsAndBayou.titanoboa.catchesSinceLast = 0;
         persistentData.waterHotspotsAndBayou.titanoboa.lastCatchTime = new Date();
 
-        persistentData.waterHotspotsAndBayou.wikiTiki.catchesSinceLast += 1;
-
-        //if (isFishingInHotspot()) {
-        //    persistentData.crimsonIsle.ragnarok.catchesSinceLast += 1;
-        //}
+        if (isFishingInHotspot()) {
+            persistentData.waterHotspotsAndBayou.wikiTiki.catchesSinceLast += 1;
+        }
 
         const isDoubleHooked = isDoubleHook();
         const valueToAdd = isDoubleHooked ? 2 : 1;
-        let catchesSinceLastShed = persistentData.waterHotspotsAndBayou.titanoboaSheds.catchesSinceLast || 0;
-        catchesSinceLastShed += valueToAdd;
-        persistentData.waterHotspotsAndBayou.titanoboaSheds.catchesSinceLast = catchesSinceLastShed;
+        let catchesSinceLastDrop = persistentData.waterHotspotsAndBayou.titanoboaSheds.catchesSinceLast || 0;
+        catchesSinceLastDrop += valueToAdd;
+        persistentData.waterHotspotsAndBayou.titanoboaSheds.catchesSinceLast = catchesSinceLastDrop;
 
         persistentData.save();
 
@@ -218,17 +225,15 @@ function trackWikiTikiCatch(seaCreatureInfo) {
         persistentData.waterHotspotsAndBayou.wikiTiki.catchesSinceLast = 0;
         persistentData.waterHotspotsAndBayou.wikiTiki.lastCatchTime = new Date();
 
-        persistentData.waterHotspotsAndBayou.titanoboa.catchesSinceLast += 1;
-
-        //if (isFishingInHotspot()) {
-        //    persistentData.crimsonIsle.fieryScuttler.catchesSinceLast += 1;
-        //}
+        if (getWorldName() === BACKWATER_BAYOU) {
+            persistentData.waterHotspotsAndBayou.titanoboa.catchesSinceLast += 1;
+        }
 
         const isDoubleHooked = isDoubleHook();
         const valueToAdd = isDoubleHooked ? 2 : 1;
-        let catchesSinceLastTikiMask = persistentData.waterHotspotsAndBayou.tikiMasks.catchesSinceLast || 0;
-        catchesSinceLastTikiMask += valueToAdd;
-        persistentData.waterHotspotsAndBayou.tikiMasks.catchesSinceLast = catchesSinceLastTikiMask;
+        let catchesSinceLastDrop = persistentData.waterHotspotsAndBayou.tikiMasks.catchesSinceLast || 0;
+        catchesSinceLastDrop += valueToAdd;
+        persistentData.waterHotspotsAndBayou.tikiMasks.catchesSinceLast = catchesSinceLastDrop;
 
         persistentData.save();
 
@@ -246,13 +251,13 @@ function trackRegularSeaCreatureCatch() {
             return;
         }
 
-        persistentData.waterHotspotsAndBayou.titanoboa.catchesSinceLast += 1;
-        persistentData.waterHotspotsAndBayou.wikiTiki.catchesSinceLast += 1;
+        if (isFishingInHotspot()) {
+            persistentData.waterHotspotsAndBayou.wikiTiki.catchesSinceLast += 1;
+        }
 
-        //if (isFishingInHotspot()) {
-        //    persistentData.crimsonIsle.fieryScuttler.catchesSinceLast += 1;
-        //    persistentData.crimsonIsle.ragnarok.catchesSinceLast += 1;    
-        //}
+        if (getWorldName() === BACKWATER_BAYOU) {
+            persistentData.waterHotspotsAndBayou.titanoboa.catchesSinceLast += 1;
+        }
 
         persistentData.save();
     } catch (e) {
@@ -346,12 +351,12 @@ function renderOverlay() {
     overlayText += getTitanoboaShedsOverlayText();
     overlayText += getWikiTikiOverlayText();
 
-    const overlay = new Text(overlayText, overlayCoordsData.crimsonIsleTrackerOverlay.x, overlayCoordsData.crimsonIsleTrackerOverlay.y)
+    const overlay = new Text(overlayText, overlayCoordsData.waterHotspotsAndBayouTrackerOverlay.x, overlayCoordsData.waterHotspotsAndBayouTrackerOverlay.y)
         .setShadow(true)
-        .setScale(overlayCoordsData.crimsonIsleTrackerOverlay.scale);
+        .setScale(overlayCoordsData.waterHotspotsAndBayouTrackerOverlay.scale);
     overlay.draw();
 
-    toggleButtonsDisplay(buttonsDisplay, overlay, overlayCoordsData.crimsonIsleTrackerOverlay);
+    toggleButtonsDisplay(buttonsDisplay, overlay, overlayCoordsData.waterHotspotsAndBayouTrackerOverlay);
 
     function getTitanoboaOverlayText() {
         if (getWorldName() !== BACKWATER_BAYOU) return '';
