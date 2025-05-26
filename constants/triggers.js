@@ -1064,6 +1064,109 @@ export const REGULAR_JERRY_WORKSHOP_CATCH_TRIGGERS = [
     },
 ];
 
+// All sea creatures that can spawn in Water hotspot / Bayou except Wiki Tiki / Titanoboa
+export const REGULAR_WATER_HOTSPOT_AND_BAYOU_CATCH_TRIGGERS = [
+    {
+        trigger: SQUID_MESSAGE
+    },
+    {
+        trigger: SEA_WALKER_MESSAGE
+    },
+    {
+        trigger: SEA_GUARDIAN_MESSAGE
+    },
+    {
+        trigger: SEA_WITCH_MESSAGE
+    },
+    {
+        trigger: SEA_ARCHER_MESSAGE
+    },
+    {
+        trigger: RIDER_OF_THE_DEEP_MESSAGE
+    },
+    {
+        trigger: CATFISH_MESSAGE
+    },
+    {
+        trigger: SEA_LEECH_MESSAGE
+    },
+    {
+        trigger: GUARDIAN_DEFENDER_MESSAGE
+    },
+    {
+        trigger: DEEP_SEA_PROTECTOR_MESSAGE
+    },
+    {
+        trigger: WATER_HYDRA_MESSAGE
+    },
+    {
+        trigger: SEA_EMPEROR_MESSAGE
+    },
+    {
+        trigger: AGARIMOO_MESSAGE
+    },
+    {
+        trigger: CARROT_KING_MESSAGE
+    },
+    {
+        trigger: NURSE_SHARK_MESSAGE
+    },
+    {
+        trigger: BLUE_SHARK_MESSAGE
+    },
+    {
+        trigger: TIGER_SHARK_MESSAGE
+    },
+    {
+        trigger: GREAT_WHITE_SHARK_MESSAGE
+    },
+    {
+        trigger: WEREWOLF_MESSAGE
+    },
+    {
+        trigger: SCARECROW_MESSAGE
+    },
+    {
+        trigger: NIGHTMARE_MESSAGE
+    },
+    {
+        trigger: PHANTOM_FISHER_MESSAGE
+    },
+    {
+        trigger: GRIM_REAPER_MESSAGE
+    },
+    {
+        trigger: FROG_MAN_MESSAGE,
+    },
+    {
+        trigger: TRASH_GOBBLER_MESSAGE,
+    },
+    {
+        trigger: DUMPSTER_DIVER_MESSAGE,
+    },
+    {
+        trigger: BANSHEE_MESSAGE,
+    },
+    {
+        trigger: SNAPPING_TURTLE_MESSAGE,
+    },
+    {
+        trigger: BAYOU_SLUDGE_MESSAGE,
+    },
+    {
+        trigger: ALLIGATOR_MESSAGE,
+    },
+    {
+        trigger: BLUE_RINGED_OCTOPUS_MESSAGE,
+    },
+    {
+        trigger: WIKI_TIKI_MESSAGE,
+    },
+    {
+        trigger: TITANOBOA_MESSAGE,
+    },
+];
+
 export const WORM_CATCH_TRIGGERS = [
     {
         trigger: FLAMING_WORM_MESSAGE

@@ -62,6 +62,30 @@ export const persistentData = new PogObject("FeeshNotifier", {
             },
         }
     },
+    "waterHotspotsAndBayou": {
+        "titanoboa": {
+            "catchesSinceLast": 0,
+            "lastCatchTime": null,
+            "catchesHistory": [],
+            "averageCatches": 0
+        },
+        "titanoboaSheds": {
+            "count": 0,
+            "catchesSinceLast": 0,
+            "dropsHistory": []
+        },
+        "wikiTiki": {
+            "catchesSinceLast": 0,
+            "lastCatchTime": null,
+            "catchesHistory": [],
+            "averageCatches": 0
+        },
+        "tikiMasks": {
+            "count": 0,
+            "catchesSinceLast": 0,
+            "dropsHistory": []
+        },
+    },
     "fishingProfit": {
         "profitTrackerItems": {},
         "totalProfit": 0,

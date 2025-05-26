@@ -118,6 +118,25 @@ ${GRAY}Last on: ${WHITE}2d 9h 8m ${GRAY}(${WHITE}2024-11-30 08:00:00${GRAY})`,
         height: 0
     },
     {
+        toggleSettingKey: 'waterHotspotsAndBayouTrackerOverlay',
+        guiSettings: overlayCoordsData.waterHotspotsAndBayouTrackerOverlay,
+        sampleText:
+`${AQUA}${BOLD}Water Hotspots & Bayou tracker
+${LIGHT_PURPLE}Titanoboa: ${WHITE}417 ${GRAY}catches ago ${DARK_GRAY}(${GRAY}avg: ${WHITE}654${DARK_GRAY})
+${GRAY}Last on: ${WHITE}2d 9h 8m ${GRAY}(${WHITE}2024-11-30 08:00:00${GRAY})
+${GOLD}Titanoboa Sheds: ${WHITE}2
+${GRAY}Last on: ${WHITE}1d 0h 0m ${GRAY}(${WHITE}2024-11-29 12:15:00${GRAY})
+${GRAY}Last on: ${WHITE}10 Titanoboas ago
+${LIGHT_PURPLE}Wiki Tiki: ${WHITE}70 ${GRAY}catches ago ${DARK_GRAY}(${GRAY}avg: ${WHITE}85${DARK_GRAY})
+${GRAY}Last on: ${WHITE}2d 5h 8m ${GRAY}(${WHITE}2024-11-30 12:00:00${GRAY})
+${GOLD}Tiki Masks: ${WHITE}5
+${GRAY}Last on: ${WHITE}1d 0h 0m ${GRAY}(${WHITE}2024-11-29 12:15:00${GRAY})
+${GRAY}Last on: ${WHITE}6 Wiki Tikis ago`,
+        isActive: false,
+        width: 0,
+        height: 0
+    },
+    {
         toggleSettingKey: 'wormProfitTrackerOverlay',
         guiSettings: overlayCoordsData.wormProfitTrackerOverlay,
         sampleText:
