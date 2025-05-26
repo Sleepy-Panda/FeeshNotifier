@@ -1,72 +1,87 @@
-- Track catches for Ragnarok and Scuttler in crimson isle tracker (when in hotspot).
-- Hotspot search
-- Fishing XP tracker
-- Decrease elapsed time in Fishing Profit Tracker (when user forgot to stop tracker being afk)
-- Offer supercrafting or BZ sell when items like raw fish goes to inventory (sacks are full).
+# Future ideas and player's requests
+
+## Fishing profit tracker
+
+- Option to decrease elapsed time in Fishing Profit Tracker (when user forgot to stop tracker being afk)
 - Track scavenged coins in Fishing Profit Tracker
 - Track Ice Essence drop from mobs in Fishing Profit Tracker
-- Option for Worm profit tracker that calculates the profit with [Gemstone Chamber - the price from Gemstone Mixtures]
-- PogData resets data file on PC crash - consider doing regular backups / research tska library as replacement for PogData
-- Kill time for fishing bosses
-- [Bug] Reset confirmation messages appear for disabled overlays for no reason, for one person.
-- [Bug] Some items are tracked by Fishing Profit Tracker when dropped, but drop was prevented by SB settings (basically it drops and picks up again).
-- [Bug] Fishing Profit Tracker recalculates profits/h too often when in "display buttons" mode.
-- [Bug] Trading with other players adds items to the profit trackers.
 - Calculate pet price in Fishing Profit Tracker as difference between lvl 1 and lvl 100
   - Also, there are requests to track pet level progress in coins
-- Remove double hook reindrake logic because DH is not possible now
-- Rain/Thunder widget
-- Find out price calculation for Kuudra Keys in Fishing Profit Tracker
-- Achievements (ScathaPro / SBO as reference)
-- Party chat commands
-  - something to explore profit tracker
-  - !feeshsincejawbus
-  - !feeshsincethunder
-  - !feeshsinceyeti
-  - !feeshsincereindrake
-  - !feeshsincevial
-  - !feeshvials
-  - !kdr - kills/deaths rate for thunder/jawbus [requires API key and custom backend]
-  - Commands cooldown so people do not spam
-  - /feeshkdr <player> - to check myself or someone privately without sending to the party chat [requires API key and custom backend]
-- Customized sounds
+- Find out price calculation for Kuudra Keys
+- Total and session tracker, or ability to load named session
+- Rewrite way to ignore compacted loot in profit tracker
+- Profit tracker causes lags after a while (memory consumption grows)
+- [Bug] Some items are tracked by Fishing Profit Tracker when dropped, but drop was prevented by SB settings (basically it drops and picks up again).
+- [Bug] Trading with other players adds items to the profit trackers.
+- [Bug] Fishing Profit Tracker recalculates profits/h too often when in "display buttons" mode.
+
+## Party commands
+
+- something to explore profit tracker and rare catches tracker
+- !feeshsincejawbus
+- !feeshsincethunder
+- !feeshsinceyeti
+- !feeshsincereindrake
+- !feeshsincevial
+- !feeshvials
+- !kdr - kills/deaths rate for thunder/jawbus [requires API key and custom backend]
+- Commands cooldown so people do not spam
+- /feeshkdr <player> - to check myself or someone privately without sending to the party chat [requires API key and custom backend]
+
+## Alerts & chat
+
+- Customized sounds for rare catches and rare drops
   - Sounds folder: assets
   - Ability to open folder from settings
   - Ability to test sound from settings
   - Toggle setting to enable customization
-- Render mob immunity flag
-- Highlight / box rare sea creatures (make this not visible through walls)
-- Total and session tracker, or ability to load named session
 - Multiple drops that happen at the same time lead to "You're sending messages too fast" error.
-- Personal cap alert (20 for CH, 5 for Crimson)
-- Expertise widget
-- Skill level tracking above fishing 60
+- Write smarter logic to detect personal cap alert (20 for CH, 5 for Crimson)
+- Do not include baby magma slugs when producing cap alert.
 - Attach Vials drop number to the pchat message
+
+## Worm profit tracker
+
+- Option for Worm profit tracker that calculates the profit with [Gemstone Chamber - the price from Gemstone Mixtures]
+
+## Hotspots
+
+- Hotspot location guesser
+
+## Fishing XP tracker
+
+- Fishing XP tracker
+- Skill level tracking above fishing 60
+
+## Inventory features
+
+- Offer supercrafting or BZ sell when items like raw fish goes to inventory (sacks are full).
+- Refactor all existing features so they consume less FPS
+
+## Baits
+
+- Bait changed alert
+- No bait used alert
+- Track baits cost in Fishing profit tracker
+- [Bug] Bait alert false triggered when opening /fb with fishing rod casted.
+
+## Other
+
+- Bigger custom nametag for fishing bosses
+- Glowing outline / highlight rare sea creatures (make this not visible through walls) - I want to get rid of SH for that, and replicate this feature in module.
+- PogData resets data file on PC crash - consider doing regular backups / research tska library as replacement for PogData
+- Kill time for fishing bosses
+- Remove double hook reindrake logic because DH is not possible now
+- Rain/Thunder widget
 - Track all mobs caught, not only rare
 - Golden fish timer
 "can you add a golden fish timer tracker into this? i only have golden fish diamond left and i like playing other games while just having my bobber in lava, and setting a 15min timer every time is p annoying lmao"
-- Bait changed / Bait missing alert
-"i think a feature that says im out of whale bait / fish bait / carrot bait would be cool to add because sometimes im just watching video and i realise im out of bait after like 30 mins."
-- "I was gonna say maybe add a feature that also keeps track of the cost of fish baits while fishing would be pretty cool"
-  - Probably same for buying rain
 - Thunder spark profit - Amount gained in bottle divided by lbin for the current item
   Hurricane: 400m
   Thunder sparkes gained in session: 1m 
   Profit for session: 80m
 
-Refactoring:
-
-- Do not run registers if feature is disabled.
-- Rewrite way to ignore compacted loot in profit tracker
-- [Faangorn] Profit tracker causes lags after a while (memory consumption grows)
-
-
-
-
-
-
-
-Achievements prototype:
+## Achievements
 
 Unlocked: X/Total (%)
 Sort by: rarity, locked/unlocked
