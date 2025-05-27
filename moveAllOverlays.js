@@ -121,7 +121,7 @@ ${GRAY}Last on: ${WHITE}2d 9h 8m ${GRAY}(${WHITE}2024-11-30 08:00:00${GRAY})`,
         toggleSettingKey: 'waterHotspotsAndBayouTrackerOverlay',
         guiSettings: overlayCoordsData.waterHotspotsAndBayouTrackerOverlay,
         sampleText:
-`${AQUA}${BOLD}Water Hotspots & Bayou tracker
+`${AQUA}${BOLD}Water hotspots & Bayou tracker
 ${LIGHT_PURPLE}Titanoboa: ${WHITE}417 ${GRAY}catches ago ${DARK_GRAY}(${GRAY}avg: ${WHITE}654${DARK_GRAY})
 ${GRAY}Last on: ${WHITE}2d 9h 8m ${GRAY}(${WHITE}2024-11-30 08:00:00${GRAY})
 ${GOLD}Titanoboa Sheds: ${WHITE}2

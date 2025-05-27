@@ -3,13 +3,14 @@ import * as triggers from '../../constants/triggers';
 import * as seaCreatures from '../../constants/seaCreatures';
 import { persistentData } from "../../data/data";
 import { overlayCoordsData } from "../../data/overlayCoords";
-import { BOLD, GOLD, LIGHT_PURPLE, RED, WHITE, GRAY, DARK_GRAY, RESET, AQUA } from "../../constants/formatting";
+import { BOLD, GOLD, LIGHT_PURPLE, RED, WHITE, GRAY, AQUA } from "../../constants/formatting";
 import { getLastFishingHookInHotspotSeenAt, getLastFishingHookSeenAt, getWorldName, isInSkyblock } from "../../utils/playerState";
-import { formatDate, formatNumberWithSpaces, formatTimeElapsedBetweenDates, getCatchesCounterChatMessage, isDoubleHook } from "../../utils/common";
+import { formatTimeElapsedBetweenDates, getCatchesCounterChatMessage } from "../../utils/common";
 import { BACKWATER_BAYOU, WATER_HOTSPOT_WORLDS } from "../../constants/areas";
-import { createButtonsDisplay, toggleButtonsDisplay } from "../../utils/overlays";
+import { createButtonsDisplay, toggleButtonsDisplay, setSeaCreatureStatisticsOnCatch, setDropStatisticsOnCatch, setDropStatisticsOnDrop, getSeaCreatureStatisticsOverlayText, getDropStatisticsOverlayText } from "../../utils/overlays";
 import { registerIf } from "../../utils/registers";
 
+// Settings description + drops
 // Reset command
 // Sample overlay
 // Hotspot & bayou logic
@@ -27,7 +28,7 @@ const TRACKED_SEA_CREATURES = [
     {
         seaCreatureInfo: triggers.RARE_CATCH_TRIGGERS.find(entry => entry.seaCreature === seaCreatures.WIKI_TIKI),
         callback: (seaCreatureInfo) => trackWikiTikiCatch(seaCreatureInfo),
-    }
+    },
 ];
 
 const TRACKED_DROPS = [
@@ -36,9 +37,9 @@ const TRACKED_DROPS = [
         callback: () => trackTitanoboaShedDrop(),
     },
     {
-        seaCreatureInfo: triggers.RARE_DROP_TRIGGERS.find(entry => entry.trigger === triggers.TIKI_MASK_MESSAGE),
+        dropInfo: triggers.RARE_DROP_TRIGGERS.find(entry => entry.trigger === triggers.TIKI_MASK_MESSAGE),
         callback: () => trackTikiMaskDrop(),
-    }
+    },
 ];
 
 triggers.REGULAR_WATER_HOTSPOT_AND_BAYOU_CATCH_TRIGGERS.forEach(seaCreatureInfo => {
@@ -161,43 +162,28 @@ function getDefaultObject() {
 }
 
 function isFishingInHotspot() {
+    if (!WATER_HOTSPOT_WORLDS.includes(getWorldName())) return false;
+
     const lastFishingHookInHotspotSeenAt = getLastFishingHookInHotspotSeenAt();
     return lastFishingHookInHotspotSeenAt && new Date() - lastFishingHookInHotspotSeenAt <= 60 * 1000;
 }
 
 function trackTitanoboaCatch(seaCreatureInfo) {
     try {
-        if (!settings.waterHotspotsAndBayouTrackerOverlay || !isInSkyblock() || !WATER_HOTSPOT_WORLDS.includes(getWorldName())) {
+        if (!settings.waterHotspotsAndBayouTrackerOverlay || !isInSkyblock() || getWorldName() !== BACKWATER_BAYOU) {
             return;
         }
 
-        const catchesSinceLast = persistentData.waterHotspotsAndBayou.titanoboa.catchesSinceLast + 1;
-        const lastCatchTime = persistentData.waterHotspotsAndBayou.titanoboa.lastCatchTime;
-
-        let catchesHistory = persistentData.waterHotspotsAndBayou.titanoboa.catchesHistory || [];
-        catchesHistory.unshift(catchesSinceLast); // Most recent counts at the start of array
-        catchesHistory.length = Math.min(catchesHistory.length, 100); // Store last 100
-        persistentData.waterHotspotsAndBayou.titanoboa.catchesHistory = catchesHistory;
-
-        const sumCatches = catchesHistory.reduce(function(a, b) { return a + b; }, 0);
-        persistentData.waterHotspotsAndBayou.titanoboa.averageCatches = catchesHistory.length ? Math.round(sumCatches / catchesHistory.length) : 0;
-
-        persistentData.waterHotspotsAndBayou.titanoboa.catchesSinceLast = 0;
-        persistentData.waterHotspotsAndBayou.titanoboa.lastCatchTime = new Date();
+        const result = setSeaCreatureStatisticsOnCatch(persistentData.waterHotspotsAndBayou.titanoboa);
+        setDropStatisticsOnCatch(persistentData.waterHotspotsAndBayou.titanoboaSheds, 'catchesSinceLast');
 
         if (isFishingInHotspot()) {
             persistentData.waterHotspotsAndBayou.wikiTiki.catchesSinceLast += 1;
         }
 
-        const isDoubleHooked = isDoubleHook();
-        const valueToAdd = isDoubleHooked ? 2 : 1;
-        let catchesSinceLastDrop = persistentData.waterHotspotsAndBayou.titanoboaSheds.catchesSinceLast || 0;
-        catchesSinceLastDrop += valueToAdd;
-        persistentData.waterHotspotsAndBayou.titanoboaSheds.catchesSinceLast = catchesSinceLastDrop;
-
         persistentData.save();
 
-        const message = getCatchesCounterChatMessage(seaCreatureInfo.seaCreature, seaCreatureInfo.rarityColorCode, catchesSinceLast, lastCatchTime);
+        const message = getCatchesCounterChatMessage(seaCreatureInfo.seaCreature, seaCreatureInfo.rarityColorCode, result.catchesSinceLast, result.lastCatchTime);
         ChatLib.chat(message);
     } catch (e) {
 		console.error(e);
@@ -211,33 +197,16 @@ function trackWikiTikiCatch(seaCreatureInfo) {
             return;
         }
 
-        const catchesSinceLast = persistentData.waterHotspotsAndBayou.wikiTiki.catchesSinceLast + 1;
-        const lastCatchTime = persistentData.waterHotspotsAndBayou.wikiTiki.lastCatchTime;
-
-        let catchesHistory = persistentData.waterHotspotsAndBayou.wikiTiki.catchesHistory || [];
-        catchesHistory.unshift(catchesSinceLast); // Most recent counts at the start of array
-        catchesHistory.length = Math.min(catchesHistory.length, 100); // Store last 100
-        persistentData.waterHotspotsAndBayou.wikiTiki.catchesHistory = catchesHistory;
-
-        const sumCatches = catchesHistory.reduce(function(a, b) { return a + b; }, 0);
-        persistentData.waterHotspotsAndBayou.wikiTiki.averageCatches = catchesHistory.length ? Math.round(sumCatches / catchesHistory.length) : 0;
-
-        persistentData.waterHotspotsAndBayou.wikiTiki.catchesSinceLast = 0;
-        persistentData.waterHotspotsAndBayou.wikiTiki.lastCatchTime = new Date();
+        const result = setSeaCreatureStatisticsOnCatch(persistentData.waterHotspotsAndBayou.wikiTiki);
+        setDropStatisticsOnCatch(persistentData.waterHotspotsAndBayou.tikiMasks, 'catchesSinceLast');
 
         if (getWorldName() === BACKWATER_BAYOU) {
             persistentData.waterHotspotsAndBayou.titanoboa.catchesSinceLast += 1;
         }
 
-        const isDoubleHooked = isDoubleHook();
-        const valueToAdd = isDoubleHooked ? 2 : 1;
-        let catchesSinceLastDrop = persistentData.waterHotspotsAndBayou.tikiMasks.catchesSinceLast || 0;
-        catchesSinceLastDrop += valueToAdd;
-        persistentData.waterHotspotsAndBayou.tikiMasks.catchesSinceLast = catchesSinceLastDrop;
-
         persistentData.save();
 
-        const message = getCatchesCounterChatMessage(seaCreatureInfo.seaCreature, seaCreatureInfo.rarityColorCode, catchesSinceLast, lastCatchTime);
+        const message = getCatchesCounterChatMessage(seaCreatureInfo.seaCreature, seaCreatureInfo.rarityColorCode, result.catchesSinceLast, result.lastCatchTime);
         ChatLib.chat(message);
     } catch (e) {
 		console.error(e);
@@ -268,28 +237,18 @@ function trackRegularSeaCreatureCatch() {
 
 function trackTitanoboaShedDrop() {
     try {
-        if (!settings.waterHotspotsAndBayouTrackerOverlay || !isInSkyblock() || !WATER_HOTSPOT_WORLDS.includes(getWorldName())) {
+        if (!settings.waterHotspotsAndBayouTrackerOverlay || !isInSkyblock() || getWorldName() !== BACKWATER_BAYOU) {
             return;
         }
 
-        const catches = persistentData.waterHotspotsAndBayou.titanoboaSheds.catchesSinceLast || 0;
-
-        persistentData.waterHotspotsAndBayou.titanoboaSheds.count += 1;
-        persistentData.waterHotspotsAndBayou.titanoboaSheds.catchesSinceLast = 0;
-
-        let dropsHistory = persistentData.waterHotspotsAndBayou.titanoboaSheds.dropsHistory || [];
-        const lastDropTime = dropsHistory.length && dropsHistory[0].time ? dropsHistory[0].time : null;
-        const elapsedTime = lastDropTime ? ` ${GRAY}(${WHITE}${formatTimeElapsedBetweenDates(new Date(lastDropTime))}${GRAY})` : '';
-
-        dropsHistory.unshift({
-            time: new Date(),
-            titanoboaCatches: catches
-        });
-        persistentData.waterHotspotsAndBayou.titanoboaSheds.dropsHistory = dropsHistory;
-
+        const result = setDropStatisticsOnDrop(persistentData.waterHotspotsAndBayou.titanoboaSheds, 'catchesSinceLast', 'titanoboaCatches');
         persistentData.save();
 
-        ChatLib.chat(`${GOLD}[FeeshNotifier] ${GRAY}It took ${WHITE}${catches} ${GRAY}${catches === 1 ? 'Titanoboa catch' : 'Titanoboa catches'}${elapsedTime} to get the ${GOLD}Titanoboa Shed ${WHITE}#${persistentData.waterHotspotsAndBayou.titanoboaSheds.count}${GRAY}. Congratulations!`);
+        const elapsedTimeText = result.lastDropTime ? ` ${GRAY}(${WHITE}${formatTimeElapsedBetweenDates(new Date(result.lastDropTime))}${GRAY})` : '';
+        const dropNumber = persistentData.waterHotspotsAndBayou.titanoboaSheds.count;
+        const catches = result.catches;
+        const message = `${GOLD}[FeeshNotifier] ${GRAY}It took ${WHITE}${catches} ${GRAY}${catches === 1 ? 'Titanoboa catch' : 'Titanoboa catches'}${elapsedTimeText} to get the ${GOLD}Titanoboa Shed ${WHITE}#${dropNumber}${GRAY}. Congratulations!`;
+        ChatLib.chat(message);
     } catch (e) {
 		console.error(e);
 		console.log(`[FeeshNotifier] Failed to track Titanoboa Shed drop.`);
@@ -302,24 +261,14 @@ function trackTikiMaskDrop() {
             return;
         }
 
-        const catches = persistentData.waterHotspotsAndBayou.tikiMasks.catchesSinceLast || 0;
-
-        persistentData.waterHotspotsAndBayou.tikiMasks.count += 1;
-        persistentData.waterHotspotsAndBayou.tikiMasks.catchesSinceLast = 0;
-
-        let dropsHistory = persistentData.waterHotspotsAndBayou.tikiMasks.dropsHistory || [];
-        const lastDropTime = dropsHistory.length && dropsHistory[0].time ? dropsHistory[0].time : null;
-        const elapsedTime = lastDropTime ? ` ${GRAY}(${WHITE}${formatTimeElapsedBetweenDates(new Date(lastDropTime))}${GRAY})` : '';
-
-        dropsHistory.unshift({
-            time: new Date(),
-            wikiTikiCatches: catches
-        });
-        persistentData.waterHotspotsAndBayou.tikiMasks.dropsHistory = dropsHistory;
-
+        const result = setDropStatisticsOnDrop(persistentData.waterHotspotsAndBayou.tikiMasks, 'catchesSinceLast', 'wikiTikiCatches');
         persistentData.save();
 
-        ChatLib.chat(`${GOLD}[FeeshNotifier] ${GRAY}It took ${WHITE}${catches} ${GRAY}${catches === 1 ? 'Wiki Tiki catch' : 'Wiki Tiki catches'}${elapsedTime} to get the ${GOLD}Tiki Mask ${WHITE}#${persistentData.waterHotspotsAndBayou.tikiMasks.count}${GRAY}. Congratulations!`);
+        const elapsedTimeText = result.lastDropTime ? ` ${GRAY}(${WHITE}${formatTimeElapsedBetweenDates(new Date(result.lastDropTime))}${GRAY})` : '';
+        const dropNumber = persistentData.waterHotspotsAndBayou.tikiMasks.count;
+        const catches = result.catches;
+        const message = `${GOLD}[FeeshNotifier] ${GRAY}It took ${WHITE}${catches} ${GRAY}${catches === 1 ? 'Wiki Tiki catch' : 'Wiki Tiki catches'}${elapsedTimeText} to get the ${GOLD}Tiki Mask ${WHITE}#${dropNumber}${GRAY}. Congratulations!`;
+        ChatLib.chat(message);
     } catch (e) {
 		console.error(e);
 		console.log(`[FeeshNotifier] Failed to track Tiki Mask drop.`);
@@ -339,6 +288,7 @@ function renderOverlay() {
         ) ||
         !isInSkyblock() ||
         !WATER_HOTSPOT_WORLDS.includes(getWorldName()) ||
+        !(getWorldName() === BACKWATER_BAYOU || isFishingInHotspot()) ||
         (new Date() - getLastFishingHookSeenAt() > 10 * 60 * 1000) ||
         allOverlaysGui.isOpen()
     ) {
@@ -346,10 +296,11 @@ function renderOverlay() {
         return;
     }
 
-    let overlayText = `${AQUA}${BOLD}Water Hotspots & Bayou tracker\n`;
+    let overlayText = `${AQUA}${BOLD}Water hotspots & Bayou tracker\n`;
     overlayText += getTitanoboaOverlayText();
     overlayText += getTitanoboaShedsOverlayText();
     overlayText += getWikiTikiOverlayText();
+    overlayText += getTikiMasksOverlayText();
 
     const overlay = new Text(overlayText, overlayCoordsData.waterHotspotsAndBayouTrackerOverlay.x, overlayCoordsData.waterHotspotsAndBayouTrackerOverlay.y)
         .setShadow(true)
@@ -361,76 +312,28 @@ function renderOverlay() {
     function getTitanoboaOverlayText() {
         if (getWorldName() !== BACKWATER_BAYOU) return '';
 
-        let overlayText = '';
-        const obj = persistentData.waterHotspotsAndBayou.titanoboa;
-        overlayText += `${LIGHT_PURPLE}Titanoboa: ${getCatchesSinceLastOverlayText(obj)} ${getAverageCatchesOverlayText(obj)}\n`;
-        overlayText += `${getLastCatchTimeOverlayText(obj)}\n`;
-
+        const overlayText = getSeaCreatureStatisticsOverlayText(`${LIGHT_PURPLE}Titanoboa`, persistentData.waterHotspotsAndBayou.titanoboa);
         return overlayText;
     }
 
     function getTitanoboaShedsOverlayText() {
         if (getWorldName() !== BACKWATER_BAYOU) return '';
 
-        const obj = persistentData.waterHotspotsAndBayou.titanoboaSheds;
-        const lastDropTime = obj.dropsHistory.length
-            ? `${WHITE}${formatTimeElapsedBetweenDates(new Date(obj.dropsHistory[0].time))} ${GRAY}(${WHITE}${formatDate(new Date(obj.dropsHistory[0].time))}${GRAY})` 
-            : `${WHITE}N/A`;
-        const catchesSinceLastDrop = obj.catchesSinceLast || 0;
-
-        let overlayText = '';
-        overlayText += `${GOLD}Titanoboa Sheds: ${WHITE}${formatNumberWithSpaces(obj.count)}\n`;
-        overlayText += `${GRAY}Last on: ${lastDropTime}\n`;
-        overlayText += `${GRAY}Last on: ${WHITE}${formatNumberWithSpaces(catchesSinceLastDrop)} ${GRAY}${catchesSinceLastDrop !== 1 ? 'Titanoboas' : 'Titanoboa'} ago`;
-
+        const overlayText = getDropStatisticsOverlayText(`${GOLD}Titanoboa Shed`, 'Titanoboa', persistentData.waterHotspotsAndBayou.titanoboaSheds, 'catchesSinceLast');
         return overlayText;
     }
 
     function getWikiTikiOverlayText() {
         if (!isFishingInHotspot()) return '';
 
-        let overlayText = '';
-        const obj = persistentData.waterHotspotsAndBayou.wikiTiki;
-        overlayText += `${LIGHT_PURPLE}Wiki Tiki: ${getCatchesSinceLastOverlayText(obj)} ${getAverageCatchesOverlayText(obj)}\n`;
-        overlayText += `${getLastCatchTimeOverlayText(obj)}\n`;
-
+        const overlayText = getSeaCreatureStatisticsOverlayText(`${LIGHT_PURPLE}Wiki Tiki`, persistentData.waterHotspotsAndBayou.wikiTiki);
         return overlayText;
     }
 
     function getTikiMasksOverlayText() {
         if (!isFishingInHotspot()) return '';
 
-        const obj = persistentData.waterHotspotsAndBayou.tikiMasks;
-        const lastDropTime = obj.dropsHistory.length
-            ? `${WHITE}${formatTimeElapsedBetweenDates(new Date(obj.dropsHistory[0].time))} ${GRAY}(${WHITE}${formatDate(new Date(obj.dropsHistory[0].time))}${GRAY})` 
-            : `${WHITE}N/A`;
-        const catchesSinceLastDrop = obj.catchesSinceLast || 0;
-
-        let overlayText = '';
-        overlayText += `${GOLD}Tiki Masks: ${WHITE}${formatNumberWithSpaces(obj.count)}\n`;
-        overlayText += `${GRAY}Last on: ${lastDropTime}\n`;
-        overlayText += `${GRAY}Last on: ${WHITE}${formatNumberWithSpaces(catchesSinceLastDrop)} ${GRAY}${catchesSinceLastDrop !== 1 ? 'Wiki Tikis' : 'Wiki Tiki'} ago`;
-
+        const overlayText = getDropStatisticsOverlayText(`${GOLD}Tiki Mask`, 'Wiki Tiki', persistentData.waterHotspotsAndBayou.tikiMasks, 'catchesSinceLast');
         return overlayText;
-    }
-    
-    function getCatchesSinceLastOverlayText(obj) {
-        const catchesSinceLast = `${WHITE}${formatNumberWithSpaces(obj?.catchesSinceLast || 0)}`;
-        const text = `${catchesSinceLast} ${GRAY}${obj?.catchesSinceLast !== 1 ? 'catches' : 'catch'} ago`;
-        return text;
-    }
-
-    function getAverageCatchesOverlayText(obj) {
-        const average = formatNumberWithSpaces(obj?.averageCatches) || 'N/A';
-        const text = `${DARK_GRAY}(${GRAY}avg: ${WHITE}${average}${DARK_GRAY})`;
-        return text;
-    }
-
-    function getLastCatchTimeOverlayText(obj) {
-        const lastCatchTime = obj?.lastCatchTime
-            ? `${WHITE}${formatTimeElapsedBetweenDates(new Date(obj.lastCatchTime))} ${GRAY}(${WHITE}${formatDate(new Date(obj.lastCatchTime))}${GRAY})` 
-            : `${WHITE}N/A`;
-        const text = `${GRAY}Last on: ${lastCatchTime}`;
-        return text;
     }
 }
