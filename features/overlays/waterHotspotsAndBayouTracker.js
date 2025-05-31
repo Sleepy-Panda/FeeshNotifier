@@ -24,11 +24,11 @@ const TRACKED_SEA_CREATURES = [
 const TRACKED_DROPS = [
     {
         dropInfo: triggers.RARE_DROP_TRIGGERS.find(entry => entry.trigger === triggers.TITANOBOA_SHED_MESSAGE),
-        callback: () => trackTitanoboaShedDrop(),
+        callback: (magicFind) => trackTitanoboaShedDrop(magicFind),
     },
     {
         dropInfo: triggers.RARE_DROP_TRIGGERS.find(entry => entry.trigger === triggers.TIKI_MASK_MESSAGE),
-        callback: () => trackTikiMaskDrop(),
+        callback: (magicFind) => trackTikiMaskDrop(magicFind),
     },
 ];
 
@@ -48,7 +48,7 @@ TRACKED_SEA_CREATURES.forEach(entry => {
 
 TRACKED_DROPS.forEach(entry => {
     registerIf(
-        register("Chat", (magicFind, event) => entry.callback()).setCriteria(entry.dropInfo.trigger).setContains(),
+        register("Chat", (magicFind, event) => entry.callback(magicFind)).setCriteria(entry.dropInfo.trigger).setContains(),
         () => settings.waterHotspotsAndBayouTrackerOverlay && isInSkyblock() && WATER_HOTSPOT_WORLDS.includes(getWorldName())
     );
 });
@@ -185,13 +185,13 @@ function trackRegularSeaCreatureCatch() {
 	}
 }
 
-function trackTitanoboaShedDrop() {
+function trackTitanoboaShedDrop(magicFind) {
     try {
         if (!settings.waterHotspotsAndBayouTrackerOverlay || !isInSkyblock() || getWorldName() !== BACKWATER_BAYOU) {
             return;
         }
 
-        const result = setDropStatisticsOnDrop(persistentData.waterHotspotsAndBayou.titanoboaSheds, 'catchesSinceLast', 'titanoboaCatches');
+        const result = setDropStatisticsOnDrop(persistentData.waterHotspotsAndBayou.titanoboaSheds, 'catchesSinceLast', 'titanoboaCatches', magicFind);
         persistentData.save();
 
         const dropNumber = persistentData.waterHotspotsAndBayou.titanoboaSheds.count;
@@ -203,13 +203,13 @@ function trackTitanoboaShedDrop() {
 	}
 }
 
-function trackTikiMaskDrop() {
+function trackTikiMaskDrop(magicFind) {
     try {
         if (!settings.waterHotspotsAndBayouTrackerOverlay || !isInSkyblock() || !WATER_HOTSPOT_WORLDS.includes(getWorldName())) {
             return;
         }
 
-        const result = setDropStatisticsOnDrop(persistentData.waterHotspotsAndBayou.tikiMasks, 'catchesSinceLast', 'wikiTikiCatches');
+        const result = setDropStatisticsOnDrop(persistentData.waterHotspotsAndBayou.tikiMasks, 'catchesSinceLast', 'wikiTikiCatches', magicFind);
         persistentData.save();
 
         const dropNumber = persistentData.waterHotspotsAndBayou.tikiMasks.count;
