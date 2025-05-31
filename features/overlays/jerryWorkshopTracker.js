@@ -78,14 +78,7 @@ register("worldUnload", () => {
 });
 
 register("gameUnload", () => {
-    if (settings.jerryWorkshopTrackerOverlay && settings.resetJerryWorkshopTrackerOnGameClosed && persistentData.jerryWorkshop && (
-        persistentData.jerryWorkshop.yeti.lastCatchTime ||
-        persistentData.jerryWorkshop.yeti.catchesSinceLast ||
-        persistentData.jerryWorkshop.reindrake.lastCatchTime ||
-        persistentData.jerryWorkshop.reindrake.catchesSinceLast ||
-        persistentData.jerryWorkshop.babyYetiPets.epic.count ||
-        persistentData.jerryWorkshop.babyYetiPets.legendary.count
-    )) {
+    if (settings.jerryWorkshopTrackerOverlay && settings.resetJerryWorkshopTrackerOnGameClosed && hasAnyData()) {
         resetJerryWorkshopTracker(true);
     }
 });
@@ -123,6 +116,17 @@ function getDefaultObject() {
         reindrake: getDefaultSeaCreatureSectionObject(),
         babyYetiPets: { epic: { count: 0 }, legendary: { count: 0 } }
     };
+}
+
+function hasAnyData() {
+    return persistentData.jerryWorkshop && (
+        persistentData.jerryWorkshop.yeti.lastCatchTime ||
+        persistentData.jerryWorkshop.yeti.catchesSinceLast ||
+        persistentData.jerryWorkshop.reindrake.lastCatchTime ||
+        persistentData.jerryWorkshop.reindrake.catchesSinceLast ||
+        persistentData.jerryWorkshop.babyYetiPets.epic.count ||
+        persistentData.jerryWorkshop.babyYetiPets.legendary.count
+    );
 }
 
 function trackYetiCatch(seaCreatureInfo) {
@@ -231,15 +235,7 @@ function trackRemainingWorkshopTime() {
 
 function renderJerryWorkshopOverlay() {
     if (!settings.jerryWorkshopTrackerOverlay ||
-        !persistentData.jerryWorkshop ||
-        (
-            !persistentData.jerryWorkshop.yeti.lastCatchTime &&
-            !persistentData.jerryWorkshop.yeti.catchesSinceLast &&
-            !persistentData.jerryWorkshop.reindrake.lastCatchTime &&
-            !persistentData.jerryWorkshop.reindrake.catchesSinceLast &&
-            !persistentData.jerryWorkshop.babyYetiPets.epic.count &&
-            !persistentData.jerryWorkshop.babyYetiPets.legendary.count
-        ) ||
+        !hasAnyData() ||
         !isInSkyblock() ||
         getWorldName() !== JERRY_WORKSHOP ||
         (new Date() - getLastFishingHookSeenAt() > 10 * 60 * 1000) ||

@@ -59,14 +59,7 @@ registerIf(
 );
 
 register("gameUnload", () => {
-    if (settings.waterHotspotsAndBayouTrackerOverlay && settings.resetWaterHotspotsAndBayouTrackerOnGameClosed && persistentData.waterHotspotsAndBayou && (
-        persistentData.waterHotspotsAndBayou.titanoboa.lastCatchTime ||
-        persistentData.waterHotspotsAndBayou.titanoboa.catchesSinceLast ||
-        persistentData.waterHotspotsAndBayou.wikiTiki.lastCatchTime ||
-        persistentData.waterHotspotsAndBayou.wikiTiki.catchesSinceLast ||
-        persistentData.waterHotspotsAndBayou.titanoboaSheds.count ||
-        persistentData.waterHotspotsAndBayou.tikiMasks.count
-    )) {
+    if (settings.waterHotspotsAndBayouTrackerOverlay && settings.resetWaterHotspotsAndBayouTrackerOnGameClosed && hasAnyData()) {
         resetWaterHotspotsAndBayouTracker(true);
     }
 });
@@ -105,6 +98,17 @@ function getDefaultObject() {
         wikiTiki: getDefaultSeaCreatureSectionObject(),
         tikiMasks: { count: 0, catchesSinceLast: 0, dropsHistory: [] }
     };
+}
+
+function hasAnyData() {
+    return persistentData.waterHotspotsAndBayou && (
+        persistentData.waterHotspotsAndBayou.titanoboa.lastCatchTime ||
+        persistentData.waterHotspotsAndBayou.titanoboa.catchesSinceLast ||
+        persistentData.waterHotspotsAndBayou.wikiTiki.lastCatchTime ||
+        persistentData.waterHotspotsAndBayou.wikiTiki.catchesSinceLast ||
+        persistentData.waterHotspotsAndBayou.titanoboaSheds.count ||
+        persistentData.waterHotspotsAndBayou.tikiMasks.count
+    );
 }
 
 function isFishingInHotspot() {
@@ -219,15 +223,7 @@ function trackTikiMaskDrop() {
 
 function renderOverlay() {
     if (!settings.waterHotspotsAndBayouTrackerOverlay ||
-        !persistentData.waterHotspotsAndBayou ||
-        (
-            !persistentData.waterHotspotsAndBayou.titanoboa.lastCatchTime &&
-            !persistentData.waterHotspotsAndBayou.titanoboa.catchesSinceLast &&
-            !persistentData.waterHotspotsAndBayou.wikiTiki.lastCatchTime &&
-            !persistentData.waterHotspotsAndBayou.wikiTiki.catchesSinceLast &&
-            !persistentData.waterHotspotsAndBayou.titanoboaSheds.count &&
-            !persistentData.waterHotspotsAndBayou.tikiMasks.count
-        ) ||
+        !hasAnyData() ||
         !isInSkyblock() ||
         !WATER_HOTSPOT_WORLDS.includes(getWorldName()) ||
         !(getWorldName() === BACKWATER_BAYOU || isFishingInHotspot()) ||

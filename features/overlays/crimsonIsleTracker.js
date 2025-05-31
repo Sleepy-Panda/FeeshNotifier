@@ -68,19 +68,7 @@ registerIf(
 );
 
 register("gameUnload", () => {
-    if (settings.crimsonIsleTrackerOverlay && settings.resetCrimsonIsleTrackerOnGameClosed && persistentData.crimsonIsle && (
-        persistentData.crimsonIsle.fieryScuttler?.lastCatchTime ||
-        persistentData.crimsonIsle.fieryScuttler?.catchesSinceLast ||
-        persistentData.crimsonIsle.ragnarok?.lastCatchTime ||
-        persistentData.crimsonIsle.ragnarok?.catchesSinceLast ||
-        persistentData.crimsonIsle.plhlegblast?.lastCatchTime ||
-        persistentData.crimsonIsle.plhlegblast?.catchesSinceLast ||
-        persistentData.crimsonIsle.thunder?.lastCatchTime ||
-        persistentData.crimsonIsle.thunder?.catchesSinceLast ||
-        persistentData.crimsonIsle.lordJawbus?.lastCatchTime ||
-        persistentData.crimsonIsle.lordJawbus?.catchesSinceLast ||
-        persistentData.crimsonIsle.radioactiveVials.count
-    )) {
+    if (settings.crimsonIsleTrackerOverlay && settings.resetCrimsonIsleTrackerOnGameClosed && hasAnyData()) {
         resetCrimsonIsleTracker(true);
     }
 });
@@ -174,6 +162,22 @@ function getDefaultObject() {
     };
 }
 
+function hasAnyData() {
+    return persistentData.crimsonIsle && (
+        persistentData.crimsonIsle.fieryScuttler?.lastCatchTime ||
+        persistentData.crimsonIsle.fieryScuttler?.catchesSinceLast ||
+        persistentData.crimsonIsle.ragnarok?.lastCatchTime ||
+        persistentData.crimsonIsle.ragnarok?.catchesSinceLast ||
+        persistentData.crimsonIsle.plhlegblast?.lastCatchTime ||
+        persistentData.crimsonIsle.plhlegblast?.catchesSinceLast ||
+        persistentData.crimsonIsle.thunder?.lastCatchTime ||
+        persistentData.crimsonIsle.thunder?.catchesSinceLast ||
+        persistentData.crimsonIsle.lordJawbus?.lastCatchTime ||
+        persistentData.crimsonIsle.lordJawbus?.catchesSinceLast ||
+        persistentData.crimsonIsle.radioactiveVials?.count
+    );
+}
+
 function isFishingInHotspot() {
     if (getWorldName() !== CRIMSON_ISLE) return false;
 
@@ -255,9 +259,6 @@ function trackPlhlegblastCatch(seaCreatureInfo) {
         }
 
         initMissingPersistentData();
-
-        const catchesSinceLast = persistentData.crimsonIsle.plhlegblast.catchesSinceLast + 1;
-        const lastCatchTime = persistentData.crimsonIsle.plhlegblast.lastCatchTime;
 
         const result = setSeaCreatureStatisticsOnCatch(persistentData.crimsonIsle.plhlegblast);
 
@@ -406,20 +407,7 @@ function trackRadioctiveVialDrop() {
 
 function renderCrimsonIsleTrackerOverlay() {
     if (!settings.crimsonIsleTrackerOverlay ||
-        !persistentData.crimsonIsle ||
-        (
-            !persistentData.crimsonIsle.fieryScuttler?.lastCatchTime &&
-            !persistentData.crimsonIsle.fieryScuttler?.catchesSinceLast &&
-            !persistentData.crimsonIsle.ragnarok?.lastCatchTime &&
-            !persistentData.crimsonIsle.ragnarok?.catchesSinceLast &&
-            !persistentData.crimsonIsle.plhlegblast?.lastCatchTime &&
-            !persistentData.crimsonIsle.plhlegblast?.catchesSinceLast &&
-            !persistentData.crimsonIsle.thunder?.lastCatchTime &&
-            !persistentData.crimsonIsle.thunder?.catchesSinceLast &&
-            !persistentData.crimsonIsle.lordJawbus?.lastCatchTime &&
-            !persistentData.crimsonIsle.lordJawbus?.catchesSinceLast &&
-            !persistentData.crimsonIsle.radioactiveVials.count
-        ) ||
+        !hasAnyData() ||
         !isInSkyblock() ||
         getWorldName() !== CRIMSON_ISLE ||
         (new Date() - getLastFishingHookSeenAt() > 10 * 60 * 1000) ||
