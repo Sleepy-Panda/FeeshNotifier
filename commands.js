@@ -14,6 +14,7 @@ import { resetAbandonedQuarryTracker } from "./features/overlays/abandonedQuarry
 import { resetSeaCreaturesPerHourTracker } from "./features/overlays/seaCreaturesPerHourTracker";
 import { resetArchfiendDiceProfitTracker } from "./features/overlays/archfiendDiceProfitTracker";
 import { SESSION_VIEW_MODE, TOTAL_VIEW_MODE } from "./constants/viewModes";
+import { resetWaterHotspotsAndBayouTracker } from "./features/overlays/waterHotspotsAndBayouTracker";
 
 register("command", (...args) => {
     settings.getConfig().openGui();
@@ -38,6 +39,11 @@ register("command", (...args) => {
     const isConfirmed = args[0] && args[0] === "noconfirm";
     resetJerryWorkshopTracker(!!isConfirmed);
 }).setName("feeshResetJerryWorkshop");
+
+register("command", (...args) => {
+    const isConfirmed = args[0] && args[0] === "noconfirm";
+    resetWaterHotspotsAndBayouTracker(!!isConfirmed);
+}).setName("feeshResetWaterHotspotsAndBayou");
 
 register("command", (...args) => {
     const isConfirmed = args[0] && args[0] === "noconfirm";

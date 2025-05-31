@@ -31,6 +31,7 @@ import "./features/overlays/seaCreaturesPerHourTracker";
 import "./features/overlays/legionAndBobbingTimeTracker";
 import "./features/overlays/crimsonIsleTracker";
 import "./features/overlays/jerryWorkshopTracker";
+import "./features/overlays/waterHotspotsAndBayouTracker";
 import "./features/overlays/wormMembraneProfitTracker";
 import "./features/overlays/magmaCoreProfitTracker";
 import "./features/overlays/abandonedQuarryTracker";

@@ -1,6 +1,6 @@
 import settings from "../settings";
-import { GREEN, RED, YELLOW } from "../constants/formatting";
-import { isInChatOrInventoryGui } from "./common";
+import { DARK_GRAY, GRAY, GREEN, RED, WHITE, YELLOW } from "../constants/formatting";
+import { formatDate, formatNumberWithSpaces, formatTimeElapsedBetweenDates, isDoubleHook, isInChatOrInventoryGui, pluralize } from "./common";
 
 /**
  * Create Display with specified buttons and actions on button click.
@@ -88,4 +88,123 @@ export function getButtonsDisplayRenderY(buttonsDisplay, overlay, overlayCoords)
 		const height = buttonsDisplay.getHeight();
 		return overlayCoords.y - height - 2;
 	}
+}
+
+/**
+ * Set 'Catches history', 'Catches since last', 'Last catch time', and 'Average catches' for sea creature object reference from persistent data. Does not save the result!
+ * @param {object} seaCreatureObj Sea creature object reference from persistent data
+ */
+export function setSeaCreatureStatisticsOnCatch(seaCreatureObj) {
+    const catchesSinceLast = seaCreatureObj.catchesSinceLast + 1;
+    const lastCatchTime = seaCreatureObj.lastCatchTime;
+
+    let catchesHistory = seaCreatureObj.catchesHistory || [];
+    catchesHistory.unshift(catchesSinceLast); // Most recent counts at the start of array
+    catchesHistory.length = Math.min(catchesHistory.length, 100); // Store last 100
+    seaCreatureObj.catchesHistory = catchesHistory;
+
+    const sumCatches = catchesHistory.reduce(function(a, b) { return a + b; }, 0);
+    seaCreatureObj.averageCatches = catchesHistory.length ? Math.round(sumCatches / catchesHistory.length) : 0;
+    seaCreatureObj.catchesSinceLast = 0;
+    seaCreatureObj.lastCatchTime = new Date();
+
+    return {
+        catchesSinceLast: catchesSinceLast,
+        lastCatchTime: lastCatchTime
+    };
+}
+
+/**
+ * Set 'Catches since last drop' for drop object reference from persistent data. Does not save the result!
+ * @param {object} dropObj Drop object reference from persistent data
+ * @param {string} catchesSinceLastPropName Property name for 'Catches since last drop'
+ */
+export function setDropStatisticsOnCatch(dropObj, catchesSinceLastPropName) {
+    const isDoubleHooked = isDoubleHook();
+    const valueToAdd = isDoubleHooked ? 2 : 1;
+    let catchesSinceLastDrop = dropObj[catchesSinceLastPropName] || 0;
+    catchesSinceLastDrop += valueToAdd;
+    dropObj[catchesSinceLastPropName] = catchesSinceLastDrop;
+}
+
+/**
+ * Set 'Catches since last drop' for drop object reference from persistent data. Does not save the result!
+ * @param {object} dropObj Drop object reference from persistent data
+ * @param {string} catchesSinceLastPropName Property name for 'Catches since last drop'
+ * @param {string} dropsHistoryCatchesPropName Property name for 'Catches' inside of drops history objects
+ */
+export function setDropStatisticsOnDrop(dropObj, catchesSinceLastPropName, dropsHistoryCatchesPropName) {
+    const catches = dropObj[catchesSinceLastPropName] || 0;
+
+    dropObj.count += 1;
+    dropObj[catchesSinceLastPropName] = 0;
+
+    let dropsHistory = dropObj.dropsHistory || [];
+    const lastDropTime = dropsHistory.length && dropsHistory[0].time ? dropsHistory[0].time : null;
+
+    dropsHistory.unshift({
+        time: new Date(),
+        [dropsHistoryCatchesPropName]: catches
+    });
+    dropObj.dropsHistory = dropsHistory;
+
+    return {
+        lastDropTime: lastDropTime,
+        catches: catches
+    };
+}
+
+/**
+ * Get overlay text for sea creature statistics, such as 'Catches since last', 'Last catch time', and 'Average catches'.
+ * @param {object} dropObj Drop object reference from persistent data
+ * @param {string} seaCreatureDisplayName Sea creature name with color/formatting
+ * @param {object} seaCreatureObj Sea creature object reference from persistent data
+ */
+export function getSeaCreatureStatisticsOverlayText(seaCreatureDisplayName, seaCreatureObj) {
+    let overlayText = '';
+    overlayText += `${seaCreatureDisplayName}: ${getCatchesSinceLastOverlayText(seaCreatureObj)} ${getAverageCatchesOverlayText(seaCreatureObj)}`;
+    overlayText += `\n${getLastCatchTimeOverlayText(seaCreatureObj)}`;
+
+    return overlayText;
+
+    function getCatchesSinceLastOverlayText(obj) {
+        const catchesSinceLast = `${WHITE}${formatNumberWithSpaces(obj?.catchesSinceLast || 0)}`;
+        const text = `${catchesSinceLast} ${GRAY}${obj?.catchesSinceLast !== 1 ? 'catches' : 'catch'} ago`;
+        return text;
+    }
+
+    function getAverageCatchesOverlayText(obj) {
+        const average = formatNumberWithSpaces(obj?.averageCatches) || 'N/A';
+        const text = `${DARK_GRAY}(${GRAY}avg: ${WHITE}${average}${DARK_GRAY})`;
+        return text;
+    }
+
+    function getLastCatchTimeOverlayText(obj) {
+        const lastCatchTime = obj?.lastCatchTime
+            ? `${WHITE}${formatTimeElapsedBetweenDates(new Date(obj.lastCatchTime))} ${GRAY}(${WHITE}${formatDate(new Date(obj.lastCatchTime))}${GRAY})` 
+            : `${WHITE}N/A`;
+        const text = `${GRAY}Last on: ${lastCatchTime}`;
+        return text;
+    }
+}
+
+/**
+ * Get overlay text for drop statistics, such as 'Count', 'Last drop time', and 'Catches since last drop'.
+ * @param {string} dropDisplayName Drop name with color/formatting
+ * @param {string} seaCreatureName Sea creature name without color/formatting
+ * @param {object} dropObj Drop object reference from persistent data
+ * @param {string} catchesSinceLastPropName Property name for 'Catches since last drop'
+ */
+export function getDropStatisticsOverlayText(dropDisplayName, seaCreatureName, dropObj, catchesSinceLastPropName) {
+    const lastDropTime = dropObj.dropsHistory.length
+        ? `${WHITE}${formatTimeElapsedBetweenDates(new Date(dropObj.dropsHistory[0].time))} ${GRAY}(${WHITE}${formatDate(new Date(dropObj.dropsHistory[0].time))}${GRAY})` 
+        : `${WHITE}N/A`;
+    const catchesSinceLastDrop = dropObj[catchesSinceLastPropName] || 0;
+
+    let overlayText = '';
+    overlayText += `${pluralize(dropDisplayName)}: ${WHITE}${formatNumberWithSpaces(dropObj.count)}`;
+    overlayText += `\n${GRAY}Last on: ${lastDropTime}`;
+    overlayText += `\n${GRAY}Last on: ${WHITE}${formatNumberWithSpaces(catchesSinceLastDrop)} ${GRAY}${catchesSinceLastDrop !== 1 ? pluralize(seaCreatureName) : seaCreatureName} ago`;
+
+    return overlayText;
 }

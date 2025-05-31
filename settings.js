@@ -13,6 +13,7 @@ export const seaCreaturesPerHourTrackerOverlayGui = new Gui();
 export const legionAndBobbingTimeOverlayGui = new Gui();
 export const crimsonIsleTrackerOverlayGui = new Gui();
 export const jerryWorkshopTrackerOverlayGui = new Gui();
+export const waterHotspotsAndBayouTrackerOverlayGui = new Gui();
 export const wormProfitTrackerOverlayGui = new Gui();
 export const magmaCoreProfitTrackerOverlayGui = new Gui();
 export const abandonedQuarryTrackerOverlayGui = new Gui();
@@ -1225,7 +1226,7 @@ Example: ${AQUA}/feeshSetRadioactiveVials 5 2024-03-18T14:05:00Z`);
     category: "Overlays",
     configName: "resetCrimsonIsleTrackerOnGameClosed",
     title: "Reset on closing game",
-    description: "Automatically reset the Crimson Isle tracker when you close Minecraft or or reload CT modules.",
+    description: "Automatically reset the Crimson Isle tracker when you close Minecraft or reload CT modules.",
     subcategory: "Crimson Isle tracker"
 })
 .addButton({
@@ -1246,6 +1247,44 @@ Example: ${AQUA}/feeshSetRadioactiveVials 5 2024-03-18T14:05:00Z`);
     subcategory: "Crimson Isle tracker",
     onClick() {
         ChatLib.command("feeshResetCrimsonIsle noconfirm", true);
+    }
+})
+
+.addSwitch({
+    category: "Overlays",
+    configName: "waterHotspotsAndBayouTrackerOverlay",
+    title: "Water hotspots & Bayou tracker",
+    description: `
+Shows an overlay with Titanoboa (when fishing in hotspot) and Wiki Tiki (when in Backwater Bayou) catch statistics. Also has Titanoboa Shed and Tiki Mask drop statistics.
+Do ${AQUA}/feeshResetWaterHotspotsAndBayou${GRAY} to reset.`,
+    subcategory: "Water hotspots & Bayou tracker",
+    value: true
+})
+.addSwitch({
+    category: "Overlays",
+    configName: "resetWaterHotspotsAndBayouTrackerOnGameClosed",
+    title: "Reset on closing game",
+    description: "Automatically reset the Water hotspots & Bayou tracker when you close Minecraft or reload CT modules.",
+    subcategory: "Water hotspots & Bayou tracker"
+})
+.addButton({
+    category: "Overlays",
+    configName: "moveWaterHotspotsAndBayouTrackerOverlay",
+    title: "Move Water hotspots & Bayou tracker",
+    description: "Allows to move and resize the overlay text.",
+    subcategory: "Water hotspots & Bayou tracker",
+    onClick() {
+        moveOverlay(waterHotspotsAndBayouTrackerOverlayGui);
+    }
+})
+.addButton({
+    category: "Overlays",
+    configName: "resetWaterHotspotsAndBayouTracker",
+    title: "Reset Water hotspots & Bayou tracker",
+    description: `Resets tracking for Water hotspots & Bayou tracker. Executes ${AQUA}/feeshResetWaterHotspotsAndBayou`,
+    subcategory: "Water hotspots & Bayou tracker",
+    onClick() {
+        ChatLib.command("feeshResetWaterHotspotsAndBayou noconfirm", true);
     }
 })
 

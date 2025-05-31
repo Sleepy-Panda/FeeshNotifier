@@ -103,6 +103,12 @@ export function getCatchesCounterChatMessage(seaCreatureName, seaCreatureRarity,
 	return `${GOLD}[FeeshNotifier] ${b2bText}${GRAY}It took ${catchesText}${elapsedTimeText} to get the ${seaCreatureDisplayName}${GRAY}.`;
 }
 
+export function getDropCatchesCounterChatMessage(dropDisplayName, seaCreatureName, lastDropTime, dropNumber, catches) {
+	const elapsedTimeText = lastDropTime ? ` ${GRAY}(${WHITE}${formatTimeElapsedBetweenDates(new Date(lastDropTime))}${GRAY})` : '';
+	const catchesText = catches === 1 ? `${WHITE}${catches} ${GRAY}${fromUppercaseToCapitalizedFirstLetters(seaCreatureName)} catch` : `${WHITE}${catches} ${GRAY}${fromUppercaseToCapitalizedFirstLetters(seaCreatureName)} catches`;
+    return `${GOLD}[FeeshNotifier] ${GRAY}It took ${catchesText}${elapsedTimeText} to get the ${dropDisplayName} ${WHITE}#${dropNumber}${GRAY}. Congratulations!`;   
+}
+
 // Transforms UPPERCASE TEXT to a Regular Text With Capitalized First Letters.
 export function fromUppercaseToCapitalizedFirstLetters(str) {
 	if (!str) {

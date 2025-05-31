@@ -5,6 +5,8 @@
 Released: ???
 
 Features:
+- Added Water hotspots & Bayou tracker. It shows an overlay with Titanoboa (when fishing in hotspot) and Wiki Tiki (when in Backwater Bayou) catch statistics. Also has Titanoboa Shed and Tiki Mask drop statistics.
+  - TODO: Set drops command
 - Added Fiery Scuttler & Ragnarok (when fishing in hotspot), Plhlegblast (when in Plhlegblast Pool) tracking to Crimson Isle tracker.
 
 Bugfixes:
