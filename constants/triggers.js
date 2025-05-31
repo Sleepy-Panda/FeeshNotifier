@@ -96,7 +96,7 @@ export const BAYOU_SLUDGE_MESSAGE = `${RESET}${GREEN}A swampy mass of slime emer
 export const ALLIGATOR_MESSAGE = `${RESET}${GREEN}A long snout breaks the surface of the water. It's an Alligator!${RESET}`;
 export const TITANOBOA_MESSAGE = `${RESET}${GREEN}${RESET}${RED}${BOLD}A massive Titanoboa surfaces. It's body stretches as far as the eye can see.${RESET}`; // &r&a&r&c&lA massive Titanoboa surfaces. It's body stretches as far as the eye can see.&r
 export const BLUE_RINGED_OCTOPUS_MESSAGE = `${RESET}${GREEN}A garish set of tentacles arise. It's a Blue Ringed Octopus!${RESET}`;
-export const WIKI_TIKI_MESSAGE = `${RESET}${RED}${RESET}${RED}${BOLD}The water bubbles and froths. A massive form emerges- you have disturbed the Wiki Tiki! You shall pay the price.${RESET}`;
+export const WIKI_TIKI_MESSAGE = `${RESET}${RED}${RESET}${RED}${BOLD}The water bubbles and froths. A massive form emerges- you have disturbed the Wiki Tiki! You shall pay the price.${RESET}`; // &r&c&r&c&lThe water bubbles and froths. A massive form emerges- you have disturbed the Wiki Tiki! You shall pay the price.&r
 
 // DROPS
 
@@ -1158,12 +1158,6 @@ export const REGULAR_WATER_HOTSPOT_AND_BAYOU_CATCH_TRIGGERS = [
     },
     {
         trigger: BLUE_RINGED_OCTOPUS_MESSAGE,
-    },
-    {
-        trigger: WIKI_TIKI_MESSAGE,
-    },
-    {
-        trigger: TITANOBOA_MESSAGE,
     },
 ];
 
