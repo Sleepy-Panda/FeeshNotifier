@@ -1,5 +1,5 @@
 import settings from "../settings";
-import { DARK_GRAY, GRAY, GREEN, RED, WHITE, YELLOW } from "../constants/formatting";
+import { DARK_GRAY, GOLD, GRAY, GREEN, RED, WHITE, YELLOW } from "../constants/formatting";
 import { formatDate, formatNumberWithSpaces, formatTimeElapsedBetweenDates, isDoubleHook, isInChatOrInventoryGui, pluralize } from "./common";
 
 /**
@@ -209,4 +209,48 @@ export function getDropStatisticsOverlayText(dropDisplayName, seaCreatureName, d
     overlayText += `\n${GRAY}Last on: ${WHITE}${formatNumberWithSpaces(catchesSinceLastDrop)} ${GRAY}${catchesSinceLastDrop !== 1 ? pluralize(seaCreatureName) : seaCreatureName} ago`;
 
     return overlayText;
+}
+
+export function initDropCountOnOverlay(dropObj, count, lastOn) {
+    if (typeof count !== 'number' || count < 0 || !Number.isInteger(count)) {
+        return `${GOLD}[FeeshNotifier] ${RED}Please specify correct count.`;
+    }
+
+    if (lastOn && !isValidDate(lastOn)) {
+        return `${GOLD}[FeeshNotifier] ${RED}Please specify correct Last On date in format YYYY-MM-DD hh:mm:ss, e.g. 2024-03-18 14:05:00. Can not be a future date!`;
+    }
+
+    dropObj.count = count;
+
+    if (lastOn) {
+        const dropsHistory = (dropObj.dropsHistory || []);
+        const isoString = getLocalDate(lastOn).toISOString();
+        const dateIso = new Date(isoString);
+
+        if (dropsHistory.length) {
+            dropsHistory[0].time = dateIso;
+        } else {
+            dropsHistory.unshift({
+                time: dateIso,
+            });
+        }
+    }
+
+    function isValidDate(dateString) {
+        if (!dateString || !/\d{4}-\d{2}-\d{2} \d{2}:\d{2}:\d{2}/.test(dateString)) return false;
+
+        const d = new Date(dateString.replace(' ', 'T')); 
+        if (!(d instanceof Date) || isNaN(d.getTime())) return false;
+
+        const now = new Date();
+        return getLocalDate(dateString) <= now;
+    }
+
+    function getLocalDate(lastOn) {
+        const [datePart, timePart] = lastOn.split(' ');
+        const [year, month, day] = datePart.split('-').map(Number);
+        const [hour, minute, second] = timePart.split(':').map(Number);
+        const localDate = new Date(year, month - 1, day, hour, minute, second);
+        return localDate;
+    }
 }
