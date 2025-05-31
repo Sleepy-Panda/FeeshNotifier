@@ -10,7 +10,7 @@ Features:
 - Added Fiery Scuttler & Ragnarok (when fishing in hotspot), Plhlegblast (when in Plhlegblast Pool) tracking to Crimson Isle tracker.
 
 Bugfixes:
--
+- Do not display DH for Reindrakes in Rare Catches tracker.
 
 ## v1.43.0
 
