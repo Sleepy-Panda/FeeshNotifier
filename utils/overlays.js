@@ -132,8 +132,9 @@ export function setDropStatisticsOnCatch(dropObj, catchesSinceLastPropName) {
  * @param {object} dropObj Drop object reference from persistent data
  * @param {string} catchesSinceLastPropName Property name for 'Catches since last drop'
  * @param {string} dropsHistoryCatchesPropName Property name for 'Catches' inside of drops history objects
+ * @param {number} magicFind Drop's magic find
  */
-export function setDropStatisticsOnDrop(dropObj, catchesSinceLastPropName, dropsHistoryCatchesPropName) {
+export function setDropStatisticsOnDrop(dropObj, catchesSinceLastPropName, dropsHistoryCatchesPropName, magicFind) {
     const catches = dropObj[catchesSinceLastPropName] || 0;
 
     dropObj.count += 1;
@@ -144,6 +145,7 @@ export function setDropStatisticsOnDrop(dropObj, catchesSinceLastPropName, drops
 
     dropsHistory.unshift({
         time: new Date(),
+        magicFind: +magicFind || null,
         [dropsHistoryCatchesPropName]: catches
     });
     dropObj.dropsHistory = dropsHistory;

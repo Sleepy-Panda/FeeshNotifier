@@ -37,7 +37,7 @@ const TRACKED_SEA_CREATURES = [
 const TRACKED_DROPS = [
     {
         dropInfo: triggers.RARE_DROP_TRIGGERS.find(entry => entry.trigger === triggers.RADIOACTIVE_VIAL_MESSAGE),
-        callback: () => trackRadioctiveVialDrop(),
+        callback: (magicFind) => trackRadioctiveVialDrop(magicFind),
     },
 ];
 
@@ -57,7 +57,7 @@ TRACKED_SEA_CREATURES.forEach(entry => {
 
 TRACKED_DROPS.forEach(entry => {
     registerIf(
-        register("Chat", (magicFind, event) => entry.callback()).setCriteria(entry.dropInfo.trigger).setContains(),
+        register("Chat", (magicFind, event) => entry.callback(magicFind)).setCriteria(entry.dropInfo.trigger).setContains(),
         () => settings.crimsonIsleTrackerOverlay && isInSkyblock() && getWorldName() === CRIMSON_ISLE
     );
 });
@@ -387,13 +387,13 @@ function trackRegularSeaCreatureCatch() {
 	}
 }
 
-function trackRadioctiveVialDrop() {
+function trackRadioctiveVialDrop(magicFind) {
     try {
         if (!settings.crimsonIsleTrackerOverlay || !isInSkyblock() || getWorldName() !== CRIMSON_ISLE) {
             return;
         }
 
-        const result = setDropStatisticsOnDrop(persistentData.crimsonIsle.radioactiveVials, 'lordJawbusCatchesSinceLast', 'lordJawbusCatches');
+        const result = setDropStatisticsOnDrop(persistentData.crimsonIsle.radioactiveVials, 'lordJawbusCatchesSinceLast', 'lordJawbusCatches', magicFind);
         persistentData.save();
 
         const dropNumber = persistentData.crimsonIsle.radioactiveVials.count;
