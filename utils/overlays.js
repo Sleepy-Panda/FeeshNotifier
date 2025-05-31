@@ -163,7 +163,7 @@ export function setDropStatisticsOnDrop(dropObj, catchesSinceLastPropName, drops
 export function getSeaCreatureStatisticsOverlayText(seaCreatureDisplayName, seaCreatureObj) {
     let overlayText = '';
     overlayText += `${seaCreatureDisplayName}: ${getCatchesSinceLastOverlayText(seaCreatureObj)} ${getAverageCatchesOverlayText(seaCreatureObj)}\n`;
-    overlayText += `${getLastCatchTimeOverlayText(seaCreatureObj)}\n`;
+    overlayText += `${getLastCatchTimeOverlayText(seaCreatureObj)}`;
 
     return overlayText;
 
@@ -204,7 +204,7 @@ export function getDropStatisticsOverlayText(dropDisplayName, seaCreatureName, d
     let overlayText = '';
     overlayText += `${pluralize(dropDisplayName)}: ${WHITE}${formatNumberWithSpaces(dropObj.count)}\n`;
     overlayText += `${GRAY}Last on: ${lastDropTime}\n`;
-    overlayText += `${GRAY}Last on: ${WHITE}${formatNumberWithSpaces(catchesSinceLastDrop)} ${GRAY}${catchesSinceLastDrop !== 1 ? pluralize(seaCreatureName) : seaCreatureName} ago\n`;
+    overlayText += `${GRAY}Last on: ${WHITE}${formatNumberWithSpaces(catchesSinceLastDrop)} ${GRAY}${catchesSinceLastDrop !== 1 ? pluralize(seaCreatureName) : seaCreatureName} ago`;
 
     return overlayText;
 }

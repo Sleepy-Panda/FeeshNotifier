@@ -1226,7 +1226,7 @@ Example: ${AQUA}/feeshSetRadioactiveVials 5 2024-03-18T14:05:00Z`);
     category: "Overlays",
     configName: "resetCrimsonIsleTrackerOnGameClosed",
     title: "Reset on closing game",
-    description: "Automatically reset the Crimson Isle tracker when you close Minecraft or or reload CT modules.",
+    description: "Automatically reset the Crimson Isle tracker when you close Minecraft or reload CT modules.",
     subcategory: "Crimson Isle tracker"
 })
 .addButton({
@@ -1254,7 +1254,9 @@ Example: ${AQUA}/feeshSetRadioactiveVials 5 2024-03-18T14:05:00Z`);
     category: "Overlays",
     configName: "waterHotspotsAndBayouTrackerOverlay",
     title: "Water hotspots & Bayou tracker",
-    description: `Shows an overlay with Wiki Tiki / Titanoboa catch statistics.\nDo ${AQUA}/feeshResetWaterHotspotsAndBayou${GRAY} to reset.`,
+    description: `
+Shows an overlay with Titanoboa (when fishing in hotspot) and Wiki Tiki (when in Backwater Bayou) catch statistics. Also has Titanoboa Shed and Tiki Mask drop statistics.
+Do ${AQUA}/feeshResetWaterHotspotsAndBayou${GRAY} to reset.`,
     subcategory: "Water hotspots & Bayou tracker",
     value: true
 })
