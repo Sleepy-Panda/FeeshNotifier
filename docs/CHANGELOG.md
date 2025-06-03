@@ -1,8 +1,18 @@
 # Releases
 
-## v1.44.0
+## v1.45.0
 
 Released: ???
+
+Features:
+-
+
+Bugfixes:
+-
+
+## v1.44.0
+
+Released: 2025-06-04
 
 Features:
 - Added Water hotspots & Bayou tracker. It shows an overlay with Titanoboa (when fishing in hotspot) and Wiki Tiki (when in Backwater Bayou) catch statistics. Also has Titanoboa Shed and Tiki Mask drop statistics.
