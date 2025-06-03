@@ -1209,17 +1209,18 @@ Do ${AQUA}/feeshResetCrimsonIsle${GRAY} to reset.`,
     category: "Overlays",
     configName: "getRadioactiveVialsSetupHelp",
     title: "Set Radioactive Vials count",
-    description: "Explains how to setup Radioactive Vials count and last drop date.",
+    description: "Explains in your chat how to setup Radioactive Vials count and last drop date.",
     subcategory: "Crimson Isle tracker",
     onClick() {
         ChatLib.chat(`
 ${LIGHT_PURPLE}${BOLD}Radioactive Vials setup
 
-Do ${AQUA}/feeshSetRadioactiveVials <COUNT> <LAST_ON_UTC_DATE>${RESET} to initialize your vials history:
-  - <COUNT> is a mandatory number of vials.
-  - <LAST_ON_UTC_DATE> is optional and, if provided, should be in YYYY-MM-DDThh:mm:ssZ format (UTC).
+Do ${AQUA}/feeshSetTrackerDrops <ITEM_ID> <COUNT> <LAST_ON_DATE>${RESET} to initialize your drops history:
+  - <ITEM_ID> is a mandatory item ID - RADIOACTIVE_VIAL.
+  - <COUNT> is a mandatory number of times you've dropped it.
+  - <LAST_ON_DATE> is optional and, if provided, should be in YYYY-MM-DD hh:mm:ss format. Can not be in future!
 
-Example: ${AQUA}/feeshSetRadioactiveVials 5 2024-03-18T14:05:00Z`);
+Example: ${AQUA}/feeshSetTrackerDrops RADIOACTIVE_VIAL 5 2025-05-30 23:59:00`);
     }
 })
 .addSwitch({
@@ -1259,6 +1260,25 @@ Shows an overlay with Titanoboa (when fishing in hotspot) and Wiki Tiki (when in
 Do ${AQUA}/feeshResetWaterHotspotsAndBayou${GRAY} to reset.`,
     subcategory: "Water hotspots & Bayou tracker",
     value: true
+})
+.addButton({
+    category: "Overlays",
+    configName: "getTitanoboaShedAndTikiMaskSetupHelp",
+    title: "Set Titanoboa Sheds / Tiki Masks count",
+    description: "Explains in your chat how to setup Titanoboa Sheds / Tiki Masks count and last drop date.",
+    subcategory: "Water hotspots & Bayou tracker",
+    onClick() {
+        ChatLib.chat(`
+${LIGHT_PURPLE}${BOLD}Titanoboa Sheds / Tiki Masks setup
+
+Do ${AQUA}/feeshSetTrackerDrops <ITEM_ID> <COUNT> <LAST_ON_DATE>${RESET} to initialize your drops history:
+  - <ITEM_ID> is a mandatory item ID - TITANOBOA_SHED or TIKI_MASK.
+  - <COUNT> is a mandatory number of times you've dropped it.
+  - <LAST_ON_DATE> is optional and, if provided, should be in YYYY-MM-DD hh:mm:ss format. Can not be in future!
+
+Example 1: ${AQUA}/feeshSetTrackerDrops TITANOBOA_SHED 5 2025-05-30 23:59:00
+Example 2: ${AQUA}/feeshSetTrackerDrops TIKI_MASK 5 2025-05-30 23:59:00`);
+    }
 })
 .addSwitch({
     category: "Overlays",

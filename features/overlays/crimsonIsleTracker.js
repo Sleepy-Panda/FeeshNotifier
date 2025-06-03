@@ -8,7 +8,7 @@ import { getLastFishingHookInHotspotSeenAt, getLastFishingHookSeenAt, getWorldNa
 import { getCatchesCounterChatMessage, getDropCatchesCounterChatMessage } from "../../utils/common";
 import { CRIMSON_ISLE, PLHLEGBLAST_POOL } from "../../constants/areas";
 import { MEME_SOUND_MODE, NORMAL_SOUND_MODE, SAD_TROMBONE_SOUND_SOURCE } from "../../constants/sounds";
-import { createButtonsDisplay, toggleButtonsDisplay, setSeaCreatureStatisticsOnCatch, getSeaCreatureStatisticsOverlayText, getDropStatisticsOverlayText, setDropStatisticsOnCatch, setDropStatisticsOnDrop } from "../../utils/overlays";
+import { createButtonsDisplay, toggleButtonsDisplay, setSeaCreatureStatisticsOnCatch, getSeaCreatureStatisticsOverlayText, getDropStatisticsOverlayText, setDropStatisticsOnCatch, setDropStatisticsOnDrop, initDropCountOnOverlay } from "../../utils/overlays";
 import { registerIf } from "../../utils/registers";
 
 const TRACKED_SEA_CREATURES = [
@@ -102,41 +102,17 @@ export function setRadioactiveVials(count, lastOn) {
             return;
         }
         
-        if (typeof count !== 'number' || count < 0 || !Number.isInteger(count)) {
-            ChatLib.chat(`${GOLD}[FeeshNotifier] ${RED}Please specify correct Radioactive Vials count.`);
+        const errorMessage = initDropCountOnOverlay(persistentData.crimsonIsle.radioactiveVials, count, lastOn);
+        if (errorMessage) {
+            ChatLib.chat(errorMessage);
             return;
-        }
-        persistentData.crimsonIsle.radioactiveVials.count = count;
-
-        if (lastOn) {
-            if (!isIsoDate(lastOn)) {
-                ChatLib.chat(`${GOLD}[FeeshNotifier] ${RED}Please specify correct Last On UTC date in format YYYY-MM-DDThh:mm:ssZ, e.g. 2024-03-18T14:05:00Z`);
-                return;
-            }
-
-            const dropsHistory = (persistentData.crimsonIsle.radioactiveVials.dropsHistory || []);
-            const dateIso = new Date(lastOn);
-            if (dropsHistory.length) {
-                dropsHistory[0].time = dateIso;
-            } else {
-                dropsHistory.unshift({
-                    time: dateIso,
-                });
-            }
         }
 
         persistentData.save();
-
-        ChatLib.chat(`${GOLD}[FeeshNotifier] ${GRAY}Successfully changed Radioactive Vials count to ${count} for the Crimson Isle tracker.`);   
+        ChatLib.chat(`${GOLD}[FeeshNotifier] ${GRAY}Successfully changed Radioactive Vials count to ${count} for the Crimson Isle tracker.`);
     } catch (e) {
         console.error(e);
 		console.log(`[FeeshNotifier] Failed to set Radioactive Vials.`);
-    }
-
-    function isIsoDate(dateString) {
-        if (!/\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}Z/.test(dateString)) return false;
-        const d = new Date(dateString); 
-        return d instanceof Date && !isNaN(d.getTime());
     }
 }
 

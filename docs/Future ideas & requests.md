@@ -58,6 +58,10 @@
 - Offer supercrafting or BZ sell when items like raw fish goes to inventory (sacks are full).
 - Refactor all existing features so they consume less FPS
 
+## Fishing Hook
+
+- [Bug] Sometimes default Hypixel fishing hook is rendered (when in water)
+
 ## Baits
 
 - Bait changed alert

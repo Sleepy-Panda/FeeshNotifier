@@ -7,7 +7,7 @@ import { BOLD, GOLD, LIGHT_PURPLE, RED, WHITE, GRAY, AQUA } from "../../constant
 import { getLastFishingHookInHotspotSeenAt, getLastFishingHookSeenAt, getWorldName, isInSkyblock } from "../../utils/playerState";
 import { getCatchesCounterChatMessage, getDropCatchesCounterChatMessage } from "../../utils/common";
 import { BACKWATER_BAYOU, WATER_HOTSPOT_WORLDS } from "../../constants/areas";
-import { createButtonsDisplay, toggleButtonsDisplay, setSeaCreatureStatisticsOnCatch, setDropStatisticsOnCatch, setDropStatisticsOnDrop, getSeaCreatureStatisticsOverlayText, getDropStatisticsOverlayText } from "../../utils/overlays";
+import { createButtonsDisplay, toggleButtonsDisplay, setSeaCreatureStatisticsOnCatch, setDropStatisticsOnCatch, setDropStatisticsOnDrop, getSeaCreatureStatisticsOverlayText, getDropStatisticsOverlayText, initDropCountOnOverlay } from "../../utils/overlays";
 import { registerIf } from "../../utils/registers";
 
 const TRACKED_SEA_CREATURES = [
@@ -85,6 +85,46 @@ export function resetWaterHotspotsAndBayouTracker(isConfirmed) {
 		console.error(e);
 		console.log(`[FeeshNotifier] [WaterHotspotsAndBayouTracker] Failed to reset Water Hotspots & Bayou tracker.`);
 	}
+}
+
+export function setTitanoboaSheds(count, lastOn) {
+    try {
+        if (!isInSkyblock()) {
+            return;
+        }
+        
+        const errorMessage = initDropCountOnOverlay(persistentData.waterHotspotsAndBayou.titanoboaSheds, count, lastOn);
+        if (errorMessage) {
+            ChatLib.chat(errorMessage);
+            return;
+        }
+
+        persistentData.save();
+        ChatLib.chat(`${GOLD}[FeeshNotifier] ${GRAY}Successfully changed Titanoboa Sheds count to ${count} for the Water Hotspots & Bayou tracker.`);   
+    } catch (e) {
+        console.error(e);
+		console.log(`[FeeshNotifier] Failed to set Titanoboa Sheds.`);
+    }
+}
+
+export function setTikiMasks(count, lastOn) {
+    try {
+        if (!isInSkyblock()) {
+            return;
+        }
+        
+        const errorMessage = initDropCountOnOverlay(persistentData.waterHotspotsAndBayou.tikiMasks, count, lastOn);
+        if (errorMessage) {
+            ChatLib.chat(errorMessage);
+            return;
+        }
+
+        persistentData.save();
+        ChatLib.chat(`${GOLD}[FeeshNotifier] ${GRAY}Successfully changed Tiki Masks count to ${count} for the Water Hotspots & Bayou tracker.`);   
+    } catch (e) {
+        console.error(e);
+		console.log(`[FeeshNotifier] Failed to set Tiki Masks.`);
+    }
 }
 
 function getDefaultSeaCreatureSectionObject() {
