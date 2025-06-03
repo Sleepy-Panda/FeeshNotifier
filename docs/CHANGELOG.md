@@ -11,11 +11,11 @@ Features:
     - /feeshSetTrackerDrops TIKI_MASK <COUNT> <LAST_ON_DATE>
     - <COUNT> is a mandatory number of times you've dropped it.
     - <LAST_ON_DATE> is optional and, if provided, should be in YYYY-MM-DD hh:mm:ss format. Can not be in future!
-    - Example 1: ${AQUA}/feeshSetTrackerDrops TITANOBOA_SHED 5 2025-05-30 23:59:00
-    - Example 2: ${AQUA}/feeshSetTrackerDrops TIKI_MASK 5 2025-05-30 23:59:00
+    - Example 1: /feeshSetTrackerDrops TITANOBOA_SHED 5 2025-05-30 23:59:00
+    - Example 2: /feeshSetTrackerDrops TIKI_MASK 5 2025-05-30 23:59:00
+- Added Fiery Scuttler & Ragnarok (when fishing in hotspot), Plhlegblast (when in Plhlegblast Pool) tracking to Crimson Isle tracker.
 - Changed command to initialize Radioactive Vials in the Crimson Isle Tracker, to have the same pattern everywhere:
   - /feeshSetTrackerDrops RADIOACTIVE_VIAL <COUNT> <LAST_ON_DATE>
-- Added Fiery Scuttler & Ragnarok (when fishing in hotspot), Plhlegblast (when in Plhlegblast Pool) tracking to Crimson Isle tracker.
 
 Bugfixes:
 - Do not display DH for Reindrakes in Rare Catches tracker.
