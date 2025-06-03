@@ -1215,8 +1215,9 @@ Do ${AQUA}/feeshResetCrimsonIsle${GRAY} to reset.`,
         ChatLib.chat(`
 ${LIGHT_PURPLE}${BOLD}Radioactive Vials setup
 
-Do ${AQUA}/feeshSetTrackerDrops RADIOACTIVE_VIAL <COUNT> <LAST_ON_DATE>${RESET} to initialize your drops history:
-  - <COUNT> is a mandatory number of vials.
+Do ${AQUA}/feeshSetTrackerDrops <ITEM_ID> <COUNT> <LAST_ON_DATE>${RESET} to initialize your drops history:
+  - <ITEM_ID> is a mandatory item ID - RADIOACTIVE_VIAL.
+  - <COUNT> is a mandatory number of times you've dropped it.
   - <LAST_ON_DATE> is optional and, if provided, should be in YYYY-MM-DD hh:mm:ss format. Can not be in future!
 
 Example: ${AQUA}/feeshSetTrackerDrops RADIOACTIVE_VIAL 5 2025-05-30 23:59:00`);
@@ -1270,8 +1271,9 @@ Do ${AQUA}/feeshResetWaterHotspotsAndBayou${GRAY} to reset.`,
         ChatLib.chat(`
 ${LIGHT_PURPLE}${BOLD}Titanoboa Sheds / Tiki Masks setup
 
-Do ${AQUA}/feeshSetTrackerDrops TITANOBOA_SHED|TIKI_MASK <COUNT> <LAST_ON_DATE>${RESET} to initialize your drops history:
-  - <COUNT> is a mandatory number of drops.
+Do ${AQUA}/feeshSetTrackerDrops <ITEM_ID> <COUNT> <LAST_ON_DATE>${RESET} to initialize your drops history:
+  - <ITEM_ID> is a mandatory item ID - TITANOBOA_SHED or TIKI_MASK.
+  - <COUNT> is a mandatory number of times you've dropped it.
   - <LAST_ON_DATE> is optional and, if provided, should be in YYYY-MM-DD hh:mm:ss format. Can not be in future!
 
 Example 1: ${AQUA}/feeshSetTrackerDrops TITANOBOA_SHED 5 2025-05-30 23:59:00
