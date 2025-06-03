@@ -1,5 +1,5 @@
 import { NO_FISHING_WORLDS } from '../constants/areas';
-import { RED, DARK_GRAY, BLUE, WHITE, BOLD, RESET } from '../constants/formatting';
+import { RED, DARK_GRAY, BLUE, WHITE, BOLD, RESET, GOLD, GRAY } from '../constants/formatting';
 import { NBTTagString } from '../constants/javaTypes';
 import { EntityFishHook, NBTTagString } from '../constants/javaTypes';
 import { DOUBLE_HOOK_MESSAGES, HURRICANE_BOTTLE_CHARGED_MESSAGE, STORM_BOTTLE_CHARGED_MESSAGE, THUNDER_BOTTLE_CHARGED_MESSAGE } from '../constants/triggers';
@@ -93,6 +93,20 @@ export function getPartyChatMessage(baseMessage) {
 	return `${RESET}${BLUE}` + "${*}" + ` ${DARK_GRAY}> ` + "${rankAndPlayer}" + `${WHITE}: ${RESET}${baseMessage}${RESET}`;
 	// To test using Co-op chat:
 	// return `${RESET}${AQUA}Co-op > ` + "${rankAndPlayer}" + `${WHITE}: ${RESET}${baseMessage}${RESET}`;
+}
+
+export function getCatchesCounterChatMessage(seaCreatureName, seaCreatureRarity, catchesSinceLast, lastCatchTime) {
+	const elapsedTimeText = lastCatchTime ? ` ${GRAY}(${WHITE}${formatTimeElapsedBetweenDates(new Date(lastCatchTime))}${GRAY})` : '';
+	const b2bText = catchesSinceLast === 1 ? `${RED}B2B! ` : '';
+	const catchesText = `${WHITE}${catchesSinceLast} ${GRAY}${catchesSinceLast === 1 ? 'catch' : 'catches'}`;
+	const seaCreatureDisplayName = `${seaCreatureRarity}${fromUppercaseToCapitalizedFirstLetters(seaCreatureName)}`;
+	return `${GOLD}[FeeshNotifier] ${b2bText}${GRAY}It took ${catchesText}${elapsedTimeText} to get the ${seaCreatureDisplayName}${GRAY}.`;
+}
+
+export function getDropCatchesCounterChatMessage(dropDisplayName, seaCreatureName, lastDropTime, dropNumber, catches) {
+	const elapsedTimeText = lastDropTime ? ` ${GRAY}(${WHITE}${formatTimeElapsedBetweenDates(new Date(lastDropTime))}${GRAY})` : '';
+	const catchesText = catches === 1 ? `${WHITE}${catches} ${GRAY}${fromUppercaseToCapitalizedFirstLetters(seaCreatureName)} catch` : `${WHITE}${catches} ${GRAY}${fromUppercaseToCapitalizedFirstLetters(seaCreatureName)} catches`;
+    return `${GOLD}[FeeshNotifier] ${GRAY}It took ${catchesText}${elapsedTimeText} to get the ${dropDisplayName} ${WHITE}#${dropNumber}${GRAY}. Congratulations!`;   
 }
 
 // Transforms UPPERCASE TEXT to a Regular Text With Capitalized First Letters.

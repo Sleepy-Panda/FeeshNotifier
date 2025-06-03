@@ -1,4 +1,6 @@
-import { isFishingHookActive, isFishingRod } from "./common";
+import { CRIMSON_ISLE, PLHLEGBLAST_POOL } from "../constants/areas";
+import { getPlayerFishingHook, isFishingHookActive, isFishingRod } from "./common";
+import { findClosestHotspotInRange } from "./entityDetection";
 import { updateRegisters } from "./registers";
 
 var inSkyblock = false;
@@ -9,6 +11,7 @@ var hasFishingRodInHotbar = false;
 var hasDirtRodInHand = false;
 var isInHunterArmor = false;
 var lastFishingHookSeenAt = null;
+var lastFishingHookInHotspotSeenAt = null;
 
 var lastKatUpgrade = {
 	lastPetClaimedAt: null,
@@ -40,10 +43,12 @@ function trackPlayerState() {
 		if (prevInSkyblock !== inSkyblock || prevWorldName !== worldName) {
 			updateRegisters();
 			lastFishingHookSeenAt = null;
+			lastFishingHookInHotspotSeenAt = null;
 		}
 
 		setHasFishingRodInHotbar();
 		setLastFishingHookSeenAt();
+		setLastFishingHookInHotspotSeenAt();
 		setHasDirtRodInHand();
 		setIsInHunterArmor();	
 	} catch (e) {
@@ -121,6 +126,10 @@ export function getLastFishingHookSeenAt() {
 	return lastFishingHookSeenAt;
 }
 
+export function getLastFishingHookInHotspotSeenAt() {
+	return lastFishingHookInHotspotSeenAt;
+}
+
 export function getLastGuisClosed() {
 	return lastGuisClosed;
 }
@@ -161,6 +170,21 @@ function setZoneName() {
 	} else {
 		const plainName = zone.getName()?.removeFormatting();
 		zoneName = plainName?.replace(/[^\u0000-\u007F]/g, '')?.trim(); // Abandoned🐍 Quarry
+
+		// Some lava in Phlegblast area does not belong to Phlegblast Pool zone but needs to be counted
+		if (worldName === CRIMSON_ISLE && zoneName === CRIMSON_ISLE) {
+			const x = Player.getX();
+			const y = Player.getY();
+			const z = Player.getZ();
+		
+			if (isBetweenIncluding(x, -381, -370) && isBetweenIncluding(y, 68, 72) && isBetweenIncluding(z, -708, -697)) {
+				zoneName = PLHLEGBLAST_POOL;
+			}
+		}
+	}
+
+	function isBetweenIncluding(value, num1, num2) {
+		return value >= num1 && value <= num2;
 	}
 }
 
@@ -228,4 +252,22 @@ function setLastFishingHookSeenAt() {
     if (isHookActive) {
         lastFishingHookSeenAt = new Date();
     }
+}
+
+function setLastFishingHookInHotspotSeenAt() {
+	if (!inSkyblock) {
+		return;
+	}
+
+	const isHookActive = isFishingHookActive();
+	if (!isHookActive) return;
+
+	var playerHook = getPlayerFishingHook();
+	if (!playerHook) return;
+
+	const HOTSPOT_RANGE = 7;
+	const closestHotspot = findClosestHotspotInRange(playerHook, HOTSPOT_RANGE);
+	if (closestHotspot) {
+		lastFishingHookInHotspotSeenAt = new Date();
+	}
 }

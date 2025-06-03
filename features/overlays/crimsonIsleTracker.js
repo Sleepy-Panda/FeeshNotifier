@@ -3,38 +3,64 @@ import * as triggers from '../../constants/triggers';
 import * as seaCreatures from '../../constants/seaCreatures';
 import { persistentData } from "../../data/data";
 import { overlayCoordsData } from "../../data/overlayCoords";
-import { BOLD, GOLD, LIGHT_PURPLE, RED, WHITE, GRAY, DARK_RED, DARK_GRAY, RESET } from "../../constants/formatting";
-import { getLastFishingHookSeenAt, getWorldName, isInSkyblock } from "../../utils/playerState";
-import { formatDate, formatNumberWithSpaces, formatTimeElapsedBetweenDates, isDoubleHook } from "../../utils/common";
-import { CRIMSON_ISLE } from "../../constants/areas";
+import { BOLD, GOLD, LIGHT_PURPLE, RED, WHITE, GRAY, RESET, AQUA } from "../../constants/formatting";
+import { getLastFishingHookInHotspotSeenAt, getLastFishingHookSeenAt, getWorldName, getZoneName, isInSkyblock } from "../../utils/playerState";
+import { getCatchesCounterChatMessage, getDropCatchesCounterChatMessage } from "../../utils/common";
+import { CRIMSON_ISLE, PLHLEGBLAST_POOL } from "../../constants/areas";
 import { MEME_SOUND_MODE, NORMAL_SOUND_MODE, SAD_TROMBONE_SOUND_SOURCE } from "../../constants/sounds";
-import { createButtonsDisplay, toggleButtonsDisplay } from "../../utils/overlays";
+import { createButtonsDisplay, toggleButtonsDisplay, setSeaCreatureStatisticsOnCatch, getSeaCreatureStatisticsOverlayText, getDropStatisticsOverlayText, setDropStatisticsOnCatch, setDropStatisticsOnDrop, initDropCountOnOverlay } from "../../utils/overlays";
 import { registerIf } from "../../utils/registers";
 
-triggers.REGULAR_CRIMSON_CATCH_TRIGGERS.forEach(entry => {
+const TRACKED_SEA_CREATURES = [
+    {
+        seaCreatureInfo: triggers.RARE_CATCH_TRIGGERS.find(entry => entry.seaCreature === seaCreatures.FIERY_SCUTTLER),
+        callback: (seaCreatureInfo) => trackFieryScuttlerCatch(seaCreatureInfo),
+    },
+    {
+        seaCreatureInfo: triggers.RARE_CATCH_TRIGGERS.find(entry => entry.seaCreature === seaCreatures.RAGNAROK),
+        callback: (seaCreatureInfo) => trackRagnarokCatch(seaCreatureInfo),
+    },
+    {
+        seaCreatureInfo: triggers.RARE_CATCH_TRIGGERS.find(entry => entry.seaCreature === seaCreatures.PLHLEGBLAST),
+        callback: (seaCreatureInfo) => trackPlhlegblastCatch(seaCreatureInfo),
+    },
+    {
+        seaCreatureInfo: triggers.RARE_CATCH_TRIGGERS.find(entry => entry.seaCreature === seaCreatures.THUNDER),
+        callback: (seaCreatureInfo) => trackThunderCatch(seaCreatureInfo),
+    },
+    {
+        seaCreatureInfo: triggers.RARE_CATCH_TRIGGERS.find(entry => entry.seaCreature === seaCreatures.LORD_JAWBUS),
+        callback: (seaCreatureInfo) => trackLordJawbusCatch(seaCreatureInfo),
+    },
+];
+
+const TRACKED_DROPS = [
+    {
+        dropInfo: triggers.RARE_DROP_TRIGGERS.find(entry => entry.trigger === triggers.RADIOACTIVE_VIAL_MESSAGE),
+        callback: (magicFind) => trackRadioctiveVialDrop(magicFind),
+    },
+];
+
+triggers.REGULAR_CRIMSON_CATCH_TRIGGERS.forEach(seaCreatureInfo => {
     registerIf(
-        register("Chat", (event) => trackRegularSeaCreatureCatch()).setCriteria(entry.trigger).setContains(),
+        register("Chat", (event) => trackRegularSeaCreatureCatch()).setCriteria(seaCreatureInfo.trigger).setContains(),
         () => settings.crimsonIsleTrackerOverlay && isInSkyblock() && getWorldName() === CRIMSON_ISLE
     );
 });
 
-const thunderTrigger = triggers.RARE_CATCH_TRIGGERS.find(entry => entry.seaCreature === seaCreatures.THUNDER);
-registerIf(
-    register("Chat", (event) => trackThunderCatch()).setCriteria(thunderTrigger.trigger).setContains(),
-    () => settings.crimsonIsleTrackerOverlay && isInSkyblock() && getWorldName() === CRIMSON_ISLE
-);
+TRACKED_SEA_CREATURES.forEach(entry => {
+    registerIf(
+        register("Chat", (event) => entry.callback(entry.seaCreatureInfo)).setCriteria(entry.seaCreatureInfo.trigger).setContains(),
+        () => settings.crimsonIsleTrackerOverlay && isInSkyblock() && getWorldName() === CRIMSON_ISLE
+    );
+});
 
-const lordJawbusTrigger = triggers.RARE_CATCH_TRIGGERS.find(entry => entry.seaCreature === seaCreatures.LORD_JAWBUS);
-registerIf(
-    register("Chat", (event) => trackLordJawbusCatch()).setCriteria(lordJawbusTrigger.trigger).setContains(),
-    () => settings.crimsonIsleTrackerOverlay && isInSkyblock() && getWorldName() === CRIMSON_ISLE
-);
-
-const radioactiveVialTrigger = triggers.RARE_DROP_TRIGGERS.find(entry => entry.trigger === triggers.RADIOACTIVE_VIAL_MESSAGE);
-registerIf(
-    register("Chat", (magicFind, event) => trackRadioctiveVialDrop()).setCriteria(radioactiveVialTrigger.trigger).setContains(),
-    () => settings.crimsonIsleTrackerOverlay && isInSkyblock() && getWorldName() === CRIMSON_ISLE
-);
+TRACKED_DROPS.forEach(entry => {
+    registerIf(
+        register("Chat", (magicFind, event) => entry.callback(magicFind)).setCriteria(entry.dropInfo.trigger).setContains(),
+        () => settings.crimsonIsleTrackerOverlay && isInSkyblock() && getWorldName() === CRIMSON_ISLE
+    );
+});
 
 registerIf(
     register('renderOverlay', () => renderCrimsonIsleTrackerOverlay()),
@@ -42,13 +68,7 @@ registerIf(
 );
 
 register("gameUnload", () => {
-    if (settings.crimsonIsleTrackerOverlay && settings.resetCrimsonIsleTrackerOnGameClosed && persistentData.crimsonIsle && (
-        persistentData.crimsonIsle.thunder.lastCatchTime ||
-        persistentData.crimsonIsle.lordJawbus.lastCatchTime ||
-        persistentData.crimsonIsle.thunder.catchesSinceLast ||
-        persistentData.crimsonIsle.lordJawbus.catchesSinceLast ||
-        persistentData.crimsonIsle.radioactiveVials.count
-    )) {
+    if (settings.crimsonIsleTrackerOverlay && settings.resetCrimsonIsleTrackerOnGameClosed && hasAnyData()) {
         resetCrimsonIsleTracker(true);
     }
 });
@@ -66,11 +86,7 @@ export function resetCrimsonIsleTracker(isConfirmed) {
             return;
         }
     
-        persistentData.crimsonIsle = {
-            thunder: { catchesSinceLast: 0, lastCatchTime: null, catchesHistory: [], averageCatches: 0 },
-            lordJawbus: { catchesSinceLast: 0, lastCatchTime: null, catchesHistory: [], averageCatches: 0 },
-            radioactiveVials: { count: 0, lordJawbusCatchesSinceLast: 0, dropsHistory: [] }
-        };
+        persistentData.crimsonIsle = getDefaultObject();
         persistentData.save();
 
         ChatLib.chat(`${GOLD}[FeeshNotifier] ${WHITE}Crimson Isle tracker was reset.`);    
@@ -86,109 +102,217 @@ export function setRadioactiveVials(count, lastOn) {
             return;
         }
         
-        if (typeof count !== 'number' || count < 0 || !Number.isInteger(count)) {
-            ChatLib.chat(`${GOLD}[FeeshNotifier] ${RED}Please specify correct Radioactive Vials count.`);
+        const errorMessage = initDropCountOnOverlay(persistentData.crimsonIsle.radioactiveVials, count, lastOn);
+        if (errorMessage) {
+            ChatLib.chat(errorMessage);
             return;
-        }
-        persistentData.crimsonIsle.radioactiveVials.count = count;
-
-        if (lastOn) {
-            if (!isIsoDate(lastOn)) {
-                ChatLib.chat(`${GOLD}[FeeshNotifier] ${RED}Please specify correct Last On UTC date in format YYYY-MM-DDThh:mm:ssZ, e.g. 2024-03-18T14:05:00Z`);
-                return;
-            }
-
-            const dropsHistory = (persistentData.crimsonIsle.radioactiveVials.dropsHistory || []);
-            const dateIso = new Date(lastOn);
-            if (dropsHistory.length) {
-                dropsHistory[0].time = dateIso;
-            } else {
-                dropsHistory.unshift({
-                    time: dateIso,
-                });
-            }
         }
 
         persistentData.save();
-
-        ChatLib.chat(`${GOLD}[FeeshNotifier] ${GRAY}Successfully changed Radioactive Vials count to ${count} for the Crimson Isle tracker.`);   
+        ChatLib.chat(`${GOLD}[FeeshNotifier] ${GRAY}Successfully changed Radioactive Vials count to ${count} for the Crimson Isle tracker.`);
     } catch (e) {
         console.error(e);
 		console.log(`[FeeshNotifier] Failed to set Radioactive Vials.`);
     }
-
-    function isIsoDate(dateString) {
-        if (!/\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}Z/.test(dateString)) return false;
-        const d = new Date(dateString); 
-        return d instanceof Date && !isNaN(d.getTime());
-    }
 }
 
-function trackThunderCatch() {
+function initMissingPersistentData() { // Init data added later and missing for users with previous version
+    if (!persistentData.crimsonIsle) return;
+    if (!persistentData.crimsonIsle.fieryScuttler) persistentData.crimsonIsle.fieryScuttler = getDefaultSeaCreatureSectionObject();
+    if (!persistentData.crimsonIsle.ragnarok) persistentData.crimsonIsle.ragnarok = getDefaultSeaCreatureSectionObject();
+    if (!persistentData.crimsonIsle.plhlegblast) persistentData.crimsonIsle.plhlegblast = getDefaultSeaCreatureSectionObject();
+}
+
+function getDefaultSeaCreatureSectionObject() {
+    return { catchesSinceLast: 0, lastCatchTime: null, catchesHistory: [], averageCatches: 0 };
+}
+
+function getDefaultObject() {
+    return {
+        fieryScuttler: getDefaultSeaCreatureSectionObject(),
+        ragnarok: getDefaultSeaCreatureSectionObject(),
+        plhlegblast: getDefaultSeaCreatureSectionObject(),
+        thunder: getDefaultSeaCreatureSectionObject(),
+        lordJawbus: getDefaultSeaCreatureSectionObject(),
+        radioactiveVials: { count: 0, lordJawbusCatchesSinceLast: 0, dropsHistory: [] }
+    };
+}
+
+function hasAnyData() {
+    return persistentData.crimsonIsle && (
+        persistentData.crimsonIsle.fieryScuttler?.lastCatchTime ||
+        persistentData.crimsonIsle.fieryScuttler?.catchesSinceLast ||
+        persistentData.crimsonIsle.ragnarok?.lastCatchTime ||
+        persistentData.crimsonIsle.ragnarok?.catchesSinceLast ||
+        persistentData.crimsonIsle.plhlegblast?.lastCatchTime ||
+        persistentData.crimsonIsle.plhlegblast?.catchesSinceLast ||
+        persistentData.crimsonIsle.thunder?.lastCatchTime ||
+        persistentData.crimsonIsle.thunder?.catchesSinceLast ||
+        persistentData.crimsonIsle.lordJawbus?.lastCatchTime ||
+        persistentData.crimsonIsle.lordJawbus?.catchesSinceLast ||
+        persistentData.crimsonIsle.radioactiveVials?.count
+    );
+}
+
+function isFishingInHotspot() {
+    if (getWorldName() !== CRIMSON_ISLE) return false;
+
+    const lastFishingHookInHotspotSeenAt = getLastFishingHookInHotspotSeenAt();
+    return lastFishingHookInHotspotSeenAt && new Date() - lastFishingHookInHotspotSeenAt <= 60 * 1000;
+}
+
+function isInPlhlegblastPool() {
+    if (getWorldName() !== CRIMSON_ISLE) return false;
+    return getZoneName() === PLHLEGBLAST_POOL;
+}
+
+function trackFieryScuttlerCatch(seaCreatureInfo) {
     try {
         if (!isInSkyblock() || getWorldName() !== CRIMSON_ISLE || !settings.crimsonIsleTrackerOverlay) {
             return;
         }
 
-        const catchesSinceLast = persistentData.crimsonIsle.thunder.catchesSinceLast;
-        const lastCatchTime = persistentData.crimsonIsle.thunder.lastCatchTime;
-        const elapsedTime = lastCatchTime ? ` ${GRAY}(${WHITE}${formatTimeElapsedBetweenDates(new Date(lastCatchTime))}${GRAY})` : '';
+        initMissingPersistentData();
 
-        let catchesHistory = persistentData.crimsonIsle.thunder.catchesHistory || [];
-        catchesHistory.unshift(catchesSinceLast); // Most recent counts at the start of array
-        catchesHistory.length = Math.min(catchesHistory.length, 100); // Store last 100
-        persistentData.crimsonIsle.thunder.catchesHistory = catchesHistory;
+        const result = setSeaCreatureStatisticsOnCatch(persistentData.crimsonIsle.fieryScuttler);
 
-        const sumCatches = catchesHistory.reduce(function(a, b) { return a + b; }, 0);
-        persistentData.crimsonIsle.thunder.averageCatches = catchesHistory.length ? Math.round(sumCatches / catchesHistory.length) : 0;
-
-        persistentData.crimsonIsle.thunder.catchesSinceLast = 0;
-        persistentData.crimsonIsle.thunder.lastCatchTime = new Date();
-
+        persistentData.crimsonIsle.thunder.catchesSinceLast += 1;
         persistentData.crimsonIsle.lordJawbus.catchesSinceLast += 1;
+
+        if (isFishingInHotspot()) {
+            persistentData.crimsonIsle.ragnarok.catchesSinceLast += 1;
+        }
+
+        if (isInPlhlegblastPool()) {
+            persistentData.crimsonIsle.plhlegblast.catchesSinceLast += 1;
+        }
 
         persistentData.save();
 
-        ChatLib.chat(`${GOLD}[FeeshNotifier] ${GRAY}It took ${WHITE}${catchesSinceLast} ${GRAY}${catchesSinceLast === 1 ? 'catch' : 'catches'}${elapsedTime} to get the ${LIGHT_PURPLE}Thunder${GRAY}.`);
+        const message = getCatchesCounterChatMessage(seaCreatureInfo.seaCreature, seaCreatureInfo.rarityColorCode, result.catchesSinceLast, result.lastCatchTime);
+        ChatLib.chat(message);
+    } catch (e) {
+		console.error(e);
+		console.log(`[FeeshNotifier] Failed to track Fiery Scuttler catch.`);
+	}
+}
+
+function trackRagnarokCatch(seaCreatureInfo) {
+    try {
+        if (!isInSkyblock() || getWorldName() !== CRIMSON_ISLE || !settings.crimsonIsleTrackerOverlay) {
+            return;
+        }
+
+        initMissingPersistentData();
+
+        const result = setSeaCreatureStatisticsOnCatch(persistentData.crimsonIsle.ragnarok);
+
+        persistentData.crimsonIsle.thunder.catchesSinceLast += 1;
+        persistentData.crimsonIsle.lordJawbus.catchesSinceLast += 1;
+
+        if (isFishingInHotspot()) {
+            persistentData.crimsonIsle.fieryScuttler.catchesSinceLast += 1;
+        }
+
+        if (isInPlhlegblastPool()) {
+            persistentData.crimsonIsle.plhlegblast.catchesSinceLast += 1;
+        }
+
+        persistentData.save();
+
+        const message = getCatchesCounterChatMessage(seaCreatureInfo.seaCreature, seaCreatureInfo.rarityColorCode, result.catchesSinceLast, result.lastCatchTime);
+        ChatLib.chat(message);
+    } catch (e) {
+		console.error(e);
+		console.log(`[FeeshNotifier] Failed to track Ragnarok catch.`);
+	}
+}
+
+function trackPlhlegblastCatch(seaCreatureInfo) {
+    try {
+        if (!isInSkyblock() || getWorldName() !== CRIMSON_ISLE || !settings.crimsonIsleTrackerOverlay) {
+            return;
+        }
+
+        initMissingPersistentData();
+
+        const result = setSeaCreatureStatisticsOnCatch(persistentData.crimsonIsle.plhlegblast);
+
+        persistentData.crimsonIsle.thunder.catchesSinceLast += 1;
+        persistentData.crimsonIsle.lordJawbus.catchesSinceLast += 1;
+
+        if (isFishingInHotspot()) {
+            persistentData.crimsonIsle.fieryScuttler.catchesSinceLast += 1;
+            persistentData.crimsonIsle.ragnarok.catchesSinceLast += 1;
+        }
+
+        persistentData.save();
+
+        const message = getCatchesCounterChatMessage(seaCreatureInfo.seaCreature, seaCreatureInfo.rarityColorCode, result.catchesSinceLast, result.lastCatchTime);
+        ChatLib.chat(message);
+    } catch (e) {
+		console.error(e);
+		console.log(`[FeeshNotifier] Failed to track Plhlegblast catch.`);
+	}
+}
+
+function trackThunderCatch(seaCreatureInfo) {
+    try {
+        if (!isInSkyblock() || getWorldName() !== CRIMSON_ISLE || !settings.crimsonIsleTrackerOverlay) {
+            return;
+        }
+
+        initMissingPersistentData();
+
+        const result = setSeaCreatureStatisticsOnCatch(persistentData.crimsonIsle.thunder);
+
+        persistentData.crimsonIsle.lordJawbus.catchesSinceLast += 1;
+
+        if (isFishingInHotspot()) {
+            persistentData.crimsonIsle.fieryScuttler.catchesSinceLast += 1;
+            persistentData.crimsonIsle.ragnarok.catchesSinceLast += 1;    
+        }
+
+        if (isInPlhlegblastPool()) {
+            persistentData.crimsonIsle.plhlegblast.catchesSinceLast += 1;
+        }
+
+        persistentData.save();
+
+        const message = getCatchesCounterChatMessage(seaCreatureInfo.seaCreature, seaCreatureInfo.rarityColorCode, result.catchesSinceLast, result.lastCatchTime);
+        ChatLib.chat(message);
     } catch (e) {
 		console.error(e);
 		console.log(`[FeeshNotifier] Failed to track Thunder catch.`);
 	}
 }
 
-function trackLordJawbusCatch() {
+function trackLordJawbusCatch(seaCreatureInfo) {
     try {
         if (!isInSkyblock() || getWorldName() !== CRIMSON_ISLE || !settings.crimsonIsleTrackerOverlay) {
             return;
         }
 
-        const isDoubleHooked = isDoubleHook();
+        initMissingPersistentData();
 
-        const catchesSinceLast = persistentData.crimsonIsle.lordJawbus.catchesSinceLast;
-        const lastCatchTime = persistentData.crimsonIsle.lordJawbus.lastCatchTime;
-        const elapsedTime = lastCatchTime ? ` ${GRAY}(${WHITE}${formatTimeElapsedBetweenDates(new Date(lastCatchTime))}${GRAY})` : '';
-
-        let catchesHistory = persistentData.crimsonIsle.lordJawbus.catchesHistory || [];
-        catchesHistory.unshift(catchesSinceLast); // Most recent counts at the start of array
-        catchesHistory.length = Math.min(catchesHistory.length, 100); // Store last 100
-        persistentData.crimsonIsle.lordJawbus.catchesHistory = catchesHistory;
-
-        const sumCatches = catchesHistory.reduce(function(a, b) { return a + b; }, 0);
-        persistentData.crimsonIsle.lordJawbus.averageCatches = catchesHistory.length ? Math.round(sumCatches / catchesHistory.length) : 0;
-
-        persistentData.crimsonIsle.lordJawbus.catchesSinceLast = 0;
-        persistentData.crimsonIsle.lordJawbus.lastCatchTime = new Date();
+        const result = setSeaCreatureStatisticsOnCatch(persistentData.crimsonIsle.lordJawbus);
+        setDropStatisticsOnCatch(persistentData.crimsonIsle.radioactiveVials, 'lordJawbusCatchesSinceLast');
 
         persistentData.crimsonIsle.thunder.catchesSinceLast += 1;
 
-        const valueToAdd = isDoubleHooked ? 2 : 1;
-        let lordJawbusCatchesSinceLast = persistentData.crimsonIsle.radioactiveVials.lordJawbusCatchesSinceLast || 0;
-        lordJawbusCatchesSinceLast += valueToAdd;
-        persistentData.crimsonIsle.radioactiveVials.lordJawbusCatchesSinceLast = lordJawbusCatchesSinceLast;
+        if (isFishingInHotspot()) {
+            persistentData.crimsonIsle.fieryScuttler.catchesSinceLast += 1;
+            persistentData.crimsonIsle.ragnarok.catchesSinceLast += 1;    
+        }
+
+        if (isInPlhlegblastPool()) {
+            persistentData.crimsonIsle.plhlegblast.catchesSinceLast += 1;
+        }
 
         persistentData.save();
 
-        ChatLib.chat(`${GOLD}[FeeshNotifier] ${GRAY}It took ${WHITE}${catchesSinceLast} ${GRAY}${catchesSinceLast === 1 ? 'catch' : 'catches'}${elapsedTime} to get the ${LIGHT_PURPLE}Lord Jawbus${GRAY}.`);
+        const message = getCatchesCounterChatMessage(seaCreatureInfo.seaCreature, seaCreatureInfo.rarityColorCode, result.catchesSinceLast, result.lastCatchTime);
+        ChatLib.chat(message);
     } catch (e) {
 		console.error(e);
 		console.log(`[FeeshNotifier] Failed to track Lord Jawbus catch.`);
@@ -201,14 +325,26 @@ function trackRegularSeaCreatureCatch() {
             return;
         }
 
+        initMissingPersistentData();
+
         persistentData.crimsonIsle.thunder.catchesSinceLast += 1;
         persistentData.crimsonIsle.lordJawbus.catchesSinceLast += 1;
+
+        if (isFishingInHotspot()) {
+            persistentData.crimsonIsle.fieryScuttler.catchesSinceLast += 1;
+            persistentData.crimsonIsle.ragnarok.catchesSinceLast += 1;    
+        }
+
+        if (isInPlhlegblastPool()) {
+            persistentData.crimsonIsle.plhlegblast.catchesSinceLast += 1;
+        }
+
         persistentData.save();
 
-        if (persistentData.crimsonIsle.lordJawbus.catchesSinceLast &&
-            persistentData.crimsonIsle.lordJawbus.catchesSinceLast % 1000 === 0) {
-            Client.showTitle('', `${RED}No ${LIGHT_PURPLE}Lord Jawbus ${RED}for ${persistentData.crimsonIsle.lordJawbus.catchesSinceLast} catches`, 1, 45, 1);
-            ChatLib.chat(`${GOLD}[FeeshNotifier] ${RED}${BOLD}Yikes! ${RESET}${RED}No ${LIGHT_PURPLE}Lord Jawbus ${RED}for ${persistentData.crimsonIsle.lordJawbus.catchesSinceLast} catches...`);
+        const catchesSinceLast = persistentData.crimsonIsle.lordJawbus.catchesSinceLast;
+        if (catchesSinceLast && catchesSinceLast % 1000 === 0) {
+            Client.showTitle('', `${RED}No ${LIGHT_PURPLE}Lord Jawbus ${RED}for ${catchesSinceLast} catches`, 1, 45, 1);
+            ChatLib.chat(`${GOLD}[FeeshNotifier] ${RED}${BOLD}Yikes! ${RESET}${RED}No ${LIGHT_PURPLE}Lord Jawbus ${RED}for ${catchesSinceLast} catches...`);
 
             switch (settings.soundMode) {
                 case MEME_SOUND_MODE:
@@ -227,30 +363,18 @@ function trackRegularSeaCreatureCatch() {
 	}
 }
 
-function trackRadioctiveVialDrop() {
+function trackRadioctiveVialDrop(magicFind) {
     try {
         if (!settings.crimsonIsleTrackerOverlay || !isInSkyblock() || getWorldName() !== CRIMSON_ISLE) {
             return;
         }
 
-        const lordJawbusCatches = persistentData.crimsonIsle.radioactiveVials.lordJawbusCatchesSinceLast || 0;
-
-        persistentData.crimsonIsle.radioactiveVials.count += 1;
-        persistentData.crimsonIsle.radioactiveVials.lordJawbusCatchesSinceLast = 0;
-
-        let vialDropsHistory = persistentData.crimsonIsle.radioactiveVials.dropsHistory || [];
-        const lastDropTime = vialDropsHistory.length && vialDropsHistory[0].time ? vialDropsHistory[0].time : null;
-        const elapsedTime = lastDropTime ? ` ${GRAY}(${WHITE}${formatTimeElapsedBetweenDates(new Date(lastDropTime))}${GRAY})` : '';
-
-        vialDropsHistory.unshift({
-            time: new Date(),
-            lordJawbusCatches: lordJawbusCatches
-        });
-        persistentData.crimsonIsle.radioactiveVials.dropsHistory = vialDropsHistory;
-
+        const result = setDropStatisticsOnDrop(persistentData.crimsonIsle.radioactiveVials, 'lordJawbusCatchesSinceLast', 'lordJawbusCatches', magicFind);
         persistentData.save();
 
-        ChatLib.chat(`${GOLD}[FeeshNotifier] ${GRAY}It took ${WHITE}${lordJawbusCatches} ${GRAY}${lordJawbusCatches === 1 ? 'Lord Jawbus catch' : 'Lord Jawbus catches'}${elapsedTime} to get the ${LIGHT_PURPLE}Radioactive Vial ${WHITE}#${persistentData.crimsonIsle.radioactiveVials.count}${GRAY}. Congratulations!`);
+        const dropNumber = persistentData.crimsonIsle.radioactiveVials.count;
+        const message = getDropCatchesCounterChatMessage(`${LIGHT_PURPLE}Radioactive Vial`, 'Lord Jawbus', result.lastDropTime, dropNumber, result.catches);
+        ChatLib.chat(message);
     } catch (e) {
 		console.error(e);
 		console.log(`[FeeshNotifier] Failed to track Radioactive Vial drop.`);
@@ -259,14 +383,7 @@ function trackRadioctiveVialDrop() {
 
 function renderCrimsonIsleTrackerOverlay() {
     if (!settings.crimsonIsleTrackerOverlay ||
-        !persistentData.crimsonIsle ||
-        (
-            !persistentData.crimsonIsle.thunder.lastCatchTime &&
-            !persistentData.crimsonIsle.lordJawbus.lastCatchTime &&
-            !persistentData.crimsonIsle.thunder.catchesSinceLast &&
-            !persistentData.crimsonIsle.lordJawbus.catchesSinceLast &&
-            !persistentData.crimsonIsle.radioactiveVials.count
-        ) ||
+        !hasAnyData() ||
         !isInSkyblock() ||
         getWorldName() !== CRIMSON_ISLE ||
         (new Date() - getLastFishingHookSeenAt() > 10 * 60 * 1000) ||
@@ -276,27 +393,13 @@ function renderCrimsonIsleTrackerOverlay() {
         return;
     }
 
-    const lastCatchTimeThunder = persistentData.crimsonIsle.thunder.lastCatchTime
-        ? `${WHITE}${formatTimeElapsedBetweenDates(new Date(persistentData.crimsonIsle.thunder.lastCatchTime))} ${GRAY}(${WHITE}${formatDate(new Date(persistentData.crimsonIsle.thunder.lastCatchTime))}${GRAY})` 
-        : `${WHITE}N/A`;
-    const lastCatchTimeLordJawbus = persistentData.crimsonIsle.lordJawbus.lastCatchTime 
-        ? `${WHITE}${formatTimeElapsedBetweenDates(new Date(persistentData.crimsonIsle.lordJawbus.lastCatchTime))} ${GRAY}(${WHITE}${formatDate(new Date(persistentData.crimsonIsle.lordJawbus.lastCatchTime))}${GRAY})` 
-        : `${WHITE}N/A`;
-    const averageThunder = formatNumberWithSpaces(persistentData.crimsonIsle.thunder.averageCatches) || 'N/A';
-    const averageLordJawbus = formatNumberWithSpaces(persistentData.crimsonIsle.lordJawbus.averageCatches) || 'N/A';
-    const lastTimeVial = persistentData.crimsonIsle.radioactiveVials.dropsHistory.length
-        ? `${WHITE}${formatTimeElapsedBetweenDates(new Date(persistentData.crimsonIsle.radioactiveVials.dropsHistory[0].time))} ${GRAY}(${WHITE}${formatDate(new Date(persistentData.crimsonIsle.radioactiveVials.dropsHistory[0].time))}${GRAY})` 
-        : `${WHITE}N/A`;
-    const lordJawbusCatchesSinceLastVial = persistentData.crimsonIsle.radioactiveVials.lordJawbusCatchesSinceLast || 0;
-
-    let overlayText = `${DARK_RED}${BOLD}Crimson Isle tracker\n`;
-    overlayText += `${LIGHT_PURPLE}Thunder: ${WHITE}${formatNumberWithSpaces(persistentData.crimsonIsle.thunder.catchesSinceLast)} ${GRAY}${persistentData.crimsonIsle.thunder.catchesSinceLast !== 1 ? 'catches' : 'catch'} ago ${DARK_GRAY}(${GRAY}avg: ${WHITE}${averageThunder}${DARK_GRAY})\n`;
-    overlayText += `${GRAY}Last on: ${lastCatchTimeThunder}\n`;
-    overlayText += `${LIGHT_PURPLE}Lord Jawbus: ${WHITE}${formatNumberWithSpaces(persistentData.crimsonIsle.lordJawbus.catchesSinceLast)} ${GRAY}${persistentData.crimsonIsle.lordJawbus.catchesSinceLast !== 1 ? 'catches' : 'catch'} ago ${DARK_GRAY}(${GRAY}avg: ${WHITE}${averageLordJawbus}${DARK_GRAY})\n`;
-    overlayText += `${GRAY}Last on: ${lastCatchTimeLordJawbus}\n`;
-    overlayText += `${LIGHT_PURPLE}Radioactive Vials: ${WHITE}${formatNumberWithSpaces(persistentData.crimsonIsle.radioactiveVials.count)}\n`;
-    overlayText += `${GRAY}Last on: ${lastTimeVial}\n`;
-    overlayText += `${GRAY}Last on: ${WHITE}${formatNumberWithSpaces(lordJawbusCatchesSinceLastVial)} ${GRAY}${lordJawbusCatchesSinceLastVial !== 1 ? 'Jawbuses' : 'Jawbus'} ago`;
+    let overlayText = `${AQUA}${BOLD}Crimson Isle tracker`;
+    overlayText += getFieryScuttlerOverlayText();
+    overlayText += getRagnarokOverlayText();
+    overlayText += getPlhlegblastOverlayText();
+    overlayText += getThunderOverlayText();
+    overlayText += getLordJawbusOverlayText();
+    overlayText += getRadioactiveVialsOverlayText();
 
     const overlay = new Text(overlayText, overlayCoordsData.crimsonIsleTrackerOverlay.x, overlayCoordsData.crimsonIsleTrackerOverlay.y)
         .setShadow(true)
@@ -304,4 +407,40 @@ function renderCrimsonIsleTrackerOverlay() {
     overlay.draw();
 
     toggleButtonsDisplay(buttonsDisplay, overlay, overlayCoordsData.crimsonIsleTrackerOverlay);
+
+    function getFieryScuttlerOverlayText() {
+        if (!isFishingInHotspot()) return '';
+
+        const overlayText = getSeaCreatureStatisticsOverlayText(`${GOLD}Fiery Scuttler`, persistentData.crimsonIsle.fieryScuttler);
+        return '\n' + overlayText;
+    }
+
+    function getRagnarokOverlayText() {
+        if (!isFishingInHotspot()) return '';
+
+        const overlayText = getSeaCreatureStatisticsOverlayText(`${LIGHT_PURPLE}Ragnarok`, persistentData.crimsonIsle.ragnarok);
+        return '\n' + overlayText;
+    }
+
+    function getPlhlegblastOverlayText() {
+        if (!isInPlhlegblastPool()) return '';
+
+        const overlayText = getSeaCreatureStatisticsOverlayText(`${LIGHT_PURPLE}Plhlegblast`, persistentData.crimsonIsle.plhlegblast);
+        return '\n' + overlayText;
+    }
+
+    function getThunderOverlayText() {
+        const overlayText = getSeaCreatureStatisticsOverlayText(`${LIGHT_PURPLE}Thunder`, persistentData.crimsonIsle.thunder);
+        return '\n' + overlayText;
+    }
+
+    function getLordJawbusOverlayText() {
+        const overlayText = getSeaCreatureStatisticsOverlayText(`${LIGHT_PURPLE}Lord Jawbus`, persistentData.crimsonIsle.lordJawbus);
+        return '\n' + overlayText;
+    }
+
+    function getRadioactiveVialsOverlayText() {
+        const overlayText = getDropStatisticsOverlayText(`${LIGHT_PURPLE}Radioactive Vial`, 'Jawbus', persistentData.crimsonIsle.radioactiveVials, 'lordJawbusCatchesSinceLast');
+        return '\n' + overlayText;
+    }
 }
