@@ -1,5 +1,5 @@
 import settings, { allOverlaysGui } from "../../settings";
-import { AQUA, BOLD, DARK_PURPLE, GOLD, GRAY, GREEN, RED, WHITE, YELLOW } from "../../constants/formatting";
+import { AQUA, BOLD, DARK_PURPLE, GOLD, GRAY, GREEN, RED, WHITE } from "../../constants/formatting";
 import { getBazaarItemPrices } from "../../utils/bazaarPrices";
 import { formatElapsedTime, formatNumberWithSpaces, getItemsAddedToSacks, isDoubleHook, isInSacksGui, toShortNumber } from "../../utils/common";
 import * as triggers from '../../constants/triggers';
@@ -278,8 +278,7 @@ function refreshValuesPerHour() {
 
         const elapsedHours = elapsedSeconds / 3600;
         const membranePrices = getBazaarItemPrices('WORM_MEMBRANE');
-        const chamberPrices = getAuctionItemPrices('GEMSTONE_CHAMBER');
-
+        
         membranesPerHour = elapsedHours
             ? Math.floor(totalMembranesCount / elapsedHours)
             : 0;
@@ -294,8 +293,8 @@ function refreshValuesPerHour() {
             ? membranesPerHour * Math.floor(membranePrices?.instaSell || 0)
             : 0;
         
-        chambersPerHour = Math.floor(membranesPerHour / 100);     
-        chamberCoinsPerHour = chambersPerHour * Math.floor(chamberPrices?.lbin || 0);
+        chambersPerHour = Math.floor(membranesPerHour / 100);  
+        chamberCoinsPerHour = chambersPerHour * getChamberPrice();
     } catch (e) {
 		console.error(e);
 		console.log(`[FeeshNotifier] Failed to refresh values per hour.`);
@@ -314,22 +313,28 @@ function renderWormMembraneProfitTrackerOverlay() {
         return;
     }
 
-    let text = `${YELLOW}${BOLD}Worm profit tracker\n`;
+    let text = `${AQUA}${BOLD}Worm profit tracker\n`;
     const pausedText = isSessionActive ? '' : ` ${GRAY}[Paused]`;
     const mode = settings.wormProfitTrackerMode;
+
+    const totalWormsText = `${GREEN}Total worms: ${WHITE}${formatNumberWithSpaces(totalWormsCount)}\n`;
+    const totalMembranesText = `${GREEN}Total membranes: ${WHITE}${formatNumberWithSpaces(totalMembranesCount)} ${GRAY}[+${formatNumberWithSpaces(lastAddedMembranesCount)} last added]\n`;
+    const wormsPerHourText = `${GREEN}Worms/h: ${WHITE}${formatNumberWithSpaces(wormsPerHour)}\n`;
+    const membranesPerHourText = `${GREEN}Membranes/h: ${WHITE}${formatNumberWithSpaces(membranesPerHour)}\n`;
+
     switch (mode) {
         case WORM_MEMBRANES_MODE:
             const wormMembranePrices = getBazaarItemPrices('WORM_MEMBRANE');
             const wormMembraneTotalCoinsSellOffer = totalMembranesCount * Math.floor(wormMembranePrices?.sellOffer || 0);
             const wormMembraneTotalCoinsInstaSell = totalMembranesCount * Math.floor(wormMembranePrices?.instaSell || 0);
         
-            text += `${GREEN}Total worms: ${WHITE}${formatNumberWithSpaces(totalWormsCount)}\n`;
-            text += `${GREEN}Total membranes: ${WHITE}${formatNumberWithSpaces(totalMembranesCount)} ${GRAY}[+${formatNumberWithSpaces(lastAddedMembranesCount)} last added]\n`;
+            text += totalWormsText;
+            text += totalMembranesText;
             text += `${GOLD}Total coins (sell offer): ${WHITE}${toShortNumber(wormMembraneTotalCoinsSellOffer)}\n`;
             text += `${GOLD}Total coins (insta-sell): ${WHITE}${toShortNumber(wormMembraneTotalCoinsInstaSell)}\n`;
             text += `\n`;
-            text += `${GREEN}Worms/h: ${WHITE}${formatNumberWithSpaces(wormsPerHour)}\n`;
-            text += `${GREEN}Membranes/h: ${WHITE}${formatNumberWithSpaces(membranesPerHour)}\n`;
+            text += wormsPerHourText;
+            text += membranesPerHourText;
             text += `${GOLD}Coins/h (sell offer): ${WHITE}${toShortNumber(membraneCoinsPerHourSellOffer)}\n`;
             text += `${GOLD}Coins/h (insta-sell): ${WHITE}${toShortNumber(membraneCoinsPerHourInstaSell)}\n`;
             text += `\n`;
@@ -337,18 +342,15 @@ function renderWormMembraneProfitTrackerOverlay() {
             break;
 
         case GEMSTONE_CHAMBERS_MODE:
-            const gemstoneChamberPrices = getAuctionItemPrices('GEMSTONE_CHAMBER');
-            const gemstoneChamberTotalCoins = totalChambersCount * Math.floor(gemstoneChamberPrices?.lbin || 0);
+            const gemstoneChamberTotalCoins = totalChambersCount * getChamberPrice();
         
-            text += `${GREEN}Total worms: ${WHITE}${formatNumberWithSpaces(totalWormsCount)}\n`;
-            text += `${GREEN}Total membranes: ${WHITE}${formatNumberWithSpaces(totalMembranesCount)} ${GRAY}[+${formatNumberWithSpaces(lastAddedMembranesCount)} last added]\n`;
-            text += `${DARK_PURPLE}Total chambers: ${WHITE}${formatNumberWithSpaces(totalChambersCount)}\n`;
-            text += `${GOLD}Total coins: ${WHITE}${toShortNumber(gemstoneChamberTotalCoins)}\n`;
+            text += totalWormsText;
+            text += totalMembranesText;
+            text += `${GOLD}Total coins: ${WHITE}${toShortNumber(gemstoneChamberTotalCoins)} ${GRAY}(${WHITE}${formatNumberWithSpaces(totalChambersCount)} ${DARK_PURPLE}Chambers${GRAY})\n`;
             text += `\n`;
-            text += `${GREEN}Worms/h: ${WHITE}${formatNumberWithSpaces(wormsPerHour)}\n`;
-            text += `${GREEN}Membranes/h: ${WHITE}${formatNumberWithSpaces(membranesPerHour)}\n`;
-            text += `${DARK_PURPLE}Chambers/h: ${WHITE}${formatNumberWithSpaces(chambersPerHour)}\n`;
-            text += `${GOLD}Coins/h: ${WHITE}${toShortNumber(chamberCoinsPerHour)}\n`;
+            text += wormsPerHourText;
+            text += membranesPerHourText;
+            text += `${GOLD}Coins/h: ${WHITE}${toShortNumber(chamberCoinsPerHour)} ${GRAY}(${WHITE}${WHITE}${formatNumberWithSpaces(chambersPerHour)} ${DARK_PURPLE}Chambers${GRAY}/h)\n`;
             text += `\n`;
             text += `${AQUA}Elapsed time: ${WHITE}${formatElapsedTime(elapsedSeconds)}${pausedText}`;     
             break;
@@ -362,6 +364,20 @@ function renderWormMembraneProfitTrackerOverlay() {
     overlay.draw();
 
     toggleButtonsDisplay(buttonsDisplay, overlay, overlayCoordsData.wormProfitTrackerOverlay);
+}
+
+// Adjusted price - the price of the gemstone chamber minus the price of the gemstone mixture.
+function getChamberPrice() {
+    const chamberPrices = getAuctionItemPrices('GEMSTONE_CHAMBER');
+    const mixturePrices = getBazaarItemPrices('GEMSTONE_MIXTURE');
+
+    const chamberPrice = Math.floor(chamberPrices?.lbin || 0);
+    const mixturePrice = settings.wormProfitTrackerBuyPriceMode === 0
+        ? Math.floor(mixturePrices?.instaSell || 0) // Buy order
+        : Math.floor(mixturePrices?.sellOffer || 0); // Insta buy
+
+    const chamberProfit = Math.max(chamberPrice - mixturePrice, 0);
+    return chamberProfit;
 }
 
 // Returns array of inventory slots, each array item is membranes count in this slot.
