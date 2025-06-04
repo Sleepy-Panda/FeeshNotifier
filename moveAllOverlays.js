@@ -140,7 +140,7 @@ ${GRAY}Last on: ${WHITE}6 Wiki Tikis ago`,
         toggleSettingKey: 'wormProfitTrackerOverlay',
         guiSettings: overlayCoordsData.wormProfitTrackerOverlay,
         sampleText:
-`${YELLOW}${BOLD}Worm profit tracker
+`${AQUA}${BOLD}Worm profit tracker
 ${GREEN}Total worms: ${WHITE}3 172
 ${GREEN}Total membranes: ${WHITE}1 574
 ${GOLD}Total coins (sell offer): ${WHITE}109.7m
