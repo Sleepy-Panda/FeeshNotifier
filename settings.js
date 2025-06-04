@@ -1320,7 +1320,7 @@ Example 2: ${AQUA}/feeshSetTrackerDrops TIKI_MASK 5 2025-05-30 23:59:00`);
     category: "Overlays",
     configName: "wormProfitTrackerMode",
     title: "Worm profit tracker display mode",
-    description: "How to calculate total profit and profit per hour. In Gemstone chambers mode, the price of the Gemstone Mixture is subtracted from the price of the Gemstone Chamber.",
+    description: "How to calculate total profit and profit per hour. In Gemstone chambers mode, the price of a Gemstone Mixture is subtracted from the price of a Gemstone Chamber, for more accurate profits.",
     options: ["Worm membranes","Gemstone chambers"],
     value: 0,
     subcategory: "Worm profit tracker"
