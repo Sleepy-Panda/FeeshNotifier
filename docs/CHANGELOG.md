@@ -8,7 +8,7 @@ Features:
 - Worm Profit tracker - in Gemstone chambers mode, the price of a Gemstone Mixture is subtracted from the price of a Gemstone Chamber, for more accurate profits. You can configure buy method for mixtures in the settings.
 
 Bugfixes:
--
+- Fixed Custom Fishing Hook not being applied sometimes.
 
 ## v1.44.0
 
