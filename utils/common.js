@@ -519,6 +519,18 @@ export function getMcEntityById(id) {
     return World.getWorld()?.func_73045_a(id); // func_73045_a() -> getEntityByID()
 }
 
+export function renderTextInSlot(text, slotX, slotY, x, y, scale) {
+    Tessellator.pushMatrix();
+    Tessellator.disableLighting();
+
+    Renderer.translate(slotX, slotY, 275); // z coord = 275 to be on top of the item icon and below the tooltip
+    Renderer.scale(scale, scale);
+    Renderer.drawString(text, x, y, true);
+
+    Tessellator.enableLighting();
+    Tessellator.popMatrix();
+}
+
 function getCurrentGuiChestName() {
 	if (Client.isInGui() && Client.currentGui?.getClassName() === 'GuiChest') {
 		const chestName = Client.currentGui?.get()?.field_147002_h?.func_85151_d()?.func_145748_c_()?.text;

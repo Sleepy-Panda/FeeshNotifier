@@ -19,7 +19,7 @@ registerIf(
 
 const FISHING_GEAR_REGEX = /(Thunder|Thunderbolt|Magma Lord|Slug|Moogma|Flaming|Taurus) (Helmet|Chestplate|Leggings|Boots|Gauntlet|Necklace)/;
 
-function showAttributes(item, x, y) {
+export function showAttributes(item, x, y) {
     if (!item || (!settings.showAttributesOnFishingGear && !settings.showAttributesOnFishingRod && !settings.showAttributesOnShard && !settings.showAttributesOnEverythingElse) || !isInSkyblock()) {
         return;
     }
@@ -66,15 +66,14 @@ function showAttributes(item, x, y) {
 
     const attributesString = attributeAbbreviations.join(`\n`);
 
-    Tessellator.pushMatrix();
-    Tessellator.disableLighting();
-
-    Renderer.translate(x, y + 1, 275); // z coord = 275 to be on top of the item icon and below the tooltip
-    Renderer.scale(0.5, 0.5);
-    Renderer.drawString(attributesString, 0, 0, true);
-
-    Tessellator.enableLighting();
-    Tessellator.popMatrix();
+    return {
+        text: attributesString,
+        translateX: x,
+        translateY: y + 1,
+        x: 0,
+        y: 0,
+        scale: 0.5
+    };
 }
 
 function isLavaFishingRod(name) {
