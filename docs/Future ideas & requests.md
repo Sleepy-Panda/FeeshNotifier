@@ -1,4 +1,4 @@
-# Future ideas and player's requests
+# Future ideas and players' requests
 
 ## Fishing profit tracker
 
@@ -40,10 +40,6 @@
 - Do not include baby magma slugs when producing cap alert.
 - Attach Vials drop number to the pchat message
 
-## Worm profit tracker
-
-- Option for Worm profit tracker that calculates the profit with [Gemstone Chamber - the price from Gemstone Mixtures]
-
 ## Hotspots
 
 - Hotspot location guesser
@@ -57,10 +53,6 @@
 
 - Offer supercrafting or BZ sell when items like raw fish goes to inventory (sacks are full).
 - Refactor all existing features so they consume less FPS
-
-## Fishing Hook
-
-- [Bug] Sometimes default Hypixel fishing hook is rendered (when in water)
 
 ## Baits
 
