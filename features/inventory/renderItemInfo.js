@@ -50,6 +50,6 @@ function render(item, x, y) {
     }
 
     if (data.renderInfo && data.renderInfo.text) {
-        renderTextInSlot(data.renderInfo.text, data.renderInfo.translateX, data.renderInfo.translateY, data.renderInfo.x, data.renderInfo.y, data.renderInfo.scale);
+        renderTextInSlot(data.renderInfo.text, x, y, data.renderInfo.x, data.renderInfo.y, data.renderInfo.scale);
     }
 }

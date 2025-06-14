@@ -68,10 +68,8 @@ export function showAttributes(item, x, y) {
 
     return {
         text: attributesString,
-        translateX: x,
-        translateY: y + 1,
         x: 0,
-        y: 0,
+        y: 1,
         scale: 0.5
     };
 }

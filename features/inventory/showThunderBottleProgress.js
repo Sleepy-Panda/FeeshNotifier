@@ -43,10 +43,8 @@ export function showThunderBottleProgress(item, x, y) {
 
     return {
         text: displayString,
-        translateX: x,
-        translateY: y - 1,
         x: 0,
-        y: 16,
+        y: 15,
         scale: 0.7
     };
 }
