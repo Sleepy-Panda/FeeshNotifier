@@ -308,6 +308,36 @@ export function getItemsAddedToSacks(eventMessage) {
 	return items;
 }
 
+export function getItemsRemovedFromSacks(eventMessage) {
+	let items = [];
+
+	const removedItemsMessage = new Message(eventMessage)
+        .getMessageParts()
+        .find(part => part.getHoverValue()?.includes('Removed items:'))?.hoverValue || '';
+    if (!removedItemsMessage) {
+        return items;
+    }
+    
+    const removedItemsRegex = new RegExp(/(\-[\d,]+) (.+) \((.+)\)/, "g"); // -1,344 Pufferfish (Fishing Sack)
+    let match = removedItemsRegex.exec(removedItemsMessage);
+
+    while (!!match) {
+        const difference = +match[1]?.removeFormatting()?.replace(/\-/g, '')?.replace(/,/g, '') || 0;
+        const itemName = match[2];
+        const sackName = match[3]?.removeFormatting();
+    
+        if (!difference || !itemName) {
+            match = removedItemsRegex.exec(removedItemsMessage);
+            continue;
+        }
+
+		items.push({ itemName: itemName, difference: difference, sackName: sackName });
+        match = removedItemsRegex.exec(removedItemsMessage);
+    }
+
+	return items;
+}
+
 export function getCleanItemName(itemName) {
     if (itemName && /.+ §8x[\d]+$/.test(itemName)) { // Booster cookie menu or NPCs append the amount to the item name - e.g. §9Fish Affinity Talisman §8x1
         const itemNameParts = itemName.split(' ');

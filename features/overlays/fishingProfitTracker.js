@@ -7,7 +7,7 @@ import { FISHING_PROFIT_ITEMS } from "../../constants/fishingProfitItems";
 import { AQUA, BOLD, GOLD, GRAY, RESET, WHITE, RED } from "../../constants/formatting";
 import { getAuctionItemPrices, getPetRarityCode } from "../../utils/auctionPrices";
 import { getBazaarItemPrices } from "../../utils/bazaarPrices";
-import { formatElapsedTime, getCleanItemName, getItemsAddedToSacks, getLore, isFishingHookActive, isInChatOrInventoryGui, isInFishingWorld, isInSacksGui, isInSupercraftGui, splitArray, toShortNumber } from "../../utils/common";
+import { formatElapsedTime, getCleanItemName, getItemsAddedToSacks, getItemsRemovedFromSacks, getLore, isFishingHookActive, isInChatOrInventoryGui, isInFishingWorld, isInSacksGui, isInSupercraftGui, splitArray, toShortNumber } from "../../utils/common";
 import { getLastFishingHookSeenAt, getLastGuisClosed, getLastKatUpgrade, getWorldName, isInSkyblock } from "../../utils/playerState";
 import { playRareDropSound } from '../../utils/sound';
 import { createButtonsDisplay, getButtonsDisplayRenderY } from '../../utils/overlays';
@@ -67,6 +67,19 @@ registerIf(
 
 registerIf(
     register('step', () => { if (fishingProfitTrackerOverlayGui.isOpen()) refreshTrackerDisplayData(); }).setFps(4), // Handle move/resize
+    () => settings.fishingProfitTrackerOverlay && isInSkyblock() && isInFishingWorld(getWorldName())
+);
+
+registerIf(
+    // Recalculate inventory content on closing GUI: sacks, bz, backpacks, NPC, etc.
+    register("guiClosed", (gui) => {
+        if (!gui) return;
+
+        const chestName = gui.field_147002_h?.func_85151_d()?.func_145748_c_()?.text;
+        if (!chestName) return;
+
+        detectInventoryChanges();
+    }),
     () => settings.fishingProfitTrackerOverlay && isInSkyblock() && isInFishingWorld(getWorldName())
 );
 
@@ -337,12 +350,14 @@ function onAddedToSacks(event) {
         if (isInSacksGui() || new Date() - lastGuisClosed.lastSacksGuiClosedAt < 15 * 1000) { // Sacks closed < 15 seconds ago
             return;
         }
+//
+        //if (isInSupercraftGui() || new Date() - lastGuisClosed.lastSupercraftGuiClosedAt < 15 * 1000) { // Supercraft closed < 15 seconds ago
+        //    return;
+        //}
 
-        if (isInSupercraftGui() || new Date() - lastGuisClosed.lastSupercraftGuiClosedAt < 15 * 1000) { // Supercraft closed < 15 seconds ago
-            return;
-        }
-
-        const itemsAddedToSacks = getItemsAddedToSacks(EventLib.getMessage(event));
+        const message = EventLib.getMessage(event);
+        const itemsAddedToSacks = getItemsAddedToSacks(message);
+        const itemsRemovedFromSacks = getItemsRemovedFromSacks(message);
         let isUpdated = false;
 
         for (let itemAddedToSack of itemsAddedToSacks) {
@@ -352,13 +367,18 @@ function onAddedToSacks(event) {
                 continue;
             }
 
+            // E.g. when compacting Magmafish into Silver Magmafish, or Lily Pad into Enchanted Lily Pad
+            if (itemsRemovedFromSacks && itemsRemovedFromSacks.some(i => itemName.endsWith(i.itemName.removeFormatting()))) {
+                continue;
+            }
+
             const item = getFishingProfitItemByName(itemName);
             const itemId = item?.itemId;
             if (!item || !itemId) {
                 continue;
             }
     
-            if (itemId?.startsWith('MAGMA_FISH') && lastGuisClosed.lastOdgerGuiClosedAt && new Date() - lastGuisClosed.lastOdgerGuiClosedAt < 15 * 1000) { // User probably just filleted trophy fish
+            if (itemId?.startsWith('MAGMA_FISH') && lastGuisClosed.lastOdgerGuiClosedAt && new Date() - lastGuisClosed.lastOdgerGuiClosedAt < 30 * 1000) { // User probably just filleted trophy fish
                 continue;
             }
 
@@ -512,22 +532,26 @@ function detectInventoryChanges() {
         const currentInventory = getFishingProfitItemsInCurrentInventory();
 
         let isInChest = Client.isInGui() && Client.currentGui?.getClassName() === 'GuiChest';
-        if (!isInChest) {
-            const uniqueItemIds = currentInventory.map(i => i.itemId).filter(id => !!id).filter((x, i, a) => a.indexOf(x) == i);
-            let isUpdated = false;
-            for (let itemId of uniqueItemIds) {
-                const previousTotal = previousInventory.filter(i => i.itemId === itemId).reduce((partialSum, a) => partialSum + a.amount, 0);
-                const currentTotal = currentInventory.filter(i => i.itemId === itemId).reduce((partialSum, a) => partialSum + a.amount, 0);
+        if (isInChest) {
+            previousInventory = currentInventory;
+            return;
+        }
 
-                if (currentTotal > previousTotal) {
-                    onItemAddedToInventory(itemId, previousTotal, currentTotal);
-                    isUpdated = true;
-                }
-            }
+        const uniqueItemIds = currentInventory.map(i => i.itemId).filter(id => !!id).filter((x, i, a) => a.indexOf(x) == i);
+        let isUpdated = false;
 
-            if (isUpdated) {
-                refreshTrackerDisplayData();
+        for (let itemId of uniqueItemIds) {
+            const previousTotal = previousInventory.filter(i => i.itemId === itemId).reduce((partialSum, a) => partialSum + a.amount, 0);
+            const currentTotal = currentInventory.filter(i => i.itemId === itemId).reduce((partialSum, a) => partialSum + a.amount, 0);
+
+            if (currentTotal > previousTotal) {
+                onItemAddedToInventory(itemId, previousTotal, currentTotal);
+                isUpdated = true;
             }
+        }
+
+        if (isUpdated) {
+            refreshTrackerDisplayData();
         }
 
         previousInventory = currentInventory;
@@ -626,23 +650,7 @@ function detectInventoryChanges() {
             return true;
         }
 
-        if (lastGuisClosed.lastStorageGuiClosedAt && new Date() - lastGuisClosed.lastStorageGuiClosedAt < 1000) {
-            return true;
-        }
-
         if (lastGuisClosed.lastAuctionGuiClosedAt && new Date() - lastGuisClosed.lastAuctionGuiClosedAt < 3000) {
-            return true;
-        }
-
-        if (lastGuisClosed.lastBazaarGuiClosedAt && new Date() - lastGuisClosed.lastBazaarGuiClosedAt < 1000) {
-            return true;
-        }
-
-        if (lastGuisClosed.lastCraftGuiClosedAt && new Date() - lastGuisClosed.lastCraftGuiClosedAt < 1000) {
-            return true;
-        }
-
-        if (lastGuisClosed.lastSupercraftGuiClosedAt && new Date() - lastGuisClosed.lastSupercraftGuiClosedAt < 1000) {
             return true;
         }
 
