@@ -1,5 +1,10 @@
 # Future ideas and players' requests
 
+## 1.21
+
+- 1.21 support with CT 3.0
+  - Depends on migration of other modules from "requires" section
+
 ## Fishing profit tracker
 
 - Option to decrease elapsed time in Fishing Profit Tracker (when user forgot to stop tracker being afk)
