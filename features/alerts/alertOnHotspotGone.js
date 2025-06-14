@@ -9,6 +9,8 @@ import { registerIf } from "../../utils/registers";
 
 let lastClosestHotspot = null;
 
+const HOTSPOT_RANGE = 7;
+
 registerIf(
     register("step", (event) => playAlertOnHotspotGone()).setDelay(1),
     () => settings.alertOnHotspotGone && isInSkyblock() && HOTSPOT_WORLDS.includes(getWorldName())
@@ -49,7 +51,7 @@ function playAlertOnHotspotGone() {
         const isHookActive = isFishingHookActive();
         if (isHookActive) {
             const playerHook = getPlayerFishingHook();
-            const closestHotspot = findClosestHotspotInRange(playerHook, 6);
+            const closestHotspot = findClosestHotspotInRange(playerHook, HOTSPOT_RANGE);
 
             if (closestHotspot) {
                 lastClosestHotspot = closestHotspot;

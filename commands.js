@@ -14,6 +14,7 @@ import { resetAbandonedQuarryTracker } from "./features/overlays/abandonedQuarry
 import { resetSeaCreaturesPerHourTracker } from "./features/overlays/seaCreaturesPerHourTracker";
 import { resetArchfiendDiceProfitTracker } from "./features/overlays/archfiendDiceProfitTracker";
 import { SESSION_VIEW_MODE, TOTAL_VIEW_MODE } from "./constants/viewModes";
+import { resetWaterHotspotsAndBayouTracker, setTikiMasks, setTitanoboaSheds } from "./features/overlays/waterHotspotsAndBayouTracker";
 
 register("command", (...args) => {
     settings.getConfig().openGui();
@@ -38,6 +39,11 @@ register("command", (...args) => {
     const isConfirmed = args[0] && args[0] === "noconfirm";
     resetJerryWorkshopTracker(!!isConfirmed);
 }).setName("feeshResetJerryWorkshop");
+
+register("command", (...args) => {
+    const isConfirmed = args[0] && args[0] === "noconfirm";
+    resetWaterHotspotsAndBayouTracker(!!isConfirmed);
+}).setName("feeshResetWaterHotspotsAndBayou");
 
 register("command", (...args) => {
     const isConfirmed = args[0] && args[0] === "noconfirm";
@@ -72,11 +78,21 @@ register("command", (...args) => {
     }
 }).setName("feeshResetProfitTracker");
 
-register("command", (...args) => {
-    const count = args[0];
-    const lastOn = args[1];
-    setRadioactiveVials(+count, lastOn);
-}).setName("feeshSetRadioactiveVials");
+register("command", (dropId, count, ...dateParts) => {
+    const lastOn = dateParts.join(' ');
+
+    switch (dropId) {
+        case 'RADIOACTIVE_VIAL':
+            setRadioactiveVials(+count, lastOn);
+            break;
+        case 'TITANOBOA_SHED':
+            setTitanoboaSheds(+count, lastOn);
+            break;
+        case 'TIKI_MASK':
+            setTikiMasks(+count, lastOn);
+            break;
+    }
+}).setName("feeshSetTrackerDrops");
 
 register("command", (...args) => {
     calculateFishingPetPrices();

@@ -31,6 +31,7 @@ import "./features/overlays/seaCreaturesPerHourTracker";
 import "./features/overlays/legionAndBobbingTimeTracker";
 import "./features/overlays/crimsonIsleTracker";
 import "./features/overlays/jerryWorkshopTracker";
+import "./features/overlays/waterHotspotsAndBayouTracker";
 import "./features/overlays/wormMembraneProfitTracker";
 import "./features/overlays/magmaCoreProfitTracker";
 import "./features/overlays/abandonedQuarryTracker";
@@ -57,6 +58,7 @@ import "./features/chat/messageOnHotspotFound";
 import "./features/chat/compactCatchMessages";
 
 import "./features/rendering/boxEntities";
+import "./features/rendering/fishingHookTimer";
 
 register('worldLoad', () => {
     Client.showTitle('', '', 1, 1, 1); // Shitty fix for a title not showing for the 1st time

@@ -13,6 +13,7 @@ export const seaCreaturesPerHourTrackerOverlayGui = new Gui();
 export const legionAndBobbingTimeOverlayGui = new Gui();
 export const crimsonIsleTrackerOverlayGui = new Gui();
 export const jerryWorkshopTrackerOverlayGui = new Gui();
+export const waterHotspotsAndBayouTrackerOverlayGui = new Gui();
 export const wormProfitTrackerOverlayGui = new Gui();
 export const magmaCoreProfitTrackerOverlayGui = new Gui();
 export const abandonedQuarryTrackerOverlayGui = new Gui();
@@ -76,6 +77,13 @@ const config = new DefaultConfig("FeeshNotifier", "config/settings.json")
     description: "Shows clickable chat message that offers sharing Hotspot location and its perk to ALL chat or PARTY chat. You need to be close to the hotspot in order to trigger it.",
     subcategory: "Hotspot",
     value: true
+})
+.addTextParagraph({
+    category: "Chat",
+    configName: "shareHotspotKeybindInformationText",
+    title: "Share hotspot button",
+    description: "Set a keybind in Minecraft's Controls menu to share the nearest Hotspot to PARTY chat or ALL chat on button pressed. You need to be close to the hotspot when pressing the button.",
+    subcategory: "Hotspot"
 })
 .addSwitch({
     category: "Chat",
@@ -1192,7 +1200,7 @@ const config = new DefaultConfig("FeeshNotifier", "config/settings.json")
     configName: "crimsonIsleTrackerOverlay",
     title: "Crimson Isle tracker",
     description: `
-Shows an overlay with Thunder / Lord Jawbus catch statistics and Radioactive Vial drop statistics while in the Crimson Isle.
+Shows an overlay with Fiery Scuttler & Ragnarok (when fishing in hotspot), Plhlegblast (when in Plhlegblast Pool), Thunder & Lord Jawbus catch statistics. Also has Radioactive Vial drop statistics. Shown only when in the Crimson Isle!
 Do ${AQUA}/feeshResetCrimsonIsle${GRAY} to reset.`,
     subcategory: "Crimson Isle tracker",
     value: true
@@ -1201,24 +1209,25 @@ Do ${AQUA}/feeshResetCrimsonIsle${GRAY} to reset.`,
     category: "Overlays",
     configName: "getRadioactiveVialsSetupHelp",
     title: "Set Radioactive Vials count",
-    description: "Explains how to setup Radioactive Vials count and last drop date.",
+    description: "Explains in your chat how to setup Radioactive Vials count and last drop date.",
     subcategory: "Crimson Isle tracker",
     onClick() {
         ChatLib.chat(`
 ${LIGHT_PURPLE}${BOLD}Radioactive Vials setup
 
-Do ${AQUA}/feeshSetRadioactiveVials <COUNT> <LAST_ON_UTC_DATE>${RESET} to initialize your vials history:
-  - <COUNT> is a mandatory number of vials.
-  - <LAST_ON_UTC_DATE> is optional and, if provided, should be in YYYY-MM-DDThh:mm:ssZ format (UTC).
+Do ${AQUA}/feeshSetTrackerDrops <ITEM_ID> <COUNT> <LAST_ON_DATE>${RESET} to initialize your drops history:
+  - <ITEM_ID> is a mandatory item ID - RADIOACTIVE_VIAL.
+  - <COUNT> is a mandatory number of times you've dropped it.
+  - <LAST_ON_DATE> is optional and, if provided, should be in YYYY-MM-DD hh:mm:ss format. Can not be in future!
 
-Example: ${AQUA}/feeshSetRadioactiveVials 5 2024-03-18T14:05:00Z`);
+Example: ${AQUA}/feeshSetTrackerDrops RADIOACTIVE_VIAL 5 2025-05-30 23:59:00`);
     }
 })
 .addSwitch({
     category: "Overlays",
     configName: "resetCrimsonIsleTrackerOnGameClosed",
     title: "Reset on closing game",
-    description: "Automatically reset the Crimson Isle tracker when you close Minecraft or or reload CT modules.",
+    description: "Automatically reset the Crimson Isle tracker when you close Minecraft or reload CT modules.",
     subcategory: "Crimson Isle tracker"
 })
 .addButton({
@@ -1244,6 +1253,63 @@ Example: ${AQUA}/feeshSetRadioactiveVials 5 2024-03-18T14:05:00Z`);
 
 .addSwitch({
     category: "Overlays",
+    configName: "waterHotspotsAndBayouTrackerOverlay",
+    title: "Water hotspots & Bayou tracker",
+    description: `
+Shows an overlay with Titanoboa (when fishing in hotspot) and Wiki Tiki (when in Backwater Bayou) catch statistics. Also has Titanoboa Shed and Tiki Mask drop statistics.
+Do ${AQUA}/feeshResetWaterHotspotsAndBayou${GRAY} to reset.`,
+    subcategory: "Water hotspots & Bayou tracker",
+    value: true
+})
+.addButton({
+    category: "Overlays",
+    configName: "getTitanoboaShedAndTikiMaskSetupHelp",
+    title: "Set Titanoboa Sheds / Tiki Masks count",
+    description: "Explains in your chat how to setup Titanoboa Sheds / Tiki Masks count and last drop date.",
+    subcategory: "Water hotspots & Bayou tracker",
+    onClick() {
+        ChatLib.chat(`
+${LIGHT_PURPLE}${BOLD}Titanoboa Sheds / Tiki Masks setup
+
+Do ${AQUA}/feeshSetTrackerDrops <ITEM_ID> <COUNT> <LAST_ON_DATE>${RESET} to initialize your drops history:
+  - <ITEM_ID> is a mandatory item ID - TITANOBOA_SHED or TIKI_MASK.
+  - <COUNT> is a mandatory number of times you've dropped it.
+  - <LAST_ON_DATE> is optional and, if provided, should be in YYYY-MM-DD hh:mm:ss format. Can not be in future!
+
+Example 1: ${AQUA}/feeshSetTrackerDrops TITANOBOA_SHED 5 2025-05-30 23:59:00
+Example 2: ${AQUA}/feeshSetTrackerDrops TIKI_MASK 5 2025-05-30 23:59:00`);
+    }
+})
+.addSwitch({
+    category: "Overlays",
+    configName: "resetWaterHotspotsAndBayouTrackerOnGameClosed",
+    title: "Reset on closing game",
+    description: "Automatically reset the Water hotspots & Bayou tracker when you close Minecraft or reload CT modules.",
+    subcategory: "Water hotspots & Bayou tracker"
+})
+.addButton({
+    category: "Overlays",
+    configName: "moveWaterHotspotsAndBayouTrackerOverlay",
+    title: "Move Water hotspots & Bayou tracker",
+    description: "Allows to move and resize the overlay text.",
+    subcategory: "Water hotspots & Bayou tracker",
+    onClick() {
+        moveOverlay(waterHotspotsAndBayouTrackerOverlayGui);
+    }
+})
+.addButton({
+    category: "Overlays",
+    configName: "resetWaterHotspotsAndBayouTracker",
+    title: "Reset Water hotspots & Bayou tracker",
+    description: `Resets tracking for Water hotspots & Bayou tracker. Executes ${AQUA}/feeshResetWaterHotspotsAndBayou`,
+    subcategory: "Water hotspots & Bayou tracker",
+    onClick() {
+        ChatLib.command("feeshResetWaterHotspotsAndBayou noconfirm", true);
+    }
+})
+
+.addSwitch({
+    category: "Overlays",
     configName: "wormProfitTrackerOverlay",
     title: "Worm profit tracker",
     description: `Shows an overlay with the worm fishing statistics - total and per hour, when in Crystal Hollows. Not persistent - resets on MC restart.\nDo ${AQUA}/feeshResetWormProfit${GRAY} to reset.`,
@@ -1254,9 +1320,19 @@ Example: ${AQUA}/feeshSetRadioactiveVials 5 2024-03-18T14:05:00Z`);
     category: "Overlays",
     configName: "wormProfitTrackerMode",
     title: "Worm profit tracker display mode",
-    description: "How to calculate total profit and profit per hour.",
+    description: "How to calculate total profit and profit per hour. In Gemstone chambers mode, the price of a Gemstone Mixture is subtracted from the price of a Gemstone Chamber, for more accurate profits.",
     options: ["Worm membranes","Gemstone chambers"],
     value: 0,
+    subcategory: "Worm profit tracker"
+})
+.addDropDown({
+    category: "Overlays",
+    configName: "wormProfitTrackerBuyPriceMode",
+    title: "Worm profit tracker buy price mode",
+    description: "How to calculate price for the Gemstone Mixtures that you buy in order to forge Gemstone Chambers.",
+    options: ["Buy order","Insta-buy"],
+    value: 0,
+    shouldShow: data => data.wormProfitTrackerMode === 1,
     subcategory: "Worm profit tracker"
 })
 .addButton({
@@ -1603,6 +1679,60 @@ ${GRAY}Do ${AQUA}/feeshResetProfitTracker${GRAY} to reset.`,
     title: "Price per T1 attribute shard",
     description: "Render price per T1 attribute level in the auctioned Attribute Shard's lore, based on item's price. Helps to compare prices for high-tier attribute shards on AH.",
     subcategory: "Item lore"
+})
+
+.addSwitch({
+    category: "Rendering",
+    configName: "renderFishingHookTimer",
+    title: "Render fishing hook timer",
+    description: `Displays the timer on your fishing hook, as well as the sign when a fish arrived and can be reeled in.\nYou need to enable ${YELLOW}Skyblock Settings -> Personal -> Fishing Settings -> Fishing Timer ${RESET}for this functionality to work!`,
+    subcategory: "Fishing Hook"
+})
+.addDropDown({
+    category: "Rendering",
+    configName: "renderFishingHookTimerMode",
+    title: "Fishing hook timer mode. 'Until reel in' shows countdown while fish is swimming towards the fishing hook. 'Since casted' shows the timer while the fishing hook is casted.",
+    description: "",
+    options: ["Until reel in", "Since casted"],
+    value: 0,
+    subcategory: "Fishing Hook"
+})
+.addSlider({
+    category: "Rendering",
+    configName: "renderFishingHookTimerSize",
+    title: "Fishing hook timer size",
+    description: "Text size for rendered fishing hook timer.",
+    options: [1, 25],
+    value: 5,
+    subcategory: "Fishing Hook"
+})
+.addTextInput({
+    category: "Rendering",
+    configName: "renderFishingHookFishArrivedTemplate",
+    title: "Custom fish arrived template",
+    description: `Replace default ${RED}${BOLD}!!! ${RESET}with your custom text when a fish arrived to your hook. Leave empty to use default.`,
+    value: "&c&l!!!",
+    placeHolder: "e.g. &c&l!!!",
+    subcategory: "Fishing Hook"
+})
+.addTextInput({
+    category: "Rendering",
+    configName: "renderFishingHookFishTimerTemplate",
+    title: "Custom timer format",
+    description: `Replace default ${YELLOW}${BOLD}{timer} ${RESET}with your custom timer text. Use {timer} to insert timer seconds into the template. Leave empty to use default.`,
+    value: "&e&l{timer}",
+    placeHolder: "e.g. &e&l{timer}",
+    subcategory: "Fishing Hook"
+})
+.addButton({
+    category: "Rendering",
+    configName: "colorCodes",
+    title: `Color codes`,
+    description: `For settings above with custom text templates, please explore color codes and formatting codes.`,
+    subcategory: "Fishing Hook",
+    onClick() {
+        java.awt.Desktop.getDesktop().browse(new java.net.URI("https://github.com/Sleepy-Panda/FeeshNotifier/blob/main/docs/Colors%20and%20formatting%20guide.md"));
+    }
 })
 
 .addTextParagraph({

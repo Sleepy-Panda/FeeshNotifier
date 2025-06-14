@@ -1,8 +1,49 @@
 # Releases
 
-## v1.42.0
+## v1.45.0
 
 Released: ???
+
+Features:
+- Worm Profit tracker - in Gemstone chambers mode, the price of a Gemstone Mixture is subtracted from the price of a Gemstone Chamber, for more accurate profits. You can configure buy method for mixtures in the settings.
+
+Bugfixes:
+- Fixed Custom Fishing Hook not being applied sometimes.
+
+## v1.44.0
+
+Released: 2025-06-04
+
+Features:
+- Added Water hotspots & Bayou tracker. It shows an overlay with Titanoboa (when fishing in hotspot) and Wiki Tiki (when in Backwater Bayou) catch statistics. Also has Titanoboa Shed and Tiki Mask drop statistics.
+  - You can initialize Titanoboa Sheds and Tiki Masks using the command:
+    - /feeshSetTrackerDrops TITANOBOA_SHED <COUNT> <LAST_ON_DATE>
+    - /feeshSetTrackerDrops TIKI_MASK <COUNT> <LAST_ON_DATE>
+    - <COUNT> is a mandatory number of times you've dropped it.
+    - <LAST_ON_DATE> is optional and, if provided, should be in YYYY-MM-DD hh:mm:ss format. Can not be in future!
+    - Example 1: /feeshSetTrackerDrops TITANOBOA_SHED 5 2025-05-30 23:59:00
+    - Example 2: /feeshSetTrackerDrops TIKI_MASK 5 2025-05-30 23:59:00
+- Added Fiery Scuttler & Ragnarok (when fishing in hotspot), Plhlegblast (when in Plhlegblast Pool) tracking to Crimson Isle tracker.
+- Changed command to initialize Radioactive Vials in the Crimson Isle Tracker, to have the same pattern everywhere:
+  - /feeshSetTrackerDrops RADIOACTIVE_VIAL <COUNT> <LAST_ON_DATE>
+
+Bugfixes:
+- Do not display DH for Reindrakes in Rare Catches tracker.
+
+## v1.43.0
+
+Released: 2025-05-25
+
+Features:
+- Added custom Fishing Hook timer which extends functionality of default Hypixel's one. Explore /feesh -> Rendering -> Fishing Hook section to enable and customize.
+- Added option to set a keybind in Minecraft's Controls menu to share the nearest Hotspot to PARTY or ALL chat on button pressed.
+
+Bugfixes:
+-
+
+## v1.42.0
+
+Released: 2025-05-20
 
 Features:
 - Sea creature HP tracker: Added immunity indicator for sea creatures that have 5 seconds damage reduction period.

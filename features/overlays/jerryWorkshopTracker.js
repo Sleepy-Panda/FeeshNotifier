@@ -3,15 +3,37 @@ import * as triggers from '../../constants/triggers';
 import * as seaCreatures from '../../constants/seaCreatures';
 import { persistentData } from "../../data/data";
 import { overlayCoordsData } from "../../data/overlayCoords";
-import { BOLD, GOLD, RED, WHITE, DARK_PURPLE, GRAY, AQUA, DARK_GRAY, LIGHT_PURPLE } from "../../constants/formatting";
+import { BOLD, GOLD, RED, WHITE, DARK_PURPLE, GRAY, AQUA, LIGHT_PURPLE } from "../../constants/formatting";
 import { getLastFishingHookSeenAt, getWorldName, isInSkyblock } from "../../utils/playerState";
-import { formatDate, formatNumberWithSpaces, formatTimeElapsedBetweenDates } from "../../utils/common";
+import { formatNumberWithSpaces, getCatchesCounterChatMessage } from "../../utils/common";
 import { JERRY_WORKSHOP } from "../../constants/areas";
-import { createButtonsDisplay, toggleButtonsDisplay } from "../../utils/overlays";
+import { createButtonsDisplay, getSeaCreatureStatisticsOverlayText, setSeaCreatureStatisticsOnCatch, toggleButtonsDisplay } from "../../utils/overlays";
 import { registerIf } from "../../utils/registers";
 
 let remainingWorkshopTime = null;
 let sawWorkshopClosingMessage = false;
+
+const TRACKED_SEA_CREATURES = [
+    {
+        seaCreatureInfo: triggers.RARE_CATCH_TRIGGERS.find(entry => entry.seaCreature === seaCreatures.YETI),
+        callback: (seaCreatureInfo) => trackYetiCatch(seaCreatureInfo),
+    },
+    {
+        seaCreatureInfo: triggers.RARE_CATCH_TRIGGERS.find(entry => entry.seaCreature === seaCreatures.REINDRAKE),
+        callback: (seaCreatureInfo) => trackReindrakeCatch(seaCreatureInfo),
+    },
+];
+
+const TRACKED_DROPS = [
+    {
+        dropInfo: triggers.RARE_DROP_TRIGGERS.find(entry => entry.trigger === triggers.BABY_YETI_PET_EPIC_MESSAGE),
+        callback: () => trackEpicBabyYetiPetDrop(),
+    },
+    {
+        dropInfo: triggers.RARE_DROP_TRIGGERS.find(entry => entry.trigger === triggers.BABY_YETI_PET_LEG_MESSAGE),
+        callback: () => trackLegendaryBabyYetiPetDrop(),
+    },
+];
 
 triggers.REGULAR_JERRY_WORKSHOP_CATCH_TRIGGERS.forEach(entry => {
     registerIf(
@@ -20,29 +42,19 @@ triggers.REGULAR_JERRY_WORKSHOP_CATCH_TRIGGERS.forEach(entry => {
     );
 });
 
-const yetiTrigger = triggers.RARE_CATCH_TRIGGERS.find(entry => entry.seaCreature === seaCreatures.YETI);
-registerIf(
-    register("Chat", (event) => trackYetiCatch()).setCriteria(yetiTrigger.trigger).setContains(),
-    () => settings.jerryWorkshopTrackerOverlay && isInSkyblock() && getWorldName() === JERRY_WORKSHOP
-);
+TRACKED_SEA_CREATURES.forEach(entry => {
+    registerIf(
+        register("Chat", (event) => entry.callback(entry.seaCreatureInfo)).setCriteria(entry.seaCreatureInfo.trigger).setContains(),
+        () => settings.jerryWorkshopTrackerOverlay && isInSkyblock() && getWorldName() === JERRY_WORKSHOP
+    );
+});
 
-const reindrakeTrigger = triggers.RARE_CATCH_TRIGGERS.find(entry => entry.seaCreature === seaCreatures.REINDRAKE);
-registerIf(
-    register("Chat", (event) => trackReindrakeCatch()).setCriteria(reindrakeTrigger.trigger).setContains(),
-    () => settings.jerryWorkshopTrackerOverlay && isInSkyblock() && getWorldName() === JERRY_WORKSHOP
-);
-
-const babyYetiPetEpicTrigger = triggers.RARE_DROP_TRIGGERS.find(entry => entry.trigger === triggers.BABY_YETI_PET_EPIC_MESSAGE);
-registerIf(
-    register("Chat", (magicFind, event) => trackEpicBabyYetiPetDrop()).setCriteria(babyYetiPetEpicTrigger.trigger).setContains(),
-    () => settings.jerryWorkshopTrackerOverlay && isInSkyblock() && getWorldName() === JERRY_WORKSHOP
-);
-
-const babyYetiPetLegendaryTrigger = triggers.RARE_DROP_TRIGGERS.find(entry => entry.trigger === triggers.BABY_YETI_PET_LEG_MESSAGE);
-registerIf(
-    register("Chat", (magicFind, event) => trackLegendaryBabyYetiPetDrop()).setCriteria(babyYetiPetLegendaryTrigger.trigger).setContains(),
-    () => settings.jerryWorkshopTrackerOverlay && isInSkyblock() && getWorldName() === JERRY_WORKSHOP
-);
+TRACKED_DROPS.forEach(entry => {
+    registerIf(
+        register("Chat", (magicFind, event) => entry.callback()).setCriteria(entry.dropInfo.trigger).setContains(),
+        () => settings.jerryWorkshopTrackerOverlay && isInSkyblock() && getWorldName() === JERRY_WORKSHOP
+    );
+});
 
 registerIf(
     register("Chat", (event) => { sawWorkshopClosingMessage = true; }).setCriteria(triggers.WORKSHOP_CLOSING_MESSAGE).setContains(),
@@ -66,14 +78,7 @@ register("worldUnload", () => {
 });
 
 register("gameUnload", () => {
-    if (settings.jerryWorkshopTrackerOverlay && settings.resetJerryWorkshopTrackerOnGameClosed && persistentData.jerryWorkshop && (
-        persistentData.jerryWorkshop.yeti.lastCatchTime ||
-        persistentData.jerryWorkshop.reindrake.lastCatchTime ||
-        persistentData.jerryWorkshop.yeti.catchesSinceLast ||
-        persistentData.jerryWorkshop.reindrake.catchesSinceLast ||
-        persistentData.jerryWorkshop.babyYetiPets.epic.count ||
-        persistentData.jerryWorkshop.babyYetiPets.legendary.count
-    )) {
+    if (settings.jerryWorkshopTrackerOverlay && settings.resetJerryWorkshopTrackerOnGameClosed && hasAnyData()) {
         resetJerryWorkshopTracker(true);
     }
 });
@@ -91,11 +96,7 @@ export function resetJerryWorkshopTracker(isConfirmed) {
             return;
         }
     
-        persistentData.jerryWorkshop = {
-            yeti: { catchesSinceLast: 0, lastCatchTime: null, catchesHistory: [], averageCatches: 0 },
-            reindrake: { catchesSinceLast: 0, lastCatchTime: null, catchesHistory: [], averageCatches: 0 },
-            babyYetiPets: { epic: { count: 0 }, legendary: { count: 0 } }
-        };
+        persistentData.jerryWorkshop = getDefaultObject();
         persistentData.save();
 
         ChatLib.chat(`${GOLD}[FeeshNotifier] ${WHITE}Jerry workshop tracker was reset.`);    
@@ -105,64 +106,61 @@ export function resetJerryWorkshopTracker(isConfirmed) {
 	}
 }
 
-function trackYetiCatch() {
+function getDefaultSeaCreatureSectionObject() {
+    return { catchesSinceLast: 0, lastCatchTime: null, catchesHistory: [], averageCatches: 0 };
+}
+
+function getDefaultObject() {
+    return {
+        yeti: getDefaultSeaCreatureSectionObject(),
+        reindrake: getDefaultSeaCreatureSectionObject(),
+        babyYetiPets: { epic: { count: 0 }, legendary: { count: 0 } }
+    };
+}
+
+function hasAnyData() {
+    return persistentData.jerryWorkshop && (
+        persistentData.jerryWorkshop.yeti.lastCatchTime ||
+        persistentData.jerryWorkshop.yeti.catchesSinceLast ||
+        persistentData.jerryWorkshop.reindrake.lastCatchTime ||
+        persistentData.jerryWorkshop.reindrake.catchesSinceLast ||
+        persistentData.jerryWorkshop.babyYetiPets.epic.count ||
+        persistentData.jerryWorkshop.babyYetiPets.legendary.count
+    );
+}
+
+function trackYetiCatch(seaCreatureInfo) {
     try {
         if (!settings.jerryWorkshopTrackerOverlay || !isInSkyblock() || getWorldName() !== JERRY_WORKSHOP) {
             return;
         }
 
-        const catchesSinceLast = persistentData.jerryWorkshop.yeti.catchesSinceLast;
-        const lastCatchTime = persistentData.jerryWorkshop.yeti.lastCatchTime;
-        const elapsedTime = lastCatchTime ? ` ${GRAY}(${WHITE}${formatTimeElapsedBetweenDates(new Date(lastCatchTime))}${GRAY})` : '';
-
-        let catchesHistory = persistentData.jerryWorkshop.yeti.catchesHistory || [];
-        catchesHistory.unshift(catchesSinceLast); // Most recent counts at the start of array
-        catchesHistory.length = Math.min(catchesHistory.length, 100); // Store last 100
-        persistentData.jerryWorkshop.yeti.catchesHistory = catchesHistory;
-
-        const sumCatches = catchesHistory.reduce(function(a, b) { return a + b; }, 0);
-        persistentData.jerryWorkshop.yeti.averageCatches = catchesHistory.length ? Math.round(sumCatches / catchesHistory.length) : 0;
-
-        persistentData.jerryWorkshop.yeti.catchesSinceLast = 0;
-        persistentData.jerryWorkshop.yeti.lastCatchTime = new Date();
-
+        const result = setSeaCreatureStatisticsOnCatch(persistentData.jerryWorkshop.yeti);
         persistentData.jerryWorkshop.reindrake.catchesSinceLast += 1;
 
         persistentData.save();
 
-        ChatLib.chat(`${GOLD}[FeeshNotifier] ${GRAY}It took ${WHITE}${catchesSinceLast} ${GRAY}${catchesSinceLast === 1 ? 'catch' : 'catches'}${elapsedTime} to get the ${GOLD}Yeti${GRAY}.`);
+        const message = getCatchesCounterChatMessage(seaCreatureInfo.seaCreature, seaCreatureInfo.rarityColorCode, result.catchesSinceLast, result.lastCatchTime);
+        ChatLib.chat(message);
     } catch (e) {
 		console.error(e);
 		console.log(`[FeeshNotifier] Failed to track Yeti catch.`);
 	}
 }
 
-function trackReindrakeCatch() {
+function trackReindrakeCatch(seaCreatureInfo) {
     try {
         if (!settings.jerryWorkshopTrackerOverlay || !isInSkyblock() || getWorldName() !== JERRY_WORKSHOP) {
             return;
         }
 
-        const catchesSinceLast = persistentData.jerryWorkshop.reindrake.catchesSinceLast;
-        const lastCatchTime = persistentData.jerryWorkshop.reindrake.lastCatchTime;
-        const elapsedTime = lastCatchTime ? ` ${GRAY}(${WHITE}${formatTimeElapsedBetweenDates(new Date(lastCatchTime))}${GRAY})` : '';
-
-        let catchesHistory = persistentData.jerryWorkshop.reindrake.catchesHistory || [];
-        catchesHistory.unshift(catchesSinceLast); // Most recent counts at the start of array
-        catchesHistory.length = Math.min(catchesHistory.length, 100); // Store last 100
-        persistentData.jerryWorkshop.reindrake.catchesHistory = catchesHistory;
-
-        const sumCatches = catchesHistory.reduce(function(a, b) { return a + b; }, 0);
-        persistentData.jerryWorkshop.reindrake.averageCatches = catchesHistory.length ? Math.round(sumCatches / catchesHistory.length) : 0;
-
-        persistentData.jerryWorkshop.reindrake.catchesSinceLast = 0;
-        persistentData.jerryWorkshop.reindrake.lastCatchTime = new Date();
-
+        const result = setSeaCreatureStatisticsOnCatch(persistentData.jerryWorkshop.reindrake);
         persistentData.jerryWorkshop.yeti.catchesSinceLast += 1;
 
         persistentData.save();
 
-        ChatLib.chat(`${GOLD}[FeeshNotifier] ${GRAY}It took ${WHITE}${catchesSinceLast} ${GRAY}${catchesSinceLast === 1 ? 'catch' : 'catches'}${elapsedTime} to get the ${LIGHT_PURPLE}Reindrake${GRAY}.`);
+        const message = getCatchesCounterChatMessage(seaCreatureInfo.seaCreature, seaCreatureInfo.rarityColorCode, result.catchesSinceLast, result.lastCatchTime);
+        ChatLib.chat(message);
     } catch (e) {
 		console.error(e);
 		console.log(`[FeeshNotifier] Failed to track Reindrake catch.`);
@@ -237,15 +235,7 @@ function trackRemainingWorkshopTime() {
 
 function renderJerryWorkshopOverlay() {
     if (!settings.jerryWorkshopTrackerOverlay ||
-        !persistentData.jerryWorkshop ||
-        (
-            !persistentData.jerryWorkshop.yeti.lastCatchTime &&
-            !persistentData.jerryWorkshop.reindrake.lastCatchTime &&
-            !persistentData.jerryWorkshop.yeti.catchesSinceLast &&
-            !persistentData.jerryWorkshop.reindrake.catchesSinceLast &&
-            !persistentData.jerryWorkshop.babyYetiPets.epic.count &&
-            !persistentData.jerryWorkshop.babyYetiPets.legendary.count
-        ) ||
+        !hasAnyData() ||
         !isInSkyblock() ||
         getWorldName() !== JERRY_WORKSHOP ||
         (new Date() - getLastFishingHookSeenAt() > 10 * 60 * 1000) ||
@@ -255,21 +245,10 @@ function renderJerryWorkshopOverlay() {
         return;
     }
 
-    const lastCatchTimeYeti = persistentData.jerryWorkshop.yeti.lastCatchTime
-        ? `${WHITE}${formatTimeElapsedBetweenDates(new Date(persistentData.jerryWorkshop.yeti.lastCatchTime))} ${GRAY}(${WHITE}${formatDate(new Date(persistentData.jerryWorkshop.yeti.lastCatchTime))}${GRAY})` 
-        : `${WHITE}N/A`;
-    const lastCatchTimeReindrake = persistentData.jerryWorkshop.reindrake.lastCatchTime 
-        ? `${WHITE}${formatTimeElapsedBetweenDates(new Date(persistentData.jerryWorkshop.reindrake.lastCatchTime))} ${GRAY}(${WHITE}${formatDate(new Date(persistentData.jerryWorkshop.reindrake.lastCatchTime))}${GRAY})` 
-        : `${WHITE}N/A`;
-    const averageYeti = formatNumberWithSpaces(persistentData.jerryWorkshop.yeti.averageCatches) || 'N/A';
-    const averageReindrake = formatNumberWithSpaces(persistentData.jerryWorkshop.reindrake.averageCatches) || 'N/A';
-
     let overlayText = `${AQUA}${BOLD}Jerry Workshop tracker`;
-    overlayText += `\n${GOLD}Yeti: ${WHITE}${formatNumberWithSpaces(persistentData.jerryWorkshop.yeti.catchesSinceLast)} ${GRAY}${persistentData.jerryWorkshop.yeti.catchesSinceLast !== 1 ? 'catches' : 'catch'} ago ${DARK_GRAY}(${GRAY}avg: ${WHITE}${averageYeti}${DARK_GRAY})`;
-    overlayText += `\n${GRAY}Last on: ${lastCatchTimeYeti}`;
-    overlayText += `\n${LIGHT_PURPLE}Reindrake: ${WHITE}${formatNumberWithSpaces(persistentData.jerryWorkshop.reindrake.catchesSinceLast)} ${GRAY}${persistentData.jerryWorkshop.reindrake.catchesSinceLast !== 1 ? 'catches' : 'catch'} ago ${DARK_GRAY}(${GRAY}avg: ${WHITE}${averageReindrake}${DARK_GRAY})`;
-    overlayText += `\n${GRAY}Last on: ${lastCatchTimeReindrake}`;
+    overlayText += getYetiOverlayText();
     overlayText += `\n${GRAY}Baby Yeti pets: ${GOLD}${formatNumberWithSpaces(persistentData.jerryWorkshop.babyYetiPets.legendary.count)} ${DARK_PURPLE}${formatNumberWithSpaces(persistentData.jerryWorkshop.babyYetiPets.epic.count)}`;
+    overlayText += getReindrakeOverlayText();
 
     if (remainingWorkshopTime) {
         overlayText += `\n\n${GRAY}Closes in: ${remainingWorkshopTime}`;
@@ -281,4 +260,14 @@ function renderJerryWorkshopOverlay() {
     overlay.draw();
 
     toggleButtonsDisplay(buttonsDisplay, overlay, overlayCoordsData.jerryWorkshopTrackerOverlay);
+
+    function getYetiOverlayText() {
+        const overlayText = getSeaCreatureStatisticsOverlayText(`${GOLD}Yeti`, persistentData.jerryWorkshop.yeti);
+        return '\n' + overlayText;
+    }
+
+    function getReindrakeOverlayText() {
+        const overlayText = getSeaCreatureStatisticsOverlayText(`${LIGHT_PURPLE}Reindrake`, persistentData.jerryWorkshop.reindrake);
+        return '\n' + overlayText;
+    }
 }

@@ -1,6 +1,6 @@
 import settings, { allOverlaysGui } from "./settings";
 import { overlayCoordsData } from "./data/overlayCoords";
-import { AQUA, BLUE, BOLD, DARK_GRAY, DARK_PURPLE, DARK_RED, GOLD, GRAY, GREEN, LIGHT_PURPLE, RED, RESET, WHITE, YELLOW } from "./constants/formatting";
+import { AQUA, BLUE, BOLD, DARK_GRAY, DARK_PURPLE, GOLD, GRAY, GREEN, LIGHT_PURPLE, RED, RESET, WHITE, YELLOW } from "./constants/formatting";
 import { isInSkyblock } from "./utils/playerState";
 import { decreaseScaleOrSetToMinimal } from "./moveOverlay";
 
@@ -85,7 +85,13 @@ ${AQUA}Elapsed time: ${WHITE}2:00:00
         toggleSettingKey: 'crimsonIsleTrackerOverlay',
         guiSettings: overlayCoordsData.crimsonIsleTrackerOverlay,
         sampleText:
-`${DARK_RED}${BOLD}Crimson Isle tracker
+`${AQUA}${BOLD}Crimson Isle tracker
+${GOLD}Fiery Scuttler: ${WHITE}1 ${GRAY}catch ago ${DARK_GRAY}(${GRAY}avg: ${WHITE}50${DARK_GRAY})
+${GRAY}Last on: ${WHITE}1m ${GRAY}(${WHITE}2024-11-30 11:45:00${GRAY})
+${LIGHT_PURPLE}Ragnarok: ${WHITE}36 ${GRAY}catches ago ${DARK_GRAY}(${GRAY}avg: ${WHITE}350${DARK_GRAY})
+${GRAY}Last on: ${WHITE}15m ${GRAY}(${WHITE}2024-11-30 11:59:00${GRAY})
+${LIGHT_PURPLE}Plhlegblast: ${WHITE}2000 ${GRAY}catches ago ${DARK_GRAY}(${GRAY}avg: ${WHITE}1500${DARK_GRAY})
+${GRAY}Last on: ${WHITE}24h 15m ${GRAY}(${WHITE}2024-11-29 12:00:00${GRAY})
 ${LIGHT_PURPLE}Thunder: ${WHITE}35 ${GRAY}catches ago ${DARK_GRAY}(${GRAY}avg: ${WHITE}70${DARK_GRAY})
 ${GRAY}Last on: ${WHITE}15m ${GRAY}(${WHITE}2024-11-30 12:00:00${GRAY})
 ${LIGHT_PURPLE}Lord Jawbus: ${WHITE}417 ${GRAY}catches ago ${DARK_GRAY}(${GRAY}avg: ${WHITE}454${DARK_GRAY})
@@ -104,9 +110,28 @@ ${GRAY}Last on: ${WHITE}6 Jawbuses ago`,
 `${AQUA}${BOLD}Jerry Workshop tracker
 ${GOLD}Yeti: ${WHITE}70 ${GRAY}catches ago ${DARK_GRAY}(${GRAY}avg: ${WHITE}85${DARK_GRAY})
 ${GRAY}Last on: ${WHITE}2d 5h 8m ${GRAY}(${WHITE}2024-11-30 12:00:00${GRAY})
+${GRAY}Baby Yeti pets: ${GOLD}3 ${DARK_PURPLE}7
 ${LIGHT_PURPLE}Reindrake: ${WHITE}417 ${GRAY}catches ago ${DARK_GRAY}(${GRAY}avg: ${WHITE}654${DARK_GRAY})
+${GRAY}Last on: ${WHITE}2d 9h 8m ${GRAY}(${WHITE}2024-11-30 08:00:00${GRAY})`,
+        isActive: false,
+        width: 0,
+        height: 0
+    },
+    {
+        toggleSettingKey: 'waterHotspotsAndBayouTrackerOverlay',
+        guiSettings: overlayCoordsData.waterHotspotsAndBayouTrackerOverlay,
+        sampleText:
+`${AQUA}${BOLD}Water hotspots & Bayou tracker
+${LIGHT_PURPLE}Titanoboa: ${WHITE}417 ${GRAY}catches ago ${DARK_GRAY}(${GRAY}avg: ${WHITE}654${DARK_GRAY})
 ${GRAY}Last on: ${WHITE}2d 9h 8m ${GRAY}(${WHITE}2024-11-30 08:00:00${GRAY})
-${GRAY}Baby Yeti pets: ${GOLD}3 ${DARK_PURPLE}7`,
+${GOLD}Titanoboa Sheds: ${WHITE}2
+${GRAY}Last on: ${WHITE}1d 0h 0m ${GRAY}(${WHITE}2024-11-29 12:15:00${GRAY})
+${GRAY}Last on: ${WHITE}10 Titanoboas ago
+${LIGHT_PURPLE}Wiki Tiki: ${WHITE}70 ${GRAY}catches ago ${DARK_GRAY}(${GRAY}avg: ${WHITE}85${DARK_GRAY})
+${GRAY}Last on: ${WHITE}2d 5h 8m ${GRAY}(${WHITE}2024-11-30 12:00:00${GRAY})
+${GOLD}Tiki Masks: ${WHITE}5
+${GRAY}Last on: ${WHITE}1d 0h 0m ${GRAY}(${WHITE}2024-11-29 12:15:00${GRAY})
+${GRAY}Last on: ${WHITE}6 Wiki Tikis ago`,
         isActive: false,
         width: 0,
         height: 0
@@ -115,7 +140,7 @@ ${GRAY}Baby Yeti pets: ${GOLD}3 ${DARK_PURPLE}7`,
         toggleSettingKey: 'wormProfitTrackerOverlay',
         guiSettings: overlayCoordsData.wormProfitTrackerOverlay,
         sampleText:
-`${YELLOW}${BOLD}Worm profit tracker
+`${AQUA}${BOLD}Worm profit tracker
 ${GREEN}Total worms: ${WHITE}3 172
 ${GREEN}Total membranes: ${WHITE}1 574
 ${GOLD}Total coins (sell offer): ${WHITE}109.7m
