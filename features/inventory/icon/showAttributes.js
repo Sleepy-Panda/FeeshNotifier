@@ -1,8 +1,8 @@
-import settings from "../../settings";
-import { BOLD, GREEN, WHITE } from "../../constants/formatting";
-import { isInSkyblock } from "../../utils/playerState";
-import { getItemAttributes } from "../../utils/common";
-import { registerIf } from "../../utils/registers";
+import settings from "../../../settings";
+import { BOLD, GREEN, WHITE } from "../../../constants/formatting";
+import { isInSkyblock } from "../../../utils/playerState";
+import { getItemAttributes } from "../../../utils/common";
+import { registerIf } from "../../../utils/registers";
 
 let ignoredItemNames = [];
 

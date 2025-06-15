@@ -38,7 +38,7 @@ import "./features/overlays/abandonedQuarryTracker";
 import "./features/overlays/fishingProfitTracker";
 import "./features/overlays/archfiendDiceProfitTracker";
 
-import "./features/inventory/renderItemInfo";
+import "./features/inventory/icon/renderItemIcon";
 //import "./features/inventory/highlightCheapBooks";
 //import "./features/inventory/showThunderBottleProgress";
 //import "./features/inventory/showPetLevel";

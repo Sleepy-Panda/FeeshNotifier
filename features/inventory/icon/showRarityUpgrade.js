@@ -1,19 +1,9 @@
-import { GOLD } from "../../constants/formatting";
-import settings from "../../settings";
-import { isInSkyblock } from "../../utils/playerState";
-import { registerIf } from "../../utils/registers";
+import { GOLD } from "../../../constants/formatting";
+import settings from "../../../settings";
+import { isInSkyblock } from "../../../utils/playerState";
 
-registerIf(
-    register('renderItemIntoGui', (item, x, y, event) => showRarityUpgrade(item, x, y)),
-    () => settings.showRarityUpgrade && isInSkyblock()
-);
-
-function showRarityUpgrade(item, x, y) {
-    if (!settings.showRarityUpgrade || !isInSkyblock()) {
-        return;
-    }
-
-    if (!item) {
+export function showRarityUpgrade(item, x, y) {
+    if (!item || !settings.showRarityUpgrade || !isInSkyblock()) {
         return;
     }
 
@@ -51,13 +41,10 @@ function showRarityUpgrade(item, x, y) {
         return;
     }
 
-    Tessellator.pushMatrix();
-    Tessellator.disableLighting();
-    
-    Renderer.translate(x, y - 1, 275); // z coord = 275 to be on top of the item icon and below the tooltip
-    Renderer.scale(0.7, 0.7);
-    Renderer.drawString(GOLD + 'R', 16, 16, true);
-
-    Tessellator.enableLighting();
-    Tessellator.popMatrix();
+    return {
+        text: GOLD + 'R',
+        x: 0,
+        y: 15,
+        scale: 0.7
+    };
 }

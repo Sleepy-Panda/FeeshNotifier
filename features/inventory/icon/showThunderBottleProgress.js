@@ -1,7 +1,7 @@
-import { AQUA } from "../../constants/formatting";
-import settings from "../../settings";
-import { isInSkyblock } from "../../utils/playerState";
-import { getCleanItemName, renderTextInSlot } from "../../utils/common";
+import { AQUA } from "../../../constants/formatting";
+import settings from "../../../settings";
+import { isInSkyblock } from "../../../utils/playerState";
+import { getCleanItemName, renderTextInSlot } from "../../../utils/common";
 
 const BOTTLES = [
     {
