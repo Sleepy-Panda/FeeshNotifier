@@ -1,9 +1,13 @@
 # Future ideas and players' requests
 
-## 1.21
+## Galatea
 
 - 1.21 support with CT 3.0
   - Depends on migration of other modules from "requires" section
+- Fishing loot table
+  - Add new items (mob drops, treasures, shards)
+    - "Added Flexbone to the Tomb Floodway fishing loot table"
+    - "Wet Book now only drops from the Treasure loot table"
 
 ## Fishing profit tracker
 
@@ -19,6 +23,11 @@
 - [Bug] Some items are tracked by Fishing Profit Tracker when dropped, but drop was prevented by SB settings (basically it drops and picks up again).
 - [Bug] Trading with other players adds items to the profit trackers.
 - [Bug] Fishing Profit Tracker recalculates profits/h too often when in "display buttons" mode.
+
+## Deployables
+
+- Add Umberella tracker
+- Potentially extend the widget to show all deployables: flares, power orbs, umberella, black hole, etc
 
 ## Party commands
 
@@ -66,12 +75,15 @@
 - Track baits cost in Fishing profit tracker
 - [Bug] Bait alert false triggered when opening /fb with fishing rod casted.
 
-## Other
+## Fishing bosses
 
 - Bigger custom nametag for fishing bosses
+- Kill time for fishing bosses
+
+## Other
+
 - Glowing outline / highlight rare sea creatures (make this not visible through walls) - I want to get rid of SH for that, and replicate this feature in module.
 - PogData resets data file on PC crash - consider doing regular backups / research tska library as replacement for PogData
-- Kill time for fishing bosses
 - Remove double hook reindrake logic because DH is not possible now
 - Rain/Thunder widget
 - Track all mobs caught, not only rare
