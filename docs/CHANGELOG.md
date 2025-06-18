@@ -11,6 +11,9 @@ Features:
 Bugfixes:
 - Fixed Custom Fishing Hook not being applied sometimes.
 
+Other:
+- Added Dev config section with Show Skyblock item ID feature [disabled by default].
+
 ## v1.44.0
 
 Released: 2025-06-04
