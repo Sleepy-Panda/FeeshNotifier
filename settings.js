@@ -1831,7 +1831,6 @@ ${GRAY}Do ${AQUA}/feeshResetProfitTracker${GRAY} to reset.`,
     configName: "devInformationText",
     title: "Dev section info",
     description: "Debug features not needed for regular players, but useful for the mod developer.",
-    //subcategory: "Hotspot"
 })
 .addSwitch({
     category: "Dev",
