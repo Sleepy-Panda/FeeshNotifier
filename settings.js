@@ -20,7 +20,7 @@ export const abandonedQuarryTrackerOverlayGui = new Gui();
 export const archfiendDiceProfitTrackerOverlayGui = new Gui();
 export const fishingProfitTrackerOverlayGui = new Gui();
 
-const categories = ["General", "Chat", "Alerts", "Overlays", "Items and storages", "Rendering", "Commands"]
+const categories = ["General", "Chat", "Alerts", "Overlays", "Items and storages", "Rendering", "Commands", "Dev"]
 const config = new DefaultConfig("FeeshNotifier", "config/settings.json")
 
 .addButton({
@@ -1824,6 +1824,20 @@ ${GRAY}Do ${AQUA}/feeshResetProfitTracker${GRAY} to reset.`,
     onClick() {
         ChatLib.command("feeshSpidersDenRainSchedule", true);
     }
+})
+
+.addTextParagraph({
+    category: "Dev",
+    configName: "devInformationText",
+    title: "Dev section info",
+    description: "Debug features not needed for regular players, but useful for the mod developer.",
+})
+.addSwitch({
+    category: "Dev",
+    configName: "showItemId",
+    title: "Skyblock item ID",
+    description: "Render Skyblock item ID in item's lore if applicable.",
+    subcategory: "Items",
 })
 
 const setting = new Settings("FeeshNotifier", config, "data/ColorScheme.json", `${AQUA}α ${AQUA}${BOLD}FeeshNotifier ${RESET}${WHITE}v${JSON.parse(FileLib.read("FeeshNotifier", "metadata.json")).version}`)
