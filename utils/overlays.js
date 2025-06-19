@@ -1,6 +1,239 @@
 import settings from "../settings";
 import { DARK_GRAY, GOLD, GRAY, GREEN, RED, WHITE, YELLOW } from "../constants/formatting";
 import { formatDate, formatNumberWithSpaces, formatTimeElapsedBetweenDates, isDoubleHook, isInChatOrInventoryGui, pluralize } from "./common";
+import { allOverlaysGui } from "../settings";
+import { isInChatOrInventoryGui } from "./common";
+import { registerIf } from "./registers";
+
+export const LEFT_CLICK_TYPE = 'LEFT';
+export const CTRL_LEFT_CLICK_TYPE = 'CTRL+LEFT';
+export const CTRL_MIDDLE_CLICK_TYPE = 'CTRL+MID';
+export const CTRL_RIGHT_CLICK_TYPE = 'CTRL+RIGHT';
+
+export class GuiOverlay {
+    constructor(registerIfFunc) {
+        this.title = null;
+        this.lines = [];
+        this.positionData = null; // config object with x, y, scale
+        this.isClickable = false;
+        //this.isVisible = false;
+        //this.visibilityFunc = null;
+        this.registerIfFunc = registerIfFunc;
+
+        registerIf(
+            register('renderOverlay', (event) => {
+                if (!this.registerIfFunc()) {
+                    this.clearLines();
+                    return;
+                }
+
+                if (this.isClickable && Client?.currentGui?.getClassName() === 'GuiInventory') {
+                    return;
+                }
+
+                if (allOverlaysGui.isOpen()) {
+                    return;
+                }
+
+                //this.isVisible = !!this.visibilityFunc && this.visibilityFunc();
+    
+                // if (this.isVisible) {
+                //     this._draw();
+                // } else {
+                //     this.clearLines();
+                // }
+                this._draw();
+            }),
+            this.registerIfFunc
+        );
+
+        registerIf(
+            register('guiRender', () => { // To render overlay on top of dark background in Inventory GUI
+                if (allOverlaysGui.isOpen()) {
+                    this.clearLines();
+                    return;
+                }
+
+                if (!this.registerIfFunc()) {
+                    this.clearLines();
+                    return;
+                }
+
+                if (!this.isClickable || Client?.currentGui?.getClassName() !== 'GuiInventory') {
+                    return;
+                }
+
+                this._draw();
+            }),
+            this.registerIfFunc
+        );
+
+        registerIf(
+            register('guiMouseRelease', (x, y, mouseButton, gui, event) => {
+                if (!this.registerIfFunc()) {
+                    return;
+                }
+
+                if (isInChatOrInventoryGui() && this.lines.length/* && this.isVisible*/) {
+                    const clickedLine = this.lines.find(l => l._isHovered(x, y));
+
+                    if (!clickedLine) return;
+
+                    const isCtrlPressed = Keyboard.isKeyDown(29) || Keyboard.isKeyDown(157); // 29 and 157 is LCTRL/RCTRL https://minecraft.fandom.com/wiki/Key_codes
+
+                    switch (true) {
+                        case mouseButton === 0 && isCtrlPressed: {
+                            clickedLine._onCtrlLeftClick();
+                            break;
+                        }
+                        case mouseButton === 0: {
+                            clickedLine._onLeftClick();
+                            break;
+                        }
+                        case mouseButton === 2 && isCtrlPressed: {
+                            clickedLine._onCtrlMiddleClick();
+                            break;
+                        }
+                        case mouseButton === 1 && isCtrlPressed: {
+                            clickedLine._onCtrlRightClick();
+                            break;
+                        }
+                    }
+                }
+            }),
+            this.registerIfFunc
+        );
+    }
+
+    // setVisibilityFunc(func) {
+    //     this.visibilityFunc = func;
+    //     return this;
+    // }
+
+    setPositionData(positionData) 
+    {
+        this.positionData = positionData;
+        return this;
+    }
+
+    setIsClickable(isClickable) {
+        this.isClickable = isClickable;
+        return this;
+    }
+
+    clearLines() {
+        if (this.lines.length) this.lines = [];
+        return this;
+    }
+
+    setLines(lines) {
+        this.lines = lines;
+        return this;
+    }
+
+    addLine(line) {
+        this.lines.push(line);
+        return this;
+    }
+
+    _draw() {
+        if (!this.lines.length) {
+            return;
+        }
+
+        let x = this.positionData.x;
+        let y = this.positionData.y;
+        let lastLineHeight = 0;
+        this.lines.forEach((line) => {
+            y = y + lastLineHeight;
+            line._setX(x)._setY(y)._setScale(this.positionData.scale)._draw();
+            lastLineHeight = line.height;
+        });
+    }
+}
+
+export class GuiOverlayLine {
+    constructor() {
+        this.text = new Text('');
+        this.width = 0;
+        this.height = 0;
+        this.scaleDeviation = 0;
+        this.onLeftClickFunc = null;
+        this.onClickFuncs = [];
+    }
+
+    setText(text) {
+        this.text.setString(text);
+        return this;
+    }
+
+    // Deviation from the base scale value defined for the GuiOverlay
+    setScaleDeviation(scaleDeviation) {
+        this.scaleDeviation = scaleDeviation;
+        return this;
+    }
+
+    setOnClick(type, func) {
+        if (this.onClickFuncs.find(f => f.type === type)) return;
+
+        this.onClickFuncs.push({ type: type, func: func });
+        return this;
+    }
+
+    _setX(x) {
+        this.text.x = x;
+        return this;
+    }
+
+    _setY(y) {
+        this.text.y = y;
+        return this;
+    }
+
+    _setScale(scale) {
+        this.text.setScale(scale + this.scaleDeviation);
+        return this;
+    }
+
+    _draw() {
+        this.text.setAlign('LEFT').setShadow(true).draw();
+        this.width = this.text.getWidth();
+        this.height = this.text.getHeight();
+    }
+
+    _isHovered(x, y) {
+        if (x > this.text.x && x < this.text.x + this.width &&
+            y > this.text.y && y < this.text.y + this.height * 0.8 // Fix for case when I click top of a line, it thinks that previous line is hovered
+        ) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+
+    _onLeftClick() {
+        const func = this.onClickFuncs.find(f => f.type === LEFT_CLICK_TYPE);
+        if (func) func.func();
+    }
+
+    _onCtrlLeftClick() {
+        const func = this.onClickFuncs.find(f => f.type === CTRL_LEFT_CLICK_TYPE);
+        if (func) func.func();
+    }
+
+    _onCtrlMiddleClick() {
+        const func = this.onClickFuncs.find(f => f.type === CTRL_MIDDLE_CLICK_TYPE);
+        if (func) func.func();
+    }
+
+    _onCtrlRightClick() {
+        const func = this.onClickFuncs.find(f => f.type === CTRL_RIGHT_CLICK_TYPE);
+        if (func) func.func();
+    }
+}
+
+
+
 
 /**
  * Create Display with specified buttons and actions on button click.
