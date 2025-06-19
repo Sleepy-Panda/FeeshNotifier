@@ -4,10 +4,16 @@
 
 - 1.21 support with CT 3.0
   - Depends on migration of other modules from "requires" section
-- Fishing loot table
+- Attribute rendering rework on old items and on shards
+- Remove old attribute shards from Fishing Profit Tracker
+- Update Fishing loot table
   - Add new items (mob drops, treasures, shards)
-    - "Added Flexbone to the Tomb Floodway fishing loot table"
-    - "Wet Book now only drops from the Treasure loot table"
+    - Water shards (Bazaar ID unknown):
+      - (C) Mist, Cod, Night Squid, Verdant, Sea Archer, Birries, Tadgang, Coralot, Newt
+      - (U) Tide, Salmon, Ent, Magma Slug, Stridersurfer
+      - (R) Cascade, Toad, Lizard King, Piranha, Abyssal Lanternfish, Silentdepth, Snowfin, Carrot King, Limisquid, Bullfrog, ...
+      - (E) ...
+      - (L) Shinyfish, ...
 
 ## Fishing profit tracker
 
@@ -23,6 +29,7 @@
 - [Bug] Some items are tracked by Fishing Profit Tracker when dropped, but drop was prevented by SB settings (basically it drops and picks up again).
 - [Bug] Trading with other players adds items to the profit trackers.
 - [Bug] Fishing Profit Tracker recalculates profits/h too often when in "display buttons" mode.
+- [Bug] Fishing Profit Tracker does not recalculate profits/h while fishing and not gaining any loot (e.g. dirt fishing).
 
 ## Deployables
 
