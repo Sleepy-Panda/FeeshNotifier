@@ -10,6 +10,7 @@ Features:
 
 Bugfixes:
 - Fixed Custom Fishing Hook not being applied sometimes.
+- Fixed alert on Fishing Bag to be triggered twice after opening /fb with active bobber.
 
 Other:
 - Added Dev config section with Show Skyblock item ID feature [disabled by default].
