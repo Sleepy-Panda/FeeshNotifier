@@ -7,6 +7,7 @@ Released: ???
 Features:
 - Worm Profit tracker - in Gemstone chambers mode, the price of a Gemstone Mixture is subtracted from the price of a Gemstone Chamber, for more accurate profits. You can configure buy method for mixtures in the settings.
 - Added Galatea sea creatures for potential future update to CT 3.0.
+- Added some of known Galatea fishing drops for potential future update to CT 3.0.
 
 Bugfixes:
 - Fixed Custom Fishing Hook not being applied sometimes.
