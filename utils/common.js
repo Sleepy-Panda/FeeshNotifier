@@ -334,7 +334,11 @@ export function isFishingRod(item) {
  * @returns {EntityFishHook}
  */
 export function getPlayerFishingHook() {
-	return World.getAllEntitiesOfType(EntityFishHook).find(e => Player.getPlayer().field_71104_cf == e.getEntity()); // field_71104_cf = fishEntity
+	return World.getAllEntitiesOfType(EntityFishHook)
+		.find(e =>
+			Player.getPlayer().field_71104_cf == e.getEntity() || // field_71104_cf = fishEntity
+			e.getEntity()?.field_146042_b?.getDisplayNameString() === Player.getName() // field_146042_b = angler
+		);
 }
 
 /**

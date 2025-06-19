@@ -1,8 +1,24 @@
 # Releases
 
-## v1.44.0
+## v1.45.0
 
 Released: ???
+
+Features:
+- Worm Profit tracker - in Gemstone chambers mode, the price of a Gemstone Mixture is subtracted from the price of a Gemstone Chamber, for more accurate profits. You can configure buy method for mixtures in the settings.
+- Added Galatea sea creatures for potential future update to CT 3.0.
+- Added some of known Galatea fishing drops for potential future update to CT 3.0.
+
+Bugfixes:
+- Fixed Custom Fishing Hook not being applied sometimes.
+- Fixed alert on Fishing Bag to be triggered twice after opening /fb with active bobber.
+
+Other:
+- Added Dev config section with Show Skyblock item ID feature [disabled by default].
+
+## v1.44.0
+
+Released: 2025-06-04
 
 Features:
 - Added Water hotspots & Bayou tracker. It shows an overlay with Titanoboa (when fishing in hotspot) and Wiki Tiki (when in Backwater Bayou) catch statistics. Also has Titanoboa Shed and Tiki Mask drop statistics.

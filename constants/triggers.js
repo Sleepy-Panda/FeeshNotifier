@@ -98,6 +98,13 @@ export const TITANOBOA_MESSAGE = `${RESET}${GREEN}${RESET}${RED}${BOLD}A massive
 export const BLUE_RINGED_OCTOPUS_MESSAGE = `${RESET}${GREEN}A garish set of tentacles arise. It's a Blue Ringed Octopus!${RESET}`;
 export const WIKI_TIKI_MESSAGE = `${RESET}${RED}${RESET}${RED}${BOLD}The water bubbles and froths. A massive form emerges- you have disturbed the Wiki Tiki! You shall pay the price.${RESET}`; // &r&c&r&c&lThe water bubbles and froths. A massive form emerges- you have disturbed the Wiki Tiki! You shall pay the price.&r
 
+// GALATEA SEA CREATURES
+
+export const TADGANG_MESSAGE = `${RESET}${GREEN}A gang of Liltads!`;
+export const ENT_MESSAGE = `${RESET}${GREEN}You've hooked an Ent, as ancient as the forest itself.`;
+export const WETWING_MESSAGE = `${RESET}${GREEN}Look! A Wetwing emerges!`;
+export const STRIDERSURFER_MESSAGE = `${RESET}${GREEN}You caught a Stridersurfer.`;
+
 // DROPS
 
 const MAGIC_FIND_MESSAGE_PATTERN = `${RESET}${AQUA}(+${RESET}${AQUA}` + '${magicFind}' + `% ${RESET}${AQUA}✯ Magic Find${RESET}${AQUA})`; // &r&b(+&r&b236% &r&b✯ Magic Find&r&b)
@@ -516,6 +523,27 @@ export const ALL_CATCHES_TRIGGERS = [
         trigger: TITANOBOA_MESSAGE,
         seaCreature: `Titanoboa`,
         rarityColorCode: MYTHIC,
+    },
+    // GALATEA SEA CREATURES
+    {
+        trigger: TADGANG_MESSAGE,
+        seaCreature: `Tadgang`,
+        rarityColorCode: UNCOMMON,
+    },
+    {
+        trigger: ENT_MESSAGE,
+        seaCreature: `Ent`,
+        rarityColorCode: UNCOMMON,
+    },
+    {
+        trigger: WETWING_MESSAGE,
+        seaCreature: `Wetwing`,
+        rarityColorCode: RARE,
+    },
+    {
+        trigger: STRIDERSURFER_MESSAGE,
+        seaCreature: `Stridersurfer`,
+        rarityColorCode: RARE,
     },
 ];
 

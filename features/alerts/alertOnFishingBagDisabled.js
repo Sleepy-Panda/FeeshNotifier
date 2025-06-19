@@ -43,6 +43,11 @@ function alertOnFishingBagDisabled() {
         ) {
             return;
         }
+    
+        const currentGui = Player.getContainer()?.getName();
+        if (currentGui?.includes('Fishing Bag')) { // When player opens disabled fishing bag, they receive alert again while it's disabled
+            return;
+        }
 
         let isHookActive = isFishingHookActive();
         if (!isHookActive) {

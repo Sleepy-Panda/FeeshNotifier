@@ -1,4 +1,19 @@
-# Future ideas and player's requests
+# Future ideas and players' requests
+
+## Galatea
+
+- 1.21 support with CT 3.0
+  - Depends on migration of other modules from "requires" section
+- Attribute rendering rework on old items and on shards
+- Remove old attribute shards from Fishing Profit Tracker
+- Update Fishing loot table
+  - Add new items (mob drops, treasures, shards)
+    - Water shards (Bazaar ID unknown):
+      - (C) Mist, Cod, Night Squid, Verdant, Sea Archer, Birries, Tadgang, Coralot, Newt
+      - (U) Tide, Salmon, Ent, Magma Slug, Stridersurfer
+      - (R) Cascade, Toad, Lizard King, Piranha, Abyssal Lanternfish, Silentdepth, Snowfin, Carrot King, Limisquid, Bullfrog, ...
+      - (E) ...
+      - (L) Shinyfish, ...
 
 ## Fishing profit tracker
 
@@ -14,6 +29,12 @@
 - [Bug] Some items are tracked by Fishing Profit Tracker when dropped, but drop was prevented by SB settings (basically it drops and picks up again).
 - [Bug] Trading with other players adds items to the profit trackers.
 - [Bug] Fishing Profit Tracker recalculates profits/h too often when in "display buttons" mode.
+- [Bug] Fishing Profit Tracker does not recalculate profits/h while fishing and not gaining any loot (e.g. dirt fishing).
+
+## Deployables
+
+- Add Umberella tracker
+- Potentially extend the widget to show all deployables: flares, power orbs, umberella, black hole, etc
 
 ## Party commands
 
@@ -40,10 +61,6 @@
 - Do not include baby magma slugs when producing cap alert.
 - Attach Vials drop number to the pchat message
 
-## Worm profit tracker
-
-- Option for Worm profit tracker that calculates the profit with [Gemstone Chamber - the price from Gemstone Mixtures]
-
 ## Hotspots
 
 - Hotspot location guesser
@@ -58,10 +75,6 @@
 - Offer supercrafting or BZ sell when items like raw fish goes to inventory (sacks are full).
 - Refactor all existing features so they consume less FPS
 
-## Fishing Hook
-
-- [Bug] Sometimes default Hypixel fishing hook is rendered (when in water)
-
 ## Baits
 
 - Bait changed alert
@@ -69,12 +82,15 @@
 - Track baits cost in Fishing profit tracker
 - [Bug] Bait alert false triggered when opening /fb with fishing rod casted.
 
-## Other
+## Fishing bosses
 
 - Bigger custom nametag for fishing bosses
+- Kill time for fishing bosses
+
+## Other
+
 - Glowing outline / highlight rare sea creatures (make this not visible through walls) - I want to get rid of SH for that, and replicate this feature in module.
 - PogData resets data file on PC crash - consider doing regular backups / research tska library as replacement for PogData
-- Kill time for fishing bosses
 - Remove double hook reindrake logic because DH is not possible now
 - Rain/Thunder widget
 - Track all mobs caught, not only rare

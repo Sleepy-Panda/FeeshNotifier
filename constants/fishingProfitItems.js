@@ -1105,6 +1105,69 @@ export const FISHING_PROFIT_ITEMS = [
         npcPrice: 76800,
     },
 
+    // Galatea
+
+    {
+        itemId: 'FIG_LOG',
+        itemName: 'Fig Log',
+        itemDisplayName: `${COMMON}Fig Log`,
+        npcPrice: 7,
+    },
+    {
+        itemId: 'ENCHANTED_FIG_LOG',
+        itemName: 'Enchanted Fig Log',
+        itemDisplayName: `${RARE}Enchanted Fig Log`,
+        npcPrice: 1120,
+    },
+    {
+        itemId: 'MANGROVE_LOG',
+        itemName: 'Mangrove Log',
+        itemDisplayName: `${COMMON}Mangrove Log`,
+        npcPrice: 8,
+    },
+    {
+        itemId: 'ENCHANTED_MANGROVE_LOG',
+        itemName: 'Enchanted Mangrove Log',
+        itemDisplayName: `${RARE}Enchanted Mangrove Log`,
+        npcPrice: 1280,
+    },
+    {
+        itemId: 'WET_WATER',
+        itemName: 'Wet Water',
+        itemDisplayName: `${RARE}Wet Water`,
+        npcPrice: 50,
+    },
+    {
+        itemId: 'SEA_LUMIES',
+        itemName: 'Sea Lumies',
+        itemDisplayName: `${COMMON}Sea Lumies`,
+        npcPrice: 3,
+    },
+    {
+        itemId: 'ENCHANTED_SEA_LUMIES',
+        itemName: 'Enchanted Sea Lumies',
+        itemDisplayName: `${UNCOMMON}Enchanted Sea Lumies`,
+        npcPrice: 480,
+    },
+    {
+        itemId: 'GILL_MEMBRANE',
+        itemName: 'Gill Membrane',
+        itemDisplayName: `${UNCOMMON}Gill Membrane`,
+        npcPrice: 0,
+    },
+    {
+        itemId: 'STURDY_BONE',
+        itemName: 'Sturdy Bone',
+        itemDisplayName: `${RARE}Sturdy Bone`,
+        npcPrice: 0,
+    },
+    {
+        itemId: 'FLEXBONE',
+        itemName: 'Flexbone',
+        itemDisplayName: `${UNCOMMON}Flexbone`,
+        npcPrice: 0,
+    },
+
     // Crimson Isle
 
     {

@@ -101,4 +101,8 @@ export const ALL_SEA_CREATURES_NAMES = [
     'Blue Ringed Octopus',
     'Wiki Tiki',
     'Titanoboa',
+    'Tadgang',
+    'Ent',
+    'Wetwing',
+    'Stridersurfer'
 ];
