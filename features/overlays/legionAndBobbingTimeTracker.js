@@ -6,6 +6,7 @@ import { getWorldName, hasFishingRodInHotbar, isInSkyblock } from "../../utils/p
 import { getPlayerNamesInRange } from "../../utils/entityDetection";
 import { registerIf } from "../../utils/registers";
 import { isInFishingWorld } from "../../utils/common";
+import { Overlay, OverlayTextLine } from "../../utils/overlays";
 
 let playersCount = 0;
 let fishingHooksCount = 0;
@@ -16,12 +17,10 @@ const bobbingTimeDistance = 30;
 const maxBobbingTimeCount = 10;
 
 registerIf(
-    register('step', () => trackPlayersAndFishingHooksNearby()).setFps(2),
-    () => settings.legionAndBobbingTimeOverlay && isInSkyblock() && isInFishingWorld(getWorldName())
-);
-
-registerIf(
-    register('renderOverlay', () => renderLegionAndBobbingTimeOverlay()),
+    register('step', () => {
+        trackPlayersAndFishingHooksNearby();
+        refreshOverlay();
+    }).setFps(2),
     () => settings.legionAndBobbingTimeOverlay && isInSkyblock() && isInFishingWorld(getWorldName())
 );
 
@@ -29,6 +28,10 @@ register("worldUnload", () => {
     playersCount = 0;
     fishingHooksCount = 0;
 });
+
+const overlay = new Overlay(() => settings.legionAndBobbingTimeOverlay && isInSkyblock() && isInFishingWorld(getWorldName()))
+    .setPositionData(overlayCoordsData.legionAndBobbingTimeOverlay)
+    .setIsClickable(false);
 
 function trackPlayersAndFishingHooksNearby() {
     if (!settings.legionAndBobbingTimeOverlay ||
@@ -50,7 +53,9 @@ function trackPlayersAndFishingHooksNearby() {
     playersCount = players.length;
 }
 
-function renderLegionAndBobbingTimeOverlay() {
+function refreshOverlay() {
+    overlay.clear();
+
     if (!settings.legionAndBobbingTimeOverlay ||
         !isInSkyblock() ||
         !hasFishingRodInHotbar() ||
@@ -64,8 +69,7 @@ function renderLegionAndBobbingTimeOverlay() {
     const playersText = `${GOLD}Legion: ${playersColor}${playersCount} ${GRAY}${playersCount === 1 ? 'player' : 'players'}`;
     const hooksColor = fishingHooksCount >= maxBobbingTimeCount ? GREEN : WHITE;
     const hooksText = `${GOLD}Bobbin' time: ${hooksColor}${fishingHooksCount} ${GRAY}${fishingHooksCount === 1 ? 'hook' : 'hooks'}`;
-    const overlay = new Text(`${playersText}\n${hooksText}`, overlayCoordsData.legionAndBobbingTimeOverlay.x, overlayCoordsData.legionAndBobbingTimeOverlay.y)
-        .setShadow(true)
-        .setScale(overlayCoordsData.legionAndBobbingTimeOverlay.scale);
-    overlay.draw();
+
+    overlay.addTextLine(new OverlayTextLine().setText(playersText));
+    overlay.addTextLine(new OverlayTextLine().setText(hooksText));
 }

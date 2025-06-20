@@ -1,12 +1,12 @@
 import settings, { allOverlaysGui } from "../../settings";
-import { GOLD, RED, DARK_GRAY, WHITE, GRAY } from "../../constants/formatting";
+import { GOLD, RED, DARK_GRAY, WHITE, GRAY, BOLD } from "../../constants/formatting";
 import { TIMER_SOUND_SOURCE, OFF_SOUND_MODE } from "../../constants/sounds";
 import { ALL_SEA_CREATURES_NAMES } from "../../constants/seaCreatures";
 import { EntityArmorStand } from "../../constants/javaTypes";
 import { overlayCoordsData } from "../../data/overlayCoords";
 import { getWorldName, hasFishingRodInHotbar, isInHunterArmor, isInSkyblock } from "../../utils/playerState";
 import { CRIMSON_ISLE, CRYSTAL_HOLLOWS, HUB } from "../../constants/areas";
-import { createButtonsDisplay, toggleButtonsDisplay } from "../../utils/overlays";
+import { LEFT_CLICK_TYPE, Overlay, OverlayButtonLine, OverlayTextLine } from "../../utils/overlays";
 import { registerIf } from "../../utils/registers";
 import { isInFishingWorld } from "../../utils/common";
 
@@ -18,7 +18,10 @@ let killMobsCountNotificationShown = false;
 let killMobsTimerNotificationShown = false;
 
 registerIf(
-    register('step', () => trackSeaCreaturesCount()).setFps(2),
+    register('step', () => {
+        trackSeaCreaturesCount();
+        refreshOverlay();
+    }).setFps(2),
     () => (settings.alertOnSeaCreaturesCountThreshold || settings.alertOnSeaCreaturesTimerThreshold || settings.seaCreaturesCountOverlay) && isInSkyblock() && isInFishingWorld(getWorldName())
 );
 
@@ -30,20 +33,20 @@ registerIf(
     () => (settings.alertOnSeaCreaturesCountThreshold || settings.alertOnSeaCreaturesTimerThreshold) && isInSkyblock() && isInFishingWorld(getWorldName())
 );
 
-registerIf(
-    register('renderOverlay', () => renderCountOverlay()),
-    () => settings.seaCreaturesCountOverlay && isInSkyblock() && isInFishingWorld(getWorldName())
-);
-
 register("worldUnload", () => {
     resetSeaCreaturesCountAndTimer();
 });
 
-const buttonsDisplay = createButtonsDisplay(true, () => resetSeaCreaturesCountAndTimer(), false, null);
+const overlay = new Overlay(() => settings.seaCreaturesCountOverlay && isInSkyblock() && isInFishingWorld(getWorldName()))
+    .setPositionData(overlayCoordsData.seaCreaturesCountOverlay)
+    .setIsClickable(true)
+    .setShouldSeparateButtonLines(false);
 
 export function resetSeaCreaturesCountAndTimer() {
     startTime = null;
     mobsCount = 0;
+    
+    refreshOverlay();
 }
 
 function trackSeaCreaturesCount() {
@@ -131,7 +134,9 @@ function alertOnSeaCreaturesTimerThreshold() {
     }
 }
 
-function renderCountOverlay() {
+function refreshOverlay() {
+    overlay.clear();
+
     if (!settings.seaCreaturesCountOverlay ||
         !mobsCount ||
         !startTime ||
@@ -141,7 +146,6 @@ function renderCountOverlay() {
         !hasFishingRodInHotbar() ||
         allOverlaysGui.isOpen()
     ) {
-        buttonsDisplay.hide();
         return;
     }
 
@@ -160,12 +164,8 @@ function renderCountOverlay() {
     const seaCreaturesColor = mobsCount >= getSeaCreaturesCountThreshold() ? RED : GOLD;
 
     const overlayText = `${seaCreaturesColor}${mobsCount} ${GRAY}${seaCreaturesText} ${DARK_GRAY}(${timerColor}${timerText}${DARK_GRAY})`;
-    const overlay = new Text(overlayText, overlayCoordsData.seaCreaturesCountOverlay.x, overlayCoordsData.seaCreaturesCountOverlay.y)
-        .setShadow(true)
-        .setScale(overlayCoordsData.seaCreaturesCountOverlay.scale);
-    overlay.draw();
-
-    toggleButtonsDisplay(buttonsDisplay, overlay, overlayCoordsData.seaCreaturesCountOverlay);
+    overlay.addTextLine(new OverlayTextLine().setText(overlayText));
+    overlay.addButtonLine(new OverlayButtonLine().setText(`${RED}${BOLD}[Click to reset]`).setScaleDeviation(-0.2).setOnClick(LEFT_CLICK_TYPE, () => resetSeaCreaturesCountAndTimer()));
 }
 
 function getSeaCreaturesCountThreshold() {
