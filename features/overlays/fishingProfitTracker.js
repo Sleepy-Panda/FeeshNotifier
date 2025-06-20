@@ -11,7 +11,7 @@ import { formatElapsedTime, getCleanItemName, getItemsAddedToSacks, getLore, isF
 import { getLastFishingHookSeenAt, getLastGuisClosed, getLastKatUpgrade, getWorldName, isInSkyblock } from "../../utils/playerState";
 import { playRareDropSound } from '../../utils/sound';
 import { registerIf } from '../../utils/registers';
-import { CTRL_LEFT_CLICK_TYPE, CTRL_MIDDLE_CLICK_TYPE, CTRL_RIGHT_CLICK_TYPE, LEFT_CLICK_TYPE, GuiOverlay, GuiOverlayLine } from '../../utils/overlays';
+import { CTRL_LEFT_CLICK_TYPE, CTRL_MIDDLE_CLICK_TYPE, CTRL_RIGHT_CLICK_TYPE, LEFT_CLICK_TYPE, Overlay, OverlayButtonLine, OverlayTextLine } from '../../utils/overlays';
 
 let previousInventory = [];
 let isSessionActive = false;
@@ -90,7 +90,7 @@ register("gameUnload", () => {
     }
 });
 
-const profitTrackerDisplay = new GuiOverlay(() => settings.fishingProfitTrackerOverlay && isInSkyblock() && isInFishingWorld(getWorldName()))
+const profitTrackerDisplay = new Overlay(() => settings.fishingProfitTrackerOverlay && isInSkyblock() && isInFishingWorld(getWorldName()))
     .setPositionData(overlayCoordsData.fishingProfitTrackerOverlay)
     .setIsClickable(true);
 
@@ -632,14 +632,9 @@ function getFishingProfitItemByName(itemName) {
     );
 }
 
-function getElapsedTimeLineText(elapsedTime) {
-    const pausedText = isSessionActive ? '' : ` ${GRAY}[Paused]`;
-    return `\n${AQUA}Elapsed time: ${WHITE}${formatElapsedTime(elapsedTime)}${pausedText}`
-}
-
 function refreshTrackerDisplayData() {
     try {
-        profitTrackerDisplay.clearLines();
+        profitTrackerDisplay.clear();
 
         if (!isTrackerVisible()) {
             pause();
@@ -647,29 +642,24 @@ function refreshTrackerDisplayData() {
         }
 
         // TODO Refresh prices if became visible
-        // TODO Overlay position when buttons rendered on top
+        // Not clickable lines after overlay hidden but still rendered
     
         const displayTrackerData = getDisplayTrackerData();
         
         const buttonLines = [];
+        const buttonScaleDeviation = -0.2;
         const areActionsVisible = isInChatOrInventoryGui();
 
         if (areActionsVisible) {
-            buttonLines.push(new GuiOverlayLine().setText(`${YELLOW}${BOLD}[Click to pause]`).setScaleDeviation(-0.2).setOnClick(LEFT_CLICK_TYPE, () => pauseFishingProfitTracker()));
-            buttonLines.push(new GuiOverlayLine().setText(`${RED}${BOLD}[Click to reset]`).setScaleDeviation(-0.2).setOnClick(LEFT_CLICK_TYPE, () => resetFishingProfitTracker(false)));
+            buttonLines.push(new OverlayButtonLine().setText(`${YELLOW}${BOLD}[Click to pause]`).setScaleDeviation(buttonScaleDeviation).setOnClick(LEFT_CLICK_TYPE, () => pauseFishingProfitTracker()));
+            buttonLines.push(new OverlayButtonLine().setText(`${RED}${BOLD}[Click to reset]`).setScaleDeviation(buttonScaleDeviation).setOnClick(LEFT_CLICK_TYPE, () => { if (isTrackerVisible()) resetFishingProfitTracker(false) }));
+            profitTrackerDisplay.setButtonLines(buttonLines);
         }
 
-        if (settings.buttonsPosition === 1 && buttonLines.length) { // At the top of overlay
-            buttonLines.forEach((line) => {
-                profitTrackerDisplay.addLine(line);
-            });
-            profitTrackerDisplay.addLine(new GuiOverlayLine().setText(' ').setScaleDeviation(-0.2));
-        }
-
-        profitTrackerDisplay.addLine(new GuiOverlayLine().setText(`${AQUA}${BOLD}Fishing profit tracker`));
+        profitTrackerDisplay.addTextLine(new OverlayTextLine().setText(`${AQUA}${BOLD}Fishing profit tracker`));
 
         displayTrackerData.entriesToShow.forEach((entry) => {
-            const line = new GuiOverlayLine().setText(`${GRAY}- ${WHITE}${entry.amount}${GRAY}x ${entry.item}${GRAY}: ${GOLD}${toShortNumber(entry.profit)}`);
+            const line = new OverlayTextLine().setText(`${GRAY}- ${WHITE}${entry.amount}${GRAY}x ${entry.item}${GRAY}: ${GOLD}${toShortNumber(entry.profit)}`);
             if (areActionsVisible) {
                 line.setOnClick(CTRL_MIDDLE_CLICK_TYPE, () => changeItemAmount(entry.itemId, true, 0));
 
@@ -678,33 +668,31 @@ function refreshTrackerDisplayData() {
                     line.setOnClick(CTRL_RIGHT_CLICK_TYPE, () => changeItemAmount(entry.itemId, false, 1));
                 }
             }
-            profitTrackerDisplay.addLine(line);
+            profitTrackerDisplay.addTextLine(line);
         });
 
         if (displayTrackerData.entriesToHide.length) {
-            const line = new GuiOverlayLine().setText(`${GRAY}- ${WHITE}${displayTrackerData.totalCheapItemsCount}${GRAY}x Cheap items of ${WHITE}${displayTrackerData.totalCheapItemsTypesCount} ${GRAY}types: ${GOLD}${toShortNumber(displayTrackerData.totalCheapItemsProfit)}`);
-            profitTrackerDisplay.addLine(line);
+            const line = new OverlayTextLine().setText(`${GRAY}- ${WHITE}${displayTrackerData.totalCheapItemsCount}${GRAY}x Cheap items of ${WHITE}${displayTrackerData.totalCheapItemsTypesCount} ${GRAY}types: ${GOLD}${toShortNumber(displayTrackerData.totalCheapItemsProfit)}`);
+            profitTrackerDisplay.addTextLine(line);
         }
      
         if (displayTrackerData.entriesToShow.length && areActionsVisible) {
-            profitTrackerDisplay.addLine(new GuiOverlayLine().setText(`\n${GRAY}[Ctrl + LCM a line for -1, Ctrl + RCM a line for +1]`).setScaleDeviation(-0.2));
-            profitTrackerDisplay.addLine(new GuiOverlayLine().setText(`${GRAY}[Ctrl + Middle Click a line to remove item]`).setScaleDeviation(-0.2));
+            profitTrackerDisplay.addTextLine(new OverlayTextLine().setText(`\n${GRAY}[Ctrl + LCM a line for -1, Ctrl + RCM a line for +1]`).setScaleDeviation(buttonScaleDeviation));
+            profitTrackerDisplay.addTextLine(new OverlayTextLine().setText(`${GRAY}[Ctrl + Middle Click a line to remove item]`).setScaleDeviation(buttonScaleDeviation));
         }
 
-        profitTrackerDisplay.addLine(new GuiOverlayLine().setText(`\n${AQUA}Total: ${GOLD}${BOLD}${toShortNumber(displayTrackerData.totalProfit)} ${RESET}${GRAY}(${GOLD}${toShortNumber(displayTrackerData.profitPerHour)}${GRAY}/h)`));
-        profitTrackerDisplay.addLine(new GuiOverlayLine().setText(getElapsedTimeLineText(displayTrackerData.elapsedTime)));  
-
-        if (settings.buttonsPosition === 0 && buttonLines.length) { // At the bottom of overlay
-            profitTrackerDisplay.addLine(new GuiOverlayLine().setText(' ').setScaleDeviation(-0.2));
-            buttonLines.forEach((line) => {
-                profitTrackerDisplay.addLine(line);
-            });
-        }
+        profitTrackerDisplay.addTextLine(new OverlayTextLine().setText(`\n${AQUA}Total: ${GOLD}${BOLD}${toShortNumber(displayTrackerData.totalProfit)} ${RESET}${GRAY}(${GOLD}${toShortNumber(displayTrackerData.profitPerHour)}${GRAY}/h)`));
+        profitTrackerDisplay.addTextLine(new OverlayTextLine().setText(getElapsedTimeLineText(displayTrackerData.elapsedTime)));
     } catch (e) {
 		console.error(e);
 		console.log(`[FeeshNotifier] [ProfitTracker] Failed to refresh tracker data.`);
 	}
 
+    function getElapsedTimeLineText(elapsedTime) {
+        const pausedText = isSessionActive ? '' : ` ${GRAY}[Paused]`;
+        return `\n${AQUA}Elapsed time: ${WHITE}${formatElapsedTime(elapsedTime)}${pausedText}`
+    }
+    
     function getDisplayTrackerData() {
         const displayTrackerData = {
             entriesToShow: [],

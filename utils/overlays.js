@@ -10,20 +10,25 @@ export const CTRL_LEFT_CLICK_TYPE = 'CTRL+LEFT';
 export const CTRL_MIDDLE_CLICK_TYPE = 'CTRL+MID';
 export const CTRL_RIGHT_CLICK_TYPE = 'CTRL+RIGHT';
 
-export class GuiOverlay {
+/**
+ * Overlay representing a text widget rendered on screen.
+ */
+export class Overlay {
+    /**
+    * Create Overlay object.
+    * @param {func} registerIfFunc Callback function to check whether the overlay should be rendered
+    */
     constructor(registerIfFunc) {
-        this.title = null;
-        this.lines = [];
+        this.textLines = [];
+        this.buttonLines = [];
         this.positionData = null; // config object with x, y, scale
         this.isClickable = false;
-        //this.isVisible = false;
-        //this.visibilityFunc = null;
         this.registerIfFunc = registerIfFunc;
 
         registerIf(
             register('renderOverlay', (event) => {
                 if (!this.registerIfFunc()) {
-                    this.clearLines();
+                    this.clear();
                     return;
                 }
 
@@ -35,13 +40,6 @@ export class GuiOverlay {
                     return;
                 }
 
-                //this.isVisible = !!this.visibilityFunc && this.visibilityFunc();
-    
-                // if (this.isVisible) {
-                //     this._draw();
-                // } else {
-                //     this.clearLines();
-                // }
                 this._draw();
             }),
             this.registerIfFunc
@@ -50,12 +48,12 @@ export class GuiOverlay {
         registerIf(
             register('guiRender', () => { // To render overlay on top of dark background in Inventory GUI
                 if (allOverlaysGui.isOpen()) {
-                    this.clearLines();
+                    this.clear();
                     return;
                 }
 
                 if (!this.registerIfFunc()) {
-                    this.clearLines();
+                    this.clear();
                     return;
                 }
 
@@ -74,30 +72,31 @@ export class GuiOverlay {
                     return;
                 }
 
-                if (isInChatOrInventoryGui() && this.lines.length/* && this.isVisible*/) {
-                    const clickedLine = this.lines.find(l => l._isHovered(x, y));
+                if (!isInChatOrInventoryGui() || (!this.textLines.length && !this.buttonLines.length)) {
+                    return;
+                }
 
-                    if (!clickedLine) return;
+                const clickedLine = this.buttonLines.find(l => l._isHovered(x, y)) || this.textLines.find(l => l._isHovered(x, y));
+                if (!clickedLine) return;
 
-                    const isCtrlPressed = Keyboard.isKeyDown(29) || Keyboard.isKeyDown(157); // 29 and 157 is LCTRL/RCTRL https://minecraft.fandom.com/wiki/Key_codes
+                const isCtrlPressed = Keyboard.isKeyDown(29) || Keyboard.isKeyDown(157); // 29 and 157 is LCTRL/RCTRL https://minecraft.fandom.com/wiki/Key_codes
 
-                    switch (true) {
-                        case mouseButton === 0 && isCtrlPressed: {
-                            clickedLine._onCtrlLeftClick();
-                            break;
-                        }
-                        case mouseButton === 0: {
-                            clickedLine._onLeftClick();
-                            break;
-                        }
-                        case mouseButton === 2 && isCtrlPressed: {
-                            clickedLine._onCtrlMiddleClick();
-                            break;
-                        }
-                        case mouseButton === 1 && isCtrlPressed: {
-                            clickedLine._onCtrlRightClick();
-                            break;
-                        }
+                switch (true) {
+                    case mouseButton === 0 && isCtrlPressed: {
+                        clickedLine._onCtrlLeftClick();
+                        break;
+                    }
+                    case mouseButton === 0: {
+                        clickedLine._onLeftClick();
+                        break;
+                    }
+                    case mouseButton === 2 && isCtrlPressed: {
+                        clickedLine._onCtrlMiddleClick();
+                        break;
+                    }
+                    case mouseButton === 1 && isCtrlPressed: {
+                        clickedLine._onCtrlRightClick();
+                        break;
                     }
                 }
             }),
@@ -105,54 +104,118 @@ export class GuiOverlay {
         );
     }
 
-    // setVisibilityFunc(func) {
-    //     this.visibilityFunc = func;
-    //     return this;
-    // }
-
+    /**
+    * Set object containing x, y and scale for the Overlay.
+    * Dynamically changes when values are changed while moving/scaling overlays.
+    * @param {object} positionData Object from overlayCoordsData - { x, y, scale }
+    */
     setPositionData(positionData) 
     {
         this.positionData = positionData;
         return this;
     }
 
+    /**
+    * Define whether the Overlay will be clickable.
+    * If clickable, the overlay will render on the foreground of the Inventory GUI (not behind darker background).
+    * @param {boolean} isClickable
+    */
     setIsClickable(isClickable) {
         this.isClickable = isClickable;
         return this;
     }
 
-    clearLines() {
-        if (this.lines.length) this.lines = [];
+    /**
+    * Clear Overlay's text lines and button lines.
+    */
+    clear() {
+        if (this.textLines.length) this.textLines = [];
+        if (this.buttonLines.length) this.buttonLines = [];
         return this;
     }
 
-    setLines(lines) {
-        this.lines = lines;
+    /**
+    * Add a new text line to the Overlay.
+    * @param {OverlayTextLine} textLine
+    */
+    addTextLine(textLine) {
+        this.textLines.push(textLine);
         return this;
     }
 
-    addLine(line) {
-        this.lines.push(line);
+    setTextLines(textLines) {
+        this.textLines = textLines;
+        return this;
+    }
+
+    /**
+    * Add a new button line to the Overlay.
+    * @param {OverlayButtonLine} textLine
+    */
+    addButtonLine(buttonLine) {
+        this.buttonLines.push(buttonLine);
+        return this;
+    }
+
+    setButtonLines(buttonLines) {
+        this.buttonLines = buttonLines;
         return this;
     }
 
     _draw() {
-        if (!this.lines.length) {
+        if (!this.textLines.length && !this.buttonLines.length) {
             return;
         }
 
         let x = this.positionData.x;
         let y = this.positionData.y;
         let lastLineHeight = 0;
-        this.lines.forEach((line) => {
-            y = y + lastLineHeight;
+
+        this.textLines.forEach((line) => {
+            y += lastLineHeight;
             line._setX(x)._setY(y)._setScale(this.positionData.scale)._draw();
             lastLineHeight = line.height;
         });
+
+        if (!this.buttonLines.length) return;
+
+        const scaleDeviation = this.buttonLines[0].scaleDeviation || 0;
+        const emptyLine = new Text(' ').setScale(this.positionData.scale + scaleDeviation).setAlign('LEFT').setShadow(true);
+        const emptyLineHeight = emptyLine.getHeight();
+
+        if (settings.buttonsPosition === 0) { // At the bottom of Overlay
+            y += lastLineHeight;
+            emptyLine.setX(x).setY(y).draw();
+            lastLineHeight = emptyLineHeight;
+
+            this.buttonLines.forEach((line) => {
+                y += lastLineHeight;
+                line._setX(x)._setY(y)._setScale(this.positionData.scale)._draw();
+                lastLineHeight = line.height;
+            });
+        }
+  
+        if (settings.buttonsPosition === 1) { // At the top of Overlay
+            y = this.positionData.y;
+            lastLineHeight = emptyLineHeight;
+            y -= lastLineHeight;
+            emptyLine.setX(x).setY(y).draw();
+
+            [...this.buttonLines].reverse().forEach((line) => {
+                line._setScale(this.positionData.scale);
+                lastLineHeight = line.text.getHeight();
+                y -= lastLineHeight;
+                line._setX(x)._setY(y);
+                line._draw();
+            });         
+        }
     }
 }
 
-export class GuiOverlayLine {
+/**
+ * Overlay text lines containing overlay data - e.g. title, payload. Text lines can be clickable while no GUI opened / in chat / in inventory.
+ */
+export class OverlayTextLine {
     constructor() {
         this.text = new Text('');
         this.width = 0;
@@ -162,17 +225,30 @@ export class GuiOverlayLine {
         this.onClickFuncs = [];
     }
 
+    /**
+    * Set line text with formatting.
+    * @param {string} text
+    */
     setText(text) {
         this.text.setString(text);
         return this;
     }
 
-    // Deviation from the base scale value defined for the GuiOverlay
+    /**
+    * Set deviation from the base scale value defined for the Overlay.
+    * Helps to render some lines smaller or bigger than the main scale value.
+    * @param {number} scaleDeviation Value to add to the base Overlay's scale value, e.g. -0.2 to render smaller line
+    */
     setScaleDeviation(scaleDeviation) {
-        this.scaleDeviation = scaleDeviation;
+        this.scaleDeviation = scaleDeviation || 0;
         return this;
     }
 
+    /**
+    * Set callback to execute on line click.
+    * @param {string} type Click type - e.g. left click or Ctrl + Right click
+    * @param {func} func Callback function
+    */
     setOnClick(type, func) {
         if (this.onClickFuncs.find(f => f.type === type)) return;
 
@@ -190,8 +266,8 @@ export class GuiOverlayLine {
         return this;
     }
 
-    _setScale(scale) {
-        this.text.setScale(scale + this.scaleDeviation);
+    _setScale(overlayScale) {
+        this.text.setScale(overlayScale + this.scaleDeviation);
         return this;
     }
 
@@ -202,13 +278,10 @@ export class GuiOverlayLine {
     }
 
     _isHovered(x, y) {
-        if (x > this.text.x && x < this.text.x + this.width &&
-            y > this.text.y && y < this.text.y + this.height * 0.8 // Fix for case when I click top of a line, it thinks that previous line is hovered
-        ) {
-            return true;
-        } else {
-            return false;
-        }
+        return (
+            (x > this.text.x && x < this.text.x + this.width) &&
+            (y > this.text.y && y < this.text.y + this.height * 0.85) // Fix for case when I click top of a line, it thinks that previous line is hovered
+        );
     }
 
     _onLeftClick() {
@@ -232,7 +305,15 @@ export class GuiOverlayLine {
     }
 }
 
-
+/**
+ * Overlay buttons placed on top / on bottom of the overlay. E.g. Pause or Reset button.
+ * Their position (on top or on bottom) is controlled via settings.
+ */
+export class OverlayButtonLine extends OverlayTextLine {
+    constructor() {
+        super();
+    }
+}
 
 
 /**
