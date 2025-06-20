@@ -23,6 +23,7 @@ export class Overlay {
         this.buttonLines = [];
         this.positionData = null; // config object with x, y, scale
         this.isClickable = false;
+        this.shouldSeparateButtonLines = true;
         this.registerIfFunc = registerIfFunc;
 
         registerIf(
@@ -126,6 +127,15 @@ export class Overlay {
     }
 
     /**
+    * Define whether the button lines should be separated from the Overlay with extra empty line.
+    * @param {boolean} shouldSeparateButtonLines
+    */
+    setShouldSeparateButtonLines(shouldSeparateButtonLines) {
+        this.shouldSeparateButtonLines = shouldSeparateButtonLines;
+        return this;
+    }
+
+    /**
     * Clear Overlay's text lines and button lines.
     */
     clear() {
@@ -177,15 +187,15 @@ export class Overlay {
             lastLineHeight = line.height;
         });
 
-        if (!this.buttonLines.length) return;
+        if (!isInChatOrInventoryGui() || !this.buttonLines.length) return;
 
         const scaleDeviation = this.buttonLines[0].scaleDeviation || 0;
-        const emptyLine = new Text(' ').setScale(this.positionData.scale + scaleDeviation).setAlign('LEFT').setShadow(true);
-        const emptyLineHeight = emptyLine.getHeight();
+        const emptyLine = this.shouldSeparateButtonLines ? new Text(' ').setScale(this.positionData.scale + scaleDeviation).setAlign('LEFT').setShadow(true) : null;
+        const emptyLineHeight = emptyLine ? emptyLine.getHeight() : 0;
 
         if (settings.buttonsPosition === 0) { // At the bottom of Overlay
             y += lastLineHeight;
-            emptyLine.setX(x).setY(y).draw();
+            emptyLine?.setX(x)?.setY(y)?.draw();
             lastLineHeight = emptyLineHeight;
 
             this.buttonLines.forEach((line) => {
@@ -199,7 +209,7 @@ export class Overlay {
             y = this.positionData.y;
             lastLineHeight = emptyLineHeight;
             y -= lastLineHeight;
-            emptyLine.setX(x).setY(y).draw();
+            emptyLine?.setX(x)?.setY(y)?.draw();
 
             [...this.buttonLines].reverse().forEach((line) => {
                 line._setScale(this.positionData.scale);
