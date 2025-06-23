@@ -20,7 +20,7 @@ export const abandonedQuarryTrackerOverlayGui = new Gui();
 export const archfiendDiceProfitTrackerOverlayGui = new Gui();
 export const fishingProfitTrackerOverlayGui = new Gui();
 
-const categories = ["General", "Chat", "Alerts", "Overlays", "Items and storages", "Rendering", "Commands"]
+const categories = ["General", "Chat", "Alerts", "Overlays", "Items and storages", "Rendering", "Commands", "Dev"]
 const config = new DefaultConfig("FeeshNotifier", "config/settings.json")
 
 .addButton({
@@ -1320,9 +1320,19 @@ Example 2: ${AQUA}/feeshSetTrackerDrops TIKI_MASK 5 2025-05-30 23:59:00`);
     category: "Overlays",
     configName: "wormProfitTrackerMode",
     title: "Worm profit tracker display mode",
-    description: "How to calculate total profit and profit per hour.",
+    description: "How to calculate total profit and profit per hour. In Gemstone chambers mode, the price of a Gemstone Mixture is subtracted from the price of a Gemstone Chamber, for more accurate profits.",
     options: ["Worm membranes","Gemstone chambers"],
     value: 0,
+    subcategory: "Worm profit tracker"
+})
+.addDropDown({
+    category: "Overlays",
+    configName: "wormProfitTrackerBuyPriceMode",
+    title: "Worm profit tracker buy price mode",
+    description: "How to calculate price for the Gemstone Mixtures that you buy in order to forge Gemstone Chambers.",
+    options: ["Buy order","Insta-buy"],
+    value: 0,
+    shouldShow: data => data.wormProfitTrackerMode === 1,
     subcategory: "Worm profit tracker"
 })
 .addButton({
@@ -1814,6 +1824,20 @@ ${GRAY}Do ${AQUA}/feeshResetProfitTracker${GRAY} to reset.`,
     onClick() {
         ChatLib.command("feeshSpidersDenRainSchedule", true);
     }
+})
+
+.addTextParagraph({
+    category: "Dev",
+    configName: "devInformationText",
+    title: "Dev section info",
+    description: "Debug features not needed for regular players, but useful for the mod developer.",
+})
+.addSwitch({
+    category: "Dev",
+    configName: "showItemId",
+    title: "Skyblock item ID",
+    description: "Render Skyblock item ID in item's lore if applicable.",
+    subcategory: "Items",
 })
 
 const setting = new Settings("FeeshNotifier", config, "data/ColorScheme.json", `${AQUA}α ${AQUA}${BOLD}FeeshNotifier ${RESET}${WHITE}v${JSON.parse(FileLib.read("FeeshNotifier", "metadata.json")).version}`)
