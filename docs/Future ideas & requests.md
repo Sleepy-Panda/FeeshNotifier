@@ -17,6 +17,7 @@
 
 ## Fishing profit tracker
 
+- Option to render icons instead of item names
 - Option to decrease elapsed time in Fishing Profit Tracker (when user forgot to stop tracker being afk)
 - Track scavenged coins in Fishing Profit Tracker
 - Track Ice Essence drop from mobs in Fishing Profit Tracker
