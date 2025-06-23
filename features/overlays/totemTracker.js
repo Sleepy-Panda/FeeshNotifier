@@ -6,6 +6,7 @@ import { WHITE, RED, DARK_PURPLE, GOLD } from "../../constants/formatting";
 import { isInSkyblock } from "../../utils/playerState";
 import { registerIf } from "../../utils/registers";
 import { getMcEntityById, getMcEntityId } from "../../utils/common";
+import { Overlay, OverlayTextLine } from "../../utils/overlays";
 
 let remainingTotemTime; // Format examples: 01m 02s, 50s, 09s
 let lastAlertAt = null; // Prevent alerting 2 times when register rarely triggers twice per second
@@ -14,18 +15,20 @@ const currentPlayer = Player.getName();
 const secondsBeforeExpiration = 10;
 
 registerIf(
-    register('step', () => trackTotemStatus()).setFps(1),
+    register('step', () => {
+        trackTotemStatus();
+        refreshOverlay();
+    }).setFps(1),
     () => (settings.alertOnTotemExpiresSoon || settings.totemRemainingTimeOverlay) && isInSkyblock()
-);
-
-registerIf(
-    register('renderOverlay', () => renderTotemOverlay()),
-    () => settings.totemRemainingTimeOverlay && isInSkyblock()
 );
 
 register("worldUnload", () => {
     resetTotem();
 });
+
+const overlay = new Overlay(() => settings.totemRemainingTimeOverlay && isInSkyblock())
+    .setPositionData(overlayCoordsData.totemRemainingTimeOverlay)
+    .setIsClickable(false);
 
 function trackTotemStatus() {
     try {
@@ -88,17 +91,16 @@ function trackTotemStatus() {
     }
 }
 
-function renderTotemOverlay() {
+function refreshOverlay() {
+    overlay.clear();
+
     if (!settings.totemRemainingTimeOverlay || !remainingTotemTime || remainingTotemTime === '00s' || !isInSkyblock() || allOverlaysGui.isOpen()) {
         return;
     }
 
     const timerColor = !remainingTotemTime.includes('m') && remainingTotemTime.slice(0, -1) <= secondsBeforeExpiration ? RED : WHITE;
     const overlayText = `${DARK_PURPLE}Totem of Corruption: ${timerColor}${remainingTotemTime}`;
-    const overlay = new Text(overlayText, overlayCoordsData.totemRemainingTimeOverlay.x, overlayCoordsData.totemRemainingTimeOverlay.y)
-        .setShadow(true)
-        .setScale(overlayCoordsData.totemRemainingTimeOverlay.scale);
-    overlay.draw();
+    overlay.addTextLine(new OverlayTextLine().setText(overlayText));
 }
 
 function resetTotem() {

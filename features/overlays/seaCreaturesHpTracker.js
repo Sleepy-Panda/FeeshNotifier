@@ -7,6 +7,7 @@ import { OFF_SOUND_MODE } from "../../constants/sounds";
 import { registerIf } from "../../utils/registers";
 import { getSeaCreaturesInRange } from "../../utils/entityDetection";
 import { getMcEntityById } from "../../utils/common";
+import { Overlay, OverlayTextLine } from "../../utils/overlays";
 
 let mobs = [];
 
@@ -115,12 +116,10 @@ const TRACKED_WORLD_NAMES = TRACKED_MOBS
     .filter((value, index, array) => array.indexOf(value) === index);
 
 registerIf(
-    register('step', () => trackSeaCreaturesHp()).setFps(4),
-    () => settings.seaCreaturesHpOverlay && isInSkyblock() && TRACKED_WORLD_NAMES.includes(getWorldName())
-);
-
-registerIf(
-    register('renderOverlay', () => renderHpOverlay()),
+    register('step', () => {
+        trackSeaCreaturesHp();
+        refreshOverlay();
+    }).setFps(4),
     () => settings.seaCreaturesHpOverlay && isInSkyblock() && TRACKED_WORLD_NAMES.includes(getWorldName())
 );
 
@@ -133,6 +132,10 @@ register("worldUnload", () => {
     mobs = [];
     seenMobEntityIds.clear();
 });
+
+const overlay = new Overlay(() => settings.seaCreaturesHpOverlay && isInSkyblock() && TRACKED_WORLD_NAMES.includes(getWorldName()))
+    .setPositionData(overlayCoordsData.seaCreaturesHpOverlay)
+    .setIsClickable(false);
 
 function cleanupOutdatedSeenEntityIds() {
     if (!settings.seaCreaturesHpOverlay || !settings.seaCreaturesHpOverlay_immunity || !isInSkyblock() || !seenMobEntityIds || !seenMobEntityIds.size) return;
@@ -220,7 +223,9 @@ function trackSeaCreaturesHp() {
     }
 }
 
-function renderHpOverlay() {
+function refreshOverlay() {
+    overlay.clear();
+    
     if (!settings.seaCreaturesHpOverlay ||
         !isInSkyblock() ||
         !TRACKED_WORLD_NAMES.includes(getWorldName()) ||
@@ -231,23 +236,16 @@ function renderHpOverlay() {
 
     if (!mobs.length && seaCreaturesHpOverlayGui.isOpen()) {
         const overlayText = `${AQUA}${BOLD}Sea creatures HP`;
-        drawText(overlayText);
+        overlay.addTextLine(new OverlayTextLine().setText(overlayText));
         return;
     }
     
     if (mobs.length) {
-        let overlayText = `${AQUA}${BOLD}Sea creatures HP\n`;
+        let overlayText = `${AQUA}${BOLD}Sea creatures HP`;
+        overlay.addTextLine(new OverlayTextLine().setText(overlayText));
         mobs.forEach((mob) => {
             const immunityText = settings.seaCreaturesHpOverlay_immunity && mob.isImmune ? ` ${RED}${BOLD}[Immune]` : '';
-            overlayText += `${mob.nametag}${immunityText}\n`;
+            overlay.addTextLine(new OverlayTextLine().setText(`${mob.nametag}${immunityText}`));
         });
-        drawText(overlayText);
-    }
-
-    function drawText(overlayText) {
-        const overlay = new Text(overlayText, overlayCoordsData.seaCreaturesHpOverlay.x, overlayCoordsData.seaCreaturesHpOverlay.y)
-            .setShadow(true)
-            .setScale(overlayCoordsData.seaCreaturesHpOverlay.scale);
-        overlay.draw();
     }
 }

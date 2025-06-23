@@ -5,7 +5,7 @@ import { overlayCoordsData } from "../../data/overlayCoords";
 import { formatElapsedTime, formatNumberWithSpaces, isDoubleHook, isInFishingWorld } from "../../utils/common";
 import { getLastFishingHookSeenAt, getWorldName, isInSkyblock } from '../../utils/playerState';
 import { registerIf } from "../../utils/registers";
-import { createButtonsDisplay, toggleButtonsDisplay } from "../../utils/overlays";
+import { LEFT_CLICK_TYPE, Overlay, OverlayButtonLine, OverlayTextLine } from "../../utils/overlays";
 
 let seaCreaturesPerHour = 0;
 let totalSeaCreaturesCaughtCount = 0;
@@ -21,12 +21,12 @@ triggers.ALL_CATCHES_TRIGGERS.forEach(entry => {
 });
 
 registerIf(
-    register('step', () => refreshElapsedTime()).setDelay(1),
+    register('step', () => refreshOverlay()).setFps(2),
     () => settings.seaCreaturesPerHourTrackerOverlay && isInSkyblock() && isInFishingWorld(getWorldName())
 );
 
 registerIf(
-    register('renderOverlay', () => renderTrackerOverlay()),
+    register('step', () => refreshElapsedTime()).setDelay(1),
     () => settings.seaCreaturesPerHourTrackerOverlay && isInSkyblock() && isInFishingWorld(getWorldName())
 );
 
@@ -34,7 +34,9 @@ register("worldUnload", () => {
     isSessionActive = false;
 });
 
-const buttonsDisplay = createButtonsDisplay(true, () => resetSeaCreaturesPerHourTracker(false), true, () => pauseSeaCreaturesPerHourTracker());
+const overlay = new Overlay(() => settings.seaCreaturesPerHourTrackerOverlay && isInSkyblock() && isInFishingWorld(getWorldName()))
+    .setPositionData(overlayCoordsData.seaCreaturesPerHourTrackerOverlay)
+    .setIsClickable(true);
 
 export function resetSeaCreaturesPerHourTracker(isConfirmed) {
     try {
@@ -53,6 +55,8 @@ export function resetSeaCreaturesPerHourTracker(isConfirmed) {
         isSessionActive = false;
         elapsedSeconds = 0;
 
+        refreshOverlay();
+
         ChatLib.chat(`${GOLD}[FeeshNotifier] ${WHITE}Sea creatures per hour tracker was reset.`);
     } catch (e) {
         console.error(e);
@@ -67,6 +71,7 @@ export function pauseSeaCreaturesPerHourTracker() {
         }
     
         isSessionActive = false;
+        refreshOverlay();
         ChatLib.chat(`${GOLD}[FeeshNotifier] ${WHITE}Sea creatures per hour tracker is paused. Continue fishing to resume it.`);       
     } catch (e) {
         console.error(e);
@@ -134,7 +139,9 @@ function refreshTrackerData() {
 	}
 }
 
-function renderTrackerOverlay() {
+function refreshOverlay() {
+    overlay.clear();
+
     if (!settings.seaCreaturesPerHourTrackerOverlay ||
         !isInSkyblock() ||
         !isInFishingWorld(getWorldName()) ||
@@ -142,20 +149,16 @@ function renderTrackerOverlay() {
         (new Date() - getLastFishingHookSeenAt() > 10 * 60 * 1000) ||
         allOverlaysGui.isOpen()
     ) {
-        buttonsDisplay.hide();
         return;
     }
 
     const pausedText = isSessionActive ? '' : ` ${GRAY}[Paused]`;
     let text = `${YELLOW}${BOLD}Sea creatures per hour`;
-    text += `\n${WHITE}${formatNumberWithSpaces(seaCreaturesPerHour)} ${GRAY}per hour (${WHITE}${formatNumberWithSpaces(totalSeaCreaturesCaughtCount)} ${GRAY}total)`;
-    text += `\n`;
-    text += `\n${AQUA}Elapsed time: ${WHITE}${formatElapsedTime(elapsedSeconds)}${pausedText}`;
+    overlay.addTextLine(new OverlayTextLine().setText(text));
+    overlay.addTextLine(new OverlayTextLine().setText(`${WHITE}${formatNumberWithSpaces(seaCreaturesPerHour)} ${GRAY}per hour (${WHITE}${formatNumberWithSpaces(totalSeaCreaturesCaughtCount)} ${GRAY}total)`));
+    overlay.addTextLine(new OverlayTextLine().setText(`\n`).setScaleDeviation(-0.2));
+    overlay.addTextLine(new OverlayTextLine().setText(`${AQUA}Elapsed time: ${WHITE}${formatElapsedTime(elapsedSeconds)}${pausedText}`));
 
-    const overlay = new Text(text, overlayCoordsData.seaCreaturesPerHourTrackerOverlay.x, overlayCoordsData.seaCreaturesPerHourTrackerOverlay.y)
-        .setShadow(true)
-        .setScale(overlayCoordsData.seaCreaturesPerHourTrackerOverlay.scale);
-    overlay.draw();
-
-    toggleButtonsDisplay(buttonsDisplay, overlay, overlayCoordsData.seaCreaturesPerHourTrackerOverlay);
+    overlay.addButtonLine(new OverlayButtonLine().setText(`${YELLOW}${BOLD}[Click to pause]`).setScaleDeviation(-0.2).setOnClick(LEFT_CLICK_TYPE, () => pauseSeaCreaturesPerHourTracker()));
+    overlay.addButtonLine(new OverlayButtonLine().setText(`${RED}${BOLD}[Click to reset]`).setScaleDeviation(-0.2).setOnClick(LEFT_CLICK_TYPE, () => resetSeaCreaturesPerHourTracker(false)));
 }

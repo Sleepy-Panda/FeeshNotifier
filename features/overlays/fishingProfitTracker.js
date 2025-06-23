@@ -129,9 +129,8 @@ export function pauseFishingProfitTracker() {
         }
 
         pause();
-        ChatLib.chat(`${GOLD}[FeeshNotifier] ${WHITE}Fishing profit tracker is paused. Continue fishing to resume it.`);
-        
         refreshOverlay();
+        ChatLib.chat(`${GOLD}[FeeshNotifier] ${WHITE}Fishing profit tracker is paused. Continue fishing to resume it.`);
     } catch (e) {
         console.error(e);
 		console.log(`[FeeshNotifier] [ProfitTracker] Failed to pause Fishing profit tracker.`);
@@ -169,8 +168,8 @@ function changeItemAmount(itemId, isDelete, difference) {
             ChatLib.chat(`${GOLD}[FeeshNotifier] ${GRAY}${item.amount}x ${item.itemDisplayName} ${WHITE}removed from the Fishing profit tracker.`);   
         } else {
             const newAmount = persistentData.fishingProfit.profitTrackerItems[itemId].amount + difference;
-            if (!newAmount) {
-                delete persistentData.fishingProfit.profitTrackerItems[itemId];
+            if (!newAmount && !isDelete) {
+                return; // Prevent unintended deletion because of missclick
             } else {
                 persistentData.fishingProfit.profitTrackerItems[itemId].amount = newAmount;
             }

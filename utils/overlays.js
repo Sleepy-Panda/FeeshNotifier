@@ -289,8 +289,8 @@ export class OverlayTextLine {
 
     _isHovered(x, y) {
         return (
-            (x > this.text.x && x < this.text.x + this.width) &&
-            (y > this.text.y && y < this.text.y + this.height * 0.85) // Fix for case when I click top of a line, it thinks that previous line is hovered
+            (x >= this.text.x && x <= this.text.x + this.width) &&
+            (y >= this.text.y && y < this.text.y + this.height * 0.85) // Fix for case when I click top of a line, it thinks that previous line is hovered
         );
     }
 
