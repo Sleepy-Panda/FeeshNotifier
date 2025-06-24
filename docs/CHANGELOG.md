@@ -8,6 +8,7 @@ Features:
 - Added more Galatea fishing drops for potential future update to CT 3.0.
 - Renamed The Sea Emperor to The Loch Emperor everywhere.
 - Deleted outdated feature "Highlight matching items in Attribute Fusion" because there is no old attribute fusion anymore.
+- Deleted outdated feature "Price per T1 attribute shard" because there is no high level Attribute Shards on AH.
 
 Bugfixes:
 - 
