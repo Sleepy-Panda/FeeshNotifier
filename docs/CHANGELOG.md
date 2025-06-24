@@ -5,7 +5,7 @@
 Released: ???
 
 Features:
-- 
+- Added more Galatea fishing drops for potential future update to CT 3.0.
 
 Bugfixes:
 - 

@@ -606,6 +606,99 @@ export const FISHING_PROFIT_ITEMS = [
         npcPrice: 1000000,
     },
 
+    // Shards
+
+    {
+        itemId: 'SHARD_COD',
+        itemName: 'Cod Shard',
+        itemDisplayName: `${COMMON}Cod Shard`,
+        npcPrice: 0,
+    },
+    {
+        itemId: 'SHARD_AZURE',
+        itemName: 'Azure Shard',
+        itemDisplayName: `${COMMON}Azure Shard`,
+        npcPrice: 0,
+    },
+    {
+        itemId: 'SHARD_NIGHT_SQUID',
+        itemName: 'Night Squid Shard',
+        itemDisplayName: `${COMMON}Night Squid Shard`,
+        npcPrice: 0,
+    },
+    {
+        itemId: 'SHARD_VERDANT',
+        itemName: 'Verdant Shard',
+        itemDisplayName: `${COMMON}Verdant Shard`,
+        npcPrice: 0,
+    },
+    {
+        itemId: 'SHARD_SEA_ARCHER',
+        itemName: 'Sea Archer Shard',
+        itemDisplayName: `${COMMON}Sea Archer Shard`,
+        npcPrice: 0,
+    },
+    {
+        itemId: 'SHARD_SALMON',
+        itemName: 'Salmon Shard',
+        itemDisplayName: `${UNCOMMON}Salmon Shard`,
+        npcPrice: 0,
+    },
+    {
+        itemId: 'SHARD_MAGMA_SLUG',
+        itemName: 'Magma Slug Shard',
+        itemDisplayName: `${UNCOMMON}Magma Slug Shard`,
+        npcPrice: 0,
+    },
+    {
+        itemId: 'SHARD_LAVA_FLAME',
+        itemName: 'Lava Flame Shard',
+        itemDisplayName: `${RARE}Lava Flame Shard`,
+        npcPrice: 0,
+    },
+    {
+        itemId: 'SHARD_EEL',
+        itemName: 'Eel Shard',
+        itemDisplayName: `${RARE}Eel Shard`,
+        npcPrice: 0,
+    },
+    {
+        itemId: 'SHARD_INFERNO_KOI',
+        itemName: 'Inferno Koi Shard',
+        itemDisplayName: `${RARE}Inferno Koi Shard`,
+        npcPrice: 0,
+    },
+    {
+        itemId: 'SHARD_PIRANHA',
+        itemName: 'Piranha Shard',
+        itemDisplayName: `${RARE}Piranha Shard`,
+        npcPrice: 0,
+    },
+    {
+        itemId: 'SHARD_FIRE_EEL',
+        itemName: 'Fire Eel Shard',
+        itemDisplayName: `${EPIC}Fire Eel Shard`,
+        npcPrice: 0,
+    },
+    {
+        itemId: 'SHARD_WATER_HYDRA',
+        itemName: 'Water Hydra Shard',
+        itemDisplayName: `${EPIC}Water Hydra Shard`,
+        npcPrice: 0,
+    },
+    {
+        itemId: 'SHARD_SEA_EMPEROR',
+        itemName: 'Sea Emperor Shard',
+        itemDisplayName: `${EPIC}Sea Emperor Shard`,
+        npcPrice: 0,
+    },
+    {
+        itemId: 'SHARD_LORD_JAWBUS',
+        itemName: 'Lord Jawbus Shard',
+        itemDisplayName: `${LEGENDARY}Lord Jawbus Shard`,
+        npcPrice: 0,
+    },
+
     // Water
 
     {
@@ -1167,6 +1260,12 @@ export const FISHING_PROFIT_ITEMS = [
         itemDisplayName: `${UNCOMMON}Flexbone`,
         npcPrice: 0,
     },
+    {
+        itemId: 'MANGCORE',
+        itemName: 'Mangcore',
+        itemDisplayName: `${EPIC}Mangcore`,
+        npcPrice: 204800,
+    },
 
     // Crimson Isle
 
@@ -1414,70 +1513,6 @@ export const FISHING_PROFIT_ITEMS = [
         itemName: 'Enchanted Book (Flash I)',
         itemAlternateNames: [ 'Enchanted Book (Flash 1)' ],
         itemDisplayName: `${MYTHIC}Flash I ${WHITE}Book`,
-        npcPrice: 0,
-        shouldAnnounceRareDrop: true,
-    },
-    {
-        itemId: 'ATTRIBUTE_SHARD+ATTRIBUTE_BLAZING_FORTUNE;1',
-        itemName: 'Attribute Shard (Blazing Fortune I)',
-        itemAlternateNames: [ 'Attribute Shard (Blazing Fortune 1)' ],
-        itemDisplayName: `${AQUA}Blazing Fortune I ${WHITE}Attribute Shard`,
-        npcPrice: 0,
-        shouldAnnounceRareDrop: true,
-    },
-    {
-        itemId: 'ATTRIBUTE_SHARD+ATTRIBUTE_DOUBLE_HOOK;1',
-        itemName: 'Attribute Shard (Double Hook I)',
-        itemAlternateNames: [ 'Attribute Shard (Double Hook 1)' ],
-        itemDisplayName: `${AQUA}Double Hook I ${WHITE}Attribute Shard`,
-        npcPrice: 0,
-        shouldAnnounceRareDrop: true,
-    },
-    {
-        itemId: 'ATTRIBUTE_SHARD+ATTRIBUTE_FISHERMAN;1',
-        itemName: 'Attribute Shard (Fisherman I)',
-        itemAlternateNames: [ 'Attribute Shard (Fisherman 1)' ],
-        itemDisplayName: `${AQUA}Fisherman I ${WHITE}Attribute Shard`,
-        npcPrice: 0,
-        shouldAnnounceRareDrop: true,
-    },
-    {
-        itemId: 'ATTRIBUTE_SHARD+ATTRIBUTE_FISHING_EXPERIENCE;1',
-        itemName: 'Attribute Shard (Fishing Experience I)',
-        itemAlternateNames: [ 'Attribute Shard (Fishing Experience 1)' ],
-        itemDisplayName: `${AQUA}Fishing Experience I ${WHITE}Attribute Shard`,
-        npcPrice: 0,
-        shouldAnnounceRareDrop: true,
-    },
-    {
-        itemId: 'ATTRIBUTE_SHARD+ATTRIBUTE_FISHING_SPEED;1',
-        itemName: 'Attribute Shard (Fishing Speed I)',
-        itemAlternateNames: [ 'Attribute Shard (Fishing Speed 1)' ],
-        itemDisplayName: `${AQUA}Fishing Speed I ${WHITE}Attribute Shard`,
-        npcPrice: 0,
-        shouldAnnounceRareDrop: true,
-    },
-    {
-        itemId: 'ATTRIBUTE_SHARD+ATTRIBUTE_HUNTER;1',
-        itemName: 'Attribute Shard (Hunter I)',
-        itemAlternateNames: [ 'Attribute Shard (Hunter 1)' ],
-        itemDisplayName: `${AQUA}Hunter I ${WHITE}Attribute Shard`,
-        npcPrice: 0,
-        shouldAnnounceRareDrop: true,
-    },
-    {
-        itemId: 'ATTRIBUTE_SHARD+ATTRIBUTE_INFECTION;1',
-        itemName: 'Attribute Shard (Infection I)',
-        itemAlternateNames: [ 'Attribute Shard (Infection 1)' ],
-        itemDisplayName: `${AQUA}Infection I ${WHITE}Attribute Shard`,
-        npcPrice: 0,
-        shouldAnnounceRareDrop: true,
-    },
-    {
-        itemId: 'ATTRIBUTE_SHARD+ATTRIBUTE_TROPHY_HUNTER;1',
-        itemName: 'Attribute Shard (Trophy Hunter I)',
-        itemAlternateNames: [ 'Attribute Shard (Trophy Hunter 1)' ],
-        itemDisplayName: `${AQUA}Trophy Hunter I ${WHITE}Attribute Shard`,
         npcPrice: 0,
         shouldAnnounceRareDrop: true,
     },
