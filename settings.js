@@ -1541,13 +1541,6 @@ ${GRAY}Do ${AQUA}/feeshResetProfitTracker${GRAY} to reset.`,
     description: `Use red background for the fishing enchanted books that are worth nothing (e.g. Corruption), when they are in your inventory and storages.`,
     subcategory: "Item background"
 })
-.addSwitch({
-    category: "Items and storages",
-    configName: "highlightMatchingItemsInAttributeFusion",
-    title: "Highlight matching items in Attribute Fusion",
-    description: "Highlight matching items with the same attribute tier, when combining the gear / attribute shards in the Attribute Fusion menu.",
-    subcategory: "Item background"
-})
 
 .addSwitch({
     category: "Items and storages",
