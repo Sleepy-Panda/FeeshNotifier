@@ -6,6 +6,7 @@ Released: ???
 
 Features:
 - Added more Galatea fishing drops for potential future update to CT 3.0.
+- Renamed The Sea Emperor to The Loch Emperor everywhere.
 
 Bugfixes:
 - 

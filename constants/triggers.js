@@ -6,7 +6,7 @@ import { GREEN, GOLD, DARK_PURPLE, LIGHT_PURPLE, BLUE, RED, BOLD, RESET, GRAY, A
 // WATER SEA CREATURES
 
 export const WATER_HYDRA_MESSAGE = `${GREEN}The Water Hydra has come to test your strength.`;
-export const SEA_EMPEROR_MESSAGE = `${GREEN}The Sea Emperor arises from the depths.`;
+export const LOCH_EMPEROR_MESSAGE = `${GREEN}The Loch Emperor arises from the depths.`;
 export const CARROT_KING_MESSAGE = `${GREEN}Is this even a fish? It\'s the Carrot King!`;
 export const SQUID_MESSAGE = `${GREEN}A Squid appeared.`;
 export const NIGHT_SQUID_MESSAGE = `${GREEN}Pitch darkness reveals a Night Squid.`;
@@ -187,8 +187,8 @@ export const ALL_CATCHES_TRIGGERS = [
         rarityColorCode: LEGENDARY,
     },
     {
-        trigger: SEA_EMPEROR_MESSAGE,
-        seaCreature: `The Sea Emperor`,
+        trigger: LOCH_EMPEROR_MESSAGE,
+        seaCreature: `The Loch Emperor`,
         rarityColorCode: LEGENDARY,
     },
     {
@@ -577,10 +577,10 @@ export const RARE_CATCH_TRIGGERS = [
         rarityColorCode: LEGENDARY
     },
     {
-        trigger: SEA_EMPEROR_MESSAGE,
-        seaCreature: seaCreatures.SEA_EMPEROR,
-        isMessageEnabledSettingKey: 'messageOnSeaEmperorCatch',
-        isAlertEnabledSettingKey: 'alertOnSeaEmperorCatch',
+        trigger: LOCH_EMPEROR_MESSAGE,
+        seaCreature: seaCreatures.LOCH_EMPEROR,
+        isMessageEnabledSettingKey: 'messageOnLochEmperorCatch',
+        isAlertEnabledSettingKey: 'alertOnLochEmperorCatch',
         rarityColorCode: LEGENDARY
     },
     {
@@ -1043,9 +1043,6 @@ export const REGULAR_JERRY_WORKSHOP_CATCH_TRIGGERS = [
         trigger: WATER_HYDRA_MESSAGE
     },
     {
-        trigger: SEA_EMPEROR_MESSAGE
-    },
-    {
         trigger: AGARIMOO_MESSAGE
     },
     {
@@ -1126,9 +1123,6 @@ export const REGULAR_WATER_HOTSPOT_AND_BAYOU_CATCH_TRIGGERS = [
     },
     {
         trigger: WATER_HYDRA_MESSAGE
-    },
-    {
-        trigger: SEA_EMPEROR_MESSAGE
     },
     {
         trigger: AGARIMOO_MESSAGE

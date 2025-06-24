@@ -145,9 +145,9 @@ const config = new DefaultConfig("FeeshNotifier", "config/settings.json")
 })
 .addSwitch({
     category: "Chat",
-    configName: "messageOnSeaEmperorCatch",
-    title: "Send a party chat message on SEA EMPEROR catch",
-    description: "Sends a party chat message when a rare sea creature has caught by you.",
+    configName: "messageOnLochEmperorCatch",
+    title: "Send a party chat message on LOCH EMPEROR catch",
+    description: `Sends a party chat message when a rare sea creature has caught by you.\n${RED}Unavailable until the module is migrated to work on MC 1.21!`,
     subcategory: "Rare Catches",
     value: true
 })
@@ -688,9 +688,9 @@ const config = new DefaultConfig("FeeshNotifier", "config/settings.json")
 })
 .addSwitch({
     category: "Alerts",
-    configName: "alertOnSeaEmperorCatch",
-    title: "Alert on SEA EMPEROR catch",
-    description: "Shows a title and plays a sound when a rare sea creature has caught by you or your party members.",
+    configName: "alertOnLochEmperorCatch",
+    title: "Alert on LOCH EMPEROR catch",
+    description: `Shows a title and plays a sound when a rare sea creature has caught by you or your party members.\n${RED}Unavailable until the module is migrated to work on MC 1.21!`,
     subcategory: "Rare Catches",
     value: true
 })
