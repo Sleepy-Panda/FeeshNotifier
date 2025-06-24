@@ -1666,13 +1666,6 @@ ${GRAY}Do ${AQUA}/feeshResetProfitTracker${GRAY} to reset.`,
     description: "Render expertise kills in fishing rod's lore if it has Expertise enchant.",
     subcategory: "Item lore"
 })
-.addSwitch({
-    category: "Items and storages",
-    configName: "showPricePerT1Attribute",
-    title: "Price per T1 attribute shard",
-    description: "Render price per T1 attribute level in the auctioned Attribute Shard's lore, based on item's price. Helps to compare prices for high-tier attribute shards on AH.",
-    subcategory: "Item lore"
-})
 
 .addSwitch({
     category: "Rendering",
