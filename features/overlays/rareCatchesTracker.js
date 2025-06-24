@@ -135,6 +135,7 @@ function renderRareCatchTrackerOverlay() {
 
     entries.forEach((entry) => {
         const trigger = RARE_CATCH_TRIGGERS.find(t => t.seaCreature === entry.seaCreature);
+        if (!trigger) return;
         const rarityColorCode = trigger.rarityColorCode || WHITE;
         const doubleHookInfo = trigger.seaCreature === seaCreatures.VANQUISHER || trigger.seaCreature === seaCreatures.REINDRAKE
             ? ''
