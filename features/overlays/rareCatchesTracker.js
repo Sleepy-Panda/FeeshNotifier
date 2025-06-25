@@ -51,7 +51,7 @@ export function resetRareCatchesTracker(isConfirmed) {
                 })
                 .sort((a, b) => b.amount - a.amount)
                 .map((entry) => {
-                    const rarityColorCode = RARE_CATCH_TRIGGERS.find(t => t.seaCreature === entry.seaCreature).rarityColorCode;
+                    const rarityColorCode = RARE_CATCH_TRIGGERS.find(t => t.seaCreature === entry.seaCreature)?.rarityColorCode || WHITE;
                     const seaCreatureDisplayName = fromUppercaseToCapitalizedFirstLetters(entry.seaCreature);
                     return `${rarityColorCode}${entry.amount} ${entry.amount > 1 ? pluralize(seaCreatureDisplayName) : seaCreatureDisplayName}`;
                 });
