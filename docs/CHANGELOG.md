@@ -11,7 +11,7 @@ Features:
 - Deleted outdated feature "Price per T1 attribute shard" because there is no high level Attribute Shards on AH.
 
 Bugfixes:
-- 
+- Fixed Flake the Fish rarity (displayed as Special now).
 
 Other:
 -
