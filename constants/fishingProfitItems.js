@@ -1693,7 +1693,7 @@ export const FISHING_PROFIT_ITEMS = [
     {
         itemId: 'SNOWFLAKE_THE_FISH',
         itemName: 'Flake the Fish',
-        itemDisplayName: `${COMMON}Flake the Fish`,
+        itemDisplayName: `${SPECIAL}Flake the Fish`,
         npcPrice: 0,
     },
     {
