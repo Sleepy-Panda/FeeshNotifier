@@ -82,7 +82,7 @@ const TRACKED_MOBS = [
     },
     {
         worlds: WATER_FISHING_WORLDS,
-        baseMobName: 'The Sea Emperor',
+        baseMobName: 'The Loch Emperor',
         hasImmunity: true,
     },
     {
