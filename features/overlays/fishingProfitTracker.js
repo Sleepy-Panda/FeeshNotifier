@@ -553,7 +553,7 @@ function detectInventoryChanges() {
     
             let slotItemName = getCleanItemName(item?.getName());
 
-            if (slotItemName === 'Attribute Shard' || slotItemName === 'Enchanted Book') {
+            if (slotItemName === 'Enchanted Book') {
                 const loreLines = getLore(item);
                 const description = loreLines[0].removeFormatting();
                 slotItemName += ` (${description})`;

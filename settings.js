@@ -145,9 +145,9 @@ const config = new DefaultConfig("FeeshNotifier", "config/settings.json")
 })
 .addSwitch({
     category: "Chat",
-    configName: "messageOnSeaEmperorCatch",
-    title: "Send a party chat message on SEA EMPEROR catch",
-    description: "Sends a party chat message when a rare sea creature has caught by you.",
+    configName: "messageOnTheLochEmperorCatch",
+    title: "Send a party chat message on THE LOCH EMPEROR catch",
+    description: `Sends a party chat message when a rare sea creature has caught by you.\n${RED}Unavailable until the module is migrated to work on MC 1.21!`,
     subcategory: "Rare Catches",
     value: true
 })
@@ -688,9 +688,9 @@ const config = new DefaultConfig("FeeshNotifier", "config/settings.json")
 })
 .addSwitch({
     category: "Alerts",
-    configName: "alertOnSeaEmperorCatch",
-    title: "Alert on SEA EMPEROR catch",
-    description: "Shows a title and plays a sound when a rare sea creature has caught by you or your party members.",
+    configName: "alertOnTheLochEmperorCatch",
+    title: "Alert on THE LOCH EMPEROR catch",
+    description: `Shows a title and plays a sound when a rare sea creature has caught by you or your party members.\n${RED}Unavailable until the module is migrated to work on MC 1.21!`,
     subcategory: "Rare Catches",
     value: true
 })
@@ -1541,13 +1541,6 @@ ${GRAY}Do ${AQUA}/feeshResetProfitTracker${GRAY} to reset.`,
     description: `Use red background for the fishing enchanted books that are worth nothing (e.g. Corruption), when they are in your inventory and storages.`,
     subcategory: "Item background"
 })
-.addSwitch({
-    category: "Items and storages",
-    configName: "highlightMatchingItemsInAttributeFusion",
-    title: "Highlight matching items in Attribute Fusion",
-    description: "Highlight matching items with the same attribute tier, when combining the gear / attribute shards in the Attribute Fusion menu.",
-    subcategory: "Item background"
-})
 
 .addSwitch({
     category: "Items and storages",
@@ -1671,13 +1664,6 @@ ${GRAY}Do ${AQUA}/feeshResetProfitTracker${GRAY} to reset.`,
     configName: "showFishingRodExpertiseKills",
     title: "Fishing rod expertise",
     description: "Render expertise kills in fishing rod's lore if it has Expertise enchant.",
-    subcategory: "Item lore"
-})
-.addSwitch({
-    category: "Items and storages",
-    configName: "showPricePerT1Attribute",
-    title: "Price per T1 attribute shard",
-    description: "Render price per T1 attribute level in the auctioned Attribute Shard's lore, based on item's price. Helps to compare prices for high-tier attribute shards on AH.",
     subcategory: "Item lore"
 })
 

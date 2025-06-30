@@ -2,7 +2,7 @@ export const YETI = "YETI";
 export const REINDRAKE = "REINDRAKE";
 export const NUTCRACKER = "NUTCRACKER";
 export const WATER_HYDRA = "WATER HYDRA";
-export const SEA_EMPEROR = "SEA EMPEROR";
+export const THE_LOCH_EMPEROR = "THE LOCH EMPEROR";
 export const CARROT_KING = "CARROT KING";
 export const GREAT_WHITE_SHARK = "GREAT WHITE SHARK";
 export const PHANTOM_FISHER = "PHANTOM FISHER";
@@ -44,7 +44,7 @@ export const ALL_SEA_CREATURES_NAMES = [
     'Guardian Defender',
     'Deep Sea Protector',
     'Water Hydra',
-    'The Sea Emperor',
+    'The Loch Emperor',
     'Agarimoo',
     'Carrot King',
     'Frosty',
