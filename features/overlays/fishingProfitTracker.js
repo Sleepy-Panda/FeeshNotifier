@@ -195,6 +195,7 @@ function activateSessionOnPlayersFishingHook() {
         const isHookActive = isFishingHookActive();
         if (isHookActive) {
             activateTimer();
+            refreshPrices();
         }
     } catch (e) {
 		console.error(e);
@@ -640,9 +641,6 @@ function refreshOverlay() {
             return;
         }
 
-        // TODO Refresh prices if became visible
-        // Not clickable lines after overlay hidden but still rendered
-    
         const displayTrackerData = getDisplayTrackerData();
         
         const buttonLines = [];
