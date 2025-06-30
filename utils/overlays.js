@@ -10,6 +10,8 @@ export const CTRL_LEFT_CLICK_TYPE = 'CTRL+LEFT';
 export const CTRL_MIDDLE_CLICK_TYPE = 'CTRL+MID';
 export const CTRL_RIGHT_CLICK_TYPE = 'CTRL+RIGHT';
 
+const SMALLER_LINE_SCALE_ADJUSTMENT = -0.2;
+
 /**
  * Overlay representing a text widget rendered on screen.
  */
@@ -189,8 +191,9 @@ export class Overlay {
 
         if (!isInChatOrInventoryGui() || !this.buttonLines.length) return;
 
-        const scaleDeviation = this.buttonLines[0].scaleDeviation || 0;
-        const emptyLine = this.shouldSeparateButtonLines ? new Text(' ').setScale(this.positionData.scale + scaleDeviation).setAlign('LEFT').setShadow(true) : null;
+        const emptyLine = this.shouldSeparateButtonLines
+            ? new Text(' ').setScale(getAdjustedScale(this.positionData.scale, SMALLER_LINE_SCALE_ADJUSTMENT)).setAlign('LEFT').setShadow(true)
+            : null;
         const emptyLineHeight = emptyLine ? emptyLine.getHeight() : 0;
 
         if (settings.buttonsPosition === 0) { // At the bottom of Overlay
@@ -230,7 +233,7 @@ export class OverlayTextLine {
         this.text = new Text('');
         this.width = 0;
         this.height = 0;
-        this.scaleDeviation = 0;
+        this.isSmallerScale = false;
         this.onLeftClickFunc = null;
         this.onClickFuncs = [];
     }
@@ -245,12 +248,11 @@ export class OverlayTextLine {
     }
 
     /**
-    * Set deviation from the base scale value defined for the Overlay.
-    * Helps to render some lines smaller or bigger than the main scale value.
-    * @param {number} scaleDeviation Value to add to the base Overlay's scale value, e.g. -0.2 to render smaller line
+    * Set if the line should be rendered smaller than the base scale value defined for the Overlay.
+    * @param {boolean} isSmallerScale
     */
-    setScaleDeviation(scaleDeviation) {
-        this.scaleDeviation = scaleDeviation || 0;
+    setIsSmallerScale(isSmallerScale) {
+        this.isSmallerScale = isSmallerScale;
         return this;
     }
 
@@ -277,7 +279,8 @@ export class OverlayTextLine {
     }
 
     _setScale(overlayScale) {
-        this.text.setScale(overlayScale + this.scaleDeviation);
+        const adjustedScale = this.isSmallerScale ? getAdjustedScale(overlayScale, SMALLER_LINE_SCALE_ADJUSTMENT) : overlayScale;
+        this.text.setScale(adjustedScale);
         return this;
     }
 
@@ -577,4 +580,9 @@ export function initDropCountOnOverlay(dropObj, count, lastOn) {
         const localDate = new Date(year, month - 1, day, hour, minute, second);
         return localDate;
     }
+}
+
+function getAdjustedScale(baseScale, scaleAdjustment) {
+    const adjustedScale = baseScale + scaleAdjustment;
+    return adjustedScale > 0 ? adjustedScale : 0.1;
 }

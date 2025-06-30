@@ -644,12 +644,11 @@ function refreshOverlay() {
         const displayTrackerData = getDisplayTrackerData();
         
         const buttonLines = [];
-        const buttonScaleDeviation = -0.2;
         const areActionsVisible = isInChatOrInventoryGui();
 
         if (areActionsVisible) {
-            buttonLines.push(new OverlayButtonLine().setText(`${YELLOW}${BOLD}[Click to pause]`).setScaleDeviation(buttonScaleDeviation).setOnClick(LEFT_CLICK_TYPE, () => pauseFishingProfitTracker()));
-            buttonLines.push(new OverlayButtonLine().setText(`${RED}${BOLD}[Click to reset]`).setScaleDeviation(buttonScaleDeviation).setOnClick(LEFT_CLICK_TYPE, () => resetFishingProfitTracker(false)));
+            buttonLines.push(new OverlayButtonLine().setText(`${YELLOW}${BOLD}[Click to pause]`).setIsSmallerScale(true).setOnClick(LEFT_CLICK_TYPE, () => pauseFishingProfitTracker()));
+            buttonLines.push(new OverlayButtonLine().setText(`${RED}${BOLD}[Click to reset]`).setIsSmallerScale(true).setOnClick(LEFT_CLICK_TYPE, () => resetFishingProfitTracker(false)));
             profitTrackerOverlay.setButtonLines(buttonLines);
         }
 
@@ -674,8 +673,8 @@ function refreshOverlay() {
         }
      
         if (displayTrackerData.entriesToShow.length && areActionsVisible) {
-            profitTrackerOverlay.addTextLine(new OverlayTextLine().setText(`\n${GRAY}[Ctrl + LCM a line for -1, Ctrl + RCM a line for +1]`).setScaleDeviation(buttonScaleDeviation));
-            profitTrackerOverlay.addTextLine(new OverlayTextLine().setText(`${GRAY}[Ctrl + Middle Click a line to remove item]`).setScaleDeviation(buttonScaleDeviation));
+            profitTrackerOverlay.addTextLine(new OverlayTextLine().setText(`\n${GRAY}[Ctrl + LCM a line for -1, Ctrl + RCM a line for +1]`).setIsSmallerScale(true));
+            profitTrackerOverlay.addTextLine(new OverlayTextLine().setText(`${GRAY}[Ctrl + Middle Click a line to remove item]`).setIsSmallerScale(true));
         }
 
         profitTrackerOverlay.addTextLine(new OverlayTextLine().setText(`\n${AQUA}Total: ${GOLD}${BOLD}${toShortNumber(displayTrackerData.totalProfit)} ${RESET}${GRAY}(${GOLD}${toShortNumber(displayTrackerData.profitPerHour)}${GRAY}/h)`));
