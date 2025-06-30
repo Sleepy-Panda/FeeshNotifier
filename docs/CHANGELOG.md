@@ -1,8 +1,21 @@
 # Releases
 
-## v1.46.0
+## v1.47.0
 
 Released: ???
+
+Features:
+-
+
+Bugfixes:
+-
+
+Other:
+-
+
+## v1.46.0
+
+Released: 2025-06-30
 
 Features:
 - Added more Galatea fishing drops for potential future update to CT 3.0.
