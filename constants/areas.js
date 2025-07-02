@@ -16,6 +16,7 @@ export const DUNGEON_HUB = 'Dungeon Hub';
 export const THE_END = 'The End';
 export const GLACITE_MINESHAFTS = 'Glacite Mineshafts';
 export const RIFT = 'Rift Dimension';
+export const GALATEA = 'Galatea';
 export const PLHLEGBLAST_POOL = 'Plhlegblast Pool';
 
 export const WATER_HOTSPOT_WORLDS = [
@@ -49,5 +50,6 @@ export const WATER_FISHING_WORLDS = [
     DWARVEN_MINES,
     JERRY_WORKSHOP,
     PARK,
-    FARMING_ISLANDS
+    FARMING_ISLANDS,
+    GALATEA
 ];
