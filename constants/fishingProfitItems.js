@@ -716,6 +716,12 @@ export const FISHING_PROFIT_ITEMS = [
         itemDisplayName: `${LEGENDARY}Lord Jawbus`,
         npcPrice: 0,
     },
+    {
+        itemId: 'SHARD_SHINYFISH',
+        itemName: 'Shinyfish',
+        itemDisplayName: `${LEGENDARY}Shinyfish`,
+        npcPrice: 0,
+    },
 
     // Water
 
