@@ -155,6 +155,10 @@ export class Overlay {
         return this;
     }
 
+    /**
+    * Replace the Overlay's text lines with the new ones.
+    * @param {OverlayTextLine[]} textLines
+    */
     setTextLines(textLines) {
         this.textLines = textLines;
         return this;
@@ -169,6 +173,10 @@ export class Overlay {
         return this;
     }
 
+    /**
+    * Replace the Overlay's button lines with the new ones.
+    * @param {OverlayButtonLine[]} buttonLines
+    */
     setButtonLines(buttonLines) {
         this.buttonLines = buttonLines;
         return this;

@@ -5,13 +5,14 @@
 Released: ???
 
 Features:
--
+- Prevent removing a line from Fishing Profit Tracker when using Ctrl+Left Click on a line with 1x item. So you can't accidentally remove a line entirely.
+Use Ctrl+Middle Click instead to delete.
 
 Bugfixes:
 -
 
 Other:
--
+- Rewrite Fishing Profit Tracker using custom clickable overlay (instead of DisplayLine). This enables more often updates without ConcurrentModificationException, and more straightforward code.
 
 ## v1.46.0
 
