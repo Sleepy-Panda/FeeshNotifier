@@ -61,6 +61,13 @@ triggers.ICE_ESSENCE_FISHED_TRIGGERS.forEach(trigger => {
     );
 });
 
+triggers.SHARD_FISHED_TRIGGERS.forEach(trigger => {
+    registerIf(
+        register("Chat", (shard, event) => onShardFished(shard)).setCriteria(trigger.trigger),
+        () => settings.fishingProfitTrackerOverlay && isInSkyblock() && isInFishingWorld(getWorldName())
+    );
+});
+
 registerIf(
     register("Chat", (petDisplayName, level, event) => onPetReachedMaxLevel(+level, petDisplayName))
         .setCriteria(triggers.PET_LEVEL_UP_MESSAGE)
@@ -410,6 +417,37 @@ function onIceEssenceFished(count) {
     } catch (e) {
 		console.error(e);
 		console.log(`[FeeshNotifier] [ProfitTracker] Failed to track fished ice essence.`);
+	}
+}
+
+function onShardFished(shard) {
+    try {
+        if (!isTrackerVisible() || !shard || !isSessionActive) {
+            return;
+        }
+
+        const fishingProfitItem = FISHING_PROFIT_ITEMS.find(i => i.itemName === shard.removeFormatting());
+        const itemId = fishingProfitItem?.itemId;
+        if (!fishingProfitItem || !itemId) {
+            return;
+        }
+
+        const item = persistentData.fishingProfit.profitTrackerItems[itemId];
+        const currentAmount = item?.amount || 0;
+
+        persistentData.fishingProfit.profitTrackerItems[itemId] = {
+            itemName: fishingProfitItem.itemName,
+            itemDisplayName: fishingProfitItem.itemDisplayName,
+            itemId: itemId,
+            amount: currentAmount + 1,
+        };
+        persistentData.save();
+
+        refreshPrices();
+        refreshOverlay();  
+    } catch (e) {
+		console.error(e);
+		console.log(`[FeeshNotifier] [ProfitTracker] Failed to track fished shard.`);
 	}
 }
 
