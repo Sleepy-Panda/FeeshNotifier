@@ -1327,7 +1327,7 @@ export const FISHING_PROFIT_ITEMS = [
         itemId: 'FRIED_FEATHER',
         itemName: 'Fried Feather',
         itemDisplayName: `${UNCOMMON}Fried Feather`,
-        npcPrice: 10000,
+        npcPrice: 1000,
     },
     {
         itemId: 'SINGED_POWDER',

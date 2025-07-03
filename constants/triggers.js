@@ -162,6 +162,9 @@ export const GOOD_CATCH_ICE_ESSENCE_MESSAGE = `${RESET}${DARK_PURPLE}⛃ ${RESET
 export const GREAT_CATCH_ICE_ESSENCE_MESSAGE = `${RESET}${GOLD}⛃ ${RESET}${GOLD}${BOLD}GREAT CATCH! ${RESET}${WHITE}You caught ${RESET}${AQUA}Ice Essence ${RESET}${DARK_GRAY}x` + "${count}" + `${RESET}${WHITE}!${RESET}`;
 export const OUTSTANDING_CATCH_ICE_ESSENCE_MESSAGE = `${RESET}${LIGHT_PURPLE}⛃ ${RESET}${LIGHT_PURPLE}${BOLD}OUTSTANDING CATCH! ${RESET}${WHITE}You caught ${RESET}${AQUA}Ice Essence ${RESET}${DARK_GRAY}x` + "${count}" + `${RESET}${WHITE}!${RESET}`;
 
+export const GOOD_CATCH_SHARD_MESSAGE_1 = `${RESET}${DARK_PURPLE}⛃ ${RESET}${DARK_PURPLE}${BOLD}GOOD CATCH! ${RESET}${WHITE}You caught a ` + "${shard}" + ` Shard${RESET}${WHITE}!${RESET}`;
+export const GOOD_CATCH_SHARD_MESSAGE_2 = `${RESET}${DARK_PURPLE}⛃ ${RESET}${DARK_PURPLE}${BOLD}GOOD CATCH! ${RESET}${WHITE}You caught an ` + "${shard}" + ` Shard${RESET}${WHITE}!${RESET}`; // &r&5&lGOOD CATCH! &r&fYou caught an Abyssal Lanternfish Shard&r&f!&r
+
 export const USE_BAITS_FROM_FISHING_BAG_DISABLED = `${RESET}${RED}Use Baits From Bag is now disabled!${RESET}`;
 export const USE_BAITS_FROM_FISHING_BAG_ENABLED = `${RESET}${GREEN}Use Baits From Bag is now enabled!${RESET}`;
 
@@ -1242,6 +1245,17 @@ export const ICE_ESSENCE_FISHED_TRIGGERS = [
         trigger: OUTSTANDING_CATCH_ICE_ESSENCE_MESSAGE
     }
 ];
+
+// Messages when the shards itself is not dropped as an item to the inventory.
+export const SHARD_FISHED_TRIGGERS = [
+    {
+        trigger: GOOD_CATCH_SHARD_MESSAGE_1
+    },
+    {
+        trigger: GOOD_CATCH_SHARD_MESSAGE_2
+    },
+];
+
 
 export const SHARK_CATCH_TRIGGERS = [
     {
