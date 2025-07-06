@@ -5,16 +5,8 @@
 - Alpha: Fixed a grammatical error in the drop message for Dyes (???)
 - Alpha: Fixed a grammatical error in the Titanoboa spawn message (???)
 - 1.21 support with CT 3.0
-  - Depends on migration of other modules from "requires" section
+  - Depends on migration of CT itself, and other modules from "requires" section
 - Attribute rendering rework on old items and on shards
-- Update Fishing loot table
-  - Add new items (mob drops, treasures, shards)
-    - Water shards (Bazaar ID unknown):
-      - (C) Mist, Cod, Night Squid, Verdant, Sea Archer, Birries, Tadgang, Coralot, Newt
-      - (U) Tide, Salmon, Ent, Magma Slug, Stridersurfer
-      - (R) Cascade, Toad, Lizard King, Piranha, Abyssal Lanternfish, Silentdepth, Snowfin, Carrot King, Limisquid, Bullfrog, ...
-      - (E) ...
-      - (L) Shinyfish, ...
 
 ## Fishing profit tracker
 
