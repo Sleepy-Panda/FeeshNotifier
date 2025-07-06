@@ -61,12 +61,15 @@ triggers.ICE_ESSENCE_FISHED_TRIGGERS.forEach(trigger => {
     );
 });
 
-triggers.SHARD_FISHED_TRIGGERS.forEach(trigger => {
-    registerIf(
-        register("Chat", (shard, event) => onShardFished(shard)).setCriteria(trigger.trigger),
-        () => settings.fishingProfitTrackerOverlay && isInSkyblock() && isInFishingWorld(getWorldName())
-    );
-});
+registerIf(
+    register("Chat", (shardText, event) => onShardFished(shardText)).setCriteria(triggers.GOOD_CATCH_SHARD_MESSAGE),
+    () => settings.fishingProfitTrackerOverlay && isInSkyblock() && isInFishingWorld(getWorldName())
+);
+
+registerIf(
+    register("Chat", (shardsText, event) => onShardCaughtInBlackHole(shardsText)).setCriteria(triggers.BLACK_HOLE_SHARD_MESSAGE).setStart(),
+    () => settings.fishingProfitTrackerOverlay && isInSkyblock() && isInFishingWorld(getWorldName())
+);
 
 registerIf(
     register("Chat", (petDisplayName, level, event) => onPetReachedMaxLevel(+level, petDisplayName))
@@ -420,17 +423,16 @@ function onIceEssenceFished(count) {
 	}
 }
 
-function onShardFished(shard) {
+// shardText sample: "an Abyssal Lanternfish", "a Cod", "a Shinyfish"
+function onShardFished(shardText) {
     try {
-        if (!isTrackerVisible() || !shard || !isSessionActive) {
-            return;
-        }
+        if (!isTrackerVisible() || !shardText || !isSessionActive) return;
 
-        const fishingProfitItem = FISHING_PROFIT_ITEMS.find(i => i.itemName === shard.removeFormatting());
+        const [article, ...shardNameParts] = shardText.removeFormatting().split(' ');
+        const shardName = shardNameParts.join(' ');
+        const fishingProfitItem = FISHING_PROFIT_ITEMS.find(i => i.itemName === shardName.removeFormatting());
         const itemId = fishingProfitItem?.itemId;
-        if (!fishingProfitItem || !itemId) {
-            return;
-        }
+        if (!fishingProfitItem || !itemId) return;
 
         const item = persistentData.fishingProfit.profitTrackerItems[itemId];
         const currentAmount = item?.amount || 0;
@@ -448,6 +450,38 @@ function onShardFished(shard) {
     } catch (e) {
 		console.error(e);
 		console.log(`[FeeshNotifier] [ProfitTracker] Failed to track fished shard.`);
+	}
+}
+
+// shardsText sample: "a Sea Archer", "an Ent", "x4 Sea Emperor"
+function onShardCaughtInBlackHole(shardsText) {
+    try {
+        if (!isTrackerVisible() || !shardsText || !isSessionActive) return;
+
+        const [countText, ...shardNameParts] = shardsText.removeFormatting().split(' ');
+        const count = countText === 'a' || countText === 'an' ? 1 : +(countText.replace('x', ''));
+        const shardName = shardNameParts.join(' ');
+
+        const fishingProfitItem = FISHING_PROFIT_ITEMS.find(i => i.itemName === shardName);
+        const itemId = fishingProfitItem?.itemId;
+        if (!fishingProfitItem || !itemId) return;
+
+        const item = persistentData.fishingProfit.profitTrackerItems[itemId];
+        const currentAmount = item?.amount || 0;
+
+        persistentData.fishingProfit.profitTrackerItems[itemId] = {
+            itemName: fishingProfitItem.itemName,
+            itemDisplayName: fishingProfitItem.itemDisplayName,
+            itemId: itemId,
+            amount: currentAmount + count,
+        };
+        persistentData.save();
+
+        refreshPrices();
+        refreshOverlay();  
+    } catch (e) {
+		console.error(e);
+		console.log(`[FeeshNotifier] [ProfitTracker] Failed to track shard caught in black hole.`);
 	}
 }
 

@@ -6,6 +6,7 @@ Released: ???
 
 Features:
 - Count Shards caught while Treasure fishing in Fishing Profit Tracker. 
+- Count Shards caught using Black Hole in Fishing Profit Tracker. 
 - Prevent removing a line from Fishing Profit Tracker when using Ctrl+Left Click on a line with 1x item. So you can't accidentally remove a line entirely.
 Use Ctrl+Middle Click instead to delete.
 
