@@ -16,7 +16,9 @@ Bugfixes:
 - Fixed Titanoboa and Dyes trigger messages after latest SB update.
 
 Other:
-- Rewrite Fishing Profit Tracker using custom clickable overlay (instead of DisplayLine). This enables more often updates without ConcurrentModificationException, and more straightforward code.
+- Fishing Profit Tracker refactorings:
+    - Rewrite using custom clickable overlay (instead of DisplayLine). This enables more often updates without ConcurrentModificationException, and more straightforward code.
+    - Reused / simplified some code.
 
 ## v1.46.0
 
