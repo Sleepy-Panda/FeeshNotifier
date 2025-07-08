@@ -2,8 +2,6 @@
 
 ## Galatea
 
-- Alpha: Fixed a grammatical error in the drop message for Dyes (???)
-- Alpha: Fixed a grammatical error in the Titanoboa spawn message (???)
 - 1.21 support with CT 3.0
   - Depends on migration of CT itself, and other modules from "requires" section
 - Attribute rendering rework on old items and on shards
