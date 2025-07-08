@@ -13,6 +13,7 @@ Use Ctrl+Middle Click instead to delete.
 Bugfixes:
 - Added Shinyfish to count in Fishing Profit Tracker.
 - Removed The Loch Emperor from other water worlds than Galatea.
+- Fixed Titanoboa and Dyes trigger messages after latest SB update.
 
 Other:
 - Rewrite Fishing Profit Tracker using custom clickable overlay (instead of DisplayLine). This enables more often updates without ConcurrentModificationException, and more straightforward code.
