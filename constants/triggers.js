@@ -94,7 +94,7 @@ export const BANSHEE_MESSAGE = `${RESET}${GREEN}The desolate wail of a Banshee b
 export const SNAPPING_TURTLE_MESSAGE = `${RESET}${GREEN}A Snapping Turtle is coming your way, and it's ANGRY!${RESET}`;
 export const BAYOU_SLUDGE_MESSAGE = `${RESET}${GREEN}A swampy mass of slime emerges, the Bayou Sludge!${RESET}`;
 export const ALLIGATOR_MESSAGE = `${RESET}${GREEN}A long snout breaks the surface of the water. It's an Alligator!${RESET}`;
-export const TITANOBOA_MESSAGE = `${RESET}${GREEN}${RESET}${RED}${BOLD}A massive Titanoboa surfaces. It's body stretches as far as the eye can see.${RESET}`; // &r&a&r&c&lA massive Titanoboa surfaces. It's body stretches as far as the eye can see.&r
+export const TITANOBOA_MESSAGE = `${RESET}${GREEN}${RESET}${RED}${BOLD}A massive Titanoboa surfaces. Its body stretches as far as the eye can see.${RESET}`; // &r&a&r&c&lA massive Titanoboa surfaces. Its body stretches as far as the eye can see.&r
 export const BLUE_RINGED_OCTOPUS_MESSAGE = `${RESET}${GREEN}A garish set of tentacles arise. It's a Blue Ringed Octopus!${RESET}`;
 export const WIKI_TIKI_MESSAGE = `${RESET}${RED}${RESET}${RED}${BOLD}The water bubbles and froths. A massive form emerges- you have disturbed the Wiki Tiki! You shall pay the price.${RESET}`; // &r&c&r&c&lThe water bubbles and froths. A massive form emerges- you have disturbed the Wiki Tiki! You shall pay the price.&r
 
@@ -123,13 +123,13 @@ export const TIKI_MASK_MESSAGE = `RARE DROP! ${RESET}${GOLD}Tiki Mask ${MAGIC_FI
 export const TITANOBOA_SHED_MESSAGE = `RARE DROP! ${RESET}${GOLD}Titanoboa Shed ${MAGIC_FIND_MESSAGE_PATTERN}`; // RARE DROP! &r&6Titanoboa Shed &r&b(+&r&b236% &r&b✯ Magic Find&r&b)
 export const SCUTTLER_SHELL_MESSAGE = `RARE DROP! ${RESET}${GOLD}Scuttler Shell ${MAGIC_FIND_MESSAGE_PATTERN}`; // RARE DROP! &r&6Scuttler Shell &r&b(+&r&b236% &r&b✯ Magic Find&r&b)
 
-export const AQUAMARINE_DYE_MESSAGE = `${RESET}${LIGHT_PURPLE}${BOLD}WOW! ` + '${playerNameAndRank}' + ` ${RESET}${GOLD}found ${RESET}${AQUA}Aquamarine Dye`; // &r&d&lWOW! &r&b[MVP&r&c+&r&b] &bMoonTheSadFisher&r&r&f &r&6found &r&bAquamarine Dye &r&8#95&r&6!&r
-export const ICEBERG_DYE_MESSAGE = `${RESET}${LIGHT_PURPLE}${BOLD}WOW! ` + '${playerNameAndRank}' + ` ${RESET}${GOLD}found ${RESET}${DARK_AQUA}Iceberg Dye`; // &r&d&lWOW! &r&b[MVP&r&c+&r&b] &bMoonTheSadFisher&r&r&f &r&6found &r&3Iceberg Dye&r
-export const CARMINE_DYE_MESSAGE = `${RESET}${LIGHT_PURPLE}${BOLD}WOW! ` + '${playerNameAndRank}' + ` ${RESET}${GOLD}found ${RESET}${DARK_RED}Carmine Dye`; // &r&d&lWOW! &r&b[MVP&r&c+&r&b] &bMoonTheSadFisher&r&r&f &r&6found &r&4Carmine Dye&r
-export const MIDNIGHT_DYE_MESSAGE = `${RESET}${LIGHT_PURPLE}${BOLD}WOW! ` + '${playerNameAndRank}' + ` ${RESET}${GOLD}found ${RESET}${DARK_PURPLE}Midnight Dye`; // &r&d&lWOW! &r&b[MVP&r&c+&r&b] &bMoonTheSadFisher&r&r&f &r&6found &r&5Midnight Dye&r
-export const TREASURE_DYE_MESSAGE = `${RESET}${LIGHT_PURPLE}${BOLD}WOW! ` + '${playerNameAndRank}' + ` ${RESET}${GOLD}found ${RESET}${GOLD}Treasure Dye`; // &r&d&lWOW! &r&b[MVP&r&c+&r&b] &bMoonTheSadFisher&r&r&f &r&6found &r&6Treasure Dye&r
-export const PERIWINKLE_DYE_MESSAGE = `${RESET}${LIGHT_PURPLE}${BOLD}WOW! ` + '${playerNameAndRank}' + ` ${RESET}${GOLD}found ${RESET}${DARK_AQUA}Periwinkle Dye`; // &r&d&lWOW! &r&b[MVP&r&c+&r&b] &bMoonTheSadFisher&r&r&f &r&6found &r&3Periwinkle Dye&r
-export const BONE_DYE_MESSAGE = `${RESET}${LIGHT_PURPLE}${BOLD}WOW! ` + '${playerNameAndRank}' + ` ${RESET}${GOLD}found ${RESET}${WHITE}Bone Dye`; // &r&d&lWOW! &r&b[MVP&r&c+&r&b] &bMoonTheSadFisher&r&r&f &r&6found &r&fBone Dye&r
+export const AQUAMARINE_DYE_MESSAGE = `${RESET}${LIGHT_PURPLE}${BOLD}WOW! ` + '${playerNameAndRank}' + ` ${RESET}${GOLD}found an ${RESET}${AQUA}Aquamarine Dye`; // &r&d&lWOW! &r&b[MVP&r&c+&r&b] &bMoonTheSadFisher&r&r&f &r&6found an &r&bAquamarine Dye &r&8#95&r&6!&r
+export const ICEBERG_DYE_MESSAGE = `${RESET}${LIGHT_PURPLE}${BOLD}WOW! ` + '${playerNameAndRank}' + ` ${RESET}${GOLD}found an ${RESET}${DARK_AQUA}Iceberg Dye`; // &r&d&lWOW! &r&b[MVP&r&c+&r&b] &bMoonTheSadFisher&r&r&f &r&6found an &r&3Iceberg Dye&r
+export const CARMINE_DYE_MESSAGE = `${RESET}${LIGHT_PURPLE}${BOLD}WOW! ` + '${playerNameAndRank}' + ` ${RESET}${GOLD}found a ${RESET}${DARK_RED}Carmine Dye`; // &r&d&lWOW! &r&b[MVP&r&c+&r&b] &bMoonTheSadFisher&r&r&f &r&6found a &r&4Carmine Dye&r
+export const MIDNIGHT_DYE_MESSAGE = `${RESET}${LIGHT_PURPLE}${BOLD}WOW! ` + '${playerNameAndRank}' + ` ${RESET}${GOLD}found a ${RESET}${DARK_PURPLE}Midnight Dye`; // &r&d&lWOW! &r&b[MVP&r&c+&r&b] &bMoonTheSadFisher&r&r&f &r&6found a &r&5Midnight Dye&r
+export const TREASURE_DYE_MESSAGE = `${RESET}${LIGHT_PURPLE}${BOLD}WOW! ` + '${playerNameAndRank}' + ` ${RESET}${GOLD}found a ${RESET}${GOLD}Treasure Dye`; // &r&d&lWOW! &r&b[MVP&r&c+&r&b] &bMoonTheSadFisher&r&r&f &r&6found a &r&6Treasure Dye&r
+export const PERIWINKLE_DYE_MESSAGE = `${RESET}${LIGHT_PURPLE}${BOLD}WOW! ` + '${playerNameAndRank}' + ` ${RESET}${GOLD}found a ${RESET}${DARK_AQUA}Periwinkle Dye`; // &r&d&lWOW! &r&b[MVP&r&c+&r&b] &bMoonTheSadFisher&r&r&f &r&6found a&r&3Periwinkle Dye&r
+export const BONE_DYE_MESSAGE = `${RESET}${LIGHT_PURPLE}${BOLD}WOW! ` + '${playerNameAndRank}' + ` ${RESET}${GOLD}found a ${RESET}${WHITE}Bone Dye`; // &r&d&lWOW! &r&b[MVP&r&c+&r&b] &bMoonTheSadFisher&r&r&f &r&6found a &r&fBone Dye&r
 
 export const SQUID_PET_LEG_MESSAGE = `${RESET}${LIGHT_PURPLE}⛃ ${RESET}${LIGHT_PURPLE}${BOLD}OUTSTANDING CATCH! ${RESET}${WHITE}You caught a ${RESET}${GRAY}[Lvl 1] ${RESET}${GOLD}Squid${RESET}${WHITE}!${RESET}`;
 export const SQUID_PET_EPIC_MESSAGE = `${RESET}${LIGHT_PURPLE}⛃ ${RESET}${LIGHT_PURPLE}${BOLD}OUTSTANDING CATCH! ${RESET}${WHITE}You caught a ${RESET}${GRAY}[Lvl 1] ${RESET}${DARK_PURPLE}Squid${RESET}${WHITE}!${RESET}`;
@@ -161,6 +161,9 @@ export const OUTSTANDING_CATCH_COINS_MESSAGE = `${RESET}${LIGHT_PURPLE}⛃ ${RES
 export const GOOD_CATCH_ICE_ESSENCE_MESSAGE = `${RESET}${DARK_PURPLE}⛃ ${RESET}${DARK_PURPLE}${BOLD}GOOD CATCH! ${RESET}${WHITE}You caught ${RESET}${AQUA}Ice Essence ${RESET}${DARK_GRAY}x` + "${count}" + `${RESET}${WHITE}!${RESET}`; // &r&5⛃ &r&5&lGOOD CATCH! &r&fYou caught &r&bIce Essence &r&8x5&r&f!&r
 export const GREAT_CATCH_ICE_ESSENCE_MESSAGE = `${RESET}${GOLD}⛃ ${RESET}${GOLD}${BOLD}GREAT CATCH! ${RESET}${WHITE}You caught ${RESET}${AQUA}Ice Essence ${RESET}${DARK_GRAY}x` + "${count}" + `${RESET}${WHITE}!${RESET}`;
 export const OUTSTANDING_CATCH_ICE_ESSENCE_MESSAGE = `${RESET}${LIGHT_PURPLE}⛃ ${RESET}${LIGHT_PURPLE}${BOLD}OUTSTANDING CATCH! ${RESET}${WHITE}You caught ${RESET}${AQUA}Ice Essence ${RESET}${DARK_GRAY}x` + "${count}" + `${RESET}${WHITE}!${RESET}`;
+
+export const GOOD_CATCH_SHARD_MESSAGE = `${RESET}${DARK_PURPLE}⛃ ${RESET}${DARK_PURPLE}${BOLD}GOOD CATCH! ${RESET}${WHITE}You caught ` + "${shardText}" + ` Shard${RESET}${WHITE}!${RESET}`; // &r&5&lGOOD CATCH! &r&fYou caught an Abyssal Lanternfish Shard&r&f!&r
+export const BLACK_HOLE_SHARD_MESSAGE = `${GREEN}You caught ` + "${shardsText}" + ` ${GREEN}Shard`; // &aYou caught a &fSea Archer &aShard!&r   // &aYou caught &7x4 &fSea Archer &aShards&a!&r
 
 export const USE_BAITS_FROM_FISHING_BAG_DISABLED = `${RESET}${RED}Use Baits From Bag is now disabled!${RESET}`;
 export const USE_BAITS_FROM_FISHING_BAG_ENABLED = `${RESET}${GREEN}Use Baits From Bag is now enabled!${RESET}`;

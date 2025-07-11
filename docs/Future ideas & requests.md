@@ -3,17 +3,8 @@
 ## Galatea
 
 - 1.21 support with CT 3.0
-  - Depends on migration of other modules from "requires" section
+  - Depends on migration of CT itself, and other modules from "requires" section
 - Attribute rendering rework on old items and on shards
-- Remove old attribute shards from Fishing Profit Tracker
-- Update Fishing loot table
-  - Add new items (mob drops, treasures, shards)
-    - Water shards (Bazaar ID unknown):
-      - (C) Mist, Cod, Night Squid, Verdant, Sea Archer, Birries, Tadgang, Coralot, Newt
-      - (U) Tide, Salmon, Ent, Magma Slug, Stridersurfer
-      - (R) Cascade, Toad, Lizard King, Piranha, Abyssal Lanternfish, Silentdepth, Snowfin, Carrot King, Limisquid, Bullfrog, ...
-      - (E) ...
-      - (L) Shinyfish, ...
 
 ## Fishing profit tracker
 
@@ -29,8 +20,6 @@
 - Profit tracker causes lags after a while (memory consumption grows)
 - [Bug] Some items are tracked by Fishing Profit Tracker when dropped, but drop was prevented by SB settings (basically it drops and picks up again).
 - [Bug] Trading with other players adds items to the profit trackers.
-- [Bug] Fishing Profit Tracker recalculates profits/h too often when in "display buttons" mode.
-- [Bug] Fishing Profit Tracker does not recalculate profits/h while fishing and not gaining any loot (e.g. dirt fishing).
 
 ## Deployables
 
@@ -81,7 +70,6 @@
 - Bait changed alert
 - No bait used alert
 - Track baits cost in Fishing profit tracker
-- [Bug] Bait alert false triggered when opening /fb with fishing rod casted.
 
 ## Fishing bosses
 
@@ -144,14 +132,15 @@ Sort by: rarity, locked/unlocked
 - Water
   - Get 2 lucky clover cores in 10 seconds
   - Full oasis bestiary (It was so much fun... Sigh / Useless grind)
+- Bayou
+- Galatea?
 - Marina
   - Get 400+ sharks per festival
 - Trophy
   - Gold hunter
   - DIamond hunter
 - Treasure
-  - Catch legendary squid / guardian
-  - The same as above, but 2x (blessing)
+  - Catch legendary squid?
 - Dye
   - Obtain aquamarine / iceberg / etc dye
 - Giant rod

@@ -716,6 +716,12 @@ export const FISHING_PROFIT_ITEMS = [
         itemDisplayName: `${LEGENDARY}Lord Jawbus`,
         npcPrice: 0,
     },
+    {
+        itemId: 'SHARD_SHINYFISH',
+        itemName: 'Shinyfish',
+        itemDisplayName: `${LEGENDARY}Shinyfish`,
+        npcPrice: 0,
+    },
 
     // Water
 
@@ -1321,7 +1327,7 @@ export const FISHING_PROFIT_ITEMS = [
         itemId: 'FRIED_FEATHER',
         itemName: 'Fried Feather',
         itemDisplayName: `${UNCOMMON}Fried Feather`,
-        npcPrice: 10000,
+        npcPrice: 1000,
     },
     {
         itemId: 'SINGED_POWDER',

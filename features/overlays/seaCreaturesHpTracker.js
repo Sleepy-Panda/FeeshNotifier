@@ -2,7 +2,7 @@ import settings, { allOverlaysGui, seaCreaturesHpOverlayGui } from "../../settin
 import { AQUA, BOLD, RED } from "../../constants/formatting";
 import { overlayCoordsData } from "../../data/overlayCoords";
 import { getWorldName, isInSkyblock } from "../../utils/playerState";
-import { BACKWATER_BAYOU, CRIMSON_ISLE, CRYSTAL_HOLLOWS, JERRY_WORKSHOP, WATER_FISHING_WORLDS, WATER_HOTSPOT_WORLDS } from "../../constants/areas";
+import { BACKWATER_BAYOU, CRIMSON_ISLE, CRYSTAL_HOLLOWS, GALATEA, JERRY_WORKSHOP, WATER_FISHING_WORLDS, WATER_HOTSPOT_WORLDS } from "../../constants/areas";
 import { OFF_SOUND_MODE } from "../../constants/sounds";
 import { registerIf } from "../../utils/registers";
 import { getSeaCreaturesInRange } from "../../utils/entityDetection";
@@ -81,7 +81,7 @@ const TRACKED_MOBS = [
         hasImmunity: true,
     },
     {
-        worlds: WATER_FISHING_WORLDS,
+        worlds: [GALATEA],
         baseMobName: 'The Loch Emperor',
         hasImmunity: true,
     },

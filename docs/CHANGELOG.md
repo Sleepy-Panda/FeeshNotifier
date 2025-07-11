@@ -1,8 +1,28 @@
 # Releases
 
-## v1.46.0
+## v1.47.0
 
 Released: ???
+
+Features:
+- Count Shards caught while Treasure fishing in Fishing Profit Tracker. 
+- Count Shards caught using Black Hole in Fishing Profit Tracker. 
+- Prevent removing a line from Fishing Profit Tracker when using Ctrl+Left Click on a line with 1x item. So you can't accidentally remove a line entirely.
+Use Ctrl+Middle Click instead to delete.
+
+Bugfixes:
+- Added Shinyfish to count in Fishing Profit Tracker.
+- Removed The Loch Emperor from other water worlds than Galatea.
+- Fixed Titanoboa and Dyes trigger messages after latest SB update.
+
+Other:
+- Fishing Profit Tracker refactorings:
+    - Rewrite using custom clickable overlay (instead of DisplayLine). This enables more often updates without ConcurrentModificationException, and more straightforward code.
+    - Reused / simplified some code.
+
+## v1.46.0
+
+Released: 2025-06-30
 
 Features:
 - Added more Galatea fishing drops for potential future update to CT 3.0.
