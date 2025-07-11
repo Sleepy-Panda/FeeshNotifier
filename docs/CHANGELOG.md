@@ -1,8 +1,18 @@
 # Releases
 
-## v1.47.0
+## v1.48.0
 
 Released: ???
+
+Features:
+- 
+
+Bugfixes:
+- 
+
+## v1.47.0
+
+Released: 2025-12-07
 
 Features:
 - Count Shards caught while Treasure fishing in Fishing Profit Tracker. 
