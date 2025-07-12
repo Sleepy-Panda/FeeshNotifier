@@ -22,7 +22,7 @@ import "./features/alerts/alertOnHotspotGone";
 import "./features/alerts/alertOnPetLevelUp";
 import "./features/alerts/alertOnFishingFestivalEnded";
 
-import "./features/overlays/rareCatchesTracker";
+import "./features/overlays/seaCreaturesTracker";
 import "./features/overlays/totemTracker";
 import "./features/overlays/flareTracker";
 import "./features/overlays/seaCreaturesHpTracker";

@@ -82,7 +82,6 @@
 - PogData resets data file on PC crash - consider doing regular backups / research tska library as replacement for PogData
 - Remove double hook reindrake logic because DH is not possible now
 - Rain/Thunder widget
-- Track all mobs caught, not only rare
 - Golden fish timer
 "can you add a golden fish timer tracker into this? i only have golden fish diamond left and i like playing other games while just having my bobber in lava, and setting a 15min timer every time is p annoying lmao"
 - Thunder spark profit - Amount gained in bottle divided by lbin for the current item

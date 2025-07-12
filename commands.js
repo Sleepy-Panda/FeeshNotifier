@@ -1,6 +1,6 @@
 import settings from "./settings";
 import { moveAllGuis } from "./moveAllOverlays";
-import { resetRareCatchesTracker } from './features/overlays/rareCatchesTracker';
+import { resetSeaCreaturesTracker } from './features/overlays/seaCreaturesTracker';
 import { resetCrimsonIsleTracker, setRadioactiveVials } from "./features/overlays/crimsonIsleTracker";
 import { resetJerryWorkshopTracker } from "./features/overlays/jerryWorkshopTracker";
 import { resetWormMembraneProfitTracker } from "./features/overlays/wormMembraneProfitTracker";
@@ -22,8 +22,8 @@ register("command", (...args) => {
 
 register("command", (...args) => {
     const isConfirmed = args[0] && args[0] === "noconfirm";
-    resetRareCatchesTracker(!!isConfirmed);
-}).setName("feeshResetRareCatches");
+    resetSeaCreaturesTracker(!!isConfirmed);
+}).setName("feeshResetSeaCreatures");
 
 register("command", (...args) => {
     const isConfirmed = args[0] && args[0] === "noconfirm";

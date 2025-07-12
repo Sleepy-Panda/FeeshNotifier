@@ -6,7 +6,7 @@ export const allOverlaysGui = new Gui(); // Sample overlays GUI to move/resize t
 
 export const totemRemainingTimeOverlayGui = new Gui();
 export const flareRemainingTimeOverlayGui = new Gui();
-export const rareCatchesTrackerOverlayGui = new Gui();
+export const seaCreaturesTrackerOverlayGui = new Gui();
 export const seaCreaturesHpOverlayGui = new Gui();
 export const seaCreaturesCountOverlayGui = new Gui();
 export const seaCreaturesPerHourTrackerOverlayGui = new Gui();
@@ -1017,37 +1017,45 @@ const config = new DefaultConfig("FeeshNotifier", "config/settings.json")
 
 .addSwitch({
     category: "Overlays",
-    configName: "rareCatchesTrackerOverlay",
-    title: "Rare catches tracker",
-    description: `Shows an overlay with the statistics of rare sea creatures caught, and frequency of double hooking them.\nDo ${AQUA}/feeshResetRareCatches${GRAY} to reset.`,
-    subcategory: "Rare catches",
+    configName: "seaCreaturesTrackerOverlay",
+    title: "Sea creatures tracker",
+    description: `Shows an overlay with the statistics of sea creatures caught, and frequency of double hooking them.\nDo ${AQUA}/feeshResetSeaCreatures${GRAY} to reset.`,
+    subcategory: "Sea creatures",
     value: true
 })
 .addSwitch({
     category: "Overlays",
-    configName: "resetRareCatchesTrackerOnGameClosed",
+    configName: "showOnlyRareSeaCreatures",
+    title: "Show only rare sea creatures",
+    description: `Hides regular sea creatures in the overlay, showing just rare ones. All sea creatures are tracked regardless this setting.`,
+    subcategory: "Sea creatures",
+    value: true
+})
+.addSwitch({
+    category: "Overlays",
+    configName: "resetSeaCreaturesTrackerOnGameClosed",
     title: "Reset on closing game",
-    description: "Automatically reset the rare catches tracker when you close Minecraft or reload CT modules.",
-    subcategory: "Rare catches"
+    description: "Automatically reset the Sea creatures tracker when you close Minecraft or reload CT modules.",
+    subcategory: "Sea creatures"
 })
 .addButton({
     category: "Overlays",
-    configName: "moveRareCatchesTrackerOverlay",
-    title: "Move rare catches tracker",
+    configName: "moveSeaCreaturesTrackerOverlay",
+    title: "Move Sea creatures tracker",
     description: "Allows to move and resize the overlay text.",
-    subcategory: "Rare catches",
+    subcategory: "Sea creatures",
     onClick() {
-        moveOverlay(rareCatchesTrackerOverlayGui);
+        moveOverlay(seaCreaturesTrackerOverlayGui);
     }
 })
 .addButton({
     category: "Overlays",
-    configName: "resetRareCatchesTracker",
-    title: "Reset rare catches tracker",
-    description: `Resets tracking for rare catches tracker. Executes ${AQUA}/feeshResetRareCatches`,
-    subcategory: "Rare catches",
+    configName: "resetSeaCreaturesTracker",
+    title: "Reset Sea creatures tracker",
+    description: `Resets tracking for Sea creatures tracker. Executes ${AQUA}/feeshResetSeaCreatures`,
+    subcategory: "Sea creatures",
     onClick() {
-        ChatLib.command("feeshResetRareCatches noconfirm", true);
+        ChatLib.command("feeshResetSeaCreatures noconfirm", true);
     }
 })
 
