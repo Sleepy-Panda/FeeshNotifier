@@ -6,15 +6,16 @@ import { overlayCoordsData } from "../../data/overlayCoords";
 import { formatNumberWithSpaces, fromUppercaseToCapitalizedFirstLetters, isDoubleHook, isInFishingWorld, pluralize } from '../../utils/common';
 import { WHITE, GOLD, BOLD, GRAY, RED, AQUA } from "../../constants/formatting";
 import { getLastFishingHookSeenAt, getWorldName, isInSkyblock } from "../../utils/playerState";
-import { createButtonsDisplay, toggleButtonsDisplay } from "../../utils/overlays";
 import { registerIf } from "../../utils/registers";
+import { LEFT_CLICK_TYPE, Overlay, OverlayButtonLine, OverlayTextLine } from "../../utils/overlays";
 
 // Wrong total amount when Rare catches selected
 // Same in Reset statistics
 // Migration of old user data, delete old entries in data.js
-// Apply new overlay
 // Show percent in All mode
 // Vanquisher :(
+// Do not show widget if SC count > 0 but rares = 0
+// Check resets
 
 const ALL_TRIGGERS = triggers.ALL_CATCHES_TRIGGERS.concat([triggers.RARE_CATCH_TRIGGERS.find(t => t.seaCreature === seaCreatures.VANQUISHER)]);
 
@@ -29,7 +30,7 @@ ALL_TRIGGERS.forEach(entry => {
 });
 
 registerIf(
-    register('renderOverlay', () => renderOverlay()),
+    register('step', () => refreshOverlay()).setFps(2),
     () => settings.seaCreaturesTrackerOverlay && isInSkyblock() && isInFishingWorld(getWorldName())
 );
 
@@ -39,7 +40,9 @@ register("gameUnload", () => {
     }
 });
 
-const buttonsDisplay = createButtonsDisplay(true, () => resetSeaCreaturesTracker(false), false, null);
+const overlay = new Overlay(() => settings.seaCreaturesTrackerOverlay && isInSkyblock() && isInFishingWorld(getWorldName()))
+    .setPositionData(overlayCoordsData.seaCreaturesTrackerOverlay)
+    .setIsClickable(true);
 
 export function resetSeaCreaturesTracker(isConfirmed) {
     try {
@@ -72,6 +75,7 @@ export function resetSeaCreaturesTracker(isConfirmed) {
         persistentData.seaCreatures.total.catches = {};
         persistentData.seaCreatures.total.totalCount = 0;
         persistentData.save();
+        refreshOverlay();
         ChatLib.chat(`${GOLD}[FeeshNotifier] ${WHITE}Sea creatures tracker was reset.`);    
     } catch (e) {
 		console.error(e);
@@ -115,14 +119,17 @@ function trackSeaCreatureCatch(options) {
             entry.doubleHookPercent = doubleHookPercent;
         });
     
-        persistentData.save();    
+        persistentData.save();
+        refreshOverlay();
     } catch (e) {
 		console.error(e);
 		console.log(`[FeeshNotifier] Failed to track sea creature catch.`);
 	}
 }
 
-function renderOverlay() {
+function refreshOverlay() {
+    overlay.clear();
+
     if (!settings.seaCreaturesTrackerOverlay ||
         !Object.entries(persistentData.seaCreatures.total.catches).length ||
         !isInSkyblock() ||
@@ -130,15 +137,14 @@ function renderOverlay() {
         (new Date() - getLastFishingHookSeenAt() > 10 * 60 * 1000) ||
         allOverlaysGui.isOpen()
     ) {
-        buttonsDisplay.hide();
         return;
     }
 
-    let overlayText = `${AQUA}${BOLD}Sea creatures tracker\n`;
+    overlay.addTextLine(new OverlayTextLine().setText(`${AQUA}${BOLD}Sea creatures tracker`));
 
     const entries = Object.entries(persistentData.seaCreatures.total.catches)
         .map(([key, value]) => {
-            return { seaCreature: key, amount: value.amount || 0, doubleHookAmount: value.doubleHookAmount || 0, doubleHookPercent: value.doubleHookPercent || 0 };
+            return { seaCreature: key, amount: value.amount || 0, percent: value.percent, doubleHookAmount: value.doubleHookAmount || 0, doubleHookPercent: value.doubleHookPercent || 0 };
         })
         .sort((a, b) => b.amount - a.amount); // Most catches at the top
 
@@ -153,15 +159,10 @@ function renderOverlay() {
         const doubleHookInfo = trigger.seaCreature.toUpperCase() === seaCreatures.VANQUISHER || trigger.seaCreature.toUpperCase() === seaCreatures.REINDRAKE
             ? ''
             : ` ${GRAY}| DH: ${WHITE}${formatNumberWithSpaces(entry.doubleHookAmount)} ${GRAY}(${entry.doubleHookPercent}${GRAY}%)`;
-        overlayText += `${GRAY}- ${seaCreatureInfo}${GRAY}: ${WHITE}${formatNumberWithSpaces(entry.amount)}${percentInfo}${doubleHookInfo}\n`;
+        overlay.addTextLine(new OverlayTextLine().setText(`${GRAY}- ${seaCreatureInfo}${GRAY}: ${WHITE}${formatNumberWithSpaces(entry.amount)}${percentInfo}${doubleHookInfo}`));
     });
 
-    overlayText += `${GRAY}Total: ${WHITE}${persistentData.seaCreatures.total.totalCount}`;
+    overlay.addTextLine(new OverlayTextLine().setText(`${GRAY}Total: ${WHITE}${persistentData.seaCreatures.total.totalCount}`));
 
-    const overlay = new Text(overlayText, overlayCoordsData.seaCreaturesTrackerOverlay.x, overlayCoordsData.seaCreaturesTrackerOverlay.y)
-        .setShadow(true)
-        .setScale(overlayCoordsData.seaCreaturesTrackerOverlay.scale);
-    overlay.draw();
-
-    toggleButtonsDisplay(buttonsDisplay, overlay, overlayCoordsData.seaCreaturesTrackerOverlay);
+    overlay.addButtonLine(new OverlayButtonLine().setText(`${RED}${BOLD}[Click to reset]`).setIsSmallerScale(true).setOnClick(LEFT_CLICK_TYPE, () => resetSeaCreaturesTracker(false)));
 }
