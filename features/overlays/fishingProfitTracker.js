@@ -540,7 +540,7 @@ function detectInventoryChanges() {
                 slotItemName += ` (${description})`;
             }
 
-            if (slotItemName === 'Fishing Exp Boost') {
+            if (slotItemName.endsWith('Exp Boost')) {
                 const loreLines = getLore(item);
                 const description = loreLines.find(line => line.endsWith('PET ITEM')).removeFormatting().split(' ')[0];
                 slotItemName += ` (${description})`;
