@@ -1308,6 +1308,13 @@ export const FISHING_PROFIT_ITEMS = [
         itemDisplayName: `${EPIC}Mangcore`,
         npcPrice: 204800,
     },
+    {
+        itemId: 'PET_ITEM_FORAGING_SKILL_BOOST_EPIC',
+        itemName: 'Foraging Exp Boost (EPIC)',
+        itemDisplayName: `${EPIC}Foraging Exp Boost +50%`,
+        npcPrice: 0,
+        shouldAnnounceRareDrop: true,
+    },
 
     // Crimson Isle
 
