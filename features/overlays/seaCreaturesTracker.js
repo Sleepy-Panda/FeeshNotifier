@@ -10,10 +10,10 @@ import { registerIf } from "../../utils/registers";
 import { LEFT_CLICK_TYPE, Overlay, OverlayButtonLine, OverlayTextLine } from "../../utils/overlays";
 
 // Wrong total amount when Rare catches selected
-// Same in Reset statistics
 // Migration of old user data, delete old entries in data.js
 // Show percent in All mode
 // Vanquisher :(
+// Check DH vanq and reindrake
 // Do not show widget if SC count > 0 but rares = 0
 // Check resets
 
@@ -53,23 +53,6 @@ export function resetSeaCreaturesTracker(isConfirmed) {
                     .setClickValue('/feeshResetSeaCreatures noconfirm')
             ).chat();
             return;
-        }
-
-        if (persistentData.seaCreatures.total.totalCount > 0 && persistentData.seaCreatures.total.catches) {
-            var catches = Object.entries(persistentData.seaCreatures.total.catches)
-                .map(([key, value]) => {
-                    return { seaCreature: key, amount: value.amount };
-                })
-                .sort((a, b) => b.amount - a.amount)
-                .map((entry) => {
-                    const rarityColorCode = ALL_TRIGGERS.find(t => t.seaCreature.toUpperCase() === entry.seaCreature)?.rarityColorCode || WHITE;
-                    const seaCreatureDisplayName = fromUppercaseToCapitalizedFirstLetters(entry.seaCreature);
-                    return `${rarityColorCode}${entry.amount} ${entry.amount > 1 ? pluralize(seaCreatureDisplayName) : seaCreatureDisplayName}`;
-                });
-    
-            if (catches.length && settings.showOnlyRareSeaCreatures) {
-                ChatLib.chat(`${GOLD}[FeeshNotifier] ${WHITE}You caught ${catches.join(', ')} ${WHITE}per session (${persistentData.seaCreatures.total.totalCount} rare catches in total).`);
-            }
         }
     
         persistentData.seaCreatures.total.catches = {};
@@ -140,29 +123,40 @@ function refreshOverlay() {
         return;
     }
 
-    overlay.addTextLine(new OverlayTextLine().setText(`${AQUA}${BOLD}Sea creatures tracker`));
-
     const entries = Object.entries(persistentData.seaCreatures.total.catches)
         .map(([key, value]) => {
-            return { seaCreature: key, amount: value.amount || 0, percent: value.percent, doubleHookAmount: value.doubleHookAmount || 0, doubleHookPercent: value.doubleHookPercent || 0 };
+            const seaCreatureInfo = ALL_TRIGGERS.find(t => key === t.seaCreature.toUpperCase());
+            if (!seaCreatureInfo) return null;
+            if (settings.showOnlyRareSeaCreatures && !seaCreatureInfo.isRare) return null;
+
+            return {
+                seaCreature: key,
+                rarityColorCode: seaCreatureInfo.rarityColorCode || WHITE,
+                amount: value.amount || 0,
+                percent: value.percent,
+                doubleHookAmount: value.doubleHookAmount || 0,
+                doubleHookPercent: value.doubleHookPercent || 0
+            };
         })
+        .filter(e => !!e)
         .sort((a, b) => b.amount - a.amount); // Most catches at the top
 
-    entries.forEach((entry) => {
-        const trigger = ALL_TRIGGERS.find(t => t.seaCreature.toUpperCase() === entry.seaCreature);
-        if (!trigger) return;
-        if (settings.showOnlyRareSeaCreatures && !trigger.isRare) return;
+    if (!entries.length) return;
 
-        const rarityColorCode = trigger.rarityColorCode || WHITE;
-        const seaCreatureInfo = `${rarityColorCode}${fromUppercaseToCapitalizedFirstLetters(entry.seaCreature)}`;
-        const percentInfo = settings.showOnlyRareSeaCreatures ? '' : ` ${GRAY}(${entry.percent}%)`;
-        const doubleHookInfo = trigger.seaCreature.toUpperCase() === seaCreatures.VANQUISHER || trigger.seaCreature.toUpperCase() === seaCreatures.REINDRAKE
+    overlay.addTextLine(new OverlayTextLine().setText(`${AQUA}${BOLD}Sea creatures tracker`));
+
+    entries.forEach((entry) => {
+        const seaCreatureText = `${entry.rarityColorCode}${fromUppercaseToCapitalizedFirstLetters(entry.seaCreature)}`;
+        const countText = `${WHITE}${formatNumberWithSpaces(entry.amount)}`;
+        const percentText = settings.showOnlyRareSeaCreatures ? '' : ` ${GRAY}(${entry.percent}%)`;
+        const doubleHookText = entry.seaCreature === seaCreatures.VANQUISHER || entry.seaCreature === seaCreatures.REINDRAKE
             ? ''
             : ` ${GRAY}| DH: ${WHITE}${formatNumberWithSpaces(entry.doubleHookAmount)} ${GRAY}(${entry.doubleHookPercent}${GRAY}%)`;
-        overlay.addTextLine(new OverlayTextLine().setText(`${GRAY}- ${seaCreatureInfo}${GRAY}: ${WHITE}${formatNumberWithSpaces(entry.amount)}${percentInfo}${doubleHookInfo}`));
+        overlay.addTextLine(new OverlayTextLine().setText(`${GRAY}- ${seaCreatureText}${GRAY}: ${countText}${percentText}${doubleHookText}`));
     });
 
-    overlay.addTextLine(new OverlayTextLine().setText(`${GRAY}Total: ${WHITE}${persistentData.seaCreatures.total.totalCount}`));
+    const totalCount = !settings.showOnlyRareSeaCreatures ? persistentData.seaCreatures.total.totalCount : entries.length;
+    overlay.addTextLine(new OverlayTextLine().setText(`${GRAY}Total: ${WHITE}${totalCount}`));
 
     overlay.addButtonLine(new OverlayButtonLine().setText(`${RED}${BOLD}[Click to reset]`).setIsSmallerScale(true).setOnClick(LEFT_CLICK_TYPE, () => resetSeaCreaturesTracker(false)));
 }
