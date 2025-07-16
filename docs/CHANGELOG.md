@@ -8,7 +8,7 @@ Features:
 - 
 
 Bugfixes:
-- Added Foraging Exp Boost to count in Fishing Profit Tracker.
+- Added Foraging Exp Boost & Taurus Shard to count in Fishing Profit Tracker.
 
 ## v1.47.0
 
