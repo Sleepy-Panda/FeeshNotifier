@@ -1033,6 +1033,22 @@ const config = new DefaultConfig("FeeshNotifier", "config/settings.json")
 })
 .addSwitch({
     category: "Overlays",
+    configName: "showSeaCreaturesPercentage",
+    title: "Show sea creatures percentage",
+    description: `Show statistics with a percentage for each sea creature. It is not shown when in the "Onle rare sea creatures" mode.`,
+    subcategory: "Sea creatures",
+    value: true
+})
+.addSwitch({
+    category: "Overlays",
+    configName: "showSeaCreaturesDoubleHookStatistics",
+    title: "Show double hooked statistics",
+    description: `Show statistics how often the sea creatures were double hooked.`,
+    subcategory: "Sea creatures",
+    value: true
+})
+.addSwitch({
+    category: "Overlays",
     configName: "resetSeaCreaturesTrackerOnGameClosed",
     title: "Reset on closing game",
     description: "Automatically reset the Sea creatures tracker when you close Minecraft or reload CT modules.",

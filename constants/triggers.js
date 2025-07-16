@@ -569,6 +569,13 @@ export const ALL_CATCHES_TRIGGERS = [
     },
 ];
 
+export const VANQUISHER_CATCH_TRIGGER = {
+    trigger: VANQUISHER_MESSAGE,
+    seaCreature: `Vanquisher`,
+    rarityColorCode: EPIC,
+    isRare: true
+};
+
 export const RARE_CATCH_TRIGGERS = [
     {
         trigger: YETI_MESSAGE,

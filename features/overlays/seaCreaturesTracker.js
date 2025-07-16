@@ -14,10 +14,9 @@ import { LEFT_CLICK_TYPE, Overlay, OverlayButtonLine, OverlayTextLine } from "..
 // Show percent in All mode
 // Vanquisher :(
 // Check DH vanq and reindrake
-// Do not show widget if SC count > 0 but rares = 0
 // Check resets
 
-const ALL_TRIGGERS = triggers.ALL_CATCHES_TRIGGERS.concat([triggers.RARE_CATCH_TRIGGERS.find(t => t.seaCreature === seaCreatures.VANQUISHER)]);
+const ALL_TRIGGERS = triggers.ALL_CATCHES_TRIGGERS.concat(triggers.VANQUISHER_CATCH_TRIGGER);
 
 ALL_TRIGGERS.forEach(entry => {
     registerIf(
@@ -88,9 +87,7 @@ function trackSeaCreatureCatch(options) {
             doubleHookPercent: null
         };
     
-        const total = Object.values(persistentData.seaCreatures.total.catches).reduce((accumulator, currentValue) => {
-            return accumulator + currentValue.amount
-        }, 0);
+        const total = getTotalCount(persistentData.seaCreatures.total.catches);
         persistentData.seaCreatures.total.totalCount = total;
     
         Object.keys(persistentData.seaCreatures.total.catches).forEach((key) => {
@@ -148,15 +145,21 @@ function refreshOverlay() {
     entries.forEach((entry) => {
         const seaCreatureText = `${entry.rarityColorCode}${fromUppercaseToCapitalizedFirstLetters(entry.seaCreature)}`;
         const countText = `${WHITE}${formatNumberWithSpaces(entry.amount)}`;
-        const percentText = settings.showOnlyRareSeaCreatures ? '' : ` ${GRAY}(${entry.percent}%)`;
-        const doubleHookText = entry.seaCreature === seaCreatures.VANQUISHER || entry.seaCreature === seaCreatures.REINDRAKE
+        const percentText = settings.showOnlyRareSeaCreatures || !settings.showSeaCreaturesPercentage ? '' : ` ${GRAY}(${entry.percent}%)`;
+        const doubleHookText = !settings.showSeaCreaturesDoubleHookStatistics || (entry.seaCreature === seaCreatures.VANQUISHER || entry.seaCreature === seaCreatures.REINDRAKE)
             ? ''
             : ` ${GRAY}| DH: ${WHITE}${formatNumberWithSpaces(entry.doubleHookAmount)} ${GRAY}(${entry.doubleHookPercent}${GRAY}%)`;
         overlay.addTextLine(new OverlayTextLine().setText(`${GRAY}- ${seaCreatureText}${GRAY}: ${countText}${percentText}${doubleHookText}`));
     });
 
-    const totalCount = !settings.showOnlyRareSeaCreatures ? persistentData.seaCreatures.total.totalCount : entries.length;
+    const totalCount = !settings.showOnlyRareSeaCreatures ? persistentData.seaCreatures.total.totalCount : getTotalCount(entries);
     overlay.addTextLine(new OverlayTextLine().setText(`${GRAY}Total: ${WHITE}${totalCount}`));
 
     overlay.addButtonLine(new OverlayButtonLine().setText(`${RED}${BOLD}[Click to reset]`).setIsSmallerScale(true).setOnClick(LEFT_CLICK_TYPE, () => resetSeaCreaturesTracker(false)));
+}
+
+function getTotalCount(seaCreaturesObj) {
+    return Object.values(seaCreaturesObj).reduce((accumulator, currentValue) => {
+        return accumulator + currentValue.amount
+    }, 0);
 }
