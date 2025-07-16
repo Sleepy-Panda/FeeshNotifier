@@ -699,6 +699,12 @@ export const FISHING_PROFIT_ITEMS = [
         npcPrice: 0,
     },
     {
+        itemId: 'SHARD_TAURUS',
+        itemName: 'Taurus',
+        itemDisplayName: `${LEGENDARY}Taurus`,
+        npcPrice: 0,
+    },
+    {
         itemId: 'SHARD_WATER_HYDRA',
         itemName: 'Water Hydra',
         itemDisplayName: `${EPIC}Water Hydra`,
