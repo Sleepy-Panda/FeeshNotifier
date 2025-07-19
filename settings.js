@@ -1019,7 +1019,7 @@ const config = new DefaultConfig("FeeshNotifier", "config/settings.json")
     category: "Overlays",
     configName: "seaCreaturesTrackerOverlay",
     title: "Sea creatures tracker",
-    description: `Shows an overlay with the statistics of sea creatures caught, and frequency of double hooking them.\nDo ${AQUA}/feeshResetSeaCreatures${GRAY} to reset.`,
+    description: `Shows an overlay with the overview of the sea creatures caught, and different related statistics.\nDo ${AQUA}/feeshResetSeaCreatures${GRAY} to reset.`,
     subcategory: "Sea creatures",
     value: true
 })
@@ -1042,7 +1042,7 @@ const config = new DefaultConfig("FeeshNotifier", "config/settings.json")
 .addSwitch({
     category: "Overlays",
     configName: "showSeaCreaturesDoubleHookStatistics",
-    title: "Show double hooked statistics",
+    title: "Show double hook statistics",
     description: `Show statistics how often the sea creatures were double hooked.`,
     subcategory: "Sea creatures",
     value: true

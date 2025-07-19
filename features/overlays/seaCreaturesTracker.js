@@ -3,18 +3,11 @@ import * as triggers from '../../constants/triggers';
 import * as seaCreatures from '../../constants/seaCreatures';
 import { persistentData } from "../../data/data";
 import { overlayCoordsData } from "../../data/overlayCoords";
-import { formatNumberWithSpaces, fromUppercaseToCapitalizedFirstLetters, isDoubleHook, isInFishingWorld, pluralize } from '../../utils/common';
+import { formatNumberWithSpaces, fromUppercaseToCapitalizedFirstLetters, isDoubleHook, isInFishingWorld } from '../../utils/common';
 import { WHITE, GOLD, BOLD, GRAY, RED, AQUA } from "../../constants/formatting";
 import { getLastFishingHookSeenAt, getWorldName, isInSkyblock } from "../../utils/playerState";
 import { registerIf } from "../../utils/registers";
 import { LEFT_CLICK_TYPE, Overlay, OverlayButtonLine, OverlayTextLine } from "../../utils/overlays";
-
-// Wrong total amount when Rare catches selected
-// Migration of old user data, delete old entries in data.js
-// Show percent in All mode
-// Vanquisher :(
-// Check DH vanq and reindrake
-// Check resets
 
 const ALL_TRIGGERS = triggers.ALL_CATCHES_TRIGGERS.concat(triggers.VANQUISHER_CATCH_TRIGGER);
 
@@ -39,6 +32,25 @@ register("gameUnload", () => {
     }
 });
 
+// Migration - cleanup of the outdated fields
+register("gameLoad", () => {
+    if (persistentData.rareCatches) {
+        persistentData.seaCreatures = {
+            session: {
+                catches: {},
+                totalCount: 0
+            },
+            total: {
+                catches: persistentData.rareCatches,
+                totalCount: persistentData.totalRareCatches
+            }
+        };
+        delete persistentData.rareCatches;
+        delete persistentData.totalRareCatches;
+        persistentData.save();
+    }
+});
+
 const overlay = new Overlay(() => settings.seaCreaturesTrackerOverlay && isInSkyblock() && isInFishingWorld(getWorldName()))
     .setPositionData(overlayCoordsData.seaCreaturesTrackerOverlay)
     .setIsClickable(true);
@@ -54,8 +66,16 @@ export function resetSeaCreaturesTracker(isConfirmed) {
             return;
         }
     
-        persistentData.seaCreatures.total.catches = {};
-        persistentData.seaCreatures.total.totalCount = 0;
+        persistentData.seaCreatures = {
+            session: {
+                catches: {},
+                totalCount: 0
+            },
+            total: {
+                catches: {},
+                totalCount: 0
+            }
+        };
         persistentData.save();
         refreshOverlay();
         ChatLib.chat(`${GOLD}[FeeshNotifier] ${WHITE}Sea creatures tracker was reset.`);    
