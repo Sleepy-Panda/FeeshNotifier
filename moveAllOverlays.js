@@ -31,10 +31,10 @@ const SAMPLE_GUIS = [
         height: 0
     },
     {
-        toggleSettingKey: 'rareCatchesTrackerOverlay',
-        guiSettings: overlayCoordsData.rareCatchesTrackerOverlay,
+        toggleSettingKey: 'seaCreaturesTrackerOverlay',
+        guiSettings: overlayCoordsData.seaCreaturesTrackerOverlay,
         sampleText: 
-`${AQUA}${BOLD}Rare catches tracker
+`${AQUA}${BOLD}Sea creatures tracker
 ${GRAY}- ${LIGHT_PURPLE}Thunder${GRAY}: ${WHITE}10 ${GRAY}| DH: ${WHITE}2 ${GRAY}(25%)
 ${GRAY}- ${DARK_PURPLE}Vanquisher${GRAY}: ${WHITE}8
 ${GRAY}- ${LIGHT_PURPLE}Lord Jawbus${GRAY}: ${WHITE}2 ${GRAY}| DH: ${WHITE}1 ${GRAY}(100%)

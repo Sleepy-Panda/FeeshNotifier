@@ -188,16 +188,19 @@ export const ALL_CATCHES_TRIGGERS = [
         trigger: WATER_HYDRA_MESSAGE,
         seaCreature: `Water Hydra`,
         rarityColorCode: LEGENDARY,
+        isRare: true,
     },
     {
         trigger: THE_LOCH_EMPEROR_MESSAGE,
         seaCreature: `The Loch Emperor`,
         rarityColorCode: LEGENDARY,
+        isRare: true,
     },
     {
         trigger: CARROT_KING_MESSAGE,
         seaCreature: `Carrot King`,
         rarityColorCode: RARE,
+        isRare: true,
     },
     {
         trigger: SQUID_MESSAGE,
@@ -264,6 +267,7 @@ export const ALL_CATCHES_TRIGGERS = [
         trigger: GREAT_WHITE_SHARK_MESSAGE,
         seaCreature: `Great White Shark`,
         rarityColorCode: LEGENDARY,
+        isRare: true,
     },
     {
         trigger: NURSE_SHARK_MESSAGE,
@@ -285,16 +289,19 @@ export const ALL_CATCHES_TRIGGERS = [
         trigger: YETI_MESSAGE,
         seaCreature: `Yeti`,
         rarityColorCode: LEGENDARY,
+        isRare: true,
     },
     {
         trigger: REINDRAKE_MESSAGE,
         seaCreature: `Reindrake`,
         rarityColorCode: MYTHIC,
+        isRare: true,
     },
     {
         trigger: NUTCRACKER_MESSAGE,
         seaCreature: `Nutcracker`,
         rarityColorCode: RARE,
+        isRare: true,
     },
     {
         trigger: FROZEN_STEVE_MESSAGE,
@@ -316,11 +323,13 @@ export const ALL_CATCHES_TRIGGERS = [
         trigger: PHANTOM_FISHER_MESSAGE,
         seaCreature: `Phantom Fisher`,
         rarityColorCode: LEGENDARY,
+        isRare: true,
     },
     {
         trigger: GRIM_REAPER_MESSAGE,
         seaCreature: `Grim Reaper`,
         rarityColorCode: LEGENDARY,
+        isRare: true,
     },
     {
         trigger: SCARECROW_MESSAGE,
@@ -387,26 +396,31 @@ export const ALL_CATCHES_TRIGGERS = [
         trigger: FIERY_SCUTTLER_MESSAGE,
         seaCreature: `Fiery Scuttler`,
         rarityColorCode: LEGENDARY,
+        isRare: true,
     },
     {
         trigger: THUNDER_MESSAGE,
         seaCreature: `Thunder`,
         rarityColorCode: MYTHIC,
+        isRare: true,
     },
     {
         trigger: LORD_JAWBUS_MESSAGE,
         seaCreature: `Lord Jawbus`,
         rarityColorCode: MYTHIC,
+        isRare: true,
     },
     {
         trigger: PLHLEGBLAST_MESSAGE,
         seaCreature: `Plhlegblast`,
         rarityColorCode: MYTHIC,
+        isRare: true,
     },
     {
         trigger: RAGNAROK_MESSAGE,
         seaCreature: `Ragnarok`,
         rarityColorCode: MYTHIC,
+        isRare: true,
     },
     // OASIS SEA CREATURES
     {
@@ -424,6 +438,7 @@ export const ALL_CATCHES_TRIGGERS = [
         trigger: ABYSSAL_MINER_MESSAGE,
         seaCreature: `Abyssal Miner`,
         rarityColorCode: LEGENDARY,
+        isRare: true,
     },
     {
         trigger: WATER_WORM_MESSAGE,
@@ -511,21 +526,25 @@ export const ALL_CATCHES_TRIGGERS = [
         trigger: ALLIGATOR_MESSAGE,
         seaCreature: `Alligator`,
         rarityColorCode: LEGENDARY,
+        isRare: true,
     },
     {
         trigger: BLUE_RINGED_OCTOPUS_MESSAGE,
         seaCreature: `Blue Ringed Octopus`,
         rarityColorCode: LEGENDARY,
+        isRare: true,
     },
     {
         trigger: WIKI_TIKI_MESSAGE,
         seaCreature: `Wiki Tiki`,
         rarityColorCode: MYTHIC,
+        isRare: true,
     },
     {
         trigger: TITANOBOA_MESSAGE,
         seaCreature: `Titanoboa`,
         rarityColorCode: MYTHIC,
+        isRare: true,
     },
     // GALATEA SEA CREATURES
     {
@@ -549,6 +568,13 @@ export const ALL_CATCHES_TRIGGERS = [
         rarityColorCode: RARE,
     },
 ];
+
+export const VANQUISHER_CATCH_TRIGGER = {
+    trigger: VANQUISHER_MESSAGE,
+    seaCreature: `Vanquisher`,
+    rarityColorCode: EPIC,
+    isRare: true
+};
 
 export const RARE_CATCH_TRIGGERS = [
     {

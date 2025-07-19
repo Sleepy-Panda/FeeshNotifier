@@ -5,7 +5,10 @@
 Released: ???
 
 Features:
-- 
+- Rare catches tracker is reworked into Sea creatures tracker:
+  - It tracks all caught sea creatures now.
+  - Only rare sea creatures are shown by default, you can change it in settings to show all.
+  - Added settings to control whether you want Double Hook statistics and Percentage in the overlay.
 
 Bugfixes:
 - Added Foraging Exp Boost & Taurus Shard to count in Fishing Profit Tracker.
