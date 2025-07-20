@@ -1023,13 +1023,14 @@ const config = new DefaultConfig("FeeshNotifier", "config/settings.json")
     subcategory: "Sea creatures",
     value: true
 })
-.addSwitch({
+.addDropDown({
     category: "Overlays",
-    configName: "showOnlyRareSeaCreatures",
-    title: "Show only rare sea creatures",
-    description: `Hides regular sea creatures in the overlay, showing just rare ones. All sea creatures are tracked regardless this setting.`,
+    configName: "seaCreaturesTrackerMode",
+    title: "Sea creatures tracker display mode",
+    description: `Setups whether to hide regular sea creatures in the overlay, showing just rare ones. All sea creatures are tracked regardless this setting.`,
+    options: [ "Only rare", "All" ],
     subcategory: "Sea creatures",
-    value: true
+    value: 0
 })
 .addSwitch({
     category: "Overlays",
@@ -1046,6 +1047,15 @@ const config = new DefaultConfig("FeeshNotifier", "config/settings.json")
     description: `Show statistics how often the sea creatures were double hooked.`,
     subcategory: "Sea creatures",
     value: true
+})
+.addDropDown({
+    category: "Overlays",
+    configName: "seaCreaturesTrackerSorting",
+    title: "Sea creatures sorting",
+    description: "Setups sorting order for the sea creatures.",
+    options: [ "Catches count (desc)", "Catches count (asc)" ],
+    value: 0,
+    subcategory: "Sea creatures"
 })
 .addSwitch({
     category: "Overlays",
