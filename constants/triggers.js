@@ -104,6 +104,7 @@ export const TADGANG_MESSAGE = `${RESET}${GREEN}A gang of Liltads!`;
 export const ENT_MESSAGE = `${RESET}${GREEN}You've hooked an Ent, as ancient as the forest itself.`;
 export const WETWING_MESSAGE = `${RESET}${GREEN}Look! A Wetwing emerges!`;
 export const STRIDERSURFER_MESSAGE = `${RESET}${GREEN}You caught a Stridersurfer.`;
+export const BOGGED_MESSAGE = `${RESET}${GREEN}You've hooked a Bogged!`;
 
 // DROPS
 
@@ -547,6 +548,11 @@ export const ALL_CATCHES_TRIGGERS = [
         isRare: true,
     },
     // GALATEA SEA CREATURES
+    {
+        trigger: BOGGED_MESSAGE,
+        seaCreature: `Bogged`,
+        rarityColorCode: COMMON,
+    },
     {
         trigger: TADGANG_MESSAGE,
         seaCreature: `Tadgang`,
