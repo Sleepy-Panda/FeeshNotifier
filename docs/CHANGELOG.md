@@ -7,8 +7,8 @@ Released: ???
 Features:
 - Adjusted module to the Foraging Changes & Mob Types SB update:
   - Properly track sea creatures with new nametag which has mob type icons (e.g. ♆⚙♣ Lord Jawbus).
-  - Renamed all shards in Fishing profit tracker to have "Shard" in their name.
-  - Replaced Sea Archer Shard with Bogged Shard.
+  - Adjusted to new format of SB rare drop messages. 
+  - Adjusted to the change that all shards now have "Shard" in their name.
   - Renamed Sea Archer Shard => Bogged Shard, Sea Emperor Shard => Loch Emperor Shard, Thunder Shards => Thunder Fragment.
   - Added Bogged sea creature.
 - Rare catches tracker is reworked into Sea creatures tracker:
