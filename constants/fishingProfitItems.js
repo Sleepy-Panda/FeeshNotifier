@@ -675,7 +675,7 @@ export const FISHING_PROFIT_ITEMS = [
         npcPrice: 0,
     },
     {
-        itemId: 'SHARD_BOGGED',
+        itemId: 'SHARD_SEA_ARCHER',
         itemName: 'Bogged Shard',
         itemDisplayName: `${COMMON}Bogged ${WHITE}Shard`,
         npcPrice: 0,
@@ -711,7 +711,7 @@ export const FISHING_PROFIT_ITEMS = [
         npcPrice: 0,
     },
     {
-        itemId: 'SHARD_LOCH_EMPEROR',
+        itemId: 'SHARD_SEA_EMPEROR',
         itemName: 'Loch Emperor Shard',
         itemDisplayName: `${EPIC}Loch Emperor ${WHITE}Shard`,
         npcPrice: 0,
