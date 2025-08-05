@@ -30,7 +30,7 @@ export function sendMessageOnDrop(options) {
 		}
 
 		if (settings.includeMagicFindIntoDropMessage && options.magicFind) {
-			metadata.push(`+${options.magicFind}% ✯ Magic Find`);
+			metadata.push(`+${options.magicFind} ✯ Magic Find`);
 		}
 
 		const message = getDropMessage(options.itemName, metadata);

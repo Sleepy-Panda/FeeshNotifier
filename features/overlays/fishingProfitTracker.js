@@ -386,7 +386,7 @@ function onShardFished(shardText) {
         if (!isTrackerVisible() || !shardText || !isSessionActive) return;
 
         const [article, ...shardNameParts] = shardText.removeFormatting().split(' ');
-        const shardName = shardNameParts.join(' ');
+        const shardName = shardNameParts.join(' ') + ' Shard';
         refreshItemData(i => i.itemName === shardName.removeFormatting(), 1);
         refreshPrices();
         refreshOverlay();
@@ -406,7 +406,7 @@ function onShardCaughtInBlackHole(shardsText) {
 
         const [countText, ...shardNameParts] = shardsText.removeFormatting().split(' ');
         const count = countText === 'a' || countText === 'an' ? 1 : +(countText.replace('x', ''));
-        const shardName = shardNameParts.join(' ');
+        const shardName = shardNameParts.join(' ') + ' Shard';
 
         refreshItemData(i => i.itemName === shardName, count);
         refreshPrices();

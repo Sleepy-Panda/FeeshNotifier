@@ -104,5 +104,6 @@ export const ALL_SEA_CREATURES_NAMES = [
     'Tadgang',
     'Ent',
     'Wetwing',
-    'Stridersurfer'
+    'Stridersurfer',
+    'Bogged'
 ];
