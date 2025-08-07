@@ -108,15 +108,17 @@ export const BOGGED_MESSAGE = `${RESET}${GREEN}You've hooked a Bogged!`;
 
 // DROPS
 
+export const BABY_YETI_PET_LEG_MESSAGE = `PET DROP! ${RESET}${GOLD}Baby Yeti`; // PET DROP! &r&6Baby Yeti
+export const BABY_YETI_PET_EPIC_MESSAGE = `PET DROP! ${RESET}${DARK_PURPLE}Baby Yeti`; // PET DROP! &r&5Baby Yeti
+export const FLYING_FISH_PET_LEG_MESSAGE = `PET DROP! ${RESET}${GOLD}Flying Fish`;
+export const FLYING_FISH_PET_EPIC_MESSAGE = `PET DROP! ${RESET}${DARK_PURPLE}Flying Fish`;
+export const FLYING_FISH_PET_RARE_MESSAGE = `PET DROP! ${RESET}${BLUE}Flying Fish`;
+export const MEGALODON_PET_LEG_MESSAGE = `PET DROP! ${RESET}${GOLD}Megalodon`;
+export const MEGALODON_PET_EPIC_MESSAGE = `PET DROP! ${RESET}${DARK_PURPLE}Megalodon`;
+
 const MAGIC_FIND_MESSAGE_PATTERN = `${RESET}${AQUA}(+${RESET}${AQUA}` + '${magicFind}' + ` ${RESET}${AQUA}✯ Magic Find${RESET}${AQUA})`; // &r&b(+&r&b236 &r&b✯ Magic Find&r&b)
-export const BABY_YETI_PET_LEG_MESSAGE = `PET DROP! ${RESET}${GOLD}Baby Yeti ${MAGIC_FIND_MESSAGE_PATTERN}`; // PET DROP! &r&6Baby Yeti &r&b(+&r&b236 &r&b✯ Magic Find&r&b)
-export const BABY_YETI_PET_EPIC_MESSAGE = `PET DROP! ${RESET}${DARK_PURPLE}Baby Yeti ${MAGIC_FIND_MESSAGE_PATTERN}`; // PET DROP! &r&5Baby Yeti &r&b(+&r&b236 &r&b✯ Magic Find&r&b)
-export const FLYING_FISH_PET_LEG_MESSAGE = `PET DROP! ${RESET}${GOLD}Flying Fish ${MAGIC_FIND_MESSAGE_PATTERN}`;
-export const FLYING_FISH_PET_EPIC_MESSAGE = `PET DROP! ${RESET}${DARK_PURPLE}Flying Fish ${MAGIC_FIND_MESSAGE_PATTERN}`;
-export const FLYING_FISH_PET_RARE_MESSAGE = `PET DROP! ${RESET}${BLUE}Flying Fish ${MAGIC_FIND_MESSAGE_PATTERN}`;
+
 export const LUCKY_CLOVER_CORE_MESSAGE = `RARE DROP! ${RESET}${DARK_PURPLE}Lucky Clover Core ${MAGIC_FIND_MESSAGE_PATTERN}`;
-export const MEGALODON_PET_LEG_MESSAGE = `PET DROP! ${RESET}${GOLD}Megalodon ${MAGIC_FIND_MESSAGE_PATTERN}`;
-export const MEGALODON_PET_EPIC_MESSAGE = `PET DROP! ${RESET}${DARK_PURPLE}Megalodon ${MAGIC_FIND_MESSAGE_PATTERN}`;
 export const DEEP_SEA_ORB_MESSAGE = `RARE DROP! ${RESET}${DARK_PURPLE}Deep Sea Orb ${MAGIC_FIND_MESSAGE_PATTERN}`;
 export const RADIOACTIVE_VIAL_MESSAGE = `RARE DROP! ${RESET}${LIGHT_PURPLE}Radioactive Vial ${MAGIC_FIND_MESSAGE_PATTERN}`; // RARE DROP! &r&dRadioactive Vial &r&b(+&r&b236 &r&b✯ Magic Find&r&b)
 export const MAGMA_CORE_MESSAGE = `RARE DROP! ${RESET}${BLUE}Magma Core ${MAGIC_FIND_MESSAGE_PATTERN}`; // RARE DROP! &r&9Magma Core &r&b(+&r&b236 &r&b✯ Magic Find&r&b)
@@ -730,7 +732,7 @@ export const RARE_CATCH_TRIGGERS = [
     },
 ];
 
-export const RARE_DROP_TRIGGERS = [
+export const PET_DROP_TRIGGERS = [
     {
         trigger: BABY_YETI_PET_LEG_MESSAGE,
         itemId: 'BABY_YETI;4',
@@ -782,16 +784,6 @@ export const RARE_DROP_TRIGGERS = [
         shouldTrackDropNumber: true,
     },
     {
-        trigger: LUCKY_CLOVER_CORE_MESSAGE,
-        itemId: 'PET_ITEM_LUCKY_CLOVER_DROP',
-        itemName: drops.LUCKY_CLOVER_CORE,
-        sound: sounds.OH_MY_GOD_SOUND_SOURCE,
-        isMessageEnabledSettingKey: 'messageOnLuckyCloverCoreDrop',
-        isAlertEnabledSettingKey: 'alertOnLuckyCloverCoreDrop',
-        rarityColorCode: EPIC,
-        shouldTrackDropNumber: true,
-    },
-    {
         trigger: MEGALODON_PET_LEG_MESSAGE,
         itemId: 'MEGALODON;4',
         itemName: drops.MEGALODON_PET + ' (Legendary)',
@@ -808,6 +800,19 @@ export const RARE_DROP_TRIGGERS = [
         sound: sounds.AUGH_SOUND_SOURCE,
         isMessageEnabledSettingKey: 'messageOnMegalodonPetDrop',
         isAlertEnabledSettingKey: 'alertOnMegalodonPetDrop',
+        rarityColorCode: EPIC,
+        shouldTrackDropNumber: true,
+    },
+];
+
+export const RARE_DROP_TRIGGERS = [
+    {
+        trigger: LUCKY_CLOVER_CORE_MESSAGE,
+        itemId: 'PET_ITEM_LUCKY_CLOVER_DROP',
+        itemName: drops.LUCKY_CLOVER_CORE,
+        sound: sounds.OH_MY_GOD_SOUND_SOURCE,
+        isMessageEnabledSettingKey: 'messageOnLuckyCloverCoreDrop',
+        isAlertEnabledSettingKey: 'alertOnLuckyCloverCoreDrop',
         rarityColorCode: EPIC,
         shouldTrackDropNumber: true,
     },
