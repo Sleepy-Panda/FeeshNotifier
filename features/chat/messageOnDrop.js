@@ -3,7 +3,7 @@ import { persistentData } from '../../data/data';
 import { getDropMessage } from '../../utils/common';
 import { isInSkyblock } from '../../utils/playerState';
 
-const chatCommand = 'cc';
+const chatCommand = 'pc';
 
 register("gameUnload", () => {
 	if (settings.fishingProfitTrackerOverlay && settings.resetFishingProfitTrackerOnGameClosed && Object.keys(persistentData.rareDropNotifications.items).length) {
