@@ -8,6 +8,7 @@
 
 ## Fishing profit tracker
 
+- Option to right align the tracker (and others too)
 - Option to render icons instead of item names
 - Option to decrease elapsed time in Fishing Profit Tracker (when user forgot to stop tracker being afk)
 - Track scavenged coins in Fishing Profit Tracker
@@ -78,6 +79,7 @@
 
 ## Other
 
+- Moby Duck overlay + alert on expire
 - Glowing outline / highlight rare sea creatures (make this not visible through walls) - I want to get rid of SH for that, and replicate this feature in module.
 - PogData resets data file on PC crash - consider doing regular backups / research tska library as replacement for PogData
 - Remove double hook reindrake logic because DH is not possible now

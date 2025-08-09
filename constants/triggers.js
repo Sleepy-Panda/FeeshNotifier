@@ -1,7 +1,7 @@
 import * as drops from './drops';
 import * as sounds from './sounds';
 import * as seaCreatures from './seaCreatures';
-import { GREEN, GOLD, DARK_PURPLE, LIGHT_PURPLE, BLUE, RED, BOLD, RESET, GRAY, AQUA, YELLOW, DARK_RED, DARK_AQUA, WHITE, COMMON, UNCOMMON, RARE, EPIC, LEGENDARY, MYTHIC, DARK_GRAY } from './formatting';
+import { GREEN, GOLD, DARK_PURPLE, LIGHT_PURPLE, BLUE, RED, BOLD, RESET, GRAY, AQUA, YELLOW, DARK_RED, DARK_AQUA, WHITE, COMMON, UNCOMMON, RARE, EPIC, LEGENDARY, MYTHIC, DARK_GRAY, DARK_BLUE } from './formatting';
 
 // WATER SEA CREATURES
 
@@ -165,8 +165,22 @@ export const GOOD_CATCH_ICE_ESSENCE_MESSAGE = `${RESET}${DARK_PURPLE}⛃ ${RESET
 export const GREAT_CATCH_ICE_ESSENCE_MESSAGE = `${RESET}${GOLD}⛃ ${RESET}${GOLD}${BOLD}GREAT CATCH! ${RESET}${WHITE}You caught ${RESET}${AQUA}Ice Essence ${RESET}${DARK_GRAY}x` + "${count}" + `${RESET}${WHITE}!${RESET}`;
 export const OUTSTANDING_CATCH_ICE_ESSENCE_MESSAGE = `${RESET}${LIGHT_PURPLE}⛃ ${RESET}${LIGHT_PURPLE}${BOLD}OUTSTANDING CATCH! ${RESET}${WHITE}You caught ${RESET}${AQUA}Ice Essence ${RESET}${DARK_GRAY}x` + "${count}" + `${RESET}${WHITE}!${RESET}`;
 
-export const GOOD_CATCH_SHARD_MESSAGE = `${RESET}${DARK_PURPLE}⛃ ${RESET}${DARK_PURPLE}${BOLD}GOOD CATCH! ${RESET}${WHITE}You caught ` + "${shardText}" + ` Shard${RESET}${WHITE}!${RESET}`; // &r&5&lGOOD CATCH! &r&fYou caught an Abyssal Lanternfish Shard&r&f!&r
-export const BLACK_HOLE_SHARD_MESSAGE = `${GREEN}You caught ` + "${shardsText}" + ` ${GREEN}Shard`; // &aYou caught a &fSea Archer &aShard!&r   // &aYou caught &7x4 &fSea Archer &aShards&a!&r
+// &r&5&lGOOD CATCH! &r&fYou caught an Abyssal Lanternfish Shard&r&f!&r
+// §r§5§lGOOD CATCH! §r§fYou caught a Silentdepth Shard§r§f!§r
+export const GOOD_CATCH_SHARD_MESSAGE = `${RESET}${DARK_PURPLE}⛃ ${RESET}${DARK_PURPLE}${BOLD}GOOD CATCH! ${RESET}${WHITE}You caught ` + "${shardText}" + ` Shard${RESET}${WHITE}!${RESET}`;
+
+// &aYou caught a &fSea Archer &aShard!&r
+// &aYou caught &7x4 &fSea Archer &aShards&a!&r
+export const BLACK_HOLE_SHARD_MESSAGE = `${GREEN}You caught ` + "${shardsText}" + ` ${GREEN}Shard`;
+
+// &5&lCHARM&7 You charmed a &5Loch Emperor&7 and captured its &9Shard&7.
+// &6&lNAGA&7 You charmed a &fTadgang&7 and captured its &9Shard&7.
+export const CHARM_NAGA_SALT_SHARD_MESSAGE = `${GRAY} You charmed ` + "${mobNameText}" + `${GRAY} and captured its ${BLUE}Shard${GRAY}.`;
+
+// &d&lSALT&7 You charmed a &aEnt&7 and captured &92 Shards &7from it.
+// &5&lCHARM&7 You charmed a &aFlaming Spider&7 and captured &92 Shards &§7from it.&r
+// &d&lSALT&7 You charmed a &fTadgang&7 and captured &92 Shards &7from it.
+export const CHARM_NAGA_SALT_SHARDS_MESSAGE = `${GRAY} You charmed ` + "${mobNameText}" + `${GRAY} and captured ${BLUE}` + "${shardsCount}" + ` Shards ${GRAY}from it.`;
 
 export const USE_BAITS_FROM_FISHING_BAG_DISABLED = `${RESET}${RED}Use Baits From Bag is now disabled!${RESET}`;
 export const USE_BAITS_FROM_FISHING_BAG_ENABLED = `${RESET}${GREEN}Use Baits From Bag is now enabled!${RESET}`;
