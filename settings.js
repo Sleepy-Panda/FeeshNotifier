@@ -6,6 +6,7 @@ export const allOverlaysGui = new Gui(); // Sample overlays GUI to move/resize t
 
 export const totemRemainingTimeOverlayGui = new Gui();
 export const flareRemainingTimeOverlayGui = new Gui();
+export const consumablesRemainingTimeOverlayGui = new Gui();
 export const seaCreaturesTrackerOverlayGui = new Gui();
 export const seaCreaturesHpOverlayGui = new Gui();
 export const seaCreaturesCountOverlayGui = new Gui();
@@ -491,6 +492,14 @@ const config = new DefaultConfig("FeeshNotifier", "config/settings.json")
     title: "Alert when player's flare expires soon",
     description: "Shows a title and plays a sound when current player's Warning Flare / Alert Flare / SOS Flare expires in 10 seconds.",
     subcategory: "Flare",
+    value: true
+})
+.addSwitch({
+    category: "Alerts",
+    configName: "alertOnConsumableExpiresSoon",
+    title: "Alert when Moby-Duck expires soon",
+    description: "Shows a title and plays a sound when Moby-Duck expires in 10 seconds.",
+    subcategory: "Consumables",
     value: true
 })
 .addSwitch({
@@ -1012,6 +1021,25 @@ const config = new DefaultConfig("FeeshNotifier", "config/settings.json")
     subcategory: "Flare",
     onClick() {
         moveOverlay(flareRemainingTimeOverlayGui);
+    }
+})
+
+.addSwitch({
+    category: "Overlays",
+    configName: "consumablesRemainingTimeOverlay",
+    title: "Remaining Moby-Duck time",
+    description: "Shows an overlay with the remaining time of Moby-Duck consumable.",
+    subcategory: "Consumables",
+    value: true
+})
+.addButton({
+    category: "Overlays",
+    configName: "moveConsumablesRemainingTimeOverlay",
+    title: "Move remaining Moby-Duck time",
+    description: "Allows to move and resize the overlay text.",
+    subcategory: "Consumables",
+    onClick() {
+        moveOverlay(consumablesRemainingTimeOverlayGui);
     }
 })
 

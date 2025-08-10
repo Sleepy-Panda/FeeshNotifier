@@ -31,6 +31,14 @@ const SAMPLE_GUIS = [
         height: 0
     },
     {
+        toggleSettingKey: 'consumablesRemainingTimeOverlay',
+        guiSettings: overlayCoordsData.consumablesRemainingTimeOverlay,
+        sampleText: `${DARK_PURPLE}Moby-Duck: ${WHITE}51m 58s`,
+        isActive: false,
+        width: 0,
+        height: 0
+    },
+    {
         toggleSettingKey: 'seaCreaturesTrackerOverlay',
         guiSettings: overlayCoordsData.seaCreaturesTrackerOverlay,
         sampleText: 
