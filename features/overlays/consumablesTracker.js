@@ -16,28 +16,26 @@ let remainingTimes = {
     }
 };
 
-// SET START
-
 const MOBY_DUCK_EFFECTIVE_SECONDS = 3600;
 
 registerIf(
     register("chat", (event) => {
         trackMobyDuckConsumed();
-    }).setCriteria(triggers.MOBY_DUCK_CONSUMED).setContains(),
+    }).setCriteria(triggers.MOBY_DUCK_CONSUMED).setStart(),
     () => (settings.consumablesRemainingTimeOverlay || settings.alertOnConsumableExpiresSoon) && isInSkyblock()
 );
 
 registerIf(
     register("chat", (seconds, event) => {
         trackMobyDuckExpiring(+seconds);
-    }).setCriteria(triggers.MOBY_DUCK_EXPIRING).setContains(),
+    }).setCriteria(triggers.MOBY_DUCK_EXPIRING).setStart(),
     () => (settings.consumablesRemainingTimeOverlay || settings.alertOnConsumableExpiresSoon) && isInSkyblock()
 );
 
 registerIf(
     register("chat", (event) => {
         trackMobyDuckExpired();
-    }).setCriteria(triggers.MOBY_DUCK_EXPIRED).setContains(),
+    }).setCriteria(triggers.MOBY_DUCK_EXPIRED).setStart(),
     () => (settings.consumablesRemainingTimeOverlay || settings.alertOnConsumableExpiresSoon) && isInSkyblock()
 );
 
@@ -71,7 +69,12 @@ function trackMobyDuckConsumed() {
 }
 
 function trackMobyDuckExpiring(remainingSeconds) {
-    if (!remainingSeconds || !remainingTimes.mobyDuck.consumedAt || (!settings.consumablesRemainingTimeOverlay && !settings.alertOnConsumableExpiresSoon) || !isInSkyblock()) return;
+    if (!remainingSeconds ||
+        !remainingTimes.mobyDuck.consumedAt ||
+        (!settings.consumablesRemainingTimeOverlay && !settings.alertOnConsumableExpiresSoon) ||
+        !isInSkyblock()) {
+            return;
+        }
 
     remainingTimes.mobyDuck.elapsedTime = MOBY_DUCK_EFFECTIVE_SECONDS - remainingSeconds;
     remainingTimes.mobyDuck.remainingTime = remainingSeconds;
