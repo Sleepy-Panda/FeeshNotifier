@@ -11,6 +11,7 @@ Features:
   - Adjusted to the change that all shards now have "Shard" in their name.
   - Renamed Sea Archer Shard => Bogged Shard, Sea Emperor Shard => Loch Emperor Shard, Thunder Shards => Thunder Fragment.
   - Added Bogged sea creature.
+- Added charmed shards to the Fishing Profit Tracker.
 - Rare catches tracker is reworked into Sea creatures tracker:
   - It tracks all caught sea creatures now.
   - Only rare sea creatures are shown by default, you can change it in settings to show all.
