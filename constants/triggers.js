@@ -1,7 +1,7 @@
 import * as drops from './drops';
 import * as sounds from './sounds';
 import * as seaCreatures from './seaCreatures';
-import { GREEN, GOLD, DARK_PURPLE, LIGHT_PURPLE, BLUE, RED, BOLD, RESET, GRAY, AQUA, YELLOW, DARK_RED, DARK_AQUA, WHITE, COMMON, UNCOMMON, RARE, EPIC, LEGENDARY, MYTHIC, DARK_GRAY, DARK_BLUE } from './formatting';
+import { GREEN, GOLD, DARK_PURPLE, LIGHT_PURPLE, BLUE, RED, BOLD, RESET, GRAY, AQUA, YELLOW, DARK_RED, DARK_AQUA, WHITE, COMMON, UNCOMMON, RARE, EPIC, LEGENDARY, MYTHIC, DARK_GRAY } from './formatting';
 
 // WATER SEA CREATURES
 
