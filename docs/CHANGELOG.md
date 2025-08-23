@@ -1,8 +1,29 @@
 # Releases
 
-## v1.47.0
+## v1.48.0
 
 Released: ???
+
+Features:
+- Adjusted module to the Foraging Changes & Mob Types SB update:
+  - Properly track sea creatures with new nametag which has mob type icons (e.g. ♆⚙♣ Lord Jawbus).
+  - Adjusted to new format of SB rare drop / pet drop messages. 
+  - Adjusted to the change that all shards now have "Shard" in their name.
+  - Renamed Sea Archer Shard => Bogged Shard, Sea Emperor Shard => Loch Emperor Shard, Thunder Shards => Thunder Fragment.
+  - Added Bogged sea creature.
+- Added charmed shards to the Fishing Profit Tracker.
+- Rare catches tracker is reworked into Sea creatures tracker:
+  - It tracks all caught sea creatures now.
+  - Only rare sea creatures are shown by default, you can change it in settings to show all.
+  - Added settings to control whether you want Double Hook statistics and Percentage in the overlay.
+  - Added setting to control sorting (asc or desc).
+
+Bugfixes:
+- Added Foraging Exp Boost & Taurus Shard to count in Fishing Profit Tracker.
+
+## v1.47.0
+
+Released: 2025-12-07
 
 Features:
 - Count Shards caught while Treasure fishing in Fishing Profit Tracker. 

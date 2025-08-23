@@ -8,6 +8,7 @@
 
 ## Fishing profit tracker
 
+- Option to right align the tracker (and others too)
 - Option to render icons instead of item names
 - Option to decrease elapsed time in Fishing Profit Tracker (when user forgot to stop tracker being afk)
 - Track scavenged coins in Fishing Profit Tracker
@@ -78,11 +79,11 @@
 
 ## Other
 
+- Moby Duck overlay + alert on expire
 - Glowing outline / highlight rare sea creatures (make this not visible through walls) - I want to get rid of SH for that, and replicate this feature in module.
 - PogData resets data file on PC crash - consider doing regular backups / research tska library as replacement for PogData
 - Remove double hook reindrake logic because DH is not possible now
 - Rain/Thunder widget
-- Track all mobs caught, not only rare
 - Golden fish timer
 "can you add a golden fish timer tracker into this? i only have golden fish diamond left and i like playing other games while just having my bobber in lava, and setting a 15min timer every time is p annoying lmao"
 - Thunder spark profit - Amount gained in bottle divided by lbin for the current item

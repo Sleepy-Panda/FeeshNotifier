@@ -104,9 +104,14 @@ export function getSeaCreaturesInRange(includedSeaCreatureNames, distance) {
 
 	return seaCreatures;
 
-	// Original nametag sample:
-	// §e﴾ §8[§7Lv400§8] §c§lThunder§r§r §e17M§f/§a35M§c❤ §e﴿ §b✯
-	// §8[§7Lv1§8] §5§ka§5Corrupted Squid§5§ka§r §a300§f/§a300§c❤
+	// Original nametag samples:
+    // §8[§7Lv15§8] §9⚓§e✰ §cDumpster Diver§r §e1,086§f/§a2,500§c❤
+    // §8[§7Lv15§8] §9⚓§e✰ §5§ka§5Corrupted Dumpster Diver§5§ka§r §a7,331§f/§a7,500§c❤ §b✯
+    // §8[§7Lv15§8] §9⚓§e✰ §5§ka§5Corrupted Dumpster Diver§5§ka§r §a7,243§f/§a7,500§c❤ §b✯
+    
+    // §e﴾ §8[§7Lv600§8] §c♆§7⚙§d♣ §c§lLord Jawbus§r§r §a69M§f/§a100M§c❤ §e﴿
+    // §e﴾ §8[§7Lv600§8] §c♆§7⚙§d♣ §c§lLord Jawbus§r§r §e6.3M§f/§a100M§c❤ §e﴿ §b✯
+    // §8[§7Lv250§8] §c♆§e✰§a☮ §cJawbus Follower§r §a3M§f/§a3M§c❤
 	function parseSeaCreatureNametag(entity, includedSeaCreatureNames) { 
 		if (!entity) return null;
 
@@ -118,14 +123,16 @@ export function getSeaCreaturesInRange(includedSeaCreatureNames, distance) {
 		const baseMobName = takeWhile(shortName.split(' '), part => !part.includes('/'))
 			.join(' ')
 			.replaceAll('§ka', '') // Corrupted character before and after mob name
-			.removeFormatting();
+			.removeFormatting()
+			.replace(/[^a-zA-Z\s'-]/g, '')
+			.trim();
 
 		const currentHp = shortName.split('§f/')[0].split(' ').slice(-1)[0];
 
 		return {
 			mcEntityId: getMcEntityId(entity),
-			baseMobName: baseMobName, // Thunder or Squid
-			shortNametag: shortName, // §c§lThunder§r§r §e17M§f/§a35M§c❤ §b✯ or §5§ka§5Squid§5§ka§r §a300§f/§a300§c❤
+			baseMobName: baseMobName, // "Lord Jawbus" or "Squid"
+			shortNametag: shortName, // §c♆§7⚙§d♣ §c§lLord Jawbus§r§r §a69M§f/§a100M§c❤ §b✯
 			currentHpNumber: parseShortNumber(currentHp.removeFormatting()),
 			renderPos: {
 				x: entity.getRenderX(),

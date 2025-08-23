@@ -104,24 +104,27 @@ export const TADGANG_MESSAGE = `${RESET}${GREEN}A gang of Liltads!`;
 export const ENT_MESSAGE = `${RESET}${GREEN}You've hooked an Ent, as ancient as the forest itself.`;
 export const WETWING_MESSAGE = `${RESET}${GREEN}Look! A Wetwing emerges!`;
 export const STRIDERSURFER_MESSAGE = `${RESET}${GREEN}You caught a Stridersurfer.`;
+export const BOGGED_MESSAGE = `${RESET}${GREEN}You've hooked a Bogged!`;
 
 // DROPS
 
-const MAGIC_FIND_MESSAGE_PATTERN = `${RESET}${AQUA}(+${RESET}${AQUA}` + '${magicFind}' + `% ${RESET}${AQUA}✯ Magic Find${RESET}${AQUA})`; // &r&b(+&r&b236% &r&b✯ Magic Find&r&b)
-export const BABY_YETI_PET_LEG_MESSAGE = `PET DROP! ${RESET}${GOLD}Baby Yeti ${MAGIC_FIND_MESSAGE_PATTERN}`; // PET DROP! &r&6Baby Yeti &r&b(+&r&b236% &r&b✯ Magic Find&r&b)
-export const BABY_YETI_PET_EPIC_MESSAGE = `PET DROP! ${RESET}${DARK_PURPLE}Baby Yeti ${MAGIC_FIND_MESSAGE_PATTERN}`; // PET DROP! &r&5Baby Yeti &r&b(+&r&b236% &r&b✯ Magic Find&r&b)
-export const FLYING_FISH_PET_LEG_MESSAGE = `PET DROP! ${RESET}${GOLD}Flying Fish ${MAGIC_FIND_MESSAGE_PATTERN}`;
-export const FLYING_FISH_PET_EPIC_MESSAGE = `PET DROP! ${RESET}${DARK_PURPLE}Flying Fish ${MAGIC_FIND_MESSAGE_PATTERN}`;
-export const FLYING_FISH_PET_RARE_MESSAGE = `PET DROP! ${RESET}${BLUE}Flying Fish ${MAGIC_FIND_MESSAGE_PATTERN}`;
+export const BABY_YETI_PET_LEG_MESSAGE = `PET DROP! ${RESET}${GOLD}Baby Yeti`; // PET DROP! &r&6Baby Yeti
+export const BABY_YETI_PET_EPIC_MESSAGE = `PET DROP! ${RESET}${DARK_PURPLE}Baby Yeti`; // PET DROP! &r&5Baby Yeti
+export const FLYING_FISH_PET_LEG_MESSAGE = `PET DROP! ${RESET}${GOLD}Flying Fish`;
+export const FLYING_FISH_PET_EPIC_MESSAGE = `PET DROP! ${RESET}${DARK_PURPLE}Flying Fish`;
+export const FLYING_FISH_PET_RARE_MESSAGE = `PET DROP! ${RESET}${BLUE}Flying Fish`;
+export const MEGALODON_PET_LEG_MESSAGE = `PET DROP! ${RESET}${GOLD}Megalodon`;
+export const MEGALODON_PET_EPIC_MESSAGE = `PET DROP! ${RESET}${DARK_PURPLE}Megalodon`;
+
+const MAGIC_FIND_MESSAGE_PATTERN = `${RESET}${AQUA}(+${RESET}${AQUA}` + '${magicFind}' + ` ${RESET}${AQUA}✯ Magic Find${RESET}${AQUA})`; // &r&b(+&r&b236 &r&b✯ Magic Find&r&b)
+
 export const LUCKY_CLOVER_CORE_MESSAGE = `RARE DROP! ${RESET}${DARK_PURPLE}Lucky Clover Core ${MAGIC_FIND_MESSAGE_PATTERN}`;
-export const MEGALODON_PET_LEG_MESSAGE = `PET DROP! ${RESET}${GOLD}Megalodon ${MAGIC_FIND_MESSAGE_PATTERN}`;
-export const MEGALODON_PET_EPIC_MESSAGE = `PET DROP! ${RESET}${DARK_PURPLE}Megalodon ${MAGIC_FIND_MESSAGE_PATTERN}`;
 export const DEEP_SEA_ORB_MESSAGE = `RARE DROP! ${RESET}${DARK_PURPLE}Deep Sea Orb ${MAGIC_FIND_MESSAGE_PATTERN}`;
-export const RADIOACTIVE_VIAL_MESSAGE = `RARE DROP! ${RESET}${LIGHT_PURPLE}Radioactive Vial ${MAGIC_FIND_MESSAGE_PATTERN}`; // RARE DROP! &r&dRadioactive Vial &r&b(+&r&b236% &r&b✯ Magic Find&r&b)
-export const MAGMA_CORE_MESSAGE = `RARE DROP! ${RESET}${BLUE}Magma Core ${MAGIC_FIND_MESSAGE_PATTERN}`; // RARE DROP! &r&9Magma Core &r&b(+&r&b236% &r&b✯ Magic Find&r&b)
-export const TIKI_MASK_MESSAGE = `RARE DROP! ${RESET}${GOLD}Tiki Mask ${MAGIC_FIND_MESSAGE_PATTERN}`; // RARE DROP! &r&6Tiki Mask &r&b(+&r&b236% &r&b✯ Magic Find&r&b)
-export const TITANOBOA_SHED_MESSAGE = `RARE DROP! ${RESET}${GOLD}Titanoboa Shed ${MAGIC_FIND_MESSAGE_PATTERN}`; // RARE DROP! &r&6Titanoboa Shed &r&b(+&r&b236% &r&b✯ Magic Find&r&b)
-export const SCUTTLER_SHELL_MESSAGE = `RARE DROP! ${RESET}${GOLD}Scuttler Shell ${MAGIC_FIND_MESSAGE_PATTERN}`; // RARE DROP! &r&6Scuttler Shell &r&b(+&r&b236% &r&b✯ Magic Find&r&b)
+export const RADIOACTIVE_VIAL_MESSAGE = `RARE DROP! ${RESET}${LIGHT_PURPLE}Radioactive Vial ${MAGIC_FIND_MESSAGE_PATTERN}`; // RARE DROP! &r&dRadioactive Vial &r&b(+&r&b236 &r&b✯ Magic Find&r&b)
+export const MAGMA_CORE_MESSAGE = `RARE DROP! ${RESET}${BLUE}Magma Core ${MAGIC_FIND_MESSAGE_PATTERN}`; // RARE DROP! &r&9Magma Core &r&b(+&r&b236 &r&b✯ Magic Find&r&b)
+export const TIKI_MASK_MESSAGE = `RARE DROP! ${RESET}${GOLD}Tiki Mask ${MAGIC_FIND_MESSAGE_PATTERN}`; // RARE DROP! &r&6Tiki Mask &r&b(+&r&b236 &r&b✯ Magic Find&r&b)
+export const TITANOBOA_SHED_MESSAGE = `RARE DROP! ${RESET}${GOLD}Titanoboa Shed ${MAGIC_FIND_MESSAGE_PATTERN}`; // RARE DROP! &r&6Titanoboa Shed &r&b(+&r&b236 &r&b✯ Magic Find&r&b)
+export const SCUTTLER_SHELL_MESSAGE = `RARE DROP! ${RESET}${GOLD}Scuttler Shell ${MAGIC_FIND_MESSAGE_PATTERN}`; // RARE DROP! &r&6Scuttler Shell &r&b(+&r&b236 &r&b✯ Magic Find&r&b)
 
 export const AQUAMARINE_DYE_MESSAGE = `${RESET}${LIGHT_PURPLE}${BOLD}WOW! ` + '${playerNameAndRank}' + ` ${RESET}${GOLD}found an ${RESET}${AQUA}Aquamarine Dye`; // &r&d&lWOW! &r&b[MVP&r&c+&r&b] &bMoonTheSadFisher&r&r&f &r&6found an &r&bAquamarine Dye &r&8#95&r&6!&r
 export const ICEBERG_DYE_MESSAGE = `${RESET}${LIGHT_PURPLE}${BOLD}WOW! ` + '${playerNameAndRank}' + ` ${RESET}${GOLD}found an ${RESET}${DARK_AQUA}Iceberg Dye`; // &r&d&lWOW! &r&b[MVP&r&c+&r&b] &bMoonTheSadFisher&r&r&f &r&6found an &r&3Iceberg Dye&r
@@ -162,8 +165,22 @@ export const GOOD_CATCH_ICE_ESSENCE_MESSAGE = `${RESET}${DARK_PURPLE}⛃ ${RESET
 export const GREAT_CATCH_ICE_ESSENCE_MESSAGE = `${RESET}${GOLD}⛃ ${RESET}${GOLD}${BOLD}GREAT CATCH! ${RESET}${WHITE}You caught ${RESET}${AQUA}Ice Essence ${RESET}${DARK_GRAY}x` + "${count}" + `${RESET}${WHITE}!${RESET}`;
 export const OUTSTANDING_CATCH_ICE_ESSENCE_MESSAGE = `${RESET}${LIGHT_PURPLE}⛃ ${RESET}${LIGHT_PURPLE}${BOLD}OUTSTANDING CATCH! ${RESET}${WHITE}You caught ${RESET}${AQUA}Ice Essence ${RESET}${DARK_GRAY}x` + "${count}" + `${RESET}${WHITE}!${RESET}`;
 
-export const GOOD_CATCH_SHARD_MESSAGE = `${RESET}${DARK_PURPLE}⛃ ${RESET}${DARK_PURPLE}${BOLD}GOOD CATCH! ${RESET}${WHITE}You caught ` + "${shardText}" + ` Shard${RESET}${WHITE}!${RESET}`; // &r&5&lGOOD CATCH! &r&fYou caught an Abyssal Lanternfish Shard&r&f!&r
-export const BLACK_HOLE_SHARD_MESSAGE = `${GREEN}You caught ` + "${shardsText}" + ` ${GREEN}Shard`; // &aYou caught a &fSea Archer &aShard!&r   // &aYou caught &7x4 &fSea Archer &aShards&a!&r
+// &r&5&lGOOD CATCH! &r&fYou caught an Abyssal Lanternfish Shard&r&f!&r
+// §r§5§lGOOD CATCH! §r§fYou caught a Silentdepth Shard§r§f!§r
+export const GOOD_CATCH_SHARD_MESSAGE = `${RESET}${DARK_PURPLE}⛃ ${RESET}${DARK_PURPLE}${BOLD}GOOD CATCH! ${RESET}${WHITE}You caught ` + "${shardText}" + ` Shard${RESET}${WHITE}!${RESET}`;
+
+// &aYou caught a &fSea Archer &aShard!&r
+// &aYou caught &7x4 &fSea Archer &aShards&a!&r
+export const BLACK_HOLE_SHARD_MESSAGE = `${GREEN}You caught ` + "${shardsText}" + ` ${GREEN}Shard`;
+
+// &5&lCHARM&7 You charmed a &5Loch Emperor&7 and captured its &9Shard&7.
+// &6&lNAGA&7 You charmed a &fTadgang&7 and captured its &9Shard&7.
+export const CHARM_NAGA_SALT_SHARD_MESSAGE = `${GRAY} You charmed ` + "${mobNameText}" + `${GRAY} and captured its ${BLUE}Shard${GRAY}.`;
+
+// &d&lSALT&7 You charmed a &aEnt&7 and captured &92 Shards &7from it.
+// &5&lCHARM&7 You charmed a &aFlaming Spider&7 and captured &92 Shards &§7from it.&r
+// &d&lSALT&7 You charmed a &fTadgang&7 and captured &92 Shards &7from it.
+export const CHARM_NAGA_SALT_SHARDS_MESSAGE = `${GRAY} You charmed ` + "${mobNameText}" + `${GRAY} and captured ${BLUE}` + "${shardsCount}" + ` Shards ${GRAY}from it.`;
 
 export const USE_BAITS_FROM_FISHING_BAG_DISABLED = `${RESET}${RED}Use Baits From Bag is now disabled!${RESET}`;
 export const USE_BAITS_FROM_FISHING_BAG_ENABLED = `${RESET}${GREEN}Use Baits From Bag is now enabled!${RESET}`;
@@ -188,16 +205,19 @@ export const ALL_CATCHES_TRIGGERS = [
         trigger: WATER_HYDRA_MESSAGE,
         seaCreature: `Water Hydra`,
         rarityColorCode: LEGENDARY,
+        isRare: true,
     },
     {
         trigger: THE_LOCH_EMPEROR_MESSAGE,
         seaCreature: `The Loch Emperor`,
         rarityColorCode: LEGENDARY,
+        isRare: true,
     },
     {
         trigger: CARROT_KING_MESSAGE,
         seaCreature: `Carrot King`,
         rarityColorCode: RARE,
+        isRare: true,
     },
     {
         trigger: SQUID_MESSAGE,
@@ -264,6 +284,7 @@ export const ALL_CATCHES_TRIGGERS = [
         trigger: GREAT_WHITE_SHARK_MESSAGE,
         seaCreature: `Great White Shark`,
         rarityColorCode: LEGENDARY,
+        isRare: true,
     },
     {
         trigger: NURSE_SHARK_MESSAGE,
@@ -285,16 +306,19 @@ export const ALL_CATCHES_TRIGGERS = [
         trigger: YETI_MESSAGE,
         seaCreature: `Yeti`,
         rarityColorCode: LEGENDARY,
+        isRare: true,
     },
     {
         trigger: REINDRAKE_MESSAGE,
         seaCreature: `Reindrake`,
         rarityColorCode: MYTHIC,
+        isRare: true,
     },
     {
         trigger: NUTCRACKER_MESSAGE,
         seaCreature: `Nutcracker`,
         rarityColorCode: RARE,
+        isRare: true,
     },
     {
         trigger: FROZEN_STEVE_MESSAGE,
@@ -316,11 +340,13 @@ export const ALL_CATCHES_TRIGGERS = [
         trigger: PHANTOM_FISHER_MESSAGE,
         seaCreature: `Phantom Fisher`,
         rarityColorCode: LEGENDARY,
+        isRare: true,
     },
     {
         trigger: GRIM_REAPER_MESSAGE,
         seaCreature: `Grim Reaper`,
         rarityColorCode: LEGENDARY,
+        isRare: true,
     },
     {
         trigger: SCARECROW_MESSAGE,
@@ -387,26 +413,31 @@ export const ALL_CATCHES_TRIGGERS = [
         trigger: FIERY_SCUTTLER_MESSAGE,
         seaCreature: `Fiery Scuttler`,
         rarityColorCode: LEGENDARY,
+        isRare: true,
     },
     {
         trigger: THUNDER_MESSAGE,
         seaCreature: `Thunder`,
         rarityColorCode: MYTHIC,
+        isRare: true,
     },
     {
         trigger: LORD_JAWBUS_MESSAGE,
         seaCreature: `Lord Jawbus`,
         rarityColorCode: MYTHIC,
+        isRare: true,
     },
     {
         trigger: PLHLEGBLAST_MESSAGE,
         seaCreature: `Plhlegblast`,
         rarityColorCode: MYTHIC,
+        isRare: true,
     },
     {
         trigger: RAGNAROK_MESSAGE,
         seaCreature: `Ragnarok`,
         rarityColorCode: MYTHIC,
+        isRare: true,
     },
     // OASIS SEA CREATURES
     {
@@ -424,6 +455,7 @@ export const ALL_CATCHES_TRIGGERS = [
         trigger: ABYSSAL_MINER_MESSAGE,
         seaCreature: `Abyssal Miner`,
         rarityColorCode: LEGENDARY,
+        isRare: true,
     },
     {
         trigger: WATER_WORM_MESSAGE,
@@ -511,23 +543,32 @@ export const ALL_CATCHES_TRIGGERS = [
         trigger: ALLIGATOR_MESSAGE,
         seaCreature: `Alligator`,
         rarityColorCode: LEGENDARY,
+        isRare: true,
     },
     {
         trigger: BLUE_RINGED_OCTOPUS_MESSAGE,
         seaCreature: `Blue Ringed Octopus`,
         rarityColorCode: LEGENDARY,
+        isRare: true,
     },
     {
         trigger: WIKI_TIKI_MESSAGE,
         seaCreature: `Wiki Tiki`,
         rarityColorCode: MYTHIC,
+        isRare: true,
     },
     {
         trigger: TITANOBOA_MESSAGE,
         seaCreature: `Titanoboa`,
         rarityColorCode: MYTHIC,
+        isRare: true,
     },
     // GALATEA SEA CREATURES
+    {
+        trigger: BOGGED_MESSAGE,
+        seaCreature: `Bogged`,
+        rarityColorCode: COMMON,
+    },
     {
         trigger: TADGANG_MESSAGE,
         seaCreature: `Tadgang`,
@@ -549,6 +590,13 @@ export const ALL_CATCHES_TRIGGERS = [
         rarityColorCode: RARE,
     },
 ];
+
+export const VANQUISHER_CATCH_TRIGGER = {
+    trigger: VANQUISHER_MESSAGE,
+    seaCreature: `Vanquisher`,
+    rarityColorCode: EPIC,
+    isRare: true
+};
 
 export const RARE_CATCH_TRIGGERS = [
     {
@@ -698,7 +746,7 @@ export const RARE_CATCH_TRIGGERS = [
     },
 ];
 
-export const RARE_DROP_TRIGGERS = [
+export const PET_DROP_TRIGGERS = [
     {
         trigger: BABY_YETI_PET_LEG_MESSAGE,
         itemId: 'BABY_YETI;4',
@@ -750,16 +798,6 @@ export const RARE_DROP_TRIGGERS = [
         shouldTrackDropNumber: true,
     },
     {
-        trigger: LUCKY_CLOVER_CORE_MESSAGE,
-        itemId: 'PET_ITEM_LUCKY_CLOVER_DROP',
-        itemName: drops.LUCKY_CLOVER_CORE,
-        sound: sounds.OH_MY_GOD_SOUND_SOURCE,
-        isMessageEnabledSettingKey: 'messageOnLuckyCloverCoreDrop',
-        isAlertEnabledSettingKey: 'alertOnLuckyCloverCoreDrop',
-        rarityColorCode: EPIC,
-        shouldTrackDropNumber: true,
-    },
-    {
         trigger: MEGALODON_PET_LEG_MESSAGE,
         itemId: 'MEGALODON;4',
         itemName: drops.MEGALODON_PET + ' (Legendary)',
@@ -776,6 +814,19 @@ export const RARE_DROP_TRIGGERS = [
         sound: sounds.AUGH_SOUND_SOURCE,
         isMessageEnabledSettingKey: 'messageOnMegalodonPetDrop',
         isAlertEnabledSettingKey: 'alertOnMegalodonPetDrop',
+        rarityColorCode: EPIC,
+        shouldTrackDropNumber: true,
+    },
+];
+
+export const RARE_DROP_TRIGGERS = [
+    {
+        trigger: LUCKY_CLOVER_CORE_MESSAGE,
+        itemId: 'PET_ITEM_LUCKY_CLOVER_DROP',
+        itemName: drops.LUCKY_CLOVER_CORE,
+        sound: sounds.OH_MY_GOD_SOUND_SOURCE,
+        isMessageEnabledSettingKey: 'messageOnLuckyCloverCoreDrop',
+        isAlertEnabledSettingKey: 'alertOnLuckyCloverCoreDrop',
         rarityColorCode: EPIC,
         shouldTrackDropNumber: true,
     },

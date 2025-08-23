@@ -38,7 +38,7 @@ const CRAFTABLES = [
     },
     {
         baseItemId: 'THUNDER_SHARDS',
-        baseItemName:  `${EPIC}Thunder Shards`,
+        baseItemName:  `${EPIC}Thunder Fragment`,
         items: [
             {
                 itemId: 'THUNDER_HELMET',
