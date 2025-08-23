@@ -5,10 +5,10 @@
 Released: ???
 
 Features:
--
+- Reworked Attribute Shard functionality to highlight obsolete attributes in gray color. Abbreviations are not rendered on new Shards anymore.
 
 Bugfixes:
--
+- Removed Shredded Line rare drop alert, because Hypixel always shows it by default.
 
 ## v1.48.0
 

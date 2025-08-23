@@ -1083,7 +1083,6 @@ export const FISHING_PROFIT_ITEMS = [
         itemName: 'Shredded Line',
         itemDisplayName: `${RARE}Shredded Line`,
         npcPrice: 250000,
-        shouldAnnounceRareDrop: true
     },
     {
         itemId: 'FLYING_FISH;2',

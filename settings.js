@@ -1649,73 +1649,16 @@ ${GRAY}Do ${AQUA}/feeshResetProfitTracker${GRAY} to reset.`,
 
 .addSwitch({
     category: "Items and storages",
-    configName: "showAttributesOnFishingGear",
-    title: "Fishing gear attributes",
-    description: "Render attributes name and level as short abbreviations, for Thunder/Magma Lord/Lava Sea Creature armor and equipment.",
-    subcategory: "Attributes"
-})
-.addTextInput({
-    category: "Items and storages",
-    configName: "accentedAttributesOnFishingGear",
-    title: "Accented fishing gear attributes",
-    description: "Render attributes from this list using another color. Use lower_case_with_underscore to specify an attribute code, and comma as a separator to specify multiple.",
-    value: "blazing_fortune,magic_find,fishing_experience",
-    placeHolder: "",
-    subcategory: "Attributes"
-})
-.addSwitch({
-    category: "Items and storages",
-    configName: "showAttributesOnFishingRod",
-    title: "Fishing rod attributes",
-    description: "Render attributes name and level as short abbreviations, for lava fishing rods.",
-    subcategory: "Attributes"
-})
-.addTextInput({
-    category: "Items and storages",
-    configName: "accentedAttributesOnFishingRod",
-    title: "Accented fishing rod attributes",
-    description: "Render attributes from this list using another color. Use lower_case_with_underscore to specify an attribute code, and comma as a separator to specify multiple.",
-    value: "double_hook,fishing_speed,trophy_hunter,fisherman",
-    placeHolder: "",
-    subcategory: "Attributes"
-})
-.addSwitch({
-    category: "Items and storages",
-    configName: "showAttributesOnShard",
-    title: "Attribute Shard attributes",
-    description: "Render attribute name and level as short abbreviations, for Attribute Shards.",
-    subcategory: "Attributes"
-})
-.addTextInput({
-    category: "Items and storages",
-    configName: "accentedAttributesOnShard",
-    title: "Accented Attribute Shard attributes",
-    description: "Render attributes from this list using another color. Use lower_case_with_underscore to specify an attribute code, and comma as a separator to specify multiple.",
-    value: "magic_find,veteran,vitality,dominance,mana_pool,mana_regeneration,lifeline,blazing_fortune,magic_find,fishing_experience",
-    placeHolder: "",
-    subcategory: "Attributes"
-})
-.addSwitch({
-    category: "Items and storages",
-    configName: "showAttributesOnEverythingElse",
-    title: "Attributes on everything else",
-    description: "Render attributes name and level as short abbreviations, for every other gear that has attributes.",
-    subcategory: "Attributes"
-})
-.addTextInput({
-    category: "Items and storages",
-    configName: "accentedAttributesOnEverythingElse",
-    title: "Accented attributes for everything else",
-    description: "Render attributes from this list using another color. Use lower_case_with_underscore to specify an attribute code, and comma as a separator to specify multiple.",
-    value: "magic_find,veteran,vitality,dominance,mana_pool,mana_regeneration,lifeline",
-    placeHolder: "",
+    configName: "showObsoleteAttributes",
+    title: "Obsolete attributes",
+    description: "Render obsolete inactive attributes name and level as short abbreviations for any item which has it.",
     subcategory: "Attributes"
 })
 .addTextInput({
     category: "Items and storages",
     configName: "showAttributesIgnoredItems",
     title: "Ignored items",
-    description: "Do not render attributes on items from this list. Specify base item name, and comma as a separator to specify multiple.\nExample: Staff of the Volcano,Blade of the Volcano,Fire Fury Staff,Fire Veil Wand,Ragnarock Axe",
+    description: "Do not render attributes on items from this list. Specify base item name, and comma as a separator to specify multiple.\nExample: Staff of the Volcano,Blade of the Volcano,Fire Fury Staff,Fire Veil Wand,Ragnarock",
     value: "",
     placeHolder: "",
     subcategory: "Attributes"
