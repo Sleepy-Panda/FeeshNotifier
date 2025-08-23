@@ -1,8 +1,18 @@
 # Releases
 
-## v1.48.0
+## v1.49.0
 
 Released: ???
+
+Features:
+-
+
+Bugfixes:
+-
+
+## v1.48.0
+
+Released: 2025-08-23
 
 Features:
 - Adjusted module to the Foraging Changes & Mob Types SB update:
