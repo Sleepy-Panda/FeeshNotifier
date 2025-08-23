@@ -72,6 +72,16 @@ registerIf(
 );
 
 registerIf(
+    register("Chat", (mobNameText, event) => onShardsCharmed(mobNameText, 1)).setCriteria(triggers.CHARM_NAGA_SALT_SHARD_MESSAGE).setContains(),
+    () => settings.fishingProfitTrackerOverlay && isInSkyblock() && isInFishingWorld(getWorldName())
+);
+
+registerIf(
+    register("Chat", (mobNameText, shardsCount, event) => onShardsCharmed(mobNameText, +(shardsCount.removeFormatting()))).setCriteria(triggers.CHARM_NAGA_SALT_SHARDS_MESSAGE).setContains(),
+    () => settings.fishingProfitTrackerOverlay && isInSkyblock() && isInFishingWorld(getWorldName())
+);
+
+registerIf(
     register("Chat", (petDisplayName, level, event) => onPetReachedMaxLevel(+level, petDisplayName))
         .setCriteria(triggers.PET_LEVEL_UP_MESSAGE)
         .setContains(),
@@ -414,6 +424,27 @@ function onShardCaughtInBlackHole(shardsText) {
     } catch (e) {
 		console.error(e);
 		console.log(`[FeeshNotifier] [ProfitTracker] Failed to track Shard caught in Black Hole.`);
+	}
+}
+
+/**
+ * 
+ * @param {string} mobNameText "a &fSea Archer", "an &aEnt"
+ * @param {number} shardsCount Charmed shards count to add to the tracker
+ */
+function onShardsCharmed(mobNameText, shardsCount) {
+    try {
+        if (!isTrackerVisible() || !mobNameText || !shardsCount || !isSessionActive) return;
+
+        const [article, ...mobNameParts] = mobNameText.removeFormatting().split(' ');
+        const shardName = mobNameParts.join(' ') + ' Shard';
+
+        refreshItemData(i => i.itemName === shardName, shardsCount);
+        refreshPrices();
+        refreshOverlay();
+    } catch (e) {
+		console.error(e);
+		console.log(`[FeeshNotifier] [ProfitTracker] Failed to track charmed Shard.`);
 	}
 }
 

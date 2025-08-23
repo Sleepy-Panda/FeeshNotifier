@@ -1,8 +1,18 @@
 # Releases
 
-## v1.48.0
+## v1.49.0
 
 Released: ???
+
+Features:
+-
+
+Bugfixes:
+-
+
+## v1.48.0
+
+Released: 2025-08-23
 
 Features:
 - Adjusted module to the Foraging Changes & Mob Types SB update:
@@ -11,6 +21,7 @@ Features:
   - Adjusted to the change that all shards now have "Shard" in their name.
   - Renamed Sea Archer Shard => Bogged Shard, Sea Emperor Shard => Loch Emperor Shard, Thunder Shards => Thunder Fragment.
   - Added Bogged sea creature.
+- Added charmed shards to the Fishing Profit Tracker.
 - Rare catches tracker is reworked into Sea creatures tracker:
   - It tracks all caught sea creatures now.
   - Only rare sea creatures are shown by default, you can change it in settings to show all.
