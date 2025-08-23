@@ -5,7 +5,9 @@
 Released: ???
 
 Features:
-- Reworked Attribute Shard functionality to highlight obsolete attributes in gray color. Abbreviations are not rendered on new Shards anymore.
+- Reworked Attribute Shard functionality to highlight obsolete attributes on all items in gray color. Abbreviations are not rendered on new Shards anymore.
+  - Needs to be re-enabled in settings!
+- Added Moby-Duck remaining time overlay.
 
 Bugfixes:
 - Removed Shredded Line rare drop alert, because Hypixel always shows it by default.
