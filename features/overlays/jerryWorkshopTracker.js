@@ -26,11 +26,11 @@ const TRACKED_SEA_CREATURES = [
 
 const TRACKED_DROPS = [
     {
-        dropInfo: triggers.RARE_DROP_TRIGGERS.find(entry => entry.trigger === triggers.BABY_YETI_PET_EPIC_MESSAGE),
+        dropInfo: triggers.PET_DROP_TRIGGERS.find(entry => entry.trigger === triggers.BABY_YETI_PET_EPIC_MESSAGE),
         callback: () => trackEpicBabyYetiPetDrop(),
     },
     {
-        dropInfo: triggers.RARE_DROP_TRIGGERS.find(entry => entry.trigger === triggers.BABY_YETI_PET_LEG_MESSAGE),
+        dropInfo: triggers.PET_DROP_TRIGGERS.find(entry => entry.trigger === triggers.BABY_YETI_PET_LEG_MESSAGE),
         callback: () => trackLegendaryBabyYetiPetDrop(),
     },
 ];
@@ -51,7 +51,7 @@ TRACKED_SEA_CREATURES.forEach(entry => {
 
 TRACKED_DROPS.forEach(entry => {
     registerIf(
-        register("Chat", (magicFind, event) => entry.callback()).setCriteria(entry.dropInfo.trigger).setContains(),
+        register("Chat", (event) => entry.callback()).setCriteria(entry.dropInfo.trigger).setContains(),
         () => settings.jerryWorkshopTrackerOverlay && isInSkyblock() && getWorldName() === JERRY_WORKSHOP
     );
 });

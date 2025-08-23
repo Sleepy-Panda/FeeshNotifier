@@ -44,6 +44,46 @@ triggers.RARE_DROP_TRIGGERS.forEach(entry => {
     ).setCriteria(getPartyChatMessage(getDropMessagePattern(entry.itemName)));
 });
 
+// Pet drop messages do not have magic find in the message
+triggers.PET_DROP_TRIGGERS.forEach(entry => {
+    // Triggers on original "all chat" drop message sent by Hypixel.
+    register(
+        "Chat",
+        (event) => {
+            playAlertOnDrop({
+                itemName: entry.itemName,
+                rarityColorCode: entry.rarityColorCode,
+                sound: entry.sound,
+                isEnabled: settings[entry.isAlertEnabledSettingKey],
+                player: getColoredPlayerNameFromDisplayName(),
+                suppressIfSamePlayer: false
+            });
+
+            sendMessageOnDrop({
+                itemId: entry.itemId,
+                itemName: entry.itemName,
+                rarityColorCode: entry.rarityColorCode,
+                magicFind: null,
+                shouldTrackDropNumber: entry.shouldTrackDropNumber,
+                isEnabled: settings[entry.isMessageEnabledSettingKey]
+            });
+        }
+    ).setCriteria(entry.trigger).setContains();
+
+    // Triggers on automated party chat message sent by the module.
+    register(
+        "Chat",
+        (rankAndPlayer, event) => playAlertOnDrop({
+            itemName: entry.itemName,
+            rarityColorCode: entry.rarityColorCode,
+            sound: entry.sound,
+            isEnabled: settings[entry.isAlertEnabledSettingKey],
+            player: getColoredPlayerNameFromPartyChat(rankAndPlayer),
+            suppressIfSamePlayer: true
+        })
+    ).setCriteria(getPartyChatMessage(getDropMessagePattern(entry.itemName)));
+});
+
 // Great/Outstanding catch messages do not have magic find in the message
 triggers.OUTSTANDING_CATCH_TRIGGERS.forEach(entry => {
     // Triggers on original "all chat" drop message sent by Hypixel.

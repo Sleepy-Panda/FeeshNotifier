@@ -6,7 +6,7 @@ export const allOverlaysGui = new Gui(); // Sample overlays GUI to move/resize t
 
 export const totemRemainingTimeOverlayGui = new Gui();
 export const flareRemainingTimeOverlayGui = new Gui();
-export const rareCatchesTrackerOverlayGui = new Gui();
+export const seaCreaturesTrackerOverlayGui = new Gui();
 export const seaCreaturesHpOverlayGui = new Gui();
 export const seaCreaturesCountOverlayGui = new Gui();
 export const seaCreaturesPerHourTrackerOverlayGui = new Gui();
@@ -1017,37 +1017,71 @@ const config = new DefaultConfig("FeeshNotifier", "config/settings.json")
 
 .addSwitch({
     category: "Overlays",
-    configName: "rareCatchesTrackerOverlay",
-    title: "Rare catches tracker",
-    description: `Shows an overlay with the statistics of rare sea creatures caught, and frequency of double hooking them.\nDo ${AQUA}/feeshResetRareCatches${GRAY} to reset.`,
-    subcategory: "Rare catches",
+    configName: "seaCreaturesTrackerOverlay",
+    title: "Sea creatures tracker",
+    description: `Shows an overlay with the overview of the sea creatures caught, and different related statistics.\nDo ${AQUA}/feeshResetSeaCreatures${GRAY} to reset.`,
+    subcategory: "Sea creatures",
+    value: true
+})
+.addDropDown({
+    category: "Overlays",
+    configName: "seaCreaturesTrackerMode",
+    title: "Sea creatures tracker display mode",
+    description: `Setups whether to hide regular sea creatures in the overlay, showing just rare ones. All sea creatures are tracked regardless this setting.`,
+    options: [ "Only rare", "All" ],
+    subcategory: "Sea creatures",
+    value: 0
+})
+.addSwitch({
+    category: "Overlays",
+    configName: "showSeaCreaturesPercentage",
+    title: "Show sea creatures percentage",
+    description: `Show statistics with a percentage for each sea creature. It is not shown when in the "Onle rare sea creatures" mode.`,
+    subcategory: "Sea creatures",
     value: true
 })
 .addSwitch({
     category: "Overlays",
-    configName: "resetRareCatchesTrackerOnGameClosed",
+    configName: "showSeaCreaturesDoubleHookStatistics",
+    title: "Show double hook statistics",
+    description: `Show statistics how often the sea creatures were double hooked.`,
+    subcategory: "Sea creatures",
+    value: true
+})
+.addDropDown({
+    category: "Overlays",
+    configName: "seaCreaturesTrackerSorting",
+    title: "Sea creatures sorting",
+    description: "Setups sorting order for the sea creatures.",
+    options: [ "Catches count (desc)", "Catches count (asc)" ],
+    value: 0,
+    subcategory: "Sea creatures"
+})
+.addSwitch({
+    category: "Overlays",
+    configName: "resetSeaCreaturesTrackerOnGameClosed",
     title: "Reset on closing game",
-    description: "Automatically reset the rare catches tracker when you close Minecraft or reload CT modules.",
-    subcategory: "Rare catches"
+    description: "Automatically reset the Sea creatures tracker when you close Minecraft or reload CT modules.",
+    subcategory: "Sea creatures"
 })
 .addButton({
     category: "Overlays",
-    configName: "moveRareCatchesTrackerOverlay",
-    title: "Move rare catches tracker",
+    configName: "moveSeaCreaturesTrackerOverlay",
+    title: "Move Sea creatures tracker",
     description: "Allows to move and resize the overlay text.",
-    subcategory: "Rare catches",
+    subcategory: "Sea creatures",
     onClick() {
-        moveOverlay(rareCatchesTrackerOverlayGui);
+        moveOverlay(seaCreaturesTrackerOverlayGui);
     }
 })
 .addButton({
     category: "Overlays",
-    configName: "resetRareCatchesTracker",
-    title: "Reset rare catches tracker",
-    description: `Resets tracking for rare catches tracker. Executes ${AQUA}/feeshResetRareCatches`,
-    subcategory: "Rare catches",
+    configName: "resetSeaCreaturesTracker",
+    title: "Reset Sea creatures tracker",
+    description: `Resets tracking for Sea creatures tracker. Executes ${AQUA}/feeshResetSeaCreatures`,
+    subcategory: "Sea creatures",
     onClick() {
-        ChatLib.command("feeshResetRareCatches noconfirm", true);
+        ChatLib.command("feeshResetSeaCreatures noconfirm", true);
     }
 })
 
@@ -1587,73 +1621,16 @@ ${GRAY}Do ${AQUA}/feeshResetProfitTracker${GRAY} to reset.`,
 
 .addSwitch({
     category: "Items and storages",
-    configName: "showAttributesOnFishingGear",
-    title: "Fishing gear attributes",
-    description: "Render attributes name and level as short abbreviations, for Thunder/Magma Lord/Lava Sea Creature armor and equipment.",
-    subcategory: "Attributes"
-})
-.addTextInput({
-    category: "Items and storages",
-    configName: "accentedAttributesOnFishingGear",
-    title: "Accented fishing gear attributes",
-    description: "Render attributes from this list using another color. Use lower_case_with_underscore to specify an attribute code, and comma as a separator to specify multiple.",
-    value: "blazing_fortune,magic_find,fishing_experience",
-    placeHolder: "",
-    subcategory: "Attributes"
-})
-.addSwitch({
-    category: "Items and storages",
-    configName: "showAttributesOnFishingRod",
-    title: "Fishing rod attributes",
-    description: "Render attributes name and level as short abbreviations, for lava fishing rods.",
-    subcategory: "Attributes"
-})
-.addTextInput({
-    category: "Items and storages",
-    configName: "accentedAttributesOnFishingRod",
-    title: "Accented fishing rod attributes",
-    description: "Render attributes from this list using another color. Use lower_case_with_underscore to specify an attribute code, and comma as a separator to specify multiple.",
-    value: "double_hook,fishing_speed,trophy_hunter,fisherman",
-    placeHolder: "",
-    subcategory: "Attributes"
-})
-.addSwitch({
-    category: "Items and storages",
-    configName: "showAttributesOnShard",
-    title: "Attribute Shard attributes",
-    description: "Render attribute name and level as short abbreviations, for Attribute Shards.",
-    subcategory: "Attributes"
-})
-.addTextInput({
-    category: "Items and storages",
-    configName: "accentedAttributesOnShard",
-    title: "Accented Attribute Shard attributes",
-    description: "Render attributes from this list using another color. Use lower_case_with_underscore to specify an attribute code, and comma as a separator to specify multiple.",
-    value: "magic_find,veteran,vitality,dominance,mana_pool,mana_regeneration,lifeline,blazing_fortune,magic_find,fishing_experience",
-    placeHolder: "",
-    subcategory: "Attributes"
-})
-.addSwitch({
-    category: "Items and storages",
-    configName: "showAttributesOnEverythingElse",
-    title: "Attributes on everything else",
-    description: "Render attributes name and level as short abbreviations, for every other gear that has attributes.",
-    subcategory: "Attributes"
-})
-.addTextInput({
-    category: "Items and storages",
-    configName: "accentedAttributesOnEverythingElse",
-    title: "Accented attributes for everything else",
-    description: "Render attributes from this list using another color. Use lower_case_with_underscore to specify an attribute code, and comma as a separator to specify multiple.",
-    value: "magic_find,veteran,vitality,dominance,mana_pool,mana_regeneration,lifeline",
-    placeHolder: "",
+    configName: "showObsoleteAttributes",
+    title: "Obsolete attributes",
+    description: "Render obsolete inactive attributes name and level as short abbreviations for any item which has it.",
     subcategory: "Attributes"
 })
 .addTextInput({
     category: "Items and storages",
     configName: "showAttributesIgnoredItems",
     title: "Ignored items",
-    description: "Do not render attributes on items from this list. Specify base item name, and comma as a separator to specify multiple.\nExample: Staff of the Volcano,Blade of the Volcano,Fire Fury Staff,Fire Veil Wand,Ragnarock Axe",
+    description: "Do not render attributes on items from this list. Specify base item name, and comma as a separator to specify multiple.\nExample: Staff of the Volcano,Blade of the Volcano,Fire Fury Staff,Fire Veil Wand,Ragnarock",
     value: "",
     placeHolder: "",
     subcategory: "Attributes"

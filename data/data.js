@@ -1,8 +1,16 @@
 import PogObject from "PogData";
 
 export const persistentData = new PogObject("FeeshNotifier", {
-    "rareCatches": {},
-    "totalRareCatches": 0,
+    "seaCreatures": {
+        "session": {
+            "catches": {},
+            "totalCount": 0,
+        },
+        "total": {
+            "catches": {},
+            "totalCount": 0,
+        },
+    },
     "crimsonIsle": {
         "fieryScuttler": {
             "catchesSinceLast": 0,
