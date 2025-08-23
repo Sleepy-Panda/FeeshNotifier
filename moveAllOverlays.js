@@ -33,7 +33,7 @@ const SAMPLE_GUIS = [
     {
         toggleSettingKey: 'consumablesRemainingTimeOverlay',
         guiSettings: overlayCoordsData.consumablesRemainingTimeOverlay,
-        sampleText: `${DARK_PURPLE}Moby-Duck: ${WHITE}51m 58s`,
+        sampleText: `${DARK_PURPLE}Moby-Duck: ${WHITE}51m`,
         isActive: false,
         width: 0,
         height: 0
