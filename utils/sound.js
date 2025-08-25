@@ -4,7 +4,7 @@ import { OFF_SOUND_MODE } from "../constants/sounds";
 let rareDropSoundLastPlayedAt = null;
 
 export function playMcSound(name, volume = 1, pitch = 1) {
-    World.playSound(name, volume, pitch)
+    World.playSound(name, volume, pitch);
 }
 
 // https://minecraft.fandom.com/wiki/Note_Block

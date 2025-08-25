@@ -1,7 +1,6 @@
 import Settings from "../Amaterasu/core/Settings";
 import DefaultConfig from "../Amaterasu/core/DefaultConfig";
 import { AQUA, GOLD, GRAY, RED, WHITE, BLUE, DARK_GRAY, RESET, BOLD, LIGHT_PURPLE, YELLOW } from "./constants/formatting";
-import { playMcSound } from "./utils/sound";
 
 export const allOverlaysGui = new Gui(); // Sample overlays GUI to move/resize them all at once
 
@@ -1837,7 +1836,7 @@ const setting = new Settings("FeeshNotifier", config, "data/ColorScheme.json", `
     .setPos(0.0001, 0.0001) // Weird but if set to 0 it applies default value = 20 or so
     .setSize(100, 100)
     .onOpenGui(() => setting.searchBar._focusSearch())
-    .setClickSound(() => playMcSound("gui.button.press", 0.25, 1))
+    .setClickSound(() => World.playSound("gui.button.press", 0.25, 1))
     .apply();
 
 export default setting.settings;
