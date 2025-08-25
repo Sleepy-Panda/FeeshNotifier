@@ -11,10 +11,10 @@ const BOOK_NAMES_TO_HIGHLIGHT = [
     'SPIKED_HOOK_6'
 ];
 
-registerIf(
-    register('renderSlot', (slot, gui, event) => highlightCheapBooks(slot, gui)),
-    () => settings.highlightCheapBooks && isInSkyblock()
-);
+//registerIf(
+//    register('renderSlot', (slot, gui, event) => highlightCheapBooks(slot, gui)),
+//    () => settings.highlightCheapBooks && isInSkyblock()
+//);
 
 function highlightCheapBooks(slot, gui) {
     if (!settings.highlightCheapBooks || !isInSkyblock()) {

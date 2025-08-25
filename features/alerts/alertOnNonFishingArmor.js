@@ -12,10 +12,10 @@ register("worldUnload", () => {
     lastHookDetectedAt = null; 
 });
 
-registerIf(
-    register(net.minecraftforge.event.entity.EntityJoinWorldEvent, (event) => alertOnNonFishingArmor(event)),
-    () => settings.alertOnNonFishingArmor && isInSkyblock() && isInFishingWorld(getWorldName())
-);
+//registerIf(
+//    register(net.minecraftforge.event.entity.EntityJoinWorldEvent, (event) => alertOnNonFishingArmor(event)),
+//    () => settings.alertOnNonFishingArmor && isInSkyblock() && isInFishingWorld(getWorldName())
+//);
 
 function alertOnNonFishingArmor(event) {
     try {
@@ -47,7 +47,7 @@ function alertOnNonFishingArmor(event) {
             Client.showTitle(`${RED}Equip fishing armor!`, '', 1, 25, 1);
     
             if (settings.soundMode !== OFF_SOUND_MODE) {
-                World.playSound('random.orb', 1, 1);
+                new Sound({ source: 'random.orb', volume: 1, pitch: 1 }).play();
             }
         }, 1000);    
     } catch (e) {

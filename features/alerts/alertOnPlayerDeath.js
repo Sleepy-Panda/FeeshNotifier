@@ -32,7 +32,7 @@ function playAlertOnPlayerDeath(player) {
 		Client.showTitle(title, 'Wait for them to come back', 1, 30, 1);
 	
 		if (settings.soundMode !== OFF_SOUND_MODE) {
-            World.playSound('mob.villager.death', 1, 1);
+			new Sound({ source: 'mob.villager.death', volume: 1, pitch: 1 }).play()
         }
 	} catch (e) {
 		console.error(e);

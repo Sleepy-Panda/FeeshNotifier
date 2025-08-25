@@ -25,7 +25,7 @@ function playAlertOnPetLevelUp(level, petDisplayName) {
 		Client.showTitle(`${petDisplayName} ${RESET}is maxed`, `Level ${BLUE}${level}`, 1, 30, 1);
 	
 		if (settings.soundMode !== OFF_SOUND_MODE) {
-            World.playSound('random.orb', 1, 1);
+            new Sound({ source: 'random.orb', volume: 1, pitch: 1 }).play();
         }
 	} catch (e) {
 		console.error(e);

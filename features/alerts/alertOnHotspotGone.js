@@ -70,6 +70,6 @@ function playAlert(perk) {
     ChatLib.chat(`${GOLD}[FeeshNotifier] ${perk} ${RESET}${LIGHT_PURPLE}Hotspot ${WHITE}is gone, time to find another one!`);
         
     if (settings.soundMode !== OFF_SOUND_MODE) {
-        World.playSound('random.orb', 1, 1);
+        new Sound({ source: 'random.orb', volume: 1, pitch: 1 }).play();
     }
 }

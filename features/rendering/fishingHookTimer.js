@@ -23,7 +23,7 @@ registerIf(
 );
 
 registerIf(
-    register("renderEntity", (entity, position, partialTick, event) => cancelHypixelFishingHookTimer(entity, event)),
+    register("renderEntity", (entity, partialTick, event) => cancelHypixelFishingHookTimer(entity, event)),
     () => settings.renderFishingHookTimer && isInSkyblock() && isInFishingWorld(getWorldName())
 );
 

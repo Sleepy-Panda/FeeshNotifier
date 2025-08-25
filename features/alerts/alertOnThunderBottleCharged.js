@@ -24,7 +24,7 @@ function playAlertOnBottleCharged(bottleName) {
 		Client.showTitle(`${AQUA}${bottleName} is full`, '', 1, 30, 1);
 	
 		if (settings.soundMode !== OFF_SOUND_MODE) {
-            World.playSound('random.orb', 1, 1);
+            new Sound({ source: 'random.orb', volume: 1, pitch: 1 }).play();
         }
 	} catch (e) {
 		console.error(e);

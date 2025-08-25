@@ -351,7 +351,7 @@ function trackRegularSeaCreatureCatch() {
                     new Sound(SAD_TROMBONE_SOUND_SOURCE).play();
                     break;
                 case NORMAL_SOUND_MODE:
-                    World.playSound('random.orb', 1, 1);
+                    new Sound({ source: 'random.orb', volume: 1, pitch: 1 }).play();
                     break;
                 default:
                     break;

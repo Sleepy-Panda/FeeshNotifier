@@ -18,7 +18,7 @@ const flareDistance = 40;
 
 // We check for interaction with a flare, to minimize triggering on other people flares & other types of firework rockets e.g. Bat Fireworks.
 registerIf(
-    register("playerInteract", (action, pos, event) => handleFlareInteraction(action)),
+    register("playerInteract", (action, obj, event) => handleFlareInteraction(action)),
     () => (settings.alertOnFlareExpiresSoon || settings.flareRemainingTimeOverlay) && isInSkyblock()
 );
 

@@ -26,7 +26,7 @@ registerIf(
 );
 
 registerIf(
-    register('guiOpened', (event) => onFishingBagOpened(event)),
+    register('guiOpened', (screen, event) => onFishingBagOpened(event)),
     () => settings.alertOnFishingBagDisabled && isInSkyblock()
 );
 
@@ -59,7 +59,7 @@ function alertOnFishingBagDisabled() {
         Client.showTitle(`${RED}Enable fishing bag!`, '', 1, 25, 1);
     
         if (settings.soundMode !== OFF_SOUND_MODE) {
-            World.playSound('random.orb', 1, 1);
+            new Sound({ source: 'random.orb', volume: 1, pitch: 1 }).play();
         }
 
         const message = new TextComponent(`${GOLD}[FeeshNotifier] ${WHITE}Using baits from Fishing Bag is disabled. Click to open Fishing Bag!`).setClick("run_command", `/fb`);

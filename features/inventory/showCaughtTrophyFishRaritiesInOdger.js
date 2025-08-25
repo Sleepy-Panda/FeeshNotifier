@@ -5,10 +5,10 @@ import { getLore } from "../../utils/common";
 import { isInSkyblock } from "../../utils/playerState";
 import { registerIf } from "../../utils/registers";
 
-registerIf(
-    register('renderSlot', (slot, gui, event) => showMissingTrophyFishRarities(slot, gui)),
-    () => settings.showCaughtTrophyFishRaritiesInOdger && isInSkyblock()
-);
+//registerIf(
+//    register('renderSlot', (slot, gui, event) => showMissingTrophyFishRarities(slot, gui)),
+//    () => settings.showCaughtTrophyFishRaritiesInOdger && isInSkyblock()
+//);
 
 function showMissingTrophyFishRarities(slot, gui) {
     if (!slot || !gui || !(gui instanceof net.minecraft.client.gui.inventory.GuiChest) || !settings.showCaughtTrophyFishRaritiesInOdger || !isInSkyblock()) {
