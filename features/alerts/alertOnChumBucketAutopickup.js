@@ -7,6 +7,7 @@ import { YELLOW } from "../../constants/formatting";
 import { getWorldName, isInSkyblock } from "../../utils/playerState";
 import { registerIf } from "../../utils/registers";
 import { isInFishingWorld } from "../../utils/common";
+import { playMcSound } from "../../utils/sound";
 
 let worldChangedAt = null;
 
@@ -32,7 +33,7 @@ export function playAlertOnBucketAutoPickup() {
 		Client.showTitle(`${YELLOW}Chum Bucket is gone`, '', 1, 30, 1);
 	
 		if (settings.soundMode !== OFF_SOUND_MODE) {
-            World.playSound('random.orb', 1, 1);
+            playMcSound('random.orb');
         }
 	} catch (e) {
 		console.error(e);

@@ -10,6 +10,7 @@ import { CRIMSON_ISLE, PLHLEGBLAST_POOL } from "../../constants/areas";
 import { MEME_SOUND_MODE, NORMAL_SOUND_MODE, SAD_TROMBONE_SOUND_SOURCE } from "../../constants/sounds";
 import { createButtonsDisplay, toggleButtonsDisplay, setSeaCreatureStatisticsOnCatch, getSeaCreatureStatisticsOverlayText, getDropStatisticsOverlayText, setDropStatisticsOnCatch, setDropStatisticsOnDrop, initDropCountOnOverlay } from "../../utils/overlays";
 import { registerIf } from "../../utils/registers";
+import { playMcSound } from "../../utils/sound";
 
 const TRACKED_SEA_CREATURES = [
     {
@@ -351,7 +352,7 @@ function trackRegularSeaCreatureCatch() {
                     new Sound(SAD_TROMBONE_SOUND_SOURCE).play();
                     break;
                 case NORMAL_SOUND_MODE:
-                    World.playSound('random.orb', 1, 1);
+                    playMcSound('random.orb');
                     break;
                 default:
                     break;

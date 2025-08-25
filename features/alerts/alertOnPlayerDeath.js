@@ -5,6 +5,7 @@ import { RED } from "../../constants/formatting";
 import { isInSkyblock } from "../../utils/playerState";
 import { getColoredPlayerNameFromPartyChat, getPartyChatMessage, getPlayerDeathMessage } from "../../utils/common";
 import { registerIf } from "../../utils/registers";
+import { playMcSound } from "../../utils/sound";
 
 triggers.KILLED_BY_TRIGGERS.forEach(entry => {
 	registerIf(
@@ -32,7 +33,7 @@ function playAlertOnPlayerDeath(player) {
 		Client.showTitle(title, 'Wait for them to come back', 1, 30, 1);
 	
 		if (settings.soundMode !== OFF_SOUND_MODE) {
-            World.playSound('mob.villager.death', 1, 1);
+            playMcSound('mob.villager.death');
         }
 	} catch (e) {
 		console.error(e);

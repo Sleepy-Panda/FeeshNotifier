@@ -3,6 +3,10 @@ import { OFF_SOUND_MODE } from "../constants/sounds";
 
 let rareDropSoundLastPlayedAt = null;
 
+export function playMcSound(name, volume = 1, pitch = 1) {
+    World.playSound(name, volume, pitch)
+}
+
 // https://minecraft.fandom.com/wiki/Note_Block
 // Pitches extracted via soundPlay register, and mapped to the table above
 // Hypixel plays same sounds twice with 0.4 and 0.8 volume
@@ -19,8 +23,8 @@ export function playRareDropSound() {
 
     const volume = 0.8;
 
-    World.playSound('note.pling', volume, Math.pow(2, -9 / 12));
-    setTimeout(() => World.playSound('note.pling', volume, Math.pow(2, -4 / 12)), 200);
-    setTimeout(() => World.playSound('note.pling', volume, Math.pow(2, 1 / 12)), 400);
-    setTimeout(() => World.playSound('note.pling', volume, Math.pow(2, 3 / 12)), 600);
+    playMcSound('note.pling', volume, Math.pow(2, -9 / 12));
+    setTimeout(() => playMcSound('note.pling', volume, Math.pow(2, -4 / 12)), 200);
+    setTimeout(() => playMcSound('note.pling', volume, Math.pow(2, 1 / 12)), 400);
+    setTimeout(() => playMcSound('note.pling', volume, Math.pow(2, 3 / 12)), 600);
 }

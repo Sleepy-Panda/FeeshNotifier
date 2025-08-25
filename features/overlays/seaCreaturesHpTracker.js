@@ -7,6 +7,7 @@ import { OFF_SOUND_MODE } from "../../constants/sounds";
 import { registerIf } from "../../utils/registers";
 import { getSeaCreaturesInRange } from "../../utils/entityDetection";
 import { getMcEntityById } from "../../utils/common";
+import { playMcSound } from "../../utils/sound";
 
 let mobs = [];
 
@@ -193,7 +194,7 @@ function trackSeaCreaturesHp() {
             settings.soundMode !== OFF_SOUND_MODE &&
             !addedMobNames.every(m => m.baseMobName === 'Reindrake') // Reindrake flies around and goes out of nametags render distance periodically, we don't need sound when detecting it
         ) {
-            World.playSound('random.orb', 0.75, 1);
+            playMcSound('random.orb', 0.75, 1);
         }
     
         mobs = currentMobs;
