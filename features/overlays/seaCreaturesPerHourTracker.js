@@ -5,7 +5,7 @@ import { overlayCoordsData } from "../../data/overlayCoords";
 import { formatElapsedTime, formatNumberWithSpaces, isDoubleHook, isInFishingWorld } from "../../utils/common";
 import { getLastFishingHookSeenAt, getWorldName, isInSkyblock } from '../../utils/playerState';
 import { registerIf } from "../../utils/registers";
-import { Overlay, OverlayButtonLine, OverlayTextLine } from "../../utils/overlays";
+import { LEFT_CLICK_TYPE, Overlay, OverlayButtonLine, OverlayTextLine } from "../../utils/overlays";
 
 let seaCreaturesPerHour = 0;
 let totalSeaCreaturesCaughtCount = 0;
@@ -160,6 +160,12 @@ function refreshOverlay() {
 
     overlay.addTextLine(new OverlayTextLine().setText(text));
 
-    overlay.addButtonLine(new OverlayButtonLine().setText(`${YELLOW}${BOLD}[Click to pause]`).setIsSmallerScale(true).setOnClick(LEFT_CLICK_TYPE, () => pauseSeaCreaturesPerHourTracker()));
-    overlay.addButtonLine(new OverlayButtonLine().setText(`${RED}${BOLD}[Click to reset]`).setIsSmallerScale(true).setOnClick(LEFT_CLICK_TYPE, () => resetSeaCreaturesPerHourTracker(false)));
+    overlay.addButtonLine(new OverlayButtonLine()
+        .setText(`${YELLOW}${BOLD}[Click to pause]`)
+        .setIsSmallerScale(true)
+        .setOnClick(LEFT_CLICK_TYPE, () => pauseSeaCreaturesPerHourTracker()));
+    overlay.addButtonLine(new OverlayButtonLine()
+        .setText(`${RED}${BOLD}[Click to reset]`)
+        .setIsSmallerScale(true)
+        .setOnClick(LEFT_CLICK_TYPE, () => resetSeaCreaturesPerHourTracker(false)));
 }
