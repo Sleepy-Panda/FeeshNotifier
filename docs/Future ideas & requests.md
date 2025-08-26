@@ -21,6 +21,7 @@
 - Profit tracker causes lags after a while (memory consumption grows)
 - [Bug] Some items are tracked by Fishing Profit Tracker when dropped, but drop was prevented by SB settings (basically it drops and picks up again).
 - [Bug] Trading with other players adds items to the profit trackers.
+- [Bug] Adding a Pet to tracker does not increase earned money.
 
 ## Deployables
 

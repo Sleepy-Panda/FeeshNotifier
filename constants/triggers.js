@@ -199,6 +199,10 @@ export const ARCHFIEND_DICE_ROLL_MESSAGE = `${RESET}${YELLOW}Your ${RESET}${DARK
 // &r&eYour &r&6High Class Archfiend Dice &r&erolled a &r&57&r&e!
 export const HIGH_CLASS_ARCHFIEND_DICE_ROLL_MESSAGE = `${RESET}${YELLOW}Your ${RESET}${GOLD}High Class Archfiend Dice ${RESET}${YELLOW}rolled a ${RESET}` + "${color}" + "${number}" + `${RESET}${YELLOW}!`;
 
+export const MOBY_DUCK_CONSUMED = `${RESET}${GRAY}You consumed a ${RESET}${DARK_PURPLE}Moby-Duck: Collector's Edition`; // &r&7You consumed a &r&5Moby-Duck: Collector's Edition &r&7and gained &r&3+30☯ Fishing Wisdom &r&7for &r&a60m&r&7!&r
+export const MOBY_DUCK_EXPIRING = `${RESET}${RED}Moby-Duck expires in ${RESET}${YELLOW}` + "${seconds}" + `s${RESET}${RED}${RESET}`; // &r&cMoby-Duck expires in &r&e10s&r&c&r
+export const MOBY_DUCK_EXPIRED = `${RESET}${RED}Moby-Duck has expired!${RESET}`; // &r&cMoby-Duck has expired!&r
+
 export const ALL_CATCHES_TRIGGERS = [
     // WATER SEA CREATURES
     {
