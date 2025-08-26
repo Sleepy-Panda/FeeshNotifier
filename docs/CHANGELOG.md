@@ -10,6 +10,9 @@ Features:
 Bugfixes:
 - 
 
+Other:
+- Refactored code playing sounds, to rely on a single reusable function. Used to easier migrate to Sound class later for CT 3.
+
 ## v1.49.0
 
 Released: 2025-08-26
