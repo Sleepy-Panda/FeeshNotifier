@@ -116,7 +116,6 @@ function trackSeaCreatureCatch() {
         lastSeaCreatureCaughtAt = new Date();
 
         refreshTrackerData();
-        refreshOverlay();
     } catch (e) {
         console.error(e);
         console.log(`[FeeshNotifier] [SeaCreaturesPerHour] Failed to track sea creature catch.`);
@@ -133,6 +132,8 @@ function refreshTrackerData() {
         seaCreaturesPerHour = elapsedHours
             ? Math.floor(totalSeaCreaturesCaughtCount / elapsedHours)
             : 0;
+
+        refreshOverlay();
     } catch (e) {
 		console.error(e);
 		console.log(`[FeeshNotifier] [SeaCreaturesPerHour] Failed to refresh tracker data.`);
