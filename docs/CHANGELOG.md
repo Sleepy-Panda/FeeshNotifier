@@ -1,8 +1,18 @@
 # Releases
 
-## v1.49.0
+## v1.50.0
 
 Released: ???
+
+Features:
+- 
+
+Bugfixes:
+- 
+
+## v1.49.0
+
+Released: 2025-08-26
 
 Features:
 - Reworked Attribute Shard functionality to highlight obsolete attributes on all items in gray color. Abbreviations are not rendered on new Shards anymore.
