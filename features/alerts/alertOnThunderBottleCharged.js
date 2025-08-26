@@ -4,6 +4,7 @@ import { OFF_SOUND_MODE } from "../../constants/sounds";
 import { AQUA } from "../../constants/formatting";
 import { isInSkyblock } from "../../utils/playerState";
 import { registerIf } from "../../utils/registers";
+import { playMcSound } from "../../utils/sound";
 
 triggers.BOTTLE_CHARGED_TRIGGERS.forEach(entry => {
 	registerIf(
@@ -24,7 +25,7 @@ function playAlertOnBottleCharged(bottleName) {
 		Client.showTitle(`${AQUA}${bottleName} is full`, '', 1, 30, 1);
 	
 		if (settings.soundMode !== OFF_SOUND_MODE) {
-            World.playSound('random.orb', 1, 1);
+            playMcSound('random.orb');
         }
 	} catch (e) {
 		console.error(e);

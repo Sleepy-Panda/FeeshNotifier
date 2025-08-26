@@ -6,6 +6,7 @@ import { getMessageId, getZoneName } from "../../utils/common";
 import { OFF_SOUND_MODE } from "../../constants/sounds";
 import { findClosestHotspotInRange } from "../../utils/entityDetection";
 import { registerIf } from "../../utils/registers";
+import { playMcSound } from "../../utils/sound";
 
 let lastClosestHotspot = null;
 let lastFoundHotspotIds = []; // Remember 2 last found hotspots, to avoid announcing the same hotspots placed close to each other, when user is moving between them
@@ -100,7 +101,7 @@ function announceFoundHotspot(position, perk) {
         ).chat();
     
         if (settings.soundMode !== OFF_SOUND_MODE) {
-            World.playSound('random.orb', 1, 1);
+            playMcSound('random.orb');
         }
     }
 

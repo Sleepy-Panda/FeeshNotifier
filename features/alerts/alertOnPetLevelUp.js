@@ -4,6 +4,7 @@ import { OFF_SOUND_MODE } from "../../constants/sounds";
 import { BLUE, RESET } from "../../constants/formatting";
 import { isInSkyblock } from "../../utils/playerState";
 import { registerIf } from "../../utils/registers";
+import { playMcSound } from "../../utils/sound";
 
 registerIf(
 	register("Chat", (petDisplayName, level, event) => playAlertOnPetLevelUp(+level, petDisplayName))
@@ -25,7 +26,7 @@ function playAlertOnPetLevelUp(level, petDisplayName) {
 		Client.showTitle(`${petDisplayName} ${RESET}is maxed`, `Level ${BLUE}${level}`, 1, 30, 1);
 	
 		if (settings.soundMode !== OFF_SOUND_MODE) {
-            World.playSound('random.orb', 1, 1);
+            playMcSound('random.orb');
         }
 	} catch (e) {
 		console.error(e);

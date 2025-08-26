@@ -6,6 +6,7 @@ import { getWorldName, isInSkyblock } from "../../utils/playerState";
 import { registerIf } from "../../utils/registers";
 import { GREAT_WHITE_SHARK, TIGER_SHARK, BLUE_SHARK, NURSE_SHARK } from "../../constants/seaCreatures";
 import { OFF_SOUND_MODE } from "../../constants/sounds";
+import { playMcSound } from "../../utils/sound";
 
 const GREAT_WHITE_SHARK_KEY = GREAT_WHITE_SHARK.toUpperCase();
 const TIGER_SHARK_KEY = TIGER_SHARK.toUpperCase();
@@ -92,7 +93,7 @@ function alertOnFestivalResults() {
         Client.showTitle(`${YELLOW}Fishing Festival ended`, '', 1, 30, 1);
 
         if (settings.soundMode !== OFF_SOUND_MODE) {
-            World.playSound('random.orb', 1, 1);
+            playMcSound('random.orb');
         }
 
         const text = Object.entries(sharksCaught)

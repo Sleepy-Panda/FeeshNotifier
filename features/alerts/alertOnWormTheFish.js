@@ -5,6 +5,7 @@ import { getWorldName, hasDirtRodInHand, isInSkyblock } from "../../utils/player
 import { OFF_SOUND_MODE } from "../../constants/sounds";
 import { registerIf } from "../../utils/registers";
 import { isInFishingWorld } from "../../utils/common";
+import { playMcSound } from "../../utils/sound";
 
 let wormTheFishCount = 0;
 
@@ -29,7 +30,7 @@ function alertOnWormTheFishCatch() {
         Client.showTitle(`${WHITE}Pickup ${RED}Worm the Fish`, '', 1, 45, 1);
         
         if (settings.soundMode !== OFF_SOUND_MODE) {
-            World.playSound('random.splash', 1, 1);
+            playMcSound('random.splash');
         }
     }
     
