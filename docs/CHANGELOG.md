@@ -13,6 +13,7 @@ Bugfixes:
 Other:
 - Refactored code playing sounds, to rely on a single reusable function. Used to easier migrate to Sound class later for CT 3.
 - Refactored all clickable overlays to use custom Overlay class.
+- Changed some chat message patterns to work in both 1.8.9 and 1.21. 
 
 ## v1.49.0
 
