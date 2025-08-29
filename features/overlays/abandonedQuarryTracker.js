@@ -199,12 +199,12 @@ function trackMithrilGrubberCatch(seaCreature, isDoubleHook) {
 
 function getMithrilPowder() {
     try {
-        const tabListLine = TabList?.getNames()?.find(line => line.removeFormatting().startsWith(' Mithril: '));
+        const tabListLine = TabList?.getNames()?.find(line => line.toString().removeFormatting().startsWith(' Mithril: '));
         if (!tabListLine) {
             return null;
         }
 
-        const powder = tabListLine.removeFormatting()?.trim()?.split(': ')[1]?.replaceAll(',', '');
+        const powder = tabListLine.toString().removeFormatting()?.trim()?.split(': ')[1]?.replaceAll(',', '');
         return powder;
     } catch (e) {
         console.error(e);

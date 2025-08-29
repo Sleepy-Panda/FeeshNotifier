@@ -230,9 +230,9 @@ function trackRemainingWorkshopTime() {
         return;
     }
 
-    const tabListLine = TabList?.getNames()?.find(tab => tab.includes("Island closes in: "));
+    const tabListLine = TabList?.getNames()?.find(tab => tab.toString().includes("Island closes in: "));
     if (tabListLine) {
-        remainingWorkshopTime = tabListLine.split(': ')[1];
+        remainingWorkshopTime = tabListLine.toString().split(': ')[1];
     } else {
         remainingWorkshopTime = null;
     }
