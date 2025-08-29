@@ -5,6 +5,7 @@ import { GOLD, WHITE } from "../../constants/formatting";
 import { getWorldName, isInSkyblock } from "../../utils/playerState";
 import { registerIf } from "../../utils/registers";
 import { CRIMSON_ISLE } from "../../constants/areas";
+import { playMcSound } from "../../utils/sound";
 
 registerIf(
 	register("Chat", (event) => playAlertOnGoldenFish()).setCriteria(triggers.GOLDEN_FISH_MESSAGE),
@@ -20,7 +21,7 @@ function playAlertOnGoldenFish() {
 		Client.showTitle(`${WHITE}Catch ${GOLD}Golden Fish`, '', 1, 30, 1);
 	
 		if (settings.soundMode !== OFF_SOUND_MODE) {
-            World.playSound('random.splash', 1, 1);
+            playMcSound('random.splash');
         }
 	} catch (e) {
 		console.error(e);

@@ -5,6 +5,7 @@ import { OFF_SOUND_MODE } from "../../constants/sounds";
 import { EntityFishHook } from "../../constants/javaTypes";
 import { getLore, isFishingHookActive, isInFishingWorld } from "../../utils/common";
 import { registerIf } from "../../utils/registers";
+import { playMcSound } from "../../utils/sound";
 
 let lastHookDetectedAt = null;
 
@@ -47,7 +48,7 @@ function alertOnNonFishingArmor(event) {
             Client.showTitle(`${RED}Equip fishing armor!`, '', 1, 25, 1);
     
             if (settings.soundMode !== OFF_SOUND_MODE) {
-                World.playSound('random.orb', 1, 1);
+                playMcSound('random.orb');
             }
         }, 1000);    
     } catch (e) {

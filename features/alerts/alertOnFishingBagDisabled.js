@@ -6,6 +6,7 @@ import { OFF_SOUND_MODE } from "../../constants/sounds";
 import { getLore, isFishingHookActive, isInFishingWorld } from "../../utils/common";
 import { USE_BAITS_FROM_FISHING_BAG_DISABLED, USE_BAITS_FROM_FISHING_BAG_ENABLED } from "../../constants/triggers";
 import { registerIf } from "../../utils/registers";
+import { playMcSound } from "../../utils/sound";
 
 // Alert once after each world load, do not alert on each rod cast
 let isAlerted = false;
@@ -59,7 +60,7 @@ function alertOnFishingBagDisabled() {
         Client.showTitle(`${RED}Enable fishing bag!`, '', 1, 25, 1);
     
         if (settings.soundMode !== OFF_SOUND_MODE) {
-            World.playSound('random.orb', 1, 1);
+            playMcSound('random.orb');
         }
 
         const message = new TextComponent(`${GOLD}[FeeshNotifier] ${WHITE}Using baits from Fishing Bag is disabled. Click to open Fishing Bag!`).setClick("run_command", `/fb`);
