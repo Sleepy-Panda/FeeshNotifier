@@ -1,5 +1,5 @@
 import settings, { allOverlaysGui } from "../../settings";
-import { AQUA, BOLD, DARK_PURPLE, GOLD, GRAY, GREEN, RED, WHITE } from "../../constants/formatting";
+import { AQUA, BOLD, DARK_PURPLE, GOLD, GRAY, GREEN, RED, WHITE, YELLOW } from "../../constants/formatting";
 import { getBazaarItemPrices } from "../../utils/bazaarPrices";
 import { formatElapsedTime, formatNumberWithSpaces, getItemsAddedToSacks, isDoubleHook, isInSacksGui, toShortNumber } from "../../utils/common";
 import * as triggers from '../../constants/triggers';
@@ -7,7 +7,7 @@ import { getLastFishingHookSeenAt, getLastGuisClosed, getWorldName, isInSkyblock
 import { CRYSTAL_HOLLOWS } from "../../constants/areas";
 import { overlayCoordsData } from "../../data/overlayCoords";
 import { getAuctionItemPrices } from "../../utils/auctionPrices";
-import { createButtonsDisplay, toggleButtonsDisplay } from "../../utils/overlays";
+import { LEFT_CLICK_TYPE, Overlay, OverlayButtonLine, OverlayTextLine } from "../../utils/overlays";
 import { registerIf } from "../../utils/registers";
 
 var totalMembranesCount = 0;
@@ -44,7 +44,7 @@ triggers.WORM_CATCH_TRIGGERS.forEach(trigger => {
 });
 
 registerIf(
-    register('renderOverlay', () => renderWormMembraneProfitTrackerOverlay()),
+    register('step', () => refreshOverlay()).setFps(2),
     () => settings.wormProfitTrackerOverlay && isInSkyblock() && getWorldName() === CRYSTAL_HOLLOWS
 );
 
@@ -72,7 +72,9 @@ register("worldUnload", () => {
     isSessionActive = false;
 });
 
-const buttonsDisplay = createButtonsDisplay(true, () => resetWormMembraneProfitTracker(false), true, () => pauseWormMembraneProfitTracker());
+const overlay = new Overlay(() => settings.wormProfitTrackerOverlay && isInSkyblock() && getWorldName() === CRYSTAL_HOLLOWS)
+    .setPositionData(overlayCoordsData.wormProfitTrackerOverlay)
+    .setIsClickable(true);
 
 export function resetWormMembraneProfitTracker(isConfirmed) {
     try {
@@ -104,6 +106,7 @@ export function resetWormMembraneProfitTracker(isConfirmed) {
 
         previousInventory = [];
         previousInventoryTotal = 0;
+        refreshOverlay();
 
         ChatLib.chat(`${GOLD}[FeeshNotifier] ${WHITE}Worm profit tracker was reset.`);  
     } catch (e) {
@@ -224,6 +227,7 @@ export function pauseWormMembraneProfitTracker() {
         }
     
         isSessionActive = false;
+        refreshOverlay();
         ChatLib.chat(`${GOLD}[FeeshNotifier] ${WHITE}Worm profit tracker is paused. Continue fishing to resume it.`);       
     } catch (e) {
         console.error(e);
@@ -242,6 +246,7 @@ function trackWormCatch(isDoubleHooked) {
         const diff = isDoubleHooked ? 2 : 1;
         totalWormsCount += diff;
         lastWormCaughtAt = new Date();
+        refreshOverlay();
     } catch (e) {
 		console.error(e);
 		console.log(`[FeeshNotifier] Failed to track worm catch.`);
@@ -295,13 +300,17 @@ function refreshValuesPerHour() {
         
         chambersPerHour = Math.floor(membranesPerHour / 100);  
         chamberCoinsPerHour = chambersPerHour * getChamberPrice();
+
+        refreshOverlay();
     } catch (e) {
 		console.error(e);
 		console.log(`[FeeshNotifier] Failed to refresh values per hour.`);
 	}
 }
 
-function renderWormMembraneProfitTrackerOverlay() {
+function refreshOverlay() {
+    overlay.clear();
+
     if (!settings.wormProfitTrackerOverlay ||
         !isInSkyblock() ||
         getWorldName() !== CRYSTAL_HOLLOWS ||
@@ -309,7 +318,6 @@ function renderWormMembraneProfitTrackerOverlay() {
         (new Date() - getLastFishingHookSeenAt() > 10 * 60 * 1000) ||
         allOverlaysGui.isOpen()
     ) {
-        buttonsDisplay.hide();
         return;
     }
 
@@ -323,11 +331,10 @@ function renderWormMembraneProfitTrackerOverlay() {
     const membranesPerHourText = `${GREEN}Membranes/h: ${WHITE}${formatNumberWithSpaces(membranesPerHour)}\n`;
 
     switch (mode) {
-        case WORM_MEMBRANES_MODE:
+        case WORM_MEMBRANES_MODE: {
             const wormMembranePrices = getBazaarItemPrices('WORM_MEMBRANE');
             const wormMembraneTotalCoinsSellOffer = totalMembranesCount * Math.floor(wormMembranePrices?.sellOffer || 0);
             const wormMembraneTotalCoinsInstaSell = totalMembranesCount * Math.floor(wormMembranePrices?.instaSell || 0);
-        
             text += totalWormsText;
             text += totalMembranesText;
             text += `${GOLD}Total coins (sell offer): ${WHITE}${toShortNumber(wormMembraneTotalCoinsSellOffer)}\n`;
@@ -338,12 +345,11 @@ function renderWormMembraneProfitTrackerOverlay() {
             text += `${GOLD}Coins/h (sell offer): ${WHITE}${toShortNumber(membraneCoinsPerHourSellOffer)}\n`;
             text += `${GOLD}Coins/h (insta-sell): ${WHITE}${toShortNumber(membraneCoinsPerHourInstaSell)}\n`;
             text += `\n`;
-            text += `${AQUA}Elapsed time: ${WHITE}${formatElapsedTime(elapsedSeconds)}${pausedText}`;        
+            text += `${AQUA}Elapsed time: ${WHITE}${formatElapsedTime(elapsedSeconds)}${pausedText}`;
             break;
-
-        case GEMSTONE_CHAMBERS_MODE:
+        }
+        case GEMSTONE_CHAMBERS_MODE: {
             const gemstoneChamberTotalCoins = totalChambersCount * getChamberPrice();
-        
             text += totalWormsText;
             text += totalMembranesText;
             text += `${GOLD}Total coins: ${WHITE}${toShortNumber(gemstoneChamberTotalCoins)} ${GRAY}(${WHITE}${formatNumberWithSpaces(totalChambersCount)} ${DARK_PURPLE}Chambers${GRAY})\n`;
@@ -352,18 +358,22 @@ function renderWormMembraneProfitTrackerOverlay() {
             text += membranesPerHourText;
             text += `${GOLD}Coins/h: ${WHITE}${toShortNumber(chamberCoinsPerHour)} ${GRAY}(${WHITE}${WHITE}${formatNumberWithSpaces(chambersPerHour)} ${DARK_PURPLE}Chambers${GRAY}/h)\n`;
             text += `\n`;
-            text += `${AQUA}Elapsed time: ${WHITE}${formatElapsedTime(elapsedSeconds)}${pausedText}`;     
+            text += `${AQUA}Elapsed time: ${WHITE}${formatElapsedTime(elapsedSeconds)}${pausedText}`;
             break;
+        }
         default:
             break;
     }
 
-    const overlay = new Text(`${text}`, overlayCoordsData.wormProfitTrackerOverlay.x, overlayCoordsData.wormProfitTrackerOverlay.y)
-        .setShadow(true)
-        .setScale(overlayCoordsData.wormProfitTrackerOverlay.scale);
-    overlay.draw();
-
-    toggleButtonsDisplay(buttonsDisplay, overlay, overlayCoordsData.wormProfitTrackerOverlay);
+    overlay.addTextLine(new OverlayTextLine().setText(text));
+    overlay.addButtonLine(new OverlayButtonLine()
+        .setText(`${YELLOW}${BOLD}[Click to pause]`)
+        .setIsSmallerScale(true)
+        .setOnClick(LEFT_CLICK_TYPE, () => pauseWormMembraneProfitTracker()));
+    overlay.addButtonLine(new OverlayButtonLine()
+        .setText(`${RED}${BOLD}[Click to reset]`)
+        .setIsSmallerScale(true)
+        .setOnClick(LEFT_CLICK_TYPE, () => resetWormMembraneProfitTracker(false)));
 }
 
 // Adjusted price - the price of the gemstone chamber minus the price of the gemstone mixture.

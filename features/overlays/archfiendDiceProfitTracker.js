@@ -6,7 +6,7 @@ import { getAuctionItemPrices } from "../../utils/auctionPrices";
 import { isInSkyblock } from "../../utils/playerState";
 import { formatNumberWithSpaces, toShortNumber } from "../../utils/common";
 import { registerIf } from "../../utils/registers";
-import { createButtonsDisplay, toggleButtonsDisplay } from "../../utils/overlays";
+import { Overlay, OverlayTextLine, OverlayButtonLine, LEFT_CLICK_TYPE } from "../../utils/overlays";
 import { SESSION_VIEW_MODE, TOTAL_VIEW_MODE } from "../../constants/viewModes";
 import { ARCHFIEND_DICE_ROLL_MESSAGE, HIGH_CLASS_ARCHFIEND_DICE_ROLL_MESSAGE } from "../../constants/triggers";
 
@@ -47,7 +47,7 @@ registerIf(
 );
 
 registerIf(
-    register('renderOverlay', () => renderOverlay()),
+    register('step', () => refreshOverlay()).setFps(2),
     () => settings.archfiendDiceProfitTrackerOverlay && isInSkyblock()
 );
 
@@ -59,7 +59,9 @@ register("gameLoad", () => {
     }
 });
 
-const buttonsDisplay = createButtonsDisplay(true, () => resetArchfiendDiceProfitTracker(false, null), false, null, true, () => toggleViewMode());
+const overlay = new Overlay(() => settings.archfiendDiceProfitTrackerOverlay && isInSkyblock())
+    .setPositionData(overlayCoordsData.archfiendDiceProfitTrackerOverlay)
+    .setIsClickable(true);
 
 export function resetArchfiendDiceProfitTracker(isConfirmed, resetViewMode) {
     try {
@@ -87,6 +89,7 @@ export function resetArchfiendDiceProfitTracker(isConfirmed, resetViewMode) {
                 break;
         }
 
+        refreshOverlay();
         ChatLib.chat(`${GOLD}[FeeshNotifier] ${WHITE}Archfiend Dice profit tracker ${viewModeText} ${WHITE}was reset.`);    
     } catch (e) {
 		console.error(e);
@@ -161,6 +164,7 @@ function toggleViewMode() {
         const newViewMode = getNextViewMode(currentViewMode);
         persistentData.archfiendDiceProfit.viewMode = newViewMode;
         persistentData.save();
+        refreshOverlay();
     } catch (e) {
 		console.error(e);
 		console.log(`[FeeshNotifier] [DiceProfitTracker] Failed to toggle view mode from ${currentViewMode}.`);
@@ -205,7 +209,7 @@ function trackArchfiendDiceRoll(sourceObj, itemId, number, announceCost) {
             sourceObj.profit += diceInfo.winCost;
 
             if (announceCost) {
-                ChatLib.chat(`${GOLD}[FeeshNotifier] ${WHITE}You gained ${GOLD}${toShortNumber(diceInfo.winCost)} ${WHITE}coins, ${WHITE}but lost ${diceInfo.displayName} ${WHITE}costing ${GOLD}${toShortNumber(dicePrice)} ${WHITE}coins.`);
+                ChatLib.chat(`${GOLD}[FeeshNotifier] ${WHITE}You gained ${GOLD}${toShortNumber(diceInfo.winCost)} ${WHITE}coins for rolling 6, ${WHITE}but lost ${diceInfo.displayName} ${WHITE}costing ${GOLD}${toShortNumber(dicePrice)} ${WHITE}coins.`);
             }
         }
     
@@ -219,18 +223,21 @@ function trackArchfiendDiceRoll(sourceObj, itemId, number, announceCost) {
             sourceObj.profit -= dicePrice;
             sourceObj.profit += dyePrice;
             if (announceCost) {
-                ChatLib.chat(`${GOLD}[FeeshNotifier] ${WHITE}You gained ${DARK_RED}Archfiend Dye ${WHITE}costing ${GOLD}${toShortNumber(dyePrice)} ${WHITE}coins, but lost ${diceInfo.displayName} ${WHITE}costing ${GOLD}${toShortNumber(dicePrice)} ${WHITE}coins.`);
+                ChatLib.chat(`${GOLD}[FeeshNotifier] ${WHITE}You gained ${DARK_RED}Archfiend Dye ${WHITE}costing ${GOLD}${toShortNumber(dyePrice)} ${WHITE}coins for rolling 7, but lost ${diceInfo.displayName} ${WHITE}costing ${GOLD}${toShortNumber(dicePrice)} ${WHITE}coins.`);
             }
         }
     
-        persistentData.save();    
+        persistentData.save();
+        refreshOverlay();  
     } catch (e) {
 		console.error(e);
 		console.log(`[FeeshNotifier] [DiceProfitTracker] Failed to track Archfiend Dice roll.`);
 	}
 }
 
-function renderOverlay() {
+function refreshOverlay() {
+    overlay.clear();
+
     if (!settings.archfiendDiceProfitTrackerOverlay ||
         !isInSkyblock() ||
         !lastDiceRolledAt ||
@@ -238,32 +245,34 @@ function renderOverlay() {
         (isSessionViewMode() && !persistentData.archfiendDiceProfit.session.archfiend.rollsCount && !persistentData.archfiendDiceProfit.session.highClass.rollsCount) ||
         allOverlaysGui.isOpen()
     ) {
-        buttonsDisplay.hide();
         return;
     }
 
     const sourceObj = getSourceObject(persistentData.archfiendDiceProfit.viewMode);
-    let text = `${YELLOW}${BOLD}Archfiend Dice profit tracker`;
-    text += ` ${getViewModeDisplayText(persistentData.archfiendDiceProfit.viewMode)}`;
+    let overlayText = `${YELLOW}${BOLD}Archfiend Dice profit tracker`;
+    overlayText += ` ${getViewModeDisplayText(persistentData.archfiendDiceProfit.viewMode)}`;
 
-    text += `\n\n${DARK_PURPLE}${BOLD}Archfiend Dice`;
-    text += `\n${WHITE}${formatNumberWithSpaces(sourceObj.archfiend.rollsCount)}${GRAY}x rolls | ${WHITE}${formatNumberWithSpaces(sourceObj.archfiend.count6)}${GRAY}x ${DARK_PURPLE}6 ${GRAY}| ${WHITE}${formatNumberWithSpaces(sourceObj.archfiend.count7)}${GRAY}x ${DARK_PURPLE}7`;
-    text += `\n${AQUA}Profit: ${sourceObj.archfiend.profit >= 0 ? GREEN : RED}${toShortNumber(sourceObj.archfiend.profit)}`;
+    overlayText += `\n\n${DARK_PURPLE}${BOLD}Archfiend Dice`;
+    overlayText += `\n${WHITE}${formatNumberWithSpaces(sourceObj.archfiend.rollsCount)}${GRAY}x rolls | ${WHITE}${formatNumberWithSpaces(sourceObj.archfiend.count6)}${GRAY}x ${DARK_PURPLE}6 ${GRAY}| ${WHITE}${formatNumberWithSpaces(sourceObj.archfiend.count7)}${GRAY}x ${DARK_PURPLE}7`;
+    overlayText += `\n${AQUA}Profit: ${sourceObj.archfiend.profit >= 0 ? GREEN : RED}${toShortNumber(sourceObj.archfiend.profit)}`;
 
-    text += `\n\n${GOLD}${BOLD}High Class Archfiend Dice`;
-    text += `\n${WHITE}${formatNumberWithSpaces(sourceObj.highClass.rollsCount)}${GRAY}x rolls | ${WHITE}${formatNumberWithSpaces(sourceObj.highClass.count6)}${GRAY}x ${DARK_PURPLE}6 ${GRAY}| ${WHITE}${formatNumberWithSpaces(sourceObj.highClass.count7)}${GRAY}x ${DARK_PURPLE}7`;
+    overlayText += `\n\n${GOLD}${BOLD}High Class Archfiend Dice`;
+    overlayText += `\n${WHITE}${formatNumberWithSpaces(sourceObj.highClass.rollsCount)}${GRAY}x rolls | ${WHITE}${formatNumberWithSpaces(sourceObj.highClass.count6)}${GRAY}x ${DARK_PURPLE}6 ${GRAY}| ${WHITE}${formatNumberWithSpaces(sourceObj.highClass.count7)}${GRAY}x ${DARK_PURPLE}7`;
 
-    text += `\n${AQUA}Profit: ${sourceObj.highClass.profit >= 0 ? GREEN : RED}${toShortNumber(sourceObj.highClass.profit)}`;
+    overlayText += `\n${AQUA}Profit: ${sourceObj.highClass.profit >= 0 ? GREEN : RED}${toShortNumber(sourceObj.highClass.profit)}`;
 
     const profitColor = sourceObj.profit >= 0 ? GREEN : RED;
-    text += `\n\n${AQUA}${BOLD}Total profit: ${profitColor}${toShortNumber(sourceObj.profit)}`;
+    overlayText += `\n\n${AQUA}${BOLD}Total profit: ${profitColor}${toShortNumber(sourceObj.profit)}`;
 
-    const overlay = new Text(text, overlayCoordsData.archfiendDiceProfitTrackerOverlay.x, overlayCoordsData.archfiendDiceProfitTrackerOverlay.y)
-        .setShadow(true)
-        .setScale(overlayCoordsData.archfiendDiceProfitTrackerOverlay.scale);
-    overlay.draw();
-
-    toggleButtonsDisplay(buttonsDisplay, overlay, overlayCoordsData.archfiendDiceProfitTrackerOverlay);
+    overlay.addTextLine(new OverlayTextLine().setText(overlayText));
+    overlay.addButtonLine(new OverlayButtonLine()
+        .setText(`${GREEN}${BOLD}[Click to change view mode]`)
+        .setIsSmallerScale(true)
+        .setOnClick(LEFT_CLICK_TYPE, () => toggleViewMode()));
+    overlay.addButtonLine(new OverlayButtonLine()
+        .setText(`${RED}${BOLD}[Click to reset]`)
+        .setIsSmallerScale(true)
+        .setOnClick(LEFT_CLICK_TYPE, () => resetArchfiendDiceProfitTracker(false, null)));
 
     function isSessionViewMode() {
         const isSession = persistentData.archfiendDiceProfit.viewMode === SESSION_VIEW_MODE;
