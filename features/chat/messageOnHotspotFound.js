@@ -89,15 +89,17 @@ function announceFoundHotspot(position, perk) {
     const message = getMessage(position, perk);
 
     if (settings.messageOnHotspotFound) {
-        new Message(
+        new TextComponent(
             `${GOLD}[FeeshNotifier] ${WHITE}You found ${perk} ${RESET}${LIGHT_PURPLE}Hotspot${WHITE}.\n`,
-            new TextComponent(`${WHITE}${BOLD}[Share to ${BLUE}${BOLD}PARTY ${WHITE}${BOLD}chat]`)
-                .setClickAction('run_command')
-                .setClickValue('/pc ' + message),
+            new TextComponent({
+                text: `${WHITE}${BOLD}[Share to ${BLUE}${BOLD}PARTY ${WHITE}${BOLD}chat]`,
+                clickEvent: { action: 'run_command', value: '/pc ' + message },
+            }),
             ` ${GRAY}or `,
-            new TextComponent(`${WHITE}${BOLD}[Share to ${YELLOW}${BOLD}ALL ${WHITE}${BOLD}chat]`)
-                .setClickAction('run_command')
-                .setClickValue('/ac ' + message),
+            new TextComponent({
+                text: `${WHITE}${BOLD}[Share to ${YELLOW}${BOLD}ALL ${WHITE}${BOLD}chat]`,
+                clickEvent: { action: 'run_command', value: '/ac ' + message },
+            })
         ).chat();
     
         if (settings.soundMode !== OFF_SOUND_MODE) {
@@ -116,7 +118,6 @@ function getMessage(position, perk) {
     const zone = getZoneName();
     const messageId = getMessageId();
 
-    let message = '';
-    message += `${location} | ${perk ? perk.removeFormatting() + ' ' : ''}Hotspot${zone ? ' at ' + zone.getName().removeFormatting() : ''} | ${messageId}`;
+    const message = `${location} | ${perk ? perk.removeFormatting() + ' ' : ''}Hotspot${zone ? ' at ' + zone.removeFormatting() : ''} | ${messageId}`;
     return message;
 }

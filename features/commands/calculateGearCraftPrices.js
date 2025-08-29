@@ -147,7 +147,7 @@ export function calculateGearCraftPrices() {
             for (let craftProfit of craftProfits) {
                 const itemMessagePart = new TextComponent({
                     text: ` - ${craftProfit.itemName}${RESET}: ${GOLD}${toShortNumber(craftProfit.itemPrice) || 'N/A'}${RESET} (${GOLD}${toShortNumber(craftProfit.profitPerBaseItem)}${RESET} per item)\n`,
-                    clickEvent: {  action: "run_command", value: `/recipe ${craftProfit.itemName.removeFormatting()}` },
+                    clickEvent: { action: "run_command", value: `/recipe ${craftProfit.itemName.removeFormatting()}` },
                     hoverEvent: { action: "show_text", value: 'Click to craft using Supercraft menu' }
                 })
                 messageParts.push(itemMessagePart);
