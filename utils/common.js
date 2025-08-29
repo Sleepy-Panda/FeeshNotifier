@@ -265,7 +265,9 @@ export function splitArray(array, count) {
 }
 
 export function isInChatOrInventoryGui() {
-	return Client.isInGui() && (Client.currentGui?.getClassName() === 'GuiInventory' || Client.currentGui?.getClassName() === 'GuiChatOF');
+	const screen = Client.getMinecraft().currentScreen;
+	if (!screen) return;
+	return screen instanceof net.minecraft.client.gui.screen.ChatScreen || screen instanceof net.minecraft.client.gui.screen.inventory.InventoryScreen;
 }
 
 export function isInSacksGui() {
@@ -501,8 +503,8 @@ export function getMessageId() {
  * @returns {string} Formatted zone name if exists, or empty string
  */
 export function getZoneName() {
-	const zoneLine = Scoreboard.getLines().find((line) => line.getName().includes('⏣'));
-	return zoneLine?.trim() || '';
+	const zoneLine = Scoreboard.getLines().find((line) => line.toString().includes('⏣'));
+	return zoneLine?.toString()?.trim() || '';
 }
 
 /**
@@ -535,8 +537,9 @@ export function getMcEntityById(id) {
 }
 
 function getCurrentGuiChestName() {
-	if (Client.isInGui() && Client.currentGui?.getClassName() === 'GuiChest') {
-		const chestName = Client.currentGui?.get()?.field_147002_h?.func_85151_d()?.func_145748_c_()?.text;
+	if (Client.isInGui() && Client.getMinecraft().currentScreen && Client.getMinecraft().currentScreen instanceof net.minecraft.client.gui.screen.inventory.ChestScreen) {
+		const chestName = Client.getMinecraft().currentScreen.getContainer().getTitle().getString();
+		//console.log(chestName);
 		return chestName;
 	}
 	return null;

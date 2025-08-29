@@ -511,10 +511,11 @@ function detectInventoryChanges() {
             previousInventory = currentInventory;
         }
 
-        const heldItem = Player.getPlayer()?.field_71071_by?.func_70445_o();
-        if (heldItem) {
-            var item = new Item(heldItem);
-            if (item) return; // Do not recalculate inventory while a player is moving an item
+        let screen = Client.getMinecraft().currentScreen;
+        if (screen && screen.getScreenHandler) {
+            let handler = screen.getScreenHandler();
+            let draggedItem = handler.getCursorStack();
+            if (!draggedItem.isEmpty() && new Item(draggedItem)) return; // Do not recalculate inventory while a player is moving an item 
         }
 
         const hasBarrier = (Player?.getInventory()?.getItems() || []).find(i => i?.getName() === 'Barrier'); // NEU slot binding replaces inventory items with Barriers
@@ -522,7 +523,7 @@ function detectInventoryChanges() {
         
         const currentInventory = getFishingProfitItemsInCurrentInventory();
 
-        let isInChest = Client.isInGui() && Client.currentGui?.getClassName() === 'GuiChest';
+        let isInChest = Client.isInGui() && screen && screen instanceof net.minecraft.client.gui.screen.inventory.ChestScreen;
         if (!isInChest) {
             const uniqueItemIds = currentInventory.map(i => i.itemId).filter(id => !!id).filter((x, i, a) => a.indexOf(x) == i);
             let isUpdated = false;
