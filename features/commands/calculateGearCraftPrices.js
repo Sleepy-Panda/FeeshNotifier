@@ -145,14 +145,16 @@ export function calculateGearCraftPrices() {
             
             messageParts.push(`\n${WHITE}Gear crafted from ${category.baseItemName}${WHITE} (${GOLD}${toShortNumber(baseItemPrice) || 'N/A'} ${RESET}per item):\n`);
             for (let craftProfit of craftProfits) {
-                const itemMessagePart = new TextComponent(` - ${craftProfit.itemName}${RESET}: ${GOLD}${toShortNumber(craftProfit.itemPrice) || 'N/A'}${RESET} (${GOLD}${toShortNumber(craftProfit.profitPerBaseItem)}${RESET} per item)\n`)
-                    .setClick("run_command", `/recipe ${craftProfit.itemName.removeFormatting()}`)
-                    .setHover("show_text", 'Click to craft using Supercraft menu');
+                const itemMessagePart = new TextComponent({
+                    text: ` - ${craftProfit.itemName}${RESET}: ${GOLD}${toShortNumber(craftProfit.itemPrice) || 'N/A'}${RESET} (${GOLD}${toShortNumber(craftProfit.profitPerBaseItem)}${RESET} per item)\n`,
+                    clickEvent: {  action: "run_command", value: `/recipe ${craftProfit.itemName.removeFormatting()}` },
+                    hoverEvent: { action: "show_text", value: 'Click to craft using Supercraft menu' }
+                })
                 messageParts.push(itemMessagePart);
             }
         });
 
-        ChatLib.chat(new Message(messageParts));
+        new TextComponent(messageParts).chat();
     } catch (e) {
 		console.error(e);
 		console.log(`[FeeshNotifier] [ProfitTracker] Failed to calculate gear craft price statistics.`);
