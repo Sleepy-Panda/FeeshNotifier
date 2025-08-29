@@ -79,24 +79,24 @@ export const LAVA_PIGMAN_MESSAGE = `${GREEN}A Lava Pigman arose from the depths!
 
 // ABANDONED QUARRY SEA CREATURES
 
-export const ANY_MITHRIL_GRUBBER_MESSAGE = `${RESET}${GREEN}A leech of the mines surfaces... you've caught a ` + "${seaCreature}" + `.${RESET}`;
-export const SMALL_MITHRIL_GRUBBER_MESSAGE = `${RESET}${GREEN}A leech of the mines surfaces... you've caught a Mithril Grubber.${RESET}`; // &r&aA leech of the mines surfaces... you've caught a Mithril Grubber.&r
-export const MEDIUM_MITHRIL_GRUBBER_MESSAGE = `${RESET}${GREEN}A leech of the mines surfaces... you've caught a Medium Mithril Grubber.${RESET}`;
-export const LARGE_MITHRIL_GRUBBER_MESSAGE = `${RESET}${GREEN}A leech of the mines surfaces... you've caught a Large Mithril Grubber.${RESET}`;
-export const BLOATED_MITHRIL_GRUBBER_MESSAGE = `${RESET}${GREEN}A leech of the mines surfaces... you've caught a Bloated Mithril Grubber.${RESET}`;
+export const ANY_MITHRIL_GRUBBER_MESSAGE = `${RESET}${GREEN}A leech of the mines surfaces... you've caught a ` + "${seaCreature}" + `.`;
+export const SMALL_MITHRIL_GRUBBER_MESSAGE = `${RESET}${GREEN}A leech of the mines surfaces... you've caught a Mithril Grubber.`; // &r&aA leech of the mines surfaces... you've caught a Mithril Grubber.
+export const MEDIUM_MITHRIL_GRUBBER_MESSAGE = `${RESET}${GREEN}A leech of the mines surfaces... you've caught a Medium Mithril Grubber.`;
+export const LARGE_MITHRIL_GRUBBER_MESSAGE = `${RESET}${GREEN}A leech of the mines surfaces... you've caught a Large Mithril Grubber.`;
+export const BLOATED_MITHRIL_GRUBBER_MESSAGE = `${RESET}${GREEN}A leech of the mines surfaces... you've caught a Bloated Mithril Grubber.`;
 
 // BACKWATER BAYOU SEA CREATURES
 
-export const FROG_MAN_MESSAGE = `${RESET}${GREEN}Is it a frog? Is it a man? Well, yes, sorta, IT'S FROG MAN!!!!!!${RESET}`;
-export const TRASH_GOBBLER_MESSAGE = `${RESET}${GREEN}The Trash Gobbler is hungry for you!${RESET}`;
-export const DUMPSTER_DIVER_MESSAGE = `${RESET}${GREEN}A Dumpster Diver has emerged from the swamp!${RESET}`;
-export const BANSHEE_MESSAGE = `${RESET}${GREEN}The desolate wail of a Banshee breaks the silence.${RESET}`;
-export const SNAPPING_TURTLE_MESSAGE = `${RESET}${GREEN}A Snapping Turtle is coming your way, and it's ANGRY!${RESET}`;
-export const BAYOU_SLUDGE_MESSAGE = `${RESET}${GREEN}A swampy mass of slime emerges, the Bayou Sludge!${RESET}`;
-export const ALLIGATOR_MESSAGE = `${RESET}${GREEN}A long snout breaks the surface of the water. It's an Alligator!${RESET}`;
-export const TITANOBOA_MESSAGE = `${RESET}${GREEN}${RESET}${RED}${BOLD}A massive Titanoboa surfaces. Its body stretches as far as the eye can see.${RESET}`; // &r&a&r&c&lA massive Titanoboa surfaces. Its body stretches as far as the eye can see.&r
-export const BLUE_RINGED_OCTOPUS_MESSAGE = `${RESET}${GREEN}A garish set of tentacles arise. It's a Blue Ringed Octopus!${RESET}`;
-export const WIKI_TIKI_MESSAGE = `${RESET}${RED}${RESET}${RED}${BOLD}The water bubbles and froths. A massive form emerges- you have disturbed the Wiki Tiki! You shall pay the price.${RESET}`; // &r&c&r&c&lThe water bubbles and froths. A massive form emerges- you have disturbed the Wiki Tiki! You shall pay the price.&r
+export const FROG_MAN_MESSAGE = `${RESET}${GREEN}Is it a frog? Is it a man? Well, yes, sorta, IT'S FROG MAN!!!!!!`;
+export const TRASH_GOBBLER_MESSAGE = `${RESET}${GREEN}The Trash Gobbler is hungry for you!`;
+export const DUMPSTER_DIVER_MESSAGE = `${RESET}${GREEN}A Dumpster Diver has emerged from the swamp!`;
+export const BANSHEE_MESSAGE = `${RESET}${GREEN}The desolate wail of a Banshee breaks the silence.`;
+export const SNAPPING_TURTLE_MESSAGE = `${RESET}${GREEN}A Snapping Turtle is coming your way, and it's ANGRY!`;
+export const BAYOU_SLUDGE_MESSAGE = `${RESET}${GREEN}A swampy mass of slime emerges, the Bayou Sludge!`;
+export const ALLIGATOR_MESSAGE = `${RESET}${GREEN}A long snout breaks the surface of the water. It's an Alligator!`;
+export const TITANOBOA_MESSAGE = `${RESET}${GREEN}${RESET}${RED}${BOLD}A massive Titanoboa surfaces. Its body stretches as far as the eye can see.`; // &r&a&r&c&lA massive Titanoboa surfaces. Its body stretches as far as the eye can see.
+export const BLUE_RINGED_OCTOPUS_MESSAGE = `${RESET}${GREEN}A garish set of tentacles arise. It's a Blue Ringed Octopus!`;
+export const WIKI_TIKI_MESSAGE = `${RESET}${RED}${RESET}${RED}${BOLD}The water bubbles and froths. A massive form emerges- you have disturbed the Wiki Tiki! You shall pay the price.`; // &r&c&r&c&lThe water bubbles and froths. A massive form emerges- you have disturbed the Wiki Tiki! You shall pay the price.
 
 // GALATEA SEA CREATURES
 
