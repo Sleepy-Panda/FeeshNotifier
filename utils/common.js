@@ -68,7 +68,7 @@ export function getDropTitle(item, rarityColorCode) {
 
 export function getColoredPlayerNameFromDisplayName() {
 	const displayName = Player.getDisplayName(); // [Level] Nickname, e.g. §r§r§8[§d326§8] §bMoonTheSadFisher §7α§r§7
-	const nameWithoutLevel = displayName.getText().split('] ').pop();
+	const nameWithoutLevel = displayName.toString().split('] ').pop();
 	const name = nameWithoutLevel.split(' ')[0];
 	return name;
 }
