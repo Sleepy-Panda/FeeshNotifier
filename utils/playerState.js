@@ -170,7 +170,7 @@ function setZoneName() {
 	if (!zone) {
 		zoneName = null;
 	} else {
-		const plainName = zone.getName()?.removeFormatting();
+		const plainName = zone.toString()?.removeFormatting();
 		zoneName = plainName?.replace(/[^\u0000-\u007F]/g, '')?.trim(); // Abandoned🐍 Quarry
 
 		// Some lava in Phlegblast area does not belong to Phlegblast Pool zone but needs to be counted
@@ -201,7 +201,7 @@ function setHasFishingRodInHotbar() {
 		hasFishingRodInHotbar = false;
 	} else {
 		const rods = hotbarItems.filter(i => i && isFishingRod(i));
-		hasFishingRodInHotbar = rods && rods.length;	
+		hasFishingRodInHotbar = rods && rods.length;
 	}
 }
 
