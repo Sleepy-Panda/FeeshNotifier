@@ -29,13 +29,17 @@ register("worldUnload", () => {
 
 function trackTotemStatus() {
     try {
+        //console.log('Track')
         if ((!settings.alertOnTotemExpiresSoon && !settings.totemRemainingTimeOverlay) || !isInSkyblock()) {
+            //console.log('Return')
             return;
         }
 
         const entities = World.getAllEntitiesOfType(EntityArmorStand);
+        //console.log(entities.length)
         const ownerArmorStand = entities.find(entity => {
             const name = entity?.getName()?.removeFormatting();
+            //console.log(name)
             return name.includes('Owner:') && name.includes(currentPlayer);
         });
         if (!ownerArmorStand) {
@@ -45,18 +49,24 @@ function trackTotemStatus() {
     
         const ownerArmorStandId = getMcEntityId(ownerArmorStand);
         const totemArmorStand = getMcEntityById(ownerArmorStandId - 2);
-        if (!totemArmorStand || !(totemArmorStand instanceof net.minecraft.entity.item.EntityArmorStand)) return;
+        //console.log(ownerArmorStandId);
+        //console.log(totemArmorStand);
+
+        if (!totemArmorStand || !(totemArmorStand instanceof net.minecraft.entity.decoration.ArmorStandEntity)) return;
     
-        const totemArmorStandName = totemArmorStand.func_95999_t()?.removeFormatting(); // func_95999_t -> getCustomNameTag()
+        const totemArmorStandName = totemArmorStand.getCustomName()?.removeFormatting();
+        //console.log(totemArmorStandName)
         if (totemArmorStandName !== 'Totem of Corruption') {
             resetTotem();
             return;
         }
     
         const remainingArmorStand = getMcEntityById(ownerArmorStandId - 1);
-        if (!remainingArmorStand || !(remainingArmorStand instanceof net.minecraft.entity.item.EntityArmorStand)) return;
+        if (!remainingArmorStand || !(remainingArmorStand instanceof net.minecraft.entity.decoration.ArmorStandEntity)) return;
     
-        const remainingArmorStandName = remainingArmorStand.func_95999_t()?.removeFormatting(); // func_95999_t -> getCustomNameTag()
+        const remainingArmorStandName = remainingArmorStand.getCustomName()?.removeFormatting();
+        //console.log(remainingArmorStandName)
+
         if (!remainingArmorStandName?.includes('Remaining: ')) {
             resetTotem();
             return;

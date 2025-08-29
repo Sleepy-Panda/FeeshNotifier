@@ -44,7 +44,7 @@ function sendMessageOnRevenantSpawn() {
         const slayerOwnerArmorStandId = getMcEntityId(slayerOwnerArmorStand);
 
         const slayerTypeArmorStand = getMcEntityById(slayerOwnerArmorStandId - 2);
-        if (!slayerTypeArmorStand || !(slayerTypeArmorStand instanceof net.minecraft.entity.item.EntityArmorStand)) {
+        if (!slayerTypeArmorStand || !(slayerTypeArmorStand instanceof net.minecraft.entity.decoration.ArmorStandEntity)) {
             return;
         }
     

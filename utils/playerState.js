@@ -51,6 +51,8 @@ function trackPlayerState() {
 		setLastFishingHookInHotspotSeenAt();
 		setHasDirtRodInHand();
 		setIsInHunterArmor();	
+
+		//console.log(inSkyblock + ' ' + worldName + ' ' + zoneName + ' ' + hasFishingRodInHotbar);
 	} catch (e) {
 		console.error(e);
 		console.log(`[FeeshNotifier] Failed to track player's state.`);
@@ -198,6 +200,7 @@ function setHasFishingRodInHotbar() {
 	if (!hotbarItems || !hotbarItems.length) {
 		hasFishingRodInHotbar = false;
 	} else {
+		hasFishingRodInHotbar = true; return; // TODO
 		const rods = hotbarItems.filter(i => i && isFishingRod(i));
 		hasFishingRodInHotbar = rods && rods.length;	
 	}

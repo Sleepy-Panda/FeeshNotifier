@@ -336,8 +336,8 @@ export function isFishingRod(item) {
 export function getPlayerFishingHook() {
 	return World.getAllEntitiesOfType(EntityFishHook)
 		.find(e =>
-			Player.getPlayer().field_71104_cf == e.getEntity() || // field_71104_cf = fishEntity
-			e.getEntity()?.field_146042_b?.getDisplayNameString() === Player.getName() // field_146042_b = angler
+			Player.getPlayer().fishHook == e.toMC() ||
+			e.toMC()?.getPlayerOwner()?.getDisplayName() === Player.getName()
 		);
 }
 
@@ -519,8 +519,8 @@ export function isInFishingWorld(worldName) {
  * @returns {number} ID
  */
 export function getMcEntityId(entity) {
-    if (!entity || !entity.entity) return;
-    return entity.entity.func_145782_y(); // func_145782_y() -> getEntityId()
+    if (!entity || !entity.toMC()) return;
+    return entity.toMC().getId();
 }
 
 /**
@@ -530,7 +530,7 @@ export function getMcEntityId(entity) {
  */
 export function getMcEntityById(id) {
     if (!id) return;
-    return World.getWorld()?.func_73045_a(id); // func_73045_a() -> getEntityByID()
+    return World.getWorld()?.getEntityById(id); // func_73045_a() -> getEntityByID()
 }
 
 function getCurrentGuiChestName() {
