@@ -420,7 +420,7 @@ export function getLore(item) {
 		return [];
 	}
 
-    return item.getNBT().getCompoundTag('tag')?.getCompoundTag('display')?.toObject()?.Lore || [];
+    return item.getNBT()?.getCompoundTag('tag')?.getCompoundTag('display')?.toObject()?.Lore || [];
 }
 
 // Credits VolcAddons

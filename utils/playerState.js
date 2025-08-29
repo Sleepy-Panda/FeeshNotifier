@@ -139,7 +139,7 @@ export function getLastKatUpgrade() {
 }
 
 function setInSkyblock() {
-	const scoreboardTitle = Scoreboard.getTitle()?.removeFormatting();
+	const scoreboardTitle = Scoreboard.getTitle()?.toString()?.removeFormatting();
 	inSkyblock = scoreboardTitle ? scoreboardTitle.includes('SKYBLOCK') : false;
 }
 
@@ -149,11 +149,11 @@ function setWorldName() {
 		return;
 	}
 	
-	const world = TabList.getNames().find(tab => tab.includes("Area: "));
+	const world = TabList.getNames().find(tab => tab.toString().includes("Area: "));
 	if (!world) {
 		worldName = null;
 	} else {
-		const formattedName = world.removeFormatting();
+		const formattedName = world.toString().removeFormatting();
 		worldName = formattedName.substring(formattedName.indexOf(': ') + 2);
 	}
 }
@@ -164,7 +164,7 @@ function setZoneName() {
 		return;
 	}
 	
-	const zone = Scoreboard.getLines().find((line) => line.getName().includes('⏣'));
+	const zone = Scoreboard.getLines().find((line) => line.toString().includes('⏣'));
 	if (!zone) {
 		zoneName = null;
 	} else {
