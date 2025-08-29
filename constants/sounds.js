@@ -13,3 +13,9 @@ export const SAD_TROMBONE_SOUND_SOURCE = { source: "feesh_sad-trombone.ogg", pri
 export const MEME_SOUND_MODE = 0;
 export const NORMAL_SOUND_MODE = 1;
 export const OFF_SOUND_MODE = 2;
+
+export const MC_RANDOM_ORB_SOUND = 'random.orb';
+export const MC_RANDOM_SPLASH_SOUND = 'random.splash';
+export const MC_NOTE_PLING_SOUND = 'note.pling';
+export const MC_GUI_BUTTON_PRESS_SOUND = 'gui.button.press';
+export const MC_VILLAGER_DEATH_SOUND = 'mob.villager.death';

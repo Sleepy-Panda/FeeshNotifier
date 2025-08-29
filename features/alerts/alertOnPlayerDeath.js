@@ -1,6 +1,6 @@
 import settings from "../../settings";
 import * as triggers from '../../constants/triggers';
-import { OFF_SOUND_MODE } from "../../constants/sounds";
+import { MC_VILLAGER_DEATH_SOUND, OFF_SOUND_MODE } from "../../constants/sounds";
 import { RED } from "../../constants/formatting";
 import { isInSkyblock } from "../../utils/playerState";
 import { getColoredPlayerNameFromPartyChat, getPartyChatMessage, getPlayerDeathMessage } from "../../utils/common";
@@ -33,7 +33,7 @@ function playAlertOnPlayerDeath(player) {
 		Client.showTitle(title, 'Wait for them to come back', 1, 30, 1);
 	
 		if (settings.soundMode !== OFF_SOUND_MODE) {
-            playMcSound('mob.villager.death');
+            playMcSound(MC_VILLAGER_DEATH_SOUND);
         }
 	} catch (e) {
 		console.error(e);
