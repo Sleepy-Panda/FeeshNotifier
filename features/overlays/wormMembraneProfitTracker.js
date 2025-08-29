@@ -79,11 +79,10 @@ const overlay = new Overlay(() => settings.wormProfitTrackerOverlay && isInSkybl
 export function resetWormMembraneProfitTracker(isConfirmed) {
     try {
         if (!isConfirmed) {
-            new Message(
-                new TextComponent(`${GOLD}[FeeshNotifier] ${WHITE}Do you want to reset Worm profit tracker? ${RED}${BOLD}[Click to confirm]`)
-                    .setClickAction('run_command')
-                    .setClickValue('/feeshResetWormProfit noconfirm')
-            ).chat();
+            new TextComponent({
+                text: `${GOLD}[FeeshNotifier] ${WHITE}Do you want to reset Worm profit tracker? ${RED}${BOLD}[Click to confirm]`,
+                clickEvent: { action: 'run_command', value: '/feeshResetWormProfit noconfirm' },
+            }).chat();
             return;
         }
     

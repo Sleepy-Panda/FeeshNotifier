@@ -63,11 +63,10 @@ const overlay = new Overlay(() => settings.seaCreaturesTrackerOverlay && isInSky
 export function resetSeaCreaturesTracker(isConfirmed) {
     try {
         if (!isConfirmed) {
-            new Message(
-                new TextComponent(`${GOLD}[FeeshNotifier] ${WHITE}Do you want to reset Sea creatures tracker? ${RED}${BOLD}[Click to confirm]`)
-                    .setClickAction('run_command')
-                    .setClickValue('/feeshResetSeaCreatures noconfirm')
-            ).chat();
+            new TextComponent({
+                text: `${GOLD}[FeeshNotifier] ${WHITE}Do you want to reset Sea creatures tracker? ${RED}${BOLD}[Click to confirm]`,
+                clickEvent: { action: 'run_command', value: '/feeshResetSeaCreatures noconfirm' },
+            }).chat();
             return;
         }
     

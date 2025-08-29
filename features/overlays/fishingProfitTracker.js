@@ -117,10 +117,10 @@ const profitTrackerOverlay = new Overlay(() => settings.fishingProfitTrackerOver
 export function resetFishingProfitTracker(isConfirmed) {
     try {
         if (!isConfirmed) {
-            new Message(new TextComponent(`${GOLD}[FeeshNotifier] ${WHITE}Do you want to reset Fishing profit tracker? ${RED}${BOLD}[Click to confirm]`)
-                .setClickAction('run_command')
-                .setClickValue('/feeshResetProfitTracker noconfirm')
-            ).chat();
+            new TextComponent({
+                text: `${GOLD}[FeeshNotifier] ${WHITE}Do you want to reset Fishing profit tracker? ${RED}${BOLD}[Click to confirm]`,
+                clickEvent: { action: 'run_command', value: '/feeshResetProfitTracker noconfirm' },
+            }).chat();
             return;
         }
        

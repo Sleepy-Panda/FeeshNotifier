@@ -67,11 +67,10 @@ register("worldUnload", () => {
 export function resetAbandonedQuarryTracker(isConfirmed) {
     try {
         if (!isConfirmed) {
-            new Message(
-                new TextComponent(`${GOLD}[FeeshNotifier] ${WHITE}Do you want to reset Abandoned Quarry tracker? ${RED}${BOLD}[Click to confirm]`)
-                    .setClickAction('run_command')
-                    .setClickValue('/feeshResetAbandonedQuarry noconfirm')
-            ).chat();
+            new TextComponent({
+                text: `${GOLD}[FeeshNotifier] ${WHITE}Do you want to reset Abandoned Quarry tracker? ${RED}${BOLD}[Click to confirm]`,
+                clickEvent: { action: 'run_command', value: '/feeshResetAbandonedQuarry noconfirm' },
+            }).chat();
             return;
         }
     
