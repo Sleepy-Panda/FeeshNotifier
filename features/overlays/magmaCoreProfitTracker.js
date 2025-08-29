@@ -6,7 +6,7 @@ import { getLastFishingHookSeenAt, getWorldName, isInSkyblock } from "../../util
 import {  formatElapsedTime, formatNumberWithSpaces, isDoubleHook, toShortNumber } from "../../utils/common";
 import { CRYSTAL_HOLLOWS } from "../../constants/areas";
 import { getBazaarItemPrices } from "../../utils/bazaarPrices";
-import { createButtonsDisplay, toggleButtonsDisplay } from "../../utils/overlays";
+import { LEFT_CLICK_TYPE, Overlay, OverlayButtonLine, OverlayTextLine } from "../../utils/overlays";
 import { registerIf } from "../../utils/registers";
 
 var totalMagmaCoresCount = 0;
@@ -52,16 +52,17 @@ registerIf(
 );
 
 registerIf(
-    register('renderOverlay', () => renderMagmaCoreTrackerOverlay()),
+    register('step', () => refreshOverlay()).setFps(2),
     () => settings.magmaCoreProfitTrackerOverlay && isInSkyblock() && getWorldName() === CRYSTAL_HOLLOWS
 );
 
 register("worldUnload", () => {
     isSessionActive = false;
-    buttonsDisplay.hide();
 });
 
-const buttonsDisplay = createButtonsDisplay(true, () => resetMagmaCoreProfitTracker(false), true, () => pauseMagmaCoreProfitTracker());
+const overlay = new Overlay(() => settings.magmaCoreProfitTrackerOverlay && isInSkyblock() && getWorldName() === CRYSTAL_HOLLOWS)
+    .setPositionData(overlayCoordsData.magmaCoreProfitTrackerOverlay)
+    .setIsClickable(true);
 
 export function resetMagmaCoreProfitTracker(isConfirmed) {
     try {
@@ -89,6 +90,7 @@ export function resetMagmaCoreProfitTracker(isConfirmed) {
         isSessionActive = false;
         lastSeaCreatureCaughtAt = null;
         lastMagmaCoreDroppedAt = null;
+        refreshOverlay();
 
         ChatLib.chat(`${GOLD}[FeeshNotifier] ${WHITE}Magma Core profit tracker was reset.`);    
     } catch (e) {
@@ -104,6 +106,7 @@ export function pauseMagmaCoreProfitTracker() {
         }
     
         isSessionActive = false;
+        refreshOverlay();
         ChatLib.chat(`${GOLD}[FeeshNotifier] ${WHITE}Magma Core profit tracker is paused. Continue fishing to resume it.`);       
     } catch (e) {
         console.error(e);
@@ -158,6 +161,8 @@ function refreshTrackerData() {
         magmaCoreCoinsPerHourInstaSell = elapsedHours
             ? magmaCoresPerHour * Math.floor(magmaCorePrices?.instaSell || 0)
             : 0;  
+
+        refreshOverlay();
     } catch (e) {
 		console.error(e);
 		console.log(`[FeeshNotifier] [MagmaCoreTracker] Failed to refresh tracker data.`);
@@ -206,7 +211,9 @@ function trackMagmaCoreDrop() {
 	}
 }
 
-function renderMagmaCoreTrackerOverlay() {
+function refreshOverlay() {
+    overlay.clear();
+
     if (!settings.magmaCoreProfitTrackerOverlay ||
         !isInSkyblock() ||
         getWorldName() !== CRYSTAL_HOLLOWS ||
@@ -214,7 +221,6 @@ function renderMagmaCoreTrackerOverlay() {
         (new Date() - getLastFishingHookSeenAt() > 10 * 60 * 1000) ||
         allOverlaysGui.isOpen()
     ) {
-        buttonsDisplay.hide();
         return;
     }
 
@@ -232,10 +238,13 @@ function renderMagmaCoreTrackerOverlay() {
     text += `\n`;
     text += `${AQUA}Elapsed time: ${WHITE}${formatElapsedTime(elapsedSeconds)}${pausedText}`; 
 
-    const overlay = new Text(text, overlayCoordsData.magmaCoreProfitTrackerOverlay.x, overlayCoordsData.magmaCoreProfitTrackerOverlay.y)
-        .setShadow(true)
-        .setScale(overlayCoordsData.magmaCoreProfitTrackerOverlay.scale);
-    overlay.draw();
-
-    toggleButtonsDisplay(buttonsDisplay, overlay, overlayCoordsData.magmaCoreProfitTrackerOverlay);
+    overlay.addTextLine(new OverlayTextLine().setText(text));
+    overlay.addButtonLine(new OverlayButtonLine()
+        .setText(`${YELLOW}${BOLD}[Click to pause]`)
+        .setIsSmallerScale(true)
+        .setOnClick(LEFT_CLICK_TYPE, () => pauseMagmaCoreProfitTracker()));
+    overlay.addButtonLine(new OverlayButtonLine()
+        .setText(`${RED}${BOLD}[Click to reset]`)
+        .setIsSmallerScale(true)
+        .setOnClick(LEFT_CLICK_TYPE, () => resetMagmaCoreProfitTracker(false)));
 }

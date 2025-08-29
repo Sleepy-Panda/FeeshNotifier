@@ -12,6 +12,7 @@ Bugfixes:
 
 Other:
 - Refactored code playing sounds, to rely on a single reusable function. Used to easier migrate to Sound class later for CT 3.
+- Refactored all clickable overlays to use custom Overlay class.
 
 ## v1.49.0
 

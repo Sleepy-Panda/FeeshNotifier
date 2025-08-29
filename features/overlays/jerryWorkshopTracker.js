@@ -7,7 +7,7 @@ import { BOLD, GOLD, RED, WHITE, DARK_PURPLE, GRAY, AQUA, LIGHT_PURPLE } from ".
 import { getLastFishingHookSeenAt, getWorldName, isInSkyblock } from "../../utils/playerState";
 import { formatNumberWithSpaces, getCatchesCounterChatMessage } from "../../utils/common";
 import { JERRY_WORKSHOP } from "../../constants/areas";
-import { createButtonsDisplay, getSeaCreatureStatisticsOverlayText, setSeaCreatureStatisticsOnCatch, toggleButtonsDisplay } from "../../utils/overlays";
+import { getSeaCreatureStatisticsOverlayText, LEFT_CLICK_TYPE, Overlay, OverlayButtonLine, OverlayTextLine, setSeaCreatureStatisticsOnCatch } from "../../utils/overlays";
 import { registerIf } from "../../utils/registers";
 
 let remainingWorkshopTime = null;
@@ -67,14 +67,13 @@ registerIf(
 );
 
 registerIf(
-    register('renderOverlay', () => renderJerryWorkshopOverlay()),
+    register('step', () => refreshOverlay()).setFps(2),
     () => settings.jerryWorkshopTrackerOverlay && isInSkyblock() && getWorldName() === JERRY_WORKSHOP
 );
 
 register("worldUnload", () => {
     remainingWorkshopTime = null;
     sawWorkshopClosingMessage = false;
-    buttonsDisplay.hide();
 });
 
 register("gameUnload", () => {
@@ -83,7 +82,9 @@ register("gameUnload", () => {
     }
 });
 
-const buttonsDisplay = createButtonsDisplay(true, () => resetJerryWorkshopTracker(false), false, null);
+const overlay = new Overlay(() => settings.jerryWorkshopTrackerOverlay && isInSkyblock() && getWorldName() === JERRY_WORKSHOP)
+    .setPositionData(overlayCoordsData.jerryWorkshopTrackerOverlay)
+    .setIsClickable(true);
 
 export function resetJerryWorkshopTracker(isConfirmed) {
     try {
@@ -98,7 +99,7 @@ export function resetJerryWorkshopTracker(isConfirmed) {
     
         persistentData.jerryWorkshop = getDefaultObject();
         persistentData.save();
-
+        refreshOverlay();
         ChatLib.chat(`${GOLD}[FeeshNotifier] ${WHITE}Jerry workshop tracker was reset.`);    
     } catch (e) {
 		console.error(e);
@@ -139,6 +140,7 @@ function trackYetiCatch(seaCreatureInfo) {
         persistentData.jerryWorkshop.reindrake.catchesSinceLast += 1;
 
         persistentData.save();
+        refreshOverlay();
 
         const message = getCatchesCounterChatMessage(seaCreatureInfo.seaCreature, seaCreatureInfo.rarityColorCode, result.catchesSinceLast, result.lastCatchTime);
         ChatLib.chat(message);
@@ -158,6 +160,7 @@ function trackReindrakeCatch(seaCreatureInfo) {
         persistentData.jerryWorkshop.yeti.catchesSinceLast += 1;
 
         persistentData.save();
+        refreshOverlay();
 
         const message = getCatchesCounterChatMessage(seaCreatureInfo.seaCreature, seaCreatureInfo.rarityColorCode, result.catchesSinceLast, result.lastCatchTime);
         ChatLib.chat(message);
@@ -176,6 +179,7 @@ function trackRegularJerryWorkshopSeaCreatureCatch() {
         persistentData.jerryWorkshop.yeti.catchesSinceLast += 1;
         persistentData.jerryWorkshop.reindrake.catchesSinceLast += 1;
         persistentData.save();
+        refreshOverlay();
     } catch (e) {
 		console.error(e);
 		console.log(`[FeeshNotifier] Failed to track regular Jerry Workshop sea creature catch.`);
@@ -190,6 +194,7 @@ function trackEpicBabyYetiPetDrop() {
 
         persistentData.jerryWorkshop.babyYetiPets.epic.count += 1;
         persistentData.save();
+        refreshOverlay();
     } catch (e) {
 		console.error(e);
 		console.log(`[FeeshNotifier] Failed to track Baby Yeti Pet drop.`);
@@ -204,6 +209,7 @@ function trackLegendaryBabyYetiPetDrop() {
 
         persistentData.jerryWorkshop.babyYetiPets.legendary.count += 1;
         persistentData.save();
+        refreshOverlay();
     } catch (e) {
 		console.error(e);
 		console.log(`[FeeshNotifier] Failed to track Baby Yeti Pet drop.`);
@@ -233,7 +239,9 @@ function trackRemainingWorkshopTime() {
     }
 }
 
-function renderJerryWorkshopOverlay() {
+function refreshOverlay() {
+    overlay.clear();
+
     if (!settings.jerryWorkshopTrackerOverlay ||
         !hasAnyData() ||
         !isInSkyblock() ||
@@ -241,7 +249,6 @@ function renderJerryWorkshopOverlay() {
         (new Date() - getLastFishingHookSeenAt() > 10 * 60 * 1000) ||
         allOverlaysGui.isOpen()
     ) {
-        buttonsDisplay.hide();
         return;
     }
 
@@ -254,12 +261,11 @@ function renderJerryWorkshopOverlay() {
         overlayText += `\n\n${GRAY}Closes in: ${remainingWorkshopTime}`;
     }
 
-    const overlay = new Text(overlayText, overlayCoordsData.jerryWorkshopTrackerOverlay.x, overlayCoordsData.jerryWorkshopTrackerOverlay.y)
-        .setShadow(true)
-        .setScale(overlayCoordsData.jerryWorkshopTrackerOverlay.scale);
-    overlay.draw();
-
-    toggleButtonsDisplay(buttonsDisplay, overlay, overlayCoordsData.jerryWorkshopTrackerOverlay);
+    overlay.addTextLine(new OverlayTextLine().setText(overlayText));
+    overlay.addButtonLine(new OverlayButtonLine()
+        .setText(`${RED}${BOLD}[Click to reset]`)
+        .setIsSmallerScale(true)
+        .setOnClick(LEFT_CLICK_TYPE, () => resetJerryWorkshopTracker(false)));
 
     function getYetiOverlayText() {
         const overlayText = getSeaCreatureStatisticsOverlayText(`${GOLD}Yeti`, persistentData.jerryWorkshop.yeti);

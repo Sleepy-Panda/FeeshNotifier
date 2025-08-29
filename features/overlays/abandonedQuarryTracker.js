@@ -6,7 +6,7 @@ import { ANY_MITHRIL_GRUBBER_MESSAGE } from "../../constants/triggers";
 import { formatElapsedTime, formatNumberWithSpaces, isDoubleHook, isFishingHookActive } from "../../utils/common";
 import { getLastFishingHookSeenAt, getLastGuisClosed, getWorldName, getZoneName, isInHunterArmor, isInSkyblock } from "../../utils/playerState";
 import { BLOATED_MITHRIL_GRUBBER, LARGE_MITHRIL_GRUBBER, MEDIUM_MITHRIL_GRUBBER, SMALL_MITHRIL_GRUBBER } from "../../constants/seaCreatures";
-import { createButtonsDisplay, toggleButtonsDisplay } from "../../utils/overlays";
+import { Overlay, OverlayTextLine, OverlayButtonLine, LEFT_CLICK_TYPE } from "../../utils/overlays";
 import { registerIf } from "../../utils/registers";
 
 const SMALL_MITHRIL_GRUBBER_KEY = SMALL_MITHRIL_GRUBBER.toUpperCase();
@@ -34,7 +34,9 @@ let isSessionActive = false;
 let lastHookSeenAt = null;
 let previousMithrilPowder = null;
 
-const buttonsDisplay = createButtonsDisplay(true, () => resetAbandonedQuarryTracker(false), true, () => pauseAbandonedQuarryTracker());
+const overlay = new Overlay(() => settings.abandonedQuarryTrackerOverlay && isInSkyblock() && getWorldName() === DWARVEN_MINES)
+    .setPositionData(overlayCoordsData.abandonedQuarryTrackerOverlay)
+    .setIsClickable(true);
 
 registerIf(
     register("Chat", (seaCreature, event) => {
@@ -54,13 +56,12 @@ registerIf(
 );
 
 registerIf(
-    register('renderOverlay', () => renderMithrilGrubberPowderTrackerOverlay()),
+    register('step', () => refreshOverlay()).setFps(2),
     () => settings.abandonedQuarryTrackerOverlay && isInSkyblock() && getWorldName() === DWARVEN_MINES
 );
 
 register("worldUnload", () => {
     pauseSession();
-    buttonsDisplay.hide();
 });
 
 export function resetAbandonedQuarryTracker(isConfirmed) {
@@ -94,6 +95,7 @@ export function resetAbandonedQuarryTracker(isConfirmed) {
         lastHookSeenAt = null;
         previousMithrilPowder = null;
 
+        refreshOverlay();
         ChatLib.chat(`${GOLD}[FeeshNotifier] ${WHITE}Abandoned Quarry tracker was reset.`);    
     } catch (e) {
         console.error(e);
@@ -108,6 +110,7 @@ export function pauseAbandonedQuarryTracker() {
         }
     
         pauseSession();
+        refreshOverlay();
         ChatLib.chat(`${GOLD}[FeeshNotifier] ${WHITE}Abandoned Quarry tracker is paused. Continue fishing to resume it.`);       
     } catch (e) {
         console.error(e);
@@ -261,13 +264,16 @@ function refreshTrackerData() {
         trackerData.powderPerCatch = trackerData.totalPowder > 0 && trackerData.totalCatches > 0
             ? Math.floor(trackerData.totalPowder / trackerData.totalCatches)
             : 0;
+        refreshOverlay();
     } catch (e) {
         console.error(e);
         console.log(`[FeeshNotifier] [AbandonedQuarryTracker] Failed to refresh tracker data.`);
     }
 }
 
-function renderMithrilGrubberPowderTrackerOverlay() {
+function refreshOverlay() {
+    overlay.clear();
+
     if (!settings.abandonedQuarryTrackerOverlay ||
         !isInSkyblock() ||
         getZoneName() !== ABANDONED_QUARRY ||
@@ -277,7 +283,6 @@ function renderMithrilGrubberPowderTrackerOverlay() {
         (new Date() - getLastFishingHookSeenAt() > 10 * 60 * 1000) ||
         allOverlaysGui.isOpen()
     ) {
-        buttonsDisplay.hide();
         return;
     }
 
@@ -293,10 +298,13 @@ function renderMithrilGrubberPowderTrackerOverlay() {
     text += `\n`;
     text += `${AQUA}Elapsed time: ${WHITE}${formatElapsedTime(trackerData.elapsedSeconds)}${pausedText}`; 
 
-    const overlay = new Text(text, overlayCoordsData.abandonedQuarryTrackerOverlay.x, overlayCoordsData.abandonedQuarryTrackerOverlay.y)
-        .setShadow(true)
-        .setScale(overlayCoordsData.abandonedQuarryTrackerOverlay.scale);
-    overlay.draw();
-
-    toggleButtonsDisplay(buttonsDisplay, overlay, overlayCoordsData.abandonedQuarryTrackerOverlay);
+    overlay.addTextLine(new OverlayTextLine().setText(text));
+    overlay.addButtonLine(new OverlayButtonLine()
+        .setText(`${YELLOW}${BOLD}[Click to pause]`)
+        .setIsSmallerScale(true)
+        .setOnClick(LEFT_CLICK_TYPE, () => pauseAbandonedQuarryTracker()));
+    overlay.addButtonLine(new OverlayButtonLine()
+        .setText(`${RED}${BOLD}[Click to reset]`)
+        .setIsSmallerScale(true)
+        .setOnClick(LEFT_CLICK_TYPE, () => resetAbandonedQuarryTracker(false)));
 }
