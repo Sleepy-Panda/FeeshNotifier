@@ -175,7 +175,7 @@ function trackSeaCreaturesHp() {
                     // Mob's ticksExisted is not reset while the mob is visible even if name armorstand is not visible (because of bigger render distance)
                     // However it's reset when chunk with the mob is unloaded
                     const ticksExisted = mobEntity && mobEntity instanceof net.minecraft.entity.Entity
-                        ? mobEntity.field_70173_aa // field_70173_aa -> ticksExisted 
+                        ? mobEntity.age
                         : 0;
                     isImmune = 
                         ticksExisted <= 20 * 5 && // ~5 seconds
@@ -194,7 +194,7 @@ function trackSeaCreaturesHp() {
             settings.soundMode !== OFF_SOUND_MODE &&
             !addedMobNames.every(m => m.baseMobName === 'Reindrake') // Reindrake flies around and goes out of nametags render distance periodically, we don't need sound when detecting it
         ) {
-            playMcSound('random.orb', 0.75, 1);
+            playMcSound('entity.experience_orb.pickup', 0.75, 1);
         }
     
         mobs = currentMobs;

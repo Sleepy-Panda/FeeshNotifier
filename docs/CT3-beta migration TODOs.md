@@ -20,3 +20,4 @@ https://github.com/ChatTriggers/ctjs/blob/main/docs/MIGRATION.md
 - Peak FPS and TPS in hub :(
 - Clickable overlay buttons  - not detecting if in chat / inventory
 - No music played (MC sounds)
+- All func_ and field_ to be replaced
