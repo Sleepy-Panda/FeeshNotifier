@@ -200,7 +200,6 @@ function setHasFishingRodInHotbar() {
 	if (!hotbarItems || !hotbarItems.length) {
 		hasFishingRodInHotbar = false;
 	} else {
-		hasFishingRodInHotbar = true; return; // TODO
 		const rods = hotbarItems.filter(i => i && isFishingRod(i));
 		hasFishingRodInHotbar = rods && rods.length;	
 	}

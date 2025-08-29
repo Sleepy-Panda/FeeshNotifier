@@ -325,7 +325,8 @@ export function getCleanItemName(itemName) {
  */
 export function isFishingRod(item) {
 	if (!item) return false;
-    const isRod = (!item.getName()?.includes('Carnival Rod') && getLore(item).some(loreLine => loreLine.includes('FISHING ROD') || loreLine.includes('FISHING WEAPON')));
+
+    const isRod = (!item.getName()?.removeFormatting()?.includes('Carnival Rod') && item.getLore().some(loreLine => loreLine.toString().includes('FISHING ROD') || loreLine.toString().includes('FISHING WEAPON')));
 	return isRod;
 }
 
