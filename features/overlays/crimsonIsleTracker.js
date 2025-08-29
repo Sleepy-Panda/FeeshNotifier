@@ -7,7 +7,7 @@ import { BOLD, GOLD, LIGHT_PURPLE, RED, WHITE, GRAY, RESET, AQUA } from "../../c
 import { getLastFishingHookInHotspotSeenAt, getLastFishingHookSeenAt, getWorldName, getZoneName, isInSkyblock } from "../../utils/playerState";
 import { getCatchesCounterChatMessage, getDropCatchesCounterChatMessage } from "../../utils/common";
 import { CRIMSON_ISLE, PLHLEGBLAST_POOL } from "../../constants/areas";
-import { MEME_SOUND_MODE, NORMAL_SOUND_MODE, SAD_TROMBONE_SOUND_SOURCE } from "../../constants/sounds";
+import { MC_RANDOM_ORB_SOUND, MEME_SOUND_MODE, NORMAL_SOUND_MODE, SAD_TROMBONE_SOUND_SOURCE } from "../../constants/sounds";
 import { setSeaCreatureStatisticsOnCatch, getSeaCreatureStatisticsOverlayText, getDropStatisticsOverlayText, setDropStatisticsOnCatch, setDropStatisticsOnDrop, initDropCountOnOverlay, Overlay, OverlayTextLine, OverlayButtonLine, LEFT_CLICK_TYPE } from "../../utils/overlays";
 import { registerIf } from "../../utils/registers";
 import { playMcSound } from "../../utils/sound";
@@ -361,7 +361,7 @@ function trackRegularSeaCreatureCatch() {
                     new Sound(SAD_TROMBONE_SOUND_SOURCE).play();
                     break;
                 case NORMAL_SOUND_MODE:
-                    playMcSound('random.orb');
+                    playMcSound(MC_RANDOM_ORB_SOUND);
                     break;
                 default:
                     break;

@@ -2,7 +2,7 @@
 
 import settings from "../../settings";
 import * as triggers from '../../constants/triggers';
-import { OFF_SOUND_MODE } from "../../constants/sounds";
+import { MC_RANDOM_ORB_SOUND, OFF_SOUND_MODE } from "../../constants/sounds";
 import { YELLOW } from "../../constants/formatting";
 import { getWorldName, isInSkyblock } from "../../utils/playerState";
 import { registerIf } from "../../utils/registers";
@@ -33,7 +33,7 @@ export function playAlertOnBucketAutoPickup() {
 		Client.showTitle(`${YELLOW}Chum Bucket is gone`, '', 1, 30, 1);
 	
 		if (settings.soundMode !== OFF_SOUND_MODE) {
-            playMcSound('random.orb');
+            playMcSound(MC_RANDOM_ORB_SOUND);
         }
 	} catch (e) {
 		console.error(e);

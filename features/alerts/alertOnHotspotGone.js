@@ -1,5 +1,5 @@
 import settings from "../../settings";
-import { OFF_SOUND_MODE } from "../../constants/sounds";
+import { MC_RANDOM_ORB_SOUND, OFF_SOUND_MODE } from "../../constants/sounds";
 import { getWorldName, hasFishingRodInHotbar, isInSkyblock } from "../../utils/playerState";
 import { HOTSPOT_WORLDS } from "../../constants/areas";
 import { GOLD, LIGHT_PURPLE, RED, RESET, WHITE } from "../../constants/formatting";
@@ -71,6 +71,6 @@ function playAlert(perk) {
     ChatLib.chat(`${GOLD}[FeeshNotifier] ${perk} ${RESET}${LIGHT_PURPLE}Hotspot ${WHITE}is gone, time to find another one!`);
         
     if (settings.soundMode !== OFF_SOUND_MODE) {
-        playMcSound('random.orb');
+        playMcSound(MC_RANDOM_ORB_SOUND);
     }
 }
