@@ -4,10 +4,10 @@ import { isInSkyblock } from "../../utils/playerState";
 import { getCleanItemName } from "../../utils/common";
 import { registerIf } from "../../utils/registers";
 
-registerIf(
-    register('renderItemIntoGui', (item, x, y, event) => showThunderBottleProgress(item, x, y)),
-    () => settings.showThunderBottleProgress && isInSkyblock()
-);
+//registerIf(
+//    register('renderItemIntoGui', (item, x, y, event) => showThunderBottleProgress(item, x, y)),
+//    () => settings.showThunderBottleProgress && isInSkyblock()
+//);
 
 const BOTTLES = [
     {

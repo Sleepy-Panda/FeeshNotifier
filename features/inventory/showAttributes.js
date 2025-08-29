@@ -12,10 +12,10 @@ settings.getConfig().onCloseGui(() => {
     setIgnoredItemNames();
 });
 
-registerIf(
-    register('renderItemIntoGui', (item, x, y, event) => showAttributes(item, x, y)),
-    () => settings.showObsoleteAttributes && isInSkyblock()
-);
+//registerIf(
+//    register('renderItemIntoGui', (item, x, y, event) => showAttributes(item, x, y)),
+//    () => settings.showObsoleteAttributes && isInSkyblock()
+//);
 
 function showAttributes(item, x, y) {
     if (!item || !settings.showObsoleteAttributes || !isInSkyblock()) {

@@ -6,10 +6,10 @@ import { registerIf } from "../../utils/registers";
 
 const MAX_PROGRESS_SECONDS = 300 * 60 * 60;
 
-registerIf(
-    register('renderItemIntoGui', (item, x, y, event) => showMobyDuckProgress(item, x, y)),
-    () => settings.showMobyDuckProgress && isInSkyblock()
-);
+//registerIf(
+//    register('renderItemIntoGui', (item, x, y, event) => showMobyDuckProgress(item, x, y)),
+//    () => settings.showMobyDuckProgress && isInSkyblock()
+//);
 
 function showMobyDuckProgress(item, x, y) {
     if (!item || !settings.showMobyDuckProgress || !isInSkyblock()) return;

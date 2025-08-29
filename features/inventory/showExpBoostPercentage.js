@@ -3,10 +3,10 @@ import { isInSkyblock } from "../../utils/playerState";
 import { getCleanItemName, getLore } from "../../utils/common";
 import { registerIf } from "../../utils/registers";
 
-registerIf(
-    register('renderItemIntoGui', (item, x, y, event) => showExpBoostPercent(item, x, y)),
-    () => settings.showExpBoostPercentage && isInSkyblock()
-);
+//registerIf(
+//    register('renderItemIntoGui', (item, x, y, event) => showExpBoostPercent(item, x, y)),
+//    () => settings.showExpBoostPercentage && isInSkyblock()
+//);
 
 // Exp Boost NBT:
 // {"ench":[],"HideFlags":254,"display":{"Lore":["§8Consumed on use","","§aPet Items §7can boost pets in many powerful ways!","§7A pet can only hold one §aPet Item §7at a time.","§7The pet must be §evisible §7to apply the item!","","§7§7Gives §a+40% §7pet exp for Fishing.","","§7§eRight-click on your summoned pet to","§egive it this item!","","§9§lRARE PET ITEM"],"Name":"§9Fishing Exp Boost"},"ExtraAttributes":{"id":"PET_ITEM_FISHING_SKILL_BOOST_RARE","uuid":"92d3d59a-bab8-4ead-833f-9f72ee31e6f5","timestamp":1741679190890}}

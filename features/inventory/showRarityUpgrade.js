@@ -3,10 +3,10 @@ import settings from "../../settings";
 import { isInSkyblock } from "../../utils/playerState";
 import { registerIf } from "../../utils/registers";
 
-registerIf(
-    register('renderItemIntoGui', (item, x, y, event) => showRarityUpgrade(item, x, y)),
-    () => settings.showRarityUpgrade && isInSkyblock()
-);
+//registerIf(
+//    register('renderItemIntoGui', (item, x, y, event) => showRarityUpgrade(item, x, y)),
+//    () => settings.showRarityUpgrade && isInSkyblock()
+//);
 
 function showRarityUpgrade(item, x, y) {
     if (!settings.showRarityUpgrade || !isInSkyblock()) {
