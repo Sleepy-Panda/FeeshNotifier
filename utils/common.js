@@ -380,6 +380,20 @@ export function formatTimeElapsedBetweenDates(dateFrom, dateTo = new Date()) {
 	}
 
 	const totalSeconds = Math.floor((dateTo - dateFrom) / 1000);
+	return formatElapsedTimeWithUnits(totalSeconds);
+}
+
+/**
+ * Formats elapsed time in days, hours and minutes. Examples: "2d 8h 5m" or "less than 1m"
+ * @param {number} elapsedSeconds - Number of elapsed seconds
+ * @returns {string}
+ */
+export function formatElapsedTimeWithUnits(elapsedSeconds) {
+	if (!elapsedSeconds) {
+		return '';
+	}
+
+	const totalSeconds = elapsedSeconds;
 	const totalMinutes = Math.floor(totalSeconds / 60);
 	const totalHours = Math.floor(totalMinutes / 60);
 	const totalDays = Math.floor(totalHours / 24);

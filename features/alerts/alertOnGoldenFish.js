@@ -20,7 +20,7 @@ function playAlertOnGoldenFish() {
 		Client.showTitle(`${WHITE}Catch ${GOLD}Golden Fish`, '', 1, 30, 1);
 	
 		if (settings.soundMode !== OFF_SOUND_MODE) {
-            new Sound({ source: 'random.splash', volume: 1, pitch: 1 }).play();
+            World.playSound('random.splash', 1, 1);
         }
 	} catch (e) {
 		console.error(e);

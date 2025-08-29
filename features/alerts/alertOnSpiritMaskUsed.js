@@ -19,7 +19,7 @@ function playAlertOnSpiritMaskUsed() {
 		Client.showTitle(`${YELLOW}Spirit Mask used`, '', 1, 30, 1);
 	
 		if (settings.soundMode !== OFF_SOUND_MODE) {
-            new Sound({ source: 'random.orb', volume: 1, pitch: 1 }).play();
+            World.playSound('random.orb', 1, 1);
         }
 
 		if (settings.alertOnSpiritMaskBack) {
@@ -37,7 +37,7 @@ function playAlertOnSpiritMaskBack() {
 		Client.showTitle(`${GREEN}Spirit Mask ready`, '', 1, 30, 1);
 	
 		if (settings.soundMode !== OFF_SOUND_MODE) {
-            new Sound({ source: 'random.orb', volume: 1, pitch: 1 }).play();
+            World.playSound('random.orb', 1, 1);
         }
 	} catch (e) {
 		console.error(e);

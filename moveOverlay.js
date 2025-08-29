@@ -1,4 +1,4 @@
-import { abandonedQuarryTrackerOverlayGui, archfiendDiceProfitTrackerOverlayGui, crimsonIsleTrackerOverlayGui, fishingProfitTrackerOverlayGui, flareRemainingTimeOverlayGui, jerryWorkshopTrackerOverlayGui, legionAndBobbingTimeOverlayGui, magmaCoreProfitTrackerOverlayGui, seaCreaturesTrackerOverlayGui, seaCreaturesCountOverlayGui, seaCreaturesHpOverlayGui, seaCreaturesPerHourTrackerOverlayGui, totemRemainingTimeOverlayGui, waterHotspotsAndBayouTrackerOverlayGui, wormProfitTrackerOverlayGui } from "./settings";
+import { abandonedQuarryTrackerOverlayGui, archfiendDiceProfitTrackerOverlayGui, crimsonIsleTrackerOverlayGui, fishingProfitTrackerOverlayGui, flareRemainingTimeOverlayGui, jerryWorkshopTrackerOverlayGui, legionAndBobbingTimeOverlayGui, magmaCoreProfitTrackerOverlayGui, seaCreaturesTrackerOverlayGui, seaCreaturesCountOverlayGui, seaCreaturesHpOverlayGui, seaCreaturesPerHourTrackerOverlayGui, totemRemainingTimeOverlayGui, waterHotspotsAndBayouTrackerOverlayGui, wormProfitTrackerOverlayGui, consumablesRemainingTimeOverlayGui } from "./settings";
 import { overlayCoordsData } from "./data/overlayCoords";
 
 const GUIS = [
@@ -9,6 +9,10 @@ const GUIS = [
     {
         gui: flareRemainingTimeOverlayGui,
         guiSettings: overlayCoordsData.flareRemainingTimeOverlay,
+    },
+    {
+        gui: consumablesRemainingTimeOverlayGui,
+        guiSettings: overlayCoordsData.consumablesRemainingTimeOverlay,
     },
     {
         gui: seaCreaturesTrackerOverlayGui,

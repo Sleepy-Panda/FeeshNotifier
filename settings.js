@@ -6,6 +6,7 @@ export const allOverlaysGui = new Gui(); // Sample overlays GUI to move/resize t
 
 export const totemRemainingTimeOverlayGui = new Gui();
 export const flareRemainingTimeOverlayGui = new Gui();
+export const consumablesRemainingTimeOverlayGui = new Gui();
 export const seaCreaturesTrackerOverlayGui = new Gui();
 export const seaCreaturesHpOverlayGui = new Gui();
 export const seaCreaturesCountOverlayGui = new Gui();
@@ -491,6 +492,14 @@ const config = new DefaultConfig("FeeshNotifier", "config/settings.json")
     title: "Alert when player's flare expires soon",
     description: "Shows a title and plays a sound when current player's Warning Flare / Alert Flare / SOS Flare expires in 10 seconds.",
     subcategory: "Flare",
+    value: true
+})
+.addSwitch({
+    category: "Alerts",
+    configName: "alertOnConsumableExpiresSoon",
+    title: "Alert when Moby-Duck expires soon",
+    description: "Shows a title and plays a sound when Moby-Duck expires in 10 seconds.",
+    subcategory: "Consumables",
     value: true
 })
 .addSwitch({
@@ -1012,6 +1021,25 @@ const config = new DefaultConfig("FeeshNotifier", "config/settings.json")
     subcategory: "Flare",
     onClick() {
         moveOverlay(flareRemainingTimeOverlayGui);
+    }
+})
+
+.addSwitch({
+    category: "Overlays",
+    configName: "consumablesRemainingTimeOverlay",
+    title: "Remaining Moby-Duck time",
+    description: "Shows an overlay with the remaining time of Moby-Duck consumable.",
+    subcategory: "Consumables",
+    value: true
+})
+.addButton({
+    category: "Overlays",
+    configName: "moveConsumablesRemainingTimeOverlay",
+    title: "Move remaining Moby-Duck time",
+    description: "Allows to move and resize the overlay text.",
+    subcategory: "Consumables",
+    onClick() {
+        moveOverlay(consumablesRemainingTimeOverlayGui);
     }
 })
 
@@ -1621,73 +1649,16 @@ ${GRAY}Do ${AQUA}/feeshResetProfitTracker${GRAY} to reset.`,
 
 .addSwitch({
     category: "Items and storages",
-    configName: "showAttributesOnFishingGear",
-    title: "Fishing gear attributes",
-    description: "Render attributes name and level as short abbreviations, for Thunder/Magma Lord/Lava Sea Creature armor and equipment.",
-    subcategory: "Attributes"
-})
-.addTextInput({
-    category: "Items and storages",
-    configName: "accentedAttributesOnFishingGear",
-    title: "Accented fishing gear attributes",
-    description: "Render attributes from this list using another color. Use lower_case_with_underscore to specify an attribute code, and comma as a separator to specify multiple.",
-    value: "blazing_fortune,magic_find,fishing_experience",
-    placeHolder: "",
-    subcategory: "Attributes"
-})
-.addSwitch({
-    category: "Items and storages",
-    configName: "showAttributesOnFishingRod",
-    title: "Fishing rod attributes",
-    description: "Render attributes name and level as short abbreviations, for lava fishing rods.",
-    subcategory: "Attributes"
-})
-.addTextInput({
-    category: "Items and storages",
-    configName: "accentedAttributesOnFishingRod",
-    title: "Accented fishing rod attributes",
-    description: "Render attributes from this list using another color. Use lower_case_with_underscore to specify an attribute code, and comma as a separator to specify multiple.",
-    value: "double_hook,fishing_speed,trophy_hunter,fisherman",
-    placeHolder: "",
-    subcategory: "Attributes"
-})
-.addSwitch({
-    category: "Items and storages",
-    configName: "showAttributesOnShard",
-    title: "Attribute Shard attributes",
-    description: "Render attribute name and level as short abbreviations, for Attribute Shards.",
-    subcategory: "Attributes"
-})
-.addTextInput({
-    category: "Items and storages",
-    configName: "accentedAttributesOnShard",
-    title: "Accented Attribute Shard attributes",
-    description: "Render attributes from this list using another color. Use lower_case_with_underscore to specify an attribute code, and comma as a separator to specify multiple.",
-    value: "magic_find,veteran,vitality,dominance,mana_pool,mana_regeneration,lifeline,blazing_fortune,magic_find,fishing_experience",
-    placeHolder: "",
-    subcategory: "Attributes"
-})
-.addSwitch({
-    category: "Items and storages",
-    configName: "showAttributesOnEverythingElse",
-    title: "Attributes on everything else",
-    description: "Render attributes name and level as short abbreviations, for every other gear that has attributes.",
-    subcategory: "Attributes"
-})
-.addTextInput({
-    category: "Items and storages",
-    configName: "accentedAttributesOnEverythingElse",
-    title: "Accented attributes for everything else",
-    description: "Render attributes from this list using another color. Use lower_case_with_underscore to specify an attribute code, and comma as a separator to specify multiple.",
-    value: "magic_find,veteran,vitality,dominance,mana_pool,mana_regeneration,lifeline",
-    placeHolder: "",
+    configName: "showObsoleteAttributes",
+    title: "Obsolete attributes",
+    description: "Render obsolete inactive attributes name and level as short abbreviations for any item which has it.",
     subcategory: "Attributes"
 })
 .addTextInput({
     category: "Items and storages",
     configName: "showAttributesIgnoredItems",
     title: "Ignored items",
-    description: "Do not render attributes on items from this list. Specify base item name, and comma as a separator to specify multiple.\nExample: Staff of the Volcano,Blade of the Volcano,Fire Fury Staff,Fire Veil Wand,Ragnarock Axe",
+    description: "Do not render attributes on items from this list. Specify base item name, and comma as a separator to specify multiple.\nExample: Staff of the Volcano,Blade of the Volcano,Fire Fury Staff,Fire Veil Wand,Ragnarock",
     value: "",
     placeHolder: "",
     subcategory: "Attributes"
@@ -1865,7 +1836,7 @@ const setting = new Settings("FeeshNotifier", config, "data/ColorScheme.json", `
     .setPos(0.0001, 0.0001) // Weird but if set to 0 it applies default value = 20 or so
     .setSize(100, 100)
     .onOpenGui(() => setting.searchBar._focusSearch())
-    .setClickSound(() => new Sound({ source: "gui.button.press", volume: 0.25, pitch: 1 }).play())
+    .setClickSound(() => World.playSound("gui.button.press", 0.25, 1))
     .apply();
 
 export default setting.settings;

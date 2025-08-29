@@ -19,8 +19,8 @@ export function playRareDropSound() {
 
     const volume = 0.8;
 
-    new Sound({ source: 'note.pling', volume: volume, pitch: Math.pow(2, -9 / 12) }).play();
-    setTimeout(() => new Sound({ source: 'note.pling', volume: volume, pitch: Math.pow(2, -4 / 12) }), 200).play();
-    setTimeout(() => new Sound({ source: 'note.pling', volume: volume, pitch: Math.pow(2, 1 / 12) }), 400).play();
-    setTimeout(() => new Sound({ source: 'note.pling', volume: volume, pitch: Math.pow(2, 3 / 12) }), 600).play();
+    World.playSound('note.pling', volume, Math.pow(2, -9 / 12));
+    setTimeout(() => World.playSound('note.pling', volume, Math.pow(2, -4 / 12)), 200);
+    setTimeout(() => World.playSound('note.pling', volume, Math.pow(2, 1 / 12)), 400);
+    setTimeout(() => World.playSound('note.pling', volume, Math.pow(2, 3 / 12)), 600);
 }

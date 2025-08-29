@@ -29,7 +29,7 @@ function alertOnWormTheFishCatch() {
         Client.showTitle(`${WHITE}Pickup ${RED}Worm the Fish`, '', 1, 45, 1);
         
         if (settings.soundMode !== OFF_SOUND_MODE) {
-            new Sound({ source: 'random.splash', volume: 1, pitch: 1 }).play();
+            World.playSound('random.splash', 1, 1);
         }
     }
     

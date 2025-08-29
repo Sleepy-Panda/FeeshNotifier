@@ -193,7 +193,7 @@ function trackSeaCreaturesHp() {
             settings.soundMode !== OFF_SOUND_MODE &&
             !addedMobNames.every(m => m.baseMobName === 'Reindrake') // Reindrake flies around and goes out of nametags render distance periodically, we don't need sound when detecting it
         ) {
-            new Sound({ source: 'random.orb', volume: 0.75, pitch: 1 }).play();
+            World.playSound('random.orb', 0.75, 1);
         }
     
         mobs = currentMobs;

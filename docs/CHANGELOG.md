@@ -1,8 +1,20 @@
 # Releases
 
-## v1.48.0
+## v1.49.0
 
 Released: ???
+
+Features:
+- Reworked Attribute Shard functionality to highlight obsolete attributes on all items in gray color. Abbreviations are not rendered on new Shards anymore.
+  - Needs to be re-enabled in settings!
+- Added Moby-Duck remaining time overlay.
+
+Bugfixes:
+- Removed Shredded Line rare drop alert, because Hypixel always shows it by default.
+
+## v1.48.0
+
+Released: 2025-08-23
 
 Features:
 - Adjusted module to the Foraging Changes & Mob Types SB update:
