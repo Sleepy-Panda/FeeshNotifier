@@ -1,14 +1,38 @@
 import settings from "../settings";
+import { getWorldName, isInSkyblock } from "./playerState";
 
 // This functionality helps to dynamically re-apply relevant registers after world changed or settings GUI closed.
 
 let registers = [];
+let attemptsCounter = 0;
+let lastWorldLoadAt = null;
 
 settings.getConfig().onCloseGui(() => {
     updateRegisters();
 });
 
-export function updateRegisters() {
+register('worldLoad', () => {
+    attemptsCounter = 0;
+    if (new Date() - lastWorldLoadAt < 1000) return; // Multiple world load events may happen
+
+    lastWorldLoadAt = new Date();
+    tryUpdateRegisters();
+});
+
+function tryUpdateRegisters() {
+    if (attemptsCounter > 3) return;
+
+    updateRegisters();
+
+    const inSkyblock = isInSkyblock();
+    const worldName = getWorldName();
+    if (inSkyblock && worldName && registers.length) return; // World details and registers list already loaded
+
+    attemptsCounter++;
+    setTimeout(tryUpdateRegisters, 3000);
+}
+
+function updateRegisters() {
     try {
         registers.forEach(register => {
             if (!register.conditionFunc() && register.isTriggerEnabled) {

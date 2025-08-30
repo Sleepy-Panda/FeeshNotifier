@@ -8,7 +8,7 @@ import { CRIMSON_ISLE } from "../../constants/areas";
 import { playMcSound } from "../../utils/sound";
 
 registerIf(
-	register("Chat", (event) => playAlertOnGoldenFish()).setCriteria(triggers.GOLDEN_FISH_MESSAGE),
+	register("Chat", (event) => playAlertOnGoldenFish()).setCriteria(triggers.GOLDEN_FISH_MESSAGE).setStart(),
 	() => settings.alertOnGoldenFishSpawned && isInSkyblock() && getWorldName() === CRIMSON_ISLE
 );
 

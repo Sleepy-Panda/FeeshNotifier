@@ -18,8 +18,9 @@ https://github.com/ChatTriggers/ctjs/blob/main/docs/MIGRATION.md
 - Move all GUIs wrong moving
 - WTF is with clickable overlay buttons
 - CT load makes everything not work until lobby swap (empty registers list at the moment of loading world details)
+  - partially fixed but Garden -> Island or End -> Island does not enable functionalities
 - Sacks profits not tracked
-- Peak FPS and TPS in hub :(
+- Peak FPS and TPS in hub :( when enabling Hypixel Hook timer
 - Clickable overlay buttons  - not detecting if in chat / inventory
 - No music played (MC sounds)
 - All func_ and field_ to be replaced

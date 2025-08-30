@@ -1,7 +1,6 @@
 import { CRIMSON_ISLE, PLHLEGBLAST_POOL } from "../constants/areas";
 import { getPlayerFishingHook, isFishingHookActive, isFishingRod } from "./common";
 import { findClosestHotspotInRange } from "./entityDetection";
-import { updateRegisters } from "./registers";
 
 var inSkyblock = false;
 var worldName = null;
@@ -41,7 +40,6 @@ function trackPlayerState() {
 		setZoneName();
 
 		if (prevInSkyblock !== inSkyblock || prevWorldName !== worldName) {
-			updateRegisters();
 			lastFishingHookSeenAt = null;
 			lastFishingHookInHotspotSeenAt = null;
 		}
@@ -51,8 +49,6 @@ function trackPlayerState() {
 		setLastFishingHookInHotspotSeenAt();
 		setHasDirtRodInHand();
 		setIsInHunterArmor();	
-
-		//console.log(inSkyblock + ' ' + worldName + ' ' + zoneName + ' ' + hasFishingRodInHotbar);
 	} catch (e) {
 		console.error(e);
 		console.log(`[FeeshNotifier] Failed to track player's state.`);
@@ -60,14 +56,10 @@ function trackPlayerState() {
 }
 
 register("guiClosed", (gui) => {
-    if (!gui) {
-        return;
-    }
+    if (!gui) return;
 
-    const chestName = gui.field_147002_h?.func_85151_d()?.func_145748_c_()?.text;
-    if (!chestName) {
-        return;
-    }
+	const chestName = gui.getTitle()?.getString();
+	if (!chestName) return;
 
     if (chestName.includes('Sack')) {
         lastGuisClosed.lastSacksGuiClosedAt = new Date();
