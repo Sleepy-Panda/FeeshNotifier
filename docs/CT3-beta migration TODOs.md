@@ -23,5 +23,4 @@ https://github.com/ChatTriggers/ctjs/blob/main/docs/MIGRATION.md
 - Clickable overlay buttons  - not detecting if in chat / inventory
 - No music played (MC sounds)
 - All func_ and field_ to be replaced
-- The Trash Gobbler is hungry for you! - not compacted
 - RESET in the end of trigger messages is not applied sometimes in 1.21

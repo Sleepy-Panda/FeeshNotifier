@@ -287,9 +287,9 @@ allOverlaysGui.registerKeyTyped((char, keyCode) => {
         return;
     }
 
-    if (keyCode == 13) { // "+" character
+    if (keyCode == 61) { // "+" character
         zoomInCurrentGui(selectedGui);
-    } else if (keyCode == 12) { // "-" character
+    } else if (keyCode == 45) { // "-" character
         zoomOutCurrentGui(selectedGui);
     }
 });
