@@ -50,20 +50,20 @@ registerIf(
 
 triggers.COINS_FISHED_TRIGGERS.forEach(trigger => {
     registerIf(
-        register("Chat", (coins, event) => onCoinsFished(coins)).setCriteria(trigger.trigger),
+        register("Chat", (coins, event) => onCoinsFished(coins)).setCriteria(trigger.trigger).setStart(),
         () => settings.fishingProfitTrackerOverlay && isInSkyblock() && isInFishingWorld(getWorldName())
     );
 });
 
 triggers.ICE_ESSENCE_FISHED_TRIGGERS.forEach(trigger => {
     registerIf(
-        register("Chat", (count, event) => onIceEssenceFished(count)).setCriteria(trigger.trigger),
+        register("Chat", (count, event) => onIceEssenceFished(count)).setCriteria(trigger.trigger).setStart(),
         () => settings.fishingProfitTrackerOverlay && isInSkyblock() && getWorldName() === JERRY_WORKSHOP
     );
 });
 
 registerIf(
-    register("Chat", (shardText, event) => onShardFished(shardText)).setCriteria(triggers.GOOD_CATCH_SHARD_MESSAGE),
+    register("Chat", (shardText, event) => onShardFished(shardText)).setCriteria(triggers.GOOD_CATCH_SHARD_MESSAGE).setStart(),
     () => settings.fishingProfitTrackerOverlay && isInSkyblock() && isInFishingWorld(getWorldName())
 );
 
