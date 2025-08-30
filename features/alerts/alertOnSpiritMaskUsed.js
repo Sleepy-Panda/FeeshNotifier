@@ -7,7 +7,7 @@ import { registerIf } from "../../utils/registers";
 import { playMcSound } from "../../utils/sound";
 
 registerIf(
-	register("Chat", (event) => playAlertOnSpiritMaskUsed()).setCriteria(triggers.SPIRIT_MASK_USED_MESSAGE),
+	register("Chat", (event) => playAlertOnSpiritMaskUsed()).setCriteria(triggers.SPIRIT_MASK_USED_MESSAGE).setStart(),
 	() => settings.alertOnSpiritMaskUsed && isInSkyblock()
 );
 

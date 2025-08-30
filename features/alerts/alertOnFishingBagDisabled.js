@@ -17,12 +17,12 @@ registerIf(
 );
 
 registerIf(
-    register('Chat', (event) => setFishingBagState(false)).setCriteria(USE_BAITS_FROM_FISHING_BAG_DISABLED),
+    register('Chat', (event) => setFishingBagState(false)).setCriteria(USE_BAITS_FROM_FISHING_BAG_DISABLED).setStart(),
     () => settings.alertOnFishingBagDisabled && isInSkyblock()
 );
 
 registerIf(
-    register('Chat', (event) => setFishingBagState(true)).setCriteria(USE_BAITS_FROM_FISHING_BAG_ENABLED),
+    register('Chat', (event) => setFishingBagState(true)).setCriteria(USE_BAITS_FROM_FISHING_BAG_ENABLED).setStart(),
     () => settings.alertOnFishingBagDisabled && isInSkyblock()
 );
 
