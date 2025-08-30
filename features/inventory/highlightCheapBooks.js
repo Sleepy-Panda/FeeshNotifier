@@ -1,3 +1,4 @@
+import { GuiInventory } from "../../constants/javaTypes";
 import settings from "../../settings";
 import { isInSkyblock } from "../../utils/playerState";
 import { registerIf } from "../../utils/registers";
@@ -21,7 +22,7 @@ function highlightCheapBooks(slot, gui) {
         return;
     }
 
-    if (!(gui instanceof net.minecraft.client.gui.inventory.GuiChest) && !(gui instanceof net.minecraft.client.gui.inventory.GuiInventory)) {
+    if (!(gui instanceof net.minecraft.client.gui.inventory.GuiChest) && !(gui instanceof GuiInventory)) {
         return;
     }
 

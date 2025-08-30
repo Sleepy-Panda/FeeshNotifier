@@ -12,6 +12,7 @@ import { getLastFishingHookSeenAt, getLastGuisClosed, getLastKatUpgrade, getWorl
 import { playRareDropSound } from '../../utils/sound';
 import { registerIf } from '../../utils/registers';
 import { CTRL_LEFT_CLICK_TYPE, CTRL_MIDDLE_CLICK_TYPE, CTRL_RIGHT_CLICK_TYPE, LEFT_CLICK_TYPE, Overlay, OverlayButtonLine, OverlayTextLine } from '../../utils/overlays';
+import { GuiChest } from '../../constants/javaTypes';
 
 let previousInventory = [];
 let isSessionActive = false;
@@ -514,8 +515,8 @@ function detectInventoryChanges() {
         let screen = Client.getMinecraft().currentScreen;
         if (screen && screen.getScreenHandler) {
             let handler = screen.getScreenHandler();
-            let draggedItem = handler.getCursorStack();
-            if (!draggedItem.isEmpty() && new Item(draggedItem)) return; // Do not recalculate inventory while a player is moving an item 
+            let draggedItem = handler?.getCursorStack();
+            if (draggedItem && !draggedItem.isEmpty() && new Item(draggedItem)) return; // Do not recalculate inventory while a player is moving an item 
         }
 
         const hasBarrier = (Player?.getInventory()?.getItems() || []).find(i => i?.getName() === 'Barrier'); // NEU slot binding replaces inventory items with Barriers
@@ -523,7 +524,8 @@ function detectInventoryChanges() {
         
         const currentInventory = getFishingProfitItemsInCurrentInventory();
 
-        let isInChest = Client.isInGui() && screen && screen instanceof net.minecraft.client.gui.screen.inventory.ChestScreen;
+        let isInChest = screen && screen instanceof GuiChest;
+        //console.log(isInChest + ' ' + screen.getTitle()?.getString())
         if (!isInChest) {
             const uniqueItemIds = currentInventory.map(i => i.itemId).filter(id => !!id).filter((x, i, a) => a.indexOf(x) == i);
             let isUpdated = false;

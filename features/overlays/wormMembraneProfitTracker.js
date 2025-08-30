@@ -171,12 +171,11 @@ function detectInventoryChanges() {
             previousInventoryTotal = previousInventory.reduce((partialSum, a) => partialSum + a, 0);
         }
 
-        var heldItem = Player.getPlayer()?.field_71071_by?.func_70445_o();
-        if (heldItem) {
-            var item = new Item(heldItem);
-            if (item && item.getName()?.removeFormatting() === 'Worm Membrane') {
-                return; // Do not recalculate inventory while a player is moving a membrane
-            }
+        let screen = Client.getMinecraft().currentScreen;
+        if (screen && screen.getScreenHandler) {
+            let handler = screen.getScreenHandler();
+            let draggedItem = handler?.getCursorStack();
+            if (draggedItem && !draggedItem.isEmpty() && new Item(draggedItem)) return; // Do not recalculate inventory while a player is moving an item 
         }
 
         const currentInventory = getInventoryMembranes();

@@ -1,6 +1,6 @@
 import { NO_FISHING_WORLDS } from '../constants/areas';
 import { RED, DARK_GRAY, BLUE, WHITE, BOLD, RESET, GOLD, GRAY } from '../constants/formatting';
-import { NBTTagString } from '../constants/javaTypes';
+import { GuiChat, GuiChest, GuiInventory, NBTTagString } from '../constants/javaTypes';
 import { EntityFishHook, NBTTagString } from '../constants/javaTypes';
 import { DOUBLE_HOOK_MESSAGES, HURRICANE_BOTTLE_CHARGED_MESSAGE, STORM_BOTTLE_CHARGED_MESSAGE, THUNDER_BOTTLE_CHARGED_MESSAGE } from '../constants/triggers';
 
@@ -267,7 +267,7 @@ export function splitArray(array, count) {
 export function isInChatOrInventoryGui() {
 	const screen = Client.getMinecraft().currentScreen;
 	if (!screen) return;
-	return screen instanceof net.minecraft.client.gui.screen.ChatScreen || screen instanceof net.minecraft.client.gui.screen.inventory.InventoryScreen;
+	return screen instanceof GuiChat || screen instanceof GuiInventory;
 }
 
 export function isInSacksGui() {
@@ -537,9 +537,11 @@ export function getMcEntityById(id) {
 }
 
 function getCurrentGuiChestName() {
-	if (Client.isInGui() && Client.getMinecraft().currentScreen && Client.getMinecraft().currentScreen instanceof net.minecraft.client.gui.screen.inventory.ChestScreen) {
-		const chestName = Client.getMinecraft().currentScreen.getContainer().getTitle().getString();
-		//console.log(chestName);
+	if (!Client.isInGui()) return null;
+
+	const currentScreen = Client.getMinecraft().currentScreen;
+	if (currentScreen && currentScreen instanceof GuiChest) {
+		const chestName = currentScreen.getTitle().getString();
 		return chestName;
 	}
 	return null;
