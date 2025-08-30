@@ -12,7 +12,7 @@ import { playMcSound } from "../../utils/sound";
 let worldChangedAt = null;
 
 registerIf(
-	register("Chat", (event) => setTimeout(playAlertOnBucketAutoPickup, 500)).setCriteria(triggers.CHUM_BUCKET_AUTO_PICKED_UP_MESSAGE),
+	register("Chat", (event) => setTimeout(playAlertOnBucketAutoPickup, 500)).setCriteria(triggers.CHUM_BUCKET_AUTO_PICKED_UP_MESSAGE).setStart(),
 	() => settings.alertOnChumBucketAutoPickedUp && isInSkyblock() && isInFishingWorld(getWorldName())
 );
 
