@@ -26,3 +26,4 @@ https://github.com/ChatTriggers/ctjs/blob/main/docs/MIGRATION.md
 - No music played (MC sounds)
 - All func_ and field_ to be replaced
 - RESET in the end of trigger messages is not applied sometimes in 1.21
+- Total profit 0

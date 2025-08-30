@@ -282,10 +282,8 @@ export function isInSupercraftGui() {
 
 export function getItemsAddedToSacks(eventMessage) {
 	let items = [];
-
-	const addedItemsMessage = new Message(eventMessage)
-        .getMessageParts()
-        .find(part => part.getHoverValue()?.includes('Added items:'))?.hoverValue || '';
+	
+	const addedItemsMessage = new TextComponent(eventMessage).find(part => part.hoverValue?.getString()?.includes('Added items:'))?.hoverValue || '';
     if (!addedItemsMessage) {
         return items;
     }

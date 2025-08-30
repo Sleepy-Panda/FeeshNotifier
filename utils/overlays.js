@@ -4,6 +4,7 @@ import { formatDate, formatNumberWithSpaces, formatTimeElapsedBetweenDates, isDo
 import { allOverlaysGui } from "../settings";
 import { isInChatOrInventoryGui } from "./common";
 import { registerIf } from "./registers";
+import { GuiInventory } from "../constants/javaTypes";
 
 export const LEFT_CLICK_TYPE = 'LEFT';
 export const CTRL_LEFT_CLICK_TYPE = 'CTRL+LEFT';
@@ -35,7 +36,9 @@ export class Overlay {
                     return;
                 }
 
-                if (this.isClickable && Client?.currentGui?.getClassName() === 'GuiInventory') {
+                const screen = Client.getMinecraft().currentScreen;
+
+                if (this.isClickable && screen instanceof GuiInventory) {
                     return;
                 }
 
@@ -60,7 +63,9 @@ export class Overlay {
                     return;
                 }
 
-                if (!this.isClickable || Client?.currentGui?.getClassName() !== 'GuiInventory') {
+                const screen = Client.getMinecraft().currentScreen;
+
+                if (!this.isClickable || !(screen instanceof GuiInventory)) {
                     return;
                 }
 
