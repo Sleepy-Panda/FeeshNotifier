@@ -39,7 +39,7 @@ registerIf(
 );
 
 registerIf(
-    register("Chat", (event) => onAddedToSacks(event)).setCriteria('&6[Sacks] &r&a+').setStart(), // Items added to the sacks
+    register("Chat", (event) => onAddedToSacks(event)).setCriteria('[Sacks] +').setStart(), // Items added to the sacks
     () => settings.fishingProfitTrackerOverlay && isInSkyblock() && isInFishingWorld(getWorldName())
 );
 
@@ -307,7 +307,7 @@ function onAddedToSacks(event) {
         if (isInSacksGui() || new Date() - lastGuisClosed.lastSacksGuiClosedAt < 15 * 1000) return; // Sacks closed < 15 seconds ago
         if (isInSupercraftGui() || new Date() - lastGuisClosed.lastSupercraftGuiClosedAt < 15 * 1000) return; // Supercraft closed < 15 seconds ago
 
-        const itemsAddedToSacks = getItemsAddedToSacks(EventLib.getMessage(event));
+        const itemsAddedToSacks = getItemsAddedToSacks(event.message);
         let isUpdated = false;
 
         for (let itemAddedToSack of itemsAddedToSacks) {
