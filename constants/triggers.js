@@ -182,6 +182,9 @@ export const CHARM_NAGA_SALT_SHARD_MESSAGE = `${GRAY} You charmed ` + "${mobName
 // &d&lSALT&7 You charmed a &fTadgang&7 and captured &92 Shards &7from it.
 export const CHARM_NAGA_SALT_SHARDS_MESSAGE = `${GRAY} You charmed ` + "${mobNameText}" + `${GRAY} and captured ${BLUE}` + "${shardsCount}" + ` Shards ${GRAY}from it.`;
 
+// &e&lLOOT SHARE &fYou received &b2 &6Titanoboa &fShards for assisting &bCuzImCrzz&f!&r
+export const LOOTSHARED_SHARD_MESSAGE = `${YELLOW}${BOLD}LOOT SHARE ${WHITE}You received ` + "${shardsText}" + ` ${WHITE}Shard`;
+
 export const USE_BAITS_FROM_FISHING_BAG_DISABLED = `${RESET}${RED}Use Baits From Bag is now disabled!`;
 export const USE_BAITS_FROM_FISHING_BAG_ENABLED = `${RESET}${GREEN}Use Baits From Bag is now enabled!`;
 
