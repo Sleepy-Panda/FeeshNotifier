@@ -8,7 +8,7 @@ Features:
 - 
 
 Bugfixes:
-- 
+- Adjusted naming of some items renamed in latest SB update (e.g. Raw Fish -> Raw Cod).
 
 Other:
 - Refactored code playing sounds, to rely on a single reusable function. Used to easier migrate to Sound class later for CT 3.

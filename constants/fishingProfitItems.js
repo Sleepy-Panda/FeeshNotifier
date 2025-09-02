@@ -106,14 +106,14 @@ export const FISHING_PROFIT_ITEMS = [
     },
     {
         itemId: 'RAW_FISH',
-        itemName: 'Raw Fish',
-        itemDisplayName: `${COMMON}Raw Fish`,
+        itemName: 'Raw Cod',
+        itemDisplayName: `${COMMON}Raw Cod`,
         npcPrice: 6,
     },
     {
         itemId: 'ENCHANTED_RAW_FISH',
-        itemName: 'Enchanted Raw Fish',
-        itemDisplayName: `${UNCOMMON}Enchanted Raw Fish`,
+        itemName: 'Enchanted Raw Cod',
+        itemDisplayName: `${UNCOMMON}Enchanted Raw Cod`,
         npcPrice: 960,
     },
     {
@@ -130,14 +130,14 @@ export const FISHING_PROFIT_ITEMS = [
     },
     {
         itemId: 'RAW_FISH:2',
-        itemName: 'Clownfish',
-        itemDisplayName: `${COMMON}Clownfish`,
+        itemName: 'Tropical Fish',
+        itemDisplayName: `${COMMON}Tropical Fish`,
         npcPrice: 20,
     },
     {
         itemId: 'ENCHANTED_CLOWNFISH',
-        itemName: 'Enchanted Clownfish',
-        itemDisplayName: `${UNCOMMON}Enchanted Clownfish`,
+        itemName: 'Enchanted Tropical Fish',
+        itemDisplayName: `${UNCOMMON}Enchanted Tropical Fish`,
         npcPrice: 3200,
     },
     {
@@ -274,8 +274,8 @@ export const FISHING_PROFIT_ITEMS = [
     },
     {
         itemId: 'ENCHANTED_QUARTZ',
-        itemName: 'Enchanted Quartz',
-        itemDisplayName: `${UNCOMMON}Enchanted Quartz`,
+        itemName: 'Enchanted Nether Quartz',
+        itemDisplayName: `${UNCOMMON}Enchanted Nether Quartz`,
         npcPrice: 640,
     },
     {
@@ -824,8 +824,8 @@ export const FISHING_PROFIT_ITEMS = [
     },
     {
         itemId: 'ENCHANTED_IRON',
-        itemName: 'Enchanted Iron',
-        itemDisplayName: `${UNCOMMON}Enchanted Iron`,
+        itemName: 'Enchanted Iron Ingot',
+        itemDisplayName: `${UNCOMMON}Enchanted Iron Ingot`,
         npcPrice: 480,
     },
     {
@@ -836,8 +836,8 @@ export const FISHING_PROFIT_ITEMS = [
     },
     {
         itemId: 'ENCHANTED_GOLD',
-        itemName: 'Enchanted Gold',
-        itemDisplayName: `${UNCOMMON}Enchanted Gold`,
+        itemName: 'Enchanted Gold Ingot',
+        itemDisplayName: `${UNCOMMON}Enchanted Gold Ingot`,
         npcPrice: 640,
     },
     {
@@ -985,8 +985,8 @@ export const FISHING_PROFIT_ITEMS = [
     },
     {
         itemId: 'ENCHANTED_MUTTON',
-        itemName: 'Enchanted Mutton',
-        itemDisplayName: `${UNCOMMON}Enchanted Mutton`,
+        itemName: 'Enchanted Raw Mutton',
+        itemDisplayName: `${UNCOMMON}Enchanted Raw Mutton`,
         npcPrice: 800,
     },
     {
