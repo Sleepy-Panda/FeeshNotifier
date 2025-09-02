@@ -5,7 +5,7 @@
 Released: ???
 
 Features:
-- 
+- Added lootshared shards to the Fishing Profit Tracker.
 
 Bugfixes:
 - Adjusted naming of some items renamed in latest SB update (e.g. Raw Fish -> Raw Cod).

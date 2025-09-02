@@ -82,6 +82,11 @@ registerIf(
 );
 
 registerIf(
+    register("Chat", (shardsText, event) => onShardLootshared(shardsText)).setCriteria(triggers.LOOTSHARED_SHARD_MESSAGE).setContains(),
+    () => settings.fishingProfitTrackerOverlay && isInSkyblock() && isInFishingWorld(getWorldName())
+);
+
+registerIf(
     register("Chat", (petDisplayName, level, event) => onPetReachedMaxLevel(+level, petDisplayName))
         .setCriteria(triggers.PET_LEVEL_UP_MESSAGE)
         .setContains(),
@@ -445,6 +450,27 @@ function onShardsCharmed(mobNameText, shardsCount) {
     } catch (e) {
 		console.error(e);
 		console.log(`[FeeshNotifier] [ProfitTracker] Failed to track charmed Shard.`);
+	}
+}
+
+/**
+ * 
+ * @param {string} shardsText "a Bogged", "2 Titanoboa"
+ */
+function onShardLootshared(shardsText) {
+    try {
+        if (!isTrackerVisible() || !shardsText || !isSessionActive) return;
+
+        const [countText, ...shardNameParts] = shardsText.removeFormatting().split(' ');
+        const count = countText === 'a' || countText === 'an' ? 1 : +(countText);
+        const shardName = shardNameParts.join(' ') + ' Shard';
+
+        refreshItemData(i => i.itemName === shardName, count);
+        refreshPrices();
+        refreshOverlay();
+    } catch (e) {
+		console.error(e);
+		console.log(`[FeeshNotifier] [ProfitTracker] Failed to track lootshared Shard.`);
 	}
 }
 
