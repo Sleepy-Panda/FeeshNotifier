@@ -9,6 +9,8 @@ https://github.com/ChatTriggers/ctjs/blob/main/docs/MIGRATION.md
   - TypeError: Cannot find function #removeFormatting in object §r         §r§l§aPlayers §r§f(23).
   - [FeeshNotifier] [AbandonedQuarryTracker] Failed to get current Mithril Powder.
 - No complex chat messages as Message class gone
+- DH message not being cancelled
+- Corrupted mobs have no SC HP nametag
 - Items icon rendering disabled
 - Moving item in inventory adds it to Profit Tracker
 - Opening cookie menu, moving items from backpacks adds to tracker
@@ -27,3 +29,4 @@ https://github.com/ChatTriggers/ctjs/blob/main/docs/MIGRATION.md
 - All func_ and field_ to be replaced
 - RESET in the end of trigger messages is not applied sometimes in 1.21
 - Total profit 0
+- WTF is this lagging after 1-2 hours in lobby, is it from /feesh?
