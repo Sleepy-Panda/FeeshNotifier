@@ -10,7 +10,7 @@ https://github.com/ChatTriggers/ctjs/blob/main/docs/MIGRATION.md
   - [FeeshNotifier] [AbandonedQuarryTracker] Failed to get current Mithril Powder.
 - No complex chat messages as Message class gone
 - DH message not being cancelled
-- Corrupted mobs have no SC HP nametag
+- Mobs / corrupted mobs have no SC HP nametag
 - Items icon rendering disabled
 - Moving item in inventory adds it to Profit Tracker
 - Opening cookie menu, moving items from backpacks adds to tracker
@@ -24,8 +24,8 @@ https://github.com/ChatTriggers/ctjs/blob/main/docs/MIGRATION.md
 - Sacks profits not tracked
 - Profit tracker for Enchanted Books and Exp Boosts
 - Peak FPS and TPS in hub :( when enabling Hypixel Hook timer
-- Clickable overlay buttons  - not detecting if in chat / inventory
-- No music played (MC sounds)
+- Clickable overlay buttons  - smaller scale renders wrongle, disabled for now
+- Nothing is clickable
 - All func_ and field_ to be replaced
 - RESET in the end of trigger messages is not applied sometimes in 1.21
 - Total profit 0

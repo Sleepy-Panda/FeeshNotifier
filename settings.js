@@ -1837,7 +1837,7 @@ const setting = new Settings("FeeshNotifier", config, "data/ColorScheme.json", `
     .setPos(0.0001, 0.0001) // Weird but if set to 0 it applies default value = 20 or so
     .setSize(100, 100)
     .onOpenGui(() => setting.searchBar._focusSearch())
-    .setClickSound(() => new Sound({ source: 'minecraft:' + MC_GUI_BUTTON_PRESS_SOUND, volume: 0.5, pitch: 1 }).play())
+    .setClickSound(() => new Sound({ source: 'minecraft:' + MC_GUI_BUTTON_PRESS_SOUND, volume: 0.25, pitch: 1 }).play())
     .apply();
 
 export default setting.settings;

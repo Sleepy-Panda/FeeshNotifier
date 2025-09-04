@@ -296,7 +296,7 @@ export class OverlayTextLine {
     }
 
     _setScale(overlayScale) {
-        const adjustedScale = this.isSmallerScale ? getAdjustedScale(overlayScale, SMALLER_LINE_SCALE_ADJUSTMENT) : overlayScale;
+        const adjustedScale = overlayScale; // TODO: Uncomment this.isSmallerScale ? getAdjustedScale(overlayScale, SMALLER_LINE_SCALE_ADJUSTMENT) : overlayScale;
         this.text.setScale(adjustedScale);
         return this;
     }
