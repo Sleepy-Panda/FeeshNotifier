@@ -21,6 +21,7 @@ import { DOUBLE_HOOK_MESSAGES, HURRICANE_BOTTLE_CHARGED_MESSAGE, REINDRAKE_SPAWN
 export function isDoubleHook() {
 	const history = ChatLib.getChatLines()?.filter(l => // Those messages appear between double hook and catch messages for Reindrake / Thunder
 		l !== '&r' &&
+		!l.includes('has spawned.') && // Compacted sea creature catch message
 		!l.includes(REINDRAKE_SPAWNED_BY_ANYONE_MESSAGE) &&
 		!l.includes(THUNDER_BOTTLE_CHARGED_MESSAGE) &&
 		!l.includes(STORM_BOTTLE_CHARGED_MESSAGE) &&
