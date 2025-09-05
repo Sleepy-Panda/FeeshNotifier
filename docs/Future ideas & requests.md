@@ -23,10 +23,14 @@
 - [Bug] Trading with other players adds items to the profit trackers.
 - [Bug] Adding a Pet to tracker does not increase earned money.
 
+## Treasure tracker
+
+- Minimal functionality: count Good, Great & Outstanding catches
+- Ideally, count all catches, and show percent of each type
+
 ## Deployables
 
-- Add Umberella tracker
-- Potentially extend the widget to show all deployables: flares, power orbs, umberella, black hole, etc
+- Allow vieweing other players deployables in the overlay. Does someone need it?
 
 ## Party commands
 

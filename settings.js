@@ -6,7 +6,6 @@ import { MC_GUI_BUTTON_PRESS_SOUND } from "./constants/sounds";
 export const allOverlaysGui = new Gui(); // Sample overlays GUI to move/resize them all at once
 
 export const deployablesRemainingTimeOverlayGui = new Gui();
-export const flareRemainingTimeOverlayGui = new Gui();
 export const consumablesRemainingTimeOverlayGui = new Gui();
 export const seaCreaturesTrackerOverlayGui = new Gui();
 export const seaCreaturesHpOverlayGui = new Gui();
@@ -481,20 +480,49 @@ const config = new DefaultConfig("FeeshNotifier", "config/settings.json")
 
 .addSwitch({
     category: "Alerts",
+    configName: "alertOnDeployableExpiresSoon",
+    title: "Alert when deployable item expires soon",
+    description: "Shows a title and plays a sound when deployable item expires in 10 seconds.",
+    subcategory: "Deployables",
+    value: true
+})
+.addSwitch({
+    category: "Alerts",
     configName: "alertOnTotemExpiresSoon",
-    title: "Alert when player's Totem of Corruption expires soon",
-    description: "Shows a title and plays a sound when current player's Totem of Corruption expires in 10 seconds.",
-    subcategory: "Totem",
+    title: "Totem of Corruption",
+    description: "Shows a title and plays a sound when your Totem of Corruption expires in 10 seconds.",
+    subcategory: "Deployables",
+    shouldShow: data => data.alertOnDeployableExpiresSoon,
+    value: true
+})
+.addSwitch({
+    category: "Alerts",
+    configName: "alertOnBlackHoleExpiresSoon",
+    title: "Black Hole",
+    description: "Shows a title and plays a sound when your Black Hole expires in 10 seconds.",
+    subcategory: "Deployables",
+    shouldShow: data => data.alertOnDeployableExpiresSoon,
+    value: true
+})
+.addSwitch({
+    category: "Alerts",
+    configName: "alertOnUmberellaExpiresSoon",
+    title: "Umberella",
+    description: "Shows a title and plays a sound when your Umberella expires in 10 seconds.",
+    subcategory: "Deployables",
+    shouldShow: data => data.alertOnDeployableExpiresSoon,
     value: true
 })
 .addSwitch({
     category: "Alerts",
     configName: "alertOnFlareExpiresSoon",
-    title: "Alert when player's flare expires soon",
-    description: "Shows a title and plays a sound when current player's Warning Flare / Alert Flare / SOS Flare expires in 10 seconds.",
-    subcategory: "Flare",
+    title: "Flare",
+    description: "Shows a title and plays a sound when your Warning Flare / Alert Flare / SOS Flare expires in 10 seconds.",
+    subcategory: "Deployables",
+    shouldShow: data => data.alertOnDeployableExpiresSoon,
     value: true
 })
+
 .addSwitch({
     category: "Alerts",
     configName: "alertOnConsumableExpiresSoon",
@@ -999,7 +1027,7 @@ const config = new DefaultConfig("FeeshNotifier", "config/settings.json")
     category: "Overlays",
     configName: "remainingTimeTotem",
     title: "Totem of Corruption",
-    description: "Shows an overlay with the remaining time of current player's Totem of Corruption.",
+    description: "Shows an overlay with the remaining time of your Totem of Corruption.",
     subcategory: "Deployables",
     shouldShow: data => data.deployablesRemainingTimeOverlay,
     value: true
@@ -1008,7 +1036,7 @@ const config = new DefaultConfig("FeeshNotifier", "config/settings.json")
     category: "Overlays",
     configName: "remainingTimeBlackHole",
     title: "Black Hole",
-    description: "Shows an overlay with the remaining time of current player's Black Hole.",
+    description: "Shows an overlay with the remaining time of your Black Hole.",
     subcategory: "Deployables",
     shouldShow: data => data.deployablesRemainingTimeOverlay,
     value: true
@@ -1017,7 +1045,16 @@ const config = new DefaultConfig("FeeshNotifier", "config/settings.json")
     category: "Overlays",
     configName: "remainingTimeUmberella",
     title: "Umberella",
-    description: "Shows an overlay with the remaining time of current player's Umberella.",
+    description: "Shows an overlay with the remaining time of your Umberella.",
+    subcategory: "Deployables",
+    shouldShow: data => data.deployablesRemainingTimeOverlay,
+    value: true
+})
+.addSwitch({
+    category: "Overlays",
+    configName: "remainingTimeFlare",
+    title: "Flare",
+    description: "Shows an overlay with the remaining time of your Warning Flare / Alert Flare / SOS Flare.",
     subcategory: "Deployables",
     shouldShow: data => data.deployablesRemainingTimeOverlay,
     value: true
@@ -1030,25 +1067,6 @@ const config = new DefaultConfig("FeeshNotifier", "config/settings.json")
     subcategory: "Deployables",
     onClick() {
         moveOverlay(deployablesRemainingTimeOverlayGui);
-    }
-})
-
-.addSwitch({
-    category: "Overlays",
-    configName: "flareRemainingTimeOverlay",
-    title: "Remaining flare time",
-    description: "Shows an overlay with the remaining time of current player's Warning Flare / Alert Flare / SOS Flare.",
-    subcategory: "Flare",
-    value: true
-})
-.addButton({
-    category: "Overlays",
-    configName: "moveFlareRemainingTimeOverlay",
-    title: "Move remaining flare time",
-    description: "Allows to move and resize the overlay text.",
-    subcategory: "Flare",
-    onClick() {
-        moveOverlay(flareRemainingTimeOverlayGui);
     }
 })
 

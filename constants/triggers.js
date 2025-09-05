@@ -206,6 +206,9 @@ export const MOBY_DUCK_CONSUMED = `${RESET}${GRAY}You consumed a ${RESET}${DARK_
 export const MOBY_DUCK_EXPIRING = `${RESET}${RED}Moby-Duck expires in ${RESET}${YELLOW}` + "${seconds}" + `s`; // &r&cMoby-Duck expires in &r&e10s&r&c&r
 export const MOBY_DUCK_EXPIRED = `${RESET}${RED}Moby-Duck has expired!`; // &r&cMoby-Duck has expired!&r
 
+export const FLARE_DISAPPEARED = `${RESET}${YELLOW}Your flare disappeared because you were too far away!`;
+export const FLARE_REMOVED = `${RESET}${YELLOW}Your previous ` + "${*}" + ` Flare ${RESET}${YELLOW}was removed!`;
+
 export const ALL_CATCHES_TRIGGERS = [
     // WATER SEA CREATURES
     {

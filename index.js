@@ -24,7 +24,6 @@ import "./features/alerts/alertOnFishingFestivalEnded";
 
 import "./features/overlays/seaCreaturesTracker";
 import "./features/overlays/deployablesTracker";
-import "./features/overlays/flareTracker";
 import "./features/overlays/consumablesTracker";
 import "./features/overlays/seaCreaturesHpTracker";
 import "./features/overlays/seaCreaturesCountAndTimeTracker";

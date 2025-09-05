@@ -2,7 +2,6 @@ import PogObject from "PogData";
 
 export const overlayCoordsData = new PogObject("FeeshNotifier", {
     "deployablesRemainingTimeOverlay": { "x": 10, "y": 30, "scale": 1 },
-    "flareRemainingTimeOverlay": { "x": 10, "y": 30, "scale": 1 },
     "consumablesRemainingTimeOverlay": { "x": 10, "y": 300, "scale": 1 },
     "seaCreaturesTrackerOverlay": { "x": 10, "y": 50, "scale": 1 },
     "seaCreaturesHpOverlay": { "x": 10, "y": 30, "scale": 1 },

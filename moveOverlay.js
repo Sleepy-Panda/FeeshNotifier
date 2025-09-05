@@ -1,14 +1,10 @@
-import { abandonedQuarryTrackerOverlayGui, archfiendDiceProfitTrackerOverlayGui, crimsonIsleTrackerOverlayGui, fishingProfitTrackerOverlayGui, flareRemainingTimeOverlayGui, jerryWorkshopTrackerOverlayGui, legionAndBobbingTimeOverlayGui, magmaCoreProfitTrackerOverlayGui, seaCreaturesTrackerOverlayGui, seaCreaturesCountOverlayGui, seaCreaturesHpOverlayGui, seaCreaturesPerHourTrackerOverlayGui, deployablesRemainingTimeOverlayGui, waterHotspotsAndBayouTrackerOverlayGui, wormProfitTrackerOverlayGui, consumablesRemainingTimeOverlayGui } from "./settings";
+import { abandonedQuarryTrackerOverlayGui, archfiendDiceProfitTrackerOverlayGui, crimsonIsleTrackerOverlayGui, fishingProfitTrackerOverlayGui, jerryWorkshopTrackerOverlayGui, legionAndBobbingTimeOverlayGui, magmaCoreProfitTrackerOverlayGui, seaCreaturesTrackerOverlayGui, seaCreaturesCountOverlayGui, seaCreaturesHpOverlayGui, seaCreaturesPerHourTrackerOverlayGui, deployablesRemainingTimeOverlayGui, waterHotspotsAndBayouTrackerOverlayGui, wormProfitTrackerOverlayGui, consumablesRemainingTimeOverlayGui } from "./settings";
 import { overlayCoordsData } from "./data/overlayCoords";
 
 const GUIS = [
     {
         gui: deployablesRemainingTimeOverlayGui,
         guiSettings: overlayCoordsData.deployablesRemainingTimeOverlay,
-    },
-    {
-        gui: flareRemainingTimeOverlayGui,
-        guiSettings: overlayCoordsData.flareRemainingTimeOverlay,
     },
     {
         gui: consumablesRemainingTimeOverlayGui,
