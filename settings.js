@@ -5,7 +5,7 @@ import { MC_GUI_BUTTON_PRESS_SOUND } from "./constants/sounds";
 
 export const allOverlaysGui = new Gui(); // Sample overlays GUI to move/resize them all at once
 
-export const totemRemainingTimeOverlayGui = new Gui();
+export const deployablesRemainingTimeOverlayGui = new Gui();
 export const flareRemainingTimeOverlayGui = new Gui();
 export const consumablesRemainingTimeOverlayGui = new Gui();
 export const seaCreaturesTrackerOverlayGui = new Gui();
@@ -989,20 +989,47 @@ const config = new DefaultConfig("FeeshNotifier", "config/settings.json")
 
 .addSwitch({
     category: "Overlays",
-    configName: "totemRemainingTimeOverlay",
-    title: "Remaining totem time",
+    configName: "deployablesRemainingTimeOverlay",
+    title: "Remaining deployables time",
+    description: "Shows an overlay with the remaining time of deployable items nearby.",
+    subcategory: "Deployables",
+    value: true
+})
+.addSwitch({
+    category: "Overlays",
+    configName: "remainingTimeTotem",
+    title: "Totem of Corruption",
     description: "Shows an overlay with the remaining time of current player's Totem of Corruption.",
-    subcategory: "Totem",
+    subcategory: "Deployables",
+    shouldShow: data => data.deployablesRemainingTimeOverlay,
+    value: true
+})
+.addSwitch({
+    category: "Overlays",
+    configName: "remainingTimeBlackHole",
+    title: "Black Hole",
+    description: "Shows an overlay with the remaining time of current player's Black Hole.",
+    subcategory: "Deployables",
+    shouldShow: data => data.deployablesRemainingTimeOverlay,
+    value: true
+})
+.addSwitch({
+    category: "Overlays",
+    configName: "remainingTimeUmberella",
+    title: "Umberella",
+    description: "Shows an overlay with the remaining time of current player's Umberella.",
+    subcategory: "Deployables",
+    shouldShow: data => data.deployablesRemainingTimeOverlay,
     value: true
 })
 .addButton({
     category: "Overlays",
-    configName: "moveTotemRemainingTimeOverlay",
-    title: "Move remaining totem time",
+    configName: "moveDeployablesRemainingTimeOverlay",
+    title: "Move remaining deployables time",
     description: "Allows to move and resize the overlay text.",
-    subcategory: "Totem",
+    subcategory: "Deployables",
     onClick() {
-        moveOverlay(totemRemainingTimeOverlayGui);
+        moveOverlay(deployablesRemainingTimeOverlayGui);
     }
 })
 

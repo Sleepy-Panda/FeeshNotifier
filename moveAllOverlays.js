@@ -15,9 +15,9 @@ export function moveAllGuis() {
 
 const SAMPLE_GUIS = [
     {
-        toggleSettingKey: 'totemRemainingTimeOverlay',
-        guiSettings: overlayCoordsData.totemRemainingTimeOverlay,
-        sampleText: `${DARK_PURPLE}Totem of Corruption: ${WHITE}01m 58s`,
+        toggleSettingKey: 'deployablesRemainingTimeOverlay',
+        guiSettings: overlayCoordsData.deployablesRemainingTimeOverlay,
+        sampleText: `${DARK_PURPLE}Totem of Corruption: ${WHITE}01m 58s\n${DARK_PURPLE}Black Hole: ${WHITE}25s`,
         isActive: false,
         width: 0,
         height: 0
