@@ -8,7 +8,7 @@ Features:
 - 
 
 Bugfixes:
-- 
+- Removed Diver armor from Emperor's Skull crafts in /feeshGearCraftPrices as it's no longer relevant. Replaced with Emperor's talismans.
 
 Other:
 - 
