@@ -3,9 +3,10 @@ import { getWorldName, isInSkyblock } from "../../utils/playerState";
 import { HOTSPOT_WORLDS } from "../../constants/areas";
 import { BLUE, BOLD, GOLD, GRAY, LIGHT_PURPLE, RESET, WHITE, YELLOW } from "../../constants/formatting";
 import { getMessageId, getZoneName } from "../../utils/common";
-import { OFF_SOUND_MODE } from "../../constants/sounds";
+import { MC_RANDOM_ORB_SOUND, OFF_SOUND_MODE } from "../../constants/sounds";
 import { findClosestHotspotInRange } from "../../utils/entityDetection";
 import { registerIf } from "../../utils/registers";
+import { playMcSound } from "../../utils/sound";
 
 let lastClosestHotspot = null;
 let lastFoundHotspotIds = []; // Remember 2 last found hotspots, to avoid announcing the same hotspots placed close to each other, when user is moving between them
@@ -100,7 +101,7 @@ function announceFoundHotspot(position, perk) {
         ).chat();
     
         if (settings.soundMode !== OFF_SOUND_MODE) {
-            World.playSound('random.orb', 1, 1);
+            playMcSound(MC_RANDOM_ORB_SOUND);
         }
     }
 

@@ -3,10 +3,11 @@ import { AQUA, BOLD, RED } from "../../constants/formatting";
 import { overlayCoordsData } from "../../data/overlayCoords";
 import { getWorldName, isInSkyblock } from "../../utils/playerState";
 import { BACKWATER_BAYOU, CRIMSON_ISLE, CRYSTAL_HOLLOWS, GALATEA, JERRY_WORKSHOP, WATER_FISHING_WORLDS, WATER_HOTSPOT_WORLDS } from "../../constants/areas";
-import { OFF_SOUND_MODE } from "../../constants/sounds";
+import { MC_RANDOM_ORB_SOUND, OFF_SOUND_MODE } from "../../constants/sounds";
 import { registerIf } from "../../utils/registers";
 import { getSeaCreaturesInRange } from "../../utils/entityDetection";
 import { getMcEntityById } from "../../utils/common";
+import { playMcSound } from "../../utils/sound";
 
 let mobs = [];
 
@@ -193,7 +194,7 @@ function trackSeaCreaturesHp() {
             settings.soundMode !== OFF_SOUND_MODE &&
             !addedMobNames.every(m => m.baseMobName === 'Reindrake') // Reindrake flies around and goes out of nametags render distance periodically, we don't need sound when detecting it
         ) {
-            World.playSound('random.orb', 0.75, 1);
+            playMcSound(MC_RANDOM_ORB_SOUND, 0.75, 1);
         }
     
         mobs = currentMobs;

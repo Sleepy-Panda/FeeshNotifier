@@ -7,7 +7,7 @@ import { BOLD, GOLD, LIGHT_PURPLE, RED, WHITE, GRAY, AQUA } from "../../constant
 import { getLastFishingHookInHotspotSeenAt, getLastFishingHookSeenAt, getWorldName, isInSkyblock } from "../../utils/playerState";
 import { getCatchesCounterChatMessage, getDropCatchesCounterChatMessage } from "../../utils/common";
 import { BACKWATER_BAYOU, WATER_HOTSPOT_WORLDS } from "../../constants/areas";
-import { createButtonsDisplay, toggleButtonsDisplay, setSeaCreatureStatisticsOnCatch, setDropStatisticsOnCatch, setDropStatisticsOnDrop, getSeaCreatureStatisticsOverlayText, getDropStatisticsOverlayText, initDropCountOnOverlay } from "../../utils/overlays";
+import { LEFT_CLICK_TYPE, Overlay, OverlayButtonLine, OverlayTextLine, setSeaCreatureStatisticsOnCatch, setDropStatisticsOnCatch, setDropStatisticsOnDrop, getSeaCreatureStatisticsOverlayText, getDropStatisticsOverlayText, initDropCountOnOverlay } from "../../utils/overlays";
 import { registerIf } from "../../utils/registers";
 
 const TRACKED_SEA_CREATURES = [
@@ -54,7 +54,7 @@ TRACKED_DROPS.forEach(entry => {
 });
 
 registerIf(
-    register('renderOverlay', () => renderOverlay()),
+    register('step', () => refreshOverlay()).setFps(2),
     () => settings.waterHotspotsAndBayouTrackerOverlay && isInSkyblock() && WATER_HOTSPOT_WORLDS.includes(getWorldName())
 );
 
@@ -64,7 +64,9 @@ register("gameUnload", () => {
     }
 });
 
-const buttonsDisplay = createButtonsDisplay(true, () => resetWaterHotspotsAndBayouTracker(false), false, null);
+const overlay = new Overlay(() => settings.waterHotspotsAndBayouTrackerOverlay && isInSkyblock() && WATER_HOTSPOT_WORLDS.includes(getWorldName()))
+    .setPositionData(overlayCoordsData.waterHotspotsAndBayouTrackerOverlay)
+    .setIsClickable(true);
 
 export function resetWaterHotspotsAndBayouTracker(isConfirmed) {
     try {
@@ -79,6 +81,7 @@ export function resetWaterHotspotsAndBayouTracker(isConfirmed) {
     
         persistentData.waterHotspotsAndBayou = getDefaultObject();
         persistentData.save();
+        refreshOverlay();
 
         ChatLib.chat(`${GOLD}[FeeshNotifier] ${WHITE}Water Hotspots & Bayou tracker was reset.`);    
     } catch (e) {
@@ -172,6 +175,7 @@ function trackTitanoboaCatch(seaCreatureInfo) {
         }
 
         persistentData.save();
+        refreshOverlay();
 
         const message = getCatchesCounterChatMessage(seaCreatureInfo.seaCreature, seaCreatureInfo.rarityColorCode, result.catchesSinceLast, result.lastCatchTime);
         ChatLib.chat(message);
@@ -195,6 +199,7 @@ function trackWikiTikiCatch(seaCreatureInfo) {
         }
 
         persistentData.save();
+        refreshOverlay();
 
         const message = getCatchesCounterChatMessage(seaCreatureInfo.seaCreature, seaCreatureInfo.rarityColorCode, result.catchesSinceLast, result.lastCatchTime);
         ChatLib.chat(message);
@@ -219,6 +224,7 @@ function trackRegularSeaCreatureCatch() {
         }
 
         persistentData.save();
+        refreshOverlay();
     } catch (e) {
 		console.error(e);
 		console.log(`[FeeshNotifier] [WaterHotspotsAndBayouTracker] Failed to track regular sea creature catch.`);
@@ -233,6 +239,7 @@ function trackTitanoboaShedDrop(magicFind) {
 
         const result = setDropStatisticsOnDrop(persistentData.waterHotspotsAndBayou.titanoboaSheds, 'catchesSinceLast', 'titanoboaCatches', magicFind);
         persistentData.save();
+        refreshOverlay();
 
         const dropNumber = persistentData.waterHotspotsAndBayou.titanoboaSheds.count;
         const message = getDropCatchesCounterChatMessage(`${GOLD}Titanoboa Shed`, 'Titanoboa', result.lastDropTime, dropNumber, result.catches);
@@ -251,6 +258,7 @@ function trackTikiMaskDrop(magicFind) {
 
         const result = setDropStatisticsOnDrop(persistentData.waterHotspotsAndBayou.tikiMasks, 'catchesSinceLast', 'wikiTikiCatches', magicFind);
         persistentData.save();
+        refreshOverlay();
 
         const dropNumber = persistentData.waterHotspotsAndBayou.tikiMasks.count;
         const message = getDropCatchesCounterChatMessage(`${GOLD}Tiki Mask`, 'Wiki Tiki', result.lastDropTime, dropNumber, result.catches);
@@ -261,7 +269,9 @@ function trackTikiMaskDrop(magicFind) {
 	}
 }
 
-function renderOverlay() {
+function refreshOverlay() {
+    overlay.clear();
+
     if (!settings.waterHotspotsAndBayouTrackerOverlay ||
         !hasAnyData() ||
         !isInSkyblock() ||
@@ -270,7 +280,6 @@ function renderOverlay() {
         (new Date() - getLastFishingHookSeenAt() > 10 * 60 * 1000) ||
         allOverlaysGui.isOpen()
     ) {
-        buttonsDisplay.hide();
         return;
     }
 
@@ -280,12 +289,11 @@ function renderOverlay() {
     overlayText += getWikiTikiOverlayText();
     overlayText += getTikiMasksOverlayText();
 
-    const overlay = new Text(overlayText, overlayCoordsData.waterHotspotsAndBayouTrackerOverlay.x, overlayCoordsData.waterHotspotsAndBayouTrackerOverlay.y)
-        .setShadow(true)
-        .setScale(overlayCoordsData.waterHotspotsAndBayouTrackerOverlay.scale);
-    overlay.draw();
-
-    toggleButtonsDisplay(buttonsDisplay, overlay, overlayCoordsData.waterHotspotsAndBayouTrackerOverlay);
+    overlay.addTextLine(new OverlayTextLine().setText(overlayText));
+    overlay.addButtonLine(new OverlayButtonLine()
+        .setText(`${RED}${BOLD}[Click to reset]`)
+        .setIsSmallerScale(true)
+        .setOnClick(LEFT_CLICK_TYPE, () => resetWaterHotspotsAndBayouTracker(false)));
 
     function getTitanoboaOverlayText() {
         if (getWorldName() !== BACKWATER_BAYOU) return '';

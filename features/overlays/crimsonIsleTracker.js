@@ -7,9 +7,10 @@ import { BOLD, GOLD, LIGHT_PURPLE, RED, WHITE, GRAY, RESET, AQUA } from "../../c
 import { getLastFishingHookInHotspotSeenAt, getLastFishingHookSeenAt, getWorldName, getZoneName, isInSkyblock } from "../../utils/playerState";
 import { getCatchesCounterChatMessage, getDropCatchesCounterChatMessage } from "../../utils/common";
 import { CRIMSON_ISLE, PLHLEGBLAST_POOL } from "../../constants/areas";
-import { MEME_SOUND_MODE, NORMAL_SOUND_MODE, SAD_TROMBONE_SOUND_SOURCE } from "../../constants/sounds";
-import { createButtonsDisplay, toggleButtonsDisplay, setSeaCreatureStatisticsOnCatch, getSeaCreatureStatisticsOverlayText, getDropStatisticsOverlayText, setDropStatisticsOnCatch, setDropStatisticsOnDrop, initDropCountOnOverlay } from "../../utils/overlays";
+import { MC_RANDOM_ORB_SOUND, MEME_SOUND_MODE, NORMAL_SOUND_MODE, SAD_TROMBONE_SOUND_SOURCE } from "../../constants/sounds";
+import { setSeaCreatureStatisticsOnCatch, getSeaCreatureStatisticsOverlayText, getDropStatisticsOverlayText, setDropStatisticsOnCatch, setDropStatisticsOnDrop, initDropCountOnOverlay, Overlay, OverlayTextLine, OverlayButtonLine, LEFT_CLICK_TYPE } from "../../utils/overlays";
 import { registerIf } from "../../utils/registers";
+import { playMcSound } from "../../utils/sound";
 
 const TRACKED_SEA_CREATURES = [
     {
@@ -63,7 +64,7 @@ TRACKED_DROPS.forEach(entry => {
 });
 
 registerIf(
-    register('renderOverlay', () => renderCrimsonIsleTrackerOverlay()),
+    register('step', () => refreshOverlay()).setFps(2),
     () => settings.crimsonIsleTrackerOverlay && isInSkyblock() && getWorldName() === CRIMSON_ISLE
 );
 
@@ -73,7 +74,9 @@ register("gameUnload", () => {
     }
 });
 
-const buttonsDisplay = createButtonsDisplay(true, () => resetCrimsonIsleTracker(false), false, null);
+const overlay = new Overlay(() => settings.crimsonIsleTrackerOverlay && isInSkyblock() && getWorldName() === CRIMSON_ISLE)
+    .setPositionData(overlayCoordsData.crimsonIsleTrackerOverlay)
+    .setIsClickable(true);
 
 export function resetCrimsonIsleTracker(isConfirmed) {
     try {
@@ -88,7 +91,7 @@ export function resetCrimsonIsleTracker(isConfirmed) {
     
         persistentData.crimsonIsle = getDefaultObject();
         persistentData.save();
-
+        refreshOverlay();
         ChatLib.chat(`${GOLD}[FeeshNotifier] ${WHITE}Crimson Isle tracker was reset.`);    
     } catch (e) {
 		console.error(e);
@@ -109,6 +112,7 @@ export function setRadioactiveVials(count, lastOn) {
         }
 
         persistentData.save();
+        refreshOverlay();
         ChatLib.chat(`${GOLD}[FeeshNotifier] ${GRAY}Successfully changed Radioactive Vials count to ${count} for the Crimson Isle tracker.`);
     } catch (e) {
         console.error(e);
@@ -188,6 +192,7 @@ function trackFieryScuttlerCatch(seaCreatureInfo) {
         }
 
         persistentData.save();
+        refreshOverlay();
 
         const message = getCatchesCounterChatMessage(seaCreatureInfo.seaCreature, seaCreatureInfo.rarityColorCode, result.catchesSinceLast, result.lastCatchTime);
         ChatLib.chat(message);
@@ -219,6 +224,7 @@ function trackRagnarokCatch(seaCreatureInfo) {
         }
 
         persistentData.save();
+        refreshOverlay();
 
         const message = getCatchesCounterChatMessage(seaCreatureInfo.seaCreature, seaCreatureInfo.rarityColorCode, result.catchesSinceLast, result.lastCatchTime);
         ChatLib.chat(message);
@@ -247,6 +253,7 @@ function trackPlhlegblastCatch(seaCreatureInfo) {
         }
 
         persistentData.save();
+        refreshOverlay();
 
         const message = getCatchesCounterChatMessage(seaCreatureInfo.seaCreature, seaCreatureInfo.rarityColorCode, result.catchesSinceLast, result.lastCatchTime);
         ChatLib.chat(message);
@@ -278,6 +285,7 @@ function trackThunderCatch(seaCreatureInfo) {
         }
 
         persistentData.save();
+        refreshOverlay();
 
         const message = getCatchesCounterChatMessage(seaCreatureInfo.seaCreature, seaCreatureInfo.rarityColorCode, result.catchesSinceLast, result.lastCatchTime);
         ChatLib.chat(message);
@@ -310,6 +318,7 @@ function trackLordJawbusCatch(seaCreatureInfo) {
         }
 
         persistentData.save();
+        refreshOverlay();
 
         const message = getCatchesCounterChatMessage(seaCreatureInfo.seaCreature, seaCreatureInfo.rarityColorCode, result.catchesSinceLast, result.lastCatchTime);
         ChatLib.chat(message);
@@ -340,6 +349,7 @@ function trackRegularSeaCreatureCatch() {
         }
 
         persistentData.save();
+        refreshOverlay();
 
         const catchesSinceLast = persistentData.crimsonIsle.lordJawbus.catchesSinceLast;
         if (catchesSinceLast && catchesSinceLast % 1000 === 0) {
@@ -351,7 +361,7 @@ function trackRegularSeaCreatureCatch() {
                     new Sound(SAD_TROMBONE_SOUND_SOURCE).play();
                     break;
                 case NORMAL_SOUND_MODE:
-                    World.playSound('random.orb', 1, 1);
+                    playMcSound(MC_RANDOM_ORB_SOUND);
                     break;
                 default:
                     break;
@@ -371,6 +381,7 @@ function trackRadioctiveVialDrop(magicFind) {
 
         const result = setDropStatisticsOnDrop(persistentData.crimsonIsle.radioactiveVials, 'lordJawbusCatchesSinceLast', 'lordJawbusCatches', magicFind);
         persistentData.save();
+        refreshOverlay();
 
         const dropNumber = persistentData.crimsonIsle.radioactiveVials.count;
         const message = getDropCatchesCounterChatMessage(`${LIGHT_PURPLE}Radioactive Vial`, 'Lord Jawbus', result.lastDropTime, dropNumber, result.catches);
@@ -381,7 +392,9 @@ function trackRadioctiveVialDrop(magicFind) {
 	}
 }
 
-function renderCrimsonIsleTrackerOverlay() {
+function refreshOverlay() {
+    overlay.clear();
+
     if (!settings.crimsonIsleTrackerOverlay ||
         !hasAnyData() ||
         !isInSkyblock() ||
@@ -389,7 +402,6 @@ function renderCrimsonIsleTrackerOverlay() {
         (new Date() - getLastFishingHookSeenAt() > 10 * 60 * 1000) ||
         allOverlaysGui.isOpen()
     ) {
-        buttonsDisplay.hide();
         return;
     }
 
@@ -401,12 +413,11 @@ function renderCrimsonIsleTrackerOverlay() {
     overlayText += getLordJawbusOverlayText();
     overlayText += getRadioactiveVialsOverlayText();
 
-    const overlay = new Text(overlayText, overlayCoordsData.crimsonIsleTrackerOverlay.x, overlayCoordsData.crimsonIsleTrackerOverlay.y)
-        .setShadow(true)
-        .setScale(overlayCoordsData.crimsonIsleTrackerOverlay.scale);
-    overlay.draw();
-
-    toggleButtonsDisplay(buttonsDisplay, overlay, overlayCoordsData.crimsonIsleTrackerOverlay);
+    overlay.addTextLine(new OverlayTextLine().setText(overlayText));
+    overlay.addButtonLine(new OverlayButtonLine()
+        .setText(`${RED}${BOLD}[Click to reset]`)
+        .setIsSmallerScale(true)
+        .setOnClick(LEFT_CLICK_TYPE, () => resetCrimsonIsleTracker(false)));
 
     function getFieryScuttlerOverlayText() {
         if (!isFishingInHotspot()) return '';

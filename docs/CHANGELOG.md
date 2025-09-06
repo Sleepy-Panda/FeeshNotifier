@@ -1,8 +1,23 @@
 # Releases
 
-## v1.49.0
+## v1.50.0
 
 Released: ???
+
+Features:
+- Added lootshared shards to the Fishing Profit Tracker.
+
+Bugfixes:
+- Adjusted naming of some items renamed in latest SB update (e.g. Raw Fish -> Raw Cod).
+
+Other:
+- Refactored code playing sounds, to rely on a single reusable function. Used to easier migrate to Sound class later for CT 3.
+- Refactored all clickable overlays to use custom Overlay class.
+- Changed some chat message patterns to work in both 1.8.9 and 1.21. 
+
+## v1.49.0
+
+Released: 2025-08-26
 
 Features:
 - Reworked Attribute Shard functionality to highlight obsolete attributes on all items in gray color. Abbreviations are not rendered on new Shards anymore.

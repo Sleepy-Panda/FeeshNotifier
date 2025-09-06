@@ -49,20 +49,20 @@ registerIf(
 
 triggers.COINS_FISHED_TRIGGERS.forEach(trigger => {
     registerIf(
-        register("Chat", (coins, event) => onCoinsFished(coins)).setCriteria(trigger.trigger),
+        register("Chat", (coins, event) => onCoinsFished(coins)).setCriteria(trigger.trigger).setStart(),
         () => settings.fishingProfitTrackerOverlay && isInSkyblock() && isInFishingWorld(getWorldName())
     );
 });
 
 triggers.ICE_ESSENCE_FISHED_TRIGGERS.forEach(trigger => {
     registerIf(
-        register("Chat", (count, event) => onIceEssenceFished(count)).setCriteria(trigger.trigger),
+        register("Chat", (count, event) => onIceEssenceFished(count)).setCriteria(trigger.trigger).setStart(),
         () => settings.fishingProfitTrackerOverlay && isInSkyblock() && getWorldName() === JERRY_WORKSHOP
     );
 });
 
 registerIf(
-    register("Chat", (shardText, event) => onShardFished(shardText)).setCriteria(triggers.GOOD_CATCH_SHARD_MESSAGE),
+    register("Chat", (shardText, event) => onShardFished(shardText)).setCriteria(triggers.GOOD_CATCH_SHARD_MESSAGE).setStart(),
     () => settings.fishingProfitTrackerOverlay && isInSkyblock() && isInFishingWorld(getWorldName())
 );
 
@@ -78,6 +78,11 @@ registerIf(
 
 registerIf(
     register("Chat", (mobNameText, shardsCount, event) => onShardsCharmed(mobNameText, +(shardsCount.removeFormatting()))).setCriteria(triggers.CHARM_NAGA_SALT_SHARDS_MESSAGE).setContains(),
+    () => settings.fishingProfitTrackerOverlay && isInSkyblock() && isInFishingWorld(getWorldName())
+);
+
+registerIf(
+    register("Chat", (shardsText, event) => onShardLootshared(shardsText)).setCriteria(triggers.LOOTSHARED_SHARD_MESSAGE).setContains(),
     () => settings.fishingProfitTrackerOverlay && isInSkyblock() && isInFishingWorld(getWorldName())
 );
 
@@ -445,6 +450,27 @@ function onShardsCharmed(mobNameText, shardsCount) {
     } catch (e) {
 		console.error(e);
 		console.log(`[FeeshNotifier] [ProfitTracker] Failed to track charmed Shard.`);
+	}
+}
+
+/**
+ * 
+ * @param {string} shardsText "a Bogged", "2 Titanoboa"
+ */
+function onShardLootshared(shardsText) {
+    try {
+        if (!isTrackerVisible() || !shardsText || !isSessionActive) return;
+
+        const [countText, ...shardNameParts] = shardsText.removeFormatting().split(' ');
+        const count = countText === 'a' || countText === 'an' ? 1 : +(countText);
+        const shardName = shardNameParts.join(' ') + ' Shard';
+
+        refreshItemData(i => i.itemName === shardName, count);
+        refreshPrices();
+        refreshOverlay();
+    } catch (e) {
+		console.error(e);
+		console.log(`[FeeshNotifier] [ProfitTracker] Failed to track lootshared Shard.`);
 	}
 }
 
