@@ -1,8 +1,21 @@
 # Releases
 
-## v1.50.0
+## v1.51.0
 
 Released: ???
+
+Features:
+- 
+
+Bugfixes:
+- Removed Diver armor from Emperor's Skull crafts in /feeshGearCraftPrices as it's no longer relevant. Replaced with Emperor's talismans.
+
+Other:
+- 
+
+## v1.50.0
+
+Released: 2025-09-06
 
 Features:
 - Added lootshared shards to the Fishing Profit Tracker.

@@ -4,7 +4,6 @@
 
 - 1.21 support with CT 3.0
   - Depends on migration of CT itself, and other modules from "requires" section
-- Attribute rendering rework on old items and on shards
 
 ## Fishing profit tracker
 
@@ -84,7 +83,6 @@
 
 ## Other
 
-- Moby Duck overlay + alert on expire
 - Glowing outline / highlight rare sea creatures (make this not visible through walls) - I want to get rid of SH for that, and replicate this feature in module.
 - PogData resets data file on PC crash - consider doing regular backups / research tska library as replacement for PogData
 - Remove double hook reindrake logic because DH is not possible now
