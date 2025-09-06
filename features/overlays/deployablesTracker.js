@@ -8,10 +8,6 @@ import { isInSkyblock } from "../../utils/playerState";
 import { registerIf } from "../../utils/registers";
 import { getMcEntityById, getMcEntityId } from "../../utils/common";
 
-// TODO no SOS flare alert
-// TODO check settings untoggled
-// TODO check other players items
-
 const currentPlayer = Player.getName();
 const secondsBeforeExpiration = 10;
 
@@ -162,7 +158,7 @@ function handleDeployableInteraction(action) {
         const player = Player.getPlayer();
         const entities = World.getAllEntitiesOfType(EntityArmorStand);
         const umberellaArmorStand = entities.find(entity => {
-            return entity.distanceTo(player) <= 4 && entity?.getName()?.removeFormatting() === 'Umberella 300s'
+            return entity.distanceTo(player) <= 5 && entity?.getName()?.removeFormatting() === 'Umberella 300s'
         });
 
         if (!umberellaArmorStand) return;

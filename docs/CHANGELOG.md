@@ -5,7 +5,8 @@
 Released: ???
 
 Features:
-- 
+- Added remaining time tracker and expiration alert for player's Umberella and Black Hole.
+- Replaced Flare tracker and Totem of Corruption tracker / alerts with unified Deployables tracker / alerts which tracks all placed player's deployables.
 
 Bugfixes:
 - Removed Diver armor from Emperor's Skull crafts in /feeshGearCraftPrices as it's no longer relevant. Replaced with Emperor's talismans.
