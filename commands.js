@@ -12,6 +12,7 @@ import { calculateGearCraftPrices } from "./features/commands/calculateGearCraft
 import { showSpidersDenRainSchedule } from "./features/commands/showSpidersDenRainSchedule";
 import { resetAbandonedQuarryTracker } from "./features/overlays/abandonedQuarryTracker";
 import { resetSeaCreaturesPerHourTracker } from "./features/overlays/seaCreaturesPerHourTracker";
+import { resetTreasureFishingTracker, setTreasureDyes } from "./features/overlays/treasureFishingTracker";
 import { resetArchfiendDiceProfitTracker } from "./features/overlays/archfiendDiceProfitTracker";
 import { SESSION_VIEW_MODE, TOTAL_VIEW_MODE } from "./constants/viewModes";
 import { resetWaterHotspotsAndBayouTracker, setTikiMasks, setTitanoboaSheds } from "./features/overlays/waterHotspotsAndBayouTracker";
@@ -67,6 +68,11 @@ register("command", (...args) => {
 
 register("command", (...args) => {
     const isConfirmed = args[0] && args[0] === "noconfirm";
+    resetTreasureFishingTracker(!!isConfirmed);
+}).setName("feeshResetTreasureFishing");
+
+register("command", (...args) => {
+    const isConfirmed = args[0] && args[0] === "noconfirm";
     resetArchfiendDiceProfitTracker(!!isConfirmed, TOTAL_VIEW_MODE);
 }).setName("feeshResetArchfiendDiceProfitTotal");
 
@@ -90,6 +96,9 @@ register("command", (dropId, count, ...dateParts) => {
             break;
         case 'TIKI_MASK':
             setTikiMasks(+count, lastOn);
+            break;
+        case 'DYE_TREASURE':
+            setTreasureDyes(+count, lastOn);
             break;
     }
 }).setName("feeshSetTrackerDrops");
