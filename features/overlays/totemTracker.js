@@ -29,17 +29,20 @@ register("worldUnload", () => {
 
 function trackTotemStatus() {
     try {
-        //console.log('Track')
         if ((!settings.alertOnTotemExpiresSoon && !settings.totemRemainingTimeOverlay) || !isInSkyblock()) {
-            //console.log('Return')
             return;
         }
 
         const entities = World.getAllEntitiesOfType(EntityArmorStand);
-        //console.log(entities.length)
+
+        // Totem of Corruption 89389 / Owner: MoonTheSadFisher 89391
+        //console.log(entities.filter(entity => {
+        //    const name = entity?.getName()?.removeFormatting();
+        //    return name.includes('Owner:') || name.includes('Totem' || name.includes('Remaining'));
+        //}).map(e => e.getName() + ' ' + e.toMC().getId()).join(' / '));
+
         const ownerArmorStand = entities.find(entity => {
             const name = entity?.getName()?.removeFormatting();
-            //console.log(name)
             return name.includes('Owner:') && name.includes(currentPlayer);
         });
         if (!ownerArmorStand) {
@@ -48,24 +51,25 @@ function trackTotemStatus() {
         }
     
         const ownerArmorStandId = getMcEntityId(ownerArmorStand);
-        const totemArmorStand = getMcEntityById(ownerArmorStandId - 2);
+        //const totemArmorStand = entities.find(entity => entity.toMC().getId() === ownerArmorStandId + 2);
+        const totemArmorStand = getMcEntityById(ownerArmorStandId + 2);
         //console.log(ownerArmorStandId);
-        //console.log(totemArmorStand);
 
-        if (!totemArmorStand || !(totemArmorStand instanceof net.minecraft.entity.decoration.ArmorStandEntity)) return;
+        if (!totemArmorStand || !(totemArmorStand instanceof EntityArmorStand)) return;
     
-        const totemArmorStandName = totemArmorStand.getCustomName()?.removeFormatting();
-        //console.log(totemArmorStandName)
+        const totemArmorStandName = totemArmorStand.toMC()?.getName()?.removeFormatting();
+        console.log('totemArmorStandName ' + totemArmorStandName) // undefined
         if (totemArmorStandName !== 'Totem of Corruption') {
             resetTotem();
             return;
         }
     
-        const remainingArmorStand = getMcEntityById(ownerArmorStandId - 1);
-        if (!remainingArmorStand || !(remainingArmorStand instanceof net.minecraft.entity.decoration.ArmorStandEntity)) return;
+        const remainingArmorStand = entities.find(entity => entity.toMC().getId() === ownerArmorStandId + 1);
+        //const remainingArmorStand = getMcEntityById(ownerArmorStandId - 1);
+        if (!remainingArmorStand || !(remainingArmorStand instanceof EntityArmorStand)) return;
     
-        const remainingArmorStandName = remainingArmorStand.getCustomName()?.removeFormatting();
-        //console.log(remainingArmorStandName)
+        const remainingArmorStandName = remainingArmorStand.toMC()?.getName()?.removeFormatting();
+        console.log(remainingArmorStandName)
 
         if (!remainingArmorStandName?.includes('Remaining: ')) {
             resetTotem();

@@ -2,14 +2,13 @@ https://github.com/ChatTriggers/ctjs/blob/main/docs/MIGRATION.md
 
 - getLore() usage when detecting hook
 - Sea Creatures HP has no formatting
-- Player name in alert has no formatting
+- Player name in alert has no formatting - getCustomName()?
 - settings.getConfig().onCloseGui(() - not work to update registers
 - Fishing Hook rendering disabled
 - Mithril Grubbers not tracked
   - TypeError: Cannot find function #removeFormatting in object §r         §r§l§aPlayers §r§f(23).
   - [FeeshNotifier] [AbandonedQuarryTracker] Failed to get current Mithril Powder.
 - No complex chat messages as Message class gone
-- DH message not being cancelled
 - Mobs / corrupted mobs have no SC HP nametag
 - Items icon rendering disabled
 - Moving item in inventory adds it to Profit Tracker

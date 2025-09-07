@@ -532,7 +532,7 @@ export function getMcEntityId(entity) {
  */
 export function getMcEntityById(id) {
     if (!id) return;
-    return World.getWorld()?.getEntityById(id); // func_73045_a() -> getEntityByID()
+    return World.getWorld()?.getEntityById(id);
 }
 
 function getCurrentGuiChestName() {

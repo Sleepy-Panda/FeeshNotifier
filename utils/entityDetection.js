@@ -105,10 +105,9 @@ export function getSeaCreaturesInRange(includedSeaCreatureNames, distance) {
 	return seaCreatures;
 
 	// Original nametag samples:
-    // §8[§7Lv15§8] §9⚓§e✰ §cDumpster Diver§r §e1,086§f/§a2,500§c❤
-    // §8[§7Lv15§8] §9⚓§e✰ §5§ka§5Corrupted Dumpster Diver§5§ka§r §a7,331§f/§a7,500§c❤ §b✯
-    // §8[§7Lv15§8] §9⚓§e✰ §5§ka§5Corrupted Dumpster Diver§5§ka§r §a7,243§f/§a7,500§c❤ §b✯
-    
+
+    // §r§8[§r§7Lv1§r§8] §r§9⚓§r§a☮ §r§cSquid§r §r§a100§r§f/§r§a100§r§c❤
+	// §r§8[§r§7Lv1§r§8] §r§9⚓§r§a☮ §r§k§5a§r§5Corrupted Squid§r§k§5a§r §r§a300§r§f/§r§a300§r§c❤
     // §e﴾ §8[§7Lv600§8] §c♆§7⚙§d♣ §c§lLord Jawbus§r§r §a69M§f/§a100M§c❤ §e﴿
     // §e﴾ §8[§7Lv600§8] §c♆§7⚙§d♣ §c§lLord Jawbus§r§r §e6.3M§f/§a100M§c❤ §e﴿ §b✯
     // §8[§7Lv250§8] §c♆§e✰§a☮ §cJawbus Follower§r §a3M§f/§a3M§c❤
@@ -116,13 +115,16 @@ export function getSeaCreaturesInRange(includedSeaCreatureNames, distance) {
 		if (!entity) return null;
 
 		const plainName = entity?.getName()?.removeFormatting();
+		if (plainName.includes('Emperor')) console.log(plainName);
 		if (!plainName || !plainName.includes('[Lv') || !plainName.includes(']') || !plainName.includes('❤') || !includedSeaCreatureNames.some(n => plainName.includes(n))) return null;
 
-		const name = entity.getName().replace('§e﴾ ', '').replace(' §e﴿', '').trim() || '';
+		const name = entity.getNameComponent()?.formattedText?.replace('§e﴾ ', '').replace(' §e﴿', '').replaceAll('§k§5a', '').trim() || '';
+		if (plainName.includes('Emperor')) console.log('Name ' + name);
+// [Lv150] ⚓🦴♃ aCorrupted The Loch Emperora 224.7k/4.8M❤ ✯
+// Name §r§8[§r§7Lv150§r§8] §r§9⚓§r§f🦴§r§5♃ §r§r§5Corrupted The Loch Emperor§r§r §r§e224.7k§r§f/§r§a4.8M§r§c❤ §r§b✯
 		const shortName = name.split('] ')[1].replace('Corrupted ', '');
 		const baseMobName = takeWhile(shortName.split(' '), part => !part.includes('/'))
 			.join(' ')
-			.replaceAll('§ka', '') // Corrupted character before and after mob name
 			.removeFormatting()
 			.replace(/[^a-zA-Z\s'-]/g, '')
 			.trim();
@@ -160,13 +162,13 @@ export function getHypixelFishingHookTimer(fishingHook) {
 	const entities = World.getAllEntitiesOfType(EntityArmorStand);
 	const hypixelHookTimer = entities
 		.filter(entity => entity.distanceTo(fishingHook) <= 1)
-		.find(e => e.getName() === FISH_ARRIVED || FISHING_HOOK_TIMER_UNTIL_REEL_IN_REGEX.test(e.getName()));
+		.find(e => e.getNameComponent()?.formattedText === FISH_ARRIVED || FISHING_HOOK_TIMER_UNTIL_REEL_IN_REGEX.test(e.getCustomName()?.getString()));
 	if (!hypixelHookTimer) return null;
 
 	const result = {
 		uuid: hypixelHookTimer.getUUID(),
-		name: hypixelHookTimer.getName(),
-		fishState: hypixelHookTimer.getName() === FISH_ARRIVED ? FISH_STATE_ARRIVED : FISH_STATE_ARRIVING,
+		name: hypixelHookTimer.getNameComponent()?.formattedText,
+		fishState: hypixelHookTimer.getNameComponent()?.formattedText === FISH_ARRIVED ? FISH_STATE_ARRIVED : FISH_STATE_ARRIVING,
 	};
 
 	return result;
