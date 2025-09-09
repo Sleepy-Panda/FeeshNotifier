@@ -1011,7 +1011,7 @@ const config = new DefaultConfig("FeeshNotifier", "config/settings.json")
     category: "Overlays",
     configName: "pauseButtonKeybindInformationText",
     title: "Pause button",
-    description: "Set a keybind in Minecraft's Controls menu to pause all active overlays on button pressed. Default button is PAUSE.",
+    description: "Set a keybind in Minecraft's Controls menu to pause all active overlays on button pressed.",
     subcategory: "General"
 })
 

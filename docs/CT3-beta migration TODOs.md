@@ -2,6 +2,7 @@ https://github.com/ChatTriggers/ctjs/blob/main/docs/MIGRATION.md
 
 - getLore() usage when detecting hook
 - Sea Creatures HP has no formatting
+- Umberella & Flare not working - error in playernteract (InternalError: Invalid JavaScript value of type com.chattriggers.ctjs.api.world.block.Block (moduleProvided#314))
 - Player name in alert has no formatting - getCustomName()?
 - settings.getConfig().onCloseGui(() - not work to update registers
 - Fishing Hook rendering disabled
@@ -13,7 +14,7 @@ https://github.com/ChatTriggers/ctjs/blob/main/docs/MIGRATION.md
 - Items icon rendering disabled
 - Moving item in inventory adds it to Profit Tracker
 - Opening cookie menu, moving items from backpacks adds to tracker
-- Keybinds disabled
+- KeybindFix not migrated, used Keybind instead
 - Boxing disabled
 - Moving / scaling the overlays
 - Move all GUIs wrong moving
