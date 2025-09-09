@@ -3,7 +3,7 @@
     "entry": "index.js",
     "author": "MoonTheSadFisher",
     "description": "Hypixel Skyblock fishing utilities for parties.",
-    "version": "1.50.0",
+    "version": "1.51.0",
     "requires": [
         "Amaterasu",
         "PogData",

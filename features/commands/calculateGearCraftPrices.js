@@ -98,24 +98,19 @@ const CRAFTABLES = [
         baseItemName:  `${RARE}Emperor's Skull`,
         items: [
             {
-                itemId: 'DIVER_HELMET',
-                itemName: `${LEGENDARY}Diver's Mask`,
-                amountOfItems: 5
-            },
-            {
-                itemId: 'DIVER_CHESTPLATE',
-                itemName: `${LEGENDARY}Diver's Shirt`,
-                amountOfItems: 8
-            },
-            {
-                itemId: 'DIVER_LEGGINGS',
-                itemName: `${LEGENDARY}Diver's Trunks`,
-                amountOfItems: 7
-            },
-            {
-                itemId: 'DIVER_BOOTS',
-                itemName: `${LEGENDARY}Diver's Boots`,
+                itemId: 'EMPEROR_TALISMAN',
+                itemName: `${UNCOMMON}Emperor's Talisman`,
                 amountOfItems: 4
+            },
+            {
+                itemId: 'EMPEROR_RING',
+                itemName: `${RARE}Emperor's Ring`,
+                amountOfItems: 16
+            },
+            {
+                itemId: 'EMPEROR_ARTIFACT',
+                itemName: `${EPIC}Emperor's Artifact`,
+                amountOfItems: 64
             },
         ]
     }

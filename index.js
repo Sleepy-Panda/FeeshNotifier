@@ -23,8 +23,7 @@ import "./features/alerts/alertOnPetLevelUp";
 import "./features/alerts/alertOnFishingFestivalEnded";
 
 import "./features/overlays/seaCreaturesTracker";
-import "./features/overlays/totemTracker";
-import "./features/overlays/flareTracker";
+import "./features/overlays/deployablesTracker";
 import "./features/overlays/consumablesTracker";
 import "./features/overlays/seaCreaturesHpTracker";
 import "./features/overlays/seaCreaturesCountAndTimeTracker";
