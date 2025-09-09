@@ -41,7 +41,7 @@ registerIf(
 
 // Those deployables have no player name in their nametag, so we need to track item interaction to detect current player's deployable and ignore deployables from others.
 registerIf(
-    register("playerInteract", (action, pos, event) => handleDeployableInteraction(action)),
+    register("playerInteract", (action, obj, event) => handleDeployableInteraction(action)),
     () => (
         isInSkyblock() &&
         (settings.alertOnDeployableExpiresSoon && (settings.alertOnUmberellaExpiresSoon || settings.alertOnFlareExpiresSoon)) ||
@@ -200,19 +200,20 @@ function trackTotemStatus(entities) {
         }
     
         const ownerArmorStandId = getMcEntityId(ownerArmorStand);
-        const totemArmorStand = getMcEntityById(ownerArmorStandId - 2);
-        if (!totemArmorStand || !(totemArmorStand instanceof EntityArmorStand)) return;
+        const totemArmorStand = entities.find(entity => entity.toMC().getId() === ownerArmorStandId - 2);
+        if (!totemArmorStand) return;
     
-        const totemArmorStandName = totemArmorStand.func_95999_t()?.removeFormatting(); // func_95999_t -> getCustomNameTag()
+        const totemArmorStandName = totemArmorStand.getName()?.removeFormatting();
         if (totemArmorStandName !== 'Totem of Corruption') {
             resetTotem();
             return;
         }
     
-        const remainingArmorStand = getMcEntityById(ownerArmorStandId - 1);
-        if (!remainingArmorStand || !(remainingArmorStand instanceof EntityArmorStand)) return;
+        const remainingArmorStand = entities.find(entity => entity.toMC().getId() === ownerArmorStandId - 1);
+        if (!remainingArmorStand) return;
     
-        const remainingArmorStandName = remainingArmorStand.func_95999_t()?.removeFormatting(); // func_95999_t -> getCustomNameTag()
+        const remainingArmorStandName = remainingArmorStand.getName()?.removeFormatting();
+
         if (!remainingArmorStandName?.includes('Remaining: ')) {
             resetTotem();
             return;
@@ -250,10 +251,10 @@ function trackBlackHoleStatus(entities) {
         }
     
         const ownerArmorStandId = getMcEntityId(ownerArmorStand);
-        const blackHoleArmorStand = getMcEntityById(ownerArmorStandId + 1);
-        if (!blackHoleArmorStand || !(blackHoleArmorStand instanceof EntityArmorStand)) return;
+        const blackHoleArmorStand = entities.find(entity => entity.toMC().getId() === ownerArmorStandId + 1);
+        if (!blackHoleArmorStand) return;
     
-        const blackHoleArmorStandName = blackHoleArmorStand.func_95999_t()?.removeFormatting(); // func_95999_t -> getCustomNameTag()
+        const blackHoleArmorStandName = blackHoleArmorStand.getName()?.removeFormatting();
         if (!blackHoleArmorStandName.startsWith('Black Hole')) {
             resetBlackHole();
             return;
