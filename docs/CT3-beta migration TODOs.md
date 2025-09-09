@@ -1,14 +1,12 @@
 https://github.com/ChatTriggers/ctjs/blob/main/docs/MIGRATION.md
 
+- Changelog file + metadata version
 - getLore() usage when detecting hook
 - Sea Creatures HP has no formatting
 - Umberella & Flare not working - error in playernteract (InternalError: Invalid JavaScript value of type com.chattriggers.ctjs.api.world.block.Block (moduleProvided#314))
 - Player name in alert has no formatting - getCustomName()?
 - settings.getConfig().onCloseGui(() - not work to update registers
 - Fishing Hook rendering disabled
-- Mithril Grubbers not tracked
-  - TypeError: Cannot find function #removeFormatting in object §r         §r§l§aPlayers §r§f(23).
-  - [FeeshNotifier] [AbandonedQuarryTracker] Failed to get current Mithril Powder.
 - No complex chat messages as Message class gone
 - Mobs / corrupted mobs have no SC HP nametag
 - Items icon rendering disabled
@@ -16,8 +14,6 @@ https://github.com/ChatTriggers/ctjs/blob/main/docs/MIGRATION.md
 - Opening cookie menu, moving items from backpacks adds to tracker
 - KeybindFix not migrated, used Keybind instead
 - Boxing disabled
-- Moving / scaling the overlays
-- Move all GUIs wrong moving
 - WTF is with clickable overlay buttons
 - CT load makes everything not work until lobby swap (empty registers list at the moment of loading world details)
   - partially fixed but Garden -> Island or End -> Island does not enable functionalities. Same after game load
