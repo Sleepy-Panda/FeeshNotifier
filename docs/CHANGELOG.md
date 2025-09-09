@@ -7,8 +7,10 @@ Released: ???
 Features:
 - Added remaining time tracker and expiration alert for player's Umberella and Black Hole.
 - Replaced Flare tracker and Totem of Corruption tracker / alerts with unified Deployables tracker / alerts which tracks different player's deployables in one overlay.
+- Slightly changed formatting of Sea Creatures tracker.
 
 Bugfixes:
+- Added Carrot King Shard to the Fishing profit tracker.
 - Removed Diver armor from Emperor's Skull crafts in /feeshGearCraftPrices as it's no longer relevant. Replaced with Emperor's talismans.
 
 Other:
