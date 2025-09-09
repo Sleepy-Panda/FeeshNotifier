@@ -90,8 +90,8 @@ function moveCurrentGui(x, y) {
         return;
     }
 
-    selectedGui.guiSettings.x = x;
-    selectedGui.guiSettings.y = y;
+    selectedGui.guiSettings.x = x / selectedGui.guiSettings.scale;
+    selectedGui.guiSettings.y = y / selectedGui.guiSettings.scale;
     overlayCoordsData.save();
 }
 
