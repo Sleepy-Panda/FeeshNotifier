@@ -55,6 +55,9 @@
 - Write smarter logic to detect personal cap alert (20 for CH, 5 for Crimson)
 - Do not include baby magma slugs when producing cap alert.
 - Attach Vials drop number to the pchat message
+- Clean chat for spammu messages:
+  - &r&eTry clicking this &r&fThunder Spark&r&e with an &r&5Empty Thunder Bottle&r&e to collect it!&r (31)
+  - The Pocket Black Hole isn't effective against Snapping Turtle! (2) 
 
 ## Hotspots
 

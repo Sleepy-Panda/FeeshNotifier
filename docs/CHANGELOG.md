@@ -7,9 +7,6 @@ Released: ???
 Features:
 - Added remaining time tracker and expiration alert for player's Umberella and Black Hole.
 - Replaced Flare tracker and Totem of Corruption tracker / alerts with unified Deployables tracker / alerts which tracks different player's deployables in one overlay.
-Features:
-- Added remaining time tracker and expiration alert for player's Umberella and Black Hole.
-- Replaced Flare tracker and Totem of Corruption tracker / alerts with unified Deployables tracker / alerts which tracks different player's deployables in one overlay.
 - Slightly changed formatting of Sea Creatures tracker.
 - Added Treasure fishing tracker which tracks Good/Great/Outsranding catches, and Trasure Dye drop statisctics. [disabled by default]
   - You can initialize Treasure Dyes using the command:
