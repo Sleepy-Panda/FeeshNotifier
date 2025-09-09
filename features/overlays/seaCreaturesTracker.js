@@ -4,7 +4,7 @@ import * as seaCreatures from '../../constants/seaCreatures';
 import { persistentData } from "../../data/data";
 import { overlayCoordsData } from "../../data/overlayCoords";
 import { formatNumberWithSpaces, fromUppercaseToCapitalizedFirstLetters, isDoubleHook, isInFishingWorld } from '../../utils/common';
-import { WHITE, GOLD, BOLD, GRAY, RED, AQUA } from "../../constants/formatting";
+import { WHITE, GOLD, BOLD, GRAY, RED, AQUA, DARK_GRAY } from "../../constants/formatting";
 import { getLastFishingHookSeenAt, getWorldName, isInSkyblock } from "../../utils/playerState";
 import { registerIf } from "../../utils/registers";
 import { LEFT_CLICK_TYPE, Overlay, OverlayButtonLine, OverlayTextLine } from "../../utils/overlays";
@@ -169,10 +169,10 @@ function refreshOverlay() {
     entries.forEach((entry) => {
         const seaCreatureText = `${entry.rarityColorCode}${fromUppercaseToCapitalizedFirstLetters(entry.seaCreature)}`;
         const countText = `${WHITE}${formatNumberWithSpaces(entry.amount)}`;
-        const percentText = settings.seaCreaturesTrackerMode === DISPLAY_MODE_ONLY_RARE || !settings.showSeaCreaturesPercentage ? '' : ` ${GRAY}(${entry.percent}%)`;
+        const percentText = settings.seaCreaturesTrackerMode === DISPLAY_MODE_ONLY_RARE || !settings.showSeaCreaturesPercentage ? '' : ` ${GRAY}${entry.percent}%`;
         const doubleHookText = !settings.showSeaCreaturesDoubleHookStatistics || (entry.seaCreature === seaCreatures.VANQUISHER || entry.seaCreature === seaCreatures.REINDRAKE)
             ? ''
-            : ` ${GRAY}| DH: ${WHITE}${formatNumberWithSpaces(entry.doubleHookAmount)} ${GRAY}(${entry.doubleHookPercent}${GRAY}%)`;
+            : ` ${DARK_GRAY}| ${GRAY}DH: ${WHITE}${formatNumberWithSpaces(entry.doubleHookAmount)} ${GRAY}${entry.doubleHookPercent}${GRAY}%`;
         overlay.addTextLine(new OverlayTextLine().setText(`${GRAY}- ${seaCreatureText}${GRAY}: ${countText}${percentText}${doubleHookText}`));
     });
 
