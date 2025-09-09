@@ -171,6 +171,7 @@ export const GOOD_CATCH_SHARD_MESSAGE = `${RESET}${DARK_PURPLE}⛃ ${RESET}${DAR
 
 // &aYou caught a &fSea Archer &aShard!&r
 // &aYou caught &7x4 &fSea Archer &aShards&a!&r
+// &aYou caught &7x4 &9Carrot King &aShards&a!&r
 export const BLACK_HOLE_SHARD_MESSAGE = `${GREEN}You caught ` + "${shardsText}" + ` ${GREEN}Shard`;
 
 // &5&lCHARM&7 You charmed a &5Loch Emperor&7 and captured its &9Shard&7.
