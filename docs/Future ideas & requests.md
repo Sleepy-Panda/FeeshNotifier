@@ -58,6 +58,7 @@
 - Clean chat for spammu messages:
   - &r&eTry clicking this &r&fThunder Spark&r&e with an &r&5Empty Thunder Bottle&r&e to collect it!&r (31)
   - The Pocket Black Hole isn't effective against Snapping Turtle! (2) 
+  - &r&cThe Pocket Black Hole isn't effective against Guardian Defender!&r
 
 ## Hotspots
 
