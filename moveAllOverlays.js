@@ -63,8 +63,8 @@ ${GRAY}Total: ${WHITE}21`,
     {
         toggleSettingKey: 'seaCreaturesPerHourTrackerOverlay',
         guiSettings: overlayCoordsData.seaCreaturesPerHourTrackerOverlay,
-        sampleText: `
-${YELLOW}${BOLD}Sea creatures per hour
+        sampleText:
+`${YELLOW}${BOLD}Sea creatures per hour
 ${WHITE}1 000 ${GRAY}per hour (${WHITE}2 000 ${GRAY}total)
 
 ${AQUA}Elapsed time: ${WHITE}2:00:00

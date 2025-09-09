@@ -3,6 +3,7 @@ https://github.com/ChatTriggers/ctjs/blob/main/docs/MIGRATION.md
 - Changelog file + metadata version
 - getLore() usage when detecting hook
 - Sea Creatures HP has no formatting
+- World specific widgets not shown (compacted messages lead to triggers not working for original msg)
 - Umberella & Flare not working - error in playernteract (InternalError: Invalid JavaScript value of type com.chattriggers.ctjs.api.world.block.Block (moduleProvided#314))
 - Player name in alert has no formatting - getCustomName()?
 - settings.getConfig().onCloseGui(() - not work to update registers
