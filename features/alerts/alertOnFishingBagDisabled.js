@@ -63,8 +63,10 @@ function alertOnFishingBagDisabled() {
             playMcSound(MC_RANDOM_ORB_SOUND);
         }
 
-        const message = new TextComponent(`${GOLD}[FeeshNotifier] ${WHITE}Using baits from Fishing Bag is disabled. Click to open Fishing Bag!`).setClick("run_command", `/fb`);
-        message.chat();
+        new TextComponent({
+            text: `${GOLD}[FeeshNotifier] ${WHITE}Using baits from Fishing Bag is disabled. Click to open Fishing Bag!`,
+            clickEvent: { action: 'run_command', value: '/fb' },
+        }).chat();
     } catch (e) {
         console.error(e);
         console.log(`[FeeshNotifier] Failed to check fishing bag state on catch.`);
