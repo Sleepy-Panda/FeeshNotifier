@@ -9,6 +9,7 @@ import { overlayCoordsData } from "../../data/overlayCoords";
 import { getAuctionItemPrices } from "../../utils/auctionPrices";
 import { LEFT_CLICK_TYPE, Overlay, OverlayButtonLine, OverlayTextLine } from "../../utils/overlays";
 import { registerIf } from "../../utils/registers";
+import { GuiChest } from "../../constants/javaTypes";
 
 var totalMembranesCount = 0;
 var totalChambersCount = 0;
@@ -181,7 +182,7 @@ function detectInventoryChanges() {
         const currentInventory = getInventoryMembranes();
         const currentInventoryTotal = currentInventory.reduce((partialSum, a) => partialSum + a, 0);
 
-        let isInChest = Client.isInGui() && Client.currentGui?.getClassName() === 'GuiChest';
+        let isInChest = screen && screen instanceof GuiChest;
         if (!isInChest && currentInventoryTotal > previousInventoryTotal) {
             onWormMembranesAddedToInventory(previousInventoryTotal, currentInventoryTotal);
         }

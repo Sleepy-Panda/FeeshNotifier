@@ -551,7 +551,6 @@ function detectInventoryChanges() {
         const currentInventory = getFishingProfitItemsInCurrentInventory();
 
         let isInChest = screen && screen instanceof GuiChest;
-        //console.log(isInChest + ' ' + screen.getTitle()?.getString())
         if (!isInChest) {
             const uniqueItemIds = currentInventory.map(i => i.itemId).filter(id => !!id).filter((x, i, a) => a.indexOf(x) == i);
             let isUpdated = false;

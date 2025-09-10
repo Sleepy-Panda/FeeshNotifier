@@ -81,15 +81,15 @@ register("guiClosed", (gui) => {
 });
 
 [
-	'&e[NPC] &bKat&f: &rI was able to upgrade your pet ${petDisplayName}&f to ${*}&f.&r', // petDisplayName contains old rarity, &e[NPC] &bKat&f: &rI was able to upgrade your pet &5Guardian&f to &6§LLEGENDARY&f.&r
-	'&e[NPC] &bKat&f: &b✆ &f&rHi! I\'ve finished training your ${petDisplayName}&f!&r' // petDisplayName contains new rarity, &e[NPC] &bKat&f: &b✆ &f&rHi! I've finished training your &5Guardian&f!&r
+	'&e[NPC] &bKat&f: &rI was able to upgrade your pet ${petDisplayName}&f to ${*}&f.', // petDisplayName contains old rarity, &e[NPC] &bKat&f: &rI was able to upgrade your pet &5Guardian&f to &6§LLEGENDARY&f.&r
+	'&e[NPC] &bKat&f: &b✆ &f&rHi! I\'ve finished training your ${petDisplayName}&f!' // petDisplayName contains new rarity, &e[NPC] &bKat&f: &b✆ &f&rHi! I've finished training your &5Guardian&f!&r
 ].forEach(entry => {
 	register("Chat", (petDisplayName, event) => {
 		lastKatUpgrade = {
 			lastPetClaimedAt: new Date(),
 			petDisplayName: petDisplayName
 		};
-	}).setCriteria(entry); 
+	}).setCriteria(entry).setStart(); 
 });
 
 export function isInSkyblock() {

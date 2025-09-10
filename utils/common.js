@@ -310,7 +310,7 @@ export function getItemsAddedToSacks(eventMessage) {
 }
 
 export function getCleanItemName(itemName) {
-    if (itemName && /.+ §8x[\d]+$/.test(itemName)) { // Booster cookie menu or NPCs append the amount to the item name - e.g. §9Fish Affinity Talisman §8x1
+    if (itemName && /.+ §r§8x[\d]+$/.test(itemName)) { // Booster cookie menu or NPCs append the amount to the item name - e.g. §9Fish Affinity Talisman §8x1
         const itemNameParts = itemName.split(' ');
         itemNameParts.pop();
         itemName = itemNameParts.join(' ');
