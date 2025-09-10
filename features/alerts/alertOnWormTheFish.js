@@ -24,7 +24,7 @@ function alertOnWormTheFishCatch() {
     }
 
     const items = World.getAllEntitiesOfType(EntityItem);
-    const currentWormTheFishCount = items.filter(entity => new Item(entity).getName()?.removeFormatting()?.includes('Worm the Fish')).length;
+    const currentWormTheFishCount = items.filter(entity => getEntityItemName(entity)?.includes('Worm the Fish')).length;
 
     if (currentWormTheFishCount > wormTheFishCount) { // Alert only when a new item has spawned
         Client.showTitle(`${WHITE}Pickup ${RED}Worm the Fish`, '', 1, 45, 1);
@@ -35,4 +35,8 @@ function alertOnWormTheFishCatch() {
     }
     
     wormTheFishCount = currentWormTheFishCount;
+}
+
+function getEntityItemName(entity) {
+    return entity?.toMC().getStack()?.getName()?.getString()?.removeFormatting();
 }
