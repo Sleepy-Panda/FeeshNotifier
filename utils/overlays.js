@@ -91,7 +91,7 @@ export class Overlay {
                 const clickedLine = this.buttonLines.find(l => l._isHovered(x, y)) || this.textLines.find(l => l._isHovered(x, y));
                 if (!clickedLine) return;
 
-                const isCtrlPressed = Keyboard.isKeyDown(29) || Keyboard.isKeyDown(157); // 29 and 157 is LCTRL/RCTRL https://minecraft.fandom.com/wiki/Key_codes
+                const isCtrlPressed = Client.isControlDown();
 
                 switch (true) {
                     case mouseButton === 0 && isCtrlPressed: {

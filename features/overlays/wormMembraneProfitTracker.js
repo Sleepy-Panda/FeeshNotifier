@@ -39,7 +39,7 @@ triggers.WORM_CATCH_TRIGGERS.forEach(trigger => {
         register("Chat", (event) => {
             const isDoubleHooked = isDoubleHook();
             trackWormCatch(isDoubleHooked);
-        }).setCriteria(trigger.trigger).setContains(),
+        }).setCriteria(trigger.trigger).setContains().triggerIfCanceled(true),
         () => settings.wormProfitTrackerOverlay && isInSkyblock() && getWorldName() === CRYSTAL_HOLLOWS
     );
 });
