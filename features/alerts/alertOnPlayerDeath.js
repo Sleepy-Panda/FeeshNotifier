@@ -12,7 +12,7 @@ triggers.KILLED_BY_TRIGGERS.forEach(entry => {
 		register(
 			"Chat",
 			(rankAndPlayer, event) => playAlertOnPlayerDeath(getColoredPlayerNameFromPartyChat(rankAndPlayer))
-		).setCriteria(getPartyChatMessage(getPlayerDeathMessage())),
+		).setCriteria(getPartyChatMessage(getPlayerDeathMessage())).setStart(),
 		() => settings.alertOnPartyMemberDeath && isInSkyblock()
 	);
 });

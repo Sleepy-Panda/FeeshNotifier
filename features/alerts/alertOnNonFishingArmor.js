@@ -24,7 +24,7 @@ function alertOnNonFishingArmor(event) {
             return;
         }
     
-        if (Player.getPlayer().field_71104_cf != event.entity) { // Check for player's own hook
+        if (Player.getPlayer().fishHook != event.entity.toMC()) { // Check for player's own hook
             return;
         }
     

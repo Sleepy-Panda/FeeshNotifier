@@ -7,8 +7,20 @@ let registers = [];
 let attemptsCounter = 0;
 let lastWorldLoadAt = null;
 
-settings.getConfig().onCloseGui(() => {
-    updateRegisters();
+let lastKnownIsInSkyblock = false;
+let lastKnownWorldName = null;
+
+// TODO: Uncomment when implemented back in Amaterasu
+//settings.getConfig().onCloseGui(() => {
+//    updateRegisters();
+//});
+
+register("guiClosed", (gui) => {
+    if (!gui) return;
+
+    if (gui.getClass().getName() === 'com.chattriggers.ctjs.api.render.Gui') {
+        updateRegisters();
+    }
 });
 
 register('worldLoad', () => {
@@ -20,16 +32,20 @@ register('worldLoad', () => {
 });
 
 function tryUpdateRegisters() {
-    if (attemptsCounter > 3) return;
-
-    updateRegisters();
+    if (attemptsCounter > 5) return;
 
     const inSkyblock = isInSkyblock();
     const worldName = getWorldName();
-    if (inSkyblock && worldName && registers.length) return; // World details and registers list already loaded
+
+    if ((inSkyblock !== lastKnownIsInSkyblock || worldName !== lastKnownWorldName) && registers.length) {
+        updateRegisters();        
+    }
+
+    lastKnownIsInSkyblock = inSkyblock;
+    lastKnownWorldName = worldName;
 
     attemptsCounter++;
-    setTimeout(tryUpdateRegisters, 3000);
+    setTimeout(tryUpdateRegisters, 2000);
 }
 
 function updateRegisters() {

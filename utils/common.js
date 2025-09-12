@@ -90,8 +90,9 @@ export function getPlayerNameFromPartyChat(playerAndRank) { // Input: &b[MVP&d+&
 // Messages have the following format:
 // &r&9Party &8> &b[MVP&d+&b] DeadlyMetal&f: &r--> A YETI has spawned <--&r
 // &r&9Компания &8> &b[MVP] PivoTheSadFisher&f: &r--> A Deep Sea Orb has dropped <--&r
+// MC 1.21.5: &r&9Party &8> &6[MVP&3++&6] vadim31&f: &r--> A THE LOCH EMPEROR has spawned <--
 export function getPartyChatMessage(baseMessage) {
-	return `${RESET}${BLUE}` + "${*}" + ` ${DARK_GRAY}> ` + "${rankAndPlayer}" + `${WHITE}: ${RESET}${baseMessage}${RESET}`;
+	return `${RESET}${BLUE}` + "${*}" + ` ${DARK_GRAY}> ` + "${rankAndPlayer}" + `${WHITE}: ${RESET}${baseMessage}`;
 	// To test using Co-op chat:
 	// return `${RESET}${AQUA}Co-op > ` + "${rankAndPlayer}" + `${WHITE}: ${RESET}${baseMessage}${RESET}`;
 }
@@ -284,6 +285,11 @@ export function isInSupercraftGui() {
 export function getItemsAddedToSacks(eventMessage) {
 	let items = [];
 	
+	console.log('Msg part = ' + eventMessage.getSiblings()[0].getString() + ' ' + eventMessage.getSiblings()[0].getStyle().hoverEvent.action);
+	// .value returns function comp_3510() {/*
+// net.minecraft.class_2561 comp_3510()
+// */}
+	console.log('Hover value = ' + eventMessage.getSiblings()[0].getStyle()?.hoverEvent?.value?.toString());
 	const addedItemsMessage = new TextComponent(eventMessage).find(part => part.hoverValue?.getString()?.includes('Added items:'))?.hoverValue || '';
     if (!addedItemsMessage) {
         return items;

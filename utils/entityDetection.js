@@ -111,17 +111,14 @@ export function getSeaCreaturesInRange(includedSeaCreatureNames, distance) {
     // §e﴾ §8[§7Lv600§8] §c♆§7⚙§d♣ §c§lLord Jawbus§r§r §a69M§f/§a100M§c❤ §e﴿
     // §e﴾ §8[§7Lv600§8] §c♆§7⚙§d♣ §c§lLord Jawbus§r§r §e6.3M§f/§a100M§c❤ §e﴿ §b✯
     // §8[§7Lv250§8] §c♆§e✰§a☮ §cJawbus Follower§r §a3M§f/§a3M§c❤
+	// MC 1.21.5: §r§8[§r§7Lv150§r§8] §r§9⚓§r§f🦴§r§5♃ §r§r§5Corrupted The Loch Emperor§r§r §r§e224.7k§r§f/§r§a4.8M§r§c❤ §r§b✯ (name)
 	function parseSeaCreatureNametag(entity, includedSeaCreatureNames) { 
 		if (!entity) return null;
 
 		const plainName = entity?.getName()?.removeFormatting();
-		if (plainName.includes('Emperor')) console.log(plainName);
 		if (!plainName || !plainName.includes('[Lv') || !plainName.includes(']') || !plainName.includes('❤') || !includedSeaCreatureNames.some(n => plainName.includes(n))) return null;
 
 		const name = entity.getNameComponent()?.formattedText?.replace('§e﴾ ', '').replace(' §e﴿', '').replaceAll('§k§5a', '').trim() || '';
-		if (plainName.includes('Emperor')) console.log('Name ' + name);
-// [Lv150] ⚓🦴♃ aCorrupted The Loch Emperora 224.7k/4.8M❤ ✯
-// Name §r§8[§r§7Lv150§r§8] §r§9⚓§r§f🦴§r§5♃ §r§r§5Corrupted The Loch Emperor§r§r §r§e224.7k§r§f/§r§a4.8M§r§c❤ §r§b✯
 		const shortName = name.split('] ')[1].replace('Corrupted ', '');
 		const baseMobName = takeWhile(shortName.split(' '), part => !part.includes('/'))
 			.join(' ')
