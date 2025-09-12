@@ -336,7 +336,7 @@ const config = new DefaultConfig("FeeshNotifier", "config/settings.json")
 .addSwitch({
     category: "Chat",
     configName: "messageOnFlyingFishPetDrop",
-    title: "Send a party chat message on FLYING FISH PET drop",
+    title: "Send a party chat message on LEGENDARY FLYING FISH PET drop",
     description: "Sends a party chat message when a rare item has dropped by you.",
     subcategory: "Rare Drops",
     value: true
@@ -864,7 +864,7 @@ const config = new DefaultConfig("FeeshNotifier", "config/settings.json")
 .addSwitch({
     category: "Alerts",
     configName: "alertOnFlyingFishPetDrop",
-    title: "Alert on FLYING FISH PET drop",
+    title: "Alert on LEGENDARY FLYING FISH PET drop",
     description: "Shows a title and plays a sound when a rare item has dropped by you or your party members.",
     subcategory: "Rare Drops",
     value: true
