@@ -2,8 +2,8 @@ import settings, { allOverlaysGui } from "../../settings";
 import * as triggers from '../../constants/triggers';
 import { persistentData } from "../../data/data";
 import { overlayCoordsData } from "../../data/overlayCoords";
-import { formatDate, formatNumberWithSpaces, formatTimeElapsedBetweenDates, getDropCatchesCounterChatMessage, isInFishingWorld } from '../../utils/common';
-import { WHITE, GOLD, BOLD, GRAY, RED, AQUA, DARK_PURPLE, LIGHT_PURPLE, BLUE, LEGENDARY } from "../../constants/formatting";
+import { formatNumberWithSpaces, getDropCatchesCounterChatMessage, isInFishingWorld } from '../../utils/common';
+import { WHITE, GOLD, BOLD, GRAY, RED, AQUA, DARK_PURPLE, LIGHT_PURPLE } from "../../constants/formatting";
 import { getWorldName, isInSkyblock } from "../../utils/playerState";
 import { registerIf } from "../../utils/registers";
 import { getDropStatisticsOverlayText, initDropCountOnOverlay, LEFT_CLICK_TYPE, Overlay, OverlayButtonLine, OverlayTextLine, setDropStatisticsOnDrop } from "../../utils/overlays";
@@ -184,7 +184,7 @@ function refreshOverlay() {
         !isInSkyblock() ||
         !isInFishingWorld(getWorldName()) ||
         !lastTreasureCaughtAt ||
-        (new Date() - lastTreasureCaughtAt > 5 * 60 * 1000) ||
+        (new Date() - lastTreasureCaughtAt > 2 * 60 * 1000) ||
         allOverlaysGui.isOpen()
     ) {
         return;
