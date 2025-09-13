@@ -418,19 +418,6 @@ export function formatElapsedTimeWithUnits(elapsedSeconds) {
 		: `${days > 0 ? days + 'd ' : ''}${days > 0 || hours > 0 ? hours + 'h ' : ''}${days > 0 || hours > 0 || minutes > 0 ? minutes + 'm' : ''}`;
 }
 
-/**
- * Get item's lore lines without item name. Native Item.getLore() interferes with other mods, e.g. it causes Skyhanni's estimated item value overlay to flash in /pv
- * @param {Item} item
- * @returns {array} Array of strings with lore lones
- */
-export function getLore(item) {
-	if (!item) {
-		return [];
-	}
-
-    return item.getNBT()?.getCompoundTag('tag')?.getCompoundTag('display')?.toObject()?.Lore || [];
-}
-
 // Credits VolcAddons
 /**
  * Adds a line combined from prefix and value, to the item's lore. If item's lore already contains the specified prefix, then line's value is updated by this prefix.

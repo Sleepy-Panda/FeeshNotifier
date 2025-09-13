@@ -1,7 +1,7 @@
 import settings from "../../settings";
 import { BOLD, GRAY } from "../../constants/formatting";
 import { isInSkyblock } from "../../utils/playerState";
-import { getItemAttributes, getLore } from "../../utils/common";
+import { getItemAttributes } from "../../utils/common";
 import { registerIf } from "../../utils/registers";
 
 let ignoredItemNames = [];
@@ -31,9 +31,9 @@ function showAttributes(item, x, y) {
         if (ignoredItemNames.some(itemName => name.toLowerCase().includes(itemName.toLowerCase().trim()))) return;
     }
 
-    const lore = getLore(item);
+    const lore = item.getLore();
     if ((item.getNBT()?.getCompoundTag('tag')?.getCompoundTag('ExtraAttributes')?.getString('id') === 'ATTRIBUTE_SHARD' && name !== 'Attribute Shard') ||
-        lore.find(l => l.removeFormatting().toLowerCase().includes('shard ('))
+        lore.find(l => l.unformattedText.toLowerCase().includes('shard ('))
     ) { 
         return;
     }

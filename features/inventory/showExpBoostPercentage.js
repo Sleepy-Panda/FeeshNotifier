@@ -1,6 +1,6 @@
 import settings from "../../settings";
 import { isInSkyblock } from "../../utils/playerState";
-import { getCleanItemName, getLore } from "../../utils/common";
+import { getCleanItemName } from "../../utils/common";
 import { registerIf } from "../../utils/registers";
 
 //registerIf(
@@ -22,14 +22,14 @@ function showExpBoostPercent(item, x, y) {
         return;
     }
 
-    const lore = getLore(item);
-    const percentageLine = lore.find(line => line?.removeFormatting()?.startsWith('Gives +')); // §7§7Gives §a+20% §7pet exp for Fishing.
+    const lore = item.getLore();
+    const percentageLine = lore.find(line => line?.unformattedText?.startsWith('Gives +')); // §7§7Gives §a+20% §7pet exp for Fishing.
     if (!percentageLine) {
         return;
     }
 
-    const percentage = percentageLine.removeFormatting()?.split(' ')[1]?.replace('+', '');
-    const rarityColorCode = lore.find(line => line?.endsWith('PET ITEM'))?.substring(0, 2); // §f§lCOMMON PET ITEM
+    const percentage = percentageLine.unformattedText?.split(' ')[1]?.replace('+', '');
+    const rarityColorCode = lore.find(line => line?.unformattedText?.endsWith('PET ITEM'))?.substring(0, 2); // §f§lCOMMON PET ITEM
 
     if (!percentage || !rarityColorCode) {
         return;

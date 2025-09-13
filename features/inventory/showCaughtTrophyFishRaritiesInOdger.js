@@ -1,7 +1,6 @@
 
 import { AQUA, DARK_GRAY, GOLD, GRAY } from "../../constants/formatting";
 import settings from "../../settings";
-import { getLore } from "../../utils/common";
 import { isInSkyblock } from "../../utils/playerState";
 import { registerIf } from "../../utils/registers";
 
@@ -31,16 +30,16 @@ function showMissingTrophyFishRarities(slot, gui) {
 
     // Bronze ✖, Bronze ✔
     let caughtRarities = '';
-    const lore = getLore(item);
+    const lore = item.getLore();
 
-    if (lore?.find(line => line?.removeFormatting()?.includes('Undiscovered'))) {
+    if (lore?.find(line => line?.unformattedText?.includes('Undiscovered'))) {
         return;
     }
 
-    if (lore?.find(line => line?.removeFormatting()?.includes('Bronze ✔'))) caughtRarities += `${DARK_GRAY}•`;
-    if (lore?.find(line => line?.removeFormatting()?.includes('Silver ✔'))) caughtRarities += `${GRAY}•`;
-    if (lore?.find(line => line?.removeFormatting()?.includes('Gold ✔'))) caughtRarities += `${GOLD}•`;
-    if (lore?.find(line => line?.removeFormatting()?.includes('Diamond ✔'))) caughtRarities += `${AQUA}•`;
+    if (lore?.find(line => line?.unformattedText?.includes('Bronze ✔'))) caughtRarities += `${DARK_GRAY}•`;
+    if (lore?.find(line => line?.unformattedText?.includes('Silver ✔'))) caughtRarities += `${GRAY}•`;
+    if (lore?.find(line => line?.unformattedText?.includes('Gold ✔'))) caughtRarities += `${GOLD}•`;
+    if (lore?.find(line => line?.unformattedText?.includes('Diamond ✔'))) caughtRarities += `${AQUA}•`;
 
     Tessellator.pushMatrix();
     Tessellator.disableLighting();

@@ -3,7 +3,7 @@ import { RED } from "../../constants/formatting";
 import { getWorldName, hasFishingRodInHotbar, isInSkyblock } from "../../utils/playerState";
 import { MC_RANDOM_ORB_SOUND, OFF_SOUND_MODE } from "../../constants/sounds";
 import { EntityFishHook } from "../../constants/javaTypes";
-import { getLore, isFishingHookActive, isInFishingWorld } from "../../utils/common";
+import { isFishingHookActive, isInFishingWorld } from "../../utils/common";
 import { registerIf } from "../../utils/registers";
 import { playMcSound } from "../../utils/sound";
 
@@ -71,7 +71,7 @@ function isFishingArmor(item) {
     }
 
     const itemName = item.getName();
-    const itemLore = getLore(item);
+    const itemLore = item.getLore();
     if (!itemName || !itemLore || !itemLore.length) {
         return false;
     }
@@ -80,6 +80,6 @@ function isFishingArmor(item) {
         return true;
     }
 
-    const isFishingArmor = itemLore.some(loreLine => (loreLine.includes("Sea Creature Chance:") || loreLine.includes("Fishing Speed:")));
+    const isFishingArmor = itemLore.some(loreLine => (loreLine.unformattedText.includes("Sea Creature Chance:") || loreLine.unformattedText.includes("Fishing Speed:")));
     return isFishingArmor;
 }

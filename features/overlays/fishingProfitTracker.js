@@ -7,7 +7,7 @@ import { FISHING_PROFIT_ITEMS } from "../../constants/fishingProfitItems";
 import { AQUA, BOLD, GOLD, GRAY, RESET, WHITE, RED, YELLOW } from "../../constants/formatting";
 import { getAuctionItemPrices, getPetRarityCode } from "../../utils/auctionPrices";
 import { getBazaarItemPrices } from "../../utils/bazaarPrices";
-import { formatElapsedTime, getCleanItemName, getItemsAddedToSacks, getLore, isFishingHookActive, isInChatOrInventoryGui, isInFishingWorld, isInSacksGui, isInSupercraftGui, splitArray, toShortNumber } from "../../utils/common";
+import { formatElapsedTime, getCleanItemName, getItemsAddedToSacks, isFishingHookActive, isInChatOrInventoryGui, isInFishingWorld, isInSacksGui, isInSupercraftGui, splitArray, toShortNumber } from "../../utils/common";
 import { getLastFishingHookSeenAt, getLastGuisClosed, getLastKatUpgrade, getWorldName, isInSkyblock } from "../../utils/playerState";
 import { playRareDropSound } from '../../utils/sound';
 import { registerIf } from '../../utils/registers';
@@ -594,14 +594,14 @@ function detectInventoryChanges() {
             let slotItemName = getCleanItemName(item?.getName());
 
             if (slotItemName === 'Enchanted Book') {
-                const loreLines = getLore(item);
-                const description = loreLines[0].removeFormatting();
+                const loreLines = item.getLore();
+                const description = loreLines[1].unformattedText;
                 slotItemName += ` (${description})`;
             }
 
             if (slotItemName.endsWith('Exp Boost')) {
-                const loreLines = getLore(item);
-                const description = loreLines.find(line => line.endsWith('PET ITEM')).removeFormatting().split(' ')[0];
+                const loreLines = item.getLore();
+                const description = loreLines.find(line => line.unformattedText.endsWith('PET ITEM')).unformattedText.split(' ')[0];
                 slotItemName += ` (${description})`;
             }
 

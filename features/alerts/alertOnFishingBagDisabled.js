@@ -3,7 +3,7 @@ import { persistentData } from "../../data/data";
 import { GOLD, RED, WHITE } from "../../constants/formatting";
 import { getWorldName, hasFishingRodInHotbar, isInSkyblock } from "../../utils/playerState";
 import { MC_RANDOM_ORB_SOUND, OFF_SOUND_MODE } from "../../constants/sounds";
-import { getLore, isFishingHookActive, isInFishingWorld } from "../../utils/common";
+import { isFishingHookActive, isInFishingWorld } from "../../utils/common";
 import { USE_BAITS_FROM_FISHING_BAG_DISABLED, USE_BAITS_FROM_FISHING_BAG_ENABLED } from "../../constants/triggers";
 import { registerIf } from "../../utils/registers";
 import { playMcSound } from "../../utils/sound";
@@ -92,8 +92,8 @@ function onFishingBagOpened(event) {
                 return;
             }
     
-            const itemLore = getLore(item);
-            const isEnabled = !!itemLore.find(line => line.includes('Click to disable!'));
+            const itemLore = item.getLore();
+            const isEnabled = !!itemLore.find(line => line.unformattedText.includes('Click to disable!'));
             setFishingBagState(isEnabled);
         });
     } catch (e) {
