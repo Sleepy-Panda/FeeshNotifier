@@ -108,13 +108,19 @@ export const BOGGED_MESSAGE = `${RESET}${GREEN}You've hooked a Bogged!`;
 
 // DROPS
 
-export const BABY_YETI_PET_LEG_MESSAGE = `PET DROP! ${RESET}${GOLD}Baby Yeti`; // PET DROP! &r&6Baby Yeti
-export const BABY_YETI_PET_EPIC_MESSAGE = `PET DROP! ${RESET}${DARK_PURPLE}Baby Yeti`; // PET DROP! &r&5Baby Yeti
-export const FLYING_FISH_PET_LEG_MESSAGE = `PET DROP! ${RESET}${GOLD}Flying Fish`;
-export const FLYING_FISH_PET_EPIC_MESSAGE = `PET DROP! ${RESET}${DARK_PURPLE}Flying Fish`;
-export const FLYING_FISH_PET_RARE_MESSAGE = `PET DROP! ${RESET}${BLUE}Flying Fish`;
-export const MEGALODON_PET_LEG_MESSAGE = `PET DROP! ${RESET}${GOLD}Megalodon`;
-export const MEGALODON_PET_EPIC_MESSAGE = `PET DROP! ${RESET}${DARK_PURPLE}Megalodon`;
+// PET DROP! &r&6Baby Yeti
+// §r§6§lPET DROP! §r§6Baby Yeti§r
+export const BABY_YETI_PET_LEG_MESSAGE = `PET DROP! `+ '${*}' + `${GOLD}Baby Yeti`;
+// PET DROP! &r&5Baby Yeti
+// §r§6§lPET DROP! §r§5Baby Yeti§r
+export const BABY_YETI_PET_EPIC_MESSAGE = `PET DROP! `+ '${*}' + `${DARK_PURPLE}Baby Yeti`;
+// &r&6&lPET DROP! &6&lLEGENDARY &6Flying Fish - 1.21 (modified by SH)
+// &r&6&lPET DROP! &r&6Flying Fish&r
+export const FLYING_FISH_PET_LEG_MESSAGE = `PET DROP! `+ '${*}' + `${GOLD}Flying Fish`; 
+export const FLYING_FISH_PET_EPIC_MESSAGE = `PET DROP! `+ '${*}' + `${DARK_PURPLE}Flying Fish`;
+export const FLYING_FISH_PET_RARE_MESSAGE = `PET DROP! `+ '${*}' + `${BLUE}Flying Fish`;
+export const MEGALODON_PET_LEG_MESSAGE = `PET DROP! `+ '${*}' + `${GOLD}Megalodon`;
+export const MEGALODON_PET_EPIC_MESSAGE = `PET DROP! `+ '${*}' + `${DARK_PURPLE}Megalodon`;
 
 const MAGIC_FIND_MESSAGE_PATTERN = `${RESET}${AQUA}(+${RESET}${AQUA}` + '${magicFind}' + ` ${RESET}${AQUA}✯ Magic Find${RESET}${AQUA})`; // &r&b(+&r&b236 &r&b✯ Magic Find&r&b)
 

@@ -528,6 +528,19 @@ export function getMcEntityById(id) {
     return World.getWorld()?.getEntityById(id);
 }
 
+/**
+ * Get item's custom data (old NBT).
+ * @param {Item} item
+ * @returns {object}
+ */
+export function getItemCustomData(item) {
+	if (!item) return null;
+	const customDataMc = item.getNBT()?.get(DataComponentTypes.CUSTOM_DATA);
+	const customDataJson = Java.type("net.minecraft.nbt.NbtOps").INSTANCE.convertTo(Java.type("com.mojang.serialization.JsonOps").INSTANCE, customDataMc.copyNbt()).asJsonObject;
+	const customData = JSON.parse(customDataJson);
+	return customData;
+}
+
 function getCurrentGuiChestName() {
 	if (!Client.isInGui()) return null;
 
