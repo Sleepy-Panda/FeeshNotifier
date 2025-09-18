@@ -1,6 +1,6 @@
 import { NO_FISHING_WORLDS } from '../constants/areas';
 import { RED, DARK_GRAY, BLUE, WHITE, BOLD, RESET, GOLD, GRAY } from '../constants/formatting';
-import { GuiChat, GuiChest, GuiInventory, NBTTagString } from '../constants/javaTypes';
+import { DataComponentTypes, GuiChat, GuiChest, GuiInventory, JsonOps, NbtOps, NBTTagString } from '../constants/javaTypes';
 import { EntityFishHook, NBTTagString } from '../constants/javaTypes';
 import { DOUBLE_HOOK_MESSAGES, HURRICANE_BOTTLE_CHARGED_MESSAGE, REINDRAKE_SPAWNED_BY_ANYONE_MESSAGE, STORM_BOTTLE_CHARGED_MESSAGE, THUNDER_BOTTLE_CHARGED_MESSAGE } from '../constants/triggers';
 
@@ -529,15 +529,19 @@ export function getMcEntityById(id) {
 }
 
 /**
- * Get item's custom data (old NBT).
+ * Get item's custom data (old NBT) as object.
  * @param {Item} item
  * @returns {object}
  */
 export function getItemCustomData(item) {
 	if (!item) return null;
+
 	const customDataMc = item.getNBT()?.get(DataComponentTypes.CUSTOM_DATA);
-	const customDataJson = Java.type("net.minecraft.nbt.NbtOps").INSTANCE.convertTo(Java.type("com.mojang.serialization.JsonOps").INSTANCE, customDataMc.copyNbt()).asJsonObject;
+	if (!customDataMc) return null;
+
+	const customDataJson = NbtOps.INSTANCE.convertTo(JsonOps.INSTANCE, customDataMc.copyNbt()).asJsonObject;
 	const customData = JSON.parse(customDataJson);
+
 	return customData;
 }
 

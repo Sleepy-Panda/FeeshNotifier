@@ -1,7 +1,9 @@
-import { GuiInventory } from "../../constants/javaTypes";
 import settings from "../../settings";
 import { isInSkyblock } from "../../utils/playerState";
 import { registerIf } from "../../utils/registers";
+import { GuiChest, GuiInventory, HandledScreen } from "../../constants/javaTypes";
+import { getItemCustomData } from "../../utils/common";
+import { highlightSlot } from "../../utils/2dRendering";
 
 const BOOK_NAMES_TO_HIGHLIGHT = [
     'CORRUPTION_1',
@@ -12,39 +14,38 @@ const BOOK_NAMES_TO_HIGHLIGHT = [
     'SPIKED_HOOK_6'
 ];
 
-//registerIf(
-//    register('renderSlot', (slot, gui, event) => highlightCheapBooks(slot, gui)),
-//    () => settings.highlightCheapBooks && isInSkyblock()
-//);
+registerIf(
+    register('postGuiRender', (mouseX, mouseY, gui, event) => highlightCheapBooks(gui)),
+    () => settings.highlightCheapBooks && isInSkyblock()
+);
 
-function highlightCheapBooks(slot, gui) {
-    if (!settings.highlightCheapBooks || !isInSkyblock()) {
-        return;
-    }
+function highlightCheapBooks(gui) {
+    if (!settings.highlightCheapBooks || !isInSkyblock() || !gui) return;
 
-    if (!(gui instanceof net.minecraft.client.gui.inventory.GuiChest) && !(gui instanceof GuiInventory)) {
-        return;
-    }
+    if (!(gui instanceof GuiChest) && !(gui instanceof GuiInventory)) return;
 
-    const item = slot.getItem();
-    if (!item) {
-        return;
-    }
+    const container = Player?.getContainer();
+    if (!container) return;
+    
+    const containerSize = container.getSize();
+    if (!containerSize) return;
 
-    const name = item.getName();
-    if (!name.includes('Enchanted Book')) {
-        return;
-    }
+    for (let slotIndex = 0; slotIndex < containerSize; slotIndex++) {
+        const item = container.getStackInSlot(slotIndex);
+        const name = item?.getName();
+        if (!name || !name.includes('Enchanted Book')) continue;
 
-    const enchantments = item.getNBT()?.getCompoundTag("tag")?.getCompoundTag("ExtraAttributes")?.getCompoundTag("enchantments")?.toObject();
-    if (!enchantments) {
-        return;
-    }
+        const customData = getItemCustomData(item);
+        if (!customData) continue;
 
-    const firstEnchantmentName = Object.keys(enchantments)[0];
-    const bookName = `${firstEnchantmentName?.toUpperCase()}_${enchantments[firstEnchantmentName]}`;
+        const enchantments = customData.enchantments;
+        if (!enchantments) continue;
+    
+        const firstEnchantmentName = Object.keys(enchantments)[0];
+        const bookName = `${firstEnchantmentName?.toUpperCase()}_${enchantments[firstEnchantmentName]}`;
 
-    if (BOOK_NAMES_TO_HIGHLIGHT.includes(bookName)) {
-        Renderer.drawRect(Renderer.color(255, 0, 0, 150), slot.getDisplayX(), slot.getDisplayY(), 16, 16);
+        if (BOOK_NAMES_TO_HIGHLIGHT.includes(bookName)) {
+           highlightSlot(Client.getMinecraft().currentScreen, slotIndex, Renderer.getColor(255, 0, 0, 150));
+        }    
     }
 }

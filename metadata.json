@@ -1,6 +1,7 @@
 {
     "name": "FeeshNotifier",
     "entry": "index.js",
+    "mixinEntry": "mixins.js",
     "author": "MoonTheSadFisher",
     "description": "Hypixel Skyblock fishing utilities for parties.",
     "version": "1.51.0",
