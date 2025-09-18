@@ -1,7 +1,7 @@
 import settings from "../../settings";
 import { isInSkyblock } from "../../utils/playerState";
 import { registerIf } from "../../utils/registers";
-import { GuiChest, GuiInventory, HandledScreen } from "../../constants/javaTypes";
+import { GuiChest, GuiInventory } from "../../constants/javaTypes";
 import { getItemCustomData } from "../../utils/common";
 import { highlightSlot } from "../../utils/2dRendering";
 
@@ -20,8 +20,8 @@ registerIf(
 );
 
 function highlightCheapBooks(gui) {
-    if (!settings.highlightCheapBooks || !isInSkyblock() || !gui) return;
-
+    if (!settings.highlightCheapBooks || !isInSkyblock()) return;
+    if (!gui) return;
     if (!(gui instanceof GuiChest) && !(gui instanceof GuiInventory)) return;
 
     const container = Player?.getContainer();

@@ -10,7 +10,7 @@ import { HandledScreen } from "../constants/javaTypes";
  */
 
 export function highlightSlot(screen, slotIndex, color) {
-    if (!slotIndex || !color || !screen) return;
+    if (!screen || !slotIndex || !color) return;
     if (!(screen instanceof HandledScreen)) return;
 
     const slot = screen.getScreenHandler().slots.get(slotIndex);
@@ -18,5 +18,22 @@ export function highlightSlot(screen, slotIndex, color) {
     Renderer.pushMatrix()
         .translate(screen.x, screen.y, 150)
         .drawRect(color, slot.x, slot.y, 16, 16)
+        .popMatrix();
+}
+
+export function renderTextInSlot(screen, slotIndex, text, scale) {
+    if (!screen || !slotIndex || !text || !scale) return;
+    if (!(screen instanceof HandledScreen)) return;
+
+    const slot = screen.getScreenHandler().slots.get(slotIndex);
+  
+    Renderer.pushMatrix()
+        .disableLighting()
+        .translate(screen.x, screen.y, 275) // z coord = 275 to be on top of the item icon and below the tooltip
+        .scale(scale, scale);
+    Renderer
+        .drawStringWithShadow(text, slot.x, slot.y + 16, Renderer.AQUA);
+    Renderer
+        .enableLighting()
         .popMatrix();
 }
