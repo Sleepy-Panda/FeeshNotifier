@@ -3,7 +3,7 @@ import { BOLD, RED, YELLOW } from "../../constants/formatting";
 import { getPlayerFishingHook, isInFishingWorld } from "../../utils/common";
 import { getWorldName, hasFishingRodInHotbar, isInSkyblock } from "../../utils/playerState";
 import { registerIf } from "../../utils/registers";
-import { drawString } from "../../utils/3dRendering";
+import { drawString } from "../../utils/rendering3d";
 import { FISH_STATE_ARRIVED, FISH_STATE_ARRIVING, FISH_STATE_NONE } from "../../constants/fishingHookStates";
 import { getHypixelFishingHookTimer } from "../../utils/entityDetection";
 

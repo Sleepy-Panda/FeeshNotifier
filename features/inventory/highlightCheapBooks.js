@@ -3,7 +3,7 @@ import { isInSkyblock } from "../../utils/playerState";
 import { registerIf } from "../../utils/registers";
 import { GuiChest, GuiInventory } from "../../constants/javaTypes";
 import { getItemCustomData } from "../../utils/common";
-import { highlightSlot } from "../../utils/2dRendering";
+import { highlightSlot } from "../../utils/rendering2d";
 
 const BOOK_NAMES_TO_HIGHLIGHT = [
     'CORRUPTION_1',

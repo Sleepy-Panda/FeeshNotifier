@@ -4,7 +4,7 @@ import { isInSkyblock } from "../../utils/playerState";
 import { getCleanItemName, getItemCustomData } from "../../utils/common";
 import { registerIf } from "../../utils/registers";
 import { GuiChest, GuiInventory } from "../../constants/javaTypes";
-import { renderTextInSlot } from "../../utils/2dRendering";
+import { renderTextInSlot } from "../../utils/rendering2d";
 
 registerIf(
     register('postGuiRender', (mouseX, mouseY, gui, event) => showThunderBottleProgress(gui)),
