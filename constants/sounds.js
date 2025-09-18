@@ -15,7 +15,7 @@ export const NORMAL_SOUND_MODE = 1;
 export const OFF_SOUND_MODE = 2;
 
 export const MC_RANDOM_ORB_SOUND = 'entity.experience_orb.pickup';
-export const MC_RANDOM_SPLASH_SOUND = 'entity.splash.small';
+export const MC_RANDOM_SPLASH_SOUND = 'entity.generic.splash';
 export const MC_NOTE_PLING_SOUND = 'block.note_block.pling';
 export const MC_GUI_BUTTON_PRESS_SOUND = 'ui.button.click';
 export const MC_VILLAGER_DEATH_SOUND = 'entity.villager.death';
