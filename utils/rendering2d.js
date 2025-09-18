@@ -27,13 +27,11 @@ export function renderTextInSlot(screen, slotIndex, text, scale) {
 
     const slot = screen.getScreenHandler().slots.get(slotIndex);
   
-    Renderer.pushMatrix()
-        .disableLighting()
-        .translate(screen.x, screen.y, 275) // z coord = 275 to be on top of the item icon and below the tooltip
-        .scale(scale, scale);
-    Renderer
-        .drawStringWithShadow(text, slot.x, slot.y + 16, Renderer.AQUA);
-    Renderer
-        .enableLighting()
-        .popMatrix();
+    Renderer.pushMatrix();
+    Renderer.disableLighting();
+    Renderer.translate(screen.x, screen.y, 275); // z coord = 275 to be on top of the item icon and below the tooltip
+    Renderer.scale(scale, scale);
+    Renderer.drawStringWithShadow(text, slot.x / scale, slot.y / scale);
+    Renderer.enableLighting();
+    Renderer.popMatrix();
 }
