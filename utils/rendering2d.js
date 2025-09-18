@@ -8,7 +8,6 @@ import { HandledScreen } from "../constants/javaTypes";
  * @param {number} slotIndex
  * @param {number} color
  */
-
 export function highlightSlot(screen, slotIndex, color) {
     if (!screen || !slotIndex || !color) return;
     if (!(screen instanceof HandledScreen)) return;
@@ -21,6 +20,13 @@ export function highlightSlot(screen, slotIndex, color) {
         .popMatrix();
 }
 
+/** 
+ * Draw text in the specified slot of the current container.
+ * @param {HandledScreen} screen
+ * @param {number} slotIndex
+ * @param {string} text Text with formatting / color codes
+ * @param {number} scale
+ */
 export function renderTextInSlot(screen, slotIndex, text, scale) {
     if (!screen || !slotIndex || !text || !scale) return;
     if (!(screen instanceof HandledScreen)) return;
