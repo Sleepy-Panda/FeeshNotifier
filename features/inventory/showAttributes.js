@@ -1,7 +1,7 @@
 import settings from "../../settings";
 import { BOLD, GRAY } from "../../constants/formatting";
 import { isInSkyblock } from "../../utils/playerState";
-import { getItemAttributes } from "../../utils/common";
+import { getItemAttributes, getItemCustomData } from "../../utils/common";
 import { registerIf } from "../../utils/registers";
 import { GuiChest, GuiInventory } from "../../constants/javaTypes";
 import { renderTextInSlot } from "../../utils/rendering2d";
@@ -42,7 +42,9 @@ function showAttributes(gui) {
         }
 
         const lore = item.getLore();
-        if ((item.getNBT()?.getCompoundTag('tag')?.getCompoundTag('ExtraAttributes')?.getString('id') === 'ATTRIBUTE_SHARD' && name !== 'Attribute Shard') ||
+        const customData = getItemCustomData(item);
+
+        if ((customData?.id === 'ATTRIBUTE_SHARD' && name !== 'Attribute Shard') ||
             lore.find(l => l.unformattedText.toLowerCase().includes('shard ('))
         ) { 
             continue;
@@ -50,7 +52,6 @@ function showAttributes(gui) {
 
         const attributeAbbreviations = getAttributeAbbreviations(item, GRAY + BOLD);
         if (!attributeAbbreviations) continue;
-        console.log('Test')
 
         renderTextInSlot(gui, slotIndex, attributeAbbreviations, 0.5);
     }
