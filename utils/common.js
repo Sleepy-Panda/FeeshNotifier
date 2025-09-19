@@ -452,14 +452,13 @@ export function addLineToLore(item, prefix, value) {
  * @returns {array} Array of item's attributes in format [{ "attributeCode": "life_regeneration", "attributeLevel": 5 }]
  */
 export function getItemAttributes(item) {
-	if (!item) {
-		return [];
-	}
+	if (!item) return [];
 
-    const itemAttributes = item?.getNBT()?.getCompoundTag('tag')?.getCompoundTag('ExtraAttributes')?.getCompoundTag('attributes')?.toObject();
-    if (!itemAttributes) {
-        return [];
-    }
+	const customData = getItemCustomData(item);
+    if (!customData) return [];
+
+    const itemAttributes = customData.attributes;
+    if (!itemAttributes) return [];
 
     var attributes = [];
     Object.keys(itemAttributes).sort().forEach(attributeCode => {

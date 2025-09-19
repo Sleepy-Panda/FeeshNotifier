@@ -1,5 +1,7 @@
 https://github.com/ChatTriggers/ctjs/blob/main/docs/MIGRATION.md
 
+- Mixins.js probably not needed
+
 -&r&9Party &8> &6[MVP&3++&6] vadim31&f: &r--> A THE LOCH EMPEROR has spawned <--
 &r&9Party &8> &a[VIP] owlettuce&f: &r--> A RAGNAROK has spawned <--
 
@@ -7,13 +9,6 @@ https://github.com/ChatTriggers/ctjs/blob/main/docs/MIGRATION.md
 &r&6&lPET DROP! &6&lLEGENDARY &6Flying Fish
 
 - Changelog file + metadata version
-- getLore() usage when detecting hook
-- Sea Creatures HP sometimes not appear:
-Raw name = [Lv150] ⚓🦴♃ aCorrupted The Loch Emperora 2.4M/2.4M❤
-Name §r§8[§r§7Lv150§r§8] §r§9⚓§r§f🦴§r§5♃ §r§r§5Corrupted The Loch Emperor§r§r §r§a2.4M§r§f/§r§a2.4M§r§c❤
-if (new Date().getUTCSeconds() %2 == 0 && plainName.includes('Emperor')) console.log('Raw name = ' + entity?.getName());
-
-Maybe related to how registers detection works
 
 - Check if double hook is always counted when compacted messages
 - World specific widgets not shown (compacted messages lead to triggers not working for original msg)
@@ -21,22 +16,20 @@ Maybe related to how registers detection works
 - Umberella & Flare not working - error in playernteract (InternalError: Invalid JavaScript value of type com.chattriggers.ctjs.api.world.block.Block (moduleProvided#314))
 - Player name in alert has no formatting
   -  Player.getDisplayName().toString() returns §r§8[§r§c469§r§8] §rMoonTheSadFisher§r §r§7α - no color code before nick
-- settings.getConfig().onCloseGui(() - not work to update registers
-  - Commented out in Amaterasu
 
 - Sacks profits not tracked
   - Because event message not parsed
-- Mobs / corrupted mobs have no SC HP nametag
 - KeybindFix not migrated, used Keybind instead
   - Sometimes keybinds are reset
-- CT load makes everything not work until lobby swap (empty registers list at the moment of loading world details)
-  - partially fixed but Garden -> Island or End -> Island does not enable functionalities. Same after game load
 - Profit tracker for Enchanted Books and Exp Boosts
 - Clickable overlay buttons  - smaller scale renders wrongle, disabled for now
 - All func_ and field_ to be replaced
 - RESET in the end of trigger messages is not applied sometimes in 1.21
 - Total profit 0
 - Kat pets counted in profit?
+
+- Moby Duck progress in 1st slot of Time Bag
+- Attributes to render on top of slot
 
 Fully disabled:
 - Fishing Hook rendering disabled

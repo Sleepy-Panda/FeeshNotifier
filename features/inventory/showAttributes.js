@@ -3,6 +3,8 @@ import { BOLD, GRAY } from "../../constants/formatting";
 import { isInSkyblock } from "../../utils/playerState";
 import { getItemAttributes } from "../../utils/common";
 import { registerIf } from "../../utils/registers";
+import { GuiChest, GuiInventory } from "../../constants/javaTypes";
+import { renderTextInSlot } from "../../utils/rendering2d";
 
 let ignoredItemNames = [];
 
@@ -12,35 +14,46 @@ settings.getConfig().onCloseGui(() => {
     setIgnoredItemNames();
 });
 
-//registerIf(
-//    register('renderItemIntoGui', (item, x, y, event) => showAttributes(item, x, y)),
-//    () => settings.showObsoleteAttributes && isInSkyblock()
-//);
+registerIf(
+    register('postGuiRender', (mouseX, mouseY, gui, event) => showAttributes(gui)),
+    () => settings.showObsoleteAttributes && isInSkyblock()
+);
 
-function showAttributes(item, x, y) {
-    if (!item || !settings.showObsoleteAttributes || !isInSkyblock()) {
-        return;
+function showAttributes(gui) {
+    if (!settings.showObsoleteAttributes || !isInSkyblock()) return;
+    if (!gui) return;
+    if (!(gui instanceof GuiChest) && !(gui instanceof GuiInventory)) return;
+
+    const container = Player?.getContainer();
+    if (!container) return;
+    
+    const containerSize = container.getSize();
+    if (!containerSize) return;
+
+    for (let slotIndex = 0; slotIndex < containerSize; slotIndex++) {
+        const item = container.getStackInSlot(slotIndex);
+        if (!item) continue;
+
+        const name = item.getName()?.removeFormatting();
+        if (!name || name === 'AUCTION FOR ITEM:') continue;
+
+        if (ignoredItemNames.length) {
+            if (ignoredItemNames.some(itemName => name.toLowerCase().includes(itemName.toLowerCase().trim()))) continue;
+        }
+
+        const lore = item.getLore();
+        if ((item.getNBT()?.getCompoundTag('tag')?.getCompoundTag('ExtraAttributes')?.getString('id') === 'ATTRIBUTE_SHARD' && name !== 'Attribute Shard') ||
+            lore.find(l => l.unformattedText.toLowerCase().includes('shard ('))
+        ) { 
+            continue;
+        }
+
+        const attributeAbbreviations = getAttributeAbbreviations(item, GRAY + BOLD);
+        if (!attributeAbbreviations) continue;
+        console.log('Test')
+
+        renderTextInSlot(gui, slotIndex, attributeAbbreviations, 0.5);
     }
-
-    const name = item.getName()?.removeFormatting();
-    if (!name || name === 'AUCTION FOR ITEM:') {
-        return;
-    }
-
-    if (ignoredItemNames.length) {
-        if (ignoredItemNames.some(itemName => name.toLowerCase().includes(itemName.toLowerCase().trim()))) return;
-    }
-
-    const lore = item.getLore();
-    if ((item.getNBT()?.getCompoundTag('tag')?.getCompoundTag('ExtraAttributes')?.getString('id') === 'ATTRIBUTE_SHARD' && name !== 'Attribute Shard') ||
-        lore.find(l => l.unformattedText.toLowerCase().includes('shard ('))
-    ) { 
-        return;
-    }
-
-    const attributeAbbreviations = getAttributeAbbreviations(item, GRAY + BOLD);
-    if (!attributeAbbreviations) return;
-    renderTextInSlot(x, y + 1, 0.5, attributeAbbreviations);
 }
 
 function getAttributeAbbreviations(item, lineFormat) {
@@ -66,17 +79,6 @@ function getAttributeAbbreviations(item, lineFormat) {
     }
 }
 
-function renderTextInSlot(x, y, scale, text) {
-    Tessellator.pushMatrix();
-    Tessellator.disableLighting();
-
-    Renderer.translate(x, y, 275); // z coord = 275 to be on top of the item icon and below the tooltip
-    Renderer.scale(scale, scale);
-    Renderer.drawString(text, 0, 0, true);
-
-    Tessellator.enableLighting();
-    Tessellator.popMatrix();
-}
 
 function setIgnoredItemNames() {
     if (settings.showAttributesIgnoredItems) {
