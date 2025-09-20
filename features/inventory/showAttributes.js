@@ -10,8 +10,17 @@ let ignoredItemNames = [];
 
 setIgnoredItemNames();
 
-settings.getConfig().onCloseGui(() => {
-    setIgnoredItemNames();
+// TODO: Uncomment when implemented back in Amaterasu
+//settings.getConfig().onCloseGui(() => {
+//    setIgnoredItemNames();
+//});
+
+register("guiClosed", (gui) => {
+    if (!gui) return;
+
+    if (gui.getClass().getName() === 'com.chattriggers.ctjs.api.render.Gui') {
+        setIgnoredItemNames();
+    }
 });
 
 registerIf(
