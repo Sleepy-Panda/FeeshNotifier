@@ -7,7 +7,7 @@ import { FISHING_PROFIT_ITEMS } from "../../constants/fishingProfitItems";
 import { AQUA, BOLD, GOLD, GRAY, RESET, WHITE, RED, YELLOW } from "../../constants/formatting";
 import { getAuctionItemPrices, getPetRarityCode } from "../../utils/auctionPrices";
 import { getBazaarItemPrices } from "../../utils/bazaarPrices";
-import { formatElapsedTime, getCleanItemName, getItemsAddedToSacks, isFishingHookActive, isInChatOrInventoryGui, isInFishingWorld, isInSacksGui, isInSupercraftGui, splitArray, toShortNumber } from "../../utils/common";
+import { formatElapsedTime, getCleanItemName, getItemCustomData, getItemsAddedToSacks, isFishingHookActive, isInChatOrInventoryGui, isInFishingWorld, isInSacksGui, isInSupercraftGui, splitArray, toShortNumber } from "../../utils/common";
 import { getLastFishingHookSeenAt, getLastGuisClosed, getLastKatUpgrade, getWorldName, isInSkyblock } from "../../utils/playerState";
 import { playRareDropSound } from '../../utils/sound';
 import { registerIf } from '../../utils/registers';
@@ -105,9 +105,17 @@ register("worldLoad", () => {
     isWorldLoaded = true;
 }); 
 
-settings.getConfig().onCloseGui(() => {
-    refreshPrices();
-    refreshOverlay();
+// TODO: Uncomment when implemented back in Amaterasu
+//settings.getConfig().onCloseGui(() => {
+//    refreshPrices();
+//    refreshOverlay();
+//});
+register("guiClosed", (gui) => {
+    if (!gui) return;
+    if (gui.getClass().getName() === 'com.chattriggers.ctjs.api.render.Gui') {
+        refreshPrices();
+        refreshOverlay();
+    }
 });
 
 register("gameUnload", () => {
@@ -606,12 +614,13 @@ function detectInventoryChanges() {
             }
 
             if (slotItemName.startsWith('[Lvl 1] ')) {
-                const extraAttributes = item?.getNBT()?.getCompoundTag('tag')?.getCompoundTag('ExtraAttributes');
-                const nbtId = extraAttributes?.getString('id');
-                if (!nbtId || nbtId !== 'PET') {
-                    continue;
-                }
-                const petInfo = JSON.parse(extraAttributes?.getString('petInfo'));
+                const customData = getItemCustomData(item);
+                if (!customData) continue;
+        
+                const nbtId = customData.id;
+                if (!nbtId || nbtId !== 'PET') continue;
+
+                const petInfo = JSON.parse(JSON.parse(customData.petInfo));
                 const rarity = petInfo?.tier;
                 slotItemName += ` (${rarity?.toUpperCase()})`;
             }
