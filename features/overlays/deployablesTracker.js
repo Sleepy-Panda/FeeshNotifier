@@ -6,7 +6,7 @@ import { TIMER_SOUND_SOURCE, OFF_SOUND_MODE } from "../../constants/sounds";
 import { WHITE, RED, DARK_PURPLE, GOLD, BLUE } from "../../constants/formatting";
 import { isInSkyblock } from "../../utils/playerState";
 import { registerIf } from "../../utils/registers";
-import { getMcEntityById, getMcEntityId } from "../../utils/common";
+import { getMcEntityId } from "../../utils/common";
 
 const currentPlayer = Player.getName();
 const secondsBeforeExpiration = 10;
@@ -41,7 +41,7 @@ registerIf(
 
 // Those deployables have no player name in their nametag, so we need to track item interaction to detect current player's deployable and ignore deployables from others.
 registerIf(
-    register("playerInteract", (action, obj, event) => handleDeployableInteraction(action)),
+    register("playerInteract", (playerInteraction, obj, event) => handleDeployableInteraction(obj)),
     () => (
         isInSkyblock() &&
         (settings.alertOnDeployableExpiresSoon && (settings.alertOnUmberellaExpiresSoon || settings.alertOnFlareExpiresSoon)) ||
@@ -135,17 +135,21 @@ function trackDeployablesStatus() {
     trackFlareStatus();
 }
 
-function handleDeployableInteraction(action) {
+function handleDeployableInteraction(obj) {
     try {
-        if (!isInSkyblock() || !action.toString().includes('RIGHT_CLICK')) return;
+        if (!isInSkyblock()) return;
 
-        const heldItemName = Player.getHeldItem()?.getName();
+        // InternalError: Invalid JavaScript value of type com.chattriggers.ctjs.api.world.block.Block (moduleProvided#314)
 
-        if (isUmberellaTrackingEnabled() && heldItemName?.includes('Umberella')) {
+        //console.log(obj)
+        //const heldItemName = Player.getHeldItem()?.getName();
+
+        if (isUmberellaTrackingEnabled() && obj?.getName()?.includes('Umberella')) {
+            //console.log('Umber')
             setTimeout(() => trackUmberellaNearby(heldItemName), 250); // Give time for a Umberella to appear after click
         }
         
-        if (isFlareTrackingEnabled() && heldItemName?.includes('Flare')) {
+        if (isFlareTrackingEnabled() && obj?.getName()?.includes('Flare')) {
             if (new Date() - remainingTimes.flare.lastPlacedAt < 500) return; // sometimes playerInteract event happens multiple times
             setTimeout(() => trackFlareRocketNearby(heldItemName), 500); // Give time for a firework rocket to appear after click
         }  

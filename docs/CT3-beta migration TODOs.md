@@ -1,7 +1,5 @@
 https://github.com/ChatTriggers/ctjs/blob/main/docs/MIGRATION.md
 
-- Mixins.js probably not needed
-
 -&r&9Party &8> &6[MVP&3++&6] vadim31&f: &r--> A THE LOCH EMPEROR has spawned <--
 &r&9Party &8> &a[VIP] owlettuce&f: &r--> A RAGNAROK has spawned <--
 
@@ -16,6 +14,8 @@ https://github.com/ChatTriggers/ctjs/blob/main/docs/MIGRATION.md
 - Umberella & Flare not working - error in playernteract (InternalError: Invalid JavaScript value of type com.chattriggers.ctjs.api.world.block.Block (moduleProvided#314))
 - Player name in alert has no formatting
   -  Player.getDisplayName().toString() returns §r§8[§r§c469§r§8] §rMoonTheSadFisher§r §r§7α - no color code before nick
+
+- Showing extra data in LORE is broken
 
 - Sacks profits not tracked
   - Because event message not parsed
@@ -34,7 +34,6 @@ https://github.com/ChatTriggers/ctjs/blob/main/docs/MIGRATION.md
 Fully disabled:
 - Fishing Hook rendering disabled
 - Boxing disabled
-- Items icon rendering disabled
 - Lore disabled
 
 Performance:
