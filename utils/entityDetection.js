@@ -111,14 +111,15 @@ export function getSeaCreaturesInRange(includedSeaCreatureNames, distance) {
     // §e﴾ §8[§7Lv600§8] §c♆§7⚙§d♣ §c§lLord Jawbus§r§r §a69M§f/§a100M§c❤ §e﴿
     // §e﴾ §8[§7Lv600§8] §c♆§7⚙§d♣ §c§lLord Jawbus§r§r §e6.3M§f/§a100M§c❤ §e﴿ §b✯
     // §8[§7Lv250§8] §c♆§e✰§a☮ §cJawbus Follower§r §a3M§f/§a3M§c❤
-	// MC 1.21.5: §r§8[§r§7Lv150§r§8] §r§9⚓§r§f🦴§r§5♃ §r§r§5Corrupted The Loch Emperor§r§r §r§e224.7k§r§f/§r§a4.8M§r§c❤ §r§b✯ (name)
+	// MC 1.21.5: §r§8[§r§7Lv150§r§8] §r§9⚓§r§f🦴§r§5♃ §r§5§ka§r§5Corrupted The Loch Emperor§r§5§ka§r §r§e521.8k§r§f/§r§a2.4M§r§c❤ §r§b✯
+	// MC 1.21.5: §r§8[§r§7Lv14§r§8] §r§2⸙§r§9⚓ §r§5§ka§r§5Corrupted Ent§r§5§ka§r §r§e1§r§f/§r§a75,000§r§c❤
 	function parseSeaCreatureNametag(entity, includedSeaCreatureNames) { 
 		if (!entity) return null;
 
 		const plainName = entity?.getName()?.removeFormatting();
 		if (!plainName || !plainName.includes('[Lv') || !plainName.includes(']') || !plainName.includes('❤') || !includedSeaCreatureNames.some(n => plainName.includes(n))) return null;
 
-		const name = entity.getNameComponent()?.formattedText?.replace('§e﴾ ', '').replace(' §e﴿', '').replaceAll('§k§5a', '').trim() || '';
+		const name = entity.getNameComponent()?.formattedText?.replace('§e﴾ ', '').replace(' §e﴿', '').replaceAll('§5§ka', '').trim() || '';
 		const shortName = name.split('] ')[1].replace('Corrupted ', '');
 		const baseMobName = takeWhile(shortName.split(' '), part => !part.includes('/'))
 			.join(' ')
