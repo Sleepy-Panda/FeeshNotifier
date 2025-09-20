@@ -51,6 +51,6 @@ function showRarityUpgrade(gui) {
         const rarityUpgrades = customData.rarity_upgrades;
         if (+rarityUpgrades !== 1) continue;
 
-        renderTextInSlot(Client.getMinecraft().currentScreen, slotIndex, GOLD + 'R', 0.7);
+        renderTextInSlot(Client.getMinecraft().currentScreen, slotIndex, GOLD + 'R', 0.7, 15);
     }
 }

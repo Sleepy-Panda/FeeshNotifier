@@ -38,6 +38,6 @@ function showExpBoostPercentage(gui) {
         const rarityColorCode = lore.find(line => line?.unformattedText?.endsWith('PET ITEM'))?.formattedText?.substring(0, 4); // §r§f§lCOMMON PET ITEM
         if (!rarityColorCode) continue;
 
-        renderTextInSlot(Client.getMinecraft().currentScreen, slotIndex, rarityColorCode + percentage, 0.7);
+        renderTextInSlot(Client.getMinecraft().currentScreen, slotIndex, rarityColorCode + percentage, 0.7, 15);
     }
 }

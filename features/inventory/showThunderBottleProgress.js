@@ -52,6 +52,6 @@ function showThunderBottleProgress(gui) {
         const maxCharge = BOTTLES.find(b => b.name === name).maxCharge;
         const displayString = Math.trunc(charge / maxCharge * 100) + '%';
     
-        renderTextInSlot(Client.getMinecraft().currentScreen, slotIndex, AQUA + displayString, 0.7);
+        renderTextInSlot(Client.getMinecraft().currentScreen, slotIndex, AQUA + displayString, 0.7, 15);
     }
 }

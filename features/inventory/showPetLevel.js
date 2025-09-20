@@ -39,7 +39,7 @@ function showPetLevel(gui) {
         const level = name.split('[')[1].split(']')[0].slice(4);
         const color = getColor(JSON.parse(customData.petInfo)?.tier);
 
-        renderTextInSlot(Client.getMinecraft().currentScreen, slotIndex, color + level, 0.7);
+        renderTextInSlot(Client.getMinecraft().currentScreen, slotIndex, color + level, 0.7, 15);
     }
 }
 

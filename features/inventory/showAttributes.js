@@ -62,7 +62,7 @@ function showAttributes(gui) {
         const attributeAbbreviations = getAttributeAbbreviations(item, GRAY + BOLD);
         if (!attributeAbbreviations) continue;
 
-        renderTextInSlot(gui, slotIndex, attributeAbbreviations, 0.5);
+        renderTextInSlot(gui, slotIndex, attributeAbbreviations, 0.5, 0);
     }
 }
 

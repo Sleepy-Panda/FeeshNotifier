@@ -26,8 +26,9 @@ export function highlightSlot(screen, slotIndex, color) {
  * @param {number} slotIndex
  * @param {string} text Text with formatting / color codes
  * @param {number} scale
+ * @param {number} yShift
  */
-export function renderTextInSlot(screen, slotIndex, text, scale) {
+export function renderTextInSlot(screen, slotIndex, text, scale, yShift) {
     if (!screen || !slotIndex || !text || !scale) return;
     if (!(screen instanceof HandledScreen)) return;
 
@@ -37,7 +38,7 @@ export function renderTextInSlot(screen, slotIndex, text, scale) {
     Renderer.disableLighting();
     Renderer.translate(screen.x, screen.y, 275); // z coord = 275 to be on top of the item icon and below the tooltip
     Renderer.scale(scale, scale);
-    Renderer.drawStringWithShadow(text, slot.x / scale, slot.y / scale + 15);
+    Renderer.drawStringWithShadow(text, slot.x / scale, slot.y / scale + yShift);
     Renderer.enableLighting();
     Renderer.popMatrix();
 }

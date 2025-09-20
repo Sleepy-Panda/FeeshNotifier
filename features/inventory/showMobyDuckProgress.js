@@ -37,6 +37,6 @@ function showMobyDuckProgress(gui) {
         if (!progressSeconds && progressSeconds !== 0) return;
     
         const displayString = Math.trunc(progressSeconds / MAX_PROGRESS_SECONDS * 100) + '%';
-        renderTextInSlot(Client.getMinecraft().currentScreen, slotIndex, AQUA + displayString, 0.7);
+        renderTextInSlot(Client.getMinecraft().currentScreen, slotIndex, AQUA + displayString, 0.7, 15);
     }
 }
