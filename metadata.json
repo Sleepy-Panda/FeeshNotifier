@@ -8,6 +8,7 @@
     "requires": [
         "Amaterasu",
         "PogData",
-        "requestV2"
+        "requestV2",
+        "KeybindFix"
     ]
 }

@@ -3,6 +3,8 @@ https://github.com/ChatTriggers/ctjs/blob/main/docs/MIGRATION.md
 -&r&9Party &8> &6[MVP&3++&6] vadim31&f: &r--> A THE LOCH EMPEROR has spawned <--
 &r&9Party &8> &a[VIP] owlettuce&f: &r--> A RAGNAROK has spawned <--
 
+- HP tracker not workie AGAIN
+
 - Pet drop does not work
 &r&6&lPET DROP! &6&lLEGENDARY &6Flying Fish
 
@@ -19,8 +21,7 @@ https://github.com/ChatTriggers/ctjs/blob/main/docs/MIGRATION.md
 
 - Sacks profits not tracked
   - Because event message not parsed
-- KeybindFix not migrated, used Keybind instead
-  - Sometimes keybinds are reset
+
 - Profit tracker for Enchanted Books and Exp Boosts
 - Clickable overlay buttons  - smaller scale renders wrongle, disabled for now
 - All func_ and field_ to be replaced
@@ -29,7 +30,6 @@ https://github.com/ChatTriggers/ctjs/blob/main/docs/MIGRATION.md
 - Kat pets counted in profit?
 
 - Moby Duck progress in 1st slot of Time Bag
-- Attributes to render on top of slot
 
 Fully disabled:
 - Fishing Hook rendering disabled
