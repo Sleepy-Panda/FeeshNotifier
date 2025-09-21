@@ -160,7 +160,7 @@ export function getHypixelFishingHookTimer(fishingHook) {
 	const entities = World.getAllEntitiesOfType(EntityArmorStand);
 	const hypixelHookTimer = entities
 		.filter(entity => entity.distanceTo(fishingHook) <= 1)
-		.find(e => e.getNameComponent()?.formattedText === FISH_ARRIVED || FISHING_HOOK_TIMER_UNTIL_REEL_IN_REGEX.test(e.getCustomName()?.getString()));
+		.find(e => e.getNameComponent()?.formattedText === FISH_ARRIVED || FISHING_HOOK_TIMER_UNTIL_REEL_IN_REGEX.test(e.getNameComponent()?.formattedText));
 	if (!hypixelHookTimer) return null;
 
 	const result = {

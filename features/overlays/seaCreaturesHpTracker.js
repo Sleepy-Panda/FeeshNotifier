@@ -172,7 +172,7 @@ function trackSeaCreaturesHp() {
 
                 if (hasImmunity) {
                     const mobEntity = getMcEntityById(sc.mcEntityId - 1);
-                    // Mob's ticksExisted is not reset while the mob is visible even if name armorstand is not visible (because of bigger render distance)
+                    // Mob's age is not reset while the mob is visible even if name armorstand is not visible (because of bigger render distance)
                     // However it's reset when chunk with the mob is unloaded
                     const ticksExisted = mobEntity && mobEntity instanceof net.minecraft.entity.Entity
                         ? mobEntity.age

@@ -620,7 +620,7 @@ function detectInventoryChanges() {
                 const nbtId = customData.id;
                 if (!nbtId || nbtId !== 'PET') continue;
 
-                const petInfo = JSON.parse(JSON.parse(customData.petInfo));
+                const petInfo = JSON.parse(customData.petInfo);
                 const rarity = petInfo?.tier;
                 slotItemName += ` (${rarity?.toUpperCase()})`;
             }

@@ -1739,8 +1739,8 @@ ${GRAY}Do ${AQUA}/feeshResetProfitTracker${GRAY} to reset.`,
     configName: "renderFishingHookTimerSize",
     title: "Fishing hook timer size",
     description: "Text size for rendered fishing hook timer.",
-    options: [1, 25],
-    value: 5,
+    options: [1, 10],
+    value: 3,
     subcategory: "Fishing Hook"
 })
 .addTextInput({
