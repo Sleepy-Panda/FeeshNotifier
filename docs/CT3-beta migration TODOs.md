@@ -9,8 +9,6 @@ https://github.com/ChatTriggers/ctjs/blob/main/docs/MIGRATION.md
 - Changelog file + metadata version
 
 - Check if double hook is always counted when compacted messages
-- World specific widgets not shown (compacted messages lead to triggers not working for original msg)
-  - triggerIfCanceled - [ChatTrigger.triggerIfCanceled] Sets if triggered if event is already cancelled (on Chat trigger)
 - Umberella & Flare not working - error in playernteract (InternalError: Invalid JavaScript value of type com.chattriggers.ctjs.api.world.block.Block (moduleProvided#314))
 - Player name in alert has no formatting
   -  Player.getDisplayName().toString() returns §r§8[§r§c469§r§8] §rMoonTheSadFisher§r §r§7α - no color code before nick
@@ -33,7 +31,7 @@ Fully disabled:
 - Fishing Hook rendering - make it more smooth (lastX not present)
 - Also no shadow
 - Boxing disabled
-- Lore disabled
+- Lore functionality removed (Expertise kills, Item ID)
 
 Performance:
 - WTF is this lagging after 1-2 hours in lobby, is it from /feesh?

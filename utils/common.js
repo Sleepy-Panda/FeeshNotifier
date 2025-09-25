@@ -418,34 +418,6 @@ export function formatElapsedTimeWithUnits(elapsedSeconds) {
 		: `${days > 0 ? days + 'd ' : ''}${days > 0 || hours > 0 ? hours + 'h ' : ''}${days > 0 || hours > 0 || minutes > 0 ? minutes + 'm' : ''}`;
 }
 
-// Credits VolcAddons
-/**
- * Adds a line combined from prefix and value, to the item's lore. If item's lore already contains the specified prefix, then line's value is updated by this prefix.
- * Example: for prefix "Expertise kills: " and value "800K", the added/updated lore line will be "Expertise kills: 800K"
- * @param {Item} item - Item whose lore to be modified
- * @param {string} prefix - String key to decide whether the line is already present in item's lore
- * @param {string} value - String value
- */
-export function addLineToLore(item, prefix, value) {
-	let loreLine = prefix + value;
-
-	const loreTag = item.getNBT()?.getCompoundTag('tag')?.getCompoundTag('display')?.getTagMap()?.get('Lore');
-	if (!loreTag) {
-		return;
-	}
-
-	const list = new NBTTagList(loreTag);
-
-	for (let i = 0; i < list.getTagCount(); i++) {
-		if (list.getStringTagAt(i).includes(prefix)) {
-			list.set(i, new NBTTagString(loreLine));
-			return;
-		}
-	}
-
-	list.appendTag(new NBTTagString(loreLine));
-}
-
 /**
  * Get item's attributes (if any).
  * @param {Item} item

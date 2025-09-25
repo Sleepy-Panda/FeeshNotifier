@@ -43,11 +43,10 @@ import "./features/inventory/showThunderBottleProgress";
 import "./features/inventory/showPetLevel";
 import "./features/inventory/showAttributes";
 import "./features/inventory/showRarityUpgrade";
-import "./features/inventory/showExpertiseKills";
 import "./features/inventory/showCaughtTrophyFishRaritiesInOdger";
 import "./features/inventory/showExpBoostPercentage";
 import "./features/inventory/showMobyDuckProgress";
-import "./features/inventory/showItemId";
+
 
 import "./features/chat/messageOnCatch";
 import "./features/chat/announceMobSpawnToAllChat";

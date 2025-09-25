@@ -21,7 +21,7 @@ export const abandonedQuarryTrackerOverlayGui = new Gui();
 export const archfiendDiceProfitTrackerOverlayGui = new Gui();
 export const fishingProfitTrackerOverlayGui = new Gui();
 
-const categories = ["General", "Chat", "Alerts", "Overlays", "Items and storages", "Rendering", "Commands", "Dev"]
+const categories = ["General", "Chat", "Alerts", "Overlays", "Items and storages", "Rendering", "Commands"]
 const config = new DefaultConfig("FeeshNotifier", "config/settings.json")
 
 .addButton({
@@ -1711,14 +1711,6 @@ ${GRAY}Do ${AQUA}/feeshResetProfitTracker${GRAY} to reset.`,
 })
 
 .addSwitch({
-    category: "Items and storages",
-    configName: "showFishingRodExpertiseKills",
-    title: "Fishing rod expertise",
-    description: "Render expertise kills in fishing rod's lore if it has Expertise enchant.",
-    subcategory: "Item lore"
-})
-
-.addSwitch({
     category: "Rendering",
     configName: "renderFishingHookTimer",
     title: "Render fishing hook timer",
@@ -1861,20 +1853,6 @@ ${GRAY}Do ${AQUA}/feeshResetProfitTracker${GRAY} to reset.`,
     onClick() {
         ChatLib.command("feeshSpidersDenRainSchedule", true);
     }
-})
-
-.addTextParagraph({
-    category: "Dev",
-    configName: "devInformationText",
-    title: "Dev section info",
-    description: "Debug features not needed for regular players, but useful for the mod developer.",
-})
-.addSwitch({
-    category: "Dev",
-    configName: "showItemId",
-    title: "Skyblock item ID",
-    description: "Render Skyblock item ID in item's lore if applicable.",
-    subcategory: "Items",
 })
 
 const setting = new Settings("FeeshNotifier", config, "data/ColorScheme.json", `${AQUA}α ${AQUA}${BOLD}FeeshNotifier ${RESET}${WHITE}v${JSON.parse(FileLib.read("FeeshNotifier", "metadata.json")).version}`)
