@@ -16,6 +16,7 @@ Features:
     - Example: /feeshSetTrackerDrops DYE_TREASURE 2 2025-09-01 23:59:00
 
 Bugfixes:
+- Fixed Shard treasure catch not being tracked in the Fishing profit tracker (Hypixel changed message format).
 - Added Carrot King Shard to the Fishing profit tracker.
 - Removed Diver armor from Emperor's Skull crafts in /feeshGearCraftPrices as it's no longer relevant. Replaced with Emperor's talismans.
 
