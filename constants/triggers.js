@@ -172,7 +172,7 @@ export const OUTSTANDING_CATCH_ICE_ESSENCE_MESSAGE = `${OUTSTANDING_CATCH_MESSAG
 // 1.21: &r&5⛃ &r&5&lGOOD CATCH! &r&fYou caught a &r&6Shinyfish &r&fShard&r&f!
 // &r&5⛃ &r&5&lGOOD CATCH! &r&fYou caught a &r&6Shinyfish &r&fShard&r&f!&r
 // &r&5⛃ &r&5&lGOOD CATCH! &r&fYou caught an &r&9Abyssal Lanternfish &r&fShard&r&f!&r
-export const GOOD_CATCH_SHARD_MESSAGE = `${RESET}${DARK_PURPLE}⛃ ${RESET}${DARK_PURPLE}${BOLD}GOOD CATCH! ${RESET}${WHITE}You caught ` + "${shardText}" + ` ${RESET}${WHITE}Shard${RESET}${WHITE}!`;
+export const GOOD_CATCH_SHARD_MESSAGE = `${GOOD_CATCH_MESSAGE} ${RESET}${WHITE}You caught ` + "${shardText}" + ` ${RESET}${WHITE}Shard${RESET}${WHITE}!`;
 
 // &aYou caught a &fSea Archer &aShard!&r
 // &aYou caught &7x4 &fSea Archer &aShards&a!&r
