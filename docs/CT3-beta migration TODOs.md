@@ -3,8 +3,6 @@ https://github.com/ChatTriggers/ctjs/blob/main/docs/MIGRATION.md
 -&r&9Party &8> &6[MVP&3++&6] vadim31&f: &r--> A THE LOCH EMPEROR has spawned <--
 &r&9Party &8> &a[VIP] owlettuce&f: &r--> A RAGNAROK has spawned <--
 
-- HP tracker not workie AGAIN
-
 - Pet drop does not work
 &r&6&lPET DROP! &6&lLEGENDARY &6Flying Fish
 
@@ -32,7 +30,8 @@ https://github.com/ChatTriggers/ctjs/blob/main/docs/MIGRATION.md
 - Moby Duck progress in 1st slot of Time Bag
 
 Fully disabled:
-- Fishing Hook rendering disabled
+- Fishing Hook rendering - make it more smooth (lastX not present)
+- Also no shadow
 - Boxing disabled
 - Lore disabled
 

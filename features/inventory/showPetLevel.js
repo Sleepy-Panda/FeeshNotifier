@@ -4,7 +4,7 @@ import { getItemCustomData } from "../../utils/common";
 import { registerIf } from "../../utils/registers";
 import { GuiChest, GuiInventory } from "../../constants/javaTypes";
 import { renderTextInSlot } from "../../utils/rendering2d";
-import { COMMON, EPIC, LEGENDARY, MYTHIC, UNCOMMON } from "../../constants/formatting";
+import { COMMON, EPIC, LEGENDARY, MYTHIC, RARE, UNCOMMON } from "../../constants/formatting";
 
 registerIf(
     register('postGuiRender', (mouseX, mouseY, gui, event) => showPetLevel(gui)),
@@ -50,6 +50,7 @@ function getColor(nbtTier) {
         case 'mythic': return MYTHIC;
         case 'legendary': return LEGENDARY;
         case 'epic': return EPIC;
+        case 'rare': return RARE;
         case 'uncommon': return UNCOMMON;
         case 'common': return COMMON;
         default: return COMMON;

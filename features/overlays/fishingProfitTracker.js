@@ -63,12 +63,12 @@ triggers.ICE_ESSENCE_FISHED_TRIGGERS.forEach(trigger => {
 });
 
 registerIf(
-    register("Chat", (shardText, event) => onShardFished(shardText)).setCriteria(triggers.GOOD_CATCH_SHARD_MESSAGE).setStart(),
+    register("Chat", (shardText, event) => onShardFished(shardText)).setCriteria(triggers.GOOD_CATCH_SHARD_MESSAGE).setContains(),
     () => settings.fishingProfitTrackerOverlay && isInSkyblock() && isInFishingWorld(getWorldName())
 );
 
 registerIf(
-    register("Chat", (shardsText, event) => onShardCaughtInBlackHole(shardsText)).setCriteria(triggers.BLACK_HOLE_SHARD_MESSAGE).setStart(),
+    register("Chat", (shardsText, event) => onShardCaughtInBlackHole(shardsText)).setCriteria(triggers.BLACK_HOLE_SHARD_MESSAGE).setContains(),
     () => settings.fishingProfitTrackerOverlay && isInSkyblock() && isInFishingWorld(getWorldName())
 );
 
