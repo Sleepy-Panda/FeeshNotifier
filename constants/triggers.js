@@ -35,7 +35,7 @@ export const REINDRAKE_MESSAGE = `${GREEN}A Reindrake forms from the depths.`; /
 export const NUTCRACKER_MESSAGE = `${GREEN}You found a forgotten Nutcracker laying beneath the ice.`;
 export const FROZEN_STEVE_MESSAGE = `${GREEN}Frozen Steve fell into the pond long ago, never to resurface...until now!`;
 export const FROSTY_MESSAGE = `${GREEN}It's a snowman! He looks harmless.`;
-export const GRINCH_MESSAGE = `${GREEN}The Grinch stole Jerry's ${RESET}${GREEN}Gifts...get${RESET}${GREEN} them back!`;
+export const GRINCH_MESSAGE = `${GREEN}The Grinch stole Jerry's ${RESET}Gifts...get${RESET} them back!`; // &r&aThe Grinch stole Jerry's &rGifts...get&r them back!
 
 // SPOOKY SEA CREATURES
 

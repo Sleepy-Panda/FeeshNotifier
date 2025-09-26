@@ -17,7 +17,7 @@ registerIf(
 );
 
 registerIf(
-    register("postRenderWorld", (partialTick) => drawFishingHook(partialTick)),
+    register("postRenderWorld", (partialTick) => drawFishingHook()),
     () => settings.renderFishingHookTimer && isInSkyblock() && isInFishingWorld(getWorldName())
 );
 
@@ -50,12 +50,8 @@ function trackHypixelFishingHookTimer() {
             x: fishingHook.getX(),
             y: fishingHook.getY(),
             z: fishingHook.getZ(),
-            lastX: fishingHookMc.prevX, // getRenderX exists but no effect
-            lastY: fishingHookMc.prevY,
-            lastZ: fishingHookMc.prevZ,
             fishState: FISH_STATE_NONE
         };
-        //console.log(fishingHookTimer.lastX + ' ' + fishingHookTimer.lastY)
     
         const hypixelHookTimer = getHypixelFishingHookTimer(fishingHook);
         if (!hypixelHookTimer) {
@@ -92,14 +88,13 @@ function cancelHypixelFishingHookTimer(entity, event) {
     }
 }
 
-function drawFishingHook(partialTick) {
+function drawFishingHook() {
     try {
         if (!fishingHookTimer || !settings.renderFishingHookTimer || !isInSkyblock() || !isInFishingWorld(getWorldName()) || !hasFishingRodInHotbar()) return;
     
-        // lastX etc not available
-        const x = fishingHookTimer.x; //getRenderCoordinate(fishingHookTimer.lastX, fishingHookTimer.x, partialTick);
-        const y = fishingHookTimer.y; //getRenderCoordinate(fishingHookTimer.lastY, fishingHookTimer.y, partialTick) + 0.5;
-        const z = fishingHookTimer.z; //getRenderCoordinate(fishingHookTimer.lastZ, fishingHookTimer.z, partialTick);
+        const x = fishingHookTimer.x;
+        const y = fishingHookTimer.y + 0.5;
+        const z = fishingHookTimer.z;
         const scale = settings.renderFishingHookTimerSize;
     
         switch (true) {
@@ -131,9 +126,4 @@ function drawFishingHook(partialTick) {
 		console.error(e);
 		console.log(`[FeeshNotifier] Failed to draw custom fishing hook timer.`);
     }
-}
-
-// This allows more smooth rendering while moving
-function getRenderCoordinate(last, current, partialTick) {
-    return last + (current - last) * partialTick
 }

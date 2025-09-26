@@ -2,14 +2,11 @@ https://github.com/ChatTriggers/ctjs/blob/main/docs/MIGRATION.md
 
 Current artifact used: https://github.com/Synnerz/ctjs/actions/runs/17884054220
 
-
--&r&9Party &8> &6[MVP&3++&6] vadim31&f: &r--> A THE LOCH EMPEROR has spawned <--
-&r&9Party &8> &a[VIP] owlettuce&f: &r--> A RAGNAROK has spawned <--
-
-- Pet drop does not work
-&r&6&lPET DROP! &6&lLEGENDARY &6Flying Fish
+- Epic baby yeti not counted to profits (wtf is price 10k)
 
 - Weird issues with sounds played in wrong time or wrong sounds (noticed on Jerry)
+Randomly, MC does not play a sound requested via new Sound(SOUND_SOURCE).play();
+In such cases, this sound is played together with the next .play() call.
 
 - Changelog file + metadata version
 
@@ -21,10 +18,8 @@ Current artifact used: https://github.com/Synnerz/ctjs/actions/runs/17884054220
 - Sacks profits not tracked
   - Because event message not parsed
 
-- Profit tracker for Enchanted Books and Exp Boosts (for books works now)
 - Clickable overlay buttons  - smaller scale renders wrongly, disabled for now
-- All func_ and field_ to be replaced
-- RESET in the end of trigger messages is not applied sometimes in 1.21
+- Clickable lines - sometimes clicks intersect between 2 lines
 - Kat pets counted in profit?
 
 - Moby Duck progress in 1st slot of Time Bag
@@ -33,9 +28,8 @@ Current artifact used: https://github.com/Synnerz/ctjs/actions/runs/17884054220
 Fully disabled:
 - Alert on non fishing armor
 
-
-Fishing Hook rendering - make it more smooth (lastX not present)
-- Also no shadow
+Fishing Hook rendering
+- no shadow
 - Also is glowing with shaders
 
 - Boxing disabled
