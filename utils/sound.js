@@ -1,5 +1,5 @@
 import settings from "../settings";
-import { MC_NOTE_PLING_SOUND, OFF_SOUND_MODE } from "../constants/sounds";
+import { OFF_SOUND_MODE, RARE_DROP_SOUND_SOURCE } from "../constants/sounds";
 
 let rareDropSoundLastPlayedAt = null;
 
@@ -21,10 +21,5 @@ export function playRareDropSound() {
 
     rareDropSoundLastPlayedAt = new Date();
 
-    const volume = 0.8;
-
-    playMcSound(MC_NOTE_PLING_SOUND, volume, Math.pow(2, -9 / 12));
-    setTimeout(() => playMcSound(MC_NOTE_PLING_SOUND, volume, Math.pow(2, -4 / 12)), 250);
-    setTimeout(() => playMcSound(MC_NOTE_PLING_SOUND, volume, Math.pow(2, 1 / 12)), 250);
-    setTimeout(() => playMcSound(MC_NOTE_PLING_SOUND, volume, Math.pow(2, 3 / 12)), 250);
+    new Sound(RARE_DROP_SOUND_SOURCE).play();
 }

@@ -1,10 +1,15 @@
 https://github.com/ChatTriggers/ctjs/blob/main/docs/MIGRATION.md
 
+Current artifact used: https://github.com/Synnerz/ctjs/actions/runs/17884054220
+
+
 -&r&9Party &8> &6[MVP&3++&6] vadim31&f: &r--> A THE LOCH EMPEROR has spawned <--
 &r&9Party &8> &a[VIP] owlettuce&f: &r--> A RAGNAROK has spawned <--
 
 - Pet drop does not work
 &r&6&lPET DROP! &6&lLEGENDARY &6Flying Fish
+
+- Weird issues with sounds played in wrong time or wrong sounds (noticed on Jerry)
 
 - Changelog file + metadata version
 
@@ -13,23 +18,26 @@ https://github.com/ChatTriggers/ctjs/blob/main/docs/MIGRATION.md
 - Player name in alert has no formatting
   -  Player.getDisplayName().toString() returns §r§8[§r§c469§r§8] §rMoonTheSadFisher§r §r§7α - no color code before nick
 
-- Showing extra data in LORE is broken
-
 - Sacks profits not tracked
   - Because event message not parsed
 
-- Profit tracker for Enchanted Books and Exp Boosts
-- Clickable overlay buttons  - smaller scale renders wrongle, disabled for now
+- Profit tracker for Enchanted Books and Exp Boosts (for books works now)
+- Clickable overlay buttons  - smaller scale renders wrongly, disabled for now
 - All func_ and field_ to be replaced
 - RESET in the end of trigger messages is not applied sometimes in 1.21
-- Total profit 0
 - Kat pets counted in profit?
 
 - Moby Duck progress in 1st slot of Time Bag
+- Odger UI looks ugly
 
 Fully disabled:
-- Fishing Hook rendering - make it more smooth (lastX not present)
+- Alert on non fishing armor
+
+
+Fishing Hook rendering - make it more smooth (lastX not present)
 - Also no shadow
+- Also is glowing with shaders
+
 - Boxing disabled
 - Lore functionality removed (Expertise kills, Item ID)
 
