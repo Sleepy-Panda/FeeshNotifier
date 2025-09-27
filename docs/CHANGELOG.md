@@ -5,7 +5,7 @@
 Released: ???
 
 Features:
--
+- Show Nutcracker's HP in Sea creature HP tracker.
 
 Bugfixes:
 -
