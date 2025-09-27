@@ -7,6 +7,7 @@
 
 ## Fishing profit tracker
 
+- Use drop # in the chat message based on current profit tracker.
 - Option to right align the tracker (and others too)
 - Option to render icons instead of item names
 - Option to decrease elapsed time in Fishing Profit Tracker (when user forgot to stop tracker being afk)
@@ -29,23 +30,32 @@
 
 ## Deployables
 
-- Allow vieweing other players deployables in the overlay. Does someone need it?
+- Allow viewing other players deployables in the overlay. Does someone need it?
+- Overflux and its variations
 
 ## Party commands
 
-- something to explore profit tracker and rare catches tracker
-- !feeshsincejawbus
-- !feeshsincethunder
-- !feeshsinceyeti
-- !feeshsincereindrake
+- Commands should have a cooldown so people do not spam.
+- Triggers from pchat only.
+- Ability to disable commands in settings.
+- Does not trigger if the overlay is disabled in settings.
+
+- !feesh profit - shows Total profit, elapsed time & profit/h
+- !feesh profit <item name> - shows amount of the item in profit tracker (may use partial item name, case-insensitive)
+- !feesh sc <mob name> - shows amount of the SC in Sea creatures tracker, percent and double hook statistics
+- !feesh since <mob name> - shows since from the active tracker, e.g. Wiki Tiki, Reindrake, Lord Jawbus, etc
+- !feesh sc/h - shows sea creatures per hour
 - !feeshsincevial
-- !feeshvials
+- !feesh vials
+
 - !kdr - kills/deaths rate for thunder/jawbus [requires API key and custom backend]
-- Commands cooldown so people do not spam
 - /feeshkdr <player> - to check myself or someone privately without sending to the party chat [requires API key and custom backend]
 
 ## Alerts & chat
 
+- Rare SC cocooned alert
+- Phoenix alert
+- Remove alerts for Rare&EPic Flyfish, Epic Yeti, probably Megalodon
 - Customized sounds for rare catches and rare drops
   - Sounds folder: assets
   - Ability to open folder from settings
