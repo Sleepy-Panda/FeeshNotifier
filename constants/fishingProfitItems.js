@@ -711,6 +711,12 @@ export const FISHING_PROFIT_ITEMS = [
         npcPrice: 0,
     },
     {
+        itemId: 'SHARD_CARROT_KING',
+        itemName: 'Carrot King Shard',
+        itemDisplayName: `${RARE}Carrot King ${WHITE}Shard`,
+        npcPrice: 0,
+    },
+    {
         itemId: 'SHARD_SEA_EMPEROR',
         itemName: 'Loch Emperor Shard',
         itemDisplayName: `${EPIC}Loch Emperor ${WHITE}Shard`,

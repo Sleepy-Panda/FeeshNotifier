@@ -15,17 +15,9 @@ export function moveAllGuis() {
 
 const SAMPLE_GUIS = [
     {
-        toggleSettingKey: 'totemRemainingTimeOverlay',
-        guiSettings: overlayCoordsData.totemRemainingTimeOverlay,
-        sampleText: `${DARK_PURPLE}Totem of Corruption: ${WHITE}01m 58s`,
-        isActive: false,
-        width: 0,
-        height: 0
-    },
-    {
-        toggleSettingKey: 'flareRemainingTimeOverlay',
-        guiSettings: overlayCoordsData.flareRemainingTimeOverlay,
-        sampleText: `${DARK_PURPLE}SOS Flare: ${WHITE}01m 58s`,
+        toggleSettingKey: 'deployablesRemainingTimeOverlay',
+        guiSettings: overlayCoordsData.deployablesRemainingTimeOverlay,
+        sampleText: `${DARK_PURPLE}SOS Flare: 01m 05s\n${DARK_PURPLE}Black Hole: ${WHITE}25s\n${DARK_PURPLE}Totem of Corruption: ${WHITE}01m 58s\n`,
         isActive: false,
         width: 0,
         height: 0
@@ -43,10 +35,10 @@ const SAMPLE_GUIS = [
         guiSettings: overlayCoordsData.seaCreaturesTrackerOverlay,
         sampleText: 
 `${AQUA}${BOLD}Sea creatures tracker
-${GRAY}- ${LIGHT_PURPLE}Thunder${GRAY}: ${WHITE}10 ${GRAY}| DH: ${WHITE}2 ${GRAY}(25%)
+${GRAY}- ${LIGHT_PURPLE}Thunder${GRAY}: ${WHITE}10 ${DARK_GRAY}| ${GRAY}DH: ${WHITE}2 ${GRAY}25%
 ${GRAY}- ${DARK_PURPLE}Vanquisher${GRAY}: ${WHITE}8
-${GRAY}- ${LIGHT_PURPLE}Lord Jawbus${GRAY}: ${WHITE}2 ${GRAY}| DH: ${WHITE}1 ${GRAY}(100%)
-${GRAY}- ${LIGHT_PURPLE}Ragnarok${GRAY}: ${WHITE}1 ${GRAY}| DH: ${WHITE}0 ${GRAY}(0%)
+${GRAY}- ${LIGHT_PURPLE}Lord Jawbus${GRAY}: ${WHITE}2 ${DARK_GRAY}| ${GRAY}DH: ${WHITE}1 ${GRAY}100%
+${GRAY}- ${LIGHT_PURPLE}Ragnarok${GRAY}: ${WHITE}1 ${DARK_GRAY}| ${GRAY}DH: ${WHITE}0 ${GRAY}0%
 ${GRAY}Total: ${WHITE}21`,
         isActive: false,
         width: 0,

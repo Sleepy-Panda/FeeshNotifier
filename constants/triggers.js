@@ -165,12 +165,14 @@ export const GOOD_CATCH_ICE_ESSENCE_MESSAGE = `${RESET}${DARK_PURPLE}⛃ ${RESET
 export const GREAT_CATCH_ICE_ESSENCE_MESSAGE = `${RESET}${GOLD}⛃ ${RESET}${GOLD}${BOLD}GREAT CATCH! ${RESET}${WHITE}You caught ${RESET}${AQUA}Ice Essence ${RESET}${DARK_GRAY}x` + "${count}" + `${RESET}${WHITE}!`;
 export const OUTSTANDING_CATCH_ICE_ESSENCE_MESSAGE = `${RESET}${LIGHT_PURPLE}⛃ ${RESET}${LIGHT_PURPLE}${BOLD}OUTSTANDING CATCH! ${RESET}${WHITE}You caught ${RESET}${AQUA}Ice Essence ${RESET}${DARK_GRAY}x` + "${count}" + `${RESET}${WHITE}!`;
 
-// &r&5&lGOOD CATCH! &r&fYou caught an Abyssal Lanternfish Shard&r&f!&r
-// §r§5§lGOOD CATCH! §r§fYou caught a Silentdepth Shard§r§f!§r
-export const GOOD_CATCH_SHARD_MESSAGE = `${RESET}${DARK_PURPLE}⛃ ${RESET}${DARK_PURPLE}${BOLD}GOOD CATCH! ${RESET}${WHITE}You caught ` + "${shardText}" + ` Shard${RESET}${WHITE}!`;
+// 1.21: &r&5⛃ &r&5&lGOOD CATCH! &r&fYou caught a &r&6Shinyfish &r&fShard&r&f!
+// &r&5⛃ &r&5&lGOOD CATCH! &r&fYou caught a &r&6Shinyfish &r&fShard&r&f!&r
+// &r&5⛃ &r&5&lGOOD CATCH! &r&fYou caught an &r&9Abyssal Lanternfish &r&fShard&r&f!&r
+export const GOOD_CATCH_SHARD_MESSAGE = `${RESET}${DARK_PURPLE}⛃ ${RESET}${DARK_PURPLE}${BOLD}GOOD CATCH! ${RESET}${WHITE}You caught ` + "${shardText}" + ` ${RESET}${WHITE}Shard${RESET}${WHITE}!`;
 
 // &aYou caught a &fSea Archer &aShard!&r
 // &aYou caught &7x4 &fSea Archer &aShards&a!&r
+// &aYou caught &7x4 &9Carrot King &aShards&a!&r
 export const BLACK_HOLE_SHARD_MESSAGE = `${GREEN}You caught ` + "${shardsText}" + ` ${GREEN}Shard`;
 
 // &5&lCHARM&7 You charmed a &5Loch Emperor&7 and captured its &9Shard&7.
@@ -205,6 +207,9 @@ export const HIGH_CLASS_ARCHFIEND_DICE_ROLL_MESSAGE = `${RESET}${YELLOW}Your ${R
 export const MOBY_DUCK_CONSUMED = `${RESET}${GRAY}You consumed a ${RESET}${DARK_PURPLE}Moby-Duck: Collector's Edition`; // &r&7You consumed a &r&5Moby-Duck: Collector's Edition &r&7and gained &r&3+30☯ Fishing Wisdom &r&7for &r&a60m&r&7!&r
 export const MOBY_DUCK_EXPIRING = `${RESET}${RED}Moby-Duck expires in ${RESET}${YELLOW}` + "${seconds}" + `s`; // &r&cMoby-Duck expires in &r&e10s&r&c&r
 export const MOBY_DUCK_EXPIRED = `${RESET}${RED}Moby-Duck has expired!`; // &r&cMoby-Duck has expired!&r
+
+export const FLARE_DISAPPEARED = `${RESET}${YELLOW}Your flare disappeared because you were too far away!`;
+export const FLARE_REMOVED = `${RESET}${YELLOW}Your previous ` + "${*}" + ` Flare ${RESET}${YELLOW}was removed!`;
 
 export const ALL_CATCHES_TRIGGERS = [
     // WATER SEA CREATURES
