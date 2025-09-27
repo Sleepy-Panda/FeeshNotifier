@@ -45,6 +45,10 @@ const TRACKED_MOBS = [
     },
     {
         worlds: [JERRY_WORKSHOP],
+        baseMobName: 'Nutcracker',
+    },
+    {
+        worlds: [JERRY_WORKSHOP],
         baseMobName: 'Reindrake',
     },
     {

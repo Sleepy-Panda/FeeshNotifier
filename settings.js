@@ -1181,7 +1181,7 @@ const config = new DefaultConfig("FeeshNotifier", "config/settings.json")
     title: "Maximum sea creatures HP count",
     description: "Show maximum N sea creatures nearby (to limit overlay size). Sea creatures with lower HP come first.",
     options: [1, 20],
-    value: 5,
+    value: 6,
     subcategory: "Sea creatures HP"
 })
 .addButton({
