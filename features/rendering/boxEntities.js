@@ -1,14 +1,18 @@
 import settings from "../../settings";
 import RenderLibV2 from "../../../RenderLibV2";
-import { BACKWATER_BAYOU, CRIMSON_ISLE, WATER_HOTSPOT_WORLDS } from "../../constants/areas";
+import { BACKWATER_BAYOU, CRIMSON_ISLE, NO_COCOON_BOXING_WORLDS, WATER_HOTSPOT_WORLDS } from "../../constants/areas";
 import { getWorldName, isInSkyblock } from "../../utils/playerState";
 import { registerIf } from "../../utils/registers";
-import { getSeaCreaturesInRange } from "../../utils/entityDetection";
+import { getSeaCreaturesInRange, getCocoonsInRange } from "../../utils/entityDetection";
 
 let boxedEntities = [];
 
 const CAN_SEE_THROUGH_WALLS = false;
 const TRACKED_ENTITY_NAMES = ['Wiki Tiki', 'Wiki Tiki Laser Totem', 'Titanoboa', 'Blue Ringed Octopus', 'Fiery Scuttler', 'Jawbus Follower'];
+
+const SEA_CREATURE_BOX_COLOR = { r: 85 / 255, g: 255 / 255, b: 255 / 255, a: 255 / 255 };
+const BLOCKER_BOX_COLOR = { r: 233 / 255, g: 96 / 255, b: 79 / 255, a: 255 / 255 }; // Entities blocking you from killing main sc
+const COCOON_BOX_COLOR = { r: 253 / 255, g: 212 / 255, b: 0 / 255, a: 255 / 255 };
 
 registerIf(
     register('tick', () => trackEntitiesToBox()),
@@ -33,7 +37,8 @@ function isRegisterEnabled() {
         (settings.boxTitanoboaHead && worldName === BACKWATER_BAYOU) ||
         (settings.boxBlueRingedOctopus && WATER_HOTSPOT_WORLDS.includes(worldName)) ||
         (settings.boxFieryScuttler && worldName === CRIMSON_ISLE) ||
-        (settings.boxJawbusFollowers && worldName === CRIMSON_ISLE)
+        (settings.boxJawbusFollowers && worldName === CRIMSON_ISLE) ||
+        (settings.boxCocoons && !NO_COCOON_BOXING_WORLDS.includes(worldName))
     );
 }
 
@@ -44,9 +49,9 @@ function trackEntitiesToBox() {
         }
     
         let currentEntities = [];
-        const entities = getSeaCreaturesInRange(TRACKED_ENTITY_NAMES, 30);
+        const seaCreatures = getSeaCreaturesInRange(TRACKED_ENTITY_NAMES, 30);
     
-        entities.forEach(entity => {
+        seaCreatures.forEach(entity => {
             const plainName = entity.baseMobName;
     
             if (
@@ -70,7 +75,24 @@ function trackEntitiesToBox() {
                 });
             }
         });
-    
+
+        if (settings.boxCocoons && !NO_COCOON_BOXING_WORLDS.includes(getWorldName())) {
+            const cocoons = getCocoonsInRange(30);
+            cocoons.forEach(entity => {
+                const boxParameters =  { wx: 0.6, wy: 1.5, wz: 0.65 };
+                const boxColor = COCOON_BOX_COLOR;
+                currentEntities.push({
+                    color: boxColor,
+                    x: entity.renderPos.x,
+                    y: entity.renderPos.y + 2.25,
+                    z: entity.renderPos.z,
+                    wx: boxParameters.wx,
+                    wy: boxParameters.wy,
+                    wz: boxParameters.wz
+                });
+            });
+        }
+
         boxedEntities = currentEntities;
     } catch (e) {
 		console.error(e);
@@ -98,9 +120,9 @@ function getBoxColor(plainName) {
     switch (plainName) {
         case 'Wiki Tiki Laser Totem':
         case 'Jawbus Follower':
-            return { r: 233 / 255, g: 96 / 255, b: 79 / 255, a: 255 / 255 }; // Entities blocking you from killing main sc
+            return BLOCKER_BOX_COLOR;
         default:
-            return { r: 85 / 255, g: 255 / 255, b: 255 / 255, a: 255 / 255 };
+            return SEA_CREATURE_BOX_COLOR;
     }
 }
 
