@@ -8,7 +8,8 @@ import { getSeaCreaturesInRange, getCocoonsInRange } from "../../utils/entityDet
 let boxedEntities = [];
 
 const CAN_SEE_THROUGH_WALLS = false;
-const TRACKED_ENTITY_NAMES = ['Wiki Tiki', 'Wiki Tiki Laser Totem', 'Titanoboa', 'Blue Ringed Octopus', 'Fiery Scuttler', 'Jawbus Follower'];
+const DISTANCE = 30;
+const TRACKED_MOB_NAMES = ['Wiki Tiki', 'Wiki Tiki Laser Totem', 'Titanoboa', 'Blue Ringed Octopus', 'Fiery Scuttler', 'Jawbus Follower'];
 
 const SEA_CREATURE_BOX_COLOR = { r: 85 / 255, g: 255 / 255, b: 255 / 255, a: 255 / 255 };
 const BLOCKER_BOX_COLOR = { r: 233 / 255, g: 96 / 255, b: 79 / 255, a: 255 / 255 }; // Entities blocking you from killing main sc
@@ -49,7 +50,7 @@ function trackEntitiesToBox() {
         }
     
         let currentEntities = [];
-        const seaCreatures = getSeaCreaturesInRange(TRACKED_ENTITY_NAMES, 30);
+        const seaCreatures = getSeaCreaturesInRange(TRACKED_MOB_NAMES, DISTANCE);
     
         seaCreatures.forEach(entity => {
             const plainName = entity.baseMobName;
@@ -77,7 +78,7 @@ function trackEntitiesToBox() {
         });
 
         if (settings.boxCocoons && !NO_COCOON_BOXING_WORLDS.includes(getWorldName())) {
-            const cocoons = getCocoonsInRange(30);
+            const cocoons = getCocoonsInRange(DISTANCE);
             cocoons.forEach(entity => {
                 const boxParameters =  { wx: 0.6, wy: 1.5, wz: 0.65 };
                 const boxColor = COCOON_BOX_COLOR;
