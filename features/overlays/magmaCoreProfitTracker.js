@@ -30,7 +30,7 @@ triggers.MAGMA_FIELDS_TRIGGERS.forEach(trigger => {
         register("Chat", (event) => {
             const isDoubleHooked = isDoubleHook();
             trackSeaCreatureCatch(isDoubleHooked);
-        }).setCriteria(trigger.trigger).setContains().triggerIfCanceled(true),
+        }).setCriteria(trigger.trigger).setContains(),
         () => settings.magmaCoreProfitTrackerOverlay && isInSkyblock() && getWorldName() === CRYSTAL_HOLLOWS
     );
 });

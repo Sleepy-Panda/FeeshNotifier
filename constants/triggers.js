@@ -60,7 +60,7 @@ export const FIERY_SCUTTLER_MESSAGE = `${RESET}${RED}A Fiery Scuttler inconspicu
 export const THUNDER_MESSAGE = `${RESET}${RED}${BOLD}You hear a massive rumble as Thunder emerges.`; // &r&c&lYou hear a massive rumble as Thunder emerges.
 export const LORD_JAWBUS_MESSAGE = `${RESET}${RED}${BOLD}You have angered a legendary creature... Lord Jawbus has arrived.`; // &r&c&lYou have angered a legendary creature... Lord Jawbus has arrived.
 export const PLHLEGBLAST_MESSAGE = `${GREEN}WOAH! A Plhlegblast appeared.`;
-export const RAGNAROK_MESSAGE = `${RESET}${RED}${RESET}${RED}${BOLD}The sky darkens and the air thickens. The end times are upon us: Ragnarok is here.`; // &r&c&r&c&lThe sky darkens and the air thickens. The end times are upon us: Ragnarok is here.
+export const RAGNAROK_MESSAGE = `${RESET}${RED}${BOLD}The sky darkens and the air thickens. The end times are upon us: Ragnarok is here.`; // &r&c&lThe sky darkens and the air thickens. The end times are upon us: Ragnarok is here.
 export const VANQUISHER_MESSAGE = `A ${RESET}${RED}Vanquisher ${RESET}${GREEN}is spawning nearby!`; // A &r&cVanquisher &r&ais spawning nearby!
 
 // OASIS SEA CREATURES

@@ -2,6 +2,9 @@ https://github.com/ChatTriggers/ctjs/blob/main/docs/MIGRATION.md
 
 Current artifact used: https://github.com/Synnerz/ctjs/actions/runs/17884054220
 
+
+&r&c&lThe sky darkens and the air thickens. The end times are upon us: Ragnarok is here.
+
 - Epic baby yeti not counted to profits (wtf is price 10k)
 
 - Weird issues with sounds played in wrong time or wrong sounds (noticed on Jerry)
@@ -40,7 +43,64 @@ Performance:
 - MC stuck on load sometimes
 - Peak FPS and TPS in hub :( when enabling Hypixel Hook timer
 
+Total profit 0
 
+    "fishingProfit": {
+        "profitTrackerItems": {
+            "SLUG_BOOTS": {
+                "itemName": "Slug Boots",
+                "itemDisplayName": "&9Slug Boots",
+                "itemId": "SLUG_BOOTS",
+                "amount": 8,
+                "totalItemProfit": 0
+            },
+            "BLADE_OF_THE_VOLCANO": {
+                "itemName": "Blade of the Volcano",
+                "itemDisplayName": "&9Blade of the Volcano",
+                "itemId": "BLADE_OF_THE_VOLCANO",
+                "amount": 2,
+                "totalItemProfit": 0
+            },
+            "MOOGMA_LEGGINGS": {
+                "itemName": "Moogma Leggings",
+                "itemDisplayName": "&9Moogma Leggings",
+                "itemId": "MOOGMA_LEGGINGS",
+                "amount": 2,
+                "totalItemProfit": 0
+            },
+            "STAFF_OF_THE_VOLCANO": {
+                "itemName": "Staff of the Volcano",
+                "itemDisplayName": "&9Staff of the Volcano",
+                "itemId": "STAFF_OF_THE_VOLCANO",
+                "amount": 1,
+                "totalItemProfit": 0
+            },
+            "ENCHANTMENT_CHARM_1": {
+                "itemName": "Enchanted Book (Charm I)",
+                "itemDisplayName": "&9Charm I &fBook",
+                "itemId": "ENCHANTMENT_CHARM_1",
+                "amount": 1,
+                "totalItemProfit": 0
+            },
+            "SHARD_MAGMA_SLUG": {
+                "itemName": "Magma Slug Shard",
+                "itemDisplayName": "&aMagma Slug &fShard",
+                "itemId": "SHARD_MAGMA_SLUG",
+                "amount": 7,
+                "totalItemProfit": 0
+            },
+            "SHARD_TAURUS": {
+                "itemName": "Taurus Shard",
+                "itemDisplayName": "&6Taurus &fShard",
+                "itemId": "SHARD_TAURUS",
+                "amount": 2,
+                "totalItemProfit": 0
+            }
+        },
+        "totalProfit": 0,
+        "elapsedSeconds": 1211
+    },
+    
 
 // Some render sample
 const TextRenderer = Renderer.getFontRenderer();

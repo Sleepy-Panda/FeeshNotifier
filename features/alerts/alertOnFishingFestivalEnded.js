@@ -27,7 +27,7 @@ triggers.SHARK_CATCH_TRIGGERS.forEach(entry => {
         register("Chat", (event) => {
             const isDoubleHooked = isDoubleHook();
             trackSharkCatch({ seaCreature: entry.seaCreature.toUpperCase(), rarityColorCode: entry.rarityColorCode, isDoubleHook: isDoubleHooked });
-        }).setCriteria(entry.trigger).setContains().triggerIfCanceled(true),
+        }).setCriteria(entry.trigger).setContains(),
         () => isInSkyblock() && settings.alertOnFishingFestivalEnded && isInFishingWorld(getWorldName())
     );
 });
