@@ -5,6 +5,7 @@
 Released: ???
 
 Features:
+- Added setting to render box around Cocoons [disabled by default].
 - Show Nutcracker's HP in Sea creature HP tracker.
 
 Bugfixes:
