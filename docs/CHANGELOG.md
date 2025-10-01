@@ -1,8 +1,23 @@
 # Releases
 
-## v1.51.0
+## v1.52.0
 
 Released: ???
+
+Features:
+- Added setting to render box around Cocoons [disabled by default].
+- Made rare catches alerts to trigger on Skyhanni rare catch pchat message (I caught a <Sea creature>!).
+- Show Nutcracker's HP in Sea creatures HP tracker.
+
+Bugfixes:
+-
+
+Other:
+-
+
+## v1.51.0
+
+Released: 2025-09-28
 
 Features:
 - Added remaining time tracker and expiration alert for player's Umberella and Black Hole.

@@ -171,3 +171,62 @@ export function getHypixelFishingHookTimer(fishingHook) {
 
 	return result;
 }
+
+/**
+ * Find the Cocoons in the specified range from the current player.
+ * @param {number} distance
+ * @returns {Array} Cocoons info (their lowest armor stand) in format: {
+	renderPos: object;
+  } 
+ */
+export function getCocoonsInRange(distance) {
+	const entities = World.getAllEntitiesOfType(EntityArmorStand);
+	const player = Player.getPlayer();
+	const cocoonParts = entities.filter(entity => entity.distanceTo(player) <= distance && hasCocoonTexture(entity));
+
+	return cocoonParts
+		.filter(entity => {
+			const entityX = entity.getRenderX();
+			const entityY = entity.getRenderY();
+			const entityZ = entity.getRenderZ();
+			// Cocoon consists of 3 armor stands, get lowest one and filter out other parts of the same cocoon
+			const hasCocoonPartLower = cocoonParts.some(e =>
+				e.getRenderY() < entityY && Math.abs(e.getRenderY() - entityY) < 0.7 &&
+				Math.abs(e.getRenderX() - entityX) < 0.7 && 
+				Math.abs(e.getRenderZ() - entityZ) < 0.7
+			)
+			return !hasCocoonPartLower;
+		})
+		.map(entity => (
+			{
+				renderPos: {
+					x: entity.getRenderX(),
+					y: entity.getRenderY(),
+					z: entity.getRenderZ(),
+				}
+			}
+		));
+
+	function hasCocoonTexture(entity) {
+		const texture = getSkullTexture(entity);
+		if (!texture) return false;
+
+		// eyJ0aW1lc3RhbXAiOjE1ODMxMjMyODkwNTMsInByb2ZpbGVJZCI6IjkxZjA0ZmU5MGYzNjQzYjU4ZjIwZTMzNzVmODZkMzllIiwicHJvZmlsZU5hbWUiOiJTdG9ybVN0b3JteSIsInNpZ25hdHVyZVJlcXVpcmVkIjp0cnVlLCJ0ZXh0dXJlcyI6eyJTS0lOIjp7InVybCI6Imh0dHA6Ly90ZXh0dXJlcy5taW5lY3JhZnQubmV0L3RleHR1cmUvNGNlYjBlZDhmYzIyNzJiM2QzZDgyMDY3NmQ1MmEzOGU3YjJlOGRhOGM2ODdhMjMzZTBkYWJhYTE2YzBlOTZkZiJ9fX0=
+		return JSON.parse(FileLib.decodeBase64(texture))?.textures?.SKIN?.url === 'http://textures.minecraft.net/texture/4ceb0ed8fc2272b3d3d820676d52a38e7b2e8da8c687a233e0dabaa16c0e96df';
+	}
+
+	function getSkullTexture(entity) {
+        if (!entity || !(entity instanceof Entity)) return null;
+
+        const helmet = entity.getEntity()?.func_71124_b(4); // func_71124_b() => getEquipmentInSlot()
+        if (!helmet) return null;
+
+        const item = new Item(helmet);
+        if (!item || item.getID() !== 397 || item.getMetadata() !== 3) return null;
+
+        const textures = item.getNBT().toObject().tag.SkullOwner.Properties.textures;
+        if (!textures || !textures.length) return null;
+
+        return textures[0].Value;
+    }
+}
