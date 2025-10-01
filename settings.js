@@ -1887,6 +1887,13 @@ ${GRAY}Do ${AQUA}/feeshResetProfitTracker${GRAY} to reset.`,
     description: "Render box around Jawbus Followers nearby.",
     subcategory: "Boxing"
 })
+.addSwitch({
+    category: "Rendering",
+    configName: "boxCocoons",
+    title: "Box Cocoons",
+    description: "Render box around Cocoons nearby.",
+    subcategory: "Boxing"
+})
 
 .addButton({
     category: "Commands",
