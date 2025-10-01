@@ -6,7 +6,8 @@ Released: ???
 
 Features:
 - Added setting to render box around Cocoons [disabled by default].
-- Show Nutcracker's HP in Sea creature HP tracker.
+- Made rare catches alerts to trigger on Skyhanni rare catch pchat message (I caught a <Sea creature>!).
+- Show Nutcracker's HP in Sea creatures HP tracker.
 
 Bugfixes:
 -

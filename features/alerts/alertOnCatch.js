@@ -1,6 +1,6 @@
 import settings from "../../settings";
 import * as triggers from '../../constants/triggers';
-import { getDoubleHookCatchTitle, getCatchTitle, getCatchMessage, getColoredPlayerNameFromDisplayName, getColoredPlayerNameFromPartyChat, getDoubleHookCatchMessage, getPartyChatMessage, isDoubleHook, isInFishingWorld } from '../../utils/common';
+import { getDoubleHookCatchTitle, getCatchTitle, getCatchMessage, getColoredPlayerNameFromDisplayName, getColoredPlayerNameFromPartyChat, getDoubleHookCatchMessage, getPartyChatMessage, isDoubleHook, isInFishingWorld, fromUppercaseToCapitalizedFirstLetters, getArticle } from '../../utils/common';
 import { NOTIFICATION_SOUND_SOURCE, OFF_SOUND_MODE } from '../../constants/sounds';
 import { getWorldName, isInSkyblock } from "../../utils/playerState";
 import { registerIf } from "../../utils/registers";
@@ -56,6 +56,45 @@ triggers.RARE_CATCH_TRIGGERS.forEach(entry => {
                 suppressIfSamePlayer: true
             })
         ).setCriteria(getPartyChatMessage(getDoubleHookCatchMessage(entry.seaCreature))),
+        () => settings[entry.isAlertEnabledSettingKey] && isInSkyblock() && isInFishingWorld(getWorldName())
+    );
+
+    const seaCreature = entry.seaCreature;
+    const seaCreatureShFormat = `${getArticle(seaCreature).toLowerCase()} ${fromUppercaseToCapitalizedFirstLetters(seaCreature)}`; // a Lord Jawbus, an Alligator
+    
+    registerIf(
+        // Triggers on automated party chat message sent by Skyhanni.
+        // I caught a Lord Jawbus!
+        // I caught an Abyssal Miner!
+        register(
+            "Chat",
+            (rankAndPlayer, event) => playAlertOnCatch({
+                seaCreature: entry.seaCreature,
+                rarityColorCode: entry.rarityColorCode,
+                isEnabled: settings[entry.isAlertEnabledSettingKey],
+                isDoubleHook: true,
+                player: getColoredPlayerNameFromPartyChat(rankAndPlayer),
+                suppressIfSamePlayer: true
+            })
+        ).setCriteria(getPartyChatMessage(`I caught ${seaCreatureShFormat}!`)),
+        () => settings[entry.isAlertEnabledSettingKey] && isInSkyblock() && isInFishingWorld(getWorldName())
+    );
+
+    registerIf(
+        // Triggers on automated party chat message sent by Skyhanni (double hook).
+        // DOUBLE HOOK: I caught a Lord Jawbus!
+        // DOUBLE HOOK: I caught an Abyssal Miner!
+        register(
+            "Chat",
+            (rankAndPlayer, event) => playAlertOnCatch({
+                seaCreature: entry.seaCreature,
+                rarityColorCode: entry.rarityColorCode,
+                isEnabled: settings[entry.isAlertEnabledSettingKey],
+                isDoubleHook: true,
+                player: getColoredPlayerNameFromPartyChat(rankAndPlayer),
+                suppressIfSamePlayer: true
+            })
+        ).setCriteria(getPartyChatMessage(`DOUBLE HOOK: I caught ${seaCreatureShFormat}!`)),
         () => settings[entry.isAlertEnabledSettingKey] && isInSkyblock() && isInFishingWorld(getWorldName())
     );
 });
