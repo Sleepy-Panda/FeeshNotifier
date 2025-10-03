@@ -6,7 +6,12 @@ Released: ???
 
 Features:
 - Added setting to render box around Cocoons [disabled by default].
-- Added basic Treasure fishing tracker [disabled by default].
+- Added Treasure fishing tracker which tracks Good/Great/Outstanding catches, and Trasure Dye drop statistics. [disabled by default]
+  - You can initialize Treasure Dyes using the command:
+    - /feeshSetTrackerDrops DYE_TREASURE <COUNT> <LAST_ON_DATE>
+    - <COUNT> is a mandatory number of times you've dropped it.
+    - <LAST_ON_DATE> is optional and, if provided, should be in YYYY-MM-DD hh:mm:ss format. Can not be in future!
+    - Example: /feeshSetTrackerDrops DYE_TREASURE 2 2025-09-01 23:59:00
 - Made rare catches alerts to trigger on Skyhanni rare catch pchat message (I caught a <Sea creature>!).
 - Show Nutcracker's HP in Sea creatures HP tracker.
 
@@ -24,12 +29,6 @@ Features:
 - Added remaining time tracker and expiration alert for player's Umberella and Black Hole.
 - Replaced Flare tracker and Totem of Corruption tracker / alerts with unified Deployables tracker / alerts which tracks different player's deployables in one overlay.
 - Slightly changed formatting of Sea Creatures tracker.
-- Added Treasure fishing tracker which tracks Good/Great/Outstanding catches, and Trasure Dye drop statisctics. [disabled by default]
-  - You can initialize Treasure Dyes using the command:
-    - /feeshSetTrackerDrops DYE_TREASURE <COUNT> <LAST_ON_DATE>
-    - <COUNT> is a mandatory number of times you've dropped it.
-    - <LAST_ON_DATE> is optional and, if provided, should be in YYYY-MM-DD hh:mm:ss format. Can not be in future!
-    - Example: /feeshSetTrackerDrops DYE_TREASURE 2 2025-09-01 23:59:00
 
 Bugfixes:
 - Fixed Shard treasure catch not being tracked in the Fishing profit tracker (Hypixel changed message format).
