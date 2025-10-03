@@ -19,6 +19,7 @@ export const wormProfitTrackerOverlayGui = new Gui();
 export const magmaCoreProfitTrackerOverlayGui = new Gui();
 export const abandonedQuarryTrackerOverlayGui = new Gui();
 export const archfiendDiceProfitTrackerOverlayGui = new Gui();
+export const treasureFishingTrackerOverlayGui = new Gui();
 export const fishingProfitTrackerOverlayGui = new Gui();
 
 const categories = ["General", "Chat", "Alerts", "Overlays", "Items and storages", "Rendering", "Commands", "Dev"]
@@ -1558,6 +1559,61 @@ Example 2: ${AQUA}/feeshSetTrackerDrops TIKI_MASK 5 2025-05-30 23:59:00`);
     subcategory: "Archfiend Dice profit tracker",
     onClick() {
         ChatLib.command("feeshResetArchfiendDiceProfitTotal noconfirm", true);
+    }
+})
+
+.addSwitch({
+    category: "Overlays",
+    configName: "treasureFishingTrackerOverlay",
+    title: "Treasure fishing tracker",
+    description: `Shows an overlay with the overview of the treasure fishing catches, and different related statistics.\nDo ${AQUA}/feeshResetTreasureFishing${GRAY} to reset.`,
+    subcategory: "Treasure fishing tracker",
+    value: false
+})
+.addButton({
+    category: "Overlays",
+    configName: "getTreasureDyesSetupHelp",
+    title: "Set Treasure Dyes count",
+    description: "Explains in your chat how to setup Treasure Dyes count and last drop date.",
+    subcategory: "Treasure fishing tracker",
+    onClick() {
+        ChatLib.chat(`
+${LIGHT_PURPLE}${BOLD}Treasure Dyes setup
+
+Do ${AQUA}/feeshSetTrackerDrops <ITEM_ID> <COUNT> <LAST_ON_DATE>${RESET} to initialize your drops history:
+  - <ITEM_ID> is a mandatory item ID - DYE_TREASURE.
+  - <COUNT> is a mandatory number of times you've dropped it.
+  - <LAST_ON_DATE> is optional and, if provided, should be in YYYY-MM-DD hh:mm:ss format. Can not be in future!
+
+Example: ${AQUA}/feeshSetTrackerDrops DYE_TREASURE 2 2025-05-30 23:59:00`);
+    }
+})
+.addSwitch({
+    category: "Overlays",
+    configName: "resetTreasureFishingTrackerOnGameClosed",
+    title: "Reset on closing game",
+    description: "Automatically reset the Treasure fishing tracker when you close Minecraft or reload CT modules.",
+    subcategory: "Treasure fishing tracker",
+    value: false
+})
+.addButton({
+    category: "Overlays",
+    configName: "moveTreasureFishingTrackerOverlay",
+    title: "Move Treasure fishing tracker overlay",
+    description: "Allows to move and resize the overlay text.",
+    subcategory: "Treasure fishing tracker",
+    onClick() {
+        moveOverlay(treasureFishingTrackerOverlayGui);
+    }
+})
+.addButton({
+    category: "Overlays",
+    configName: "resetTreasureFishingTrackerOverlay",
+    title: "Reset Treasure fishing tracker",
+    description: `Resets tracking for Treasure fishing tracker. Executes ${AQUA}/feeshResetTreasureFishing`,
+    subcategory: "Treasure fishing tracker",
+    onClick() {
+        ChatLib.command("feeshResetTreasureFishing noconfirm", true);
     }
 })
 
