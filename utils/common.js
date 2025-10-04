@@ -533,6 +533,18 @@ export function getMcEntityById(id) {
     return World.getWorld()?.func_73045_a(id); // func_73045_a() -> getEntityByID()
 }
 
+/**
+ * Get item's NBT (ExtraAttributes)as object.
+ * @param {Item} item
+ * @returns {object}
+ */
+export function getItemCustomData(item) {
+	if (!item) return null;
+
+	const customData = item.getNBT()?.getCompoundTag("tag")?.getCompoundTag("ExtraAttributes")?.toObject();
+	return customData;
+}
+
 function getCurrentGuiChestName() {
 	if (Client.isInGui() && Client.currentGui?.getClassName() === 'GuiChest') {
 		const chestName = Client.currentGui?.get()?.field_147002_h?.func_85151_d()?.func_145748_c_()?.text;
