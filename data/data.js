@@ -10,6 +10,7 @@ export const persistentData = new PogObject("FeeshNotifier", {
             "catches": {},
             "totalCount": 0,
         },
+        "viewMode": "SESSION",
     },
     "treasureFishing": {
         "session": {

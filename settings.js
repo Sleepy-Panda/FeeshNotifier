@@ -1094,7 +1094,7 @@ const config = new DefaultConfig("FeeshNotifier", "config/settings.json")
     category: "Overlays",
     configName: "seaCreaturesTrackerOverlay",
     title: "Sea creatures tracker",
-    description: `Shows an overlay with the overview of the sea creatures caught, and different related statistics.\nDo ${AQUA}/feeshResetSeaCreatures${GRAY} to reset.`,
+    description: `Shows an overlay with the overview of the sea creatures caught, and different related statistics. This overlay has [Session] and [Total] view mode.\nDo ${AQUA}/feeshResetSeaCreatures${GRAY} to reset [Session], or ${AQUA}/feeshResetSeaCreaturesTotal${GRAY} to reset [Total].`,
     subcategory: "Sea creatures",
     value: true
 })
@@ -1111,7 +1111,7 @@ const config = new DefaultConfig("FeeshNotifier", "config/settings.json")
     category: "Overlays",
     configName: "showSeaCreaturesPercentage",
     title: "Show sea creatures percentage",
-    description: `Show statistics with a percentage for each sea creature. It is not shown when in the "Onle rare sea creatures" mode.`,
+    description: `Show statistics with a percentage for each sea creature. It is not shown when in the "Only rare sea creatures" mode.`,
     subcategory: "Sea creatures",
     value: true
 })
@@ -1135,8 +1135,8 @@ const config = new DefaultConfig("FeeshNotifier", "config/settings.json")
 .addSwitch({
     category: "Overlays",
     configName: "resetSeaCreaturesTrackerOnGameClosed",
-    title: "Reset on closing game",
-    description: "Automatically reset the Sea creatures tracker when you close Minecraft or reload CT modules.",
+    title: "Reset on closing game [Session]",
+    description: "Automatically reset the Sea creatures tracker [Session] when you close Minecraft or reload CT modules.",
     subcategory: "Sea creatures"
 })
 .addButton({
@@ -1151,9 +1151,19 @@ const config = new DefaultConfig("FeeshNotifier", "config/settings.json")
 })
 .addButton({
     category: "Overlays",
-    configName: "resetSeaCreaturesTracker",
-    title: "Reset Sea creatures tracker",
-    description: `Resets tracking for Sea creatures tracker. Executes ${AQUA}/feeshResetSeaCreatures`,
+    configName: "resetSeaCreaturesTrackerSession",
+    title: "Reset Sea creatures tracker [Session]",
+    description: `Resets tracking for Sea creatures tracker [Session]. Executes ${AQUA}/feeshResetSeaCreatures`,
+    subcategory: "Sea creatures",
+    onClick() {
+        ChatLib.command("feeshResetSeaCreatures noconfirm", true);
+    }
+})
+.addButton({
+    category: "Overlays",
+    configName: "resetSeaCreaturesTrackerTotal",
+    title: "Reset Sea creatures tracker [Total]",
+    description: `Resets tracking for Sea creatures tracker [Total]. Executes ${AQUA}/feeshResetSeaCreaturesTotal`,
     subcategory: "Sea creatures",
     onClick() {
         ChatLib.command("feeshResetSeaCreatures noconfirm", true);
