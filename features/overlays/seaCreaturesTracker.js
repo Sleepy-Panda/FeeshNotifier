@@ -65,12 +65,13 @@ register("gameLoad", () => {
 
 const overlay = new Overlay(() => settings.seaCreaturesTrackerOverlay && isInSkyblock() && isInFishingWorld(getWorldName()))
     .setPositionData(overlayCoordsData.seaCreaturesTrackerOverlay)
-    .setIsClickable(true);
+    .setIsClickable(true)
+    .setViewModes([ SESSION_VIEW_MODE, TOTAL_VIEW_MODE ]);
 
 export function resetSeaCreaturesTracker(isConfirmed, resetViewMode) {
     try {
         if (!resetViewMode) resetViewMode = getCurrentViewMode();
-        const viewModeText = getViewModeDisplayText(resetViewMode).removeFormatting();
+        const viewModeText = overlay.getViewModeDisplayText(resetViewMode);
 
         if (!isConfirmed) {
             new Message(
@@ -160,7 +161,6 @@ function trackSeaCreatureCatch(sourceObj, options) {
 
 function refreshOverlay() {
     overlay.clear();
-
     const viewMode = getCurrentViewMode();
 
     if (!settings.seaCreaturesTrackerOverlay ||
@@ -196,7 +196,7 @@ function refreshOverlay() {
 
     if (!entries.length) return;
 
-    const viewModeText = getViewModeDisplayText(viewMode);
+    const viewModeText = overlay.getViewModeDisplayText(viewMode);
     overlay.addTextLine(new OverlayTextLine().setText(`${AQUA}${BOLD}Sea creatures tracker ${viewModeText}`));
 
     entries.forEach((entry) => {
@@ -212,8 +212,14 @@ function refreshOverlay() {
     const totalCount = settings.seaCreaturesTrackerMode === DISPLAY_MODE_ALL ? sourceObj.totalCount : getTotalCount(entries);
     overlay.addTextLine(new OverlayTextLine().setText(`${GRAY}Total: ${WHITE}${totalCount}`));
 
-    overlay.addButtonLine(new OverlayButtonLine().setText(`${RED}${BOLD}[Click to reset]`).setIsSmallerScale(true).setOnClick(LEFT_CLICK_TYPE, () => resetSeaCreaturesTracker(false, viewMode)));
-    overlay.addButtonLine(new OverlayButtonLine().setText(`${getNextViewModeButtonText(viewMode)}`).setIsSmallerScale(true).setOnClick(LEFT_CLICK_TYPE, () => toggleViewMode()));
+    overlay.addButtonLine(new OverlayButtonLine()
+        .setText(`${overlay.getNextViewModeButtonDisplayText(viewMode)}`)
+        .setIsSmallerScale(true)
+        .setOnClick(LEFT_CLICK_TYPE, () => toggleViewMode()));
+    overlay.addButtonLine(new OverlayButtonLine()
+        .setText(`${RED}${BOLD}[Click to reset]`)
+        .setIsSmallerScale(true)
+        .setOnClick(LEFT_CLICK_TYPE, () => resetSeaCreaturesTracker(false, viewMode)));
 }
 
 function getTotalCount(seaCreaturesObj) {
@@ -225,7 +231,7 @@ function getTotalCount(seaCreaturesObj) {
 function toggleViewMode() {
     try {
         const currentViewMode = getCurrentViewMode();
-        const newViewMode = getNextViewMode(currentViewMode);
+        const newViewMode = overlay.getNextViewMode(currentViewMode);
         persistentData.seaCreatures.viewMode = newViewMode;
         persistentData.save();
         refreshOverlay();
@@ -233,43 +239,10 @@ function toggleViewMode() {
 		console.error(e);
 		console.log(`[FeeshNotifier] Failed to toggle view mode.`);
 	}
-
-    function getNextViewMode(currentViewMode) {
-        switch (true) {
-            case currentViewMode === SESSION_VIEW_MODE:
-                return TOTAL_VIEW_MODE;
-            case currentViewMode === TOTAL_VIEW_MODE:
-                return SESSION_VIEW_MODE;
-            default:
-                return '';
-        }
-    }
 }
 
 function getCurrentViewMode() {
     return persistentData.seaCreatures.viewMode || SESSION_VIEW_MODE;
-}
-
-function getNextViewModeButtonText(viewMode) {
-    switch (true) {
-        case viewMode === SESSION_VIEW_MODE:
-            return `${GREEN}${BOLD}[Click to view Total]`;
-        case viewMode === TOTAL_VIEW_MODE:
-            return `${GREEN}${BOLD}[Click to view Session]`;
-        default:
-            return '';
-    }
-}
-
-function getViewModeDisplayText(viewMode) {
-    switch (true) {
-        case viewMode === SESSION_VIEW_MODE:
-            return `${GREEN}[Session]`;
-        case viewMode === TOTAL_VIEW_MODE:
-            return `${GREEN}[Total]`;
-        default:
-            return '';
-    }
 }
 
 function getSourceObject(viewMode) {
