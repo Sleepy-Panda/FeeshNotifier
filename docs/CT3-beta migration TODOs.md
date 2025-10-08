@@ -1,106 +1,65 @@
 https://github.com/ChatTriggers/ctjs/blob/main/docs/MIGRATION.md
 
-Current artifact used: https://github.com/Synnerz/ctjs/actions/runs/17884054220
+Current artifact used: https://github.com/Synnerz/ctjs/releases/tag/1.21.5v1
 
+## Reminders
 
-&r&c&lThe sky darkens and the air thickens. The end times are upon us: Ragnarok is here.
+- Adjust changelog file and metadata version
+- Update settings to remove not supported features
 
-- Epic baby yeti not counted to profits (wtf is price 10k)
+## General
 
-- Weird issues with sounds played in wrong time or wrong sounds (noticed on Jerry)
-Randomly, MC does not play a sound requested via new Sound(SOUND_SOURCE).play();
-In such cases, this sound is played together with the next .play() call.
+- Sometimes, MC stuck on loading forever when CT is in mods folder
+  - It's most likely related with my location / network issues
+- Same way requests to AH / BZ API stuck forever sometimes
 
-- Changelog file + metadata version
+## Chat
 
-- Check if double hook is always counted when compacted messages
-- Umberella & Flare not working - error in playernteract (InternalError: Invalid JavaScript value of type com.chattriggers.ctjs.api.world.block.Block (moduleProvided#314))
-- Player name in alert has no formatting
+## Alerts
+
+- Player name in alert has no formatting (CT issue)
   -  Player.getDisplayName().toString() returns §r§8[§r§c469§r§8] §rMoonTheSadFisher§r §r§7α - no color code before nick
+- Alert on non fishing armor fully disabled
+- Test alerts on Pet drops with SH "pet rarity in chat" enabled/disabled
 
-- Sacks profits not tracked
-  - Because event message not parsed
+## Overlays
 
-- Clickable overlay buttons  - smaller scale renders wrongly, disabled for now
-- Clickable lines - sometimes clicks intersect between 2 lines
-- Kat pets counted in profit?
+- Umberella & Flare overlay not working 
+  - error in playernteract (InternalError: Invalid JavaScript value of type com.chattriggers.ctjs.api.world.block.Block (moduleProvided#314))
+- Clickable overlay buttons - smaller scale buttons renders wrongly, so far they have same size as overlay text
+- Clickable lines - sometimes clicks intersect between 2 lines, 2 lines are clicked
+- Lines are rendered too close to each other, almost no space between them (CT issue)
+- Moby duck overlay not tested
+- To test all overlays
+- Check if Kat pets counted in profit tracker
+- Check if double hook is always counted
+  - E.g. when using compacted SC catch message, or when there is "It took N catches" message in the chat
+- Fix getSkullTexture(entity) for Cocoons rendering
 
-- Moby Duck progress in 1st slot of Time Bag
-- Odger UI looks ugly
+## Inventory features
 
-Fully disabled:
-- Alert on non fishing armor
+- Lore functionality fully removed (Expertise kills, Item ID from developer section)
+- Odger UI looks ugly, I want to rework this feature
+- Moby Duck progress in 1st slot of Time Bag is not rendered
 
-Fishing Hook rendering
-- no shadow
+## Rendering
+
+Fishing Hook timer rendering needs rework
+- Looks not smooth while hook or player moves
+- No shadow
 - Also is glowing with shaders
 
-- Boxing disabled
-- Lore functionality removed (Expertise kills, Item ID)
+- Boxing of Sea Creatures / Cocoons disabled, there are no rendering CT modules for CT 3 yet
 
-Performance:
-- WTF is this lagging after 1-2 hours in lobby, is it from /feesh?
-- MC stuck on load sometimes
-- Peak FPS and TPS in hub :( when enabling Hypixel Hook timer
+## Sounds
 
-Total profit 0
+- Weird issues with sounds played in wrong time or wrong sounds. Randomly, MC does not play a sound requested via new Sound(SOUND_SOURCE).play();
+In such cases, this sound is played together with the next .play() call.
+This is probably related to some issue while switching the device.
 
-    "fishingProfit": {
-        "profitTrackerItems": {
-            "SLUG_BOOTS": {
-                "itemName": "Slug Boots",
-                "itemDisplayName": "&9Slug Boots",
-                "itemId": "SLUG_BOOTS",
-                "amount": 8,
-                "totalItemProfit": 0
-            },
-            "BLADE_OF_THE_VOLCANO": {
-                "itemName": "Blade of the Volcano",
-                "itemDisplayName": "&9Blade of the Volcano",
-                "itemId": "BLADE_OF_THE_VOLCANO",
-                "amount": 2,
-                "totalItemProfit": 0
-            },
-            "MOOGMA_LEGGINGS": {
-                "itemName": "Moogma Leggings",
-                "itemDisplayName": "&9Moogma Leggings",
-                "itemId": "MOOGMA_LEGGINGS",
-                "amount": 2,
-                "totalItemProfit": 0
-            },
-            "STAFF_OF_THE_VOLCANO": {
-                "itemName": "Staff of the Volcano",
-                "itemDisplayName": "&9Staff of the Volcano",
-                "itemId": "STAFF_OF_THE_VOLCANO",
-                "amount": 1,
-                "totalItemProfit": 0
-            },
-            "ENCHANTMENT_CHARM_1": {
-                "itemName": "Enchanted Book (Charm I)",
-                "itemDisplayName": "&9Charm I &fBook",
-                "itemId": "ENCHANTMENT_CHARM_1",
-                "amount": 1,
-                "totalItemProfit": 0
-            },
-            "SHARD_MAGMA_SLUG": {
-                "itemName": "Magma Slug Shard",
-                "itemDisplayName": "&aMagma Slug &fShard",
-                "itemId": "SHARD_MAGMA_SLUG",
-                "amount": 7,
-                "totalItemProfit": 0
-            },
-            "SHARD_TAURUS": {
-                "itemName": "Taurus Shard",
-                "itemDisplayName": "&6Taurus &fShard",
-                "itemId": "SHARD_TAURUS",
-                "amount": 2,
-                "totalItemProfit": 0
-            }
-        },
-        "totalProfit": 0,
-        "elapsedSeconds": 1211
-    },
-    
+## Performance
+- Simetimes I notice lagging after 1-2 hours in same lobby, is it from /feesh?
+
 
 // Some render sample
 const TextRenderer = Renderer.getFontRenderer();

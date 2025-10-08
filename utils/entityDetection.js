@@ -216,15 +216,15 @@ export function getCocoonsInRange(distance) {
 	}
 
 	function getSkullTexture(entity) {
-        if (!entity || !(entity instanceof Entity)) return null;
+        if (!entity) return null;
 
-        const helmet = entity.getEntity()?.func_71124_b(4); // func_71124_b() => getEquipmentInSlot()
+        const helmet = entity.toMC()?.getEquippedStack(4);
         if (!helmet) return null;
 
         const item = new Item(helmet);
         if (!item || item.getID() !== 397 || item.getMetadata() !== 3) return null;
 
-        const textures = item.getNBT().toObject().tag.SkullOwner.Properties.textures;
+        const textures = item.getNBT().toObject().tag.SkullOwner.Properties.textures; // TODO
         if (!textures || !textures.length) return null;
 
         return textures[0].Value;

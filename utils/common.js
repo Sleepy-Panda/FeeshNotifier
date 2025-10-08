@@ -285,12 +285,9 @@ export function isInSupercraftGui() {
 export function getItemsAddedToSacks(eventMessage) {
 	let items = [];
 	
-	console.log('Msg part = ' + eventMessage.getSiblings()[0].getString() + ' ' + eventMessage.getSiblings()[0].getStyle().hoverEvent.action);
-	// .value returns function comp_3510() {/*
-// net.minecraft.class_2561 comp_3510()
-// */}
-	console.log('Hover value = ' + eventMessage.getSiblings()[0].getStyle()?.hoverEvent?.value?.toString());
-	const addedItemsMessage = new TextComponent(eventMessage).find(part => part.hoverValue?.getString()?.includes('Added items:'))?.hoverValue || '';
+	const addedItemsMessage = eventMessage.getSiblings().find(part => part?.getStyle()?.hoverEvent?.value().getString()?.includes('Added items:'))
+		?.getStyle().hoverEvent.value().getString() || '';
+
     if (!addedItemsMessage) {
         return items;
     }
