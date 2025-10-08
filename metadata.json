@@ -4,7 +4,7 @@
     "mixinEntry": "mixins.js",
     "author": "MoonTheSadFisher",
     "description": "Hypixel Skyblock fishing utilities for parties.",
-    "version": "1.52.0",
+    "version": "2.0.0",
     "requires": [
         "Amaterasu",
         "PogData",
