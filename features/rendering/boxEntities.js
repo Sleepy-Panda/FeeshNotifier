@@ -39,7 +39,7 @@
 //        (settings.boxBlueRingedOctopus && WATER_HOTSPOT_WORLDS.includes(worldName)) ||
 //        (settings.boxFieryScuttler && worldName === CRIMSON_ISLE) ||
 //        (settings.boxJawbusFollowers && worldName === CRIMSON_ISLE) ||
-//        (settings.boxCocoons && !NO_COCOON_BOXING_WORLDS.includes(worldName))
+//        (settings.boxCocoons && worldName && !NO_COCOON_BOXING_WORLDS.includes(worldName))
 //    );
 //}
 //
@@ -77,7 +77,7 @@
 //            }
 //        });
 //
-//        if (settings.boxCocoons && !NO_COCOON_BOXING_WORLDS.includes(getWorldName())) {
+//        if (settings.boxCocoons && getWorldName() && !NO_COCOON_BOXING_WORLDS.includes(getWorldName())) {
 //            const cocoons = getCocoonsInRange(DISTANCE);
 //            cocoons.forEach(entity => {
 //                const boxParameters =  { wx: 0.6, wy: 1.5, wz: 0.65 };

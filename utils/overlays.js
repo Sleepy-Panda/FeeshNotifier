@@ -402,7 +402,7 @@ export function setDropStatisticsOnDrop(dropObj, catchesSinceLastPropName, drops
 
     dropsHistory.unshift({
         time: new Date(),
-        magicFind: +magicFind || null,
+        magicFind: magicFind ? +magicFind || null : null,
         [dropsHistoryCatchesPropName]: catches
     });
     dropObj.dropsHistory = dropsHistory;

@@ -72,7 +72,7 @@ triggers.RARE_CATCH_TRIGGERS.forEach(entry => {
                 seaCreature: entry.seaCreature,
                 rarityColorCode: entry.rarityColorCode,
                 isEnabled: settings[entry.isAlertEnabledSettingKey],
-                isDoubleHook: true,
+                isDoubleHook: false,
                 player: getColoredPlayerNameFromPartyChat(rankAndPlayer),
                 suppressIfSamePlayer: true
             })

@@ -63,7 +63,7 @@ ${GRAY}Total: ${WHITE}21`,
     {
         toggleSettingKey: 'seaCreaturesPerHourTrackerOverlay',
         guiSettings: overlayCoordsData.seaCreaturesPerHourTrackerOverlay,
-        sampleText:
+        sampleText: 
 `${YELLOW}${BOLD}Sea creatures per hour
 ${WHITE}1 000 ${GRAY}per hour (${WHITE}2 000 ${GRAY}total)
 
@@ -208,6 +208,23 @@ ${WHITE}0${GRAY}x rolls | ${WHITE}0${GRAY}x ${DARK_PURPLE}6 ${GRAY}| ${WHITE}0${
 ${AQUA}Profit: ${GREEN}0
 
 ${AQUA}${BOLD}Total profit: ${GREEN}5M`,
+        isActive: false,
+        width: 0,
+        height: 0
+    },
+    {
+        toggleSettingKey: 'treasureFishingTrackerOverlay',
+        guiSettings: overlayCoordsData.treasureFishingTrackerOverlay,
+        sampleText:
+`${AQUA}⛃ ${AQUA}${BOLD}Treasure fishing tracker
+${GRAY}- ${DARK_PURPLE}Good catch${GRAY}: ${WHITE}12
+${GRAY}- ${GOLD}Great catch${GRAY}: ${WHITE}7
+${GRAY}- ${LIGHT_PURPLE}Outstanding catch${GRAY}: ${WHITE}3
+${GRAY}Total Treasures: ${WHITE}22
+
+${GOLD}Treasure Dyes: ${WHITE}2
+${GRAY}Last on: ${WHITE}1d 0h 0m ${GRAY}(${WHITE}2025-09-10 12:15:00${GRAY})
+${GRAY}Last on: ${WHITE}7 Treasures ago`,
         isActive: false,
         width: 0,
         height: 0
