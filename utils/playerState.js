@@ -1,7 +1,6 @@
 import { CRIMSON_ISLE, PLHLEGBLAST_POOL } from "../constants/areas";
 import { getPlayerFishingHook, isFishingHookActive, isFishingRod } from "./common";
 import { findClosestHotspotInRange } from "./entityDetection";
-import { updateRegisters } from "./registers";
 
 var inSkyblock = false;
 var worldName = null;
@@ -41,7 +40,6 @@ function trackPlayerState() {
 		setZoneName();
 
 		if (prevInSkyblock !== inSkyblock || prevWorldName !== worldName) {
-			updateRegisters();
 			lastFishingHookSeenAt = null;
 			lastFishingHookInHotspotSeenAt = null;
 		}
@@ -58,14 +56,10 @@ function trackPlayerState() {
 }
 
 register("guiClosed", (gui) => {
-    if (!gui) {
-        return;
-    }
+    if (!gui) return;
 
-    const chestName = gui.field_147002_h?.func_85151_d()?.func_145748_c_()?.text;
-    if (!chestName) {
-        return;
-    }
+	const chestName = gui.getTitle()?.getString();
+	if (!chestName) return;
 
     if (chestName.includes('Sack')) {
         lastGuisClosed.lastSacksGuiClosedAt = new Date();
@@ -87,15 +81,15 @@ register("guiClosed", (gui) => {
 });
 
 [
-	'&e[NPC] &bKat&f: &rI was able to upgrade your pet ${petDisplayName}&f to ${*}&f.&r', // petDisplayName contains old rarity, &e[NPC] &bKat&f: &rI was able to upgrade your pet &5Guardian&f to &6§LLEGENDARY&f.&r
-	'&e[NPC] &bKat&f: &b✆ &f&rHi! I\'ve finished training your ${petDisplayName}&f!&r' // petDisplayName contains new rarity, &e[NPC] &bKat&f: &b✆ &f&rHi! I've finished training your &5Guardian&f!&r
+	'&e[NPC] &bKat&f: &rI was able to upgrade your pet ${petDisplayName}&f to ${*}&f.', // petDisplayName contains old rarity, &e[NPC] &bKat&f: &rI was able to upgrade your pet &5Guardian&f to &6§LLEGENDARY&f.&r
+	'&e[NPC] &bKat&f: &b✆ &f&rHi! I\'ve finished training your ${petDisplayName}&f!' // petDisplayName contains new rarity, &e[NPC] &bKat&f: &b✆ &f&rHi! I've finished training your &5Guardian&f!&r
 ].forEach(entry => {
 	register("Chat", (petDisplayName, event) => {
 		lastKatUpgrade = {
 			lastPetClaimedAt: new Date(),
 			petDisplayName: petDisplayName
 		};
-	}).setCriteria(entry); 
+	}).setCriteria(entry).setStart(); 
 });
 
 export function isInSkyblock() {
@@ -139,7 +133,7 @@ export function getLastKatUpgrade() {
 }
 
 function setInSkyblock() {
-	const scoreboardTitle = Scoreboard.getTitle()?.removeFormatting();
+	const scoreboardTitle = Scoreboard.getTitle()?.toString()?.removeFormatting();
 	inSkyblock = scoreboardTitle ? scoreboardTitle.includes('SKYBLOCK') : false;
 }
 
@@ -149,11 +143,11 @@ function setWorldName() {
 		return;
 	}
 	
-	const world = TabList.getNames().find(tab => tab.includes("Area: "));
+	const world = TabList.getNames().find(tab => tab.toString().includes("Area: "));
 	if (!world) {
 		worldName = null;
 	} else {
-		const formattedName = world.removeFormatting();
+		const formattedName = world.toString().removeFormatting();
 		worldName = formattedName.substring(formattedName.indexOf(': ') + 2);
 	}
 }
@@ -164,11 +158,11 @@ function setZoneName() {
 		return;
 	}
 	
-	const zone = Scoreboard.getLines().find((line) => line.getName().includes('⏣'));
+	const zone = Scoreboard.getLines().find((line) => line.toString().includes('⏣'));
 	if (!zone) {
 		zoneName = null;
 	} else {
-		const plainName = zone.getName()?.removeFormatting();
+		const plainName = zone.toString()?.removeFormatting();
 		zoneName = plainName?.replace(/[^\u0000-\u007F]/g, '')?.trim(); // Abandoned🐍 Quarry
 
 		// Some lava in Phlegblast area does not belong to Phlegblast Pool zone but needs to be counted
@@ -199,7 +193,7 @@ function setHasFishingRodInHotbar() {
 		hasFishingRodInHotbar = false;
 	} else {
 		const rods = hotbarItems.filter(i => i && isFishingRod(i));
-		hasFishingRodInHotbar = rods && rods.length;	
+		hasFishingRodInHotbar = rods && rods.length;
 	}
 }
 

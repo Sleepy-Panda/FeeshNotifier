@@ -7,7 +7,7 @@ import { resetSeaCreaturesCountAndTimer } from "./features/overlays/seaCreatures
 import { pauseSeaCreaturesPerHourTracker } from "./features/overlays/seaCreaturesPerHourTracker";
 import { pauseWormMembraneProfitTracker } from "./features/overlays/wormMembraneProfitTracker";
 
-const pauseKeyBind = new Keybind("Pause active overlays", Keyboard.KEY_PAUSE, "FeeshNotifier");
+const pauseKeyBind = new Keybind("Pause active overlays", Keyboard.KEY_NONE, "FeeshNotifier");
 pauseKeyBind.registerKeyRelease(() => {
     pauseFishingProfitTracker();
     pauseSeaCreaturesPerHourTracker();

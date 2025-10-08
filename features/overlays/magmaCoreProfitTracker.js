@@ -67,11 +67,10 @@ const overlay = new Overlay(() => settings.magmaCoreProfitTrackerOverlay && isIn
 export function resetMagmaCoreProfitTracker(isConfirmed) {
     try {
         if (!isConfirmed) {
-            new Message(
-                new TextComponent(`${GOLD}[FeeshNotifier] ${WHITE}Do you want to reset Magma Core profit tracker? ${RED}${BOLD}[Click to confirm]`)
-                    .setClickAction('run_command')
-                    .setClickValue('/feeshResetMagmaCoreProfit noconfirm')
-            ).chat();
+            new TextComponent({
+                text: `${GOLD}[FeeshNotifier] ${WHITE}Do you want to reset Magma Core profit tracker? ${RED}${BOLD}[Click to confirm]`,
+                clickEvent: { action: 'run_command', value: '/feeshResetMagmaCoreProfit noconfirm' },
+            }).chat();
             return;
         }
     

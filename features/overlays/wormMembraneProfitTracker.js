@@ -9,6 +9,7 @@ import { overlayCoordsData } from "../../data/overlayCoords";
 import { getAuctionItemPrices } from "../../utils/auctionPrices";
 import { LEFT_CLICK_TYPE, Overlay, OverlayButtonLine, OverlayTextLine } from "../../utils/overlays";
 import { registerIf } from "../../utils/registers";
+import { GuiChest } from "../../constants/javaTypes";
 
 var totalMembranesCount = 0;
 var totalChambersCount = 0;
@@ -79,11 +80,10 @@ const overlay = new Overlay(() => settings.wormProfitTrackerOverlay && isInSkybl
 export function resetWormMembraneProfitTracker(isConfirmed) {
     try {
         if (!isConfirmed) {
-            new Message(
-                new TextComponent(`${GOLD}[FeeshNotifier] ${WHITE}Do you want to reset Worm profit tracker? ${RED}${BOLD}[Click to confirm]`)
-                    .setClickAction('run_command')
-                    .setClickValue('/feeshResetWormProfit noconfirm')
-            ).chat();
+            new TextComponent({
+                text: `${GOLD}[FeeshNotifier] ${WHITE}Do you want to reset Worm profit tracker? ${RED}${BOLD}[Click to confirm]`,
+                clickEvent: { action: 'run_command', value: '/feeshResetWormProfit noconfirm' },
+            }).chat();
             return;
         }
     
@@ -172,18 +172,17 @@ function detectInventoryChanges() {
             previousInventoryTotal = previousInventory.reduce((partialSum, a) => partialSum + a, 0);
         }
 
-        var heldItem = Player.getPlayer()?.field_71071_by?.func_70445_o();
-        if (heldItem) {
-            var item = new Item(heldItem);
-            if (item && item.getName()?.removeFormatting() === 'Worm Membrane') {
-                return; // Do not recalculate inventory while a player is moving a membrane
-            }
+        let screen = Client.getMinecraft().currentScreen;
+        if (screen && screen.getScreenHandler) {
+            let handler = screen.getScreenHandler();
+            let draggedItem = handler?.getCursorStack();
+            if (draggedItem && !draggedItem.isEmpty() && new Item(draggedItem)) return; // Do not recalculate inventory while a player is moving an item 
         }
 
         const currentInventory = getInventoryMembranes();
         const currentInventoryTotal = currentInventory.reduce((partialSum, a) => partialSum + a, 0);
 
-        let isInChest = Client.isInGui() && Client.currentGui?.getClassName() === 'GuiChest';
+        let isInChest = screen && screen instanceof GuiChest;
         if (!isInChest && currentInventoryTotal > previousInventoryTotal) {
             onWormMembranesAddedToInventory(previousInventoryTotal, currentInventoryTotal);
         }

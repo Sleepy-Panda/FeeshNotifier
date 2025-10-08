@@ -3,7 +3,7 @@ import { persistentData } from "../../data/data";
 import { GOLD, RED, WHITE } from "../../constants/formatting";
 import { getWorldName, hasFishingRodInHotbar, isInSkyblock } from "../../utils/playerState";
 import { MC_RANDOM_ORB_SOUND, OFF_SOUND_MODE } from "../../constants/sounds";
-import { getLore, isFishingHookActive, isInFishingWorld } from "../../utils/common";
+import { isFishingHookActive, isInFishingWorld } from "../../utils/common";
 import { USE_BAITS_FROM_FISHING_BAG_DISABLED, USE_BAITS_FROM_FISHING_BAG_ENABLED } from "../../constants/triggers";
 import { registerIf } from "../../utils/registers";
 import { playMcSound } from "../../utils/sound";
@@ -27,7 +27,7 @@ registerIf(
 );
 
 registerIf(
-    register('guiOpened', (event) => onFishingBagOpened(event)),
+    register('guiOpened', (screen, event) => onFishingBagOpened(event)),
     () => settings.alertOnFishingBagDisabled && isInSkyblock()
 );
 
@@ -63,8 +63,10 @@ function alertOnFishingBagDisabled() {
             playMcSound(MC_RANDOM_ORB_SOUND);
         }
 
-        const message = new TextComponent(`${GOLD}[FeeshNotifier] ${WHITE}Using baits from Fishing Bag is disabled. Click to open Fishing Bag!`).setClick("run_command", `/fb`);
-        ChatLib.chat(new Message([message]));
+        new TextComponent({
+            text: `${GOLD}[FeeshNotifier] ${WHITE}Using baits from Fishing Bag is disabled. Click to open Fishing Bag!`,
+            clickEvent: { action: 'run_command', value: '/fb' },
+        }).chat();
     } catch (e) {
         console.error(e);
         console.log(`[FeeshNotifier] Failed to check fishing bag state on catch.`);
@@ -78,7 +80,7 @@ function onFishingBagOpened(event) {
         }
     
         Client.scheduleTask(2, () => {
-            const chestName = event.gui.field_147002_h?.func_85151_d()?.func_145748_c_()?.text;
+            const chestName = event.guigui.getTitle()?.getString(); 
             if (!chestName || !chestName.includes('Fishing Bag')) {
                 return;
             }
@@ -90,8 +92,8 @@ function onFishingBagOpened(event) {
                 return;
             }
     
-            const itemLore = getLore(item);
-            const isEnabled = !!itemLore.find(line => line.includes('Click to disable!'));
+            const itemLore = item.getLore();
+            const isEnabled = !!itemLore.find(line => line.unformattedText.includes('Click to disable!'));
             setFishingBagState(isEnabled);
         });
     } catch (e) {

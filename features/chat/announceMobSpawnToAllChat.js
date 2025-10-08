@@ -46,6 +46,6 @@ function getMessage(seaCreature, isDoubleHooked) {
     const messageId = getMessageId();
 
     let message = '';
-    message += `${location} | ${seaCreature} ${isDoubleHooked ? 'x2' : '' }${zone ? ' at ' + zone.getName().removeFormatting() : ''} | ${messageId}`;
+    message += `${location} | ${seaCreature} ${isDoubleHooked ? 'x2' : '' }${zone ? ' at ' + zone.removeFormatting() : ''} | ${messageId}`;
     return message;
 }

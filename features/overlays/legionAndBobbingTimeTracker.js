@@ -43,7 +43,7 @@ function trackPlayersAndFishingHooksNearby() {
         .getAllEntitiesOfType(EntityFishHook)
         .filter(hook =>
             hook.distanceTo(Player.getPlayer()) <= bobbingTimeDistance &&
-            !hook.getEntity()?.field_146042_b?.getDisplayNameString()?.includes('Phantom Fisher')) // field_146042_b = angler
+            !hook.toMC()?.getPlayerOwner()?.getDisplayName()?.includes('Phantom Fisher'))
         .length;
 
     const players = getPlayerNamesInRange(legionDistance);

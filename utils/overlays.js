@@ -4,6 +4,7 @@ import { formatDate, formatNumberWithSpaces, formatTimeElapsedBetweenDates, isDo
 import { allOverlaysGui } from "../settings";
 import { isInChatOrInventoryGui } from "./common";
 import { registerIf } from "./registers";
+import { GuiInventory } from "../constants/javaTypes";
 
 export const LEFT_CLICK_TYPE = 'LEFT';
 export const CTRL_LEFT_CLICK_TYPE = 'CTRL+LEFT';
@@ -29,13 +30,15 @@ export class Overlay {
         this.registerIfFunc = registerIfFunc;
 
         registerIf(
-            register('renderOverlay', (event) => {
+            register('renderOverlay', () => {
                 if (!this.registerIfFunc()) {
                     this.clear();
                     return;
                 }
 
-                if (this.isClickable && Client?.currentGui?.getClassName() === 'GuiInventory') {
+                const screen = Client.getMinecraft().currentScreen;
+
+                if (this.isClickable && screen instanceof GuiInventory) {
                     return;
                 }
 
@@ -60,7 +63,9 @@ export class Overlay {
                     return;
                 }
 
-                if (!this.isClickable || Client?.currentGui?.getClassName() !== 'GuiInventory') {
+                const screen = Client.getMinecraft().currentScreen;
+
+                if (!this.isClickable || !(screen instanceof GuiInventory)) {
                     return;
                 }
 
@@ -70,7 +75,11 @@ export class Overlay {
         );
 
         registerIf(
-            register('guiMouseRelease', (x, y, mouseButton, gui, event) => {
+            register('guiMouseClick', (x, y, mouseButton, state, gui, event) => {
+                if (state) {
+                    return;
+                }
+
                 if (!this.registerIfFunc()) {
                     return;
                 }
@@ -82,7 +91,7 @@ export class Overlay {
                 const clickedLine = this.buttonLines.find(l => l._isHovered(x, y)) || this.textLines.find(l => l._isHovered(x, y));
                 if (!clickedLine) return;
 
-                const isCtrlPressed = Keyboard.isKeyDown(29) || Keyboard.isKeyDown(157); // 29 and 157 is LCTRL/RCTRL https://minecraft.fandom.com/wiki/Key_codes
+                const isCtrlPressed = Client.isControlDown();
 
                 switch (true) {
                     case mouseButton === 0 && isCtrlPressed: {
@@ -287,7 +296,7 @@ export class OverlayTextLine {
     }
 
     _setScale(overlayScale) {
-        const adjustedScale = this.isSmallerScale ? getAdjustedScale(overlayScale, SMALLER_LINE_SCALE_ADJUSTMENT) : overlayScale;
+        const adjustedScale = overlayScale; // TODO: Uncomment this.isSmallerScale ? getAdjustedScale(overlayScale, SMALLER_LINE_SCALE_ADJUSTMENT) : overlayScale;
         this.text.setScale(adjustedScale);
         return this;
     }
@@ -299,9 +308,11 @@ export class OverlayTextLine {
     }
 
     _isHovered(x, y) {
+        const scaledX = this.text.x * this.text.scale;
+        const scaledY = this.text.y * this.text.scale;
         return (
-            (x >= this.text.x && x <= this.text.x + this.width) &&
-            (y >= this.text.y && y < this.text.y + this.height * 0.85) // Fix for case when I click top of a line, it thinks that previous line is hovered
+            (x >= scaledX && x <= scaledX + this.width) &&
+            (y >= scaledY && y < scaledY + this.height/* 0.85*/) // Fix for case when I click top of a line, it thinks that previous line is hovered
         );
     }
 

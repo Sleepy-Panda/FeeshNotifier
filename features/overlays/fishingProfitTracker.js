@@ -7,11 +7,12 @@ import { FISHING_PROFIT_ITEMS } from "../../constants/fishingProfitItems";
 import { AQUA, BOLD, GOLD, GRAY, RESET, WHITE, RED, YELLOW } from "../../constants/formatting";
 import { getAuctionItemPrices, getPetRarityCode } from "../../utils/auctionPrices";
 import { getBazaarItemPrices } from "../../utils/bazaarPrices";
-import { formatElapsedTime, getCleanItemName, getItemsAddedToSacks, getLore, isFishingHookActive, isInChatOrInventoryGui, isInFishingWorld, isInSacksGui, isInSupercraftGui, splitArray, toShortNumber } from "../../utils/common";
+import { formatElapsedTime, getCleanItemName, getItemCustomData, getItemsAddedToSacks, isFishingHookActive, isInChatOrInventoryGui, isInFishingWorld, isInSacksGui, isInSupercraftGui, splitArray, toShortNumber } from "../../utils/common";
 import { getLastFishingHookSeenAt, getLastGuisClosed, getLastKatUpgrade, getWorldName, isInSkyblock } from "../../utils/playerState";
 import { playRareDropSound } from '../../utils/sound';
 import { registerIf } from '../../utils/registers';
 import { CTRL_LEFT_CLICK_TYPE, CTRL_MIDDLE_CLICK_TYPE, CTRL_RIGHT_CLICK_TYPE, LEFT_CLICK_TYPE, Overlay, OverlayButtonLine, OverlayTextLine } from '../../utils/overlays';
+import { GuiChest } from '../../constants/javaTypes';
 
 let previousInventory = [];
 let isSessionActive = false;
@@ -38,7 +39,7 @@ registerIf(
 );
 
 registerIf(
-    register("Chat", (event) => onAddedToSacks(event)).setCriteria('&6[Sacks] &r&a+').setStart(), // Items added to the sacks
+    register("Chat", (event) => onAddedToSacks(event)).setCriteria('[Sacks] +').setStart(), // Items added to the sacks
     () => settings.fishingProfitTrackerOverlay && isInSkyblock() && isInFishingWorld(getWorldName())
 );
 
@@ -62,12 +63,12 @@ triggers.ICE_ESSENCE_FISHED_TRIGGERS.forEach(trigger => {
 });
 
 registerIf(
-    register("Chat", (shardText, event) => onShardFished(shardText)).setCriteria(triggers.GOOD_CATCH_SHARD_MESSAGE).setStart(),
+    register("Chat", (shardText, event) => onShardFished(shardText)).setCriteria(triggers.GOOD_CATCH_SHARD_MESSAGE).setContains(),
     () => settings.fishingProfitTrackerOverlay && isInSkyblock() && isInFishingWorld(getWorldName())
 );
 
 registerIf(
-    register("Chat", (shardsText, event) => onShardCaughtInBlackHole(shardsText)).setCriteria(triggers.BLACK_HOLE_SHARD_MESSAGE).setStart(),
+    register("Chat", (shardsText, event) => onShardCaughtInBlackHole(shardsText)).setCriteria(triggers.BLACK_HOLE_SHARD_MESSAGE).setContains(),
     () => settings.fishingProfitTrackerOverlay && isInSkyblock() && isInFishingWorld(getWorldName())
 );
 
@@ -104,9 +105,17 @@ register("worldLoad", () => {
     isWorldLoaded = true;
 }); 
 
-settings.getConfig().onCloseGui(() => {
-    refreshPrices();
-    refreshOverlay();
+// TODO: Uncomment when implemented back in Amaterasu
+//settings.getConfig().onCloseGui(() => {
+//    refreshPrices();
+//    refreshOverlay();
+//});
+register("guiClosed", (gui) => {
+    if (!gui) return;
+    if (gui.getClass().getName() === 'com.chattriggers.ctjs.api.render.Gui') {
+        refreshPrices();
+        refreshOverlay();
+    }
 });
 
 register("gameUnload", () => {
@@ -122,10 +131,10 @@ const profitTrackerOverlay = new Overlay(() => settings.fishingProfitTrackerOver
 export function resetFishingProfitTracker(isConfirmed) {
     try {
         if (!isConfirmed) {
-            new Message(new TextComponent(`${GOLD}[FeeshNotifier] ${WHITE}Do you want to reset Fishing profit tracker? ${RED}${BOLD}[Click to confirm]`)
-                .setClickAction('run_command')
-                .setClickValue('/feeshResetProfitTracker noconfirm')
-            ).chat();
+            new TextComponent({
+                text: `${GOLD}[FeeshNotifier] ${WHITE}Do you want to reset Fishing profit tracker? ${RED}${BOLD}[Click to confirm]`,
+                clickEvent: { action: 'run_command', value: '/feeshResetProfitTracker noconfirm' },
+            }).chat();
             return;
         }
        
@@ -311,7 +320,7 @@ function onAddedToSacks(event) {
         if (isInSacksGui() || new Date() - lastGuisClosed.lastSacksGuiClosedAt < 15 * 1000) return; // Sacks closed < 15 seconds ago
         if (isInSupercraftGui() || new Date() - lastGuisClosed.lastSupercraftGuiClosedAt < 15 * 1000) return; // Supercraft closed < 15 seconds ago
 
-        const itemsAddedToSacks = getItemsAddedToSacks(EventLib.getMessage(event));
+        const itemsAddedToSacks = getItemsAddedToSacks(event.message);
         let isUpdated = false;
 
         for (let itemAddedToSack of itemsAddedToSacks) {
@@ -537,10 +546,11 @@ function detectInventoryChanges() {
             previousInventory = currentInventory;
         }
 
-        const heldItem = Player.getPlayer()?.field_71071_by?.func_70445_o();
-        if (heldItem) {
-            var item = new Item(heldItem);
-            if (item) return; // Do not recalculate inventory while a player is moving an item
+        let screen = Client.getMinecraft().currentScreen;
+        if (screen && screen.getScreenHandler) {
+            let handler = screen.getScreenHandler();
+            let draggedItem = handler?.getCursorStack();
+            if (draggedItem && !draggedItem.isEmpty() && new Item(draggedItem)) return; // Do not recalculate inventory while a player is moving an item 
         }
 
         const hasBarrier = (Player?.getInventory()?.getItems() || []).find(i => i?.getName() === 'Barrier'); // NEU slot binding replaces inventory items with Barriers
@@ -548,7 +558,7 @@ function detectInventoryChanges() {
         
         const currentInventory = getFishingProfitItemsInCurrentInventory();
 
-        let isInChest = Client.isInGui() && Client.currentGui?.getClassName() === 'GuiChest';
+        let isInChest = screen && screen instanceof GuiChest;
         if (!isInChest) {
             const uniqueItemIds = currentInventory.map(i => i.itemId).filter(id => !!id).filter((x, i, a) => a.indexOf(x) == i);
             let isUpdated = false;
@@ -592,24 +602,25 @@ function detectInventoryChanges() {
             let slotItemName = getCleanItemName(item?.getName());
 
             if (slotItemName === 'Enchanted Book') {
-                const loreLines = getLore(item);
-                const description = loreLines[0].removeFormatting();
+                const loreLines = item.getLore();
+                const description = loreLines[1].unformattedText;
                 slotItemName += ` (${description})`;
             }
 
             if (slotItemName.endsWith('Exp Boost')) {
-                const loreLines = getLore(item);
-                const description = loreLines.find(line => line.endsWith('PET ITEM')).removeFormatting().split(' ')[0];
+                const loreLines = item.getLore();
+                const description = loreLines.find(line => line.unformattedText.endsWith('PET ITEM')).unformattedText.split(' ')[0];
                 slotItemName += ` (${description})`;
             }
 
             if (slotItemName.startsWith('[Lvl 1] ')) {
-                const extraAttributes = item?.getNBT()?.getCompoundTag('tag')?.getCompoundTag('ExtraAttributes');
-                const nbtId = extraAttributes?.getString('id');
-                if (!nbtId || nbtId !== 'PET') {
-                    continue;
-                }
-                const petInfo = JSON.parse(extraAttributes?.getString('petInfo'));
+                const customData = getItemCustomData(item);
+                if (!customData) continue;
+        
+                const nbtId = customData.id;
+                if (!nbtId || nbtId !== 'PET') continue;
+
+                const petInfo = JSON.parse(customData.petInfo);
                 const rarity = petInfo?.tier;
                 slotItemName += ` (${rarity?.toUpperCase()})`;
             }

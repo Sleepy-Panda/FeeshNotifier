@@ -1,12 +1,12 @@
 import settings from '../../settings';
-import { DUNGEON_HUB, DUNGEONS, GARDEN, GLACITE_MINESHAFTS, KUUDRA, PRIVATE_ISLAND, RIFT, THE_END } from '../../constants/areas';
+import { DUNGEON_HUB, DUNGEONS, GALATEA, GARDEN, GLACITE_MINESHAFTS, KUUDRA, PRIVATE_ISLAND, RIFT, THE_END } from '../../constants/areas';
 import { EntityArmorStand } from '../../constants/javaTypes';
 import { getWorldName, isInSkyblock } from '../../utils/playerState';
 import { registerIf } from '../../utils/registers';
-import { getMcEntityById, getMcEntityId } from '../../utils/common';
+import { getMcEntityId } from '../../utils/common';
 
 const CHAT_COMMAND = 'pc';
-const EXCLUDED_WORLDS = [PRIVATE_ISLAND, RIFT, GARDEN, KUUDRA, DUNGEON_HUB, DUNGEONS, THE_END, GLACITE_MINESHAFTS];
+const EXCLUDED_WORLDS = [PRIVATE_ISLAND, RIFT, GARDEN, KUUDRA, DUNGEON_HUB, DUNGEONS, THE_END, GLACITE_MINESHAFTS, GALATEA];
 
 let slayerID = null;
 
@@ -43,12 +43,12 @@ function sendMessageOnRevenantSpawn() {
 
         const slayerOwnerArmorStandId = getMcEntityId(slayerOwnerArmorStand);
 
-        const slayerTypeArmorStand = getMcEntityById(slayerOwnerArmorStandId - 2);
-        if (!slayerTypeArmorStand || !(slayerTypeArmorStand instanceof net.minecraft.entity.item.EntityArmorStand)) {
+        const slayerTypeArmorStand = entities.find(entity => entity.toMC().getId() === slayerOwnerArmorStandId - 2);
+        if (!slayerTypeArmorStand) {
             return;
         }
-    
-        const slayerTypeArmorStandName = slayerTypeArmorStand.func_95999_t()?.removeFormatting(); // func_95999_t -> getCustomNameTag()
+
+        const slayerTypeArmorStandName = slayerTypeArmorStand.getName()?.removeFormatting();
         if (slayerTypeArmorStandName.endsWith(' 0❤') || (!slayerTypeArmorStandName.includes('☠ Revenant Horror') && !slayerTypeArmorStandName.includes('☠ Atoned Horror'))) {
             return;
         }

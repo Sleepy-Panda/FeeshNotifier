@@ -1,7 +1,7 @@
 import { NO_FISHING_WORLDS } from '../constants/areas';
 import { RED, DARK_GRAY, BLUE, WHITE, BOLD, RESET, GOLD, GRAY } from '../constants/formatting';
-import { NBTTagString } from '../constants/javaTypes';
-import { EntityFishHook, NBTTagString } from '../constants/javaTypes';
+import { DataComponentTypes, GuiChat, GuiChest, GuiInventory, JsonOps, NbtOps } from '../constants/javaTypes';
+import { EntityFishHook } from '../constants/javaTypes';
 import { DOUBLE_HOOK_MESSAGES, HURRICANE_BOTTLE_CHARGED_MESSAGE, REINDRAKE_SPAWNED_BY_ANYONE_MESSAGE, STORM_BOTTLE_CHARGED_MESSAGE, THUNDER_BOTTLE_CHARGED_MESSAGE } from '../constants/triggers';
 
 // Double hook reindrakes may produce the following messages history:
@@ -21,6 +21,7 @@ import { DOUBLE_HOOK_MESSAGES, HURRICANE_BOTTLE_CHARGED_MESSAGE, REINDRAKE_SPAWN
 export function isDoubleHook() {
 	const history = ChatLib.getChatLines()?.filter(l => // Those messages appear between double hook and catch messages for Reindrake / Thunder
 		l !== '&r' &&
+		!l.includes('has spawned.') && // Compacted sea creature catch message
 		!l.includes(REINDRAKE_SPAWNED_BY_ANYONE_MESSAGE) &&
 		!l.includes(THUNDER_BOTTLE_CHARGED_MESSAGE) &&
 		!l.includes(STORM_BOTTLE_CHARGED_MESSAGE) &&
@@ -68,7 +69,7 @@ export function getDropTitle(item, rarityColorCode) {
 
 export function getColoredPlayerNameFromDisplayName() {
 	const displayName = Player.getDisplayName(); // [Level] Nickname, e.g. §r§r§8[§d326§8] §bMoonTheSadFisher §7α§r§7
-	const nameWithoutLevel = displayName.getText().split('] ').pop();
+	const nameWithoutLevel = displayName.toString().split('] ').pop();
 	const name = nameWithoutLevel.split(' ')[0];
 	return name;
 }
@@ -89,8 +90,9 @@ export function getPlayerNameFromPartyChat(playerAndRank) { // Input: &b[MVP&d+&
 // Messages have the following format:
 // &r&9Party &8> &b[MVP&d+&b] DeadlyMetal&f: &r--> A YETI has spawned <--&r
 // &r&9Компания &8> &b[MVP] PivoTheSadFisher&f: &r--> A Deep Sea Orb has dropped <--&r
+// MC 1.21.5: &r&9Party &8> &6[MVP&3++&6] vadim31&f: &r--> A THE LOCH EMPEROR has spawned <--
 export function getPartyChatMessage(baseMessage) {
-	return `${RESET}${BLUE}` + "${*}" + ` ${DARK_GRAY}> ` + "${rankAndPlayer}" + `${WHITE}: ${RESET}${baseMessage}${RESET}`;
+	return `${RESET}${BLUE}` + "${*}" + ` ${DARK_GRAY}> ` + "${rankAndPlayer}" + `${WHITE}: ${RESET}${baseMessage}`;
 	// To test using Co-op chat:
 	// return `${RESET}${AQUA}Co-op > ` + "${rankAndPlayer}" + `${WHITE}: ${RESET}${baseMessage}${RESET}`;
 }
@@ -265,7 +267,9 @@ export function splitArray(array, count) {
 }
 
 export function isInChatOrInventoryGui() {
-	return Client.isInGui() && (Client.currentGui?.getClassName() === 'GuiInventory' || Client.currentGui?.getClassName() === 'GuiChatOF');
+	const screen = Client.getMinecraft().currentScreen;
+	if (!screen) return;
+	return screen instanceof GuiChat || screen instanceof GuiInventory;
 }
 
 export function isInSacksGui() {
@@ -280,10 +284,10 @@ export function isInSupercraftGui() {
 
 export function getItemsAddedToSacks(eventMessage) {
 	let items = [];
+	
+	const addedItemsMessage = eventMessage.getSiblings().find(part => part?.getStyle()?.hoverEvent?.value().getString()?.includes('Added items:'))
+		?.getStyle().hoverEvent.value().getString() || '';
 
-	const addedItemsMessage = new Message(eventMessage)
-        .getMessageParts()
-        .find(part => part.getHoverValue()?.includes('Added items:'))?.hoverValue || '';
     if (!addedItemsMessage) {
         return items;
     }
@@ -309,7 +313,7 @@ export function getItemsAddedToSacks(eventMessage) {
 }
 
 export function getCleanItemName(itemName) {
-    if (itemName && /.+ §8x[\d]+$/.test(itemName)) { // Booster cookie menu or NPCs append the amount to the item name - e.g. §9Fish Affinity Talisman §8x1
+    if (itemName && /.+ §r§8x[\d]+$/.test(itemName)) { // Booster cookie menu or NPCs append the amount to the item name - e.g. §9Fish Affinity Talisman §8x1
         const itemNameParts = itemName.split(' ');
         itemNameParts.pop();
         itemName = itemNameParts.join(' ');
@@ -325,7 +329,8 @@ export function getCleanItemName(itemName) {
  */
 export function isFishingRod(item) {
 	if (!item) return false;
-    const isRod = (!item.getName()?.includes('Carnival Rod') && getLore(item).some(loreLine => loreLine.includes('FISHING ROD') || loreLine.includes('FISHING WEAPON')));
+
+    const isRod = (!item.getName()?.removeFormatting()?.includes('Carnival Rod') && item.getLore().some(loreLine => loreLine.toString().includes('FISHING ROD') || loreLine.toString().includes('FISHING WEAPON')));
 	return isRod;
 }
 
@@ -336,8 +341,8 @@ export function isFishingRod(item) {
 export function getPlayerFishingHook() {
 	return World.getAllEntitiesOfType(EntityFishHook)
 		.find(e =>
-			Player.getPlayer().field_71104_cf == e.getEntity() || // field_71104_cf = fishEntity
-			e.getEntity()?.field_146042_b?.getDisplayNameString() === Player.getName() // field_146042_b = angler
+			Player.getPlayer().fishHook == e.toMC() ||
+			e.toMC()?.getPlayerOwner()?.getDisplayName()?.removeFormatting() === Player.getName().removeFormatting()
 		);
 }
 
@@ -411,60 +416,18 @@ export function formatElapsedTimeWithUnits(elapsedSeconds) {
 }
 
 /**
- * Get item's lore lines without item name. Native Item.getLore() interferes with other mods, e.g. it causes Skyhanni's estimated item value overlay to flash in /pv
- * @param {Item} item
- * @returns {array} Array of strings with lore lones
- */
-export function getLore(item) {
-	if (!item) {
-		return [];
-	}
-
-    return item.getNBT().getCompoundTag('tag')?.getCompoundTag('display')?.toObject()?.Lore || [];
-}
-
-// Credits VolcAddons
-/**
- * Adds a line combined from prefix and value, to the item's lore. If item's lore already contains the specified prefix, then line's value is updated by this prefix.
- * Example: for prefix "Expertise kills: " and value "800K", the added/updated lore line will be "Expertise kills: 800K"
- * @param {Item} item - Item whose lore to be modified
- * @param {string} prefix - String key to decide whether the line is already present in item's lore
- * @param {string} value - String value
- */
-export function addLineToLore(item, prefix, value) {
-	let loreLine = prefix + value;
-
-	const loreTag = item.getNBT()?.getCompoundTag('tag')?.getCompoundTag('display')?.getTagMap()?.get('Lore');
-	if (!loreTag) {
-		return;
-	}
-
-	const list = new NBTTagList(loreTag);
-
-	for (let i = 0; i < list.getTagCount(); i++) {
-		if (list.getStringTagAt(i).includes(prefix)) {
-			list.set(i, new NBTTagString(loreLine));
-			return;
-		}
-	}
-
-	list.appendTag(new NBTTagString(loreLine));
-}
-
-/**
  * Get item's attributes (if any).
  * @param {Item} item
  * @returns {array} Array of item's attributes in format [{ "attributeCode": "life_regeneration", "attributeLevel": 5 }]
  */
 export function getItemAttributes(item) {
-	if (!item) {
-		return [];
-	}
+	if (!item) return [];
 
-    const itemAttributes = item?.getNBT()?.getCompoundTag('tag')?.getCompoundTag('ExtraAttributes')?.getCompoundTag('attributes')?.toObject();
-    if (!itemAttributes) {
-        return [];
-    }
+	const customData = getItemCustomData(item);
+    if (!customData) return [];
+
+    const itemAttributes = customData.attributes;
+    if (!itemAttributes) return [];
 
     var attributes = [];
     Object.keys(itemAttributes).sort().forEach(attributeCode => {
@@ -500,8 +463,8 @@ export function getMessageId() {
  * @returns {string} Formatted zone name if exists, or empty string
  */
 export function getZoneName() {
-	const zoneLine = Scoreboard.getLines().find((line) => line.getName().includes('⏣'));
-	return zoneLine?.trim() || '';
+	const zoneLine = Scoreboard.getLines().find((line) => line.toString().includes('⏣'));
+	return zoneLine?.toString()?.trim() || '';
 }
 
 /**
@@ -519,8 +482,8 @@ export function isInFishingWorld(worldName) {
  * @returns {number} ID
  */
 export function getMcEntityId(entity) {
-    if (!entity || !entity.entity) return;
-    return entity.entity.func_145782_y(); // func_145782_y() -> getEntityId()
+    if (!entity || !entity.toMC()) return;
+    return entity.toMC().getId();
 }
 
 /**
@@ -530,12 +493,32 @@ export function getMcEntityId(entity) {
  */
 export function getMcEntityById(id) {
     if (!id) return;
-    return World.getWorld()?.func_73045_a(id); // func_73045_a() -> getEntityByID()
+    return World.getWorld()?.getEntityById(id);
+}
+
+/**
+ * Get item's custom data (old NBT) as object.
+ * @param {Item} item
+ * @returns {object}
+ */
+export function getItemCustomData(item) {
+	if (!item) return null;
+
+	const customDataMc = item.getNBT()?.get(DataComponentTypes.CUSTOM_DATA);
+	if (!customDataMc) return null;
+
+	const customDataJson = NbtOps.INSTANCE.convertTo(JsonOps.INSTANCE, customDataMc.copyNbt()).asJsonObject;
+	const customData = JSON.parse(customDataJson);
+
+	return customData;
 }
 
 function getCurrentGuiChestName() {
-	if (Client.isInGui() && Client.currentGui?.getClassName() === 'GuiChest') {
-		const chestName = Client.currentGui?.get()?.field_147002_h?.func_85151_d()?.func_145748_c_()?.text;
+	if (!Client.isInGui()) return null;
+
+	const currentScreen = Client.getMinecraft().currentScreen;
+	if (currentScreen && currentScreen instanceof GuiChest) {
+		const chestName = currentScreen.getTitle().getString();
 		return chestName;
 	}
 	return null;

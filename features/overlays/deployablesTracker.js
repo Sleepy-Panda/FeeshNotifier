@@ -6,7 +6,7 @@ import { TIMER_SOUND_SOURCE, OFF_SOUND_MODE } from "../../constants/sounds";
 import { WHITE, RED, DARK_PURPLE, GOLD, BLUE } from "../../constants/formatting";
 import { isInSkyblock } from "../../utils/playerState";
 import { registerIf } from "../../utils/registers";
-import { getMcEntityById, getMcEntityId } from "../../utils/common";
+import { getMcEntityId } from "../../utils/common";
 
 const currentPlayer = Player.getName();
 const secondsBeforeExpiration = 10;
@@ -41,7 +41,7 @@ registerIf(
 
 // Those deployables have no player name in their nametag, so we need to track item interaction to detect current player's deployable and ignore deployables from others.
 registerIf(
-    register("playerInteract", (action, pos, event) => handleDeployableInteraction(action)),
+    register("playerInteract", (playerInteraction, obj, event) => handleDeployableInteraction(obj)),
     () => (
         isInSkyblock() &&
         (settings.alertOnDeployableExpiresSoon && (settings.alertOnUmberellaExpiresSoon || settings.alertOnFlareExpiresSoon)) ||
@@ -135,17 +135,21 @@ function trackDeployablesStatus() {
     trackFlareStatus();
 }
 
-function handleDeployableInteraction(action) {
+function handleDeployableInteraction(obj) {
     try {
-        if (!isInSkyblock() || !action.toString().includes('RIGHT_CLICK')) return;
+        if (!isInSkyblock()) return;
 
-        const heldItemName = Player.getHeldItem()?.getName();
+        // InternalError: Invalid JavaScript value of type com.chattriggers.ctjs.api.world.block.Block (moduleProvided#314)
 
-        if (isUmberellaTrackingEnabled() && heldItemName?.includes('Umberella')) {
+        //console.log(obj)
+        //const heldItemName = Player.getHeldItem()?.getName();
+
+        if (isUmberellaTrackingEnabled() && obj?.getName()?.includes('Umberella')) {
+            //console.log('Umber')
             setTimeout(() => trackUmberellaNearby(heldItemName), 250); // Give time for a Umberella to appear after click
         }
         
-        if (isFlareTrackingEnabled() && heldItemName?.includes('Flare')) {
+        if (isFlareTrackingEnabled() && obj?.getName()?.includes('Flare')) {
             if (new Date() - remainingTimes.flare.lastPlacedAt < 500) return; // sometimes playerInteract event happens multiple times
             setTimeout(() => trackFlareRocketNearby(heldItemName), 500); // Give time for a firework rocket to appear after click
         }  
@@ -200,19 +204,20 @@ function trackTotemStatus(entities) {
         }
     
         const ownerArmorStandId = getMcEntityId(ownerArmorStand);
-        const totemArmorStand = getMcEntityById(ownerArmorStandId - 2);
-        if (!totemArmorStand || !(totemArmorStand instanceof EntityArmorStand)) return;
+        const totemArmorStand = entities.find(entity => entity.toMC().getId() === ownerArmorStandId - 2);
+        if (!totemArmorStand) return;
     
-        const totemArmorStandName = totemArmorStand.func_95999_t()?.removeFormatting(); // func_95999_t -> getCustomNameTag()
+        const totemArmorStandName = totemArmorStand.getName()?.removeFormatting();
         if (totemArmorStandName !== 'Totem of Corruption') {
             resetTotem();
             return;
         }
     
-        const remainingArmorStand = getMcEntityById(ownerArmorStandId - 1);
-        if (!remainingArmorStand || !(remainingArmorStand instanceof EntityArmorStand)) return;
+        const remainingArmorStand = entities.find(entity => entity.toMC().getId() === ownerArmorStandId - 1);
+        if (!remainingArmorStand) return;
     
-        const remainingArmorStandName = remainingArmorStand.func_95999_t()?.removeFormatting(); // func_95999_t -> getCustomNameTag()
+        const remainingArmorStandName = remainingArmorStand.getName()?.removeFormatting();
+
         if (!remainingArmorStandName?.includes('Remaining: ')) {
             resetTotem();
             return;
@@ -250,10 +255,10 @@ function trackBlackHoleStatus(entities) {
         }
     
         const ownerArmorStandId = getMcEntityId(ownerArmorStand);
-        const blackHoleArmorStand = getMcEntityById(ownerArmorStandId + 1);
-        if (!blackHoleArmorStand || !(blackHoleArmorStand instanceof EntityArmorStand)) return;
+        const blackHoleArmorStand = entities.find(entity => entity.toMC().getId() === ownerArmorStandId + 1);
+        if (!blackHoleArmorStand) return;
     
-        const blackHoleArmorStandName = blackHoleArmorStand.func_95999_t()?.removeFormatting(); // func_95999_t -> getCustomNameTag()
+        const blackHoleArmorStandName = blackHoleArmorStand.getName()?.removeFormatting();
         if (!blackHoleArmorStandName.startsWith('Black Hole')) {
             resetBlackHole();
             return;

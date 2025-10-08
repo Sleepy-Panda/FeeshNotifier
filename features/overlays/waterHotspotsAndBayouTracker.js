@@ -71,11 +71,10 @@ const overlay = new Overlay(() => settings.waterHotspotsAndBayouTrackerOverlay &
 export function resetWaterHotspotsAndBayouTracker(isConfirmed) {
     try {
         if (!isConfirmed) {
-            new Message(
-                new TextComponent(`${GOLD}[FeeshNotifier] ${WHITE}Do you want to reset Water Hotspots & Bayou tracker? ${RED}${BOLD}[Click to confirm]`)
-                    .setClickAction('run_command')
-                    .setClickValue('/feeshResetWaterHotspotsAndBayou noconfirm')
-            ).chat();
+            new TextComponent({
+                text: `${GOLD}[FeeshNotifier] ${WHITE}Do you want to reset Water Hotspots & Bayou tracker? ${RED}${BOLD}[Click to confirm]`,
+                clickEvent: { action: 'run_command', value: '/feeshResetWaterHotspotsAndBayou noconfirm' },
+            }).chat();
             return;
         }
     

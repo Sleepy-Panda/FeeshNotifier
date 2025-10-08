@@ -296,9 +296,9 @@ allOverlaysGui.registerKeyTyped((char, keyCode) => {
         return;
     }
 
-    if (keyCode == 13) { // "+" character
+    if (keyCode == 61) { // "+" character
         zoomInCurrentGui(selectedGui);
-    } else if (keyCode == 12) { // "-" character
+    } else if (keyCode == 45) { // "-" character
         zoomOutCurrentGui(selectedGui);
     }
 });
@@ -329,9 +329,12 @@ function isInOverlay(sampleGui, x, y) {
         return false;
     }
 
-    if (x >= sampleGui.guiSettings.x && x <= sampleGui.guiSettings.x + sampleGui.width &&
-        y >= sampleGui.guiSettings.y && y <= sampleGui.guiSettings.y + sampleGui.height
-    ) {
+    const scaledX = sampleGui.guiSettings.x * sampleGui.guiSettings.scale;
+    const scaledY = sampleGui.guiSettings.y * sampleGui.guiSettings.scale;
+
+    if (x >= scaledX && x <= scaledX + sampleGui.width &&
+        y >= scaledY && y <= scaledY + sampleGui.height
+    ) {    
         return true;
     } else {
         return false;
@@ -355,8 +358,8 @@ function renderSampleOverlays() {
 }
 
 function moveCurrentGui(selectedGui, x, y) {
-    selectedGui.guiSettings.x = x;
-    selectedGui.guiSettings.y = y;
+    selectedGui.guiSettings.x = x / selectedGui.guiSettings.scale;
+    selectedGui.guiSettings.y = y / selectedGui.guiSettings.scale;
     overlayCoordsData.save();
 }
 

@@ -38,7 +38,7 @@ triggers.RARE_CATCH_TRIGGERS.forEach(entry => {
                 player: getColoredPlayerNameFromPartyChat(rankAndPlayer),
                 suppressIfSamePlayer: true
             })
-        ).setCriteria(getPartyChatMessage(getCatchMessage(entry.seaCreature))),
+        ).setCriteria(getPartyChatMessage(getCatchMessage(entry.seaCreature))).setStart(),
         () => settings[entry.isAlertEnabledSettingKey] && isInSkyblock() && isInFishingWorld(getWorldName())
     );
 
@@ -55,7 +55,7 @@ triggers.RARE_CATCH_TRIGGERS.forEach(entry => {
                 player: getColoredPlayerNameFromPartyChat(rankAndPlayer),
                 suppressIfSamePlayer: true
             })
-        ).setCriteria(getPartyChatMessage(getDoubleHookCatchMessage(entry.seaCreature))),
+        ).setCriteria(getPartyChatMessage(getDoubleHookCatchMessage(entry.seaCreature))).setStart(),
         () => settings[entry.isAlertEnabledSettingKey] && isInSkyblock() && isInFishingWorld(getWorldName())
     );
 

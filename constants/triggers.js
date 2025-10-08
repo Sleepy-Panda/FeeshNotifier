@@ -35,7 +35,7 @@ export const REINDRAKE_MESSAGE = `${GREEN}A Reindrake forms from the depths.`; /
 export const NUTCRACKER_MESSAGE = `${GREEN}You found a forgotten Nutcracker laying beneath the ice.`;
 export const FROZEN_STEVE_MESSAGE = `${GREEN}Frozen Steve fell into the pond long ago, never to resurface...until now!`;
 export const FROSTY_MESSAGE = `${GREEN}It's a snowman! He looks harmless.`;
-export const GRINCH_MESSAGE = `${GREEN}The Grinch stole Jerry's ${RESET}${GREEN}Gifts...get${RESET}${GREEN} them back!`;
+export const GRINCH_MESSAGE = `${GREEN}The Grinch stole Jerry's ${RESET}Gifts...get${RESET} them back!`; // &r&aThe Grinch stole Jerry's &rGifts...get&r them back!
 
 // SPOOKY SEA CREATURES
 
@@ -60,7 +60,7 @@ export const FIERY_SCUTTLER_MESSAGE = `${RESET}${RED}A Fiery Scuttler inconspicu
 export const THUNDER_MESSAGE = `${RESET}${RED}${BOLD}You hear a massive rumble as Thunder emerges.`; // &r&c&lYou hear a massive rumble as Thunder emerges.
 export const LORD_JAWBUS_MESSAGE = `${RESET}${RED}${BOLD}You have angered a legendary creature... Lord Jawbus has arrived.`; // &r&c&lYou have angered a legendary creature... Lord Jawbus has arrived.
 export const PLHLEGBLAST_MESSAGE = `${GREEN}WOAH! A Plhlegblast appeared.`;
-export const RAGNAROK_MESSAGE = `${RESET}${RED}${RESET}${RED}${BOLD}The sky darkens and the air thickens. The end times are upon us: Ragnarok is here.`; // &r&c&r&c&lThe sky darkens and the air thickens. The end times are upon us: Ragnarok is here.
+export const RAGNAROK_MESSAGE = `${RESET}${RED}${BOLD}The sky darkens and the air thickens. The end times are upon us: Ragnarok is here.`; // &r&c&lThe sky darkens and the air thickens. The end times are upon us: Ragnarok is here.
 export const VANQUISHER_MESSAGE = `A ${RESET}${RED}Vanquisher ${RESET}${GREEN}is spawning nearby!`; // A &r&cVanquisher &r&ais spawning nearby!
 
 // OASIS SEA CREATURES
@@ -108,13 +108,19 @@ export const BOGGED_MESSAGE = `${RESET}${GREEN}You've hooked a Bogged!`;
 
 // DROPS
 
-export const BABY_YETI_PET_LEG_MESSAGE = `PET DROP! ${RESET}${GOLD}Baby Yeti`; // PET DROP! &r&6Baby Yeti
-export const BABY_YETI_PET_EPIC_MESSAGE = `PET DROP! ${RESET}${DARK_PURPLE}Baby Yeti`; // PET DROP! &r&5Baby Yeti
-export const FLYING_FISH_PET_LEG_MESSAGE = `PET DROP! ${RESET}${GOLD}Flying Fish`;
-export const FLYING_FISH_PET_EPIC_MESSAGE = `PET DROP! ${RESET}${DARK_PURPLE}Flying Fish`;
-export const FLYING_FISH_PET_RARE_MESSAGE = `PET DROP! ${RESET}${BLUE}Flying Fish`;
-export const MEGALODON_PET_LEG_MESSAGE = `PET DROP! ${RESET}${GOLD}Megalodon`;
-export const MEGALODON_PET_EPIC_MESSAGE = `PET DROP! ${RESET}${DARK_PURPLE}Megalodon`;
+// PET DROP! &r&6Baby Yeti
+// §r§6§lPET DROP! §r§6Baby Yeti§r
+export const BABY_YETI_PET_LEG_MESSAGE = `PET DROP!`+ '${*}' + `${GOLD}Baby Yeti`;
+// PET DROP! &r&5Baby Yeti
+// §r§6§lPET DROP! §r§5Baby Yeti§r
+export const BABY_YETI_PET_EPIC_MESSAGE = `PET DROP!`+ '${*}' + `${DARK_PURPLE}Baby Yeti`;
+// &r&6&lPET DROP! &6&lLEGENDARY &6Flying Fish - 1.21 (modified by SH)
+// &r&6&lPET DROP! &r&6Flying Fish&r
+export const FLYING_FISH_PET_LEG_MESSAGE = `PET DROP!`+ '${*}' + `${GOLD}Flying Fish`; 
+export const FLYING_FISH_PET_EPIC_MESSAGE = `PET DROP!`+ '${*}' + `${DARK_PURPLE}Flying Fish`;
+export const FLYING_FISH_PET_RARE_MESSAGE = `PET DROP!`+ '${*}' + `${BLUE}Flying Fish`;
+export const MEGALODON_PET_LEG_MESSAGE = `PET DROP!`+ '${*}' + `${GOLD}Megalodon`;
+export const MEGALODON_PET_EPIC_MESSAGE = `PET DROP!`+ '${*}' + `${DARK_PURPLE}Megalodon`;
 
 const MAGIC_FIND_MESSAGE_PATTERN = `${RESET}${AQUA}(+${RESET}${AQUA}` + '${magicFind}' + ` ${RESET}${AQUA}✯ Magic Find${RESET}${AQUA})`; // &r&b(+&r&b236 &r&b✯ Magic Find&r&b)
 
@@ -146,7 +152,7 @@ export const SQUID_PET_COMMON_MESSAGE = `${GREAT_CATCH_MESSAGE} ${RESET}${WHITE}
 
 // OTHER
 
-export const DOUBLE_HOOK_MESSAGES = [ '&r&eIt\'s a &r&aDouble Hook&r&e! Woot woot!&r', '&r&eIt\'s a &r&aDouble Hook&r&e!&r', '§r§eIt\'s a §r§aDouble Hook§r§e! Woot woot!', '§r§eIt\'s a §r§aDouble Hook§r§e!' ];
+export const DOUBLE_HOOK_MESSAGES = [ '&r&eIt\'s a &r&aDouble Hook&r&e! Woot woot!&r', '&r&eIt\'s a &r&aDouble Hook&r&e!&r', '&r&eIt\'s a &r&aDouble Hook&r&e! Woot woot!', '&r&eIt\'s a &r&aDouble Hook&r&e!', '§r§eIt\'s a §r§aDouble Hook§r§e! Woot woot!', '§r§eIt\'s a §r§aDouble Hook§r§e!' ];
 
 export const KILLED_BY_THUNDER_MESSAGE = `${RESET}${GRAY}You were killed by Thunder${RESET}${GRAY}${RESET}${GRAY}.`; // &r&7You were killed by Thunder&r&7&r&7.
 export const KILLED_BY_LORD_JAWBUS_MESSAGE = `${RESET}${GRAY}You were killed by Lord Jawbus${RESET}${GRAY}${RESET}${GRAY}.`; // &r&7You were killed by Lord Jawbus&r&7&r&7.
@@ -177,6 +183,7 @@ export const GOOD_CATCH_SHARD_MESSAGE = `${GOOD_CATCH_MESSAGE} ${RESET}${WHITE}Y
 // &aYou caught a &fSea Archer &aShard!&r
 // &aYou caught &7x4 &fSea Archer &aShards&a!&r
 // &aYou caught &7x4 &9Carrot King &aShards&a!&r
+// 1.21: &r&aYou caught &7x2 &5Loch Emperor &aShards&a!
 export const BLACK_HOLE_SHARD_MESSAGE = `${GREEN}You caught ` + "${shardsText}" + ` ${GREEN}Shard`;
 
 // &5&lCHARM&7 You charmed a &5Loch Emperor&7 and captured its &9Shard&7.

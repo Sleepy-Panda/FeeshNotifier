@@ -81,9 +81,9 @@ register("scrolled", (x, y, direction) => {
 });
 
 register("guiKey", (char, keyCode, gui, event) => {
-    if (keyCode == 13) { // "+" character
+    if (keyCode == 61) { // "+" character
         zoomInCurrentGui();
-    } else if (keyCode == 12) { // "-" character
+    } else if (keyCode == 45) { // "-" character
         zoomOutCurrentGui();
     }
 });
@@ -94,8 +94,8 @@ function moveCurrentGui(x, y) {
         return;
     }
 
-    selectedGui.guiSettings.x = x;
-    selectedGui.guiSettings.y = y;
+    selectedGui.guiSettings.x = x / selectedGui.guiSettings.scale;
+    selectedGui.guiSettings.y = y / selectedGui.guiSettings.scale;
     overlayCoordsData.save();
 }
 

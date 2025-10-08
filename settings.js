@@ -22,7 +22,7 @@ export const archfiendDiceProfitTrackerOverlayGui = new Gui();
 export const treasureFishingTrackerOverlayGui = new Gui();
 export const fishingProfitTrackerOverlayGui = new Gui();
 
-const categories = ["General", "Chat", "Alerts", "Overlays", "Items and storages", "Rendering", "Commands", "Dev"]
+const categories = ["General", "Chat", "Alerts", "Overlays", "Items and storages", "Rendering", "Commands"]
 const config = new DefaultConfig("FeeshNotifier", "config/settings.json")
 
 .addButton({
@@ -149,7 +149,7 @@ const config = new DefaultConfig("FeeshNotifier", "config/settings.json")
     category: "Chat",
     configName: "messageOnTheLochEmperorCatch",
     title: "Send a party chat message on THE LOCH EMPEROR catch",
-    description: `Sends a party chat message when a rare sea creature has caught by you.\n${RED}Unavailable until the module is migrated to work on MC 1.21!`,
+    description: `Sends a party chat message when a rare sea creature has caught by you.`,
     subcategory: "Rare Catches",
     value: true
 })
@@ -729,7 +729,7 @@ const config = new DefaultConfig("FeeshNotifier", "config/settings.json")
     category: "Alerts",
     configName: "alertOnTheLochEmperorCatch",
     title: "Alert on THE LOCH EMPEROR catch",
-    description: `Shows a title and plays a sound when a rare sea creature has caught by you or your party members.\n${RED}Unavailable until the module is migrated to work on MC 1.21!`,
+    description: `Shows a title and plays a sound when a rare sea creature has caught by you or your party members.`,
     subcategory: "Rare Catches",
     value: true
 })
@@ -1012,7 +1012,7 @@ const config = new DefaultConfig("FeeshNotifier", "config/settings.json")
     category: "Overlays",
     configName: "pauseButtonKeybindInformationText",
     title: "Pause button",
-    description: "Set a keybind in Minecraft's Controls menu to pause all active overlays on button pressed. Default button is PAUSE.",
+    description: "Set a keybind in Minecraft's Controls menu to pause all active overlays on button pressed.",
     subcategory: "General"
 })
 
@@ -1767,14 +1767,6 @@ ${GRAY}Do ${AQUA}/feeshResetProfitTracker${GRAY} to reset.`,
 })
 
 .addSwitch({
-    category: "Items and storages",
-    configName: "showFishingRodExpertiseKills",
-    title: "Fishing rod expertise",
-    description: "Render expertise kills in fishing rod's lore if it has Expertise enchant.",
-    subcategory: "Item lore"
-})
-
-.addSwitch({
     category: "Rendering",
     configName: "renderFishingHookTimer",
     title: "Render fishing hook timer",
@@ -1795,8 +1787,8 @@ ${GRAY}Do ${AQUA}/feeshResetProfitTracker${GRAY} to reset.`,
     configName: "renderFishingHookTimerSize",
     title: "Fishing hook timer size",
     description: "Text size for rendered fishing hook timer.",
-    options: [1, 25],
-    value: 5,
+    options: [1, 10],
+    value: 3,
     subcategory: "Fishing Hook"
 })
 .addTextInput({
@@ -1926,26 +1918,12 @@ ${GRAY}Do ${AQUA}/feeshResetProfitTracker${GRAY} to reset.`,
     }
 })
 
-.addTextParagraph({
-    category: "Dev",
-    configName: "devInformationText",
-    title: "Dev section info",
-    description: "Debug features not needed for regular players, but useful for the mod developer.",
-})
-.addSwitch({
-    category: "Dev",
-    configName: "showItemId",
-    title: "Skyblock item ID",
-    description: "Render Skyblock item ID in item's lore if applicable.",
-    subcategory: "Items",
-})
-
 const setting = new Settings("FeeshNotifier", config, "data/ColorScheme.json", `${AQUA}α ${AQUA}${BOLD}FeeshNotifier ${RESET}${WHITE}v${JSON.parse(FileLib.read("FeeshNotifier", "metadata.json")).version}`)
     .setCategorySort((a, b) => categories.indexOf(a.category) - categories.indexOf(b.category))
     .setPos(0.0001, 0.0001) // Weird but if set to 0 it applies default value = 20 or so
     .setSize(100, 100)
     .onOpenGui(() => setting.searchBar._focusSearch())
-    .setClickSound(() => World.playSound(MC_GUI_BUTTON_PRESS_SOUND, 0.25, 1))
+    .setClickSound(() => new Sound({ source: 'minecraft:' + MC_GUI_BUTTON_PRESS_SOUND, volume: 0.25, pitch: 1 }).play())
     .apply();
 
 export default setting.settings;

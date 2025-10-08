@@ -41,11 +41,10 @@ const overlay = new Overlay(() => settings.seaCreaturesPerHourTrackerOverlay && 
 export function resetSeaCreaturesPerHourTracker(isConfirmed) {
     try {
         if (!isConfirmed) {
-            new Message(
-                new TextComponent(`${GOLD}[FeeshNotifier] ${WHITE}Do you want to reset Sea creatures per hour tracker? ${RED}${BOLD}[Click to confirm]`)
-                    .setClickAction('run_command')
-                    .setClickValue('/feeshResetSeaCreaturesPerHour noconfirm')
-            ).chat();
+            new TextComponent({
+                text: `${GOLD}[FeeshNotifier] ${WHITE}Do you want to reset Sea creatures per hour tracker? ${RED}${BOLD}[Click to confirm]`,
+                clickEvent: { action: 'run_command', value: '/feeshResetSeaCreaturesPerHour noconfirm' },
+            }).chat();
             return;
         }
     

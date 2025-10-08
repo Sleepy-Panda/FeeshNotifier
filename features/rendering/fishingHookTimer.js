@@ -3,7 +3,6 @@ import { BOLD, RED, YELLOW } from "../../constants/formatting";
 import { getPlayerFishingHook, isInFishingWorld } from "../../utils/common";
 import { getWorldName, hasFishingRodInHotbar, isInSkyblock } from "../../utils/playerState";
 import { registerIf } from "../../utils/registers";
-import { drawString } from "../../utils/worldRendering";
 import { FISH_STATE_ARRIVED, FISH_STATE_ARRIVING, FISH_STATE_NONE } from "../../constants/fishingHookStates";
 import { getHypixelFishingHookTimer } from "../../utils/entityDetection";
 
@@ -18,12 +17,12 @@ registerIf(
 );
 
 registerIf(
-    register("renderWorld", (partialTick) => drawFishingHook(partialTick)),
+    register("postRenderWorld", (partialTick) => drawFishingHook()),
     () => settings.renderFishingHookTimer && isInSkyblock() && isInFishingWorld(getWorldName())
 );
 
 registerIf(
-    register("renderEntity", (entity, position, partialTick, event) => cancelHypixelFishingHookTimer(entity, event)),
+    register("renderEntity", (entity, partialTick, event) => cancelHypixelFishingHookTimer(entity, event)),
     () => settings.renderFishingHookTimer && isInSkyblock() && isInFishingWorld(getWorldName())
 );
 
@@ -43,15 +42,14 @@ function trackHypixelFishingHookTimer() {
             fishingHookTimer = null;
             return;
         }
+
+        const fishingHookMc = fishingHook.toMC();
     
         fishingHookTimer = {
-            ticksExisted: fishingHook.getTicksExisted(),
+            ticksExisted: fishingHookMc.age,
             x: fishingHook.getX(),
             y: fishingHook.getY(),
             z: fishingHook.getZ(),
-            lastX: fishingHook.getLastX(),
-            lastY: fishingHook.getLastY(),
-            lastZ: fishingHook.getLastZ(),
             fishState: FISH_STATE_NONE
         };
     
@@ -90,26 +88,26 @@ function cancelHypixelFishingHookTimer(entity, event) {
     }
 }
 
-function drawFishingHook(partialTick) {
+function drawFishingHook() {
     try {
         if (!fishingHookTimer || !settings.renderFishingHookTimer || !isInSkyblock() || !isInFishingWorld(getWorldName()) || !hasFishingRodInHotbar()) return;
     
-        const x = getRenderCoordinate(fishingHookTimer.lastX, fishingHookTimer.x, partialTick);
-        const y = getRenderCoordinate(fishingHookTimer.lastY, fishingHookTimer.y, partialTick) + 0.5;
-        const z = getRenderCoordinate(fishingHookTimer.lastZ, fishingHookTimer.z, partialTick);
-        const scale = settings.renderFishingHookTimerSize / 100;
+        const x = fishingHookTimer.x;
+        const y = fishingHookTimer.y + 0.5;
+        const z = fishingHookTimer.z;
+        const scale = settings.renderFishingHookTimerSize;
     
         switch (true) {
             case fishingHookTimer.fishState === FISH_STATE_ARRIVED: {
                 const text = settings.renderFishingHookFishArrivedTemplate || DEFAULT_FISH_ARRIVED_TEMPLATE;
-                drawString(text, x, y, z, 0xffffff, false, scale, false, true, true);
+                Renderer3d.drawString(text, x, y, z, 0xffffff, false, scale, false, true, true);
                 break;
             }
             
             case fishingHookTimer.fishState === FISH_STATE_ARRIVING && settings.renderFishingHookTimerMode === 0: { // Countdown until reel in   
                 const template = settings.renderFishingHookFishTimerTemplate || DEFAULT_TIMER_TEMPLATE;
                 const text = template.replace('{timer}', fishingHookTimer.hypixelTimerText.removeFormatting());
-                drawString(text, x, y, z, 0xffffff, false, scale, false, true, true);
+                Renderer3d.drawString(text, x, y, z, 0xffffff, false, scale, false, true, true);
                 break;
             }
     
@@ -117,7 +115,7 @@ function drawFishingHook(partialTick) {
                 const template = settings.renderFishingHookFishTimerTemplate || DEFAULT_TIMER_TEMPLATE;
                 const seconds = (fishingHookTimer.ticksExisted / 20).toFixed(1);
                 const text = template.replace('{timer}', seconds);
-                drawString(text, x, y, z, 0xffffff, false, scale, false, true, true);
+                Renderer3d.drawString(text, x, y, z, 0xffffff, false, scale, false, true, true);
                 break;
             }
     
@@ -128,9 +126,4 @@ function drawFishingHook(partialTick) {
 		console.error(e);
 		console.log(`[FeeshNotifier] Failed to draw custom fishing hook timer.`);
     }
-}
-
-// This allows more smooth rendering while moving
-function getRenderCoordinate(last, current, partialTick) {
-    return last + (current - last) * partialTick
 }
