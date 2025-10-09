@@ -29,7 +29,8 @@ function trackAuctionPrices() {
 	try {
         request({
             url: `https://moulberry.codes/lowestbin.json`,
-            json: true
+            json: true,
+            timeout: 45000
         })
         .then(response => {
             if (!response) {

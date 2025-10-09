@@ -16,7 +16,8 @@ function trackBazaarPrices() {
 	try {
         request({
             url: `https://api.hypixel.net/skyblock/bazaar`,
-            json: true
+            json: true,
+            timeout: 45000
         })
         .then(response => {
             if (!response.success) {
