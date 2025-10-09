@@ -52,7 +52,7 @@ export function findClosestHotspotInRange(entity, distance) {
 				e.getY() < closestHotspotArmorStand.getY() &&
 				closestHotspotArmorStand.getY() - e.getY() <= 1 &&
 				e.getZ() === closestHotspotArmorStand.getZ() &&
-				e.getPitch() === closestHotspotArmorStand.getPitch())?.getName()
+				e.getPitch() === closestHotspotArmorStand.getPitch())?.getNameComponent()?.formattedText
 		}
 		: null;
 
@@ -159,7 +159,7 @@ export function getHypixelFishingHookTimer(fishingHook) {
 
 	const entities = World.getAllEntitiesOfType(EntityArmorStand);
 	const hypixelHookTimer = entities
-		.filter(entity => entity.distanceTo(fishingHook) <= 1)
+		.filter(entity => entity.distanceTo(fishingHook) <= 2)
 		.find(e => e.getNameComponent()?.formattedText === FISH_ARRIVED || FISHING_HOOK_TIMER_UNTIL_REEL_IN_REGEX.test(e.getNameComponent()?.formattedText));
 	if (!hypixelHookTimer) return null;
 
