@@ -2,10 +2,13 @@ https://github.com/ChatTriggers/ctjs/blob/main/docs/MIGRATION.md
 
 Current artifact used: https://github.com/Synnerz/ctjs/releases/tag/1.21.5v1
 
+- Double hook not recognized
+
 ## Reminders
 
 - Adjust changelog file and metadata version
 - Update settings to remove not supported features
+- Check that configs from 1.8.9 moved without errors
 
 ## General
 
@@ -15,10 +18,17 @@ Current artifact used: https://github.com/Synnerz/ctjs/releases/tag/1.21.5v1
 
 ## Chat
 
+- SH message does not work
+  - &r&9Party &8> &6[MVP&3++&6] vadim31&f: &rDOUBLE HOOK: I caught a The Sea Emperor!
+  - &r&9Party &8> &6[MVP&3++&6] vadim31&f: &rI caught a The Sea Emperor!
+- Wiki Tiki msg sometimes not compacted
+- Skyhanni's "Hide empty chat messages" settings fully hides all custom messages written to the chat by CT. (???)
+  - I'm not gonna fix it but just to remember.
+
 ## Alerts
 
 - Player name in alert has no formatting (CT issue)
-  -  Player.getDisplayName().toString() returns §r§8[§r§c469§r§8] §rMoonTheSadFisher§r §r§7α - no color code before nick
+  - Player.getDisplayName().toString() returns §r§8[§r§c469§r§8] §rMoonTheSadFisher§r §r§7α - no color code before nick
 - Alert on non fishing armor fully disabled
 - Test alerts on Pet drops with SH "pet rarity in chat" enabled/disabled
 
@@ -26,6 +36,8 @@ Current artifact used: https://github.com/Synnerz/ctjs/releases/tag/1.21.5v1
 
 - Umberella & Flare overlay not working 
   - error in playernteract (InternalError: Invalid JavaScript value of type com.chattriggers.ctjs.api.world.block.Block (moduleProvided#314))
+  - Overlay moving when scrolling
+- Overlays position not preserved when copying coords file from 1.8.9
 - Clickable overlay buttons - smaller scale buttons renders wrongly, so far they have same size as overlay text
 - Clickable lines - sometimes clicks intersect between 2 lines, 2 lines are clicked
 - Lines are rendered too close to each other, almost no space between them (CT issue)
