@@ -17,7 +17,7 @@ registerIf(
 );
 
 registerIf(
-    register("postRenderWorld", (partialTick) => drawFishingHook()),
+    register("postRenderWorld", (partialTick) => drawFishingHook(partialTick)),
     () => settings.renderFishingHookTimer && isInSkyblock() && isInFishingWorld(getWorldName())
 );
 
@@ -50,6 +50,9 @@ function trackHypixelFishingHookTimer() {
             x: fishingHook.getX(),
             y: fishingHook.getY(),
             z: fishingHook.getZ(),
+            lastX: fishingHook.getLastX(),
+            lastY: fishingHook.getLastY(),
+            lastZ: fishingHook.getLastZ(),
             fishState: FISH_STATE_NONE
         };
     
@@ -88,13 +91,13 @@ function cancelHypixelFishingHookTimer(entity, event) {
     }
 }
 
-function drawFishingHook() {
+function drawFishingHook(partialTick) {
     try {
         if (!fishingHookTimer || !settings.renderFishingHookTimer || !isInSkyblock() || !isInFishingWorld(getWorldName()) || !hasFishingRodInHotbar()) return;
     
-        const x = fishingHookTimer.x;
-        const y = fishingHookTimer.y + 0.5;
-        const z = fishingHookTimer.z;
+        const x = getRenderCoordinate(fishingHookTimer.lastX, fishingHookTimer.x, partialTick);
+        const y = getRenderCoordinate(fishingHookTimer.lastY, fishingHookTimer.y, partialTick) + 0.5;
+        const z = getRenderCoordinate(fishingHookTimer.lastZ, fishingHookTimer.z, partialTick);
         const scale = settings.renderFishingHookTimerSize;
     
         switch (true) {
@@ -126,4 +129,9 @@ function drawFishingHook() {
 		console.error(e);
 		console.log(`[FeeshNotifier] Failed to draw custom fishing hook timer.`);
     }
+}
+
+// This allows more smooth rendering while moving
+function getRenderCoordinate(last, current, partialTick) {
+    return last + (current - last) * partialTick
 }
