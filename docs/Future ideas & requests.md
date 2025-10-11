@@ -7,6 +7,8 @@
 
 ## Fishing profit tracker
 
+- Track Agatha tickets / Forest Essence on Galatea based on contest results.
+- Use drop # in the chat message based on current profit tracker.
 - Option to right align the tracker (and others too)
 - Option to render icons instead of item names
 - Option to decrease elapsed time in Fishing Profit Tracker (when user forgot to stop tracker being afk)
@@ -17,35 +19,38 @@
 - Find out price calculation for Kuudra Keys
 - Total and session tracker, or ability to load named session
 - Rewrite way to ignore compacted loot in profit tracker
-- Profit tracker causes lags after a while (memory consumption grows)
 - [Bug] Some items are tracked by Fishing Profit Tracker when dropped, but drop was prevented by SB settings (basically it drops and picks up again).
 - [Bug] Trading with other players adds items to the profit trackers.
 - [Bug] Adding a Pet to tracker does not increase earned money.
 
-## Treasure tracker
-
-- Minimal functionality: count Good, Great & Outstanding catches
-- Ideally, count all catches, and show percent of each type
-
 ## Deployables
 
-- Allow vieweing other players deployables in the overlay. Does someone need it?
+- Allow viewing other players deployables in the overlay. Does someone need it?
+- Overflux and its variations
 
 ## Party commands
 
-- something to explore profit tracker and rare catches tracker
-- !feeshsincejawbus
-- !feeshsincethunder
-- !feeshsinceyeti
-- !feeshsincereindrake
+- Commands should have a cooldown so people do not spam.
+- Triggers from pchat only.
+- Ability to disable commands in settings.
+- Does not trigger if the overlay is disabled in settings.
+
+- !feesh profit - shows Total profit, elapsed time & profit/h
+- !feesh profit <item name> - shows amount of the item in profit tracker (may use partial item name, case-insensitive)
+- !feesh sc <mob name> - shows amount of the SC in Sea creatures tracker, percent and double hook statistics
+- !feesh since <mob name> - shows since from the active tracker, e.g. Wiki Tiki, Reindrake, Lord Jawbus, etc
+- !feesh sc/h - shows sea creatures per hour
 - !feeshsincevial
-- !feeshvials
+- !feesh vials
+
 - !kdr - kills/deaths rate for thunder/jawbus [requires API key and custom backend]
-- Commands cooldown so people do not spam
 - /feeshkdr <player> - to check myself or someone privately without sending to the party chat [requires API key and custom backend]
 
 ## Alerts & chat
 
+- Rare SC cocooned alert
+- Phoenix alert
+- Remove alerts for Rare&EPic Flyfish, Epic Yeti, probably Megalodon
 - Customized sounds for rare catches and rare drops
   - Sounds folder: assets
   - Ability to open folder from settings
@@ -55,6 +60,10 @@
 - Write smarter logic to detect personal cap alert (20 for CH, 5 for Crimson)
 - Do not include baby magma slugs when producing cap alert.
 - Attach Vials drop number to the pchat message
+- Clean chat for spammy messages:
+  - &r&eTry clicking this &r&fThunder Spark&r&e with an &r&5Empty Thunder Bottle&r&e to collect it!&r (31)
+  - The Pocket Black Hole isn't effective against Snapping Turtle! (2) 
+  - &r&cThe Pocket Black Hole isn't effective against Guardian Defender!&r
 
 ## Hotspots
 
@@ -83,6 +92,7 @@
 
 ## Other
 
+- Other player's hooks and lines hider.
 - Glowing outline / highlight rare sea creatures (make this not visible through walls) - I want to get rid of SH for that, and replicate this feature in module.
 - PogData resets data file on PC crash - consider doing regular backups / research tska library as replacement for PogData
 - Remove double hook reindrake logic because DH is not possible now

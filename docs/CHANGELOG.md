@@ -1,8 +1,42 @@
 # Releases
 
-## v1.51.0
+## v1.53.0
 
 Released: ???
+
+Features:
+- 
+
+Bugfixes:
+-
+
+Other:
+-
+
+## v1.52.0
+
+Released: 2025-10-11
+
+Features:
+- Added setting to render box around Cocoons [disabled by default].
+- Added Treasure fishing tracker which tracks Good/Great/Outstanding catches, and Trasure Dye drop statistics. [disabled by default]
+  - You can initialize Treasure Dyes using the command:
+    - /feeshSetTrackerDrops DYE_TREASURE <COUNT> <LAST_ON_DATE>
+    - <COUNT> is a mandatory number of times you've dropped it.
+    - <LAST_ON_DATE> is optional and, if provided, should be in YYYY-MM-DD hh:mm:ss format. Can not be in future!
+    - Example: /feeshSetTrackerDrops DYE_TREASURE 2 2025-09-01 23:59:00
+- Made rare catches alerts to trigger on Skyhanni rare catch pchat message (I caught a <Sea creature>!).
+- Show Nutcracker's HP in Sea creatures HP tracker.
+
+Bugfixes:
+-
+
+Other:
+-
+
+## v1.51.0
+
+Released: 2025-09-28
 
 Features:
 - Added remaining time tracker and expiration alert for player's Umberella and Black Hole.
@@ -10,6 +44,7 @@ Features:
 - Slightly changed formatting of Sea Creatures tracker.
 
 Bugfixes:
+- Fixed Shard treasure catch not being tracked in the Fishing profit tracker (Hypixel changed message format).
 - Added Carrot King Shard to the Fishing profit tracker.
 - Removed Diver armor from Emperor's Skull crafts in /feeshGearCraftPrices as it's no longer relevant. Replaced with Emperor's talismans.
 
