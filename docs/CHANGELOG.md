@@ -1,8 +1,21 @@
 # Releases
 
-## v1.52.0
+## v1.53.0
 
 Released: ???
+
+Features:
+- 
+
+Bugfixes:
+-
+
+Other:
+-
+
+## v1.52.0
+
+Released: 2025-10-11
 
 Features:
 - Added setting to render box around Cocoons [disabled by default].
