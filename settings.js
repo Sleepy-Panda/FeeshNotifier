@@ -329,7 +329,7 @@ const config = new DefaultConfig("FeeshNotifier", "config/settings.json")
 .addSwitch({
     category: "Chat",
     configName: "messageOnBabyYetiPetDrop",
-    title: "Send a party chat message on BABY YETI PET drop",
+    title: "Send a party chat message on LEGENDARY BABY YETI PET drop",
     description: "Sends a party chat message when a rare item has dropped by you.",
     subcategory: "Rare Drops",
     value: true

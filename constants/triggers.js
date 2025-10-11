@@ -109,7 +109,6 @@ export const BOGGED_MESSAGE = `${RESET}${GREEN}You've hooked a Bogged!`;
 // DROPS
 
 export const BABY_YETI_PET_LEG_MESSAGE = `PET DROP! ${RESET}${GOLD}Baby Yeti`; // PET DROP! &r&6Baby Yeti
-export const BABY_YETI_PET_EPIC_MESSAGE = `PET DROP! ${RESET}${DARK_PURPLE}Baby Yeti`; // PET DROP! &r&5Baby Yeti
 export const FLYING_FISH_PET_LEG_MESSAGE = `PET DROP! ${RESET}${GOLD}Flying Fish`;
 export const MEGALODON_PET_LEG_MESSAGE = `PET DROP! ${RESET}${GOLD}Megalodon`;
 export const MEGALODON_PET_EPIC_MESSAGE = `PET DROP! ${RESET}${DARK_PURPLE}Megalodon`;
@@ -769,16 +768,6 @@ export const PET_DROP_TRIGGERS = [
         isMessageEnabledSettingKey: 'messageOnBabyYetiPetDrop',
         isAlertEnabledSettingKey: 'alertOnBabyYetiPetDrop',
         rarityColorCode: LEGENDARY,
-        shouldTrackDropNumber: true,
-    },
-    {
-        trigger: BABY_YETI_PET_EPIC_MESSAGE,
-        itemId: 'BABY_YETI;3',
-        itemName: drops.BABY_YETI_PET + ' (Epic)',
-        sound: sounds.AUGH_SOUND_SOURCE,
-        isMessageEnabledSettingKey: 'messageOnBabyYetiPetDrop',
-        isAlertEnabledSettingKey: 'alertOnBabyYetiPetDrop',
-        rarityColorCode: EPIC,
         shouldTrackDropNumber: true,
     },
     {
