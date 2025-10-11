@@ -2,11 +2,10 @@ https://github.com/ChatTriggers/ctjs/blob/main/docs/MIGRATION.md
 
 Current artifact used: https://github.com/Synnerz/ctjs/releases/tag/1.21.5v1
 
-- Double hook not recognized
-
 ## Reminders
 
 - Adjust changelog file and metadata version
+  - Probably version should be 3+ to allow any minor 2+
 - Update settings to remove not supported features
 - Check that configs from 1.8.9 moved without errors
 
@@ -36,7 +35,7 @@ Current artifact used: https://github.com/Synnerz/ctjs/releases/tag/1.21.5v1
 
 - Umberella & Flare overlay not working 
   - error in playernteract (InternalError: Invalid JavaScript value of type com.chattriggers.ctjs.api.world.block.Block (moduleProvided#314))
-  - Overlay moving when scrolling
+- Overlay moving when scrolling
 - Overlays position not preserved when copying coords file from 1.8.9
 - Clickable overlay buttons - smaller scale buttons renders wrongly, so far they have same size as overlay text
 - Clickable lines - sometimes clicks intersect between 2 lines, 2 lines are clicked
