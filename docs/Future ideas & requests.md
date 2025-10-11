@@ -1,5 +1,7 @@
 # Future ideas and players' requests
 
+- 5 people is max bobbing time (green label)
+
 ## Galatea
 
 - 1.21 support with CT 3.0
@@ -7,6 +9,7 @@
 
 ## Fishing profit tracker
 
+- Add Agatha tickets and Forest essence from Agatha contests (1.21)
 - Use drop # in the chat message based on current profit tracker.
 - Option to right align the tracker (and others too)
 - Option to render icons instead of item names
@@ -53,6 +56,7 @@
 
 ## Alerts & chat
 
+- Epic/rare flyfish / epic yeti / megalodon Rare drop alert
 - Rare SC cocooned alert
 - Phoenix alert
 - Remove alerts for Rare&EPic Flyfish, Epic Yeti, probably Megalodon
@@ -97,6 +101,7 @@
 
 ## Other
 
+- Slayers profit tracker with timer xD
 - Glowing outline / highlight rare sea creatures (make this not visible through walls) - I want to get rid of SH for that, and replicate this feature in module.
 - PogData resets data file on PC crash - consider doing regular backups / research tska library as replacement for PogData
 - Remove double hook reindrake logic because DH is not possible now
