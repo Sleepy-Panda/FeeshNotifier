@@ -5,7 +5,8 @@
 Released: ???
 
 Features:
-- 
+- Added Sea creatures count threshold - GALATEA setting (for MC 1.21).
+- Removed party alerts on Rare & Epic Flying Fish.
 
 Bugfixes:
 -
