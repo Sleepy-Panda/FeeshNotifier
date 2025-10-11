@@ -5,7 +5,7 @@ import { ALL_SEA_CREATURES_NAMES } from "../../constants/seaCreatures";
 import { EntityArmorStand } from "../../constants/javaTypes";
 import { overlayCoordsData } from "../../data/overlayCoords";
 import { getWorldName, hasFishingRodInHotbar, isInHunterArmor, isInSkyblock } from "../../utils/playerState";
-import { CRIMSON_ISLE, CRYSTAL_HOLLOWS, HUB } from "../../constants/areas";
+import { CRIMSON_ISLE, CRYSTAL_HOLLOWS, GALATEA, HUB } from "../../constants/areas";
 import { Overlay, OverlayTextLine, OverlayButtonLine, LEFT_CLICK_TYPE } from "../../utils/overlays";
 import { registerIf } from "../../utils/registers";
 import { isInFishingWorld } from "../../utils/common";
@@ -179,6 +179,7 @@ function getSeaCreaturesCountThreshold() {
         case HUB: return settings.seaCreaturesCountThreshold_Hub;
         case CRIMSON_ISLE: return settings.seaCreaturesCountThreshold_CrimsonIsle;
         case CRYSTAL_HOLLOWS: return settings.seaCreaturesCountThreshold_CrystalHollows;
+        case GALATEA: return settings.seaCreaturesCountThreshold_Galatea;
         default: return settings.seaCreaturesCountThreshold_Default;
     }
 }
