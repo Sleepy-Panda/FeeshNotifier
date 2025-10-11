@@ -11,6 +11,27 @@ export const persistentData = new PogObject("FeeshNotifier", {
             "totalCount": 0,
         },
     },
+    "treasureFishing": {
+        "session": {
+            "catches": {
+                "good": 0,
+                "great": 0,
+                "outstanding": 0,
+            }
+        },
+        "total": {
+            "catches": {
+                "good": 0,
+                "great": 0,
+                "outstanding": 0,
+            },
+            "treasureDyes": {
+                "count": 0,
+                "catchesSinceLast": 0,
+                "dropsHistory": []
+            },
+        },
+    },
     "crimsonIsle": {
         "fieryScuttler": {
             "catchesSinceLast": 0,

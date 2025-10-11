@@ -53,3 +53,12 @@ export const WATER_FISHING_WORLDS = [
     FARMING_ISLANDS,
     GALATEA
 ];
+
+export const NO_COCOON_BOXING_WORLDS = [
+    RIFT,
+    GARDEN,
+    KUUDRA,
+    DUNGEONS,
+    DUNGEON_HUB,
+    PRIVATE_ISLAND
+];

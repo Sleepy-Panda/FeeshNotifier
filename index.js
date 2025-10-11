@@ -37,6 +37,7 @@ import "./features/overlays/magmaCoreProfitTracker";
 import "./features/overlays/abandonedQuarryTracker";
 import "./features/overlays/fishingProfitTracker";
 import "./features/overlays/archfiendDiceProfitTracker";
+import "./features/overlays/treasureFishingTracker";
 
 import "./features/inventory/highlightCheapBooks";
 import "./features/inventory/showThunderBottleProgress";

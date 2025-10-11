@@ -134,11 +134,15 @@ export const TREASURE_DYE_MESSAGE = `${RESET}${LIGHT_PURPLE}${BOLD}WOW! ` + '${p
 export const PERIWINKLE_DYE_MESSAGE = `${RESET}${LIGHT_PURPLE}${BOLD}WOW! ` + '${playerNameAndRank}' + ` ${RESET}${GOLD}found a ${RESET}${DARK_AQUA}Periwinkle Dye`; // &r&d&lWOW! &r&b[MVP&r&c+&r&b] &bMoonTheSadFisher&r&r&f &r&6found a&r&3Periwinkle Dye&r
 export const BONE_DYE_MESSAGE = `${RESET}${LIGHT_PURPLE}${BOLD}WOW! ` + '${playerNameAndRank}' + ` ${RESET}${GOLD}found a ${RESET}${WHITE}Bone Dye`; // &r&d&lWOW! &r&b[MVP&r&c+&r&b] &bMoonTheSadFisher&r&r&f &r&6found a &r&fBone Dye&r
 
-export const SQUID_PET_LEG_MESSAGE = `${RESET}${LIGHT_PURPLE}⛃ ${RESET}${LIGHT_PURPLE}${BOLD}OUTSTANDING CATCH! ${RESET}${WHITE}You caught a ${RESET}${GRAY}[Lvl 1] ${RESET}${GOLD}Squid${RESET}${WHITE}!`;
-export const SQUID_PET_EPIC_MESSAGE = `${RESET}${LIGHT_PURPLE}⛃ ${RESET}${LIGHT_PURPLE}${BOLD}OUTSTANDING CATCH! ${RESET}${WHITE}You caught a ${RESET}${GRAY}[Lvl 1] ${RESET}${DARK_PURPLE}Squid${RESET}${WHITE}!`;
-export const SQUID_PET_RARE_MESSAGE = `${RESET}${GOLD}⛃ ${RESET}${GOLD}${BOLD}GREAT CATCH! ${RESET}${WHITE}You caught a ${RESET}${GRAY}[Lvl 1] ${RESET}${BLUE}Squid${RESET}${WHITE}!`;
-export const SQUID_PET_UNCOMMON_MESSAGE = `${RESET}${GOLD}⛃ ${RESET}${GOLD}${BOLD}GREAT CATCH! ${RESET}${WHITE}You caught a ${RESET}${GRAY}[Lvl 1] ${RESET}${GREEN}Squid${RESET}${WHITE}!`; // &r&6⛃ &r&6&lGREAT CATCH! &r&fYou caught a &r&7[Lvl 1] &r&aSquid&r&f!
-export const SQUID_PET_COMMON_MESSAGE = `${RESET}${GOLD}⛃ ${RESET}${GOLD}${BOLD}GREAT CATCH! ${RESET}${WHITE}You caught a ${RESET}${GRAY}[Lvl 1] ${RESET}${WHITE}Squid${RESET}${WHITE}!`; // &r&6⛃ &r&6&lGREAT CATCH! &r&fYou caught a &r&7[Lvl 1] &r&fSquid&r&f!
+export const GOOD_CATCH_MESSAGE = `${RESET}${DARK_PURPLE}⛃ ${RESET}${DARK_PURPLE}${BOLD}GOOD CATCH!`; // &r&5⛃ &r&5&lGOOD CATCH!
+export const GREAT_CATCH_MESSAGE = `${RESET}${GOLD}⛃ ${RESET}${GOLD}${BOLD}GREAT CATCH!`; // &r&6⛃ &r&6&lGREAT CATCH!
+export const OUTSTANDING_CATCH_MESSAGE = `${RESET}${LIGHT_PURPLE}⛃ ${RESET}${LIGHT_PURPLE}${BOLD}OUTSTANDING CATCH!`; // &r&d⛃ &r&d&lOUTSTANDING CATCH!
+
+export const SQUID_PET_LEG_MESSAGE = `${OUTSTANDING_CATCH_MESSAGE} ${RESET}${WHITE}You caught a ${RESET}${GRAY}[Lvl 1] ${RESET}${GOLD}Squid${RESET}${WHITE}!`;
+export const SQUID_PET_EPIC_MESSAGE = `${OUTSTANDING_CATCH_MESSAGE} ${RESET}${WHITE}You caught a ${RESET}${GRAY}[Lvl 1] ${RESET}${DARK_PURPLE}Squid${RESET}${WHITE}!`;
+export const SQUID_PET_RARE_MESSAGE = `${GREAT_CATCH_MESSAGE} ${RESET}${WHITE}You caught a ${RESET}${GRAY}[Lvl 1] ${RESET}${BLUE}Squid${RESET}${WHITE}!`;
+export const SQUID_PET_UNCOMMON_MESSAGE = `${GREAT_CATCH_MESSAGE} ${RESET}${WHITE}You caught a ${RESET}${GRAY}[Lvl 1] ${RESET}${GREEN}Squid${RESET}${WHITE}!`; // &r&6⛃ &r&6&lGREAT CATCH! &r&fYou caught a &r&7[Lvl 1] &r&aSquid&r&f!
+export const SQUID_PET_COMMON_MESSAGE = `${GREAT_CATCH_MESSAGE} ${RESET}${WHITE}You caught a ${RESET}${GRAY}[Lvl 1] ${RESET}${WHITE}Squid${RESET}${WHITE}!`; // &r&6⛃ &r&6&lGREAT CATCH! &r&fYou caught a &r&7[Lvl 1] &r&fSquid&r&f!
 
 // OTHER
 
@@ -157,18 +161,18 @@ export const SPIRIT_MASK_USED_MESSAGE = `${RESET}${GOLD}Second Wind Activated${R
 export const GOLDEN_FISH_MESSAGE = `${RESET}${BLUE}You spot a ${RESET}${GOLD}Golden Fish ${RESET}${BLUE}surface from beneath the lava!`; // &r&9You spot a &r&6Golden Fish &r&9surface from beneath the lava!
 export const WORKSHOP_CLOSING_MESSAGE = `${RESET}${RED}[Important] ${RESET}${YELLOW}This server will restart soon: ${RESET}${AQUA}Workshop Closing`; // &r&c[Important] &r&eThis server will restart soon: &r&bWorkshop Closing
 
-export const GOOD_CATCH_COINS_MESSAGE = `${RESET}${DARK_PURPLE}⛃ ${RESET}${DARK_PURPLE}${BOLD}GOOD CATCH! ${RESET}${WHITE}You caught ${RESET}${GOLD}` + "${coins}" + ` Coins${RESET}${WHITE}!`; // &r&5⛃ &r&5&lGOOD CATCH! &r&fYou caught &r&643,642 Coins&r&f!
-export const GREAT_CATCH_COINS_MESSAGE = `${RESET}${GOLD}⛃ ${RESET}${GOLD}${BOLD}GREAT CATCH! ${RESET}${WHITE}You caught ${RESET}${GOLD}` + "${coins}" + ` Coins${RESET}${WHITE}!`; // &r&6⛃ &r&6&lGREAT CATCH! &r&fYou caught &r&6103,428 Coins&r&f!
-export const OUTSTANDING_CATCH_COINS_MESSAGE = `${RESET}${LIGHT_PURPLE}⛃ ${RESET}${LIGHT_PURPLE}${BOLD}OUTSTANDING CATCH! ${RESET}${WHITE}You caught ${RESET}${GOLD}` + "${coins}" + ` Coins${RESET}${WHITE}!`; // &r&d⛃ &r&d&lOUTSTANDING CATCH! &r&fYou caught &r&6516,641 Coins&r&f!
+export const GOOD_CATCH_COINS_MESSAGE = `${GOOD_CATCH_MESSAGE} ${RESET}${WHITE}You caught ${RESET}${GOLD}` + "${coins}" + ` Coins${RESET}${WHITE}!`; // &r&5⛃ &r&5&lGOOD CATCH! &r&fYou caught &r&643,642 Coins&r&f!
+export const GREAT_CATCH_COINS_MESSAGE = `${GREAT_CATCH_MESSAGE} ${RESET}${WHITE}You caught ${RESET}${GOLD}` + "${coins}" + ` Coins${RESET}${WHITE}!`; // &r&6⛃ &r&6&lGREAT CATCH! &r&fYou caught &r&6103,428 Coins&r&f!
+export const OUTSTANDING_CATCH_COINS_MESSAGE = `${OUTSTANDING_CATCH_MESSAGE} ${RESET}${WHITE}You caught ${RESET}${GOLD}` + "${coins}" + ` Coins${RESET}${WHITE}!`; // &r&d⛃ &r&d&lOUTSTANDING CATCH! &r&fYou caught &r&6516,641 Coins&r&f!
 
-export const GOOD_CATCH_ICE_ESSENCE_MESSAGE = `${RESET}${DARK_PURPLE}⛃ ${RESET}${DARK_PURPLE}${BOLD}GOOD CATCH! ${RESET}${WHITE}You caught ${RESET}${AQUA}Ice Essence ${RESET}${DARK_GRAY}x` + "${count}" + `${RESET}${WHITE}!`; // &r&5⛃ &r&5&lGOOD CATCH! &r&fYou caught &r&bIce Essence &r&8x5&r&f!
-export const GREAT_CATCH_ICE_ESSENCE_MESSAGE = `${RESET}${GOLD}⛃ ${RESET}${GOLD}${BOLD}GREAT CATCH! ${RESET}${WHITE}You caught ${RESET}${AQUA}Ice Essence ${RESET}${DARK_GRAY}x` + "${count}" + `${RESET}${WHITE}!`;
-export const OUTSTANDING_CATCH_ICE_ESSENCE_MESSAGE = `${RESET}${LIGHT_PURPLE}⛃ ${RESET}${LIGHT_PURPLE}${BOLD}OUTSTANDING CATCH! ${RESET}${WHITE}You caught ${RESET}${AQUA}Ice Essence ${RESET}${DARK_GRAY}x` + "${count}" + `${RESET}${WHITE}!`;
+export const GOOD_CATCH_ICE_ESSENCE_MESSAGE = `${GOOD_CATCH_MESSAGE} ${RESET}${WHITE}You caught ${RESET}${AQUA}Ice Essence ${RESET}${DARK_GRAY}x` + "${count}" + `${RESET}${WHITE}!`; // &r&5⛃ &r&5&lGOOD CATCH! &r&fYou caught &r&bIce Essence &r&8x5&r&f!
+export const GREAT_CATCH_ICE_ESSENCE_MESSAGE = `${GREAT_CATCH_MESSAGE} ${RESET}${WHITE}You caught ${RESET}${AQUA}Ice Essence ${RESET}${DARK_GRAY}x` + "${count}" + `${RESET}${WHITE}!`;
+export const OUTSTANDING_CATCH_ICE_ESSENCE_MESSAGE = `${OUTSTANDING_CATCH_MESSAGE} ${RESET}${WHITE}You caught ${RESET}${AQUA}Ice Essence ${RESET}${DARK_GRAY}x` + "${count}" + `${RESET}${WHITE}!`;
 
 // 1.21: &r&5⛃ &r&5&lGOOD CATCH! &r&fYou caught a &r&6Shinyfish &r&fShard&r&f!
 // &r&5⛃ &r&5&lGOOD CATCH! &r&fYou caught a &r&6Shinyfish &r&fShard&r&f!&r
 // &r&5⛃ &r&5&lGOOD CATCH! &r&fYou caught an &r&9Abyssal Lanternfish &r&fShard&r&f!&r
-export const GOOD_CATCH_SHARD_MESSAGE = `${RESET}${DARK_PURPLE}⛃ ${RESET}${DARK_PURPLE}${BOLD}GOOD CATCH! ${RESET}${WHITE}You caught ` + "${shardText}" + ` ${RESET}${WHITE}Shard${RESET}${WHITE}!`;
+export const GOOD_CATCH_SHARD_MESSAGE = `${GOOD_CATCH_MESSAGE} ${RESET}${WHITE}You caught ` + "${shardText}" + ` ${RESET}${WHITE}Shard${RESET}${WHITE}!`;
 
 // &aYou caught a &fSea Archer &aShard!&r
 // &aYou caught &7x4 &fSea Archer &aShards&a!&r
