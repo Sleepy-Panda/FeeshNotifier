@@ -111,8 +111,6 @@ export const BOGGED_MESSAGE = `${RESET}${GREEN}You've hooked a Bogged!`;
 export const BABY_YETI_PET_LEG_MESSAGE = `PET DROP! ${RESET}${GOLD}Baby Yeti`; // PET DROP! &r&6Baby Yeti
 export const BABY_YETI_PET_EPIC_MESSAGE = `PET DROP! ${RESET}${DARK_PURPLE}Baby Yeti`; // PET DROP! &r&5Baby Yeti
 export const FLYING_FISH_PET_LEG_MESSAGE = `PET DROP! ${RESET}${GOLD}Flying Fish`;
-export const FLYING_FISH_PET_EPIC_MESSAGE = `PET DROP! ${RESET}${DARK_PURPLE}Flying Fish`;
-export const FLYING_FISH_PET_RARE_MESSAGE = `PET DROP! ${RESET}${BLUE}Flying Fish`;
 export const MEGALODON_PET_LEG_MESSAGE = `PET DROP! ${RESET}${GOLD}Megalodon`;
 export const MEGALODON_PET_EPIC_MESSAGE = `PET DROP! ${RESET}${DARK_PURPLE}Megalodon`;
 
@@ -791,26 +789,6 @@ export const PET_DROP_TRIGGERS = [
         isMessageEnabledSettingKey: 'messageOnFlyingFishPetDrop',
         isAlertEnabledSettingKey: 'alertOnFlyingFishPetDrop',
         rarityColorCode: LEGENDARY,
-        shouldTrackDropNumber: true,
-    },
-    {
-        trigger: FLYING_FISH_PET_EPIC_MESSAGE,
-        itemId: 'FLYING_FISH;3',
-        itemName: drops.FLYING_FISH_PET + ' (Epic)',
-        sound: sounds.AUGH_SOUND_SOURCE,
-        isMessageEnabledSettingKey: 'messageOnFlyingFishPetDrop',
-        isAlertEnabledSettingKey: 'alertOnFlyingFishPetDrop',
-        rarityColorCode: EPIC,
-        shouldTrackDropNumber: true,
-    },
-    {
-        trigger: FLYING_FISH_PET_RARE_MESSAGE,
-        itemId: 'FLYING_FISH;2',
-        itemName: drops.FLYING_FISH_PET + ' (Rare)',
-        sound: sounds.GOOFY_LAUGH_SOUND_SOURCE,
-        isMessageEnabledSettingKey: 'messageOnFlyingFishPetDrop',
-        isAlertEnabledSettingKey: 'alertOnFlyingFishPetDrop',
-        rarityColorCode: RARE,
         shouldTrackDropNumber: true,
     },
     {
