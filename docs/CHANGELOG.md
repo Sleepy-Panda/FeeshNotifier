@@ -1,8 +1,26 @@
 # Releases
 
-## v1.52.0
+## v1.53.0
 
 Released: ???
+
+Features:
+- Added Sea creatures count threshold - GALATEA setting (for MC 1.21).
+- Removed party alerts on Rare & Epic Flying Fish pet drop.
+- Removed party alert on Epic Baby Yeti pet drop.
+- Removed count of dropped Baby Yeti pets from Jerry Workshop tracker.
+  - I had to remove it because now is hard to track dropped pets - Hypixel removed RARE DROP message for some pets.
+- Removed not obtainable items (Ice Rod, Shredder, Phantom Rod, Yeti Rod) from Render Rarity Upgrade feature.
+
+Bugfixes:
+-
+
+Other:
+-
+
+## v1.52.0
+
+Released: 2025-10-11
 
 Features:
 - Added setting to render box around Cocoons [disabled by default].

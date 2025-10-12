@@ -1,6 +1,6 @@
 import settings from "../../settings";
 import * as triggers from '../../constants/triggers';
-import { getDoubleHookCatchTitle, getCatchTitle, getCatchMessage, getColoredPlayerNameFromDisplayName, getColoredPlayerNameFromPartyChat, getDoubleHookCatchMessage, getPartyChatMessage, isDoubleHook, isInFishingWorld, fromUppercaseToCapitalizedFirstLetters, getArticle } from '../../utils/common';
+import { getDoubleHookCatchTitle, getCatchTitle, getCatchMessage, getColoredPlayerNameFromDisplayName, getColoredPlayerNameFromPartyChat, getDoubleHookCatchMessage, getPartyChatMessage, isDoubleHook, isInFishingWorld, fromUppercaseToCapitalizedFirstLetters } from '../../utils/common';
 import { NOTIFICATION_SOUND_SOURCE, OFF_SOUND_MODE } from '../../constants/sounds';
 import { getWorldName, isInSkyblock } from "../../utils/playerState";
 import { registerIf } from "../../utils/registers";
@@ -60,12 +60,12 @@ triggers.RARE_CATCH_TRIGGERS.forEach(entry => {
     );
 
     const seaCreature = entry.seaCreature;
-    const seaCreatureShFormat = `${getArticle(seaCreature).toLowerCase()} ${fromUppercaseToCapitalizedFirstLetters(seaCreature)}`; // a Lord Jawbus, an Alligator
+    const seaCreatureShFormat = `a ${fromUppercaseToCapitalizedFirstLetters(seaCreature)}`; // a Lord Jawbus, a Alligator
     
     registerIf(
         // Triggers on automated party chat message sent by Skyhanni.
         // I caught a Lord Jawbus!
-        // I caught an Abyssal Miner!
+        // I caught a Abyssal Miner! (they have wrong article)
         register(
             "Chat",
             (rankAndPlayer, event) => playAlertOnCatch({
@@ -83,7 +83,7 @@ triggers.RARE_CATCH_TRIGGERS.forEach(entry => {
     registerIf(
         // Triggers on automated party chat message sent by Skyhanni (double hook).
         // DOUBLE HOOK: I caught a Lord Jawbus!
-        // DOUBLE HOOK: I caught an Abyssal Miner!
+        // DOUBLE HOOK: I caught a Abyssal Miner!
         register(
             "Chat",
             (rankAndPlayer, event) => playAlertOnCatch({
