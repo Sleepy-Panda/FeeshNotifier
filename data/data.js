@@ -81,14 +81,6 @@ export const persistentData = new PogObject("FeeshNotifier", {
             "lastCatchTime": null,
             "catchesHistory": [],
             "averageCatches": 0
-        },
-        "babyYetiPets": {
-            "epic": {
-                "count": 0
-            },
-            "legendary": {
-                "count": 0
-            },
         }
     },
     "waterHotspotsAndBayou": {

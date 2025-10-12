@@ -50,14 +50,14 @@ registerIf(
 
 triggers.COINS_FISHED_TRIGGERS.forEach(trigger => {
     registerIf(
-        register("Chat", (coins, event) => onCoinsFished(coins)).setCriteria(trigger.trigger).setStart(),
+        register("Chat", (coins, event) => onCoinsFished(coins)).setCriteria(trigger.trigger).setContains(),
         () => settings.fishingProfitTrackerOverlay && isInSkyblock() && isInFishingWorld(getWorldName())
     );
 });
 
 triggers.ICE_ESSENCE_FISHED_TRIGGERS.forEach(trigger => {
     registerIf(
-        register("Chat", (count, event) => onIceEssenceFished(count)).setCriteria(trigger.trigger).setStart(),
+        register("Chat", (count, event) => onIceEssenceFished(count)).setCriteria(trigger.trigger).setContains(),
         () => settings.fishingProfitTrackerOverlay && isInSkyblock() && getWorldName() === JERRY_WORKSHOP
     );
 });
