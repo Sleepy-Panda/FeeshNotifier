@@ -14,8 +14,7 @@
 - Option to decrease elapsed time in Fishing Profit Tracker (when user forgot to stop tracker being afk)
 - Track scavenged coins in Fishing Profit Tracker
 - Track Ice Essence drop from mobs in Fishing Profit Tracker
-- Calculate pet price in Fishing Profit Tracker as difference between lvl 1 and lvl 100
-  - Also, there are requests to track pet level progress in coins
+- Track pet level progress in coins while it's not maxed
 - Find out price calculation for Kuudra Keys
 - Total and session tracker, or ability to load named session
 - Rewrite way to ignore compacted loot in profit tracker
