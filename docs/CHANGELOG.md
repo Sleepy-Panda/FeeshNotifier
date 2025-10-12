@@ -10,6 +10,7 @@ Features:
 - Removed party alert on Epic Baby Yeti pet drop.
 - Removed count of dropped Baby Yeti pets from Jerry Workshop tracker.
   - I had to remove it because now is hard to track dropped pets - Hypixel removed RARE DROP message for some pets.
+- Removed not obtainable items (Ice Rod, Shredder, Phantom Rod, Yeti Rod) from Render Rarity Upgrade feature.
 
 Bugfixes:
 -
