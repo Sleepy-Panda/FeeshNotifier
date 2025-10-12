@@ -1095,14 +1095,14 @@ export const FISHING_PROFIT_ITEMS = [
         itemName: '[Lvl 1] Flying Fish (RARE)',
         itemDisplayName: `${RARE}Flying Fish`,
         npcPrice: 0,
-        announceRareDrop: true,
+        shouldAnnounceRareDrop: true,
     },
     {
         itemId: 'FLYING_FISH;3',
         itemName: '[Lvl 1] Flying Fish (EPIC)',
         itemDisplayName: `${EPIC}Flying Fish`,
         npcPrice: 100000,
-        announceRareDrop: true,
+        shouldAnnounceRareDrop: true,
     },
     {
         itemId: 'FLYING_FISH;4',
