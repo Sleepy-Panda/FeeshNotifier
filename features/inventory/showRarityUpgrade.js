@@ -18,8 +18,8 @@ function showRarityUpgrade(item, x, y) {
     }
 
     const displayName = item.getName();
-    const cleanName = displayName?.removeFormatting();
-    if (!cleanName) {
+    const name = displayName?.removeFormatting();
+    if (!name) {
         return;
     }
 
