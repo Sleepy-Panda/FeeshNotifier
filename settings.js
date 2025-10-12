@@ -329,7 +329,7 @@ const config = new DefaultConfig("FeeshNotifier", "config/settings.json")
 .addSwitch({
     category: "Chat",
     configName: "messageOnBabyYetiPetDrop",
-    title: "Send a party chat message on BABY YETI PET drop",
+    title: "Send a party chat message on LEGENDARY BABY YETI PET drop",
     description: "Sends a party chat message when a rare item has dropped by you.",
     subcategory: "Rare Drops",
     value: true
@@ -866,7 +866,7 @@ const config = new DefaultConfig("FeeshNotifier", "config/settings.json")
 .addSwitch({
     category: "Alerts",
     configName: "alertOnBabyYetiPetDrop",
-    title: "Alert on BABY YETI PET drop",
+    title: "Alert on LEGENDARY BABY YETI PET drop",
     description: "Shows a title and plays a sound when a rare item has dropped by you or your party members.",
     subcategory: "Rare Drops",
     value: true
@@ -1281,7 +1281,7 @@ const config = new DefaultConfig("FeeshNotifier", "config/settings.json")
     category: "Overlays",
     configName: "jerryWorkshopTrackerOverlay",
     title: "Jerry Workshop tracker",
-    description: `Shows an overlay with Yeti / Reindrake catch statistics and Baby Yeti pet drops statistics while in the Jerry Workshop.\nDo ${AQUA}/feeshResetJerryWorkshop${GRAY} to reset.`,
+    description: `Shows an overlay with Yeti / Reindrake catch statistics while in the Jerry Workshop.\nDo ${AQUA}/feeshResetJerryWorkshop${GRAY} to reset.`,
     subcategory: "Jerry Workshop tracker",
     value: true
 })

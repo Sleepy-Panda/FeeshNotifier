@@ -31,7 +31,7 @@
 ## Party commands
 
 - Commands should have a cooldown so people do not spam.
-- Triggers from pchat only.
+- Triggers from pchat only so Vadim does not mute people for spamming in gchat :skull:
 - Ability to disable commands in settings.
 - Does not trigger if the overlay is disabled in settings.
 
@@ -48,10 +48,12 @@
 
 ## Alerts & chat
 
+- Rare Catch alert based on Skyhanni message does not work for The Loch Emperor (because they send The Sea Emperor in message)
 - Rare SC cocooned alert
 - Phoenix alert
-- Remove alerts for Rare&EPic Flyfish, Epic Yeti, probably Megalodon
+- Remove party drop alerts for Megalodon pets (first check if they don't have SB chat message anymore).
 - Customized sounds for rare catches and rare drops
+  - People want to customize sounds for Jawbus etc, individually for mobs and drops
   - Sounds folder: assets
   - Ability to open folder from settings
   - Ability to test sound from settings
