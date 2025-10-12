@@ -38,13 +38,6 @@ TRACKED_SEA_CREATURES.forEach(entry => {
     );
 });
 
-TRACKED_DROPS.forEach(entry => {
-    registerIf(
-        register("Chat", (event) => entry.callback()).setCriteria(entry.dropInfo.trigger).setContains(),
-        () => settings.jerryWorkshopTrackerOverlay && isInSkyblock() && getWorldName() === JERRY_WORKSHOP
-    );
-});
-
 registerIf(
     register("Chat", (event) => { sawWorkshopClosingMessage = true; }).setCriteria(triggers.WORKSHOP_CLOSING_MESSAGE).setContains(),
     () => settings.jerryWorkshopTrackerOverlay && isInSkyblock() && getWorldName() === JERRY_WORKSHOP
