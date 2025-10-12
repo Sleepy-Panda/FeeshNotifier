@@ -87,9 +87,7 @@ registerIf(
 );
 
 registerIf(
-    register("Chat", (petDisplayName, level, event) => onPetReachedMaxLevel(+level, petDisplayName))
-        .setCriteria(triggers.PET_LEVEL_UP_MESSAGE)
-        .setContains(),
+    register("Chat", (petDisplayName, level, event) => onPetReachedMaxLevel(+level, petDisplayName)).setCriteria(triggers.PET_LEVEL_UP_MESSAGE).setContains(),
     () => settings.fishingProfitTrackerOverlay && isInSkyblock() && getWorldName() === CRIMSON_ISLE
 );
 
@@ -255,10 +253,19 @@ function refreshPrices() {
         if (!isTrackerVisible()) return;
     
         Object.entries(persistentData.fishingProfit.profitTrackerItems).forEach(([key, value]) => {
-            const item = FISHING_PROFIT_ITEMS.find(i => i.itemId === key);
-            if (!item) return;
-            const itemPrice = getItemPrice(item);
-            value.totalItemProfit = value.amount * itemPrice;  
+            if (value.itemDisplayName.removeFormatting().startsWith('[Lvl 100]') || value.itemDisplayName.removeFormatting().startsWith('[Lvl 200]')) { // Maxed level pets, e.g. FLYING_FISH;4+100 or GOLDEN_DRAGON;4+200
+                const itemIdMaxLevel = key;
+                const itemIdFirstLvl = itemIdMaxLevel.split('+')[0]; // Remove +100 or +200
+                const firstLvlPrice = getAuctionItemPrices(itemIdFirstLvl)?.lbin || 0;
+                const maxLvlPrice = getAuctionItemPrices(itemIdMaxLevel)?.lbin || 0;
+                const profitPerPet = firstLvlPrice && maxLvlPrice ? maxLvlPrice - firstLvlPrice : 0;  // Calculate pet price as difference between lvl1 and max lvl
+                value.totalItemProfit = value.amount * profitPerPet;
+            } else {
+                const item = FISHING_PROFIT_ITEMS.find(i => i.itemId === key);
+                if (!item) return;
+                const itemPrice = getItemPrice(item);
+                value.totalItemProfit = value.amount * itemPrice;  
+            }
         });
     
         const total = Object.values(persistentData.fishingProfit.profitTrackerItems).reduce((accumulator, currentValue) => { return accumulator + currentValue.totalItemProfit }, 0);
@@ -485,18 +492,13 @@ function onPetReachedMaxLevel(level, petDisplayName) {
         const baseItemId = petName.split(' ').join('_').toUpperCase();
         const itemIdMaxLevel = baseItemId + ';' + rarityCode + '+' + level; // FLYING_FISH;4+100 GOLDEN_DRAGON;4+200
         const item = persistentData.fishingProfit.profitTrackerItems[itemIdMaxLevel];
-        const auctionPrices = getAuctionItemPrices(itemIdMaxLevel);
-        const itemPrice = auctionPrices?.lbin || 0;
-
         const currentAmount = item?.amount || 0;
-        const currentProfit = item?.totalItemProfit || 0;
 
         persistentData.fishingProfit.profitTrackerItems[itemIdMaxLevel] = {
             itemName: petName,
             itemDisplayName: `${GRAY}[Lvl ${level}] ${petDisplayName}`,
             itemId: itemIdMaxLevel,
             amount: currentAmount + 1,
-            totalItemProfit: currentProfit + itemPrice,
         };
         persistentData.save();
 
