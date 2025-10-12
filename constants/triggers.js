@@ -108,10 +108,15 @@ export const BOGGED_MESSAGE = `${RESET}${GREEN}You've hooked a Bogged!`;
 
 // DROPS
 
-export const BABY_YETI_PET_LEG_MESSAGE = `PET DROP! ${RESET}${GOLD}Baby Yeti`; // PET DROP! &r&6Baby Yeti
-export const FLYING_FISH_PET_LEG_MESSAGE = `PET DROP! ${RESET}${GOLD}Flying Fish`;
-export const MEGALODON_PET_LEG_MESSAGE = `PET DROP! ${RESET}${GOLD}Megalodon`;
-export const MEGALODON_PET_EPIC_MESSAGE = `PET DROP! ${RESET}${DARK_PURPLE}Megalodon`;
+// PET DROP! &r&6Baby Yeti
+// §r§6§lPET DROP! §r§6Baby Yeti§r
+// §r§6§lPET DROP! §6§lLEGENDARY §6Baby Yeti - 1.21 (modified by SH)
+export const BABY_YETI_PET_LEG_MESSAGE = `PET DROP!`+ '${*}' + `${GOLD}Baby Yeti`;
+// &r&6&lPET DROP! &r&6Flying Fish&r
+// &r&6&lPET DROP! &6&lLEGENDARY &6Flying Fish - 1.21 (modified by SH)
+export const FLYING_FISH_PET_LEG_MESSAGE = `PET DROP!`+ '${*}' + `${GOLD}Flying Fish`; 
+export const MEGALODON_PET_LEG_MESSAGE = `PET DROP!`+ '${*}' + `${GOLD}Megalodon`;
+export const MEGALODON_PET_EPIC_MESSAGE = `PET DROP!`+ '${*}' + `${DARK_PURPLE}Megalodon`;
 
 const MAGIC_FIND_MESSAGE_PATTERN = `${RESET}${AQUA}(+${RESET}${AQUA}` + '${magicFind}' + ` ${RESET}${AQUA}✯ Magic Find${RESET}${AQUA})`; // &r&b(+&r&b236 &r&b✯ Magic Find&r&b)
 
@@ -143,7 +148,7 @@ export const SQUID_PET_COMMON_MESSAGE = `${GREAT_CATCH_MESSAGE} ${RESET}${WHITE}
 
 // OTHER
 
-export const DOUBLE_HOOK_MESSAGES = [ '&r&eIt\'s a &r&aDouble Hook&r&e! Woot woot!&r', '&r&eIt\'s a &r&aDouble Hook&r&e!&r', '§r§eIt\'s a §r§aDouble Hook§r§e! Woot woot!', '§r§eIt\'s a §r§aDouble Hook§r§e!' ];
+export const DOUBLE_HOOK_MESSAGES = [ '&r&eIt\'s a &r&aDouble Hook&r&e! Woot woot!&r', '&r&eIt\'s a &r&aDouble Hook&r&e!&r', '&r&eIt\'s a &r&aDouble Hook&r&e! Woot woot!', '&r&eIt\'s a &r&aDouble Hook&r&e!', '§r§eIt\'s a §r§aDouble Hook§r§e! Woot woot!', '§r§eIt\'s a §r§aDouble Hook§r§e!' ];
 
 export const KILLED_BY_THUNDER_MESSAGE = `${RESET}${GRAY}You were killed by Thunder${RESET}${GRAY}${RESET}${GRAY}.`; // &r&7You were killed by Thunder&r&7&r&7.
 export const KILLED_BY_LORD_JAWBUS_MESSAGE = `${RESET}${GRAY}You were killed by Lord Jawbus${RESET}${GRAY}${RESET}${GRAY}.`; // &r&7You were killed by Lord Jawbus&r&7&r&7.

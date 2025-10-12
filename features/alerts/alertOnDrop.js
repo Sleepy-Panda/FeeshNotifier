@@ -41,7 +41,7 @@ triggers.RARE_DROP_TRIGGERS.forEach(entry => {
             player: getColoredPlayerNameFromPartyChat(rankAndPlayer),
             suppressIfSamePlayer: true
         })
-    ).setCriteria(getPartyChatMessage(getDropMessagePattern(entry.itemName)));
+    ).setCriteria(getPartyChatMessage(getDropMessagePattern(entry.itemName))).setStart();
 });
 
 // Pet drop messages do not have magic find in the message
@@ -81,7 +81,7 @@ triggers.PET_DROP_TRIGGERS.forEach(entry => {
             player: getColoredPlayerNameFromPartyChat(rankAndPlayer),
             suppressIfSamePlayer: true
         })
-    ).setCriteria(getPartyChatMessage(getDropMessagePattern(entry.itemName)));
+    ).setCriteria(getPartyChatMessage(getDropMessagePattern(entry.itemName))).setStart();
 });
 
 // Great/Outstanding catch messages do not have magic find in the message
@@ -121,7 +121,7 @@ triggers.OUTSTANDING_CATCH_TRIGGERS.forEach(entry => {
             player: getColoredPlayerNameFromPartyChat(rankAndPlayer),
             suppressIfSamePlayer: true
         })
-    ).setCriteria(getPartyChatMessage(getDropMessagePattern(entry.itemName)));
+    ).setCriteria(getPartyChatMessage(getDropMessagePattern(entry.itemName))).setStart();
 });
 
 triggers.DYE_TRIGGERS.forEach(entry => {
@@ -164,7 +164,7 @@ triggers.DYE_TRIGGERS.forEach(entry => {
             player: getColoredPlayerNameFromPartyChat(rankAndPlayer),
             suppressIfSamePlayer: true
         })
-    ).setCriteria(getPartyChatMessage(getDropMessagePattern(entry.itemName)));
+    ).setCriteria(getPartyChatMessage(getDropMessagePattern(entry.itemName))).setStart();
 });
 
 // Shows a title and plays a sound on automated rare drop message sent by this module.
