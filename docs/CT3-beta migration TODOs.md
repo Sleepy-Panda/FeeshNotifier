@@ -28,7 +28,6 @@ Current artifact used: https://github.com/Synnerz/ctjs/releases/tag/1.21.5v1
 
 - Player name in alert has no formatting (CT issue)
   - Player.getDisplayName().toString() returns §r§8[§r§c469§r§8] §rMoonTheSadFisher§r §r§7α - no color code before nick
-- Alert on non fishing armor fully disabled
 - Test alerts on Pet drops with SH "pet rarity in chat" enabled/disabled
 
 ## Overlays
