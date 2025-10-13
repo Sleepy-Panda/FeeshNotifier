@@ -150,9 +150,11 @@ export const SQUID_PET_COMMON_MESSAGE = `${GREAT_CATCH_MESSAGE} ${RESET}${WHITE}
 
 export const DOUBLE_HOOK_MESSAGES = [ '&r&eIt\'s a &r&aDouble Hook&r&e! Woot woot!&r', '&r&eIt\'s a &r&aDouble Hook&r&e!&r', '&r&eIt\'s a &r&aDouble Hook&r&e! Woot woot!', '&r&eIt\'s a &r&aDouble Hook&r&e!', '§r§eIt\'s a §r§aDouble Hook§r§e! Woot woot!', '§r§eIt\'s a §r§aDouble Hook§r§e!' ];
 
-export const KILLED_BY_THUNDER_MESSAGE = `${RESET}${GRAY}You were killed by Thunder${RESET}${GRAY}${RESET}${GRAY}.`; // &r&7You were killed by Thunder&r&7&r&7.
-export const KILLED_BY_LORD_JAWBUS_MESSAGE = `${RESET}${GRAY}You were killed by Lord Jawbus${RESET}${GRAY}${RESET}${GRAY}.`; // &r&7You were killed by Lord Jawbus&r&7&r&7.
-export const KILLED_BY_RAGNAROK_MESSAGE = `${RESET}${GRAY}You were killed by Ragnarok${RESET}${GRAY}${RESET}${GRAY}.`; // &r&7You were killed by Ragnarok&r&7&r&7.
+// &r&7You were killed by Thunder&r&7&r&7.
+// MC 1.21: &r&c ☠ &r&7You were killed by Thunder&r&7.
+export const KILLED_BY_THUNDER_MESSAGE = `${RESET}${GRAY}You were killed by Thunder${RESET}${GRAY}`;
+export const KILLED_BY_LORD_JAWBUS_MESSAGE = `${RESET}${GRAY}You were killed by Lord Jawbus${RESET}${GRAY}`; // &r&7You were killed by Lord Jawbus&r&7&r&7.
+export const KILLED_BY_RAGNAROK_MESSAGE = `${RESET}${GRAY}You were killed by Ragnarok${RESET}${GRAY}`; // &r&7You were killed by Ragnarok&r&7&r&7.
 
 export const THUNDER_BOTTLE_CHARGED_MESSAGE = `${RESET}${YELLOW}> Your bottle of thunder has fully charged!`;
 export const STORM_BOTTLE_CHARGED_MESSAGE = `${RESET}${YELLOW}> Your Storm in a Bottle has fully charged!`;
