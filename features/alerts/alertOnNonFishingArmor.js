@@ -2,7 +2,6 @@ import settings from "../../settings";
 import { RED } from "../../constants/formatting";
 import { getWorldName, hasFishingRodInHotbar, isInSkyblock } from "../../utils/playerState";
 import { MC_RANDOM_ORB_SOUND, OFF_SOUND_MODE } from "../../constants/sounds";
-import { EntityFishHook } from "../../constants/javaTypes";
 import { isFishingHookActive, isInFishingWorld } from "../../utils/common";
 import { registerIf } from "../../utils/registers";
 import { playMcSound } from "../../utils/sound";
@@ -13,18 +12,14 @@ register("worldUnload", () => {
     lastHookDetectedAt = null; 
 });
 
-//registerIf(
-//    register(net.minecraftforge.event.entity.EntityJoinWorldEvent, (event) => alertOnNonFishingArmor(event)),
-//    () => settings.alertOnNonFishingArmor && isInSkyblock() && isInFishingWorld(getWorldName())
-//);
+registerIf(
+    register("step", (event) => alertOnNonFishingArmor()).setFps(2),
+    () => settings.alertOnNonFishingArmor && isInSkyblock() && isInFishingWorld(getWorldName())
+);
 
-function alertOnNonFishingArmor(event) {
+function alertOnNonFishingArmor() {
     try {
-        if (!settings.alertOnNonFishingArmor || !isInSkyblock() || !isInFishingWorld(getWorldName()) || !hasFishingRodInHotbar() || !(event.entity instanceof EntityFishHook)) {
-            return;
-        }
-    
-        if (Player.getPlayer().fishHook != event.entity.toMC()) { // Check for player's own hook
+        if (!settings.alertOnNonFishingArmor || !isInSkyblock() || !isInFishingWorld(getWorldName()) || !hasFishingRodInHotbar()) {
             return;
         }
     
@@ -35,22 +30,19 @@ function alertOnNonFishingArmor(event) {
         if (lastHookDetectedAt && new Date() - lastHookDetectedAt < 5000) {
             return;
         }
-    
+        
+        let isHookActive = isFishingHookActive();
+        if (!isHookActive) {
+            return;
+        }
+
         lastHookDetectedAt = new Date();
-    
-        // Time for hook to land on water/lava
-        setTimeout(function() {
-            let isHookActive = isFishingHookActive();
-            if (!isHookActive) {
-                return;
-            }
-    
-            Client.showTitle(`${RED}Equip fishing armor!`, '', 1, 25, 1);
-    
-            if (settings.soundMode !== OFF_SOUND_MODE) {
-                playMcSound(MC_RANDOM_ORB_SOUND);
-            }
-        }, 1000);    
+
+        Client.showTitle(`${RED}Equip fishing armor!`, '', 1, 25, 1);
+
+        if (settings.soundMode !== OFF_SOUND_MODE) {
+            playMcSound(MC_RANDOM_ORB_SOUND);
+        }
     } catch (e) {
         console.error(e);
         console.log(`[FeeshNotifier] Failed to check fishing armor on fishing hook appeared.`);
