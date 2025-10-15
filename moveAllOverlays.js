@@ -299,6 +299,8 @@ allOverlaysGui.registerKeyTyped((char, keyCode) => {
         zoomInCurrentGui(selectedGui);
     } else if (keyCode == 12) { // "-" character
         zoomOutCurrentGui(selectedGui);
+    } else if (keyCode == 50) { // "M" character
+        switchAlignCurrentGui(selectedGui);
     }
 });
 
@@ -328,7 +330,9 @@ function isInOverlay(sampleGui, x, y) {
         return false;
     }
 
-    if (x >= sampleGui.guiSettings.x && x <= sampleGui.guiSettings.x + sampleGui.width &&
+    const left = sampleGui.guiSettings.align === 'RIGHT' ? sampleGui.guiSettings.x - sampleGui.width : sampleGui.guiSettings.x;
+    const right = sampleGui.guiSettings.align === 'RIGHT' ? sampleGui.guiSettings.x : sampleGui.guiSettings.x + sampleGui.width;
+    if (x >= left && x <= right &&
         y >= sampleGui.guiSettings.y && y <= sampleGui.guiSettings.y + sampleGui.height
     ) {
         return true;
@@ -345,7 +349,8 @@ function renderSampleOverlays() {
     SAMPLE_GUIS.filter(sampleGui => settings[sampleGui.toggleSettingKey]).forEach(sampleGui => {
         const overlay = new Text(sampleGui.sampleText, sampleGui.guiSettings.x, sampleGui.guiSettings.y)
             .setShadow(true)
-            .setScale(sampleGui.guiSettings.scale);
+            .setScale(sampleGui.guiSettings.scale)
+            .setAlign(sampleGui.guiSettings.align || 'LEFT');
         overlay.draw();
 
         sampleGui.width = overlay.getWidth();
@@ -366,5 +371,12 @@ function zoomInCurrentGui(selectedGui) {
 
 function zoomOutCurrentGui(selectedGui) {
     decreaseScaleOrSetToMinimal(selectedGui.guiSettings);
+    overlayCoordsData.save();
+}
+
+function switchAlignCurrentGui(selectedGui) {
+    const current = selectedGui.guiSettings.align || 'LEFT';
+    selectedGui.guiSettings.align = current === 'RIGHT' ? 'LEFT' : 'RIGHT';
+    selectedGui.guiSettings.x += current === 'RIGHT' ? -selectedGui.width : selectedGui.width;
     overlayCoordsData.save();
 }

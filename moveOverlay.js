@@ -85,6 +85,8 @@ register("guiKey", (char, keyCode, gui, event) => {
         zoomInCurrentGui();
     } else if (keyCode == 12) { // "-" character
         zoomOutCurrentGui();
+    } else if (keyCode == 50) { // "M" character
+        switchAlignCurrentGui();
     }
 });
 
@@ -116,6 +118,17 @@ function zoomOutCurrentGui() {
     }
 
     decreaseScaleOrSetToMinimal(selectedGui.guiSettings);
+    overlayCoordsData.save();
+}
+
+function switchAlignCurrentGui() {
+    const selectedGui = GUIS.find(g => g.gui.isOpen());
+    if (!selectedGui) {
+        return;
+    }
+    
+    const current = selectedGui.guiSettings.align || 'LEFT';
+    selectedGui.guiSettings.align = current === 'RIGHT' ? 'LEFT' : 'RIGHT';
     overlayCoordsData.save();
 }
 

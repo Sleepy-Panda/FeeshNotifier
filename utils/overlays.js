@@ -110,7 +110,7 @@ export class Overlay {
     /**
     * Set object containing x, y and scale for the Overlay.
     * Dynamically changes when values are changed while moving/scaling overlays.
-    * @param {object} positionData Object from overlayCoordsData - { x, y, scale }
+    * @param {object} positionData Object from overlayCoordsData - { x, y, scale, align }
     */
     setPositionData(positionData) 
     {
@@ -193,7 +193,7 @@ export class Overlay {
 
         this.textLines.forEach((line) => {
             y += lastLineHeight;
-            line._setX(x)._setY(y)._setScale(this.positionData.scale)._draw();
+            line._setX(x)._setY(y)._setScale(this.positionData.scale)._setAlign(this.positionData.align)._draw();
             lastLineHeight = line.height;
         });
 
@@ -211,7 +211,7 @@ export class Overlay {
 
             this.buttonLines.forEach((line) => {
                 y += lastLineHeight;
-                line._setX(x)._setY(y)._setScale(this.positionData.scale)._draw();
+                line._setX(x)._setY(y)._setScale(this.positionData.scale)._setAlign(this.positionData.align)._draw();
                 lastLineHeight = line.height;
             });
         }
@@ -226,7 +226,7 @@ export class Overlay {
                 line._setScale(this.positionData.scale);
                 lastLineHeight = line.text.getHeight();
                 y -= lastLineHeight;
-                line._setX(x)._setY(y);
+                line._setX(x)._setY(y)._setAlign(this.positionData.align);
                 line._draw();
             });         
         }
@@ -241,6 +241,7 @@ export class OverlayTextLine {
         this.text = new Text('');
         this.width = 0;
         this.height = 0;
+        this.align = 'LEFT';
         this.isSmallerScale = false;
         this.onLeftClickFunc = null;
         this.onClickFuncs = [];
@@ -286,6 +287,11 @@ export class OverlayTextLine {
         return this;
     }
 
+    _setAlign(align) {
+        this.align = align || 'LEFT';
+        return this;
+    }
+
     _setScale(overlayScale) {
         const adjustedScale = this.isSmallerScale ? getAdjustedScale(overlayScale, SMALLER_LINE_SCALE_ADJUSTMENT) : overlayScale;
         this.text.setScale(adjustedScale);
@@ -293,7 +299,7 @@ export class OverlayTextLine {
     }
 
     _draw() {
-        this.text.setAlign('LEFT').setShadow(true).draw();
+        this.text.setAlign(this.align).setShadow(true).draw();
         this.width = this.text.getWidth();
         this.height = this.text.getHeight();
     }

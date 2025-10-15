@@ -384,7 +384,8 @@ function renderOverlay() {
     if (overlayText) {
         const overlay = new Text(overlayText, overlayCoordsData.deployablesRemainingTimeOverlay.x, overlayCoordsData.deployablesRemainingTimeOverlay.y)
             .setShadow(true)
-            .setScale(overlayCoordsData.deployablesRemainingTimeOverlay.scale);
+            .setScale(overlayCoordsData.deployablesRemainingTimeOverlay.scale)
+            .setAlign(overlayCoordsData.deployablesRemainingTimeOverlay.align || 'LEFT');
         overlay.draw();
     }
 }

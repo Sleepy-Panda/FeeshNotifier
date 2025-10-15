@@ -66,6 +66,7 @@ function renderLegionAndBobbingTimeOverlay() {
     const hooksText = `${GOLD}Bobbin' time: ${hooksColor}${fishingHooksCount} ${GRAY}${fishingHooksCount === 1 ? 'hook' : 'hooks'}`;
     const overlay = new Text(`${playersText}\n${hooksText}`, overlayCoordsData.legionAndBobbingTimeOverlay.x, overlayCoordsData.legionAndBobbingTimeOverlay.y)
         .setShadow(true)
-        .setScale(overlayCoordsData.legionAndBobbingTimeOverlay.scale);
+        .setScale(overlayCoordsData.legionAndBobbingTimeOverlay.scale)
+        .setAlign(overlayCoordsData.legionAndBobbingTimeOverlay.align || 'LEFT');
     overlay.draw();
 }

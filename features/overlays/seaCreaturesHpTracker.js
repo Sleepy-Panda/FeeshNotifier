@@ -252,7 +252,8 @@ function renderHpOverlay() {
     function drawText(overlayText) {
         const overlay = new Text(overlayText, overlayCoordsData.seaCreaturesHpOverlay.x, overlayCoordsData.seaCreaturesHpOverlay.y)
             .setShadow(true)
-            .setScale(overlayCoordsData.seaCreaturesHpOverlay.scale);
+            .setScale(overlayCoordsData.seaCreaturesHpOverlay.scale)
+            .setAlign(overlayCoordsData.seaCreaturesHpOverlay.align || 'LEFT');
         overlay.draw();
     }
 }
