@@ -13,7 +13,7 @@ let fishingHooksCount = 0;
 const legionDistance = 30;
 const maxLegionCount = 20;
 const bobbingTimeDistance = 30;
-const maxBobbingTimeCount = 10;
+const maxBobbingTimeCount = 5;
 
 registerIf(
     register('step', () => trackPlayersAndFishingHooksNearby()).setFps(2),

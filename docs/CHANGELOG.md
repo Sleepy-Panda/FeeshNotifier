@@ -13,6 +13,7 @@ Features:
 
 Bugfixes:
 - Removed not obtainable items (Ice Rod, Shredder, Phantom Rod, Yeti Rod) from Render Rarity Upgrade feature.
+- Changed max bobbers count to 5 in Bobbin' Time tracker.
 
 Other:
 - Adjusted some code to work in both CT2 and CT3-beta.
