@@ -1,7 +1,7 @@
 import * as drops from './drops';
 import * as sounds from './sounds';
 import * as seaCreatures from './seaCreatures';
-import { GREEN, GOLD, DARK_PURPLE, LIGHT_PURPLE, BLUE, RED, BOLD, RESET, GRAY, AQUA, YELLOW, DARK_RED, DARK_AQUA, WHITE, COMMON, UNCOMMON, RARE, EPIC, LEGENDARY, MYTHIC, DARK_GRAY } from './formatting';
+import { GREEN, GOLD, DARK_PURPLE, LIGHT_PURPLE, BLUE, RED, BOLD, RESET, GRAY, AQUA, YELLOW, DARK_RED, DARK_AQUA, WHITE, COMMON, UNCOMMON, RARE, EPIC, LEGENDARY, MYTHIC, DARK_GRAY, SPECIAL } from './formatting';
 
 // WATER SEA CREATURES
 
@@ -127,6 +127,8 @@ export const MAGMA_CORE_MESSAGE = `RARE DROP! ${RESET}${BLUE}Magma Core ${MAGIC_
 export const TIKI_MASK_MESSAGE = `RARE DROP! ${RESET}${GOLD}Tiki Mask ${MAGIC_FIND_MESSAGE_PATTERN}`; // RARE DROP! &r&6Tiki Mask &r&b(+&r&b236 &r&b✯ Magic Find&r&b)
 export const TITANOBOA_SHED_MESSAGE = `RARE DROP! ${RESET}${GOLD}Titanoboa Shed ${MAGIC_FIND_MESSAGE_PATTERN}`; // RARE DROP! &r&6Titanoboa Shed &r&b(+&r&b236 &r&b✯ Magic Find&r&b)
 export const SCUTTLER_SHELL_MESSAGE = `RARE DROP! ${RESET}${GOLD}Scuttler Shell ${MAGIC_FIND_MESSAGE_PATTERN}`; // RARE DROP! &r&6Scuttler Shell &r&b(+&r&b236 &r&b✯ Magic Find&r&b)
+
+export const PHOENIX_PET_MESSAGE = `${YELLOW}Wow! ` + '${playerNameAndRank}' + ` ${RESET}${YELLOW}found a ${RESET}${RED}Phoenix ${RESET}${YELLOW}pet!`; // &eWow! &r&b[MVP&r&c+&r&b] &bMoonTheSadFisher&r&r&f &r&efound a &r&cPhoenix &r&epet!
 
 export const AQUAMARINE_DYE_MESSAGE = `${RESET}${LIGHT_PURPLE}${BOLD}WOW! ` + '${playerNameAndRank}' + ` ${RESET}${GOLD}found an ${RESET}${AQUA}Aquamarine Dye`; // &r&d&lWOW! &r&b[MVP&r&c+&r&b] &bMoonTheSadFisher&r&r&f &r&6found an &r&bAquamarine Dye &r&8#95&r&6!&r
 export const ICEBERG_DYE_MESSAGE = `${RESET}${LIGHT_PURPLE}${BOLD}WOW! ` + '${playerNameAndRank}' + ` ${RESET}${GOLD}found an ${RESET}${DARK_AQUA}Iceberg Dye`; // &r&d&lWOW! &r&b[MVP&r&c+&r&b] &bMoonTheSadFisher&r&r&f &r&6found an &r&3Iceberg Dye&r
@@ -935,7 +937,17 @@ export const OUTSTANDING_CATCH_TRIGGERS = [
     },
 ];
 
-export const DYE_TRIGGERS = [
+export const LOBBY_WIDE_DROPS_TRIGGERS = [
+    {
+        trigger: PHOENIX_PET_MESSAGE,
+        itemId: 'PHOENIX;?',
+        itemName: drops.PHOENIX_PET,
+        sound: sounds.MC_RARE_ACHIEVEMENT_SOURCE,
+        isMessageEnabledSettingKey: 'messageOnPhoenixPetDrop',
+        isAlertEnabledSettingKey: 'alertOnPhoenixPetDrop',
+        rarityColorCode: SPECIAL,
+        shouldTrackDropNumber: false,
+    },
     {
         trigger: CARMINE_DYE_MESSAGE,
         itemId: 'DYE_CARMINE',

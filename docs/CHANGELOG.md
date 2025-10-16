@@ -7,6 +7,7 @@ Released: ???
 Features:
 - Calculate pets price in Fishing Profit Tracker as difference between level 1 and max level.
 - Added Sea creatures count threshold - GALATEA setting (for MC 1.21).
+- Added party alert on Phoenix pet drop.
 - Removed party alerts on EPIC Baby Yeti, RARE & EPIC Flying Fish pet drop.
 - Removed count of dropped Baby Yeti pets from Jerry Workshop tracker.
   - I had to remove it because now is hard to track dropped pets - Hypixel removed RARE DROP message for some pets.

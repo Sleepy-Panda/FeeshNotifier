@@ -416,6 +416,14 @@ const config = new DefaultConfig("FeeshNotifier", "config/settings.json")
 })
 .addSwitch({
     category: "Chat",
+    configName: "messageOnPhoenixPetDrop",
+    title: "Send a party chat message on PHOENIX PET drop",
+    description: "Sends a party chat message when a rare item has dropped by you.",
+    subcategory: "Rare Drops",
+    value: true
+})
+.addSwitch({
+    category: "Chat",
     configName: "messageOnCarmineDyeDrop",
     title: "Send a party chat message on CARMINE DYE drop",
     description: "Sends a party chat message when a rare item has dropped by you.",
@@ -947,6 +955,14 @@ const config = new DefaultConfig("FeeshNotifier", "config/settings.json")
     category: "Alerts",
     configName: "alertOnSquidPetDrop",
     title: "Alert on SQUID PET drop",
+    description: "Shows a title and plays a sound when a rare item has dropped by you or your party members.",
+    subcategory: "Rare Drops",
+    value: true
+})
+.addSwitch({
+    category: "Alerts",
+    configName: "alertOnPhoenixPetDrop",
+    title: "Alert on PHOENIX PET drop",
     description: "Shows a title and plays a sound when a rare item has dropped by you or your party members.",
     subcategory: "Rare Drops",
     value: true
