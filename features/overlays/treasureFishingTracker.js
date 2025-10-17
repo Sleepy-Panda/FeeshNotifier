@@ -21,6 +21,18 @@ const TREASURE_CATCH_TRIGGERS = [
         trigger: triggers.OUTSTANDING_CATCH_MESSAGE,
         treasureType: "outstanding",
     },
+    {
+        trigger: triggers.GOOD_JUNK_CATCH_MESSAGE,
+        treasureType: "good",
+    },
+    {
+        trigger: triggers.GREAT_JUNK_CATCH_MESSAGE,
+        treasureType: "great",
+    },
+    {
+        trigger: triggers.OUTSTANDING_JUNK_CATCH_MESSAGE,
+        treasureType: "outstanding",
+    },
 ];
 
 const TRACKED_DROPS = [
