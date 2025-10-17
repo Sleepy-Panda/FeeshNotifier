@@ -49,8 +49,7 @@
 
 - Rare Catch alert based on Skyhanni message does not work for The Loch Emperor (because they send The Sea Emperor in message)
 - Rare SC cocooned alert
-- Phoenix alert
-- Remove party drop alerts for Megalodon pets (first check if they don't have SB chat message anymore).
+- Phoenix proc'ed alert / Phoenix back alert (same as Spirit Mask)
 - Customized sounds for rare catches and rare drops
   - People want to customize sounds for Jawbus etc, individually for mobs and drops
   - Sounds folder: assets

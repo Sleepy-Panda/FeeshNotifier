@@ -1,7 +1,7 @@
 import * as drops from './drops';
 import * as sounds from './sounds';
 import * as seaCreatures from './seaCreatures';
-import { GREEN, GOLD, DARK_PURPLE, LIGHT_PURPLE, BLUE, RED, BOLD, RESET, GRAY, AQUA, YELLOW, DARK_RED, DARK_AQUA, WHITE, COMMON, UNCOMMON, RARE, EPIC, LEGENDARY, MYTHIC, DARK_GRAY } from './formatting';
+import { GREEN, GOLD, DARK_PURPLE, LIGHT_PURPLE, BLUE, RED, BOLD, RESET, GRAY, AQUA, YELLOW, DARK_RED, DARK_AQUA, WHITE, COMMON, UNCOMMON, RARE, EPIC, LEGENDARY, MYTHIC, DARK_GRAY, SPECIAL, DARK_GREEN } from './formatting';
 
 // WATER SEA CREATURES
 
@@ -128,6 +128,8 @@ export const TIKI_MASK_MESSAGE = `RARE DROP! ${RESET}${GOLD}Tiki Mask ${MAGIC_FI
 export const TITANOBOA_SHED_MESSAGE = `RARE DROP! ${RESET}${GOLD}Titanoboa Shed ${MAGIC_FIND_MESSAGE_PATTERN}`; // RARE DROP! &r&6Titanoboa Shed &r&b(+&r&b236 &r&b✯ Magic Find&r&b)
 export const SCUTTLER_SHELL_MESSAGE = `RARE DROP! ${RESET}${GOLD}Scuttler Shell ${MAGIC_FIND_MESSAGE_PATTERN}`; // RARE DROP! &r&6Scuttler Shell &r&b(+&r&b236 &r&b✯ Magic Find&r&b)
 
+export const PHOENIX_PET_MESSAGE = `${YELLOW}Wow! ` + '${playerNameAndRank}' + ` ${RESET}${YELLOW}found a ${RESET}${RED}Phoenix ${RESET}${YELLOW}pet!`; // &eWow! &r&b[MVP&r&c+&r&b] &bMoonTheSadFisher&r&r&f &r&efound a &r&cPhoenix &r&epet!
+
 export const AQUAMARINE_DYE_MESSAGE = `${RESET}${LIGHT_PURPLE}${BOLD}WOW! ` + '${playerNameAndRank}' + ` ${RESET}${GOLD}found an ${RESET}${AQUA}Aquamarine Dye`; // &r&d&lWOW! &r&b[MVP&r&c+&r&b] &bMoonTheSadFisher&r&r&f &r&6found an &r&bAquamarine Dye &r&8#95&r&6!&r
 export const ICEBERG_DYE_MESSAGE = `${RESET}${LIGHT_PURPLE}${BOLD}WOW! ` + '${playerNameAndRank}' + ` ${RESET}${GOLD}found an ${RESET}${DARK_AQUA}Iceberg Dye`; // &r&d&lWOW! &r&b[MVP&r&c+&r&b] &bMoonTheSadFisher&r&r&f &r&6found an &r&3Iceberg Dye&r
 export const CARMINE_DYE_MESSAGE = `${RESET}${LIGHT_PURPLE}${BOLD}WOW! ` + '${playerNameAndRank}' + ` ${RESET}${GOLD}found a ${RESET}${DARK_RED}Carmine Dye`; // &r&d&lWOW! &r&b[MVP&r&c+&r&b] &bMoonTheSadFisher&r&r&f &r&6found a &r&4Carmine Dye&r
@@ -139,6 +141,9 @@ export const BONE_DYE_MESSAGE = `${RESET}${LIGHT_PURPLE}${BOLD}WOW! ` + '${playe
 export const GOOD_CATCH_MESSAGE = `${RESET}${DARK_PURPLE}⛃ ${RESET}${DARK_PURPLE}${BOLD}GOOD CATCH!`; // &r&5⛃ &r&5&lGOOD CATCH!
 export const GREAT_CATCH_MESSAGE = `${RESET}${GOLD}⛃ ${RESET}${GOLD}${BOLD}GREAT CATCH!`; // &r&6⛃ &r&6&lGREAT CATCH!
 export const OUTSTANDING_CATCH_MESSAGE = `${RESET}${LIGHT_PURPLE}⛃ ${RESET}${LIGHT_PURPLE}${BOLD}OUTSTANDING CATCH!`; // &r&d⛃ &r&d&lOUTSTANDING CATCH!
+export const GOOD_JUNK_CATCH_MESSAGE = `${RESET}${DARK_PURPLE}⛃ ${RESET}${DARK_PURPLE}${BOLD}GOOD ${RESET}${DARK_GREEN}${BOLD}JUNK${RESET}${DARK_PURPLE}${BOLD} CATCH!`; // &r&5⛃ &r&5&lGOOD &r&2&lJUNK&r&5&l CATCH!
+export const GREAT_JUNK_CATCH_MESSAGE = `${RESET}${GOLD}⛃ ${RESET}${GOLD}${BOLD}GREAT ${RESET}${DARK_GREEN}${BOLD}JUNK${RESET}${GOLD}${BOLD} CATCH!`; // &r&6⛃ &r&6&lGREAT &r&2&lJUNK&r&6&l CATCH!
+export const OUTSTANDING_JUNK_CATCH_MESSAGE = `${RESET}${LIGHT_PURPLE}⛃ ${RESET}${LIGHT_PURPLE}${BOLD}OUTSTANDING ${RESET}${DARK_GREEN}${BOLD}JUNK${RESET}${LIGHT_PURPLE}${BOLD} CATCH!`; // &r&d⛃ &r&d&lOUTSTANDING &r&2&lJUNK&r&d&l CATCH!
 
 export const SQUID_PET_LEG_MESSAGE = `${OUTSTANDING_CATCH_MESSAGE} ${RESET}${WHITE}You caught a ${RESET}${GRAY}[Lvl 1] ${RESET}${GOLD}Squid${RESET}${WHITE}!`;
 export const SQUID_PET_EPIC_MESSAGE = `${OUTSTANDING_CATCH_MESSAGE} ${RESET}${WHITE}You caught a ${RESET}${GRAY}[Lvl 1] ${RESET}${DARK_PURPLE}Squid${RESET}${WHITE}!`;
@@ -936,7 +941,17 @@ export const OUTSTANDING_CATCH_TRIGGERS = [
     },
 ];
 
-export const DYE_TRIGGERS = [
+export const LOBBY_WIDE_DROPS_TRIGGERS = [
+    {
+        trigger: PHOENIX_PET_MESSAGE,
+        itemId: 'PHOENIX;?',
+        itemName: drops.PHOENIX_PET,
+        sound: sounds.MC_RARE_ACHIEVEMENT_SOURCE,
+        isMessageEnabledSettingKey: 'messageOnPhoenixPetDrop',
+        isAlertEnabledSettingKey: 'alertOnPhoenixPetDrop',
+        rarityColorCode: SPECIAL,
+        shouldTrackDropNumber: false,
+    },
     {
         trigger: CARMINE_DYE_MESSAGE,
         itemId: 'DYE_CARMINE',

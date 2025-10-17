@@ -124,7 +124,7 @@ triggers.OUTSTANDING_CATCH_TRIGGERS.forEach(entry => {
     ).setCriteria(getPartyChatMessage(getDropMessagePattern(entry.itemName))).setStart();
 });
 
-triggers.DYE_TRIGGERS.forEach(entry => {
+triggers.LOBBY_WIDE_DROPS_TRIGGERS.forEach(entry => {
     // Triggers on original "all chat" drop message sent by Hypixel.
     register(
         "Chat",
