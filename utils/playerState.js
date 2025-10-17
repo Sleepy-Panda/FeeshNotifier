@@ -188,7 +188,7 @@ function setHasFishingRodInHotbar() {
 		return;
 	}
 
-	const hotbarItems = Player.getInventory().getItems()?.slice(0, 8);
+	const hotbarItems = Player.getInventory()?.getItems()?.slice(0, 8);
 	if (!hotbarItems || !hotbarItems.length) {
 		hasFishingRodInHotbar = false;
 	} else {
