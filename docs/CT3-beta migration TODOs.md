@@ -4,6 +4,7 @@ Current artifact used: https://github.com/Synnerz/ctjs/releases/tag/1.21.5v1
 
 ## Reminders
 
+- Probably I will need to port it to 1.21.7 or higher (depends on SB decision of supported version)
 - Adjust changelog file and metadata version
   - Probably version should be 3+ to allow any minor 2+
 - Update settings to remove not supported features
@@ -34,6 +35,7 @@ Current artifact used: https://github.com/Synnerz/ctjs/releases/tag/1.21.5v1
 
 - Umberella & Flare overlay not working 
   - error in playernteract (InternalError: Invalid JavaScript value of type com.chattriggers.ctjs.api.world.block.Block (moduleProvided#314))
+- Martin NPC fishing hook is detected in Bobbong Time tracker (Galatea)
 - Overlay moving when scrolling
 - Overlays position not preserved when copying coords file from 1.8.9
 - Clickable overlay buttons - smaller scale buttons renders wrongly, so far they have same size as overlay text

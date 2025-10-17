@@ -167,6 +167,12 @@ export function getHypixelFishingHookTimer(fishingHook) {
 		uuid: hypixelHookTimer.getUUID(),
 		name: hypixelHookTimer.getNameComponent()?.formattedText,
 		fishState: hypixelHookTimer.getNameComponent()?.formattedText === FISH_ARRIVED ? FISH_STATE_ARRIVED : FISH_STATE_ARRIVING,
+		x: hypixelHookTimer.getX(),
+		y: hypixelHookTimer.getY(),
+		z: hypixelHookTimer.getZ(),
+		lastX: hypixelHookTimer.getLastX(),
+		lastY: hypixelHookTimer.getLastY(),
+		lastZ: hypixelHookTimer.getLastZ(),
 	};
 
 	return result;

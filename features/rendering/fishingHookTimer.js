@@ -47,7 +47,7 @@ function trackHypixelFishingHookTimer() {
     
         fishingHookTimer = {
             ticksExisted: fishingHookMc.age,
-            x: fishingHook.getX(),
+            x: fishingHook.getX(), // Remember hook position for "Since casted" mode
             y: fishingHook.getY(),
             z: fishingHook.getZ(),
             lastX: fishingHook.getLastX(),
@@ -61,7 +61,17 @@ function trackHypixelFishingHookTimer() {
             return;
         }
     
-        fishingHookTimer = Object.assign(fishingHookTimer, { hypixelTimerUuid: hypixelHookTimer.uuid, fishState: hypixelHookTimer.fishState, hypixelTimerText: hypixelHookTimer.name });    
+        fishingHookTimer = Object.assign(fishingHookTimer, {
+            hypixelTimerUuid: hypixelHookTimer.uuid,
+            fishState: hypixelHookTimer.fishState,
+            hypixelTimerText: hypixelHookTimer.name,
+            x: hypixelHookTimer.x, // Override with position of Hypixel timer for more smooth rendering
+            y: hypixelHookTimer.y,
+            z: hypixelHookTimer.z,
+            lastX: hypixelHookTimer.lastX,
+            lastY: hypixelHookTimer.lastY,
+            lastZ: hypixelHookTimer.lastZ,
+        });    
     } catch (e) {
 		console.error(e);
 		console.log(`[FeeshNotifier] Failed to track Hypixel's fishing hook.`);

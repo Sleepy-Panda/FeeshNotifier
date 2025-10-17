@@ -343,7 +343,7 @@ export function getPlayerFishingHook() {
 	return World.getAllEntitiesOfType(EntityFishHook)
 		.find(e =>
 			Player.getPlayer().fishHook == e.toMC() ||
-			e.toMC()?.getPlayerOwner()?.getDisplayName()?.removeFormatting() === Player.getName().removeFormatting()
+			e.toMC()?.getPlayerOwner()?.getName()?.getString()?.removeFormatting() === Player.getName().removeFormatting()
 		);
 }
 
