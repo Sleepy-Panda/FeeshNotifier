@@ -94,9 +94,12 @@ export const BANSHEE_MESSAGE = `${RESET}${GREEN}The desolate wail of a Banshee b
 export const SNAPPING_TURTLE_MESSAGE = `${RESET}${GREEN}A Snapping Turtle is coming your way, and it's ANGRY!`;
 export const BAYOU_SLUDGE_MESSAGE = `${RESET}${GREEN}A swampy mass of slime emerges, the Bayou Sludge!`;
 export const ALLIGATOR_MESSAGE = `${RESET}${GREEN}A long snout breaks the surface of the water. It's an Alligator!`;
-export const TITANOBOA_MESSAGE = `${RESET}${GREEN}${RESET}${RED}${BOLD}A massive Titanoboa surfaces. Its body stretches as far as the eye can see.`; // &r&a&r&c&lA massive Titanoboa surfaces. Its body stretches as far as the eye can see.
+// &r&a&r&c&lA massive Titanoboa surfaces. Its body stretches as far as the eye can see.
+// 1.21.5: &r&c&lA massive Titanoboa surfaces. Its body stretches as far as the eye can see.
+export const TITANOBOA_MESSAGE = `${RESET}${RED}${BOLD}A massive Titanoboa surfaces. Its body stretches as far as the eye can see.`;
 export const BLUE_RINGED_OCTOPUS_MESSAGE = `${RESET}${GREEN}A garish set of tentacles arise. It's a Blue Ringed Octopus!`;
-export const WIKI_TIKI_MESSAGE = `${RESET}${RED}${RESET}${RED}${BOLD}The water bubbles and froths. A massive form emerges- you have disturbed the Wiki Tiki! You shall pay the price.`; // &r&c&r&c&lThe water bubbles and froths. A massive form emerges- you have disturbed the Wiki Tiki! You shall pay the price.
+// &r&c&r&c&lThe water bubbles and froths. A massive form emerges- you have disturbed the Wiki Tiki! You shall pay the price.
+export const WIKI_TIKI_MESSAGE = `${RESET}${RED}${BOLD}The water bubbles and froths. A massive form emerges- you have disturbed the Wiki Tiki! You shall pay the price.`;
 
 // GALATEA SEA CREATURES
 
