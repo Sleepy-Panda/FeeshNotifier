@@ -304,7 +304,7 @@ export class OverlayTextLine {
     _draw() {
         this.text.setAlign('LEFT').setShadow(true).draw();
         this.width = this.text.getWidth();
-        this.height = this.text.getHeight();
+        this.height = this.text.getHeight() / this.text.getScale(); // scale fixes CT issue with multiline Text returning wrong height
     }
 
     _isHovered(x, y) {
