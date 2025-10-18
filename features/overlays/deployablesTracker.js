@@ -41,7 +41,7 @@ registerIf(
 
 // Those deployables have no player name in their nametag, so we need to track item interaction to detect current player's deployable and ignore deployables from others.
 registerIf(
-    register("playerInteract", (playerInteraction, obj, event) => handleDeployableInteraction(obj)),
+    register("playerInteract", (playerInteraction, obj, event) => handleDeployableInteraction(playerInteraction, obj)),
     () => (
         isInSkyblock() &&
         (settings.alertOnDeployableExpiresSoon && (settings.alertOnUmberellaExpiresSoon || settings.alertOnFlareExpiresSoon)) ||
@@ -135,21 +135,18 @@ function trackDeployablesStatus() {
     trackFlareStatus();
 }
 
-function handleDeployableInteraction(obj) {
+function handleDeployableInteraction(playerInteraction, obj) {
     try {
         if (!isInSkyblock()) return;
+        if ((playerInteraction.name !== 'UseItem' && playerInteraction.name !== 'UseBlock') || !playerInteraction.mainHand) return;
 
-        // InternalError: Invalid JavaScript value of type com.chattriggers.ctjs.api.world.block.Block (moduleProvided#314)
+        const heldItemName = Player.getHeldItem()?.getName();
 
-        //console.log(obj)
-        //const heldItemName = Player.getHeldItem()?.getName();
-
-        if (isUmberellaTrackingEnabled() && obj?.getName()?.includes('Umberella')) {
-            //console.log('Umber')
+        if (isUmberellaTrackingEnabled() && heldItemName?.includes('Umberella')) {
             setTimeout(() => trackUmberellaNearby(heldItemName), 250); // Give time for a Umberella to appear after click
         }
         
-        if (isFlareTrackingEnabled() && obj?.getName()?.includes('Flare')) {
+        if (isFlareTrackingEnabled() && heldItemName?.includes('Flare')) {
             if (new Date() - remainingTimes.flare.lastPlacedAt < 500) return; // sometimes playerInteract event happens multiple times
             setTimeout(() => trackFlareRocketNearby(heldItemName), 500); // Give time for a firework rocket to appear after click
         }  

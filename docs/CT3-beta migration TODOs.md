@@ -29,23 +29,19 @@ Current artifact used: https://github.com/Synnerz/ctjs/releases/tag/1.21.5v1
 
 - Player name in alert has no formatting (CT issue)
   - Player.getDisplayName().toString() returns §r§8[§r§c469§r§8] §rMoonTheSadFisher§r §r§7α - no color code before nick
-- Test alerts on Pet drops with SH "pet rarity in chat" enabled/disabled
 
 ## Overlays
 
-- Umberella & Flare overlay not working 
-  - error in playernteract (InternalError: Invalid JavaScript value of type com.chattriggers.ctjs.api.world.block.Block (moduleProvided#314))
+- Lines are rendered too close to each other, almost no space between them (CT issue)
+- Problem with Buttons positions for some overlay in new CT artifact with fixed overlays
 - Martin NPC fishing hook is detected in Bobbong Time tracker (Galatea)
 - Overlay moving when scrolling
 - Overlays position not preserved when copying coords file from 1.8.9
 - Clickable overlay buttons - smaller scale buttons renders wrongly, so far they have same size as overlay text
 - Clickable lines - sometimes clicks intersect between 2 lines, 2 lines are clicked
-- Lines are rendered too close to each other, almost no space between them (CT issue)
 - Moby duck overlay not tested
 - To test all overlays
 - Check if Kat pets counted in profit tracker
-- Check if double hook is always counted
-  - E.g. when using compacted SC catch message, or when there is "It took N catches" message in the chat
 - Fix getSkullTexture(entity) for Cocoons rendering
 
 ## Inventory features
