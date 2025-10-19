@@ -1,7 +1,7 @@
 import * as drops from './drops';
 import * as sounds from './sounds';
 import * as seaCreatures from './seaCreatures';
-import { GREEN, GOLD, DARK_PURPLE, LIGHT_PURPLE, BLUE, RED, BOLD, RESET, GRAY, AQUA, YELLOW, DARK_RED, DARK_AQUA, WHITE, COMMON, UNCOMMON, RARE, EPIC, LEGENDARY, MYTHIC, DARK_GRAY } from './formatting';
+import { GREEN, GOLD, DARK_PURPLE, LIGHT_PURPLE, BLUE, RED, BOLD, RESET, GRAY, AQUA, YELLOW, DARK_RED, DARK_AQUA, WHITE, COMMON, UNCOMMON, RARE, EPIC, LEGENDARY, MYTHIC, DARK_GRAY, SPECIAL, DARK_GREEN } from './formatting';
 
 // WATER SEA CREATURES
 
@@ -108,13 +108,15 @@ export const BOGGED_MESSAGE = `${RESET}${GREEN}You've hooked a Bogged!`;
 
 // DROPS
 
-export const BABY_YETI_PET_LEG_MESSAGE = `PET DROP! ${RESET}${GOLD}Baby Yeti`; // PET DROP! &r&6Baby Yeti
-export const BABY_YETI_PET_EPIC_MESSAGE = `PET DROP! ${RESET}${DARK_PURPLE}Baby Yeti`; // PET DROP! &r&5Baby Yeti
-export const FLYING_FISH_PET_LEG_MESSAGE = `PET DROP! ${RESET}${GOLD}Flying Fish`;
-export const FLYING_FISH_PET_EPIC_MESSAGE = `PET DROP! ${RESET}${DARK_PURPLE}Flying Fish`;
-export const FLYING_FISH_PET_RARE_MESSAGE = `PET DROP! ${RESET}${BLUE}Flying Fish`;
-export const MEGALODON_PET_LEG_MESSAGE = `PET DROP! ${RESET}${GOLD}Megalodon`;
-export const MEGALODON_PET_EPIC_MESSAGE = `PET DROP! ${RESET}${DARK_PURPLE}Megalodon`;
+// PET DROP! &r&6Baby Yeti
+// §r§6§lPET DROP! §r§6Baby Yeti§r
+// §r§6§lPET DROP! §6§lLEGENDARY §6Baby Yeti - 1.21 (modified by SH)
+export const BABY_YETI_PET_LEG_MESSAGE = `PET DROP!`+ '${*}' + `${GOLD}Baby Yeti`;
+// &r&6&lPET DROP! &r&6Flying Fish&r
+// &r&6&lPET DROP! &6&lLEGENDARY &6Flying Fish - 1.21 (modified by SH)
+export const FLYING_FISH_PET_LEG_MESSAGE = `PET DROP!`+ '${*}' + `${GOLD}Flying Fish`; 
+export const MEGALODON_PET_LEG_MESSAGE = `PET DROP!`+ '${*}' + `${GOLD}Megalodon`;
+export const MEGALODON_PET_EPIC_MESSAGE = `PET DROP!`+ '${*}' + `${DARK_PURPLE}Megalodon`;
 
 const MAGIC_FIND_MESSAGE_PATTERN = `${RESET}${AQUA}(+${RESET}${AQUA}` + '${magicFind}' + ` ${RESET}${AQUA}✯ Magic Find${RESET}${AQUA})`; // &r&b(+&r&b236 &r&b✯ Magic Find&r&b)
 
@@ -125,6 +127,8 @@ export const MAGMA_CORE_MESSAGE = `RARE DROP! ${RESET}${BLUE}Magma Core ${MAGIC_
 export const TIKI_MASK_MESSAGE = `RARE DROP! ${RESET}${GOLD}Tiki Mask ${MAGIC_FIND_MESSAGE_PATTERN}`; // RARE DROP! &r&6Tiki Mask &r&b(+&r&b236 &r&b✯ Magic Find&r&b)
 export const TITANOBOA_SHED_MESSAGE = `RARE DROP! ${RESET}${GOLD}Titanoboa Shed ${MAGIC_FIND_MESSAGE_PATTERN}`; // RARE DROP! &r&6Titanoboa Shed &r&b(+&r&b236 &r&b✯ Magic Find&r&b)
 export const SCUTTLER_SHELL_MESSAGE = `RARE DROP! ${RESET}${GOLD}Scuttler Shell ${MAGIC_FIND_MESSAGE_PATTERN}`; // RARE DROP! &r&6Scuttler Shell &r&b(+&r&b236 &r&b✯ Magic Find&r&b)
+
+export const PHOENIX_PET_MESSAGE = `${YELLOW}Wow! ` + '${playerNameAndRank}' + ` ${RESET}${YELLOW}found a ${RESET}${RED}Phoenix ${RESET}${YELLOW}pet!`; // &eWow! &r&b[MVP&r&c+&r&b] &bMoonTheSadFisher&r&r&f &r&efound a &r&cPhoenix &r&epet!
 
 export const AQUAMARINE_DYE_MESSAGE = `${RESET}${LIGHT_PURPLE}${BOLD}WOW! ` + '${playerNameAndRank}' + ` ${RESET}${GOLD}found an ${RESET}${AQUA}Aquamarine Dye`; // &r&d&lWOW! &r&b[MVP&r&c+&r&b] &bMoonTheSadFisher&r&r&f &r&6found an &r&bAquamarine Dye &r&8#95&r&6!&r
 export const ICEBERG_DYE_MESSAGE = `${RESET}${LIGHT_PURPLE}${BOLD}WOW! ` + '${playerNameAndRank}' + ` ${RESET}${GOLD}found an ${RESET}${DARK_AQUA}Iceberg Dye`; // &r&d&lWOW! &r&b[MVP&r&c+&r&b] &bMoonTheSadFisher&r&r&f &r&6found an &r&3Iceberg Dye&r
@@ -137,6 +141,9 @@ export const BONE_DYE_MESSAGE = `${RESET}${LIGHT_PURPLE}${BOLD}WOW! ` + '${playe
 export const GOOD_CATCH_MESSAGE = `${RESET}${DARK_PURPLE}⛃ ${RESET}${DARK_PURPLE}${BOLD}GOOD CATCH!`; // &r&5⛃ &r&5&lGOOD CATCH!
 export const GREAT_CATCH_MESSAGE = `${RESET}${GOLD}⛃ ${RESET}${GOLD}${BOLD}GREAT CATCH!`; // &r&6⛃ &r&6&lGREAT CATCH!
 export const OUTSTANDING_CATCH_MESSAGE = `${RESET}${LIGHT_PURPLE}⛃ ${RESET}${LIGHT_PURPLE}${BOLD}OUTSTANDING CATCH!`; // &r&d⛃ &r&d&lOUTSTANDING CATCH!
+export const GOOD_JUNK_CATCH_MESSAGE = `${RESET}${DARK_PURPLE}⛃ ${RESET}${DARK_PURPLE}${BOLD}GOOD ${RESET}${DARK_GREEN}${BOLD}JUNK${RESET}${DARK_PURPLE}${BOLD} CATCH!`; // &r&5⛃ &r&5&lGOOD &r&2&lJUNK&r&5&l CATCH!
+export const GREAT_JUNK_CATCH_MESSAGE = `${RESET}${GOLD}⛃ ${RESET}${GOLD}${BOLD}GREAT ${RESET}${DARK_GREEN}${BOLD}JUNK${RESET}${GOLD}${BOLD} CATCH!`; // &r&6⛃ &r&6&lGREAT &r&2&lJUNK&r&6&l CATCH!
+export const OUTSTANDING_JUNK_CATCH_MESSAGE = `${RESET}${LIGHT_PURPLE}⛃ ${RESET}${LIGHT_PURPLE}${BOLD}OUTSTANDING ${RESET}${DARK_GREEN}${BOLD}JUNK${RESET}${LIGHT_PURPLE}${BOLD} CATCH!`; // &r&d⛃ &r&d&lOUTSTANDING &r&2&lJUNK&r&d&l CATCH!
 
 export const SQUID_PET_LEG_MESSAGE = `${OUTSTANDING_CATCH_MESSAGE} ${RESET}${WHITE}You caught a ${RESET}${GRAY}[Lvl 1] ${RESET}${GOLD}Squid${RESET}${WHITE}!`;
 export const SQUID_PET_EPIC_MESSAGE = `${OUTSTANDING_CATCH_MESSAGE} ${RESET}${WHITE}You caught a ${RESET}${GRAY}[Lvl 1] ${RESET}${DARK_PURPLE}Squid${RESET}${WHITE}!`;
@@ -146,11 +153,13 @@ export const SQUID_PET_COMMON_MESSAGE = `${GREAT_CATCH_MESSAGE} ${RESET}${WHITE}
 
 // OTHER
 
-export const DOUBLE_HOOK_MESSAGES = [ '&r&eIt\'s a &r&aDouble Hook&r&e! Woot woot!&r', '&r&eIt\'s a &r&aDouble Hook&r&e!&r', '§r§eIt\'s a §r§aDouble Hook§r§e! Woot woot!', '§r§eIt\'s a §r§aDouble Hook§r§e!' ];
+export const DOUBLE_HOOK_MESSAGES = [ '&r&eIt\'s a &r&aDouble Hook&r&e! Woot woot!&r', '&r&eIt\'s a &r&aDouble Hook&r&e!&r', '&r&eIt\'s a &r&aDouble Hook&r&e! Woot woot!', '&r&eIt\'s a &r&aDouble Hook&r&e!', '§r§eIt\'s a §r§aDouble Hook§r§e! Woot woot!', '§r§eIt\'s a §r§aDouble Hook§r§e!' ];
 
-export const KILLED_BY_THUNDER_MESSAGE = `${RESET}${GRAY}You were killed by Thunder${RESET}${GRAY}${RESET}${GRAY}.`; // &r&7You were killed by Thunder&r&7&r&7.
-export const KILLED_BY_LORD_JAWBUS_MESSAGE = `${RESET}${GRAY}You were killed by Lord Jawbus${RESET}${GRAY}${RESET}${GRAY}.`; // &r&7You were killed by Lord Jawbus&r&7&r&7.
-export const KILLED_BY_RAGNAROK_MESSAGE = `${RESET}${GRAY}You were killed by Ragnarok${RESET}${GRAY}${RESET}${GRAY}.`; // &r&7You were killed by Ragnarok&r&7&r&7.
+// &r&7You were killed by Thunder&r&7&r&7.
+// MC 1.21: &r&c ☠ &r&7You were killed by Thunder&r&7.
+export const KILLED_BY_THUNDER_MESSAGE = `${RESET}${GRAY}You were killed by Thunder${RESET}${GRAY}`;
+export const KILLED_BY_LORD_JAWBUS_MESSAGE = `${RESET}${GRAY}You were killed by Lord Jawbus${RESET}${GRAY}`; // &r&7You were killed by Lord Jawbus&r&7&r&7.
+export const KILLED_BY_RAGNAROK_MESSAGE = `${RESET}${GRAY}You were killed by Ragnarok${RESET}${GRAY}`; // &r&7You were killed by Ragnarok&r&7&r&7.
 
 export const THUNDER_BOTTLE_CHARGED_MESSAGE = `${RESET}${YELLOW}> Your bottle of thunder has fully charged!`;
 export const STORM_BOTTLE_CHARGED_MESSAGE = `${RESET}${YELLOW}> Your Storm in a Bottle has fully charged!`;
@@ -774,16 +783,6 @@ export const PET_DROP_TRIGGERS = [
         shouldTrackDropNumber: true,
     },
     {
-        trigger: BABY_YETI_PET_EPIC_MESSAGE,
-        itemId: 'BABY_YETI;3',
-        itemName: drops.BABY_YETI_PET + ' (Epic)',
-        sound: sounds.AUGH_SOUND_SOURCE,
-        isMessageEnabledSettingKey: 'messageOnBabyYetiPetDrop',
-        isAlertEnabledSettingKey: 'alertOnBabyYetiPetDrop',
-        rarityColorCode: EPIC,
-        shouldTrackDropNumber: true,
-    },
-    {
         trigger: FLYING_FISH_PET_LEG_MESSAGE,
         itemId: 'FLYING_FISH;4',
         itemName: drops.FLYING_FISH_PET + ' (Legendary)',
@@ -791,26 +790,6 @@ export const PET_DROP_TRIGGERS = [
         isMessageEnabledSettingKey: 'messageOnFlyingFishPetDrop',
         isAlertEnabledSettingKey: 'alertOnFlyingFishPetDrop',
         rarityColorCode: LEGENDARY,
-        shouldTrackDropNumber: true,
-    },
-    {
-        trigger: FLYING_FISH_PET_EPIC_MESSAGE,
-        itemId: 'FLYING_FISH;3',
-        itemName: drops.FLYING_FISH_PET + ' (Epic)',
-        sound: sounds.AUGH_SOUND_SOURCE,
-        isMessageEnabledSettingKey: 'messageOnFlyingFishPetDrop',
-        isAlertEnabledSettingKey: 'alertOnFlyingFishPetDrop',
-        rarityColorCode: EPIC,
-        shouldTrackDropNumber: true,
-    },
-    {
-        trigger: FLYING_FISH_PET_RARE_MESSAGE,
-        itemId: 'FLYING_FISH;2',
-        itemName: drops.FLYING_FISH_PET + ' (Rare)',
-        sound: sounds.GOOFY_LAUGH_SOUND_SOURCE,
-        isMessageEnabledSettingKey: 'messageOnFlyingFishPetDrop',
-        isAlertEnabledSettingKey: 'alertOnFlyingFishPetDrop',
-        rarityColorCode: RARE,
         shouldTrackDropNumber: true,
     },
     {
@@ -961,7 +940,17 @@ export const OUTSTANDING_CATCH_TRIGGERS = [
     },
 ];
 
-export const DYE_TRIGGERS = [
+export const LOBBY_WIDE_DROPS_TRIGGERS = [
+    {
+        trigger: PHOENIX_PET_MESSAGE,
+        itemId: 'PHOENIX;?',
+        itemName: drops.PHOENIX_PET,
+        sound: sounds.MC_RARE_ACHIEVEMENT_SOURCE,
+        isMessageEnabledSettingKey: 'messageOnPhoenixPetDrop',
+        isAlertEnabledSettingKey: 'alertOnPhoenixPetDrop',
+        rarityColorCode: SPECIAL,
+        shouldTrackDropNumber: false,
+    },
     {
         trigger: CARMINE_DYE_MESSAGE,
         itemId: 'DYE_CARMINE',

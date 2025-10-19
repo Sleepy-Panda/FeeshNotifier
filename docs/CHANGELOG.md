@@ -1,8 +1,29 @@
 # Releases
 
-## v1.52.0
+## v1.53.0
 
 Released: ???
+
+Features:
+- Calculate pets price in Fishing Profit Tracker as difference between level 1 and max level.
+- Added Sea creatures count threshold - GALATEA setting (for MC 1.21).
+- Added party alert on Phoenix pet drop.
+- Removed party alerts on EPIC Baby Yeti, RARE & EPIC Flying Fish pet drop.
+- Removed count of dropped Baby Yeti pets from Jerry Workshop tracker.
+  - I had to remove it because now is hard to track dropped pets - Hypixel removed RARE DROP message for some pets.
+
+Bugfixes:
+- Changed max bobbers count to 5 in Bobbin' Time tracker.
+- Actualized NPC prices for fishing drops.
+- Fixed Junk catches not counted in Treasure fishing tracker.
+- Removed not obtainable items (Ice Rod, Shredder, Phantom Rod, Yeti Rod) from Render Rarity Upgrade feature.
+
+Other:
+- Adjusted some code to work in both CT2 and CT3-beta.
+
+## v1.52.0
+
+Released: 2025-10-11
 
 Features:
 - Added setting to render box around Cocoons [disabled by default].
