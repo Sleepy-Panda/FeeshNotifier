@@ -6,6 +6,7 @@ import { AQUA, BOLD, COMMON, DARK_GRAY, EPIC, GOLD, GRAY, LEGENDARY, MYTHIC, OBF
 // itemDisplayName - name with formatting
 // npcPrice - NPC price if exists, or 0
 // shouldAnnounceRareDrop - if the item should be announced as a rare drop in player's chat (for valuable drops which have no standart RARE DROP! message from Hypixel)
+// compactRecipeName - name of the item which is suggested as a recipe to compact the current item
 
 export const FISHING_PROFIT_ITEMS = [
 
@@ -109,6 +110,7 @@ export const FISHING_PROFIT_ITEMS = [
         itemName: 'Raw Cod',
         itemDisplayName: `${COMMON}Raw Cod`,
         npcPrice: 6,
+        compactRecipeName: 'Enchanted Raw Cod'
     },
     {
         itemId: 'ENCHANTED_RAW_FISH',
@@ -1460,6 +1462,7 @@ export const FISHING_PROFIT_ITEMS = [
         itemName: 'Magmafish',
         itemDisplayName: `${RARE}Magmafish`,
         npcPrice: 20,
+        compactRecipeName: 'Silver Magmafish'
     },
     {
         itemId: 'MAGMA_FISH_SILVER',

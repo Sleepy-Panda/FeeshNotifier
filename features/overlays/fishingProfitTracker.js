@@ -652,6 +652,19 @@ function detectInventoryChanges() {
                 ChatLib.chat(`${GOLD}[FeeshNotifier] ${GOLD}${BOLD}RARE DROP! ${RESET}${item.itemDisplayName}${diffText}`);
                 playRareDropSound();
             }
+
+            if (previousCount === 0 && item.compactRecipeName) {
+                new Message(
+                    `${GOLD}[FeeshNotifier] ${RESET}Your inventory contains some ${item.itemDisplayName}${RESET}.\n`,
+                    new TextComponent(`${WHITE}${BOLD}[Click to compact]`)
+                        .setClickAction('run_command')
+                        .setClickValue('/recipe ' + item.compactRecipeName),
+                    ` ${GRAY}or `,
+                    new TextComponent(`${WHITE}${BOLD}[Click to BZ sell]`)
+                        .setClickAction('run_command')
+                        .setClickValue('/bz ' + item.itemName),
+                ).chat();
+            }
         }
     }
 
