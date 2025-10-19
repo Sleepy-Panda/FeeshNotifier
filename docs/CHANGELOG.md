@@ -1,8 +1,20 @@
 # Releases
 
-## v1.53.0
+## v1.54.0
 
 Released: ???
+
+Features:
+- 
+
+Bugfixes:
+- 
+
+Other:
+
+## v1.53.0
+
+Released: 2025-10-19
 
 Features:
 - Calculate pets price in Fishing Profit Tracker as difference between level 1 and max level.
