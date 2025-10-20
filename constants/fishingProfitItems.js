@@ -1094,7 +1094,7 @@ export const FISHING_PROFIT_ITEMS = [
         itemId: 'FLYING_FISH;2',
         itemName: '[Lvl 1] Flying Fish (RARE)',
         itemDisplayName: `${RARE}Flying Fish`,
-        npcPrice: 0,
+        npcPrice: 1000,
         shouldAnnounceRareDrop: true,
     },
     {
@@ -1307,13 +1307,13 @@ export const FISHING_PROFIT_ITEMS = [
         itemId: 'GILL_MEMBRANE',
         itemName: 'Gill Membrane',
         itemDisplayName: `${UNCOMMON}Gill Membrane`,
-        npcPrice: 0,
+        npcPrice: 70,
     },
     {
         itemId: 'STURDY_BONE',
         itemName: 'Sturdy Bone',
         itemDisplayName: `${RARE}Sturdy Bone`,
-        npcPrice: 0,
+        npcPrice: 200,
     },
     {
         itemId: 'FLEXBONE',
@@ -1623,7 +1623,7 @@ export const FISHING_PROFIT_ITEMS = [
         itemId: 'ETERNAL_FLAME_RING',
         itemName: 'Eternal Flame Ring',
         itemDisplayName: `${UNCOMMON}Eternal Flame Ring`,
-        npcPrice: 0,
+        npcPrice: 10000,
     },
     {
         itemId: 'ROUGH_JADE_GEM',
