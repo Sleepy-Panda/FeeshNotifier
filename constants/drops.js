@@ -9,6 +9,7 @@ export const MAGMA_CORE = "Magma Core";
 export const TIKI_MASK = "Tiki Mask";
 export const TITANOBOA_SHED = "Titanoboa Shed";
 export const SCUTTLER_SHELL = "Scuttler Shell";
+export const PHOENIX_PET = "Phoenix";
 export const CARMINE_DYE = "Carmine Dye";
 export const AQUAMARINE_DYE = "Aquamarine Dye";
 export const ICEBERG_DYE = "Iceberg Dye";

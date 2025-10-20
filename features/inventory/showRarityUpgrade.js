@@ -18,29 +18,25 @@ function showRarityUpgrade(item, x, y) {
     }
 
     const displayName = item.getName();
-    const cleanName = displayName?.removeFormatting();
-    if (!cleanName) {
+    const name = displayName?.removeFormatting();
+    if (!name) {
         return;
     }
 
     const isFishingItem = (
-        cleanName.includes('Ice Rod') ||
-        cleanName.includes('Slug Boots') ||
-        cleanName.includes('Moogma Leggings') ||
-        cleanName.includes('Flaming Chestplate') ||
-        cleanName.includes('Taurus Helmet') ||
-        cleanName.includes('Blade of the Volcano') ||
-        cleanName.includes('Staff of the Volcano') ||
-        cleanName.includes('Fairy\'s') ||
-        cleanName.includes('Squid Boots') ||
-        cleanName.includes('Rabbit Hat') ||
-        cleanName.includes('Water Hydra Head') ||
-        cleanName.includes('Fish Affinity Talisman') ||
-        cleanName.includes('Shredder') ||
-        cleanName.includes('Lucky Hoof') ||
-        cleanName.includes('Phantom Rod') ||
-        cleanName.includes('Yeti Rod') ||
-        cleanName.includes('Tiki Mask')
+        name.includes('Slug Boots') ||
+        name.includes('Moogma Leggings') ||
+        name.includes('Flaming Chestplate') ||
+        name.includes('Taurus Helmet') ||
+        name.includes('Blade of the Volcano') ||
+        name.includes('Staff of the Volcano') ||
+        name.includes('Fairy\'s') ||
+        name.includes('Squid Boots') ||
+        name.includes('Rabbit Hat') ||
+        name.includes('Water Hydra Head') ||
+        name.includes('Fish Affinity Talisman') ||
+        name.includes('Lucky Hoof') ||
+        name.includes('Tiki Mask')
     );
     if (!isFishingItem) {
         return;

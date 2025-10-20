@@ -9,27 +9,20 @@
 
 ## Fishing profit tracker
 
-- Add Agatha tickets and Forest essence from Agatha contests (1.21)
+- Track Agatha tickets / Forest Essence on Galatea based on contest results.
 - Use drop # in the chat message based on current profit tracker.
 - Option to right align the tracker (and others too)
 - Option to render icons instead of item names
 - Option to decrease elapsed time in Fishing Profit Tracker (when user forgot to stop tracker being afk)
 - Track scavenged coins in Fishing Profit Tracker
 - Track Ice Essence drop from mobs in Fishing Profit Tracker
-- Calculate pet price in Fishing Profit Tracker as difference between lvl 1 and lvl 100
-  - Also, there are requests to track pet level progress in coins
+- Track pet level progress in coins while it's not maxed
 - Find out price calculation for Kuudra Keys
 - Total and session tracker, or ability to load named session
 - Rewrite way to ignore compacted loot in profit tracker
-- Profit tracker causes lags after a while (memory consumption grows)
 - [Bug] Some items are tracked by Fishing Profit Tracker when dropped, but drop was prevented by SB settings (basically it drops and picks up again).
 - [Bug] Trading with other players adds items to the profit trackers.
 - [Bug] Adding a Pet to tracker does not increase earned money.
-
-## Treasure tracker
-
-- Minimal functionality: count Good, Great & Outstanding catches
-- Ideally, count all catches, and show percent of each type
 
 ## Deployables
 
@@ -39,7 +32,7 @@
 ## Party commands
 
 - Commands should have a cooldown so people do not spam.
-- Triggers from pchat only.
+- Triggers from pchat only so Vadim does not mute people for spamming in gchat :skull:
 - Ability to disable commands in settings.
 - Does not trigger if the overlay is disabled in settings.
 
@@ -56,11 +49,11 @@
 
 ## Alerts & chat
 
-- Epic/rare flyfish / epic yeti / megalodon Rare drop alert
+- Rare Catch alert based on Skyhanni message does not work for The Loch Emperor (because they send The Sea Emperor in message)
 - Rare SC cocooned alert
-- Phoenix alert
-- Remove alerts for Rare&EPic Flyfish, Epic Yeti, probably Megalodon
+- Phoenix proc'ed alert / Phoenix back alert (same as Spirit Mask)
 - Customized sounds for rare catches and rare drops
+  - People want to customize sounds for Jawbus etc, individually for mobs and drops
   - Sounds folder: assets
   - Ability to open folder from settings
   - Ability to test sound from settings
@@ -101,7 +94,7 @@
 
 ## Other
 
-- Slayers profit tracker with timer xD
+- Other player's hooks and lines hider.
 - Glowing outline / highlight rare sea creatures (make this not visible through walls) - I want to get rid of SH for that, and replicate this feature in module.
 - PogData resets data file on PC crash - consider doing regular backups / research tska library as replacement for PogData
 - Remove double hook reindrake logic because DH is not possible now

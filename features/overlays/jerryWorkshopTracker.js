@@ -3,9 +3,9 @@ import * as triggers from '../../constants/triggers';
 import * as seaCreatures from '../../constants/seaCreatures';
 import { persistentData } from "../../data/data";
 import { overlayCoordsData } from "../../data/overlayCoords";
-import { BOLD, GOLD, RED, WHITE, DARK_PURPLE, GRAY, AQUA, LIGHT_PURPLE } from "../../constants/formatting";
+import { BOLD, GOLD, RED, WHITE, GRAY, AQUA, LIGHT_PURPLE } from "../../constants/formatting";
 import { getLastFishingHookSeenAt, getWorldName, isInSkyblock } from "../../utils/playerState";
-import { formatNumberWithSpaces, getCatchesCounterChatMessage } from "../../utils/common";
+import { getCatchesCounterChatMessage } from "../../utils/common";
 import { JERRY_WORKSHOP } from "../../constants/areas";
 import { getSeaCreatureStatisticsOverlayText, LEFT_CLICK_TYPE, Overlay, OverlayButtonLine, OverlayTextLine, setSeaCreatureStatisticsOnCatch } from "../../utils/overlays";
 import { registerIf } from "../../utils/registers";
@@ -24,17 +24,6 @@ const TRACKED_SEA_CREATURES = [
     },
 ];
 
-const TRACKED_DROPS = [
-    {
-        dropInfo: triggers.PET_DROP_TRIGGERS.find(entry => entry.trigger === triggers.BABY_YETI_PET_EPIC_MESSAGE),
-        callback: () => trackEpicBabyYetiPetDrop(),
-    },
-    {
-        dropInfo: triggers.PET_DROP_TRIGGERS.find(entry => entry.trigger === triggers.BABY_YETI_PET_LEG_MESSAGE),
-        callback: () => trackLegendaryBabyYetiPetDrop(),
-    },
-];
-
 triggers.REGULAR_JERRY_WORKSHOP_CATCH_TRIGGERS.forEach(entry => {
     registerIf(
         register("Chat", (event) => trackRegularJerryWorkshopSeaCreatureCatch()).setCriteria(entry.trigger).setContains(),
@@ -45,13 +34,6 @@ triggers.REGULAR_JERRY_WORKSHOP_CATCH_TRIGGERS.forEach(entry => {
 TRACKED_SEA_CREATURES.forEach(entry => {
     registerIf(
         register("Chat", (event) => entry.callback(entry.seaCreatureInfo)).setCriteria(entry.seaCreatureInfo.trigger).setContains(),
-        () => settings.jerryWorkshopTrackerOverlay && isInSkyblock() && getWorldName() === JERRY_WORKSHOP
-    );
-});
-
-TRACKED_DROPS.forEach(entry => {
-    registerIf(
-        register("Chat", (event) => entry.callback()).setCriteria(entry.dropInfo.trigger).setContains(),
         () => settings.jerryWorkshopTrackerOverlay && isInSkyblock() && getWorldName() === JERRY_WORKSHOP
     );
 });
@@ -114,8 +96,7 @@ function getDefaultSeaCreatureSectionObject() {
 function getDefaultObject() {
     return {
         yeti: getDefaultSeaCreatureSectionObject(),
-        reindrake: getDefaultSeaCreatureSectionObject(),
-        babyYetiPets: { epic: { count: 0 }, legendary: { count: 0 } }
+        reindrake: getDefaultSeaCreatureSectionObject()
     };
 }
 
@@ -124,9 +105,7 @@ function hasAnyData() {
         persistentData.jerryWorkshop.yeti.lastCatchTime ||
         persistentData.jerryWorkshop.yeti.catchesSinceLast ||
         persistentData.jerryWorkshop.reindrake.lastCatchTime ||
-        persistentData.jerryWorkshop.reindrake.catchesSinceLast ||
-        persistentData.jerryWorkshop.babyYetiPets.epic.count ||
-        persistentData.jerryWorkshop.babyYetiPets.legendary.count
+        persistentData.jerryWorkshop.reindrake.catchesSinceLast
     );
 }
 
@@ -186,36 +165,6 @@ function trackRegularJerryWorkshopSeaCreatureCatch() {
 	}
 }
 
-function trackEpicBabyYetiPetDrop() {
-    try {
-        if (!settings.jerryWorkshopTrackerOverlay || !isInSkyblock() || getWorldName() !== JERRY_WORKSHOP) {
-            return;
-        }
-
-        persistentData.jerryWorkshop.babyYetiPets.epic.count += 1;
-        persistentData.save();
-        refreshOverlay();
-    } catch (e) {
-		console.error(e);
-		console.log(`[FeeshNotifier] Failed to track Baby Yeti Pet drop.`);
-	}
-}
-
-function trackLegendaryBabyYetiPetDrop() {
-    try {
-        if (!settings.jerryWorkshopTrackerOverlay || !isInSkyblock() || getWorldName() !== JERRY_WORKSHOP) {
-            return;
-        }
-
-        persistentData.jerryWorkshop.babyYetiPets.legendary.count += 1;
-        persistentData.save();
-        refreshOverlay();
-    } catch (e) {
-		console.error(e);
-		console.log(`[FeeshNotifier] Failed to track Baby Yeti Pet drop.`);
-	}
-}
-
 function trackRemainingWorkshopTime() {
     if (!settings.jerryWorkshopTrackerOverlay || !isInSkyblock() || getWorldName() !== JERRY_WORKSHOP) {
         return;
@@ -254,7 +203,6 @@ function refreshOverlay() {
 
     let overlayText = `${AQUA}${BOLD}Jerry Workshop tracker`;
     overlayText += getYetiOverlayText();
-    overlayText += `\n${GRAY}Baby Yeti pets: ${GOLD}${formatNumberWithSpaces(persistentData.jerryWorkshop.babyYetiPets.legendary.count)} ${DARK_PURPLE}${formatNumberWithSpaces(persistentData.jerryWorkshop.babyYetiPets.epic.count)}`;
     overlayText += getReindrakeOverlayText();
 
     if (remainingWorkshopTime) {
