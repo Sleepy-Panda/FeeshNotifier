@@ -161,5 +161,6 @@ export const persistentData = new PogObject("FeeshNotifier", {
             "profit": 0,
         },
         "viewMode": "SESSION"
-    }
+    },
+    "isWelcomeMessageShown": false
 }, 'config/data.json');

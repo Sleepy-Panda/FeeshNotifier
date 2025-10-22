@@ -1,4 +1,5 @@
 import "./commands";
+import "./changelog";
 import "./moveOverlay";
 import "./moveAllOverlays";
 import "./keybinds";
