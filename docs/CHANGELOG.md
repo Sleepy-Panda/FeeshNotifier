@@ -5,13 +5,16 @@
 Released: ???
 
 Features:
-- 
+- Added [Session] and [Total] view modes for Sea creatures tracker.
+  - All your historical data is not lost, it will be shown in [Total] mode. 
+  - You can configure autoresetting the [Session] in settings. By default, you reset it manually so you won't lose the data unintentionally.
 
 Bugfixes:
 - 
 
 Other:
-- 
+- Disabled some overlays by default in the settings. This will affect only new users downloading the module.
+- Refactored Archfiend Dice Profit tracker to reuse some shared code.
 
 ## v1.53.0
 
