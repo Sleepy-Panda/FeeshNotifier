@@ -13,6 +13,7 @@ Bugfixes:
 - 
 
 Other:
+- Added welcome message for the users who just downloaded the module.
 - Disabled some overlays by default in the settings. This will affect only new users downloading the module.
 - Refactored Archfiend Dice Profit tracker to reuse some shared code.
 
