@@ -10,10 +10,6 @@ import { registerIf } from "../../utils/registers";
 import { LEFT_CLICK_TYPE, Overlay, OverlayButtonLine, OverlayTextLine } from "../../utils/overlays";
 import { SESSION_VIEW_MODE, TOTAL_VIEW_MODE } from "../../constants/viewModes";
 
-// Session seaCreatures are reset, better to copy from Total once?
-// Separate RESET commands and settings
-// Autoreset
-// Archfiend dice tracker, reuse logic
 
 const ALL_TRIGGERS = triggers.ALL_CATCHES_TRIGGERS.concat(triggers.VANQUISHER_CATCH_TRIGGER);
 
@@ -75,21 +71,10 @@ export function resetSeaCreaturesTracker(isConfirmed, resetViewMode) {
         const viewModeText = overlay.getViewModeDisplayText(resetViewMode);
 
         if (!isConfirmed) {
-            let command = '';
-            switch (resetViewMode) {
-                case SESSION_VIEW_MODE:
-                    command = '/feeshResetSeaCreatures noconfirm';
-                    break;
-                case TOTAL_VIEW_MODE:
-                    command = '/feeshResetSeaCreaturesTotal noconfirm';
-                    break;
-                default:
-                    break;
-            }
             new Message(
                 new TextComponent(`${GOLD}[FeeshNotifier] ${WHITE}Do you want to reset Sea creatures tracker ${viewModeText}${WHITE}? ${RED}${BOLD}[Click to confirm]`)
                     .setClickAction('run_command')
-                    .setClickValue(command)
+                    .setClickValue(getResetAction(resetViewMode))
             ).chat();
             return;
         }
@@ -111,6 +96,17 @@ export function resetSeaCreaturesTracker(isConfirmed, resetViewMode) {
 		console.error(e);
 		console.log(`[FeeshNotifier] Failed to reset Sea creatures tracker.`);
 	}
+
+    function getResetAction(viewMode) {
+        switch (true) {
+            case viewMode === SESSION_VIEW_MODE:
+                return '/feeshResetSeaCreatures noconfirm';
+            case viewMode === TOTAL_VIEW_MODE:
+                return '/feeshResetSeaCreaturesTotal noconfirm';
+            default:
+                return '';
+        }
+    }
 
     function resetSession() {
         persistentData.seaCreatures.session = {

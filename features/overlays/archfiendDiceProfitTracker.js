@@ -67,7 +67,6 @@ const overlay = new Overlay(() => settings.archfiendDiceProfitTrackerOverlay && 
 export function resetArchfiendDiceProfitTracker(isConfirmed, resetViewMode) {
     try {
         if (!resetViewMode) resetViewMode = persistentData.archfiendDiceProfit.viewMode;
-
         const viewModeText = overlay.getViewModeDisplayText(resetViewMode);
 
         if (!isConfirmed) {
