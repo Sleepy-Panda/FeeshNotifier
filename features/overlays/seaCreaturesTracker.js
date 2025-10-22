@@ -4,12 +4,13 @@ import * as seaCreatures from '../../constants/seaCreatures';
 import { persistentData } from "../../data/data";
 import { overlayCoordsData } from "../../data/overlayCoords";
 import { formatNumberWithSpaces, fromUppercaseToCapitalizedFirstLetters, isDoubleHook, isInFishingWorld } from '../../utils/common';
-import { WHITE, GOLD, BOLD, GRAY, RED, AQUA, DARK_GRAY, GREEN } from "../../constants/formatting";
+import { WHITE, GOLD, BOLD, GRAY, RED, AQUA, DARK_GRAY } from "../../constants/formatting";
 import { getLastFishingHookSeenAt, getWorldName, isInSkyblock } from "../../utils/playerState";
 import { registerIf } from "../../utils/registers";
 import { LEFT_CLICK_TYPE, Overlay, OverlayButtonLine, OverlayTextLine } from "../../utils/overlays";
 import { SESSION_VIEW_MODE, TOTAL_VIEW_MODE } from "../../constants/viewModes";
 
+// Session seaCreatures are reset, better to copy from Total once?
 // Separate RESET commands and settings
 // Autoreset
 // Archfiend dice tracker, reuse logic
@@ -74,10 +75,21 @@ export function resetSeaCreaturesTracker(isConfirmed, resetViewMode) {
         const viewModeText = overlay.getViewModeDisplayText(resetViewMode);
 
         if (!isConfirmed) {
+            let command = '';
+            switch (resetViewMode) {
+                case SESSION_VIEW_MODE:
+                    command = '/feeshResetSeaCreatures noconfirm';
+                    break;
+                case TOTAL_VIEW_MODE:
+                    command = '/feeshResetSeaCreaturesTotal noconfirm';
+                    break;
+                default:
+                    break;
+            }
             new Message(
-                new TextComponent(`${GOLD}[FeeshNotifier] ${WHITE}Do you want to reset Sea creatures tracker ${viewModeText}? ${RED}${BOLD}[Click to confirm]`)
+                new TextComponent(`${GOLD}[FeeshNotifier] ${WHITE}Do you want to reset Sea creatures tracker ${viewModeText}${WHITE}? ${RED}${BOLD}[Click to confirm]`)
                     .setClickAction('run_command')
-                    .setClickValue('/feeshResetSeaCreatures noconfirm')
+                    .setClickValue(command)
             ).chat();
             return;
         }
@@ -94,7 +106,7 @@ export function resetSeaCreaturesTracker(isConfirmed, resetViewMode) {
         }
 
         refreshOverlay();
-        ChatLib.chat(`${GOLD}[FeeshNotifier] ${WHITE}Sea creatures tracker ${viewModeText} was reset.`);    
+        ChatLib.chat(`${GOLD}[FeeshNotifier] ${WHITE}Sea creatures tracker ${viewModeText} ${WHITE}was reset.`);    
     } catch (e) {
 		console.error(e);
 		console.log(`[FeeshNotifier] Failed to reset Sea creatures tracker.`);

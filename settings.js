@@ -1160,7 +1160,7 @@ const config = new DefaultConfig("FeeshNotifier", "config/settings.json")
 .addSwitch({
     category: "Overlays",
     configName: "resetSeaCreaturesTrackerOnGameClosed",
-    title: "Reset on closing game [Session]",
+    title: "Reset [Session] on closing game",
     description: "Automatically reset the Sea creatures tracker [Session] when you close Minecraft or reload CT modules.",
     subcategory: "Sea creatures"
 })

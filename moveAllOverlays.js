@@ -34,7 +34,7 @@ const SAMPLE_GUIS = [
         toggleSettingKey: 'seaCreaturesTrackerOverlay',
         guiSettings: overlayCoordsData.seaCreaturesTrackerOverlay,
         sampleText: 
-`${AQUA}${BOLD}Sea creatures tracker
+`${AQUA}${BOLD}Sea creatures tracker ${GREEN}[Session]
 ${GRAY}- ${LIGHT_PURPLE}Thunder${GRAY}: ${WHITE}10 ${DARK_GRAY}| ${GRAY}DH: ${WHITE}2 ${GRAY}25%
 ${GRAY}- ${DARK_PURPLE}Vanquisher${GRAY}: ${WHITE}8
 ${GRAY}- ${LIGHT_PURPLE}Lord Jawbus${GRAY}: ${WHITE}2 ${DARK_GRAY}| ${GRAY}DH: ${WHITE}1 ${GRAY}100%

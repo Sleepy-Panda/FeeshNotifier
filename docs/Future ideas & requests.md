@@ -1,7 +1,5 @@
 # Future ideas and players' requests
 
-- 5 people is max bobbing time (green label)
-
 ## Galatea
 
 - 1.21 support with CT 3.0
