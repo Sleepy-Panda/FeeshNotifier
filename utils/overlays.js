@@ -1,9 +1,10 @@
 import settings from "../settings";
-import { DARK_GRAY, GOLD, GRAY, GREEN, RED, WHITE, YELLOW } from "../constants/formatting";
+import { BOLD, DARK_GRAY, GOLD, GRAY, GREEN, RED, WHITE, YELLOW } from "../constants/formatting";
 import { formatDate, formatNumberWithSpaces, formatTimeElapsedBetweenDates, isDoubleHook, isInChatOrInventoryGui, pluralize } from "./common";
 import { allOverlaysGui } from "../settings";
 import { isInChatOrInventoryGui } from "./common";
 import { registerIf } from "./registers";
+import { SESSION_VIEW_MODE, TOTAL_VIEW_MODE } from "../constants/viewModes";
 
 export const LEFT_CLICK_TYPE = 'LEFT';
 export const CTRL_LEFT_CLICK_TYPE = 'CTRL+LEFT';
@@ -26,6 +27,7 @@ export class Overlay {
         this.positionData = null; // config object with x, y, scale
         this.isClickable = false;
         this.shouldSeparateButtonLines = true;
+        this.viewModes = [];
         this.registerIfFunc = registerIfFunc;
 
         registerIf(
@@ -138,6 +140,15 @@ export class Overlay {
     }
 
     /**
+    * Define whether the Overlay has View Modes (e.g. Session / Total).
+    * @param {string[]} viewModes
+    */
+    setViewModes(viewModes) {
+        this.viewModes = viewModes;
+        return this;
+    }
+
+    /**
     * Clear Overlay's text lines and button lines.
     */
     clear() {
@@ -180,6 +191,40 @@ export class Overlay {
     setButtonLines(buttonLines) {
         this.buttonLines = buttonLines;
         return this;
+    }
+
+    getViewModeDisplayText(viewMode) {
+        switch (true) {
+            case viewMode === SESSION_VIEW_MODE:
+                return `${GREEN}[Session]`;
+            case viewMode === TOTAL_VIEW_MODE:
+                return `${GREEN}[Total]`;
+            default:
+                return '';
+        }
+    }
+
+    getNextViewMode(currentViewMode) {
+        if (!this.viewModes.length || !currentViewMode) return '';
+
+        const index = this.viewModes.indexOf(currentViewMode);
+        if (index === -1) return '';
+        if (index === this.viewModes.length - 1) return this.viewModes[0];
+        return this.viewModes[index + 1];
+    }
+
+    getNextViewModeButtonDisplayText(viewMode) {
+        const nextViewMode = this.getNextViewMode(viewMode);
+        if (!nextViewMode) return '';
+
+        switch (true) {
+            case nextViewMode === SESSION_VIEW_MODE:
+                return `${GREEN}${BOLD}[Click to view Session]`;
+            case nextViewMode === TOTAL_VIEW_MODE:
+                return `${GREEN}${BOLD}[Click to view Total]`;
+            default:
+                return '';
+        }
     }
 
     _draw() {

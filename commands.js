@@ -23,8 +23,13 @@ register("command", (...args) => {
 
 register("command", (...args) => {
     const isConfirmed = args[0] && args[0] === "noconfirm";
-    resetSeaCreaturesTracker(!!isConfirmed);
+    resetSeaCreaturesTracker(!!isConfirmed, SESSION_VIEW_MODE);
 }).setName("feeshResetSeaCreatures");
+
+register("command", (...args) => {
+    const isConfirmed = args[0] && args[0] === "noconfirm";
+    resetSeaCreaturesTracker(!!isConfirmed, TOTAL_VIEW_MODE);
+}).setName("feeshResetSeaCreaturesTotal");
 
 register("command", (...args) => {
     const isConfirmed = args[0] && args[0] === "noconfirm";
