@@ -1,5 +1,7 @@
 # Releases
 
+! REMINDER TO SET changelog.js FOR INGAME ANNOUNCEMENT !
+
 ## v1.54.0
 
 Released: ???
