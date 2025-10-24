@@ -232,7 +232,7 @@ ${GRAY}Last on: ${WHITE}7 Treasures ago`,
         toggleSettingKey: 'fishingProfitTrackerOverlay',
         guiSettings: overlayCoordsData.fishingProfitTrackerOverlay,
         sampleText:
-`${AQUA}${BOLD}Fishing profit tracker
+`${AQUA}${BOLD}Fishing profit tracker ${GREEN}[Session]
 - 1x ${LIGHT_PURPLE}Radioactive Vial: ${GOLD}170m
 - 1027x ${DARK_PURPLE}Silver Magmafish: ${GOLD}25m
 - 3x ${LIGHT_PURPLE}Flash I ${WHITE}Book: ${GOLD}20m

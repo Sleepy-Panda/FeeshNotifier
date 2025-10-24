@@ -1769,20 +1769,31 @@ ${GRAY}Do ${AQUA}/feeshResetProfitTracker${GRAY} to reset.`,
 .addSwitch({
     category: "Overlays",
     configName: "resetFishingProfitTrackerOnGameClosed",
-    title: "Autoreset on closing game",
-    description: "Automatically reset the fishing profit tracker when you close Minecraft or reload CT modules.",
+    title: "Autoreset [Session] on closing game",
+    description: "Automatically reset the fishing profit tracker [Session] when you close Minecraft or reload CT modules.",
     subcategory: "Fishing profit tracker",
     shouldShow: data => data.fishingProfitTrackerOverlay,
 })
 .addButton({
     category: "Overlays",
-    configName: "resetFishingProfitTracker",
-    title: "Reset fishing profit tracker",
-    description: `Resets tracking for fishing profit tracker. Executes ${AQUA}/feeshResetProfitTracker`,
+    configName: "resetFishingProfitTrackerSession",
+    title: "Reset fishing profit tracker [Session]",
+    description: `Resets tracking for fishing profit tracker [Session]. Executes ${AQUA}/feeshResetProfitTracker`,
     subcategory: "Fishing profit tracker",
     shouldShow: data => data.fishingProfitTrackerOverlay,
     onClick() {
         ChatLib.command("feeshResetProfitTracker noconfirm", true);
+    }
+})
+.addButton({
+    category: "Overlays",
+    configName: "resetFishingProfitTrackerTotal",
+    title: "Reset fishing profit tracker [Total]",
+    description: `Resets tracking for fishing profit tracker [Total]. Executes ${AQUA}/feeshResetProfitTrackerTotal`,
+    subcategory: "Fishing profit tracker",
+    shouldShow: data => data.fishingProfitTrackerOverlay,
+    onClick() {
+        ChatLib.command("feeshResetProfitTrackerTotal noconfirm", true);
     }
 })
 
