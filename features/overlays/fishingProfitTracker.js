@@ -14,8 +14,8 @@ import { registerIf } from '../../utils/registers';
 import { CTRL_LEFT_CLICK_TYPE, CTRL_MIDDLE_CLICK_TYPE, CTRL_RIGHT_CLICK_TYPE, LEFT_CLICK_TYPE, Overlay, OverlayButtonLine, OverlayTextLine } from '../../utils/overlays';
 import { SESSION_VIEW_MODE, TOTAL_VIEW_MODE } from '../../constants/viewModes';
 
-// Retest all types of profit items again
-// Check settings enable/disable
+// Check if buttons hidden when I warped from server
+// Check settings enable/disable (when tracker is disabled and then enabled, its not getting paused)
 // Hiding widget over time does not work
 // When swap lobby (tried to fix in worldload)
 // When it pauses after inactivity
@@ -26,6 +26,11 @@ let areButtonsVisible = false;
 
 registerIf(
     register('step', () => activateSessionOnPlayersFishingHook()).setFps(2),
+    () => settings.fishingProfitTrackerOverlay && isInSkyblock() && isInFishingWorld(getWorldName())
+);
+
+registerIf( // TODO test
+    register('step', () => refreshOverlay()).setFps(2),
     () => settings.fishingProfitTrackerOverlay && isInSkyblock() && isInFishingWorld(getWorldName())
 );
 
@@ -324,8 +329,7 @@ function refreshElapsedTime() {
 
 function refreshTotalItemsProfits() {
     try {
-        if (!isTrackerVisible()) return;
-    
+        if (!isTrackerVisible()) return; 
         refreshTotalItemsProfitsInMode(SESSION_VIEW_MODE);
         refreshTotalItemsProfitsInMode(TOTAL_VIEW_MODE);
         refreshOverlay();
