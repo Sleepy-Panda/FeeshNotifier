@@ -4,6 +4,9 @@
 
 Released: ???
 
+TODO:
+  - Copy sea creatures to Session
+  
 Features:
 - Added [Session] and [Total] view modes for Fishing profit tracker.
 - Added [Session] and [Total] view modes for Sea creatures tracker.

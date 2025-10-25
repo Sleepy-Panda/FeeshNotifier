@@ -131,7 +131,6 @@ register("gameLoad", () => {
 });
 
 register("gameUnload", () => {
-    console.log((settings.fishingProfitTrackerOverlay && settings.resetFishingProfitTrackerOnGameClosed) + ' ' + Object.keys(persistentData.fishingProfit.session.profitTrackerItems).length + ' ' + persistentData.fishingProfit.session.elapsedSeconds)
     if (settings.fishingProfitTrackerOverlay && settings.resetFishingProfitTrackerOnGameClosed && (Object.keys(persistentData.fishingProfit.session.profitTrackerItems).length || persistentData.fishingProfit.session.elapsedSeconds)) {
         resetFishingProfitTracker(true, SESSION_VIEW_MODE);
     }
