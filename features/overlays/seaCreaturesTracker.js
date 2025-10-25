@@ -58,6 +58,10 @@ register("gameLoad", () => {
         delete persistentData.totalRareCatches;
         persistentData.save();
     }
+
+    // TODO: If not migrated yet (flag)
+    // Then copy from Total to Session (deep copy)
+    // And set flag to persistentdata.migrations[scTotalToSession]
 });
 
 const overlay = new Overlay(() => settings.seaCreaturesTrackerOverlay && isInSkyblock() && isInFishingWorld(getWorldName()))
@@ -79,16 +83,8 @@ export function resetSeaCreaturesTracker(isConfirmed, resetViewMode) {
             return;
         }
     
-        switch (true) {
-            case resetViewMode === SESSION_VIEW_MODE:
-                resetSession();
-                break;
-            case resetViewMode === TOTAL_VIEW_MODE:
-                resetTotal();
-                break;
-            default:
-                break;
-        }
+        if (resetViewMode === SESSION_VIEW_MODE) resetSession();
+        else if (resetViewMode === TOTAL_VIEW_MODE) resetTotal();
 
         refreshOverlay();
         ChatLib.chat(`${GOLD}[FeeshNotifier] ${WHITE}Sea creatures tracker ${viewModeText} ${WHITE}was reset.`);    
@@ -98,14 +94,11 @@ export function resetSeaCreaturesTracker(isConfirmed, resetViewMode) {
 	}
 
     function getResetAction(viewMode) {
-        switch (true) {
-            case viewMode === SESSION_VIEW_MODE:
-                return '/feeshResetSeaCreatures noconfirm';
-            case viewMode === TOTAL_VIEW_MODE:
-                return '/feeshResetSeaCreaturesTotal noconfirm';
-            default:
-                return '';
-        }
+        const actions = {
+            [SESSION_VIEW_MODE]: '/feeshResetSeaCreatures noconfirm',
+            [TOTAL_VIEW_MODE]: '/feeshResetSeaCreaturesTotal noconfirm'
+        };
+        return actions[viewMode] || '';
     }
 
     function resetSession() {
@@ -165,6 +158,41 @@ function trackSeaCreatureCatch(sourceObj, options) {
 		console.error(e);
 		console.log(`[FeeshNotifier] Failed to track sea creature catch.`);
 	}
+}
+
+function toggleViewMode() {
+    try {
+        const currentViewMode = getCurrentViewMode();
+        const newViewMode = overlay.getNextViewMode(currentViewMode);
+        persistentData.seaCreatures.viewMode = newViewMode;
+        persistentData.save();
+        refreshOverlay();
+    } catch (e) {
+		console.error(e);
+		console.log(`[FeeshNotifier] Failed to toggle view mode.`);
+	}
+}
+
+function getCurrentViewMode() {
+    return persistentData.seaCreatures.viewMode || SESSION_VIEW_MODE;
+}
+
+function getSourceObject(viewMode) {
+    switch (true) {
+        case viewMode === SESSION_VIEW_MODE:
+            return persistentData.seaCreatures.session;
+        case viewMode === TOTAL_VIEW_MODE:
+            return persistentData.seaCreatures.total;
+        default:
+            console.error(`[FeeshNotifier] Failed to get source object for '${viewMode}' view mode.`);
+            return null;
+    }
+}
+
+function getTotalCount(seaCreaturesObj) {
+    return Object.values(seaCreaturesObj).reduce((accumulator, currentValue) => {
+        return accumulator + currentValue.amount
+    }, 0);
 }
 
 function refreshOverlay() {
@@ -228,39 +256,4 @@ function refreshOverlay() {
         .setText(`${RED}${BOLD}[Click to reset]`)
         .setIsSmallerScale(true)
         .setOnClick(LEFT_CLICK_TYPE, () => resetSeaCreaturesTracker(false, viewMode)));
-}
-
-function getTotalCount(seaCreaturesObj) {
-    return Object.values(seaCreaturesObj).reduce((accumulator, currentValue) => {
-        return accumulator + currentValue.amount
-    }, 0);
-}
-
-function toggleViewMode() {
-    try {
-        const currentViewMode = getCurrentViewMode();
-        const newViewMode = overlay.getNextViewMode(currentViewMode);
-        persistentData.seaCreatures.viewMode = newViewMode;
-        persistentData.save();
-        refreshOverlay();
-    } catch (e) {
-		console.error(e);
-		console.log(`[FeeshNotifier] Failed to toggle view mode.`);
-	}
-}
-
-function getCurrentViewMode() {
-    return persistentData.seaCreatures.viewMode || SESSION_VIEW_MODE;
-}
-
-function getSourceObject(viewMode) {
-    switch (true) {
-        case viewMode === SESSION_VIEW_MODE:
-            return persistentData.seaCreatures.session;
-        case viewMode === TOTAL_VIEW_MODE:
-            return persistentData.seaCreatures.total;
-        default:
-            console.error(`[FeeshNotifier] Failed to get source object for '${viewMode}' view mode.`);
-            return null;
-    }
 }
