@@ -4,6 +4,14 @@ import { NBTTagString } from '../constants/javaTypes';
 import { EntityFishHook, NBTTagString } from '../constants/javaTypes';
 import { DOUBLE_HOOK_MESSAGES, HURRICANE_BOTTLE_CHARGED_MESSAGE, REINDRAKE_SPAWNED_BY_ANYONE_MESSAGE, STORM_BOTTLE_CHARGED_MESSAGE, THUNDER_BOTTLE_CHARGED_MESSAGE } from '../constants/triggers';
 
+export function logError(error, message) {
+	const file = error.fileName ? error.fileName.split(/[\\/]/).pop() : "Unknown File";
+	const line = error.lineNumber || "Unknown Line";
+	console.error(`[FeeshNotifier] ${file}:${line} ${message}`);
+	console.error(error);
+	console.log(error.stack);
+}
+
 // Double hook reindrakes may produce the following messages history:
 // [CHAT] &r&eIt's a &r&aDouble Hook&r&e!&r
 // [CHAT] &r
@@ -511,6 +519,19 @@ export function getZoneName() {
 export function isInFishingWorld(worldName) {
 	if (!worldName) return false;
 	return !NO_FISHING_WORLDS.includes(worldName);
+}
+
+/**
+ * Check whether the Player is moving some held item between slots.
+ * @returns {boolean}
+ */
+export function isPlayerMovingItem() {
+	const heldItem = Player.getPlayer()?.field_71071_by?.func_70445_o();
+	if (heldItem) {
+		var item = new Item(heldItem);
+		return !!item;
+	}
+	return false;
 }
 
 /**
