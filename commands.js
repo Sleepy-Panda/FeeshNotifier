@@ -83,11 +83,16 @@ register("command", (...args) => {
 
 register("command", (...args) => {
     const isConfirmed = args[0] && args[0] === "noconfirm";
-    resetFishingProfitTracker(!!isConfirmed);
+    resetFishingProfitTracker(!!isConfirmed, SESSION_VIEW_MODE);
     if (isConfirmed) {
         resetDropNumbers();
     }
 }).setName("feeshResetProfitTracker");
+
+register("command", (...args) => {
+    const isConfirmed = args[0] && args[0] === "noconfirm";
+    resetFishingProfitTracker(!!isConfirmed, TOTAL_VIEW_MODE);
+}).setName("feeshResetProfitTrackerTotal");
 
 register("command", (dropId, count, ...dateParts) => {
     const lastOn = dateParts.join(' ');
