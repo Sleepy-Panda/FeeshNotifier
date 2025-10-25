@@ -17,16 +17,10 @@ import { SESSION_VIEW_MODE, TOTAL_VIEW_MODE } from '../../constants/viewModes';
 let previousInventory = [];
 let isSessionActive = false;
 
-// Settings
-// Separate RESET commands
-// Autoreset
-// Migrate old user data
-// Check first load with and without tracker data
-
 registerIf(
     register('step', () => {
         activateSessionOnPlayersFishingHook();
-        refreshOverlay();
+        refreshOverlay(); // For tracking chat/inventory opened state, TODO rewrite this
     }).setFps(2),
     () => settings.fishingProfitTrackerOverlay && isInSkyblock() && isInFishingWorld(getWorldName())
 );
@@ -119,12 +113,12 @@ register("gameLoad", () => {
     if (persistentData.fishingProfit.profitTrackerItems) {
         persistentData.fishingProfit = {
             session: {
-                profitTrackerItems: persistentData.fishingProfit.profitTrackerItems,
+                profitTrackerItems: JSON.parse(JSON.stringify(persistentData.fishingProfit.profitTrackerItems)),
                 totalProfit: persistentData.fishingProfit.totalProfit,
                 elapsedSeconds: persistentData.fishingProfit.elapsedSeconds,
             },
             total: {
-                profitTrackerItems: persistentData.fishingProfit.profitTrackerItems,
+                profitTrackerItems: JSON.parse(JSON.stringify(persistentData.fishingProfit.profitTrackerItems)),
                 totalProfit: persistentData.fishingProfit.totalProfit,
                 elapsedSeconds: persistentData.fishingProfit.elapsedSeconds,
             }
@@ -444,7 +438,6 @@ function onAddedToSacks(event) {
 function onCoinsFished(coins) {
     try {
         if (!isTrackerVisible() || !coins || !isSessionActive) return;
-    
         const coinsWithoutSeparator = +(coins.replace(/,/g, ''));
         onCoinsFishedInMode(SESSION_VIEW_MODE, coinsWithoutSeparator);
         onCoinsFishedInMode(TOTAL_VIEW_MODE, coinsWithoutSeparator);
@@ -455,7 +448,7 @@ function onCoinsFished(coins) {
 		console.log(`[FeeshNotifier] [ProfitTracker] Failed to track fished coins.`);
 	}
 
-    function onCoinsFishedInMode(viewMode, amountToAdd) {
+    function onCoinsFishedInMode(viewMode, coinsToAdd) {
         const sourceObj = getSourceObject(viewMode);
         const itemId = 'FISHED_COINS';
         const item = sourceObj.profitTrackerItems[itemId];
@@ -467,7 +460,7 @@ function onCoinsFished(coins) {
             itemDisplayName: `${GOLD}Fished Coins`,
             itemId: itemId,
             amount: currentAmount + 1,
-            totalItemProfit: currentProfit + amountToAdd,
+            totalItemProfit: currentProfit + coinsToAdd,
         };
         persistentData.save();
     }
