@@ -10,7 +10,7 @@ Features:
   - You can configure autoresetting the [Session] in settings. By default, you reset it manually so you won't lose the data unintentionally.
 
 Bugfixes:
-- 
+- Added Ent Shard to Fishing profit tracker.
 
 Other:
 - Added welcome message for the users who just downloaded the module.
