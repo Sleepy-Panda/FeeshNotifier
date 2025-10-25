@@ -37,7 +37,7 @@ registerIf(
 );
 
 registerIf(
-    register('step', () => {
+    register('step', () => { // Handle BZ/AH prices changing over time
         refreshPrices();
         refreshOverlay();
     }).setDelay(30),
@@ -213,9 +213,7 @@ export function resetFishingProfitTracker(isConfirmed, resetViewMode) {
 
 export function pauseFishingProfitTracker() {
     try {
-        if (!isTrackerVisible() || !isSessionActive) {
-            return;
-        }
+        if (!isTrackerVisible() || !isSessionActive) return;
 
         pause();
         refreshOverlay();
@@ -250,22 +248,22 @@ function changeItemAmount(itemId, isDelete, difference) {
     try {
         if (!isTrackerVisible()) return;
 
-        const item = persistentData.fishingProfit.profitTrackerItems[itemId];
+        const viewMode = getCurrentViewMode();
+        const viewModeText = overlay.getViewModeDisplayText(viewMode);
+        const sourceObj = getSourceObject(viewMode);
+        const item = sourceObj.profitTrackerItems[itemId];
         if (!item) return;
 
         if (isDelete) {
-            delete persistentData.fishingProfit.profitTrackerItems[itemId];
-            ChatLib.chat(`${GOLD}[FeeshNotifier] ${GRAY}${item.amount}x ${item.itemDisplayName} ${WHITE}removed from the Fishing profit tracker.`);   
+            delete sourceObj.profitTrackerItems[itemId];
+            ChatLib.chat(`${GOLD}[FeeshNotifier] ${GRAY}${item.amount}x ${item.itemDisplayName} ${WHITE}removed from the Fishing profit tracker ${viewModeText}${WHITE}.`);   
         } else {
-            const newAmount = persistentData.fishingProfit.profitTrackerItems[itemId].amount + difference;
-            if (!newAmount && !isDelete) {
-                return; // Prevent unintended deletion because of missclick
-            } else {
-                persistentData.fishingProfit.profitTrackerItems[itemId].amount = newAmount;
-            }
-            ChatLib.chat(`${GOLD}[FeeshNotifier] ${WHITE}Changed amount of ${item.itemDisplayName} ${WHITE}to ${GRAY}${newAmount}x ${WHITE}in the Fishing profit tracker.`);   
-        }
+            const newAmount = sourceObj.profitTrackerItems[itemId].amount + difference;
+            if (!newAmount && !isDelete)  return; // Prevent unintended deletion because of missclick
 
+            sourceObj.profitTrackerItems[itemId].amount = newAmount;
+            ChatLib.chat(`${GOLD}[FeeshNotifier] ${WHITE}Changed amount of ${item.itemDisplayName} ${WHITE}to ${GRAY}${newAmount}x ${WHITE}in the Fishing profit tracker ${viewModeText}${WHITE}.`);   
+        }
         persistentData.save();
 
         refreshPrices();
@@ -282,8 +280,9 @@ function activateSessionOnPlayersFishingHook() {
     
         const isHookActive = isFishingHookActive();
         if (isHookActive) {
-            activateTimer(SESSION_VIEW_MODE);
-            activateTimer(TOTAL_VIEW_MODE);
+            isSessionActive = true;
+            activateTimerInMode(SESSION_VIEW_MODE);
+            activateTimerInMode(TOTAL_VIEW_MODE);
             refreshPrices();
         }
     } catch (e) {
@@ -291,10 +290,8 @@ function activateSessionOnPlayersFishingHook() {
 		console.log(`[FeeshNotifier] [ProfitTracker] Failed to track player's fishing hook.`);
 	}
 
-    function activateTimer(viewMode) {
-        isSessionActive = true;
+    function activateTimerInMode(viewMode) {
         const sourceObj = getSourceObject(viewMode);
-
         if (!sourceObj.elapsedSeconds) {
             sourceObj.elapsedSeconds = 1;
             persistentData.save();
@@ -448,28 +445,32 @@ function onCoinsFished(coins) {
     try {
         if (!isTrackerVisible() || !coins || !isSessionActive) return;
     
-        const itemId = 'FISHED_COINS';
         const coinsWithoutSeparator = +(coins.replace(/,/g, ''));
-        const item = persistentData.fishingProfit.profitTrackerItems[itemId];
-    
-        const currentAmount = item?.amount || 0;
-        const currentProfit = item?.totalItemProfit || 0;
-    
-        persistentData.fishingProfit.profitTrackerItems[itemId] = {
-            itemName: 'Fished Coins',
-            itemDisplayName: `${GOLD}Fished Coins`,
-            itemId: itemId,
-            amount: currentAmount + 1,
-            totalItemProfit: currentProfit + coinsWithoutSeparator,
-        };
-        persistentData.save();
-
+        onCoinsFishedInMode(SESSION_VIEW_MODE, coinsWithoutSeparator);
+        onCoinsFishedInMode(TOTAL_VIEW_MODE, coinsWithoutSeparator);
         refreshPrices();
         refreshOverlay();  
     } catch (e) {
 		console.error(e);
 		console.log(`[FeeshNotifier] [ProfitTracker] Failed to track fished coins.`);
 	}
+
+    function onCoinsFishedInMode(viewMode, amountToAdd) {
+        const sourceObj = getSourceObject(viewMode);
+        const itemId = 'FISHED_COINS';
+        const item = sourceObj.profitTrackerItems[itemId];
+        const currentAmount = item?.amount || 0;
+        const currentProfit = item?.totalItemProfit || 0;
+    
+        sourceObj.profitTrackerItems[itemId] = {
+            itemName: 'Fished Coins',
+            itemDisplayName: `${GOLD}Fished Coins`,
+            itemId: itemId,
+            amount: currentAmount + 1,
+            totalItemProfit: currentProfit + amountToAdd,
+        };
+        persistentData.save();
+    }
 }
 
 function onIceEssenceFished(count) {
@@ -477,8 +478,7 @@ function onIceEssenceFished(count) {
         if (!isTrackerVisible() || !count || !isSessionActive || getWorldName() !== JERRY_WORKSHOP) return;
 
         const essenceCountWithoutSeparator = +(count.replace(/,/g, ''));
-        refreshItemData(i => i.itemId === 'ESSENCE_ICE', essenceCountWithoutSeparator);
-        refreshPrices();
+        onItemAdded(i => i.itemId === 'ESSENCE_ICE', essenceCountWithoutSeparator);
         refreshOverlay();
     } catch (e) {
 		console.error(e);
@@ -496,8 +496,7 @@ function onShardFished(shardText) {
 
         const [article, ...shardNameParts] = shardText.removeFormatting().split(' ');
         const shardName = shardNameParts.join(' ') + ' Shard';
-        refreshItemData(i => i.itemName === shardName.removeFormatting(), 1);
-        refreshPrices();
+        onItemAdded(i => i.itemName === shardName.removeFormatting(), 1);
         refreshOverlay();
     } catch (e) {
 		console.error(e);
@@ -516,9 +515,7 @@ function onShardCaughtInBlackHole(shardsText) {
         const [countText, ...shardNameParts] = shardsText.removeFormatting().split(' ');
         const count = countText === 'a' || countText === 'an' ? 1 : +(countText.replace('x', ''));
         const shardName = shardNameParts.join(' ') + ' Shard';
-
-        refreshItemData(i => i.itemName === shardName, count);
-        refreshPrices();
+        onItemAdded(i => i.itemName === shardName, count);
         refreshOverlay();
     } catch (e) {
 		console.error(e);
@@ -537,9 +534,7 @@ function onShardsCharmed(mobNameText, shardsCount) {
 
         const [article, ...mobNameParts] = mobNameText.removeFormatting().split(' ');
         const shardName = mobNameParts.join(' ') + ' Shard';
-
-        refreshItemData(i => i.itemName === shardName, shardsCount);
-        refreshPrices();
+        onItemAdded(i => i.itemName === shardName, shardsCount);
         refreshOverlay();
     } catch (e) {
 		console.error(e);
@@ -558,9 +553,7 @@ function onShardLootshared(shardsText) {
         const [countText, ...shardNameParts] = shardsText.removeFormatting().split(' ');
         const count = countText === 'a' || countText === 'an' ? 1 : +(countText);
         const shardName = shardNameParts.join(' ') + ' Shard';
-
-        refreshItemData(i => i.itemName === shardName, count);
-        refreshPrices();
+        onItemAdded(i => i.itemName === shardName, count);
         refreshOverlay();
     } catch (e) {
 		console.error(e);
@@ -578,40 +571,54 @@ function onPetReachedMaxLevel(level, petDisplayName) {
         const rarityCode = getPetRarityCode(rarityColorCode);
         const baseItemId = petName.split(' ').join('_').toUpperCase();
         const itemIdMaxLevel = baseItemId + ';' + rarityCode + '+' + level; // FLYING_FISH;4+100 GOLDEN_DRAGON;4+200
-        const item = persistentData.fishingProfit.profitTrackerItems[itemIdMaxLevel];
-        const currentAmount = item?.amount || 0;
 
-        persistentData.fishingProfit.profitTrackerItems[itemIdMaxLevel] = {
-            itemName: petName,
-            itemDisplayName: `${GRAY}[Lvl ${level}] ${petDisplayName}`,
-            itemId: itemIdMaxLevel,
-            amount: currentAmount + 1,
-        };
-        persistentData.save();
-
+        onPetReachedMaxLevelInMode(SESSION_VIEW_MODE, itemIdMaxLevel, petName, petDisplayName, level);
+        onPetReachedMaxLevelInMode(TOTAL_VIEW_MODE, itemIdMaxLevel, petName, petDisplayName, level);
         refreshPrices();
         refreshOverlay();   
     } catch (e) {
 		console.error(e);
 		console.log(`[FeeshNotifier] [ProfitTracker] Failed to track pet level maxed.`);
 	}
+
+    function onPetReachedMaxLevelInMode(viewMode, itemId, petName, petDisplayName, level) {
+        const sourceObj = getSourceObject(viewMode);
+        const item = sourceObj.profitTrackerItems[itemId];
+        const currentAmount = item?.amount || 0;
+
+        sourceObj.profitTrackerItems[itemId] = {
+            itemName: petName,
+            itemDisplayName: `${GRAY}[Lvl ${level}] ${petDisplayName}`,
+            itemId: itemId,
+            amount: currentAmount + 1,
+        };
+        persistentData.save();
+    }
 }
 
-function refreshItemData(findItemFunc, amountToAdd) {
+function onItemAdded(findItemFunc, amountToAdd) {
     const fishingProfitItem = FISHING_PROFIT_ITEMS.find(i => findItemFunc(i));
     const itemId = fishingProfitItem?.itemId;
     if (!fishingProfitItem || !itemId) return;
 
-    const item = persistentData.fishingProfit.profitTrackerItems[itemId] || null;
-    const currentAmount = item?.amount || 0;
+    onItemAddedInMode(SESSION_VIEW_MODE, fishingProfitItem);
+    onItemAddedInMode(TOTAL_VIEW_MODE, fishingProfitItem);
+    refreshPrices();
 
-    persistentData.fishingProfit.profitTrackerItems[itemId] = {
-        itemName: fishingProfitItem.itemName,
-        itemDisplayName: fishingProfitItem.itemDisplayName,
-        itemId: itemId,
-        amount: currentAmount + amountToAdd,
-    };
-    persistentData.save();
+    function onItemAddedInMode(viewMode, fishingProfitItem) {
+        const sourceObj = getSourceObject(viewMode);
+        const itemId = fishingProfitItem.itemId;
+        const item = sourceObj.profitTrackerItems[itemId] || null;
+        const currentAmount = item?.amount || 0;
+    
+        sourceObj.profitTrackerItems[itemId] = {
+            itemName: fishingProfitItem.itemName,
+            itemDisplayName: fishingProfitItem.itemDisplayName,
+            itemId: itemId,
+            amount: currentAmount + amountToAdd,
+        };
+        persistentData.save();
+    }
 }
 
 function detectInventoryChanges() {
@@ -695,9 +702,7 @@ function detectInventoryChanges() {
             if (slotItemName.startsWith('[Lvl 1] ')) {
                 const extraAttributes = item?.getNBT()?.getCompoundTag('tag')?.getCompoundTag('ExtraAttributes');
                 const nbtId = extraAttributes?.getString('id');
-                if (!nbtId || nbtId !== 'PET') {
-                    continue;
-                }
+                if (!nbtId || nbtId !== 'PET') continue;
                 const petInfo = JSON.parse(extraAttributes?.getString('petInfo'));
                 const rarity = petInfo?.tier;
                 slotItemName += ` (${rarity?.toUpperCase()})`;
@@ -717,7 +722,6 @@ function detectInventoryChanges() {
     function onItemAddedToInventory(itemId, previousCount, newCount) {
         const item = FISHING_PROFIT_ITEMS.find(i => i.itemId === itemId);
         if (!item) return;
-
         if (isInventoryPotentiallyDirty(itemId, item)) return;
 
         const difference = newCount - previousCount;
