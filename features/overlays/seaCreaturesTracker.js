@@ -3,13 +3,12 @@ import * as triggers from '../../constants/triggers';
 import * as seaCreatures from '../../constants/seaCreatures';
 import { persistentData } from "../../data/data";
 import { overlayCoordsData } from "../../data/overlayCoords";
-import { formatNumberWithSpaces, fromUppercaseToCapitalizedFirstLetters, isDoubleHook, isInFishingWorld } from '../../utils/common';
+import { formatNumberWithSpaces, fromUppercaseToCapitalizedFirstLetters, isDoubleHook, isInFishingWorld, logError } from '../../utils/common';
 import { WHITE, GOLD, BOLD, GRAY, RED, AQUA, DARK_GRAY } from "../../constants/formatting";
 import { getLastFishingHookSeenAt, getWorldName, isInSkyblock } from "../../utils/playerState";
 import { registerIf } from "../../utils/registers";
 import { LEFT_CLICK_TYPE, Overlay, OverlayButtonLine, OverlayTextLine } from "../../utils/overlays";
 import { SESSION_VIEW_MODE, TOTAL_VIEW_MODE } from "../../constants/viewModes";
-
 
 const ALL_TRIGGERS = triggers.ALL_CATCHES_TRIGGERS.concat(triggers.VANQUISHER_CATCH_TRIGGER);
 
@@ -50,7 +49,7 @@ register("gameLoad", () => {
                 totalCount: 0
             },
             total: {
-                catches: persistentData.rareCatches,
+                catches: JSON.parse(JSON.stringify(persistentData.rareCatches)),
                 totalCount: persistentData.totalRareCatches
             }
         };
@@ -58,10 +57,6 @@ register("gameLoad", () => {
         delete persistentData.totalRareCatches;
         persistentData.save();
     }
-
-    // TODO: If not migrated yet (flag)
-    // Then copy from Total to Session (deep copy)
-    // And set flag to persistentdata.migrations[scTotalToSession]
 });
 
 const overlay = new Overlay(() => settings.seaCreaturesTrackerOverlay && isInSkyblock() && isInFishingWorld(getWorldName()))
@@ -87,10 +82,9 @@ export function resetSeaCreaturesTracker(isConfirmed, resetViewMode) {
         else if (resetViewMode === TOTAL_VIEW_MODE) resetTotal();
 
         refreshOverlay();
-        ChatLib.chat(`${GOLD}[FeeshNotifier] ${WHITE}Sea creatures tracker ${viewModeText} ${WHITE}was reset.`);    
+        ChatLib.chat(`${GOLD}[FeeshNotifier] ${WHITE}Sea creatures tracker ${viewModeText} ${WHITE}was reset.`);
     } catch (e) {
-		console.error(e);
-		console.log(`[FeeshNotifier] Failed to reset Sea creatures tracker.`);
+        logError(e, 'Failed to reset Sea creatures tracker.');
 	}
 
     function getResetAction(viewMode) {
@@ -155,8 +149,7 @@ function trackSeaCreatureCatch(sourceObj, options) {
         persistentData.save();
         refreshOverlay();
     } catch (e) {
-		console.error(e);
-		console.log(`[FeeshNotifier] Failed to track sea creature catch.`);
+		logError(e, 'Failed to track SC catch in Sea creatures tracker.');
 	}
 }
 
@@ -168,8 +161,7 @@ function toggleViewMode() {
         persistentData.save();
         refreshOverlay();
     } catch (e) {
-		console.error(e);
-		console.log(`[FeeshNotifier] Failed to toggle view mode.`);
+        logError(e, 'Failed to toggle view mode in Sea creatures tracker.');
 	}
 }
 
@@ -196,64 +188,68 @@ function getTotalCount(seaCreaturesObj) {
 }
 
 function refreshOverlay() {
-    overlay.clear();
-    const viewMode = getCurrentViewMode();
-
-    if (!settings.seaCreaturesTrackerOverlay ||
-        (viewMode === SESSION_VIEW_MODE && !Object.entries(persistentData.seaCreatures.session.catches).length) ||
-        (viewMode === TOTAL_VIEW_MODE && !Object.entries(persistentData.seaCreatures.total.catches).length) ||
-        !isInSkyblock() ||
-        !isInFishingWorld(getWorldName()) ||
-        (new Date() - getLastFishingHookSeenAt() > 10 * 60 * 1000) ||
-        allOverlaysGui.isOpen()
-    ) {
-        return;
-    }
-
-    const sourceObj = getSourceObject(viewMode);
-
-    const entries = Object.entries(sourceObj.catches)
-        .map(([key, value]) => {
-            const seaCreatureInfo = ALL_TRIGGERS.find(t => key === t.seaCreature.toUpperCase());
-            if (!seaCreatureInfo) return null;
-            if (settings.seaCreaturesTrackerMode === DISPLAY_MODE_ONLY_RARE && !seaCreatureInfo.isRare) return null;
-
-            return {
-                seaCreature: key,
-                rarityColorCode: seaCreatureInfo.rarityColorCode || WHITE,
-                amount: value.amount || 0,
-                percent: value.percent,
-                doubleHookAmount: value.doubleHookAmount || 0,
-                doubleHookPercent: value.doubleHookPercent || 0
-            };
-        })
-        .filter(e => !!e)
-        .sort((a, b) => settings.seaCreaturesTrackerSorting === SORTING_DESC ? b.amount - a.amount : a.amount - b.amount);
-
-    if (!entries.length) return;
-
-    const viewModeText = overlay.getViewModeDisplayText(viewMode);
-    overlay.addTextLine(new OverlayTextLine().setText(`${AQUA}${BOLD}Sea creatures tracker ${viewModeText}`));
-
-    entries.forEach((entry) => {
-        const seaCreatureText = `${entry.rarityColorCode}${fromUppercaseToCapitalizedFirstLetters(entry.seaCreature)}`;
-        const countText = `${WHITE}${formatNumberWithSpaces(entry.amount)}`;
-        const percentText = settings.seaCreaturesTrackerMode === DISPLAY_MODE_ONLY_RARE || !settings.showSeaCreaturesPercentage ? '' : ` ${GRAY}${entry.percent}%`;
-        const doubleHookText = !settings.showSeaCreaturesDoubleHookStatistics || (entry.seaCreature === seaCreatures.VANQUISHER || entry.seaCreature === seaCreatures.REINDRAKE)
-            ? ''
-            : ` ${DARK_GRAY}| ${GRAY}DH: ${WHITE}${formatNumberWithSpaces(entry.doubleHookAmount)} ${GRAY}${entry.doubleHookPercent}${GRAY}%`;
-        overlay.addTextLine(new OverlayTextLine().setText(`${GRAY}- ${seaCreatureText}${GRAY}: ${countText}${percentText}${doubleHookText}`));
-    });
-
-    const totalCount = settings.seaCreaturesTrackerMode === DISPLAY_MODE_ALL ? sourceObj.totalCount : getTotalCount(entries);
-    overlay.addTextLine(new OverlayTextLine().setText(`${GRAY}Total: ${WHITE}${totalCount}`));
-
-    overlay.addButtonLine(new OverlayButtonLine()
-        .setText(`${overlay.getNextViewModeButtonDisplayText(viewMode)}`)
-        .setIsSmallerScale(true)
-        .setOnClick(LEFT_CLICK_TYPE, () => toggleViewMode()));
-    overlay.addButtonLine(new OverlayButtonLine()
-        .setText(`${RED}${BOLD}[Click to reset]`)
-        .setIsSmallerScale(true)
-        .setOnClick(LEFT_CLICK_TYPE, () => resetSeaCreaturesTracker(false, viewMode)));
+    try {
+        overlay.clear();
+        const viewMode = getCurrentViewMode();
+    
+        if (!settings.seaCreaturesTrackerOverlay ||
+            (viewMode === SESSION_VIEW_MODE && !Object.entries(persistentData.seaCreatures.session.catches).length) ||
+            (viewMode === TOTAL_VIEW_MODE && !Object.entries(persistentData.seaCreatures.total.catches).length) ||
+            !isInSkyblock() ||
+            !isInFishingWorld(getWorldName()) ||
+            (new Date() - getLastFishingHookSeenAt() > 10 * 60 * 1000) ||
+            allOverlaysGui.isOpen()
+        ) {
+            return;
+        }
+    
+        const sourceObj = getSourceObject(viewMode);
+    
+        const entries = Object.entries(sourceObj.catches)
+            .map(([key, value]) => {
+                const seaCreatureInfo = ALL_TRIGGERS.find(t => key === t.seaCreature.toUpperCase());
+                if (!seaCreatureInfo) return null;
+                if (settings.seaCreaturesTrackerMode === DISPLAY_MODE_ONLY_RARE && !seaCreatureInfo.isRare) return null;
+    
+                return {
+                    seaCreature: key,
+                    rarityColorCode: seaCreatureInfo.rarityColorCode || WHITE,
+                    amount: value.amount || 0,
+                    percent: value.percent,
+                    doubleHookAmount: value.doubleHookAmount || 0,
+                    doubleHookPercent: value.doubleHookPercent || 0
+                };
+            })
+            .filter(e => !!e)
+            .sort((a, b) => settings.seaCreaturesTrackerSorting === SORTING_DESC ? b.amount - a.amount : a.amount - b.amount);
+    
+        if (!entries.length) return;
+    
+        const viewModeText = overlay.getViewModeDisplayText(viewMode);
+        overlay.addTextLine(new OverlayTextLine().setText(`${AQUA}${BOLD}Sea creatures tracker ${viewModeText}`));
+    
+        entries.forEach((entry) => {
+            const seaCreatureText = `${entry.rarityColorCode}${fromUppercaseToCapitalizedFirstLetters(entry.seaCreature)}`;
+            const countText = `${WHITE}${formatNumberWithSpaces(entry.amount)}`;
+            const percentText = settings.seaCreaturesTrackerMode === DISPLAY_MODE_ONLY_RARE || !settings.showSeaCreaturesPercentage ? '' : ` ${GRAY}${entry.percent}%`;
+            const doubleHookText = !settings.showSeaCreaturesDoubleHookStatistics || (entry.seaCreature === seaCreatures.VANQUISHER || entry.seaCreature === seaCreatures.REINDRAKE)
+                ? ''
+                : ` ${DARK_GRAY}| ${GRAY}DH: ${WHITE}${formatNumberWithSpaces(entry.doubleHookAmount)} ${GRAY}${entry.doubleHookPercent}${GRAY}%`;
+            overlay.addTextLine(new OverlayTextLine().setText(`${GRAY}- ${seaCreatureText}${GRAY}: ${countText}${percentText}${doubleHookText}`));
+        });
+    
+        const totalCount = settings.seaCreaturesTrackerMode === DISPLAY_MODE_ALL ? sourceObj.totalCount : getTotalCount(entries);
+        overlay.addTextLine(new OverlayTextLine().setText(`${GRAY}Total: ${WHITE}${totalCount}`));
+    
+        overlay.addButtonLine(new OverlayButtonLine()
+            .setText(`${overlay.getNextViewModeButtonDisplayText(viewMode)}`)
+            .setIsSmallerScale(true)
+            .setOnClick(LEFT_CLICK_TYPE, () => toggleViewMode()));
+        overlay.addButtonLine(new OverlayButtonLine()
+            .setText(`${RED}${BOLD}[Click to reset]`)
+            .setIsSmallerScale(true)
+            .setOnClick(LEFT_CLICK_TYPE, () => resetSeaCreaturesTracker(false, viewMode)));    
+    } catch (e) {
+        logError(e, 'Failed to refresh tracker data for Sea creatures tracker.');
+	}
 }
