@@ -14,28 +14,20 @@ import { registerIf } from '../../utils/registers';
 import { CTRL_LEFT_CLICK_TYPE, CTRL_MIDDLE_CLICK_TYPE, CTRL_RIGHT_CLICK_TYPE, LEFT_CLICK_TYPE, Overlay, OverlayButtonLine, OverlayTextLine } from '../../utils/overlays';
 import { SESSION_VIEW_MODE, TOTAL_VIEW_MODE } from '../../constants/viewModes';
 
-// Check if buttons hidden when I warped from server
-// Check settings enable/disable (when tracker is disabled and then enabled, its not getting paused)
-// Hiding widget over time does not work
-// When swap lobby (tried to fix in worldload)
-// When it pauses after inactivity
-
 let previousInventory = null;
 let isSessionActive = false;
 let areButtonsVisible = false;
 
 registerIf(
-    register('step', () => activateSessionOnPlayersFishingHook()).setFps(2),
-    () => settings.fishingProfitTrackerOverlay && isInSkyblock() && isInFishingWorld(getWorldName())
-);
-
-registerIf( // TODO test
-    register('step', () => refreshOverlay()).setFps(2),
+    register('step', () => {
+        activateSessionOnPlayersFishingHook();
+        refreshOverlay(); // To show/hide when visibility condition changed
+    }).setFps(2),
     () => settings.fishingProfitTrackerOverlay && isInSkyblock() && isInFishingWorld(getWorldName())
 );
 
 registerIf(
-    register('step', () => refreshElapsedTime()).setFps(1),    
+    register('step', () => refreshElapsedTime()).setFps(1), // To refresh timer  
     () => settings.fishingProfitTrackerOverlay && isInSkyblock() && isInFishingWorld(getWorldName())
 );
 
@@ -45,12 +37,12 @@ registerIf(
 );
 
 registerIf(
-    register('guiOpened', (_) => onSomeGuiToggled()),
+    register('guiOpened', (_) => onSomeGuiToggled()), // To refresh visibility of buttons
     () => settings.fishingProfitTrackerOverlay && isInSkyblock() && isInFishingWorld(getWorldName())
 );
 
 registerIf(
-    register('guiClosed', (_) => onSomeGuiToggled()),
+    register('guiClosed', (_) => onSomeGuiToggled()), // To refresh visibility of buttons
     () => settings.fishingProfitTrackerOverlay && isInSkyblock() && isInFishingWorld(getWorldName())
 );
 
@@ -64,49 +56,49 @@ registerIf(
     () => settings.fishingProfitTrackerOverlay && isInSkyblock() && isInFishingWorld(getWorldName())
 );
 
-triggers.COINS_FISHED_TRIGGERS.forEach(trigger => {
-    registerIf(
-        register("Chat", (coins, event) => onCoinsFished(coins)).setCriteria(trigger.trigger).setContains(),
-        () => settings.fishingProfitTrackerOverlay && isInSkyblock() && isInFishingWorld(getWorldName())
-    );
+const ITEMS_ADDED_VIA_CHAT = [
+    {
+        messages: [triggers.GOOD_CATCH_COINS_MESSAGE, triggers.GREAT_CATCH_COINS_MESSAGE, triggers.OUTSTANDING_CATCH_COINS_MESSAGE],
+        callback: (coins) => onCoinsFished(coins)
+    },
+    {
+        messages: [triggers.GOOD_CATCH_ICE_ESSENCE_MESSAGE, triggers.GREAT_CATCH_ICE_ESSENCE_MESSAGE, triggers.OUTSTANDING_CATCH_ICE_ESSENCE_MESSAGE],
+        callback: (count) => onIceEssenceFished(count)
+    },
+    {
+        messages: [triggers.GOOD_CATCH_SHARD_MESSAGE],
+        callback: (shardText) => onShardFished(shardText)
+    },
+    {
+        messages: [triggers.BLACK_HOLE_SHARD_MESSAGE],
+        callback: (shardsText) => onShardCaughtInBlackHole(shardsText)
+    },
+    {
+        messages: [triggers.CHARM_NAGA_SALT_SHARD_MESSAGE],
+        callback: (mobNameText) => onShardsCharmed(mobNameText, 1)
+    },
+    {
+        messages: [triggers.CHARM_NAGA_SALT_SHARDS_MESSAGE],
+        callback: (mobNameText, shardsCount) => onShardsCharmed(mobNameText, +(shardsCount.removeFormatting()))
+    },
+    {
+        messages: [triggers.LOOTSHARED_SHARD_MESSAGE],
+        callback: (shardsText) => onShardLootshared(shardsText)
+    },
+    {
+        messages: [triggers.PET_LEVEL_UP_MESSAGE],
+        callback: (petDisplayName, level) => onPetReachedMaxLevel(+level, petDisplayName)
+    },
+];
+
+ITEMS_ADDED_VIA_CHAT.forEach(trigger => {
+    trigger.messages.forEach(message => {
+        registerIf(
+            register("Chat", trigger.callback).setCriteria(message).setContains(),
+            () => settings.fishingProfitTrackerOverlay && isInSkyblock() && isInFishingWorld(getWorldName())
+        );
+    })
 });
-
-triggers.ICE_ESSENCE_FISHED_TRIGGERS.forEach(trigger => {
-    registerIf(
-        register("Chat", (count, event) => onIceEssenceFished(count)).setCriteria(trigger.trigger).setContains(),
-        () => settings.fishingProfitTrackerOverlay && isInSkyblock() && getWorldName() === JERRY_WORKSHOP
-    );
-});
-
-registerIf(
-    register("Chat", (shardText, event) => onShardFished(shardText)).setCriteria(triggers.GOOD_CATCH_SHARD_MESSAGE).setContains(),
-    () => settings.fishingProfitTrackerOverlay && isInSkyblock() && isInFishingWorld(getWorldName())
-);
-
-registerIf(
-    register("Chat", (shardsText, event) => onShardCaughtInBlackHole(shardsText)).setCriteria(triggers.BLACK_HOLE_SHARD_MESSAGE).setContains(),
-    () => settings.fishingProfitTrackerOverlay && isInSkyblock() && isInFishingWorld(getWorldName())
-);
-
-registerIf(
-    register("Chat", (mobNameText, event) => onShardsCharmed(mobNameText, 1)).setCriteria(triggers.CHARM_NAGA_SALT_SHARD_MESSAGE).setContains(),
-    () => settings.fishingProfitTrackerOverlay && isInSkyblock() && isInFishingWorld(getWorldName())
-);
-
-registerIf(
-    register("Chat", (mobNameText, shardsCount, event) => onShardsCharmed(mobNameText, +(shardsCount.removeFormatting()))).setCriteria(triggers.CHARM_NAGA_SALT_SHARDS_MESSAGE).setContains(),
-    () => settings.fishingProfitTrackerOverlay && isInSkyblock() && isInFishingWorld(getWorldName())
-);
-
-registerIf(
-    register("Chat", (shardsText, event) => onShardLootshared(shardsText)).setCriteria(triggers.LOOTSHARED_SHARD_MESSAGE).setContains(),
-    () => settings.fishingProfitTrackerOverlay && isInSkyblock() && isInFishingWorld(getWorldName())
-);
-
-registerIf(
-    register("Chat", (petDisplayName, level, event) => onPetReachedMaxLevel(+level, petDisplayName)).setCriteria(triggers.PET_LEVEL_UP_MESSAGE).setContains(),
-    () => settings.fishingProfitTrackerOverlay && isInSkyblock() && getWorldName() === CRIMSON_ISLE
-);
 
 let isWorldLoaded = false;
 // World.isLoaded() doesn't give the same result for some reason
@@ -121,14 +113,14 @@ register("worldLoad", () => {
 
 settings.getConfig().onCloseGui(() => refreshTotalItemsProfits());
 
-// Migration - cleanup of the outdated fields
+// Migration - copy the outdated data into new Total
 register("gameLoad", () => {
     if (persistentData.fishingProfit.profitTrackerItems) {
         persistentData.fishingProfit = {
             session: {
-                profitTrackerItems: JSON.parse(JSON.stringify(persistentData.fishingProfit.profitTrackerItems)),
-                totalProfit: persistentData.fishingProfit.totalProfit,
-                elapsedSeconds: persistentData.fishingProfit.elapsedSeconds,
+                profitTrackerItems: {},
+                totalProfit: 0,
+                elapsedSeconds: 0
             },
             total: {
                 profitTrackerItems: JSON.parse(JSON.stringify(persistentData.fishingProfit.profitTrackerItems)),
@@ -252,7 +244,7 @@ function onSomeGuiToggled() {
         const prev = areButtonsVisible;
         const current = isInChatOrInventoryGui();
         areButtonsVisible = current;
-        if (prev !== current) refreshOverlay(); // When chat/inventory opened/closed, redraw to show buttons
+        if (prev !== current) refreshOverlay(); // When chat/inventory opened/closed, we want to show/hide buttons instantly
     });
 }
 
@@ -414,7 +406,7 @@ function onAddedToSacks(event) {
             const itemId = fishingProfitItem?.itemId;
             if (!fishingProfitItem || !itemId) continue;
     
-            if (itemId?.startsWith('MAGMA_FISH') && lastGuisClosed.lastOdgerGuiClosedAt && new Date() - lastGuisClosed.lastOdgerGuiClosedAt < 15 * 1000) {
+            if (itemId?.startsWith('MAGMA_FISH') && lastGuisClosed.lastOdgerGuiClosedAt && new Date() - lastGuisClosed.lastOdgerGuiClosedAt < 40 * 1000) {
                 continue; // User probably just filleted trophy fish
             }
 
@@ -666,29 +658,17 @@ function detectInventoryChanges() {
         const now = new Date();
         const lastGuisClosed = getLastGuisClosed();
 
-        if (itemId?.startsWith('MAGMA_FISH') && lastGuisClosed.lastOdgerGuiClosedAt && now - lastGuisClosed.lastOdgerGuiClosedAt < 1000) { // User probably just filleted trophy fish
-            return true;
-        }
+        if (itemId?.startsWith('MAGMA_FISH') && lastGuisClosed.lastOdgerGuiClosedAt && now - lastGuisClosed.lastOdgerGuiClosedAt < 1000) return true; // User probably just filleted trophy fish
 
-        if (lastGuisClosed.lastStorageGuiClosedAt && now - lastGuisClosed.lastStorageGuiClosedAt < 1000) {
-            return true;
-        }
+        if (lastGuisClosed.lastStorageGuiClosedAt && now - lastGuisClosed.lastStorageGuiClosedAt < 1000) return true;
 
-        if (lastGuisClosed.lastAuctionGuiClosedAt && now - lastGuisClosed.lastAuctionGuiClosedAt < 3000) {
-            return true;
-        }
+        if (lastGuisClosed.lastAuctionGuiClosedAt && now - lastGuisClosed.lastAuctionGuiClosedAt < 3000) return true;
 
-        if (lastGuisClosed.lastBazaarGuiClosedAt && now - lastGuisClosed.lastBazaarGuiClosedAt < 1000) {
-            return true;
-        }
+        if (lastGuisClosed.lastBazaarGuiClosedAt && now - lastGuisClosed.lastBazaarGuiClosedAt < 1000) return true;
 
-        if (lastGuisClosed.lastCraftGuiClosedAt && now - lastGuisClosed.lastCraftGuiClosedAt < 1000) {
-            return true;
-        }
+        if (lastGuisClosed.lastCraftGuiClosedAt && now - lastGuisClosed.lastCraftGuiClosedAt < 1000) return true;
 
-        if (lastGuisClosed.lastSupercraftGuiClosedAt && now - lastGuisClosed.lastSupercraftGuiClosedAt < 1000) {
-            return true;
-        }
+        if (lastGuisClosed.lastSupercraftGuiClosedAt && now - lastGuisClosed.lastSupercraftGuiClosedAt < 1000) return true;
 
         const lastKatUpgrade = getLastKatUpgrade(); // Ignore pets that are claimed from Kat
         if (lastKatUpgrade.lastPetClaimedAt && now - lastKatUpgrade.lastPetClaimedAt < 7 * 1000 &&
