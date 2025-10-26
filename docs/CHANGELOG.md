@@ -6,7 +6,9 @@ Released: ???
 
 TODO:
   - Copy sea creatures to Session
-  
+  - Check if buttons hidden when I warped from server
+  - Archfiend Dice tracker & SC tracker functionality
+
 Features:
 - Added [Session] and [Total] view modes for Fishing profit tracker.
 - Added [Session] and [Total] view modes for Sea creatures tracker.
@@ -17,7 +19,7 @@ Bugfixes:
 - Added Ent Shard to Fishing profit tracker.
 
 Other:
-- Added welcome message for the users who just downloaded the module.
+- Added welcome message for the users who just downloaded the module. Will be shown 1 time for existing users.
 - Disabled some overlays by default in the settings. This will affect only new users downloading the module.
 - Refactored Archfiend Dice Profit tracker to reuse some shared code.
 

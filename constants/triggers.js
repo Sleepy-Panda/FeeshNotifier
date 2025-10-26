@@ -1263,18 +1263,6 @@ export const MAGMA_FIELDS_TRIGGERS = [
     },
 ];
 
-export const COINS_FISHED_TRIGGERS = [
-    {
-        trigger: GOOD_CATCH_COINS_MESSAGE
-    },
-    {
-        trigger: GREAT_CATCH_COINS_MESSAGE
-    },
-    {
-        trigger: OUTSTANDING_CATCH_COINS_MESSAGE
-    },
-];
-
 export const BOTTLE_CHARGED_TRIGGERS = [
     {
         trigger: THUNDER_BOTTLE_CHARGED_MESSAGE,
@@ -1288,18 +1276,6 @@ export const BOTTLE_CHARGED_TRIGGERS = [
         trigger: HURRICANE_BOTTLE_CHARGED_MESSAGE,
         bottleName: 'Hurricane bottle'
     },
-];
-
-export const ICE_ESSENCE_FISHED_TRIGGERS = [
-    {
-        trigger: GOOD_CATCH_ICE_ESSENCE_MESSAGE
-    },
-    {
-        trigger: GREAT_CATCH_ICE_ESSENCE_MESSAGE
-    },
-    {
-        trigger: OUTSTANDING_CATCH_ICE_ESSENCE_MESSAGE
-    }
 ];
 
 export const SHARK_CATCH_TRIGGERS = [
