@@ -1201,7 +1201,7 @@ const config = new DefaultConfig("FeeshNotifier", "config/settings.json")
     subcategory: "Sea creatures",
     shouldShow: data => data.seaCreaturesTrackerOverlay,
     onClick() {
-        ChatLib.command("feeshResetSeaCreatures noconfirm", true);
+        ChatLib.command("feeshResetSeaCreaturesTotal noconfirm", true);
     }
 })
 
@@ -1702,7 +1702,7 @@ Example: ${AQUA}/feeshSetTrackerDrops DYE_TREASURE 2 2025-05-30 23:59:00`);
     configName: "fishingProfitTrackerOverlay",
     title: "Fishing profit tracker",
     description: `
-Shows an overlay with your profits per fishing session.
+Shows an overlay with your profits per fishing session. This overlay has [Session] and [Total] view mode.
 Make sure to enable ${YELLOW}Skyblock Settings -> Personal -> Chat Feedback -> Sack Notifications${RESET} to count items added to your sacks.
 ${GRAY}Do ${AQUA}/feeshResetProfitTracker${GRAY} to reset.`,
     subcategory: "Fishing profit tracker",
