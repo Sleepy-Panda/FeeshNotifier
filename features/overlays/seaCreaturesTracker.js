@@ -239,7 +239,8 @@ function refreshOverlay() {
         });
     
         const totalCount = settings.seaCreaturesTrackerMode === DISPLAY_MODE_ALL ? sourceObj.totalCount : getTotalCount(entries);
-        overlay.addTextLine(new OverlayTextLine().setText(`${GRAY}Total: ${WHITE}${totalCount}`));
+        const totalText = settings.seaCreaturesTrackerMode === DISPLAY_MODE_ALL ? `${GRAY}Total: ${WHITE}${totalCount}` : `${GRAY}Total: ${WHITE}${totalCount} ${GRAY}out of ${sourceObj.totalCount}`;
+        overlay.addTextLine(new OverlayTextLine().setText(totalText));
     
         overlay.addButtonLine(new OverlayButtonLine()
             .setText(`${overlay.getNextViewModeButtonDisplayText(viewMode)}`)
