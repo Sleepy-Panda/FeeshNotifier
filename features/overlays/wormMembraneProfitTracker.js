@@ -1,7 +1,7 @@
 import settings, { allOverlaysGui } from "../../settings";
 import { AQUA, BOLD, DARK_PURPLE, GOLD, GRAY, GREEN, RED, WHITE, YELLOW } from "../../constants/formatting";
 import { getBazaarItemPrices } from "../../utils/bazaarPrices";
-import { formatElapsedTime, formatNumberWithSpaces, getItemsAddedToSacks, isDoubleHook, isInSacksGui, toShortNumber } from "../../utils/common";
+import { formatElapsedTime, formatNumberWithSpaces, getItemsAddedToSacks, isDoubleHook, isInSacksGui, isPlayerMovingItem, toShortNumber } from "../../utils/common";
 import * as triggers from '../../constants/triggers';
 import { getLastFishingHookSeenAt, getLastGuisClosed, getWorldName, isInSkyblock } from "../../utils/playerState";
 import { CRYSTAL_HOLLOWS } from "../../constants/areas";
@@ -172,17 +172,13 @@ function detectInventoryChanges() {
             previousInventoryTotal = previousInventory.reduce((partialSum, a) => partialSum + a, 0);
         }
 
-        let screen = Client.getMinecraft().currentScreen;
-        if (screen && screen.getScreenHandler) {
-            let handler = screen.getScreenHandler();
-            let draggedItem = handler?.getCursorStack();
-            if (draggedItem && !draggedItem.isEmpty() && new Item(draggedItem)) return; // Do not recalculate inventory while a player is moving an item 
-        }
+        if (isPlayerMovingItem()) return; // Do not recalculate inventory while a player is moving an item
 
         const currentInventory = getInventoryMembranes();
         const currentInventoryTotal = currentInventory.reduce((partialSum, a) => partialSum + a, 0);
 
-        let isInChest = screen && screen instanceof GuiChest;
+        const screen = Client.getMinecraft().currentScreen;
+        const isInChest = screen && screen instanceof GuiChest;
         if (!isInChest && currentInventoryTotal > previousInventoryTotal) {
             onWormMembranesAddedToInventory(previousInventoryTotal, currentInventoryTotal);
         }

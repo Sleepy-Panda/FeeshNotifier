@@ -490,11 +490,12 @@ export function isInFishingWorld(worldName) {
  * @returns {boolean}
  */
 export function isPlayerMovingItem() {
-	const heldItem = Player.getPlayer()?.field_71071_by?.func_70445_o();
-	if (heldItem) {
-		var item = new Item(heldItem);
-		return !!item;
-	}
+	let screen = Client.getMinecraft().currentScreen;
+    if (screen && screen.getScreenHandler) {
+        let handler = screen.getScreenHandler();
+        let draggedItem = handler?.getCursorStack();
+        if (draggedItem && !draggedItem.isEmpty() && new Item(draggedItem)) return true;
+    }
 	return false;
 }
 

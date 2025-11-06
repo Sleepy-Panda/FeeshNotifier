@@ -70,11 +70,10 @@ export function resetSeaCreaturesTracker(isConfirmed, resetViewMode) {
         const viewModeText = overlay.getViewModeDisplayText(resetViewMode);
 
         if (!isConfirmed) {
-            new Message(
-                new TextComponent(`${GOLD}[FeeshNotifier] ${WHITE}Do you want to reset Sea creatures tracker ${viewModeText}${WHITE}? ${RED}${BOLD}[Click to confirm]`)
-                    .setClickAction('run_command')
-                    .setClickValue(getResetAction(resetViewMode))
-            ).chat();
+            new TextComponent({
+                text: `${GOLD}[FeeshNotifier] ${WHITE}Do you want to reset Sea creatures tracker ${viewModeText}${WHITE}? ${RED}${BOLD}[Click to confirm]`,
+                clickEvent: { action: 'run_command', value: getResetAction(resetViewMode) },
+            }).chat();
             return;
         }
     

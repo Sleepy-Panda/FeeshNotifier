@@ -7,7 +7,7 @@ import { FISHING_PROFIT_ITEMS } from "../../constants/fishingProfitItems";
 import { AQUA, BOLD, GOLD, GRAY, RESET, WHITE, RED, YELLOW } from "../../constants/formatting";
 import { getAuctionItemPrices, getPetRarityCode } from "../../utils/auctionPrices";
 import { getBazaarItemPrices } from "../../utils/bazaarPrices";
-import { formatElapsedTime, getCleanItemName, getItemsAddedToSacks, getLore, isFishingHookActive, isInChatOrInventoryGui, isInFishingWorld, isInSacksGui, isInSupercraftGui, isPlayerMovingItem, logError, splitArray, toShortNumber } from "../../utils/common";
+import { formatElapsedTime, getCleanItemName, getItemsAddedToSacks, isFishingHookActive, isInChatOrInventoryGui, isInFishingWorld, isInSacksGui, isInSupercraftGui, isPlayerMovingItem, logError, splitArray, toShortNumber } from "../../utils/common";
 import { getLastFishingHookSeenAt, getLastGuisClosed, getLastKatUpgrade, getWorldName, isInSkyblock } from "../../utils/playerState";
 import { playRareDropSound } from '../../utils/sound';
 import { registerIf } from '../../utils/registers';
@@ -47,7 +47,7 @@ registerIf(
 );
 
 registerIf(
-    register("Chat", (event) => onAddedToSacks(event)).setCriteria('&6[Sacks] &r&a+').setStart(), // Items added to the sacks
+    register("Chat", (event) => onAddedToSacks(event)).setCriteria('[Sacks] +').setStart(), // Items added to the sacks
     () => settings.fishingProfitTrackerOverlay && isInSkyblock() && isInFishingWorld(getWorldName())
 );
 
@@ -111,7 +111,12 @@ register("worldLoad", () => {
     isWorldLoaded = true;
 }); 
 
-settings.getConfig().onCloseGui(() => refreshTotalItemsProfits());
+// TODO: Uncomment when implemented back in Amaterasu
+//settings.getConfig().onCloseGui(() => refreshTotalItemsProfits());
+register("guiClosed", (gui) => {
+    if (!gui) return;
+    if (gui.getClass().getName() === 'com.chattriggers.ctjs.api.render.Gui') refreshTotalItemsProfits();
+});
 
 // Migration - copy the outdated data into new Total
 register("gameLoad", () => {
@@ -155,10 +160,10 @@ export function resetFishingProfitTracker(isConfirmed, resetViewMode) {
         const viewModeText = overlay.getViewModeDisplayText(resetViewMode);
 
         if (!isConfirmed) {
-            new Message(new TextComponent(`${GOLD}[FeeshNotifier] ${WHITE}Do you want to reset Fishing profit tracker ${viewModeText}${WHITE}? ${RED}${BOLD}[Click to confirm]`)
-                .setClickAction('run_command')
-                .setClickValue(getResetAction(resetViewMode))
-            ).chat();
+            new TextComponent({
+                text: `${GOLD}[FeeshNotifier] ${WHITE}Do you want to reset Fishing profit tracker ${viewModeText}${WHITE}? ${RED}${BOLD}[Click to confirm]`,
+                clickEvent: { action: 'run_command', value: getResetAction(resetViewMode) },
+            }).chat();
             return;
         }
        
@@ -568,7 +573,8 @@ function detectInventoryChanges() {
         
         const currentInventory = getFishingProfitItemsInCurrentInventory();
 
-        let isInChest = Client.isInGui() && Client.currentGui?.getClassName() === 'GuiChest';
+        const screen = Client.getMinecraft().currentScreen;
+        const isInChest = screen && screen instanceof GuiChest;
         if (isInChest) {
             previousInventory = currentInventory;
             return;
@@ -618,10 +624,13 @@ function detectInventoryChanges() {
             }
 
             if (slotItemName.startsWith('[Lvl 1] ')) {
-                const extraAttributes = item?.getNBT()?.getCompoundTag('tag')?.getCompoundTag('ExtraAttributes');
-                const nbtId = extraAttributes?.getString('id');
+                const customData = getItemCustomData(item);
+                if (!customData) continue;
+
+                const nbtId = customData.id;
                 if (!nbtId || nbtId !== 'PET') continue;
-                const petInfo = JSON.parse(extraAttributes?.getString('petInfo'));
+
+                const petInfo = JSON.parse(customData.petInfo);
                 const rarity = petInfo?.tier;
                 slotItemName += ` (${rarity?.toUpperCase()})`;
             }
