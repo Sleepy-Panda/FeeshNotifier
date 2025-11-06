@@ -1,12 +1,10 @@
 # Releases
 
+! REMINDER TO SET changelogMessages.js FOR INGAME ANNOUNCEMENT !
+
 ## v1.54.0
 
 Released: ???
-
-TODO:
-  - Check if buttons hidden when I warped from server
-  - Confirm deletion from tracker
 
 Features:
 - Added [Session] and [Total] view modes for Fishing profit tracker.
@@ -20,6 +18,7 @@ Bugfixes:
 
 Other:
 - Added welcome message for the users who just downloaded the module. Will be shown 1 time for existing users.
+- Added changelog for the users who just downloaded a new module version.
 - Disabled some overlays by default in the settings. This will affect only new users downloading the module.
 - Refactored Archfiend Dice Profit tracker to reuse some shared code.
 
