@@ -80,7 +80,7 @@ function onFishingBagOpened(event) {
         }
     
         Client.scheduleTask(2, () => {
-            const chestName = event.guigui.getTitle()?.getString(); 
+            const chestName = event.gui.getTitle()?.getString(); 
             if (!chestName || !chestName.includes('Fishing Bag')) {
                 return;
             }
