@@ -5,15 +5,15 @@
 Released: ???
 
 TODO:
-  - Copy sea creatures to Session
   - Check if buttons hidden when I warped from server
-  - Archfiend Dice tracker & SC tracker functionality
+  - Confirm deletion from tracker
 
 Features:
 - Added [Session] and [Total] view modes for Fishing profit tracker.
 - Added [Session] and [Total] view modes for Sea creatures tracker.
   - All your historical data is not lost, it will be shown in [Total] mode. 
   - You can configure autoresetting the [Session] in settings. By default, you reset it manually so you won't lose the data unintentionally.
+- Show total amount of all sea creatures in Rare mode of Sea creatures tracker.
 
 Bugfixes:
 - Added Ent Shard to Fishing profit tracker.

@@ -39,7 +39,7 @@ ${GRAY}- ${LIGHT_PURPLE}Thunder${GRAY}: ${WHITE}10 ${DARK_GRAY}| ${GRAY}DH: ${WH
 ${GRAY}- ${DARK_PURPLE}Vanquisher${GRAY}: ${WHITE}8
 ${GRAY}- ${LIGHT_PURPLE}Lord Jawbus${GRAY}: ${WHITE}2 ${DARK_GRAY}| ${GRAY}DH: ${WHITE}1 ${GRAY}100%
 ${GRAY}- ${LIGHT_PURPLE}Ragnarok${GRAY}: ${WHITE}1 ${DARK_GRAY}| ${GRAY}DH: ${WHITE}0 ${GRAY}0%
-${GRAY}Total: ${WHITE}21 ${GRAY}out of 1000`,
+${GRAY}Total: ${WHITE}21 ${GRAY}rare out of ${WHITE}1000`,
         isActive: false,
         width: 0,
         height: 0
