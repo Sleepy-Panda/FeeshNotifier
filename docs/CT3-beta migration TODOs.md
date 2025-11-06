@@ -6,7 +6,7 @@ Current artifact used: https://github.com/Synnerz/ctjs/releases/tag/1.21.5v1
 
 - Warp bayou - widget not appearing until I open/close settings (randomly)
 
-- Probably I will need to port it to 1.21.7 or higher (depends on SB decision of supported version)
+- Probably I will need to port it to 1.21.9 or higher (depends on SB decision of supported version)
 - Adjust changelog file and metadata version
   - Probably version should be 3+ to allow any minor 2+
 - Update settings to remove not supported features
@@ -31,6 +31,7 @@ Current artifact used: https://github.com/Synnerz/ctjs/releases/tag/1.21.5v1
 - Clickable overlay buttons - smaller scale buttons renders wrongly, so far they have same size as overlay text
 - Clickable lines - sometimes clicks intersect between 2 lines, 2 lines are clicked
 - Moby duck overlay not tested
+- Black Hole timer sometimes getting stuck
 - To test all overlays
 - Check if Kat pets counted in profit tracker
 - Fix getSkullTexture(entity) for Cocoons rendering
