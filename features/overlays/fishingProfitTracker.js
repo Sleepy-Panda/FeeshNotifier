@@ -47,7 +47,7 @@ registerIf(
 );
 
 registerIf(
-    register("Chat", (event) => onAddedToSacks(event)).setCriteria('&6[Sacks] &r&a+').setStart(), // Items added to the sacks
+    register("Chat", (event) => onAddedToSacks(event)).setCriteria(triggers.ADDED_TO_SACKS_MESSAGE).setStart(),
     () => settings.fishingProfitTrackerOverlay && isInSkyblock() && isInFishingWorld(getWorldName())
 );
 
@@ -113,7 +113,7 @@ register("worldLoad", () => {
 
 settings.getConfig().onCloseGui(() => refreshTotalItemsProfits());
 
-// Migration - copy the outdated data into new Total
+// Migration - copy the outdated data into new Total, 1.53.0 -> 1.54.0
 register("gameLoad", () => {
     if (persistentData.fishingProfit.profitTrackerItems) {
         persistentData.fishingProfit = {
