@@ -13,6 +13,7 @@ import { playRareDropSound } from '../../utils/sound';
 import { registerIf } from '../../utils/registers';
 import { CTRL_LEFT_CLICK_TYPE, CTRL_MIDDLE_CLICK_TYPE, CTRL_RIGHT_CLICK_TYPE, LEFT_CLICK_TYPE, Overlay, OverlayButtonLine, OverlayTextLine } from '../../utils/overlays';
 import { SESSION_VIEW_MODE, TOTAL_VIEW_MODE } from '../../constants/viewModes';
+import { GuiChest } from '../../constants/javaTypes';
 
 let previousInventory = null;
 let isSessionActive = false;
