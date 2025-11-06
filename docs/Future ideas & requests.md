@@ -7,6 +7,7 @@
 
 ## Fishing profit tracker
 
+- Add confirmation for deleting items from the tracker.
 - Track Agatha tickets / Forest Essence on Galatea based on contest results.
 - Use drop # in the chat message based on current profit tracker.
 - Option to right align the tracker (and others too)
