@@ -114,12 +114,12 @@ export const BOGGED_MESSAGE = `${RESET}${GREEN}You've hooked a Bogged!`;
 // PET DROP! &r&6Baby Yeti
 // §r§6§lPET DROP! §r§6Baby Yeti§r
 // §r§6§lPET DROP! §6§lLEGENDARY §6Baby Yeti - 1.21 (modified by SH)
-export const BABY_YETI_PET_LEG_MESSAGE = `PET DROP!`+ '${*}' + `${GOLD}Baby Yeti`;
+export const BABY_YETI_PET_LEG_MESSAGE = `PET DROP! ${GOLD}Baby Yeti`;
 // &r&6&lPET DROP! &r&6Flying Fish&r
 // &r&6&lPET DROP! &6&lLEGENDARY &6Flying Fish - 1.21 (modified by SH)
-export const FLYING_FISH_PET_LEG_MESSAGE = `PET DROP!`+ '${*}' + `${GOLD}Flying Fish`; 
-export const MEGALODON_PET_LEG_MESSAGE = `PET DROP!`+ '${*}' + `${GOLD}Megalodon`;
-export const MEGALODON_PET_EPIC_MESSAGE = `PET DROP!`+ '${*}' + `${DARK_PURPLE}Megalodon`;
+export const FLYING_FISH_PET_LEG_MESSAGE = `PET DROP! ${GOLD}Flying Fish`; 
+export const MEGALODON_PET_LEG_MESSAGE = `PET DROP! ${GOLD}Megalodon`;
+export const MEGALODON_PET_EPIC_MESSAGE = `PET DROP! ${DARK_PURPLE}Megalodon`;
 
 const MAGIC_FIND_MESSAGE_PATTERN = `${RESET}${AQUA}(+${RESET}${AQUA}` + '${magicFind}' + ` ${RESET}${AQUA}✯ Magic Find${RESET}${AQUA})`; // &r&b(+&r&b236 &r&b✯ Magic Find&r&b)
 
