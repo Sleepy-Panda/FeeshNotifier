@@ -12,17 +12,8 @@ Current artifact used: https://github.com/Synnerz/ctjs/releases/tag/1.21.5v1
 - Update settings to remove not supported features
 - Check that configs from 1.8.9 moved without errors
 
-## General
-
-- Sometimes, MC stuck on loading forever when CT is in mods folder
-  - It's most likely related with my location / network issues
-- Same way requests to AH / BZ API stuck forever sometimes
-
 ## Chat
 
-- SH message does not work
-  - &r&9Party &8> &6[MVP&3++&6] vadim31&f: &rDOUBLE HOOK: I caught a The Sea Emperor!
-  - &r&9Party &8> &6[MVP&3++&6] vadim31&f: &rI caught a The Sea Emperor!
 - Wiki Tiki msg sometimes not compacted
 - Skyhanni's "Hide empty chat messages" settings fully hides all custom messages written to the chat by CT. (???)
   - I'm not gonna fix it but just to remember.
@@ -34,9 +25,7 @@ Current artifact used: https://github.com/Synnerz/ctjs/releases/tag/1.21.5v1
 
 ## Overlays
 
-- Lines are rendered too close to each other, almost no space between them (CT issue)
-- Problem with Buttons positions for some overlay in new CT artifact with fixed overlays
-- Martin NPC fishing hook is detected in Bobbong Time tracker (Galatea)
+- Martin NPC fishing hook is detected in Bobbing Time tracker (Galatea)
 - Overlay moving when scrolling
 - Overlays position not preserved when copying coords file from 1.8.9
 - Clickable overlay buttons - smaller scale buttons renders wrongly, so far they have same size as overlay text
@@ -54,8 +43,7 @@ Current artifact used: https://github.com/Synnerz/ctjs/releases/tag/1.21.5v1
 
 ## Rendering
 
-Fishing Hook timer rendering needs rework
-- Looks not smooth while hook or player moves
+Fishing Hook timer rendering needs improvement
 - No shadow
 - Also is glowing with shaders
 
