@@ -248,7 +248,41 @@ function onSomeGuiToggled() {
     });
 }
 
-function changeItemAmount(itemId, isDelete, difference) {
+export function deleteItemFromFishingProfitTracker(itemId, viewMode, isConfirmed) {
+    try {
+        if (!isTrackerVisible()) return;
+
+        const viewModeText = overlay.getViewModeDisplayText(viewMode);
+        const sourceObj = getSourceObject(viewMode);
+        const item = sourceObj.profitTrackerItems[itemId];
+        if (!item) return;
+
+        if (!isConfirmed) {
+            new Message(new TextComponent(`${GOLD}[FeeshNotifier] ${WHITE}Do you want to delete ${GRAY}${item.amount}x ${item.itemDisplayName} ${RESET}from Fishing profit tracker ${viewModeText}${WHITE}? ${RED}${BOLD}[Click to confirm]`)
+                .setClickAction('run_command')
+                .setClickValue(getResetAction(viewMode))
+            ).chat();
+            return;
+        }
+
+        delete sourceObj.profitTrackerItems[itemId];
+        persistentData.save();
+        refreshTotalItemsProfits();
+        ChatLib.chat(`${GOLD}[FeeshNotifier] ${WHITE}Removed ${GRAY}${item.amount}x ${item.itemDisplayName} ${WHITE}from the Fishing profit tracker ${viewModeText}${WHITE}.`);
+    } catch (e) {
+        logError(e, 'Failed to change item amount in Fishing profit tracker.');
+    }
+
+    function getResetAction(viewMode) {
+        const actions = {
+            [SESSION_VIEW_MODE]: `/feeshDeleteItemFromProfitTracker ${itemId} noconfirm`,
+            [TOTAL_VIEW_MODE]: `/feeshDeleteItemFromProfitTrackerTotal ${itemId} noconfirm`
+        };
+        return actions[viewMode] || '';
+    }
+}
+
+function changeItemAmount(itemId, difference) {
     try {
         if (!isTrackerVisible()) return;
 
@@ -258,18 +292,13 @@ function changeItemAmount(itemId, isDelete, difference) {
         const item = sourceObj.profitTrackerItems[itemId];
         if (!item) return;
 
-        if (isDelete) {
-            delete sourceObj.profitTrackerItems[itemId];
-            ChatLib.chat(`${GOLD}[FeeshNotifier] ${WHITE}Removed ${GRAY}${item.amount}x ${item.itemDisplayName} ${WHITE}from the Fishing profit tracker ${viewModeText}${WHITE}.`);   
-        } else {
-            const newAmount = sourceObj.profitTrackerItems[itemId].amount + difference;
-            if (!newAmount && !isDelete) return; // Prevent unintended deletion because of missclick
+        const newAmount = item.amount + difference;
+        if (!newAmount) return; // Prevent unintended deletion because of missclick
 
-            sourceObj.profitTrackerItems[itemId].amount = newAmount;
-            ChatLib.chat(`${GOLD}[FeeshNotifier] ${WHITE}Changed amount of ${item.itemDisplayName} ${WHITE}to ${GRAY}${newAmount}x ${WHITE}in the Fishing profit tracker ${viewModeText}${WHITE}.`);   
-        }
+        sourceObj.profitTrackerItems[itemId].amount = newAmount;
         persistentData.save();
         refreshTotalItemsProfits();
+        ChatLib.chat(`${GOLD}[FeeshNotifier] ${WHITE}Changed amount of ${item.itemDisplayName} ${WHITE}to ${GRAY}${newAmount}x ${WHITE}in the Fishing profit tracker ${viewModeText}${WHITE}.`);   
     } catch (e) {
         logError(e, 'Failed to change item amount in Fishing profit tracker.');
     }
@@ -735,11 +764,11 @@ function refreshOverlay() {
         displayTrackerData.entriesToShow.forEach((entry) => {
             const line = new OverlayTextLine().setText(`${GRAY}- ${WHITE}${entry.amount}${GRAY}x ${entry.item}${GRAY}: ${GOLD}${toShortNumber(entry.profit)}`);
             if (areActionsVisible) {
-                line.setOnClick(CTRL_MIDDLE_CLICK_TYPE, () => changeItemAmount(entry.itemId, true, 0));
+                line.setOnClick(CTRL_MIDDLE_CLICK_TYPE, () => deleteItem(entry.itemId, viewMode, false));
 
                 if (entry.itemId !== 'FISHED_COINS') {
-                    line.setOnClick(CTRL_LEFT_CLICK_TYPE, () => changeItemAmount(entry.itemId, false, -1));
-                    line.setOnClick(CTRL_RIGHT_CLICK_TYPE, () => changeItemAmount(entry.itemId, false, 1));
+                    line.setOnClick(CTRL_LEFT_CLICK_TYPE, () => changeItemAmount(entry.itemId, -1));
+                    line.setOnClick(CTRL_RIGHT_CLICK_TYPE, () => changeItemAmount(entry.itemId, 1));
                 }
             }
             overlay.addTextLine(line);

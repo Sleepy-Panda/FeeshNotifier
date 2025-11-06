@@ -5,7 +5,7 @@ import { resetCrimsonIsleTracker, setRadioactiveVials } from "./features/overlay
 import { resetJerryWorkshopTracker } from "./features/overlays/jerryWorkshopTracker";
 import { resetWormMembraneProfitTracker } from "./features/overlays/wormMembraneProfitTracker";
 import { resetMagmaCoreProfitTracker } from "./features/overlays/magmaCoreProfitTracker";
-import { resetFishingProfitTracker } from "./features/overlays/fishingProfitTracker";
+import { deleteItemFromFishingProfitTracker, resetFishingProfitTracker } from "./features/overlays/fishingProfitTracker";
 import { resetDropNumbers } from "./features/chat/messageOnDrop";
 import { calculateFishingPetPrices } from "./features/commands/calculateFishingPetsPrices";
 import { calculateGearCraftPrices } from "./features/commands/calculateGearCraftPrices";
@@ -93,6 +93,18 @@ register("command", (...args) => {
     const isConfirmed = args[0] && args[0] === "noconfirm";
     resetFishingProfitTracker(!!isConfirmed, TOTAL_VIEW_MODE);
 }).setName("feeshResetProfitTrackerTotal");
+
+register("command", (...args) => {
+    const itemId = args[0];
+    const isConfirmed = args[1] && args[1] === "noconfirm";
+    deleteItemFromFishingProfitTracker(itemId, SESSION_VIEW_MODE, !!isConfirmed);
+}).setName("feeshDeleteItemFromProfitTracker");
+
+register("command", (...args) => {
+    const itemId = args[0];
+    const isConfirmed = args[1] && args[1] === "noconfirm";
+    deleteItemFromFishingProfitTracker(itemId, TOTAL_VIEW_MODE, !!isConfirmed);
+}).setName("feeshDeleteItemFromProfitTrackerTotal");
 
 register("command", (dropId, count, ...dateParts) => {
     const lastOn = dateParts.join(' ');
