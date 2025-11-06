@@ -39,7 +39,7 @@ ${GRAY}- ${LIGHT_PURPLE}Thunder${GRAY}: ${WHITE}10 ${DARK_GRAY}| ${GRAY}DH: ${WH
 ${GRAY}- ${DARK_PURPLE}Vanquisher${GRAY}: ${WHITE}8
 ${GRAY}- ${LIGHT_PURPLE}Lord Jawbus${GRAY}: ${WHITE}2 ${DARK_GRAY}| ${GRAY}DH: ${WHITE}1 ${GRAY}100%
 ${GRAY}- ${LIGHT_PURPLE}Ragnarok${GRAY}: ${WHITE}1 ${DARK_GRAY}| ${GRAY}DH: ${WHITE}0 ${GRAY}0%
-${GRAY}Total: ${WHITE}21`,
+${GRAY}Total: ${WHITE}21 ${GRAY}rare out of ${WHITE}1000`,
         isActive: false,
         width: 0,
         height: 0
@@ -232,7 +232,7 @@ ${GRAY}Last on: ${WHITE}7 Treasures ago`,
         toggleSettingKey: 'fishingProfitTrackerOverlay',
         guiSettings: overlayCoordsData.fishingProfitTrackerOverlay,
         sampleText:
-`${AQUA}${BOLD}Fishing profit tracker
+`${AQUA}${BOLD}Fishing profit tracker ${GREEN}[Session]
 - 1x ${LIGHT_PURPLE}Radioactive Vial: ${GOLD}170m
 - 1027x ${DARK_PURPLE}Silver Magmafish: ${GOLD}25m
 - 3x ${LIGHT_PURPLE}Flash I ${WHITE}Book: ${GOLD}20m

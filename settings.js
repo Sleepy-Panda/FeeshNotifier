@@ -1201,7 +1201,7 @@ const config = new DefaultConfig("FeeshNotifier", "config/settings.json")
     subcategory: "Sea creatures",
     shouldShow: data => data.seaCreaturesTrackerOverlay,
     onClick() {
-        ChatLib.command("feeshResetSeaCreatures noconfirm", true);
+        ChatLib.command("feeshResetSeaCreaturesTotal noconfirm", true);
     }
 })
 
@@ -1702,7 +1702,7 @@ Example: ${AQUA}/feeshSetTrackerDrops DYE_TREASURE 2 2025-05-30 23:59:00`);
     configName: "fishingProfitTrackerOverlay",
     title: "Fishing profit tracker",
     description: `
-Shows an overlay with your profits per fishing session.
+Shows an overlay with your profits per fishing session. This overlay has [Session] and [Total] view mode.
 Make sure to enable ${YELLOW}Skyblock Settings -> Personal -> Chat Feedback -> Sack Notifications${RESET} to count items added to your sacks.
 ${GRAY}Do ${AQUA}/feeshResetProfitTracker${GRAY} to reset.`,
     subcategory: "Fishing profit tracker",
@@ -1769,20 +1769,31 @@ ${GRAY}Do ${AQUA}/feeshResetProfitTracker${GRAY} to reset.`,
 .addSwitch({
     category: "Overlays",
     configName: "resetFishingProfitTrackerOnGameClosed",
-    title: "Autoreset on closing game",
-    description: "Automatically reset the fishing profit tracker when you close Minecraft or reload CT modules.",
+    title: "Autoreset [Session] on closing game",
+    description: "Automatically reset the fishing profit tracker [Session] when you close Minecraft or reload CT modules.",
     subcategory: "Fishing profit tracker",
     shouldShow: data => data.fishingProfitTrackerOverlay,
 })
 .addButton({
     category: "Overlays",
-    configName: "resetFishingProfitTracker",
-    title: "Reset fishing profit tracker",
-    description: `Resets tracking for fishing profit tracker. Executes ${AQUA}/feeshResetProfitTracker`,
+    configName: "resetFishingProfitTrackerSession",
+    title: "Reset fishing profit tracker [Session]",
+    description: `Resets tracking for fishing profit tracker [Session]. Executes ${AQUA}/feeshResetProfitTracker`,
     subcategory: "Fishing profit tracker",
     shouldShow: data => data.fishingProfitTrackerOverlay,
     onClick() {
         ChatLib.command("feeshResetProfitTracker noconfirm", true);
+    }
+})
+.addButton({
+    category: "Overlays",
+    configName: "resetFishingProfitTrackerTotal",
+    title: "Reset fishing profit tracker [Total]",
+    description: `Resets tracking for fishing profit tracker [Total]. Executes ${AQUA}/feeshResetProfitTrackerTotal`,
+    subcategory: "Fishing profit tracker",
+    shouldShow: data => data.fishingProfitTrackerOverlay,
+    onClick() {
+        ChatLib.command("feeshResetProfitTrackerTotal noconfirm", true);
     }
 })
 
