@@ -2,9 +2,19 @@
 
 ! REMINDER TO SET changelogMessages.js FOR INGAME ANNOUNCEMENT !
 
-## v1.54.0
+## v1.55.0
 
 Released: ???
+
+Features:
+
+Bugfixes:
+
+Other:
+
+## v1.54.0
+
+Released: 2025-11-13
 
 Features:
 - Added [Session] and [Total] view modes for Fishing profit tracker.
