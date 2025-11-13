@@ -10,6 +10,7 @@ export const persistentData = new PogObject("FeeshNotifier", {
             "catches": {},
             "totalCount": 0,
         },
+        "viewMode": "SESSION",
     },
     "treasureFishing": {
         "session": {
@@ -108,9 +109,17 @@ export const persistentData = new PogObject("FeeshNotifier", {
         },
     },
     "fishingProfit": {
-        "profitTrackerItems": {},
-        "totalProfit": 0,
-        "elapsedSeconds": 0
+        "session": {
+            "profitTrackerItems": {},
+            "totalProfit": 0,
+            "elapsedSeconds": 0
+        },
+        "total": {
+            "profitTrackerItems": {},
+            "totalProfit": 0,
+            "elapsedSeconds": 0
+        },
+        "viewMode": "SESSION",
     },
     "rareDropNotifications": {
         "items": {}
@@ -160,5 +169,7 @@ export const persistentData = new PogObject("FeeshNotifier", {
             "profit": 0,
         },
         "viewMode": "SESSION"
-    }
+    },
+    "isWelcomeMessageShown": false,
+    "lastVersionChangelogShown": "0.0.0"
 }, 'config/data.json');

@@ -669,6 +669,12 @@ export const FISHING_PROFIT_ITEMS = [
         npcPrice: 0,
     },
     {
+        itemId: 'SHARD_ENT',
+        itemName: 'Ent Shard',
+        itemDisplayName: `${UNCOMMON}Ent ${WHITE}Shard`,
+        npcPrice: 0,
+    },
+    {
         itemId: 'SHARD_NIGHT_SQUID',
         itemName: 'Night Squid Shard',
         itemDisplayName: `${COMMON}Night Squid ${WHITE}Shard`,

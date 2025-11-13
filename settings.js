@@ -48,7 +48,7 @@ const config = new DefaultConfig("FeeshNotifier", "config/settings.json")
     category: "General",
     configName: "moveAllOverlays",
     title: "Move GUIs",
-    description: `Allows to move and resize all GUIs enabled in the settings. Executes ${AQUA}/feeshMoveAllGuis`,
+    description: `Allows to move and resize all GUIs enabled in the Overlays settings section. Executes ${AQUA}/feeshMoveAllGuis`,
     subcategory: "GUI",
     onClick() {
         ChatLib.command("feeshMoveAllGuis", true);
@@ -314,7 +314,7 @@ const config = new DefaultConfig("FeeshNotifier", "config/settings.json")
     category: "Chat",
     configName: "includeMagicFindIntoDropMessage",
     title: "Include magic find",
-    description: `Show drop's ${AQUA}✯ Magic Find ${RESET}in the party chat message.`,
+    description: `Show drop's ${AQUA}✯ Magic Find ${RESET}in the party chat message, when applicable.`,
     subcategory: "Rare Drops",
     value: true
 })
@@ -1091,6 +1091,7 @@ const config = new DefaultConfig("FeeshNotifier", "config/settings.json")
     title: "Move remaining deployables time",
     description: "Allows to move and resize the overlay text.",
     subcategory: "Deployables",
+    shouldShow: data => data.deployablesRemainingTimeOverlay,
     onClick() {
         moveOverlay(deployablesRemainingTimeOverlayGui);
     }
@@ -1110,6 +1111,7 @@ const config = new DefaultConfig("FeeshNotifier", "config/settings.json")
     title: "Move remaining Moby-Duck time",
     description: "Allows to move and resize the overlay text.",
     subcategory: "Consumables",
+    shouldShow: data => data.consumablesRemainingTimeOverlay,
     onClick() {
         moveOverlay(consumablesRemainingTimeOverlayGui);
     }
@@ -1119,7 +1121,7 @@ const config = new DefaultConfig("FeeshNotifier", "config/settings.json")
     category: "Overlays",
     configName: "seaCreaturesTrackerOverlay",
     title: "Sea creatures tracker",
-    description: `Shows an overlay with the overview of the sea creatures caught, and different related statistics.\nDo ${AQUA}/feeshResetSeaCreatures${GRAY} to reset.`,
+    description: `Shows an overlay with the overview of the sea creatures caught, and different related statistics. This overlay has [Session] and [Total] view mode.\nDo ${AQUA}/feeshResetSeaCreatures${GRAY} to reset [Session], or ${AQUA}/feeshResetSeaCreaturesTotal${GRAY} to reset [Total].`,
     subcategory: "Sea creatures",
     value: true
 })
@@ -1130,15 +1132,17 @@ const config = new DefaultConfig("FeeshNotifier", "config/settings.json")
     description: `Setups whether to hide regular sea creatures in the overlay, showing just rare ones. All sea creatures are tracked regardless this setting.`,
     options: [ "Only rare", "All" ],
     subcategory: "Sea creatures",
-    value: 0
+    value: 0,
+    shouldShow: data => data.seaCreaturesTrackerOverlay,
 })
 .addSwitch({
     category: "Overlays",
     configName: "showSeaCreaturesPercentage",
     title: "Show sea creatures percentage",
-    description: `Show statistics with a percentage for each sea creature. It is not shown when in the "Onle rare sea creatures" mode.`,
+    description: `Show statistics with a percentage for each sea creature. It is not shown when in the "Only rare sea creatures" mode.`,
     subcategory: "Sea creatures",
-    value: true
+    value: true,
+    shouldShow: data => data.seaCreaturesTrackerOverlay,
 })
 .addSwitch({
     category: "Overlays",
@@ -1146,7 +1150,8 @@ const config = new DefaultConfig("FeeshNotifier", "config/settings.json")
     title: "Show double hook statistics",
     description: `Show statistics how often the sea creatures were double hooked.`,
     subcategory: "Sea creatures",
-    value: true
+    value: true,
+    shouldShow: data => data.seaCreaturesTrackerOverlay,
 })
 .addDropDown({
     category: "Overlays",
@@ -1154,15 +1159,9 @@ const config = new DefaultConfig("FeeshNotifier", "config/settings.json")
     title: "Sea creatures sorting",
     description: "Setups sorting order for the sea creatures.",
     options: [ "Catches count (desc)", "Catches count (asc)" ],
+    subcategory: "Sea creatures",
     value: 0,
-    subcategory: "Sea creatures"
-})
-.addSwitch({
-    category: "Overlays",
-    configName: "resetSeaCreaturesTrackerOnGameClosed",
-    title: "Reset on closing game",
-    description: "Automatically reset the Sea creatures tracker when you close Minecraft or reload CT modules.",
-    subcategory: "Sea creatures"
+    shouldShow: data => data.seaCreaturesTrackerOverlay,
 })
 .addButton({
     category: "Overlays",
@@ -1170,18 +1169,39 @@ const config = new DefaultConfig("FeeshNotifier", "config/settings.json")
     title: "Move Sea creatures tracker",
     description: "Allows to move and resize the overlay text.",
     subcategory: "Sea creatures",
+    shouldShow: data => data.seaCreaturesTrackerOverlay,
     onClick() {
         moveOverlay(seaCreaturesTrackerOverlayGui);
     }
 })
+.addSwitch({
+    category: "Overlays",
+    configName: "resetSeaCreaturesTrackerOnGameClosed",
+    title: "Autoreset [Session] on closing game",
+    description: "Automatically reset the Sea creatures tracker [Session] when you close Minecraft or reload CT modules.",
+    subcategory: "Sea creatures",
+    shouldShow: data => data.seaCreaturesTrackerOverlay,
+})
 .addButton({
     category: "Overlays",
-    configName: "resetSeaCreaturesTracker",
-    title: "Reset Sea creatures tracker",
-    description: `Resets tracking for Sea creatures tracker. Executes ${AQUA}/feeshResetSeaCreatures`,
+    configName: "resetSeaCreaturesTrackerSession",
+    title: "Reset Sea creatures tracker [Session]",
+    description: `Resets tracking for Sea creatures tracker [Session]. Executes ${AQUA}/feeshResetSeaCreatures`,
     subcategory: "Sea creatures",
+    shouldShow: data => data.seaCreaturesTrackerOverlay,
     onClick() {
         ChatLib.command("feeshResetSeaCreatures noconfirm", true);
+    }
+})
+.addButton({
+    category: "Overlays",
+    configName: "resetSeaCreaturesTrackerTotal",
+    title: "Reset Sea creatures tracker [Total]",
+    description: `Resets tracking for Sea creatures tracker [Total]. Executes ${AQUA}/feeshResetSeaCreaturesTotal`,
+    subcategory: "Sea creatures",
+    shouldShow: data => data.seaCreaturesTrackerOverlay,
+    onClick() {
+        ChatLib.command("feeshResetSeaCreaturesTotal noconfirm", true);
     }
 })
 
@@ -1199,7 +1219,8 @@ const config = new DefaultConfig("FeeshNotifier", "config/settings.json")
     title: "Display immunity",
     description: `Display ~5 seconds immunity indicator for damage reduction period that some sea creature types have.`,
     subcategory: "Sea creatures HP",
-    value: true
+    value: true,
+    shouldShow: data => data.seaCreaturesHpOverlay,
 })
 .addSlider({
     category: "Overlays",
@@ -1208,7 +1229,8 @@ const config = new DefaultConfig("FeeshNotifier", "config/settings.json")
     description: "Show maximum N sea creatures nearby (to limit overlay size). Sea creatures with lower HP come first.",
     options: [1, 20],
     value: 6,
-    subcategory: "Sea creatures HP"
+    subcategory: "Sea creatures HP",
+    shouldShow: data => data.seaCreaturesHpOverlay,
 })
 .addButton({
     category: "Overlays",
@@ -1216,6 +1238,7 @@ const config = new DefaultConfig("FeeshNotifier", "config/settings.json")
     title: "Move sea creatures HP",
     description: "Allows to move and resize the overlay text.",
     subcategory: "Sea creatures HP",
+    shouldShow: data => data.seaCreaturesHpOverlay,
     onClick() {
         moveOverlay(seaCreaturesHpOverlayGui);
     }
@@ -1224,7 +1247,7 @@ const config = new DefaultConfig("FeeshNotifier", "config/settings.json")
 .addSwitch({
     category: "Overlays",
     configName: "seaCreaturesCountOverlay",
-    title: "Sea creatures count",
+    title: "Sea creatures count nearby",
     description: `Shows an overlay with the count of nearby sea creatures, and timer for how long they are alive. Useful to detect cap when barn fishing.\n${RED}Hidden if you have no fishing rod in your hotbar!`,
     subcategory: "Sea creatures count",
     value: true
@@ -1234,7 +1257,8 @@ const config = new DefaultConfig("FeeshNotifier", "config/settings.json")
     configName: "resetSeaCreaturesCountKeybindInformationText",
     title: "Reset button",
     description: "Set a keybind in Minecraft's Controls menu to reset Sea creatures count/timer on button pressed.",
-    subcategory: "Sea creatures count"
+    subcategory: "Sea creatures count",
+    shouldShow: data => data.seaCreaturesCountOverlay,
 })
 .addButton({
     category: "Overlays",
@@ -1242,6 +1266,7 @@ const config = new DefaultConfig("FeeshNotifier", "config/settings.json")
     title: "Move sea creatures count",
     description: "Allows to move and resize the overlay text.",
     subcategory: "Sea creatures count",
+    shouldShow: data => data.seaCreaturesCountOverlay,
     onClick() {
         moveOverlay(seaCreaturesCountOverlayGui);
     }
@@ -1252,7 +1277,8 @@ const config = new DefaultConfig("FeeshNotifier", "config/settings.json")
     configName: "seaCreaturesPerHourTrackerOverlay",
     title: "Sea creatures per hour tracker",
     description: `Shows an overlay with the sea creatures per hour, and total sea creatures caught per session. Not persistent - resets on MC restart.`,
-    subcategory: "Sea creatures per hour tracker"
+    subcategory: "Sea creatures per hour tracker",
+    value: false
 })
 .addButton({
     category: "Overlays",
@@ -1260,6 +1286,7 @@ const config = new DefaultConfig("FeeshNotifier", "config/settings.json")
     title: "Move Sea creatures per hour tracker",
     description: "Allows to move and resize the overlay text.",
     subcategory: "Sea creatures per hour tracker",
+    shouldShow: data => data.seaCreaturesPerHourTrackerOverlay,
     onClick() {
         moveOverlay(seaCreaturesPerHourTrackerOverlayGui);
     }
@@ -1270,6 +1297,7 @@ const config = new DefaultConfig("FeeshNotifier", "config/settings.json")
     title: "Reset Sea creatures per hour tracker",
     description: `Resets tracking for Sea creatures per hour tracker. Executes ${AQUA}/feeshResetSeaCreaturesPerHour`,
     subcategory: "Sea creatures per hour tracker",
+    shouldShow: data => data.seaCreaturesPerHourTrackerOverlay,
     onClick() {
         ChatLib.command("feeshResetSeaCreaturesPerHour noconfirm", true);
     }
@@ -1280,7 +1308,8 @@ const config = new DefaultConfig("FeeshNotifier", "config/settings.json")
     configName: "legionAndBobbingTimeOverlay",
     title: "Legion & Bobbing Time",
     description: `Shows an overlay with the amount of players within 30 blocks (excluding you), and amount of fishing hooks within 30 blocks (including your own hook).\n${RED}Hidden if you have no fishing rod in your hotbar!\n\n${DARK_GRAY}If you have other players' hooks hidden by the mods, this may not work correctly. E.g. it works with NEU hooks hider, but doesn't work with Skytils.`,
-    subcategory: "Legion & Bobbing Time"
+    subcategory: "Legion & Bobbing Time",
+    value: false
 })
 .addButton({
     category: "Overlays",
@@ -1288,6 +1317,7 @@ const config = new DefaultConfig("FeeshNotifier", "config/settings.json")
     title: "Move Legion & Bobbing Time",
     description: "Allows to move and resize the overlay text.",
     subcategory: "Legion & Bobbing Time",
+    shouldShow: data => data.legionAndBobbingTimeOverlay,
     onClick() {
         moveOverlay(legionAndBobbingTimeOverlayGui);
     }
@@ -1299,14 +1329,7 @@ const config = new DefaultConfig("FeeshNotifier", "config/settings.json")
     title: "Jerry Workshop tracker",
     description: `Shows an overlay with Yeti / Reindrake catch statistics while in the Jerry Workshop.\nDo ${AQUA}/feeshResetJerryWorkshop${GRAY} to reset.`,
     subcategory: "Jerry Workshop tracker",
-    value: true
-})
-.addSwitch({
-    category: "Overlays",
-    configName: "resetJerryWorkshopTrackerOnGameClosed",
-    title: "Reset on closing game",
-    description: "Automatically reset the Jerry Workshop tracker when you close Minecraft or reload CT modules.",
-    subcategory: "Jerry Workshop tracker"
+    value: false
 })
 .addButton({
     category: "Overlays",
@@ -1314,9 +1337,18 @@ const config = new DefaultConfig("FeeshNotifier", "config/settings.json")
     title: "Move Jerry Workshop tracker",
     description: "Allows to move and resize the overlay text.",
     subcategory: "Jerry Workshop tracker",
+    shouldShow: data => data.jerryWorkshopTrackerOverlay,
     onClick() {
         moveOverlay(jerryWorkshopTrackerOverlayGui);
     }
+})
+.addSwitch({
+    category: "Overlays",
+    configName: "resetJerryWorkshopTrackerOnGameClosed",
+    title: "Autoreset on closing game",
+    description: "Automatically reset the Jerry Workshop tracker when you close Minecraft or reload CT modules.",
+    subcategory: "Jerry Workshop tracker",
+    shouldShow: data => data.jerryWorkshopTrackerOverlay,
 })
 .addButton({
     category: "Overlays",
@@ -1324,6 +1356,7 @@ const config = new DefaultConfig("FeeshNotifier", "config/settings.json")
     title: "Reset Jerry Workshop tracker",
     description: `Resets tracking for Jerry Workshop tracker. Executes ${AQUA}/feeshResetJerryWorkshop`,
     subcategory: "Jerry Workshop tracker",
+    shouldShow: data => data.jerryWorkshopTrackerOverlay,
     onClick() {
         ChatLib.command("feeshResetJerryWorkshop noconfirm", true);
     }
@@ -1337,7 +1370,7 @@ const config = new DefaultConfig("FeeshNotifier", "config/settings.json")
 Shows an overlay with Fiery Scuttler & Ragnarok (when fishing in hotspot), Plhlegblast (when in Plhlegblast Pool), Thunder & Lord Jawbus catch statistics. Also has Radioactive Vial drop statistics. Shown only when in the Crimson Isle!
 Do ${AQUA}/feeshResetCrimsonIsle${GRAY} to reset.`,
     subcategory: "Crimson Isle tracker",
-    value: true
+    value: false
 })
 .addButton({
     category: "Overlays",
@@ -1345,6 +1378,7 @@ Do ${AQUA}/feeshResetCrimsonIsle${GRAY} to reset.`,
     title: "Set Radioactive Vials count",
     description: "Explains in your chat how to setup Radioactive Vials count and last drop date.",
     subcategory: "Crimson Isle tracker",
+    shouldShow: data => data.crimsonIsleTrackerOverlay,
     onClick() {
         ChatLib.chat(`
 ${LIGHT_PURPLE}${BOLD}Radioactive Vials setup
@@ -1357,22 +1391,24 @@ Do ${AQUA}/feeshSetTrackerDrops <ITEM_ID> <COUNT> <LAST_ON_DATE>${RESET} to init
 Example: ${AQUA}/feeshSetTrackerDrops RADIOACTIVE_VIAL 5 2025-05-30 23:59:00`);
     }
 })
-.addSwitch({
-    category: "Overlays",
-    configName: "resetCrimsonIsleTrackerOnGameClosed",
-    title: "Reset on closing game",
-    description: "Automatically reset the Crimson Isle tracker when you close Minecraft or reload CT modules.",
-    subcategory: "Crimson Isle tracker"
-})
 .addButton({
     category: "Overlays",
     configName: "moveCrimsonIsleTrackerOverlay",
     title: "Move Crimson Isle tracker",
     description: "Allows to move and resize the overlay text.",
     subcategory: "Crimson Isle tracker",
+    shouldShow: data => data.crimsonIsleTrackerOverlay,
     onClick() {
         moveOverlay(crimsonIsleTrackerOverlayGui);
     }
+})
+.addSwitch({
+    category: "Overlays",
+    configName: "resetCrimsonIsleTrackerOnGameClosed",
+    title: "Autoreset on closing game",
+    description: "Automatically reset the Crimson Isle tracker when you close Minecraft or reload CT modules.",
+    subcategory: "Crimson Isle tracker",
+    shouldShow: data => data.crimsonIsleTrackerOverlay,
 })
 .addButton({
     category: "Overlays",
@@ -1380,6 +1416,7 @@ Example: ${AQUA}/feeshSetTrackerDrops RADIOACTIVE_VIAL 5 2025-05-30 23:59:00`);
     title: "Reset Crimson Isle tracker",
     description: `Resets tracking for Crimson Isle tracker. Executes ${AQUA}/feeshResetCrimsonIsle`,
     subcategory: "Crimson Isle tracker",
+    shouldShow: data => data.crimsonIsleTrackerOverlay,
     onClick() {
         ChatLib.command("feeshResetCrimsonIsle noconfirm", true);
     }
@@ -1393,7 +1430,7 @@ Example: ${AQUA}/feeshSetTrackerDrops RADIOACTIVE_VIAL 5 2025-05-30 23:59:00`);
 Shows an overlay with Titanoboa (when fishing in hotspot) and Wiki Tiki (when in Backwater Bayou) catch statistics. Also has Titanoboa Shed and Tiki Mask drop statistics.
 Do ${AQUA}/feeshResetWaterHotspotsAndBayou${GRAY} to reset.`,
     subcategory: "Water hotspots & Bayou tracker",
-    value: true
+    value: false
 })
 .addButton({
     category: "Overlays",
@@ -1401,6 +1438,7 @@ Do ${AQUA}/feeshResetWaterHotspotsAndBayou${GRAY} to reset.`,
     title: "Set Titanoboa Sheds / Tiki Masks count",
     description: "Explains in your chat how to setup Titanoboa Sheds / Tiki Masks count and last drop date.",
     subcategory: "Water hotspots & Bayou tracker",
+    shouldShow: data => data.waterHotspotsAndBayouTrackerOverlay,
     onClick() {
         ChatLib.chat(`
 ${LIGHT_PURPLE}${BOLD}Titanoboa Sheds / Tiki Masks setup
@@ -1414,22 +1452,24 @@ Example 1: ${AQUA}/feeshSetTrackerDrops TITANOBOA_SHED 5 2025-05-30 23:59:00
 Example 2: ${AQUA}/feeshSetTrackerDrops TIKI_MASK 5 2025-05-30 23:59:00`);
     }
 })
-.addSwitch({
-    category: "Overlays",
-    configName: "resetWaterHotspotsAndBayouTrackerOnGameClosed",
-    title: "Reset on closing game",
-    description: "Automatically reset the Water hotspots & Bayou tracker when you close Minecraft or reload CT modules.",
-    subcategory: "Water hotspots & Bayou tracker"
-})
 .addButton({
     category: "Overlays",
     configName: "moveWaterHotspotsAndBayouTrackerOverlay",
     title: "Move Water hotspots & Bayou tracker",
     description: "Allows to move and resize the overlay text.",
     subcategory: "Water hotspots & Bayou tracker",
+    shouldShow: data => data.waterHotspotsAndBayouTrackerOverlay,
     onClick() {
         moveOverlay(waterHotspotsAndBayouTrackerOverlayGui);
     }
+})
+.addSwitch({
+    category: "Overlays",
+    configName: "resetWaterHotspotsAndBayouTrackerOnGameClosed",
+    title: "Autoreset on closing game",
+    description: "Automatically reset the Water hotspots & Bayou tracker when you close Minecraft or reload CT modules.",
+    subcategory: "Water hotspots & Bayou tracker",
+    shouldShow: data => data.waterHotspotsAndBayouTrackerOverlay,
 })
 .addButton({
     category: "Overlays",
@@ -1437,6 +1477,7 @@ Example 2: ${AQUA}/feeshSetTrackerDrops TIKI_MASK 5 2025-05-30 23:59:00`);
     title: "Reset Water hotspots & Bayou tracker",
     description: `Resets tracking for Water hotspots & Bayou tracker. Executes ${AQUA}/feeshResetWaterHotspotsAndBayou`,
     subcategory: "Water hotspots & Bayou tracker",
+    shouldShow: data => data.waterHotspotsAndBayouTrackerOverlay,
     onClick() {
         ChatLib.command("feeshResetWaterHotspotsAndBayou noconfirm", true);
     }
@@ -1448,25 +1489,26 @@ Example 2: ${AQUA}/feeshSetTrackerDrops TIKI_MASK 5 2025-05-30 23:59:00`);
     title: "Worm profit tracker",
     description: `Shows an overlay with the worm fishing statistics - total and per hour, when in Crystal Hollows. Not persistent - resets on MC restart.\nDo ${AQUA}/feeshResetWormProfit${GRAY} to reset.`,
     subcategory: "Worm profit tracker",
-    value: true
+    value: false
 })
 .addDropDown({
     category: "Overlays",
     configName: "wormProfitTrackerMode",
     title: "Worm profit tracker display mode",
     description: "How to calculate total profit and profit per hour. In Gemstone chambers mode, the price of a Gemstone Mixture is subtracted from the price of a Gemstone Chamber, for more accurate profits.",
-    options: ["Worm membranes","Gemstone chambers"],
+    options: ["Worm membranes", "Gemstone chambers"],
     value: 0,
-    subcategory: "Worm profit tracker"
+    subcategory: "Worm profit tracker",
+    shouldShow: data => data.wormProfitTrackerOverlay,
 })
 .addDropDown({
     category: "Overlays",
     configName: "wormProfitTrackerBuyPriceMode",
     title: "Worm profit tracker buy price mode",
     description: "How to calculate price for the Gemstone Mixtures that you buy in order to forge Gemstone Chambers.",
-    options: ["Buy order","Insta-buy"],
+    options: ["Buy order", "Insta-buy"],
     value: 0,
-    shouldShow: data => data.wormProfitTrackerMode === 1,
+    shouldShow: data => data.wormProfitTrackerOverlay && data.wormProfitTrackerMode === 1,
     subcategory: "Worm profit tracker"
 })
 .addButton({
@@ -1475,6 +1517,7 @@ Example 2: ${AQUA}/feeshSetTrackerDrops TIKI_MASK 5 2025-05-30 23:59:00`);
     title: "Move Worm profit tracker",
     description: "Allows to move and resize the overlay text.",
     subcategory: "Worm profit tracker",
+    shouldShow: data => data.wormProfitTrackerOverlay,
     onClick() {
         moveOverlay(wormProfitTrackerOverlayGui);
     }
@@ -1485,6 +1528,7 @@ Example 2: ${AQUA}/feeshSetTrackerDrops TIKI_MASK 5 2025-05-30 23:59:00`);
     title: "Reset Worm profit tracker",
     description: `Resets tracking for Worm profit tracker. Executes ${AQUA}/feeshResetWormProfit`,
     subcategory: "Worm profit tracker",
+    shouldShow: data => data.wormProfitTrackerOverlay,
     onClick() {
         ChatLib.command("feeshResetWormProfit noconfirm", true);
     }
@@ -1496,7 +1540,7 @@ Example 2: ${AQUA}/feeshSetTrackerDrops TIKI_MASK 5 2025-05-30 23:59:00`);
     title: "Magma Core profit tracker",
     description: `Shows an overlay with the Magma Core fishing statistics - total and per hour, when in Crystal Hollows. Not persistent - resets on MC restart. \nDo ${AQUA}/feeshResetMagmaCoreProfit${GRAY} to reset.`,
     subcategory: "Magma Core profit tracker",
-    value: true
+    value: false
 })
 .addButton({
     category: "Overlays",
@@ -1504,6 +1548,7 @@ Example 2: ${AQUA}/feeshSetTrackerDrops TIKI_MASK 5 2025-05-30 23:59:00`);
     title: "Move Magma Core profit tracker",
     description: "Allows to move and resize the overlay text.",
     subcategory: "Magma Core profit tracker",
+    shouldShow: data => data.magmaCoreProfitTrackerOverlay,
     onClick() {
         moveOverlay(magmaCoreProfitTrackerOverlayGui);
     }
@@ -1514,6 +1559,7 @@ Example 2: ${AQUA}/feeshSetTrackerDrops TIKI_MASK 5 2025-05-30 23:59:00`);
     title: "Reset Magma Core profit tracker",
     description: `Resets tracking for Magma Core profit tracker. Executes ${AQUA}/feeshResetMagmaCoreProfit`,
     subcategory: "Magma Core profit tracker",
+    shouldShow: data => data.magmaCoreProfitTrackerOverlay,
     onClick() {
         ChatLib.command("feeshResetMagmaCoreProfit noconfirm", true);
     }
@@ -1525,7 +1571,7 @@ Example 2: ${AQUA}/feeshSetTrackerDrops TIKI_MASK 5 2025-05-30 23:59:00`);
     title: "Abandoned Quarry tracker",
     description: `Shows an overlay with the Mithril Grubber and Mithril Powder statistics, when in Abandoned Quarry. Not persistent - resets on MC restart.\nThis requires ${YELLOW}Powder Widget ${RESET}to be enabled in /tablist.\nDo ${AQUA}/feeshResetAbandonedQuarry${GRAY} to reset.`,
     subcategory: "Abandoned Quarry tracker",
-    value: true
+    value: false
 })
 .addButton({
     category: "Overlays",
@@ -1533,6 +1579,7 @@ Example 2: ${AQUA}/feeshSetTrackerDrops TIKI_MASK 5 2025-05-30 23:59:00`);
     title: "Move Abandoned Quarry tracker",
     description: "Allows to move and resize the overlay text.",
     subcategory: "Abandoned Quarry tracker",
+    shouldShow: data => data.abandonedQuarryTrackerOverlay,
     onClick() {
         moveOverlay(abandonedQuarryTrackerOverlayGui);
     }
@@ -1543,6 +1590,7 @@ Example 2: ${AQUA}/feeshSetTrackerDrops TIKI_MASK 5 2025-05-30 23:59:00`);
     title: "Reset Abandoned Quarry tracker",
     description: `Resets tracking for Abandoned Quarry tracker. Executes ${AQUA}/feeshResetAbandonedQuarry`,
     subcategory: "Abandoned Quarry tracker",
+    shouldShow: data => data.abandonedQuarryTrackerOverlay,
     onClick() {
         ChatLib.command("feeshResetAbandonedQuarry noconfirm", true);
     }
@@ -1562,6 +1610,7 @@ Example 2: ${AQUA}/feeshSetTrackerDrops TIKI_MASK 5 2025-05-30 23:59:00`);
     title: "Move Archfiend Dice profit tracker",
     description: "Allows to move and resize the overlay text.",
     subcategory: "Archfiend Dice profit tracker",
+    shouldShow: data => data.archfiendDiceProfitTrackerOverlay,
     onClick() {
         moveOverlay(archfiendDiceProfitTrackerOverlayGui);
     }
@@ -1572,6 +1621,7 @@ Example 2: ${AQUA}/feeshSetTrackerDrops TIKI_MASK 5 2025-05-30 23:59:00`);
     title: "Reset Archfiend Dice profit tracker [Session]",
     description: `Resets tracking for Archfiend Dice profit tracker [Session]. Executes ${AQUA}/feeshResetArchfiendDiceProfit`,
     subcategory: "Archfiend Dice profit tracker",
+    shouldShow: data => data.archfiendDiceProfitTrackerOverlay,
     onClick() {
         ChatLib.command("feeshResetArchfiendDiceProfit noconfirm", true);
     }
@@ -1582,6 +1632,7 @@ Example 2: ${AQUA}/feeshSetTrackerDrops TIKI_MASK 5 2025-05-30 23:59:00`);
     title: "Reset Archfiend Dice profit tracker [Total]",
     description: `Resets tracking for Archfiend Dice profit tracker [Total]. Executes ${AQUA}/feeshResetArchfiendDiceProfitTotal`,
     subcategory: "Archfiend Dice profit tracker",
+    shouldShow: data => data.archfiendDiceProfitTrackerOverlay,
     onClick() {
         ChatLib.command("feeshResetArchfiendDiceProfitTotal noconfirm", true);
     }
@@ -1601,6 +1652,7 @@ Example 2: ${AQUA}/feeshSetTrackerDrops TIKI_MASK 5 2025-05-30 23:59:00`);
     title: "Set Treasure Dyes count",
     description: "Explains in your chat how to setup Treasure Dyes count and last drop date.",
     subcategory: "Treasure fishing tracker",
+    shouldShow: data => data.treasureFishingTrackerOverlay,
     onClick() {
         ChatLib.chat(`
 ${LIGHT_PURPLE}${BOLD}Treasure Dyes setup
@@ -1613,23 +1665,25 @@ Do ${AQUA}/feeshSetTrackerDrops <ITEM_ID> <COUNT> <LAST_ON_DATE>${RESET} to init
 Example: ${AQUA}/feeshSetTrackerDrops DYE_TREASURE 2 2025-05-30 23:59:00`);
     }
 })
-.addSwitch({
-    category: "Overlays",
-    configName: "resetTreasureFishingTrackerOnGameClosed",
-    title: "Reset on closing game",
-    description: "Automatically reset the Treasure fishing tracker when you close Minecraft or reload CT modules.",
-    subcategory: "Treasure fishing tracker",
-    value: false
-})
 .addButton({
     category: "Overlays",
     configName: "moveTreasureFishingTrackerOverlay",
     title: "Move Treasure fishing tracker overlay",
     description: "Allows to move and resize the overlay text.",
     subcategory: "Treasure fishing tracker",
+    shouldShow: data => data.treasureFishingTrackerOverlay,
     onClick() {
         moveOverlay(treasureFishingTrackerOverlayGui);
     }
+})
+.addSwitch({
+    category: "Overlays",
+    configName: "resetTreasureFishingTrackerOnGameClosed",
+    title: "Autoreset on closing game",
+    description: "Automatically reset the Treasure fishing tracker when you close Minecraft or reload CT modules.",
+    subcategory: "Treasure fishing tracker",
+    value: false,
+    shouldShow: data => data.treasureFishingTrackerOverlay,
 })
 .addButton({
     category: "Overlays",
@@ -1637,6 +1691,7 @@ Example: ${AQUA}/feeshSetTrackerDrops DYE_TREASURE 2 2025-05-30 23:59:00`);
     title: "Reset Treasure fishing tracker",
     description: `Resets tracking for Treasure fishing tracker. Executes ${AQUA}/feeshResetTreasureFishing`,
     subcategory: "Treasure fishing tracker",
+    shouldShow: data => data.treasureFishingTrackerOverlay,
     onClick() {
         ChatLib.command("feeshResetTreasureFishing noconfirm", true);
     }
@@ -1647,7 +1702,7 @@ Example: ${AQUA}/feeshSetTrackerDrops DYE_TREASURE 2 2025-05-30 23:59:00`);
     configName: "fishingProfitTrackerOverlay",
     title: "Fishing profit tracker",
     description: `
-Shows an overlay with your profits per fishing session.
+Shows an overlay with your profits per fishing session. This overlay has [Session] and [Total] view mode.
 Make sure to enable ${YELLOW}Skyblock Settings -> Personal -> Chat Feedback -> Sack Notifications${RESET} to count items added to your sacks.
 ${GRAY}Do ${AQUA}/feeshResetProfitTracker${GRAY} to reset.`,
     subcategory: "Fishing profit tracker",
@@ -1660,7 +1715,8 @@ ${GRAY}Do ${AQUA}/feeshResetProfitTracker${GRAY} to reset.`,
     description: "How to calculate price for the bazaar items.",
     options: ["Sell offer","Insta-sell"],
     value: 0,
-    subcategory: "Fishing profit tracker"
+    subcategory: "Fishing profit tracker",
+    shouldShow: data => data.fishingProfitTrackerOverlay,
 })
 .addTextInput({
     category: "Overlays",
@@ -1669,7 +1725,8 @@ ${GRAY}Do ${AQUA}/feeshResetProfitTracker${GRAY} to reset.`,
     description: "Items which are cheaper than the specified threshold in coins will be hidden in the fishing profit tracker. They will be grouped under 'Cheap items' section. Set to 0 to show all items.",
     value: "500000",
     placeHolder: "",
-    subcategory: "Fishing profit tracker"
+    subcategory: "Fishing profit tracker",
+    shouldShow: data => data.fishingProfitTrackerOverlay,
 })
 .addSlider({
     category: "Overlays",
@@ -1678,7 +1735,8 @@ ${GRAY}Do ${AQUA}/feeshResetProfitTracker${GRAY} to reset.`,
     description: "Show top N lines for the most expensive items. Other cheaper items will be grouped under 'Cheap items' section.",
     options: [1, 50],
     value: 20,
-    subcategory: "Fishing profit tracker"
+    subcategory: "Fishing profit tracker",
+    shouldShow: data => data.fishingProfitTrackerOverlay,
 })
 .addSwitch({
     category: "Overlays",
@@ -1686,21 +1744,16 @@ ${GRAY}Do ${AQUA}/feeshResetProfitTracker${GRAY} to reset.`,
     title: "Announce rare drops",
     description: "Send RARE DROP! message to player's chat when a rare item is added to the fishing profit tracker (for the items that have no RARE DROP! message from Hypixel by default).",
     subcategory: "Fishing profit tracker",
-    value: true
+    value: true,
+    shouldShow: data => data.fishingProfitTrackerOverlay,
 })
 .addSwitch({
     category: "Overlays",
     configName: "calculateProfitInCrimsonEssence",
     title: "Show profits in crimson essence",
-    description: "Calculate price in crimson essence for crimson fishing items e.g. Slug Boots, Moogma Leggings, Flaming Chestplate, Blade of the Volcano, Staff of the Volcano.",
-    subcategory: "Fishing profit tracker"
-})
-.addSwitch({
-    category: "Overlays",
-    configName: "resetFishingProfitTrackerOnGameClosed",
-    title: "Reset on closing game",
-    description: "Automatically reset the fishing profit tracker when you close Minecraft or reload CT modules.",
-    subcategory: "Fishing profit tracker"
+    description: "Calculate price in Crimson Essence for salvageable crimson fishing items e.g. Slug Boots, Moogma Leggings, Flaming Chestplate, Blade of the Volcano, Staff of the Volcano.",
+    subcategory: "Fishing profit tracker",
+    shouldShow: data => data.fishingProfitTrackerOverlay,
 })
 .addButton({
     category: "Overlays",
@@ -1708,18 +1761,39 @@ ${GRAY}Do ${AQUA}/feeshResetProfitTracker${GRAY} to reset.`,
     title: "Move fishing profit tracker",
     description: "Allows to move and resize the overlay text.",
     subcategory: "Fishing profit tracker",
+    shouldShow: data => data.fishingProfitTrackerOverlay,
     onClick() {
         moveOverlay(fishingProfitTrackerOverlayGui);
     }
 })
+.addSwitch({
+    category: "Overlays",
+    configName: "resetFishingProfitTrackerOnGameClosed",
+    title: "Autoreset [Session] on closing game",
+    description: "Automatically reset the fishing profit tracker [Session] when you close Minecraft or reload CT modules.",
+    subcategory: "Fishing profit tracker",
+    shouldShow: data => data.fishingProfitTrackerOverlay,
+})
 .addButton({
     category: "Overlays",
-    configName: "resetFishingProfitTracker",
-    title: "Reset fishing profit tracker",
-    description: `Resets tracking for fishing profit tracker. Executes ${AQUA}/feeshResetProfitTracker`,
+    configName: "resetFishingProfitTrackerSession",
+    title: "Reset fishing profit tracker [Session]",
+    description: `Resets tracking for fishing profit tracker [Session]. Executes ${AQUA}/feeshResetProfitTracker`,
     subcategory: "Fishing profit tracker",
+    shouldShow: data => data.fishingProfitTrackerOverlay,
     onClick() {
         ChatLib.command("feeshResetProfitTracker noconfirm", true);
+    }
+})
+.addButton({
+    category: "Overlays",
+    configName: "resetFishingProfitTrackerTotal",
+    title: "Reset fishing profit tracker [Total]",
+    description: `Resets tracking for fishing profit tracker [Total]. Executes ${AQUA}/feeshResetProfitTrackerTotal`,
+    subcategory: "Fishing profit tracker",
+    shouldShow: data => data.fishingProfitTrackerOverlay,
+    onClick() {
+        ChatLib.command("feeshResetProfitTrackerTotal noconfirm", true);
     }
 })
 

@@ -1,8 +1,30 @@
 # Releases
 
-## v1.53.0
+! REMINDER TO SET changelogMessages.js FOR INGAME ANNOUNCEMENT !
+
+## v1.54.0
 
 Released: ???
+
+Features:
+- Added [Session] and [Total] view modes for Fishing profit tracker.
+- Added [Session] and [Total] view modes for Sea creatures tracker.
+  - All your historical data is not lost, it will be shown in [Total] mode. 
+  - You can configure autoresetting the [Session] in settings. By default, you reset it manually so you won't lose the data unintentionally.
+- Show total amount of all sea creatures in Rare mode of Sea creatures tracker.
+
+Bugfixes:
+- Added Ent Shard to Fishing profit tracker.
+
+Other:
+- Added welcome message for the users who just downloaded the module. Will be shown 1 time for existing users.
+- Added changelog for the users who just downloaded a new module version.
+- Disabled some overlays by default in the settings. This will affect only new users downloading the module.
+- Refactored Archfiend Dice Profit tracker to reuse some shared code.
+
+## v1.53.0
+
+Released: 2025-10-19
 
 Features:
 - Calculate pets price in Fishing Profit Tracker as difference between level 1 and max level.

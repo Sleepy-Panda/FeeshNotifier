@@ -7,6 +7,7 @@
 
 ## Fishing profit tracker
 
+- Add confirmation for deleting items from the tracker.
 - Track Agatha tickets / Forest Essence on Galatea based on contest results.
 - Use drop # in the chat message based on current profit tracker.
 - Option to right align the tracker (and others too)
@@ -16,7 +17,7 @@
 - Track Ice Essence drop from mobs in Fishing Profit Tracker
 - Track pet level progress in coins while it's not maxed
 - Find out price calculation for Kuudra Keys
-- Total and session tracker, or ability to load named session
+- Separate tracker modes for different areas of fishing, or ability to load named session. E.g. to separate Jerry, Spooky, Crimson, Treasure, etc
 - Rewrite way to ignore compacted loot in profit tracker
 - [Bug] Some items are tracked by Fishing Profit Tracker when dropped, but drop was prevented by SB settings (basically it drops and picks up again).
 - [Bug] Trading with other players adds items to the profit trackers.
@@ -92,6 +93,7 @@
 
 ## Other
 
+- Way to disable all module features with one toggle.
 - Other player's hooks and lines hider.
 - Glowing outline / highlight rare sea creatures (make this not visible through walls) - I want to get rid of SH for that, and replicate this feature in module.
 - PogData resets data file on PC crash - consider doing regular backups / research tska library as replacement for PogData
