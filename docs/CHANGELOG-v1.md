@@ -7,6 +7,7 @@
 Released: ???
 
 Features:
+- Added separate "Hide cheap items" settings for [Session] and [Total] in Fishing profit tracker.
 
 Bugfixes:
 

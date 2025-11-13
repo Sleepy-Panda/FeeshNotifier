@@ -786,14 +786,15 @@ function refreshOverlay() {
             profitPerHour: 0
         };
 
-        const sourceObj = getSourceObject(getCurrentViewMode());
+        const viewMode = getCurrentViewMode();
+        const sourceObj = getSourceObject(viewMode);
         const entries = Object.entries(sourceObj.profitTrackerItems)
             .map(([key, value]) => {
                 return { itemId: value.itemId, item: value.itemDisplayName, amount: value.amount, profit: value.totalItemProfit };
             })
             .sort((a, b) => b.profit - a.profit); // Most expensive at the top
     
-        const MIN_PRICE = +settings.fishingProfitTracker_hideCheaperThan || 0;
+        const MIN_PRICE = viewMode === SESSION_VIEW_MODE ? (+settings.fishingProfitTracker_hideCheaperThan || 0) : (+settings.fishingProfitTracker_hideCheaperThanTotal || 0);
         const TOP_N = settings.fishingProfitTracker_showTop || 50;
     
         const expensiveEntries = entries.filter(e => e.profit >= MIN_PRICE || e.item.includes('Kuudra Key')); // Kuudra keys can't be sold but they're valuable to show in tracker

@@ -5,6 +5,7 @@ export const CHANGELOG_V1 = [
     {
         categoryDisplayName: `${GREEN}Features`,
         entries: [
+            'Added separate "Hide cheap items" settings for [Session] and [Total] in Fishing profit tracker.',
         ],
     },
     {
