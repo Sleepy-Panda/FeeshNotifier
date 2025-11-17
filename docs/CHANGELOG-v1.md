@@ -4,6 +4,15 @@
 
 ## v1.55.0
 
+TODO: Sea Emp
+- Add volume?
+- DO I need sound objects?
+- Sounds in normal mode not played
+- Check all modes
+- New sounds?
+- Ct load
+
+
 Released: ???
 
 Features:

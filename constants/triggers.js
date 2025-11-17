@@ -776,7 +776,7 @@ export const RARE_CATCH_TRIGGERS = [
 export const PET_DROP_TRIGGERS = [
     {
         trigger: BABY_YETI_PET_LEG_MESSAGE,
-        itemId: 'BABY_YETI;4',
+        itemId: drops.BABY_YETI_LEGENDARY_ID,
         itemName: drops.BABY_YETI_PET + ' (Legendary)',
         sound: sounds.SHEESH_SOUND_SOURCE,
         isMessageEnabledSettingKey: 'messageOnBabyYetiPetDrop',
@@ -786,7 +786,7 @@ export const PET_DROP_TRIGGERS = [
     },
     {
         trigger: FLYING_FISH_PET_LEG_MESSAGE,
-        itemId: 'FLYING_FISH;4',
+        itemId: drops.FLYING_FISH_LEGENDARY_ID,
         itemName: drops.FLYING_FISH_PET + ' (Legendary)',
         sound: sounds.WOW_SOUND_SOURCE,
         isMessageEnabledSettingKey: 'messageOnFlyingFishPetDrop',
@@ -796,7 +796,7 @@ export const PET_DROP_TRIGGERS = [
     },
     {
         trigger: MEGALODON_PET_LEG_MESSAGE,
-        itemId: 'MEGALODON;4',
+        itemId: drops.MEGALODON_LEGENDARY_ID,
         itemName: drops.MEGALODON_PET + ' (Legendary)',
         sound: sounds.WOW_SOUND_SOURCE,
         isMessageEnabledSettingKey: 'messageOnMegalodonPetDrop',
@@ -806,7 +806,7 @@ export const PET_DROP_TRIGGERS = [
     },
     {
         trigger: MEGALODON_PET_EPIC_MESSAGE,
-        itemId: 'MEGALODON;3',
+        itemId: drops.MEGALODON_EPIC_ID,
         itemName: drops.MEGALODON_PET + ' (Epic)',
         sound: sounds.AUGH_SOUND_SOURCE,
         isMessageEnabledSettingKey: 'messageOnMegalodonPetDrop',
@@ -819,7 +819,7 @@ export const PET_DROP_TRIGGERS = [
 export const RARE_DROP_TRIGGERS = [
     {
         trigger: LUCKY_CLOVER_CORE_MESSAGE,
-        itemId: 'PET_ITEM_LUCKY_CLOVER_DROP',
+        itemId: drops.LUCKY_CLOVER_CORE_ID,
         itemName: drops.LUCKY_CLOVER_CORE,
         sound: sounds.OH_MY_GOD_SOUND_SOURCE,
         isMessageEnabledSettingKey: 'messageOnLuckyCloverCoreDrop',
@@ -829,7 +829,7 @@ export const RARE_DROP_TRIGGERS = [
     },
     {
         trigger: DEEP_SEA_ORB_MESSAGE,
-        itemId: 'DEEP_SEA_ORB',
+        itemId: drops.DEEP_SEA_ORB_ID,
         itemName: drops.DEEP_SEA_ORB,
         sound: sounds.OH_MY_GOD_SOUND_SOURCE,
         isMessageEnabledSettingKey: 'messageOnDeepSeaOrbDrop',
@@ -839,7 +839,7 @@ export const RARE_DROP_TRIGGERS = [
     },
     {
         trigger: RADIOACTIVE_VIAL_MESSAGE,
-        itemId: 'RADIOACTIVE_VIAL',
+        itemId: drops.RADIOACTIVE_VIAL_ID,
         itemName: drops.RADIOACTIVE_VIAL,
         sound: sounds.MC_RARE_ACHIEVEMENT_SOURCE,
         isMessageEnabledSettingKey: 'messageOnRadioactiveVialDrop',
@@ -849,7 +849,7 @@ export const RARE_DROP_TRIGGERS = [
     },
     {
         trigger: MAGMA_CORE_MESSAGE,
-        itemId: 'MAGMA_CORE',
+        itemId: drops.MAGMA_CORE_ID,
         itemName: drops.MAGMA_CORE,
         sound: sounds.OH_MY_GOD_SOUND_SOURCE,
         isMessageEnabledSettingKey: 'messageOnMagmaCoreDrop',
@@ -859,7 +859,7 @@ export const RARE_DROP_TRIGGERS = [
     },
     {
         trigger: TIKI_MASK_MESSAGE,
-        itemId: 'TIKI_MASK',
+        itemId: drops.TIKI_MASK_ID,
         itemName: drops.TIKI_MASK,
         sound: sounds.MC_RARE_ACHIEVEMENT_SOURCE,
         isMessageEnabledSettingKey: 'messageOnTikiMaskDrop',
@@ -869,7 +869,7 @@ export const RARE_DROP_TRIGGERS = [
     },
     {
         trigger: TITANOBOA_SHED_MESSAGE,
-        itemId: 'TITANOBOA_SHED',
+        itemId: drops.TITANOBOA_SHED_ID,
         itemName: drops.TITANOBOA_SHED,
         sound: sounds.MC_RARE_ACHIEVEMENT_SOURCE,
         isMessageEnabledSettingKey: 'messageOnTitanoboaShedDrop',
@@ -879,7 +879,7 @@ export const RARE_DROP_TRIGGERS = [
     },
     {
         trigger: SCUTTLER_SHELL_MESSAGE,
-        itemId: 'SCUTTLER_SHELL',
+        itemId: drops.SCUTTLER_SHELL_ID,
         itemName: drops.SCUTTLER_SHELL,
         sound: sounds.OH_MY_GOD_SOUND_SOURCE,
         isMessageEnabledSettingKey: 'messageOnScuttlerShellDrop',
@@ -892,7 +892,7 @@ export const RARE_DROP_TRIGGERS = [
 export const OUTSTANDING_CATCH_TRIGGERS = [
     {
         trigger: SQUID_PET_LEG_MESSAGE,
-        itemId: 'SQUID;4',
+        itemId: drops.SQUID_LEGENDARY_ID,
         itemName: drops.SQUID_PET + ' (Legendary)',
         sound: sounds.WOW_SOUND_SOURCE,
         isMessageEnabledSettingKey: 'messageOnSquidPetDrop',
@@ -902,7 +902,7 @@ export const OUTSTANDING_CATCH_TRIGGERS = [
     },
     {
         trigger: SQUID_PET_EPIC_MESSAGE,
-        itemId: 'SQUID;3',
+        itemId: drops.SQUID_EPIC_ID,
         itemName: drops.SQUID_PET + ' (Epic)',
         sound: sounds.AUGH_SOUND_SOURCE,
         isMessageEnabledSettingKey: 'messageOnSquidPetDrop',
@@ -912,7 +912,7 @@ export const OUTSTANDING_CATCH_TRIGGERS = [
     },
     {
         trigger: SQUID_PET_RARE_MESSAGE,
-        itemId: 'SQUID;2',
+        itemId: drops.SQUID_RARE_ID,
         itemName: drops.SQUID_PET + ' (Rare)',
         sound: sounds.GOOFY_LAUGH_SOUND_SOURCE,
         isMessageEnabledSettingKey: 'messageOnSquidPetDrop',
@@ -922,7 +922,7 @@ export const OUTSTANDING_CATCH_TRIGGERS = [
     },
     {
         trigger: SQUID_PET_UNCOMMON_MESSAGE,
-        itemId: 'SQUID;1',
+        itemId: drops.SQUID_UNCOMMON_ID,
         itemName: drops.SQUID_PET + ' (Uncommon)',
         sound: sounds.GOOFY_LAUGH_SOUND_SOURCE,
         isMessageEnabledSettingKey: 'messageOnSquidPetDrop',
@@ -932,7 +932,7 @@ export const OUTSTANDING_CATCH_TRIGGERS = [
     },
     {
         trigger: SQUID_PET_COMMON_MESSAGE,
-        itemId: 'SQUID;0',
+        itemId: drops.SQUID_COMMON_ID,
         itemName: drops.SQUID_PET + ' (Common)',
         sound: sounds.GOOFY_LAUGH_SOUND_SOURCE,
         isMessageEnabledSettingKey: 'messageOnSquidPetDrop',
@@ -945,7 +945,7 @@ export const OUTSTANDING_CATCH_TRIGGERS = [
 export const LOBBY_WIDE_DROPS_TRIGGERS = [
     {
         trigger: PHOENIX_PET_MESSAGE,
-        itemId: 'PHOENIX;?',
+        itemId: drops.PHOENIX_UNKNOWN_ID,
         itemName: drops.PHOENIX_PET,
         sound: sounds.MC_RARE_ACHIEVEMENT_SOURCE,
         isMessageEnabledSettingKey: 'messageOnPhoenixPetDrop',
@@ -955,7 +955,7 @@ export const LOBBY_WIDE_DROPS_TRIGGERS = [
     },
     {
         trigger: CARMINE_DYE_MESSAGE,
-        itemId: 'DYE_CARMINE',
+        itemId: drops.DYE_CARMINE_ID,
         itemName: drops.CARMINE_DYE,
         sound: sounds.GIGA_CHAD_SOUND_SOURCE,
         isMessageEnabledSettingKey: 'messageOnCarmineDyeDrop',
@@ -965,7 +965,7 @@ export const LOBBY_WIDE_DROPS_TRIGGERS = [
     },
     {
         trigger: MIDNIGHT_DYE_MESSAGE,
-        itemId: 'DYE_MIDNIGHT',
+        itemId: drops.DYE_MIDNIGHT_ID,
         itemName: drops.MIDNIGHT_DYE,
         sound: sounds.GIGA_CHAD_SOUND_SOURCE,
         isMessageEnabledSettingKey: 'messageOnMidnightDyeDrop',
@@ -975,7 +975,7 @@ export const LOBBY_WIDE_DROPS_TRIGGERS = [
     },
     {
         trigger: AQUAMARINE_DYE_MESSAGE,
-        itemId: 'DYE_AQUAMARINE',
+        itemId: drops.DYE_AQUAMARINE_ID,
         itemName: drops.AQUAMARINE_DYE,
         sound: sounds.GIGA_CHAD_SOUND_SOURCE,
         isMessageEnabledSettingKey: 'messageOnAqumarineDyeDrop',
@@ -985,7 +985,7 @@ export const LOBBY_WIDE_DROPS_TRIGGERS = [
     },
     {
         trigger: ICEBERG_DYE_MESSAGE,
-        itemId: 'DYE_ICEBERG',
+        itemId: drops.DYE_ICEBERG_ID,
         itemName: drops.ICEBERG_DYE,
         sound: sounds.GIGA_CHAD_SOUND_SOURCE,
         isMessageEnabledSettingKey: 'messageOnIcebergDyeDrop',
@@ -995,7 +995,7 @@ export const LOBBY_WIDE_DROPS_TRIGGERS = [
     },
     {
         trigger: TREASURE_DYE_MESSAGE,
-        itemId: 'DYE_TREASURE',
+        itemId: drops.DYE_TREASURE_ID,
         itemName: drops.TREASURE_DYE,
         sound: sounds.GIGA_CHAD_SOUND_SOURCE,
         isMessageEnabledSettingKey: 'messageOnTreasureDyeDrop',
@@ -1005,7 +1005,7 @@ export const LOBBY_WIDE_DROPS_TRIGGERS = [
     },
     {
         trigger: PERIWINKLE_DYE_MESSAGE,
-        itemId: 'DYE_PERIWINKLE',
+        itemId: drops.DYE_PERIWINKLE_ID,
         itemName: drops.PERIWINKLE_DYE,
         sound: sounds.GIGA_CHAD_SOUND_SOURCE,
         isMessageEnabledSettingKey: 'messageOnPeriwinkleDyeDrop',
@@ -1015,7 +1015,7 @@ export const LOBBY_WIDE_DROPS_TRIGGERS = [
     },
     {
         trigger: BONE_DYE_MESSAGE,
-        itemId: 'DYE_BONE',
+        itemId: drops.DYE_BONE_ID,
         itemName: drops.BONE_DYE,
         sound: sounds.GIGA_CHAD_SOUND_SOURCE,
         isMessageEnabledSettingKey: 'messageOnBoneDyeDrop',

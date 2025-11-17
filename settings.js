@@ -35,15 +35,6 @@ const config = new DefaultConfig("FeeshNotifier", "config/settings.json")
         java.awt.Desktop.getDesktop().browse(new java.net.URI("https://www.chattriggers.com/modules/v/FeeshNotifier"));
     }
 })
-.addDropDown({
-    category: "General",
-    configName: "soundMode",
-    title: "Sound mode",
-    description: "Setups sounds played on rare catches and rare drops.",
-    options: ["Meme","Normal","Off"],
-    value: 0,
-    subcategory: "Sounds"
-})
 .addButton({
     category: "General",
     configName: "moveAllOverlays",
@@ -52,6 +43,28 @@ const config = new DefaultConfig("FeeshNotifier", "config/settings.json")
     subcategory: "GUI",
     onClick() {
         ChatLib.command("feeshMoveAllGuis", true);
+    }
+})
+.addDropDown({
+    category: "General",
+    configName: "soundMode",
+    title: "Sound mode",
+    description: `Setups sounds played on rare catches and rare drops.
+${BOLD}Meme ${RESET}-> funny meme sounds. ${YELLOW}Customizable, you can set your own!
+${BOLD}Normal ${RESET}-> minimal sounds which are not annoying.
+${BOLD}Off ${RESET}-> no sounds.`,
+    options: ["Meme", "Normal", "Off"],
+    value: 0,
+    subcategory: "Sounds"
+})
+.addButton({
+    category: "General",
+    configName: "customSoundsGuide",
+    title: `Sounds customization guide`,
+    description: `To configure custom sounds for Meme mode, please follow the guide on Github.`,
+    subcategory: "Sounds",
+    onClick() {
+        java.awt.Desktop.getDesktop().browse(new java.net.URI("https://github.com/Sleepy-Panda/FeeshNotifier/blob/main/docs/Custom%20sounds%20guide.md"));
     }
 })
 
