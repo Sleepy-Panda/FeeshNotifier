@@ -4,10 +4,14 @@
 
 ## v1.55.0
 
+- TODO: Move Sea Emperor SH fix
+- TODO: Drop & Catch MC sounds not played in Normal mode
+
 Released: ???
 
 Features:
 - Added separate "Hide cheap items" settings for [Session] and [Total] in Fishing profit tracker.
+- Added Meme mode sounds customization when you catch a rare sea creature or drop a rare item.
 
 Bugfixes:
 

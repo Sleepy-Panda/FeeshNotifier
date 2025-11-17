@@ -2,8 +2,10 @@ import settings from "../../settings";
 import * as triggers from '../../constants/triggers';
 import { getDropTitle, getColoredPlayerNameFromDisplayName, getColoredPlayerNameFromPartyChat, getDropMessagePattern, getPartyChatMessage } from '../../utils/common';
 import { sendMessageOnDrop } from '../chat/messageOnDrop';
-import { MEME_SOUND_MODE, NORMAL_SOUND_MODE, NOTIFICATION_SOUND_SOURCE } from "../../constants/sounds";
+import { MC_RANDOM_ORB_SOUND, MEME_SOUND_MODE, NORMAL_SOUND_MODE, NOTIFICATION_SOUND } from "../../constants/sounds";
 import { isInSkyblock } from "../../utils/playerState";
+import { playMcSound, playSound } from "../../utils/sound";
+import { userDropSoundsData } from "../../data/userSounds";
 
 triggers.RARE_DROP_TRIGGERS.forEach(entry => {
     // Triggers on original "all chat" drop message sent by Hypixel.
@@ -11,9 +13,9 @@ triggers.RARE_DROP_TRIGGERS.forEach(entry => {
         "Chat",
         (magicFind, event) => {
             playAlertOnDrop({
+                itemId: entry.itemId,
                 itemName: entry.itemName,
                 rarityColorCode: entry.rarityColorCode,
-                sound: entry.sound,
                 isEnabled: settings[entry.isAlertEnabledSettingKey],
                 player: getColoredPlayerNameFromDisplayName(),
                 suppressIfSamePlayer: false
@@ -34,9 +36,9 @@ triggers.RARE_DROP_TRIGGERS.forEach(entry => {
     register(
         "Chat",
         (rankAndPlayer, event) => playAlertOnDrop({
+            itemId: entry.itemId,
             itemName: entry.itemName,
             rarityColorCode: entry.rarityColorCode,
-            sound: entry.sound,
             isEnabled: settings[entry.isAlertEnabledSettingKey],
             player: getColoredPlayerNameFromPartyChat(rankAndPlayer),
             suppressIfSamePlayer: true
@@ -51,9 +53,9 @@ triggers.PET_DROP_TRIGGERS.forEach(entry => {
         "Chat",
         (event) => {
             playAlertOnDrop({
+                itemId: entry.itemId,
                 itemName: entry.itemName,
                 rarityColorCode: entry.rarityColorCode,
-                sound: entry.sound,
                 isEnabled: settings[entry.isAlertEnabledSettingKey],
                 player: getColoredPlayerNameFromDisplayName(),
                 suppressIfSamePlayer: false
@@ -74,9 +76,9 @@ triggers.PET_DROP_TRIGGERS.forEach(entry => {
     register(
         "Chat",
         (rankAndPlayer, event) => playAlertOnDrop({
+            itemId: entry.itemId,
             itemName: entry.itemName,
             rarityColorCode: entry.rarityColorCode,
-            sound: entry.sound,
             isEnabled: settings[entry.isAlertEnabledSettingKey],
             player: getColoredPlayerNameFromPartyChat(rankAndPlayer),
             suppressIfSamePlayer: true
@@ -91,9 +93,9 @@ triggers.OUTSTANDING_CATCH_TRIGGERS.forEach(entry => {
         "Chat",
         (event) => {
             playAlertOnDrop({
+                itemId: entry.itemId,
                 itemName: entry.itemName,
                 rarityColorCode: entry.rarityColorCode,
-                sound: entry.sound,
                 isEnabled: settings[entry.isAlertEnabledSettingKey],
                 player: getColoredPlayerNameFromDisplayName(),
                 suppressIfSamePlayer: false
@@ -114,9 +116,9 @@ triggers.OUTSTANDING_CATCH_TRIGGERS.forEach(entry => {
     register(
         "Chat",
         (rankAndPlayer, event) => playAlertOnDrop({
+            itemId: entry.itemId,
             itemName: entry.itemName,
             rarityColorCode: entry.rarityColorCode,
-            sound: entry.sound,
             isEnabled: settings[entry.isAlertEnabledSettingKey],
             player: getColoredPlayerNameFromPartyChat(rankAndPlayer),
             suppressIfSamePlayer: true
@@ -134,9 +136,9 @@ triggers.LOBBY_WIDE_DROPS_TRIGGERS.forEach(entry => {
             }
 
             playAlertOnDrop({
+                itemId: entry.itemId,
                 itemName: entry.itemName,
                 rarityColorCode: entry.rarityColorCode,
-                sound: entry.sound,
                 isEnabled: settings[entry.isAlertEnabledSettingKey],
                 player: getColoredPlayerNameFromDisplayName(),
                 suppressIfSamePlayer: false
@@ -157,9 +159,9 @@ triggers.LOBBY_WIDE_DROPS_TRIGGERS.forEach(entry => {
     register(
         "Chat",
         (rankAndPlayer, event) => playAlertOnDrop({
+            itemId: entry.itemId,
             itemName: entry.itemName,
             rarityColorCode: entry.rarityColorCode,
-            sound: entry.sound,
             isEnabled: settings[entry.isAlertEnabledSettingKey],
             player: getColoredPlayerNameFromPartyChat(rankAndPlayer),
             suppressIfSamePlayer: true
@@ -182,16 +184,12 @@ function playAlertOnDrop(options) {
 		const title = getDropTitle(options.itemName, options.rarityColorCode);
 		Client.showTitle(title, options.player || '', 1, 45, 1);
 	
-		switch (settings.soundMode) {
-			case MEME_SOUND_MODE:
-				new Sound(options.sound).play();
-				break;
-			case NORMAL_SOUND_MODE:
-				new Sound(NOTIFICATION_SOUND_SOURCE).play();
-				break;
-			default:
-				break;
-		}	
+        if (settings.soundMode === MEME_SOUND_MODE) {
+            const soundFileName = userDropSoundsData[options.itemId]?.source;
+            playSound(soundFileName, NOTIFICATION_SOUND);
+        } else if (settings.soundMode === NORMAL_SOUND_MODE) {
+            playMcSound(MC_RANDOM_ORB_SOUND);
+        }
 	} catch (e) {
 		console.error(e);
 		console.log(`[FeeshNotifier] Failed to play alert on drop.`);

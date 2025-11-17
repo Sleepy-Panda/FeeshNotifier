@@ -1,9 +1,11 @@
 import settings from "../../settings";
 import * as triggers from '../../constants/triggers';
 import { getDoubleHookCatchTitle, getCatchTitle, getCatchMessage, getColoredPlayerNameFromDisplayName, getColoredPlayerNameFromPartyChat, getDoubleHookCatchMessage, getPartyChatMessage, isDoubleHook, isInFishingWorld, fromUppercaseToCapitalizedFirstLetters } from '../../utils/common';
-import { NOTIFICATION_SOUND_SOURCE, OFF_SOUND_MODE } from '../../constants/sounds';
+import { MC_RANDOM_ORB_SOUND, MEME_SOUND_MODE, NORMAL_SOUND_MODE, NOTIFICATION_SOUND } from '../../constants/sounds';
 import { getWorldName, isInSkyblock } from "../../utils/playerState";
 import { registerIf } from "../../utils/registers";
+import { userCatchSoundsData } from "../../data/userSounds";
+import { playMcSound, playSound } from "../../utils/sound";
 
 triggers.RARE_CATCH_TRIGGERS.forEach(entry => {
     registerIf(
@@ -113,9 +115,12 @@ function playAlertOnCatch(options) {
 		const title = options.isDoubleHook ? getDoubleHookCatchTitle(options.seaCreature, options.rarityColorCode) : getCatchTitle(options.seaCreature, options.rarityColorCode);
 		Client.showTitle(title, options.player || '', 1, 45, 1);
 	
-		if (settings.soundMode !== OFF_SOUND_MODE) {
-			new Sound(NOTIFICATION_SOUND_SOURCE).play();
-		}
+        if (settings.soundMode === MEME_SOUND_MODE) {
+            const soundFileName = userCatchSoundsData[options.seaCreature]?.source;
+            playSound(soundFileName, NOTIFICATION_SOUND);
+        } else if (settings.soundMode === NORMAL_SOUND_MODE) {
+            playMcSound(MC_RANDOM_ORB_SOUND);
+        }
 	} catch (e) {
 		console.error(e);
 		console.log(`[FeeshNotifier] Failed to play alert on catch.`);

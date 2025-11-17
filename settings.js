@@ -1,6 +1,6 @@
 import Settings from "../Amaterasu/core/Settings";
 import DefaultConfig from "../Amaterasu/core/DefaultConfig";
-import { AQUA, GOLD, GRAY, RED, WHITE, BLUE, DARK_GRAY, RESET, BOLD, LIGHT_PURPLE, YELLOW } from "./constants/formatting";
+import { AQUA, GOLD, GRAY, RED, WHITE, BLUE, DARK_GRAY, RESET, BOLD, LIGHT_PURPLE, YELLOW, GREEN } from "./constants/formatting";
 import { MC_GUI_BUTTON_PRESS_SOUND } from "./constants/sounds";
 
 export const allOverlaysGui = new Gui(); // Sample overlays GUI to move/resize them all at once
@@ -35,15 +35,6 @@ const config = new DefaultConfig("FeeshNotifier", "config/settings.json")
         java.awt.Desktop.getDesktop().browse(new java.net.URI("https://www.chattriggers.com/modules/v/FeeshNotifier"));
     }
 })
-.addDropDown({
-    category: "General",
-    configName: "soundMode",
-    title: "Sound mode",
-    description: "Setups sounds played on rare catches and rare drops.",
-    options: ["Meme","Normal","Off"],
-    value: 0,
-    subcategory: "Sounds"
-})
 .addButton({
     category: "General",
     configName: "moveAllOverlays",
@@ -52,6 +43,28 @@ const config = new DefaultConfig("FeeshNotifier", "config/settings.json")
     subcategory: "GUI",
     onClick() {
         ChatLib.command("feeshMoveAllGuis", true);
+    }
+})
+.addDropDown({
+    category: "General",
+    configName: "soundMode",
+    title: "Sound mode",
+    description: `Setups sounds played on rare catches and rare drops.
+${BOLD}Meme ${RESET}-> funny meme sounds. ${GREEN}Customizable, you can set your own sounds!
+${BOLD}Normal ${RESET}-> minimal sounds which are not annoying.
+${BOLD}Off ${RESET}-> no sounds.`,
+    options: ["Meme", "Normal", "Off"],
+    value: 0,
+    subcategory: "Sounds"
+})
+.addButton({
+    category: "General",
+    configName: "customSoundsGuide",
+    title: `Sounds customization guide`,
+    description: `To configure custom sounds for Meme mode, please follow the guide on Github.`,
+    subcategory: "Sounds",
+    onClick() {
+        java.awt.Desktop.getDesktop().browse(new java.net.URI("https://github.com/Sleepy-Panda/FeeshNotifier/blob/main/docs/Custom%20sounds%20guide.md"));
     }
 })
 
