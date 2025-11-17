@@ -1,15 +1,17 @@
+export const NOTIFICATION_SOUND = "feesh_notification.ogg";
+export const TIMER_SOUND = "feesh_notification-bell.ogg";
+export const OH_MY_GOD_SOUND = "feesh_oh-my-god.ogg";
+export const GIGA_CHAD_SOUND = "feesh_giga-chad.ogg";
+export const MC_RARE_ACHIEVEMENT_SOUND = "feesh_minecraft-challenge-completed.ogg";
+export const AUGH_SOUND = "feesh_augh.ogg";
+export const GOOFY_LAUGH_SOUND = "feesh_goofy-laugh.ogg";
+export const WOW_SOUND = "feesh_wow.ogg";
+export const SHEESH_SOUND = "feesh_sheesh.ogg";
+export const SAD_TROMBONE_SOUND = "feesh_sad-trombone.ogg";
+
 // Sounds now are instatiated right before playing, so that it does not cause Java error on switching the output device.
-export const NOTIFICATION_SOUND_SOURCE = { source: "feesh_notification.ogg" };
-export const TIMER_SOUND_SOURCE = { source: "feesh_notification-bell.ogg" };
-export const OH_MY_GOD_SOUND_SOURCE = { source: "feesh_oh-my-god.ogg" };
-export const GIGA_CHAD_SOUND_SOURCE = { source: "feesh_giga-chad.ogg" };
-export const MC_RARE_ACHIEVEMENT_SOURCE = { source: "feesh_minecraft-challenge-completed.ogg" };
-export const AUGH_SOUND_SOURCE = { source: "feesh_augh.ogg" };
-export const GOOFY_LAUGH_SOUND_SOURCE = { source: "feesh_goofy-laugh.ogg" };
-export const WOW_SOUND_SOURCE = { source: "feesh_wow.ogg" };
-export const SHEESH_SOUND_SOURCE = { source: "feesh_sheesh.ogg" };
-export const SAD_TROMBONE_SOUND_SOURCE = { source: "feesh_sad-trombone.ogg" };
-export const RARE_DROP_SOUND_SOURCE = { source: "feesh_rare-drop.ogg" };
+export const TIMER_SOUND_SOURCE = { source: TIMER_SOUND };
+export const SAD_TROMBONE_SOUND_SOURCE = { source: SAD_TROMBONE_SOUND };
 
 export const MEME_SOUND_MODE = 0;
 export const NORMAL_SOUND_MODE = 1;

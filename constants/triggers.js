@@ -1,5 +1,4 @@
 import * as drops from './drops';
-import * as sounds from './sounds';
 import * as seaCreatures from './seaCreatures';
 import { GREEN, GOLD, DARK_PURPLE, LIGHT_PURPLE, BLUE, RED, BOLD, RESET, GRAY, AQUA, YELLOW, DARK_RED, DARK_AQUA, WHITE, COMMON, UNCOMMON, RARE, EPIC, LEGENDARY, MYTHIC, DARK_GRAY, SPECIAL, DARK_GREEN } from './formatting';
 
@@ -138,7 +137,7 @@ export const ICEBERG_DYE_MESSAGE = `${RESET}${LIGHT_PURPLE}${BOLD}WOW! ` + '${pl
 export const CARMINE_DYE_MESSAGE = `${RESET}${LIGHT_PURPLE}${BOLD}WOW! ` + '${playerNameAndRank}' + ` ${RESET}${GOLD}found a ${RESET}${DARK_RED}Carmine Dye`; // &r&d&lWOW! &r&b[MVP&r&c+&r&b] &bMoonTheSadFisher&r&r&f &r&6found a &r&4Carmine Dye&r
 export const MIDNIGHT_DYE_MESSAGE = `${RESET}${LIGHT_PURPLE}${BOLD}WOW! ` + '${playerNameAndRank}' + ` ${RESET}${GOLD}found a ${RESET}${DARK_PURPLE}Midnight Dye`; // &r&d&lWOW! &r&b[MVP&r&c+&r&b] &bMoonTheSadFisher&r&r&f &r&6found a &r&5Midnight Dye&r
 export const TREASURE_DYE_MESSAGE = `${RESET}${LIGHT_PURPLE}${BOLD}WOW! ` + '${playerNameAndRank}' + ` ${RESET}${GOLD}found a ${RESET}${GOLD}Treasure Dye`; // &r&d&lWOW! &r&b[MVP&r&c+&r&b] &bMoonTheSadFisher&r&r&f &r&6found a &r&6Treasure Dye&r
-export const PERIWINKLE_DYE_MESSAGE = `${RESET}${LIGHT_PURPLE}${BOLD}WOW! ` + '${playerNameAndRank}' + ` ${RESET}${GOLD}found a ${RESET}${DARK_AQUA}Periwinkle Dye`; // &r&d&lWOW! &r&b[MVP&r&c+&r&b] &bMoonTheSadFisher&r&r&f &r&6found a&r&3Periwinkle Dye&r
+export const PERIWINKLE_DYE_MESSAGE = `${RESET}${LIGHT_PURPLE}${BOLD}WOW! ` + '${playerNameAndRank}' + ` ${RESET}${GOLD}found a ${RESET}${DARK_AQUA}Periwinkle Dye`; // &r&d&lWOW! &r&b[MVP&r&c+&r&b] &bMoonTheSadFisher&r&r&f &r&6found a &r&3Periwinkle Dye&r
 export const BONE_DYE_MESSAGE = `${RESET}${LIGHT_PURPLE}${BOLD}WOW! ` + '${playerNameAndRank}' + ` ${RESET}${GOLD}found a ${RESET}${WHITE}Bone Dye`; // &r&d&lWOW! &r&b[MVP&r&c+&r&b] &bMoonTheSadFisher&r&r&f &r&6found a &r&fBone Dye&r
 
 export const GOOD_CATCH_MESSAGE = `${RESET}${DARK_PURPLE}⛃ ${RESET}${DARK_PURPLE}${BOLD}GOOD CATCH!`; // &r&5⛃ &r&5&lGOOD CATCH!
@@ -780,9 +779,8 @@ export const RARE_CATCH_TRIGGERS = [
 export const PET_DROP_TRIGGERS = [
     {
         trigger: BABY_YETI_PET_LEG_MESSAGE,
-        itemId: 'BABY_YETI;4',
+        itemId: drops.BABY_YETI_LEGENDARY_ID,
         itemName: drops.BABY_YETI_PET + ' (Legendary)',
-        sound: sounds.SHEESH_SOUND_SOURCE,
         isMessageEnabledSettingKey: 'messageOnBabyYetiPetDrop',
         isAlertEnabledSettingKey: 'alertOnBabyYetiPetDrop',
         rarityColorCode: LEGENDARY,
@@ -790,9 +788,8 @@ export const PET_DROP_TRIGGERS = [
     },
     {
         trigger: FLYING_FISH_PET_LEG_MESSAGE,
-        itemId: 'FLYING_FISH;4',
+        itemId: drops.FLYING_FISH_LEGENDARY_ID,
         itemName: drops.FLYING_FISH_PET + ' (Legendary)',
-        sound: sounds.WOW_SOUND_SOURCE,
         isMessageEnabledSettingKey: 'messageOnFlyingFishPetDrop',
         isAlertEnabledSettingKey: 'alertOnFlyingFishPetDrop',
         rarityColorCode: LEGENDARY,
@@ -800,9 +797,8 @@ export const PET_DROP_TRIGGERS = [
     },
     {
         trigger: MEGALODON_PET_LEG_MESSAGE,
-        itemId: 'MEGALODON;4',
+        itemId: drops.MEGALODON_LEGENDARY_ID,
         itemName: drops.MEGALODON_PET + ' (Legendary)',
-        sound: sounds.WOW_SOUND_SOURCE,
         isMessageEnabledSettingKey: 'messageOnMegalodonPetDrop',
         isAlertEnabledSettingKey: 'alertOnMegalodonPetDrop',
         rarityColorCode: LEGENDARY,
@@ -810,9 +806,8 @@ export const PET_DROP_TRIGGERS = [
     },
     {
         trigger: MEGALODON_PET_EPIC_MESSAGE,
-        itemId: 'MEGALODON;3',
+        itemId: drops.MEGALODON_EPIC_ID,
         itemName: drops.MEGALODON_PET + ' (Epic)',
-        sound: sounds.AUGH_SOUND_SOURCE,
         isMessageEnabledSettingKey: 'messageOnMegalodonPetDrop',
         isAlertEnabledSettingKey: 'alertOnMegalodonPetDrop',
         rarityColorCode: EPIC,
@@ -823,9 +818,8 @@ export const PET_DROP_TRIGGERS = [
 export const RARE_DROP_TRIGGERS = [
     {
         trigger: LUCKY_CLOVER_CORE_MESSAGE,
-        itemId: 'PET_ITEM_LUCKY_CLOVER_DROP',
+        itemId: drops.LUCKY_CLOVER_CORE_ID,
         itemName: drops.LUCKY_CLOVER_CORE,
-        sound: sounds.OH_MY_GOD_SOUND_SOURCE,
         isMessageEnabledSettingKey: 'messageOnLuckyCloverCoreDrop',
         isAlertEnabledSettingKey: 'alertOnLuckyCloverCoreDrop',
         rarityColorCode: EPIC,
@@ -833,9 +827,8 @@ export const RARE_DROP_TRIGGERS = [
     },
     {
         trigger: DEEP_SEA_ORB_MESSAGE,
-        itemId: 'DEEP_SEA_ORB',
+        itemId: drops.DEEP_SEA_ORB_ID,
         itemName: drops.DEEP_SEA_ORB,
-        sound: sounds.OH_MY_GOD_SOUND_SOURCE,
         isMessageEnabledSettingKey: 'messageOnDeepSeaOrbDrop',
         isAlertEnabledSettingKey: 'alertOnDeepSeaOrbDrop',
         rarityColorCode: EPIC,
@@ -843,9 +836,8 @@ export const RARE_DROP_TRIGGERS = [
     },
     {
         trigger: RADIOACTIVE_VIAL_MESSAGE,
-        itemId: 'RADIOACTIVE_VIAL',
+        itemId: drops.RADIOACTIVE_VIAL_ID,
         itemName: drops.RADIOACTIVE_VIAL,
-        sound: sounds.MC_RARE_ACHIEVEMENT_SOURCE,
         isMessageEnabledSettingKey: 'messageOnRadioactiveVialDrop',
         isAlertEnabledSettingKey: 'alertOnRadioactiveVialDrop',
         rarityColorCode: MYTHIC,
@@ -853,9 +845,8 @@ export const RARE_DROP_TRIGGERS = [
     },
     {
         trigger: MAGMA_CORE_MESSAGE,
-        itemId: 'MAGMA_CORE',
+        itemId: drops.MAGMA_CORE_ID,
         itemName: drops.MAGMA_CORE,
-        sound: sounds.OH_MY_GOD_SOUND_SOURCE,
         isMessageEnabledSettingKey: 'messageOnMagmaCoreDrop',
         isAlertEnabledSettingKey: 'alertOnMagmaCoreDrop',
         rarityColorCode: RARE,
@@ -863,9 +854,8 @@ export const RARE_DROP_TRIGGERS = [
     },
     {
         trigger: TIKI_MASK_MESSAGE,
-        itemId: 'TIKI_MASK',
+        itemId: drops.TIKI_MASK_ID,
         itemName: drops.TIKI_MASK,
-        sound: sounds.MC_RARE_ACHIEVEMENT_SOURCE,
         isMessageEnabledSettingKey: 'messageOnTikiMaskDrop',
         isAlertEnabledSettingKey: 'alertOnTikiMaskDrop',
         rarityColorCode: LEGENDARY,
@@ -873,9 +863,8 @@ export const RARE_DROP_TRIGGERS = [
     },
     {
         trigger: TITANOBOA_SHED_MESSAGE,
-        itemId: 'TITANOBOA_SHED',
+        itemId: drops.TITANOBOA_SHED_ID,
         itemName: drops.TITANOBOA_SHED,
-        sound: sounds.MC_RARE_ACHIEVEMENT_SOURCE,
         isMessageEnabledSettingKey: 'messageOnTitanoboaShedDrop',
         isAlertEnabledSettingKey: 'alertOnTitanoboaShedDrop',
         rarityColorCode: LEGENDARY,
@@ -883,9 +872,8 @@ export const RARE_DROP_TRIGGERS = [
     },
     {
         trigger: SCUTTLER_SHELL_MESSAGE,
-        itemId: 'SCUTTLER_SHELL',
+        itemId: drops.SCUTTLER_SHELL_ID,
         itemName: drops.SCUTTLER_SHELL,
-        sound: sounds.OH_MY_GOD_SOUND_SOURCE,
         isMessageEnabledSettingKey: 'messageOnScuttlerShellDrop',
         isAlertEnabledSettingKey: 'alertOnScuttlerShellDrop',
         rarityColorCode: LEGENDARY,
@@ -896,9 +884,8 @@ export const RARE_DROP_TRIGGERS = [
 export const OUTSTANDING_CATCH_TRIGGERS = [
     {
         trigger: SQUID_PET_LEG_MESSAGE,
-        itemId: 'SQUID;4',
+        itemId: drops.SQUID_LEGENDARY_ID,
         itemName: drops.SQUID_PET + ' (Legendary)',
-        sound: sounds.WOW_SOUND_SOURCE,
         isMessageEnabledSettingKey: 'messageOnSquidPetDrop',
         isAlertEnabledSettingKey: 'alertOnSquidPetDrop',
         rarityColorCode: LEGENDARY,
@@ -906,9 +893,8 @@ export const OUTSTANDING_CATCH_TRIGGERS = [
     },
     {
         trigger: SQUID_PET_EPIC_MESSAGE,
-        itemId: 'SQUID;3',
+        itemId: drops.SQUID_EPIC_ID,
         itemName: drops.SQUID_PET + ' (Epic)',
-        sound: sounds.AUGH_SOUND_SOURCE,
         isMessageEnabledSettingKey: 'messageOnSquidPetDrop',
         isAlertEnabledSettingKey: 'alertOnSquidPetDrop',
         rarityColorCode: EPIC,
@@ -916,9 +902,8 @@ export const OUTSTANDING_CATCH_TRIGGERS = [
     },
     {
         trigger: SQUID_PET_RARE_MESSAGE,
-        itemId: 'SQUID;2',
+        itemId: drops.SQUID_RARE_ID,
         itemName: drops.SQUID_PET + ' (Rare)',
-        sound: sounds.GOOFY_LAUGH_SOUND_SOURCE,
         isMessageEnabledSettingKey: 'messageOnSquidPetDrop',
         isAlertEnabledSettingKey: 'alertOnSquidPetDrop',
         rarityColorCode: RARE,
@@ -926,9 +911,8 @@ export const OUTSTANDING_CATCH_TRIGGERS = [
     },
     {
         trigger: SQUID_PET_UNCOMMON_MESSAGE,
-        itemId: 'SQUID;1',
+        itemId: drops.SQUID_UNCOMMON_ID,
         itemName: drops.SQUID_PET + ' (Uncommon)',
-        sound: sounds.GOOFY_LAUGH_SOUND_SOURCE,
         isMessageEnabledSettingKey: 'messageOnSquidPetDrop',
         isAlertEnabledSettingKey: 'alertOnSquidPetDrop',
         rarityColorCode: UNCOMMON,
@@ -936,9 +920,8 @@ export const OUTSTANDING_CATCH_TRIGGERS = [
     },
     {
         trigger: SQUID_PET_COMMON_MESSAGE,
-        itemId: 'SQUID;0',
+        itemId: drops.SQUID_COMMON_ID,
         itemName: drops.SQUID_PET + ' (Common)',
-        sound: sounds.GOOFY_LAUGH_SOUND_SOURCE,
         isMessageEnabledSettingKey: 'messageOnSquidPetDrop',
         isAlertEnabledSettingKey: 'alertOnSquidPetDrop',
         rarityColorCode: COMMON,
@@ -949,9 +932,8 @@ export const OUTSTANDING_CATCH_TRIGGERS = [
 export const LOBBY_WIDE_DROPS_TRIGGERS = [
     {
         trigger: PHOENIX_PET_MESSAGE,
-        itemId: 'PHOENIX;?',
+        itemId: drops.PHOENIX_UNKNOWN_ID,
         itemName: drops.PHOENIX_PET,
-        sound: sounds.MC_RARE_ACHIEVEMENT_SOURCE,
         isMessageEnabledSettingKey: 'messageOnPhoenixPetDrop',
         isAlertEnabledSettingKey: 'alertOnPhoenixPetDrop',
         rarityColorCode: SPECIAL,
@@ -959,9 +941,8 @@ export const LOBBY_WIDE_DROPS_TRIGGERS = [
     },
     {
         trigger: CARMINE_DYE_MESSAGE,
-        itemId: 'DYE_CARMINE',
+        itemId: drops.DYE_CARMINE_ID,
         itemName: drops.CARMINE_DYE,
-        sound: sounds.GIGA_CHAD_SOUND_SOURCE,
         isMessageEnabledSettingKey: 'messageOnCarmineDyeDrop',
         isAlertEnabledSettingKey: 'alertOnCarmineDyeDrop',
         rarityColorCode: DARK_RED,
@@ -969,9 +950,8 @@ export const LOBBY_WIDE_DROPS_TRIGGERS = [
     },
     {
         trigger: MIDNIGHT_DYE_MESSAGE,
-        itemId: 'DYE_MIDNIGHT',
+        itemId: drops.DYE_MIDNIGHT_ID,
         itemName: drops.MIDNIGHT_DYE,
-        sound: sounds.GIGA_CHAD_SOUND_SOURCE,
         isMessageEnabledSettingKey: 'messageOnMidnightDyeDrop',
         isAlertEnabledSettingKey: 'alertOnMidnightDyeDrop',
         rarityColorCode: DARK_PURPLE,
@@ -979,9 +959,8 @@ export const LOBBY_WIDE_DROPS_TRIGGERS = [
     },
     {
         trigger: AQUAMARINE_DYE_MESSAGE,
-        itemId: 'DYE_AQUAMARINE',
+        itemId: drops.DYE_AQUAMARINE_ID,
         itemName: drops.AQUAMARINE_DYE,
-        sound: sounds.GIGA_CHAD_SOUND_SOURCE,
         isMessageEnabledSettingKey: 'messageOnAqumarineDyeDrop',
         isAlertEnabledSettingKey: 'alertOnAqumarineDyeDrop',
         rarityColorCode: AQUA,
@@ -989,9 +968,8 @@ export const LOBBY_WIDE_DROPS_TRIGGERS = [
     },
     {
         trigger: ICEBERG_DYE_MESSAGE,
-        itemId: 'DYE_ICEBERG',
+        itemId: drops.DYE_ICEBERG_ID,
         itemName: drops.ICEBERG_DYE,
-        sound: sounds.GIGA_CHAD_SOUND_SOURCE,
         isMessageEnabledSettingKey: 'messageOnIcebergDyeDrop',
         isAlertEnabledSettingKey: 'alertOnIcebergDyeDrop',
         rarityColorCode: DARK_AQUA,
@@ -999,9 +977,8 @@ export const LOBBY_WIDE_DROPS_TRIGGERS = [
     },
     {
         trigger: TREASURE_DYE_MESSAGE,
-        itemId: 'DYE_TREASURE',
+        itemId: drops.DYE_TREASURE_ID,
         itemName: drops.TREASURE_DYE,
-        sound: sounds.GIGA_CHAD_SOUND_SOURCE,
         isMessageEnabledSettingKey: 'messageOnTreasureDyeDrop',
         isAlertEnabledSettingKey: 'alertOnTreasureDyeDrop',
         rarityColorCode: LEGENDARY,
@@ -1009,9 +986,8 @@ export const LOBBY_WIDE_DROPS_TRIGGERS = [
     },
     {
         trigger: PERIWINKLE_DYE_MESSAGE,
-        itemId: 'DYE_PERIWINKLE',
+        itemId: drops.DYE_PERIWINKLE_ID,
         itemName: drops.PERIWINKLE_DYE,
-        sound: sounds.GIGA_CHAD_SOUND_SOURCE,
         isMessageEnabledSettingKey: 'messageOnPeriwinkleDyeDrop',
         isAlertEnabledSettingKey: 'alertOnPeriwinkleDyeDrop',
         rarityColorCode: DARK_AQUA,
@@ -1019,9 +995,8 @@ export const LOBBY_WIDE_DROPS_TRIGGERS = [
     },
     {
         trigger: BONE_DYE_MESSAGE,
-        itemId: 'DYE_BONE',
+        itemId: drops.DYE_BONE_ID,
         itemName: drops.BONE_DYE,
-        sound: sounds.GIGA_CHAD_SOUND_SOURCE,
         isMessageEnabledSettingKey: 'messageOnBoneDyeDrop',
         isAlertEnabledSettingKey: 'alertOnBoneDyeDrop',
         rarityColorCode: WHITE,
