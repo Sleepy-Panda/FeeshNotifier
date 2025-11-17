@@ -1,6 +1,6 @@
 import Settings from "../Amaterasu/core/Settings";
 import DefaultConfig from "../Amaterasu/core/DefaultConfig";
-import { AQUA, GOLD, GRAY, RED, WHITE, BLUE, DARK_GRAY, RESET, BOLD, LIGHT_PURPLE, YELLOW } from "./constants/formatting";
+import { AQUA, GOLD, GRAY, RED, WHITE, BLUE, DARK_GRAY, RESET, BOLD, LIGHT_PURPLE, YELLOW, GREEN } from "./constants/formatting";
 import { MC_GUI_BUTTON_PRESS_SOUND } from "./constants/sounds";
 
 export const allOverlaysGui = new Gui(); // Sample overlays GUI to move/resize them all at once
@@ -50,7 +50,7 @@ const config = new DefaultConfig("FeeshNotifier", "config/settings.json")
     configName: "soundMode",
     title: "Sound mode",
     description: `Setups sounds played on rare catches and rare drops.
-${BOLD}Meme ${RESET}-> funny meme sounds. ${YELLOW}Customizable, you can set your own!
+${BOLD}Meme ${RESET}-> funny meme sounds. ${GREEN}Customizable, you can set your own sounds!
 ${BOLD}Normal ${RESET}-> minimal sounds which are not annoying.
 ${BOLD}Off ${RESET}-> no sounds.`,
     options: ["Meme", "Normal", "Off"],

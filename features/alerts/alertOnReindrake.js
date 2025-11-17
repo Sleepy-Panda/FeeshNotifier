@@ -26,17 +26,12 @@ function playAlertOnReindrake() {
 		
 		Client.showTitle(title, '', 1, 30, 1);
 	
-		switch (settings.soundMode) {
-			case MEME_SOUND_MODE:
-			  const soundFileName = userCatchSoundsData[seaCreatures.REINDRAKE];
-			  playSound(soundFileName, NOTIFICATION_SOUND);
-			  break;
-			case NORMAL_SOUND_MODE:
-			  playMcSound(MC_RANDOM_ORB_SOUND);
-			  break;
-			default:
-			  break;
-		}
+		if (settings.soundMode === MEME_SOUND_MODE) {
+            const soundFileName = userCatchSoundsData[seaCreatures.REINDRAKE]?.source;
+            playSound(soundFileName, NOTIFICATION_SOUND);
+        } else if (settings.soundMode === NORMAL_SOUND_MODE) {
+            playMcSound(MC_RANDOM_ORB_SOUND);
+        }
 	} catch (e) {
 		console.error(e);
 		console.log(`[FeeshNotifier] Failed to play alert on reindrake.`);

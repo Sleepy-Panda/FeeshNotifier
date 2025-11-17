@@ -115,17 +115,12 @@ function playAlertOnCatch(options) {
 		const title = options.isDoubleHook ? getDoubleHookCatchTitle(options.seaCreature, options.rarityColorCode) : getCatchTitle(options.seaCreature, options.rarityColorCode);
 		Client.showTitle(title, options.player || '', 1, 45, 1);
 	
-        switch (settings.soundMode) {
-          case MEME_SOUND_MODE:
-            const soundFileName = userCatchSoundsData[options.seaCreature];
+        if (settings.soundMode === MEME_SOUND_MODE) {
+            const soundFileName = userCatchSoundsData[options.seaCreature]?.source;
             playSound(soundFileName, NOTIFICATION_SOUND);
-            break;
-          case NORMAL_SOUND_MODE:
+        } else if (settings.soundMode === NORMAL_SOUND_MODE) {
             playMcSound(MC_RANDOM_ORB_SOUND);
-            break;
-          default:
-            break;
-        }	
+        }
 	} catch (e) {
 		console.error(e);
 		console.log(`[FeeshNotifier] Failed to play alert on catch.`);
