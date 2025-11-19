@@ -131,6 +131,7 @@ register("gameLoad", () => {
         delete persistentData.fishingProfit.profitTrackerItems;
         delete persistentData.fishingProfit.totalProfit;
         delete persistentData.fishingProfit.elapsedSeconds;
+        persistentData.rareDropNotifications.items = {};
         persistentData.save();
     }
 });
