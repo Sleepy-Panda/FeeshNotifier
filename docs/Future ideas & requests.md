@@ -8,6 +8,7 @@
 ## Fishing profit tracker
 
 - Add confirmation for deleting items from the tracker.
+- Rare drop sound on expensive items added to sacks (e.g. Emperor's Skull).
 - Track Agatha tickets / Forest Essence on Galatea based on contest results.
 - Use drop # in the chat message based on current profit tracker.
 - Option to right align the tracker (and others too)
@@ -48,7 +49,6 @@
 
 ## Alerts & chat
 
-- Rare Catch alert based on Skyhanni message does not work for The Loch Emperor (because they send The Sea Emperor in message)
 - Rare SC cocooned alert
 - Phoenix proc'ed alert / Phoenix back alert (same as Spirit Mask)
 - Customized sounds for rare catches and rare drops
