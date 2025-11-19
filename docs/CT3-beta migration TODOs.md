@@ -6,6 +6,7 @@ MC version required: 1.21.5 Fabric
 ## Reminders
 
 - Probably I will need to port Feesh to MC 1.21.9 or higher (depends on SB decision of supported version)
+- Adjust github links in settings to point to correct branches.
 - Adjust CHANGELOG-v2 file, ingame changelog message and metadata version
   - Probably version should be 3+ to allow any minor 2+
 - Update settings to remove not supported features

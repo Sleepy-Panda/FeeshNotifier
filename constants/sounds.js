@@ -8,10 +8,12 @@ export const GOOFY_LAUGH_SOUND = "feesh_goofy-laugh.ogg";
 export const WOW_SOUND = "feesh_wow.ogg";
 export const SHEESH_SOUND = "feesh_sheesh.ogg";
 export const SAD_TROMBONE_SOUND = "feesh_sad-trombone.ogg";
+export const RARE_DROP_SOUND = "feesh_rare-drop.ogg";
 
 // Sounds now are instatiated right before playing, so that it does not cause Java error on switching the output device.
 export const TIMER_SOUND_SOURCE = { source: TIMER_SOUND };
 export const SAD_TROMBONE_SOUND_SOURCE = { source: SAD_TROMBONE_SOUND };
+export const RARE_DROP_SOUND_SOURCE = { source: RARE_DROP_SOUND };
 
 export const MEME_SOUND_MODE = 0;
 export const NORMAL_SOUND_MODE = 1;

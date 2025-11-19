@@ -11,7 +11,7 @@ List of sea creatures and drops matches the alerts available in the module setti
   - Filename example will be `feeshcustom_whatever-sound-name-goes-here.ogg`.
   - This is needed to prevent overwriting sounds from other CT modules, which may have same filename.
   - Also you can easier cleanup sounds if needed.
-1. Open CT assets folder (`/config/ChatTriggers/images`).
+1. Open CT assets folder (`/config/ChatTriggers/assets`).
 1. Copy your custom .ogg sounds into the current folder.
 1. Check that new sounds are played correctly, using the command `/feeshPlaySound filename.ogg`.
 

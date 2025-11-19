@@ -64,7 +64,7 @@ ${BOLD}Off ${RESET}-> no sounds.`,
     description: `To configure custom sounds for Meme mode, please follow the guide on Github.`,
     subcategory: "Sounds",
     onClick() {
-        java.awt.Desktop.getDesktop().browse(new java.net.URI("https://github.com/Sleepy-Panda/FeeshNotifier/blob/main/docs/Custom%20sounds%20guide.md"));
+        java.awt.Desktop.getDesktop().browse(new java.net.URI("https://github.com/Sleepy-Panda/FeeshNotifier/blob/develop-ct3/docs/Custom%20sounds%20guide.md"));
     }
 })
 
@@ -1938,7 +1938,7 @@ ${GRAY}Do ${AQUA}/feeshResetProfitTracker${GRAY} to reset.`,
     description: `For settings above with custom text templates, please explore color codes and formatting codes.`,
     subcategory: "Fishing Hook",
     onClick() {
-        java.awt.Desktop.getDesktop().browse(new java.net.URI("https://github.com/Sleepy-Panda/FeeshNotifier/blob/main/docs/Colors%20and%20formatting%20guide.md"));
+        java.awt.Desktop.getDesktop().browse(new java.net.URI("https://github.com/Sleepy-Panda/FeeshNotifier/blob/develop-ct3/docs/Colors%20and%20formatting%20guide.md"));
     }
 })
 

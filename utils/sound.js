@@ -6,8 +6,8 @@ let rareDropSoundLastPlayedAt = null;
 export function playSound(soundFileName, fallbackSoundFileName) {
     if (settings.soundMode === OFF_SOUND_MODE) return;
 
-    const modulesFolder = Config.modulesFolder;
-    const assetsFilePath = modulesFolder.replace('/modules', '/images/') + soundFileName;
+    const modulesFolder = ChatTriggers.MODULES_FOLDER;
+    const assetsFilePath = modulesFolder.replace('/modules', '/assets/') + soundFileName;
     const isValid = !!soundFileName && soundFileName.endsWith('.ogg') && FileLib.exists(assetsFilePath);
 
     if (!isValid && !fallbackSoundFileName) {
@@ -16,8 +16,8 @@ export function playSound(soundFileName, fallbackSoundFileName) {
     }
 
     const soundObj = isValid
-        ? { source: soundFileName, priority: true } 
-        : { source: fallbackSoundFileName, priority: true };
+        ? { source: soundFileName } 
+        : { source: fallbackSoundFileName };
     new Sound(soundObj).play();
 }
 
