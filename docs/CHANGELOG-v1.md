@@ -5,7 +5,6 @@
 ## v1.55.0
 
 - TODO: Drop & Catch MC sounds not played in Normal mode
-- TODO: Reset drop numbers on migration
 
 Released: ???
 
@@ -14,6 +13,7 @@ Features:
 - Added Meme mode sounds customization when you catch a rare sea creature or drop a rare item.
 
 Bugfixes:
+- Fixed Rare Drop numbers - now they reset when migrating from 1.53.0 on download new version.
 
 Other:
 
