@@ -1,5 +1,6 @@
 import settings from "../../settings";
 import * as triggers from '../../constants/triggers';
+import * as seaCreatures from '../../constants/seaCreatures';
 import { getDoubleHookCatchTitle, getCatchTitle, getCatchMessage, getColoredPlayerNameFromDisplayName, getColoredPlayerNameFromPartyChat, getDoubleHookCatchMessage, getPartyChatMessage, isDoubleHook, isInFishingWorld, fromUppercaseToCapitalizedFirstLetters } from '../../utils/common';
 import { MC_RANDOM_ORB_SOUND, MEME_SOUND_MODE, NORMAL_SOUND_MODE, NOTIFICATION_SOUND } from '../../constants/sounds';
 import { getWorldName, isInSkyblock } from "../../utils/playerState";
@@ -62,12 +63,15 @@ triggers.RARE_CATCH_TRIGGERS.forEach(entry => {
     );
 
     const seaCreature = entry.seaCreature;
-    const seaCreatureShFormat = `a ${fromUppercaseToCapitalizedFirstLetters(seaCreature)}`; // a Lord Jawbus, a Alligator
+    const seaCreatureShFormat = seaCreature === seaCreatures.THE_LOCH_EMPEROR
+        ? 'a The Sea Emperor'
+        : `a ${fromUppercaseToCapitalizedFirstLetters(seaCreature)}`; // a Lord Jawbus, a Alligator
     
     registerIf(
         // Triggers on automated party chat message sent by Skyhanni.
         // I caught a Lord Jawbus!
         // I caught a Abyssal Miner! (they have wrong article)
+        // I caught a The Sea Emperor! (they have wrong SC name)
         register(
             "Chat",
             (rankAndPlayer, event) => playAlertOnCatch({
