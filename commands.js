@@ -16,6 +16,7 @@ import { resetTreasureFishingTracker, setTreasureDyes } from "./features/overlay
 import { resetArchfiendDiceProfitTracker } from "./features/overlays/archfiendDiceProfitTracker";
 import { SESSION_VIEW_MODE, TOTAL_VIEW_MODE } from "./constants/viewModes";
 import { resetWaterHotspotsAndBayouTracker, setTikiMasks, setTitanoboaSheds } from "./features/overlays/waterHotspotsAndBayouTracker";
+import { playSound } from "./utils/sound";
 
 register("command", (...args) => {
     settings.getConfig().openGui();
@@ -128,3 +129,8 @@ register("command", (...args) => {
 register("command", (...args) => {
     moveAllGuis();
 }).setName("feeshMoveAllGuis");
+
+register("command", (...args) => {
+    const fileName = args[0];
+    playSound(fileName, null);
+}).setName("feeshPlaySound"); // /feeshPlaySound feesh_giga-chad.ogg
