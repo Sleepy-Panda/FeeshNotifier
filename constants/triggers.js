@@ -5,7 +5,6 @@ import { GREEN, GOLD, DARK_PURPLE, LIGHT_PURPLE, BLUE, RED, BOLD, RESET, GRAY, A
 // WATER SEA CREATURES
 
 export const WATER_HYDRA_MESSAGE = `${GREEN}The Water Hydra has come to test your strength.`;
-export const THE_LOCH_EMPEROR_MESSAGE = `${GREEN}The Loch Emperor arises from the depths.`;
 export const CARROT_KING_MESSAGE = `${GREEN}Is this even a fish? It\'s the Carrot King!`;
 export const SQUID_MESSAGE = `${GREEN}A Squid appeared.`;
 export const NIGHT_SQUID_MESSAGE = `${GREEN}Pitch darkness reveals a Night Squid.`;
@@ -102,6 +101,7 @@ export const WIKI_TIKI_MESSAGE = `${RESET}${RED}${BOLD}The water bubbles and fro
 
 // GALATEA SEA CREATURES
 
+export const THE_LOCH_EMPEROR_MESSAGE = `${GREEN}The Loch Emperor arises from the depths.`;
 export const TADGANG_MESSAGE = `${RESET}${GREEN}A gang of Liltads!`;
 export const ENT_MESSAGE = `${RESET}${GREEN}You've hooked an Ent, as ancient as the forest itself.`;
 export const WETWING_MESSAGE = `${RESET}${GREEN}Look! A Wetwing emerges!`;

@@ -4,8 +4,8 @@
 
 ## v1.55.0
 
-- TODO: Move Sea Emperor SH fix
 - TODO: Drop & Catch MC sounds not played in Normal mode
+- TODO: Reset drop numbers on migration
 
 Released: ???
 
