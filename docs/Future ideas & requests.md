@@ -18,6 +18,7 @@
 - Track Ice Essence drop from mobs in Fishing Profit Tracker
 - Track pet level progress in coins while it's not maxed
 - Find out price calculation for Kuudra Keys
+- Develop calculation for Level 100 pets on Ironman. So far I'm lazy to store NPC price for each existing pet in the module
 - Separate tracker modes for different areas of fishing, or ability to load named session. E.g. to separate Jerry, Spooky, Crimson, Treasure, etc
 - Rewrite way to ignore compacted loot in profit tracker
 - [Bug] Some items are tracked by Fishing Profit Tracker when dropped, but drop was prevented by SB settings (basically it drops and picks up again).

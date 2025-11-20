@@ -18,6 +18,8 @@ let previousInventory = null;
 let isSessionActive = false;
 let areButtonsVisible = false;
 
+const SELL_OFFER_MODE = 0, INSTA_SELL_MODE = 1, NPC_PRICE_MODE = 2;
+
 registerIf(
     register('step', () => {
         activateSessionOnPlayersFishingHook();
@@ -334,6 +336,10 @@ function refreshTotalItemsProfits() {
         const sourceObj = getSourceObject(viewMode);
         Object.entries(sourceObj.profitTrackerItems).forEach(([key, value]) => {
             if (value.itemDisplayName.removeFormatting().startsWith('[Lvl 100]') || value.itemDisplayName.removeFormatting().startsWith('[Lvl 200]')) { // Maxed level pets, e.g. FLYING_FISH;4+100 or GOLDEN_DRAGON;4+200
+                if (settings.fishingProfitTrackerMode === NPC_PRICE_MODE) {
+                    value.totalItemProfit = 0; // TODO - Develop calculation for Level 100 pets on Ironman. So far I'm lazy to store NPC price for each existing pet in the module
+                    return;
+                }
                 const itemIdMaxLevel = key;
                 const itemIdFirstLvl = itemIdMaxLevel.split('+')[0]; // Remove +100 or +200
                 const firstLvlPrice = getAuctionItemPrices(itemIdFirstLvl)?.lbin || 0;
@@ -357,33 +363,33 @@ function refreshTotalItemsProfits() {
         if (!fishingProfitItem) return 0;
     
         if (fishingProfitItem.amountOfMagmaFish) { // Trophy Fish
-            const magmaFishBazaarPrices = getBazaarItemPrices('MAGMA_FISH');
-            const magmaFishPrice = settings.fishingProfitTrackerMode === 1 ? magmaFishBazaarPrices?.instaSell : magmaFishBazaarPrices?.sellOffer;
-            return fishingProfitItem.amountOfMagmaFish * (magmaFishPrice || 0);
+            const magmaFishPrice = getPriceByMode('MAGMA_FISH');
+            return fishingProfitItem.amountOfMagmaFish * magmaFishPrice;
         }
     
         if (settings.calculateProfitInCrimsonEssence && fishingProfitItem.salvage && fishingProfitItem.salvage.essenceType === 'ESSENCE_CRIMSON') { // Salvageable
-            const essenceBazaarPrices = getBazaarItemPrices(fishingProfitItem.salvage.essenceType);
-            const essencePrice = settings.fishingProfitTrackerMode === 1 ? essenceBazaarPrices?.instaSell : essenceBazaarPrices?.sellOffer;
-            return fishingProfitItem.salvage.essenceCount * (essencePrice || 0);
+            if (settings.fishingProfitTrackerMode === NPC_PRICE_MODE) return 0;
+            const essencePricesInfo = getBazaarItemPrices(fishingProfitItem.salvage.essenceType);
+            const essencePrice = (settings.fishingProfitTrackerMode === INSTA_SELL_MODE ? essencePricesInfo?.instaSell : essencePricesInfo?.sellOffer) || 0;
+            return fishingProfitItem.salvage.essenceCount * essencePrice;
         }
+   
+        return getPriceByMode(fishingProfitItem.itemId);
+    }
 
-        const itemId = fishingProfitItem.itemId;
-        const bazaarPrices = getBazaarItemPrices(itemId);
+    function getPriceByMode(itemId) {
+        const fishingProfitItem = FISHING_PROFIT_ITEMS.find(i => i.itemId === itemId);
+        if (!fishingProfitItem) return 0;
+
+        if (settings.fishingProfitTrackerMode === NPC_PRICE_MODE) return fishingProfitItem.npcPrice || 0;
+
+        const bazaarPricesInfo = getBazaarItemPrices(itemId);
+        if (bazaarPricesInfo) return (settings.fishingProfitTrackerMode === INSTA_SELL_MODE ? bazaarPricesInfo.instaSell : bazaarPricesInfo.sellOffer) || 0;
+
+        const auctionPricesInfo = getAuctionItemPrices(itemId);
+        if (auctionPricesInfo) return auctionPricesInfo.lbin || fishingProfitItem.npcPrice || 0;
     
-        let itemPrice = settings.fishingProfitTrackerMode === 1 ? bazaarPrices?.instaSell : bazaarPrices?.sellOffer;
-    
-        if (!bazaarPrices) {
-            const auctionPrices = getAuctionItemPrices(itemId);
-            itemPrice = auctionPrices?.lbin;
-    
-            if (!auctionPrices) {
-                const npcPrices = fishingProfitItem.npcPrice;
-                itemPrice = npcPrices;
-            }
-        }
-    
-        return itemPrice || 0;
+        return fishingProfitItem.npcPrice || 0;
     }
 }
 
