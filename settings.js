@@ -1906,8 +1906,8 @@ ${GRAY}Do ${AQUA}/feeshResetProfitTracker${GRAY} to reset.`,
 .addDropDown({
     category: "Rendering",
     configName: "renderFishingHookTimerMode",
-    title: "Fishing hook timer mode. 'Until reel in' shows countdown while fish is swimming towards the fishing hook. 'Since casted' shows the timer while the fishing hook is casted.",
-    description: "",
+    title: "Fishing hook timer mode",
+    description: "'Until reel in' shows countdown while fish is swimming towards the fishing hook. 'Since casted' shows the timer while the fishing hook is casted.",
     options: ["Until reel in", "Since casted"],
     value: 0,
     subcategory: "Fishing Hook"
