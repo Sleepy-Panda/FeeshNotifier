@@ -70,7 +70,7 @@
                 148,
                 255
             ],
-            "scale": 1,
+            "scale": 1.5,
             "format": "§l",
             "centered": true,
             "selectedColor": [
@@ -152,7 +152,7 @@
                 148,
                 255
             ],
-            "scale": 1
+            "scale": 1.5
         }
     },
     "DividerSubcategory": {
@@ -196,7 +196,7 @@
                 148,
                 255
             ],
-            "scale": 1
+            "scale": 1.5
         }
     },
     "TextInput": {
@@ -1157,7 +1157,7 @@
                     255,
                     255
                 ],
-                "scale": 1,
+                "scale": 1.5,
                 "scaleType": "pixel"
             }
         }
