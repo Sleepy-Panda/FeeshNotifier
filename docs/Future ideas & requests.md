@@ -8,6 +8,7 @@
 ## Fishing profit tracker
 
 - Add confirmation for deleting items from the tracker.
+- Rare drop sound on expensive items added to sacks (e.g. Emperor's Skull).
 - Track Agatha tickets / Forest Essence on Galatea based on contest results.
 - Use drop # in the chat message based on current profit tracker.
 - Option to right align the tracker (and others too)
@@ -17,6 +18,7 @@
 - Track Ice Essence drop from mobs in Fishing Profit Tracker
 - Track pet level progress in coins while it's not maxed
 - Find out price calculation for Kuudra Keys
+- Develop calculation for Level 100 pets on Ironman. So far I'm lazy to store NPC price for each existing pet in the module
 - Separate tracker modes for different areas of fishing, or ability to load named session. E.g. to separate Jerry, Spooky, Crimson, Treasure, etc
 - Rewrite way to ignore compacted loot in profit tracker
 - [Bug] Some items are tracked by Fishing Profit Tracker when dropped, but drop was prevented by SB settings (basically it drops and picks up again).
@@ -48,7 +50,6 @@
 
 ## Alerts & chat
 
-- Rare Catch alert based on Skyhanni message does not work for The Loch Emperor (because they send The Sea Emperor in message)
 - Rare SC cocooned alert
 - Phoenix proc'ed alert / Phoenix back alert (same as Spirit Mask)
 - Customized sounds for rare catches and rare drops

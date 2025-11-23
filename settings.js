@@ -1,6 +1,6 @@
 import Settings from "../Amaterasu/core/Settings";
 import DefaultConfig from "../Amaterasu/core/DefaultConfig";
-import { AQUA, GOLD, GRAY, RED, WHITE, BLUE, DARK_GRAY, RESET, BOLD, LIGHT_PURPLE, YELLOW } from "./constants/formatting";
+import { AQUA, GOLD, GRAY, RED, WHITE, BLUE, DARK_GRAY, RESET, BOLD, LIGHT_PURPLE, YELLOW, GREEN } from "./constants/formatting";
 import { MC_GUI_BUTTON_PRESS_SOUND } from "./constants/sounds";
 
 export const allOverlaysGui = new Gui(); // Sample overlays GUI to move/resize them all at once
@@ -35,15 +35,6 @@ const config = new DefaultConfig("FeeshNotifier", "config/settings.json")
         java.awt.Desktop.getDesktop().browse(new java.net.URI("https://www.chattriggers.com/modules/v/FeeshNotifier"));
     }
 })
-.addDropDown({
-    category: "General",
-    configName: "soundMode",
-    title: "Sound mode",
-    description: "Setups sounds played on rare catches and rare drops.",
-    options: ["Meme","Normal","Off"],
-    value: 0,
-    subcategory: "Sounds"
-})
 .addButton({
     category: "General",
     configName: "moveAllOverlays",
@@ -52,6 +43,28 @@ const config = new DefaultConfig("FeeshNotifier", "config/settings.json")
     subcategory: "GUI",
     onClick() {
         ChatLib.command("feeshMoveAllGuis", true);
+    }
+})
+.addDropDown({
+    category: "General",
+    configName: "soundMode",
+    title: "Sound mode",
+    description: `Setups sounds played on rare catches and rare drops.
+${BOLD}Meme ${RESET}-> funny meme sounds. ${GREEN}Customizable, you can set your own sounds!
+${BOLD}Normal ${RESET}-> minimal sounds which are not annoying.
+${BOLD}Off ${RESET}-> no sounds.`,
+    options: ["Meme", "Normal", "Off"],
+    value: 0,
+    subcategory: "Sounds"
+})
+.addButton({
+    category: "General",
+    configName: "customSoundsGuide",
+    title: `Sounds customization guide`,
+    description: `To configure custom sounds for Meme mode, please follow the guide on Github.`,
+    subcategory: "Sounds",
+    onClick() {
+        java.awt.Desktop.getDesktop().browse(new java.net.URI("https://github.com/Sleepy-Panda/FeeshNotifier/blob/main/docs/Custom%20sounds%20guide.md"));
     }
 })
 
@@ -1713,7 +1726,7 @@ ${GRAY}Do ${AQUA}/feeshResetProfitTracker${GRAY} to reset.`,
     configName: "fishingProfitTrackerMode",
     title: "Fishing profit tracker display mode",
     description: "How to calculate price for the bazaar items.",
-    options: ["Sell offer","Insta-sell"],
+    options: ["Sell offer", "Insta-sell", "NPC price ♿"],
     value: 0,
     subcategory: "Fishing profit tracker",
     shouldShow: data => data.fishingProfitTrackerOverlay,
@@ -1721,9 +1734,19 @@ ${GRAY}Do ${AQUA}/feeshResetProfitTracker${GRAY} to reset.`,
 .addTextInput({
     category: "Overlays",
     configName: "fishingProfitTracker_hideCheaperThan",
-    title: "Hide cheap items",
-    description: "Items which are cheaper than the specified threshold in coins will be hidden in the fishing profit tracker. They will be grouped under 'Cheap items' section. Set to 0 to show all items.",
-    value: "500000",
+    title: "Hide cheap items [Session]",
+    description: "Items which are cheaper than the specified threshold in coins will be hidden in the fishing profit tracker [Session]. They will be grouped under 'Cheap items' section. Set to 0 to show all items.",
+    value: "1000000",
+    placeHolder: "",
+    subcategory: "Fishing profit tracker",
+    shouldShow: data => data.fishingProfitTrackerOverlay,
+})
+.addTextInput({
+    category: "Overlays",
+    configName: "fishingProfitTracker_hideCheaperThanTotal",
+    title: "Hide cheap items [Total]",
+    description: "Items which are cheaper than the specified threshold in coins will be hidden in the fishing profit tracker [Total]. They will be grouped under 'Cheap items' section. Set to 0 to show all items.",
+    value: "1000000",
     placeHolder: "",
     subcategory: "Fishing profit tracker",
     shouldShow: data => data.fishingProfitTrackerOverlay,
@@ -1731,8 +1754,8 @@ ${GRAY}Do ${AQUA}/feeshResetProfitTracker${GRAY} to reset.`,
 .addSlider({
     category: "Overlays",
     configName: "fishingProfitTracker_showTop",
-    title: "Maximum items count",
-    description: "Show top N lines for the most expensive items. Other cheaper items will be grouped under 'Cheap items' section.",
+    title: "Maximum lines count",
+    description: "Show top N lines for the most expensive items. Other cheaper items will be grouped under 'Cheap items' section. This works on top of 'Hide cheap items' setting.",
     options: [1, 50],
     value: 20,
     subcategory: "Fishing profit tracker",
@@ -1750,7 +1773,7 @@ ${GRAY}Do ${AQUA}/feeshResetProfitTracker${GRAY} to reset.`,
 .addSwitch({
     category: "Overlays",
     configName: "calculateProfitInCrimsonEssence",
-    title: "Show profits in crimson essence",
+    title: "Show profits in Crimson Essence",
     description: "Calculate price in Crimson Essence for salvageable crimson fishing items e.g. Slug Boots, Moogma Leggings, Flaming Chestplate, Blade of the Volcano, Staff of the Volcano.",
     subcategory: "Fishing profit tracker",
     shouldShow: data => data.fishingProfitTrackerOverlay,
@@ -1883,8 +1906,8 @@ ${GRAY}Do ${AQUA}/feeshResetProfitTracker${GRAY} to reset.`,
 .addDropDown({
     category: "Rendering",
     configName: "renderFishingHookTimerMode",
-    title: "Fishing hook timer mode. 'Until reel in' shows countdown while fish is swimming towards the fishing hook. 'Since casted' shows the timer while the fishing hook is casted.",
-    description: "",
+    title: "Fishing hook timer mode",
+    description: "'Until reel in' shows countdown while fish is swimming towards the fishing hook. 'Since casted' shows the timer while the fishing hook is casted.",
     options: ["Until reel in", "Since casted"],
     value: 0,
     subcategory: "Fishing Hook"
