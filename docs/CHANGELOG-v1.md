@@ -4,8 +4,6 @@
 
 ## v1.55.0
 
-- TODO: Drop & Catch MC sounds not played in Normal mode
-
 Released: ???
 
 Features:
