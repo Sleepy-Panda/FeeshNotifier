@@ -4,16 +4,15 @@
 
 ## v1.55.0
 
-- TODO: Drop & Catch MC sounds not played in Normal mode
-- TODO: Reset drop numbers on migration
-
 Released: ???
 
 Features:
 - Added separate "Hide cheap items" settings for [Session] and [Total] in Fishing profit tracker.
 - Added Meme mode sounds customization when you catch a rare sea creature or drop a rare item.
+- Added NPC Price mode for Fishing profit tracker (this does not count Level 100 pets tho, because it requires to add each ingame pet NPC price to the module).
 
 Bugfixes:
+- Fixed Rare Drop numbers - now they reset when migrating from 1.53.0 on download new version.
 
 Other:
 

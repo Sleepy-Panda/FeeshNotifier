@@ -1060,14 +1060,12 @@ export const FISHING_PROFIT_ITEMS = [
         itemName: 'Fishing Exp Boost (RARE)',
         itemDisplayName: `${RARE}Fishing Exp Boost +40%`,
         npcPrice: 0,
-        shouldAnnounceRareDrop: true,
     },
     {
         itemId: 'PET_ITEM_FISHING_SKILL_BOOST_EPIC',
         itemName: 'Fishing Exp Boost (EPIC)',
         itemDisplayName: `${EPIC}Fishing Exp Boost +50%`,
         npcPrice: 0,
-        shouldAnnounceRareDrop: true,
     },
     {
         itemId: 'WATER_HYDRA_HEAD',
@@ -1588,7 +1586,6 @@ export const FISHING_PROFIT_ITEMS = [
         itemAlternateNames: [ 'Enchanted Book (Flash 1)' ],
         itemDisplayName: `${MYTHIC}Flash I ${WHITE}Book`,
         npcPrice: 0,
-        shouldAnnounceRareDrop: true,
     },
 
     // Crystal Hollows
