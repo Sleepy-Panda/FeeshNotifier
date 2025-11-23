@@ -19,6 +19,7 @@ List of sea creatures and drops matches the alerts available in the module setti
 
 1. Navigate to the module's config folder - `/config/ChatTriggers/modules/FeeshNotifier/config`.
 1. Use your custom sounds filenames in the `userCatchSounds.json` / `userDropSounds.json` instead of the default sounds.
+  - For pet IDs, `;4` after pet name means Legendary, `;3` - Epic, `;2` - Rare, `;2` - Uncommon, `;1` - Common. E.g. `BABY_YETI;4` is Legendary Baby Yeti.
 1. After modifying the configs, run `/ct load` ingame or restart your game.
 
 ## Reset to default
