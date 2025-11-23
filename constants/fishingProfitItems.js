@@ -1066,7 +1066,6 @@ export const FISHING_PROFIT_ITEMS = [
         itemName: 'Fishing Exp Boost (EPIC)',
         itemDisplayName: `${EPIC}Fishing Exp Boost +50%`,
         npcPrice: 0,
-        shouldAnnounceRareDrop: true,
     },
     {
         itemId: 'WATER_HYDRA_HEAD',
