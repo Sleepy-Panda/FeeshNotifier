@@ -2,9 +2,22 @@
 
 ! REMINDER TO SET changelogMessages.js FOR INGAME ANNOUNCEMENT !
 
-## v1.55.0
+## v1.56.0
 
 Released: ???
+
+Features:
+- 
+
+Bugfixes:
+- 
+
+Other:
+-
+
+## v1.55.0
+
+Released: 2025-11-24
 
 Features:
 - Added separate "Hide cheap items" settings for [Session] and [Total] in Fishing profit tracker.
@@ -13,8 +26,6 @@ Features:
 
 Bugfixes:
 - Fixed Rare Drop numbers - now they reset when migrating from 1.53.0 on download new version.
-
-Other:
 
 ## v1.54.0
 
