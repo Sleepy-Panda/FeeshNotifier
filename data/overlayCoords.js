@@ -8,6 +8,7 @@ export const overlayCoordsData = new PogObject("FeeshNotifier", {
     "seaCreaturesCountOverlay": { "x": 10, "y": 50, "scale": 1 },
     "seaCreaturesPerHourTrackerOverlay": { "x": 10, "y": 50, "scale": 1 },
     "legionAndBobbingTimeOverlay": { "x": 10, "y": 80, "scale": 1 },
+    "fishingHookTimerOverlay": { "x": 10, "y": 30, "scale": 3 },
     "crimsonIsleTrackerOverlay": { "x": 10, "y": 200, "scale": 1 },
     "jerryWorkshopTrackerOverlay": { "x": 10, "y": 200, "scale": 1 },
     "waterHotspotsAndBayouTrackerOverlay": { "x": 10, "y": 200, "scale": 1 },

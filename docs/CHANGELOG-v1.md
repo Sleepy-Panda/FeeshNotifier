@@ -7,7 +7,7 @@
 Released: ???
 
 Features:
-- 
+- Changed Fishing Hook Timer to have stable position on player's screen.
 
 Bugfixes:
 - 
