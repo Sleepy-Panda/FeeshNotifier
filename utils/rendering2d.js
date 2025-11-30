@@ -29,7 +29,7 @@ export function highlightSlot(screen, slotIndex, color) {
  * @param {number} yShift
  */
 export function renderTextInSlot(screen, slotIndex, text, scale, yShift) {
-    if (!screen || !slotIndex || !text || !scale) return;
+    if (!screen || !text || !scale) return;
     if (!(screen instanceof HandledScreen)) return;
 
     const slot = screen.getScreenHandler().slots.get(slotIndex);
