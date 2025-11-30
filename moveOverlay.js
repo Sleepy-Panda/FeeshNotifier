@@ -105,7 +105,9 @@ function zoomInCurrentGui() {
         return;
     }
 
+    const oldScale = selectedGui.guiSettings.scale;
     selectedGui.guiSettings.scale += 0.1;
+    adjustPositionOnRescale(selectedGui.guiSettings, oldScale);
     overlayCoordsData.save();
 }
 
@@ -115,7 +117,9 @@ function zoomOutCurrentGui() {
         return;
     }
 
+    const oldScale = selectedGui.guiSettings.scale;
     decreaseScaleOrSetToMinimal(selectedGui.guiSettings);
+    adjustPositionOnRescale(selectedGui.guiSettings, oldScale);
     overlayCoordsData.save();
 }
 
@@ -126,4 +130,9 @@ export function decreaseScaleOrSetToMinimal(guiSettings) {
     } else {
         guiSettings.scale = 0.1;
     }
+}
+
+export function adjustPositionOnRescale(guiSettings, oldScale) {
+    guiSettings.x = guiSettings.x * oldScale / guiSettings.scale;
+    guiSettings.y = guiSettings.y * oldScale / guiSettings.scale;
 }

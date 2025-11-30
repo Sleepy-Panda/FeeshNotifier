@@ -2,7 +2,7 @@ import settings, { allOverlaysGui } from "./settings";
 import { overlayCoordsData } from "./data/overlayCoords";
 import { AQUA, BLUE, BOLD, DARK_GRAY, DARK_PURPLE, GOLD, GRAY, GREEN, LIGHT_PURPLE, RED, RESET, WHITE, YELLOW } from "./constants/formatting";
 import { isInSkyblock } from "./utils/playerState";
-import { decreaseScaleOrSetToMinimal } from "./moveOverlay";
+import { adjustPositionOnRescale, decreaseScaleOrSetToMinimal } from "./moveOverlay";
 
 export function moveAllGuis() {
     if (!isInSkyblock()) {
@@ -18,7 +18,7 @@ const SAMPLE_GUIS = [
         toggleSettingKey: 'deployablesRemainingTimeOverlay',
         guiSettings: overlayCoordsData.deployablesRemainingTimeOverlay,
         sampleText: `${DARK_PURPLE}SOS Flare: 01m 05s\n${DARK_PURPLE}Black Hole: ${WHITE}25s\n${DARK_PURPLE}Totem of Corruption: ${WHITE}01m 58s\n`,
-        isActive: false,
+        selected: false,
         width: 0,
         height: 0
     },
@@ -26,7 +26,7 @@ const SAMPLE_GUIS = [
         toggleSettingKey: 'consumablesRemainingTimeOverlay',
         guiSettings: overlayCoordsData.consumablesRemainingTimeOverlay,
         sampleText: `${DARK_PURPLE}Moby-Duck: ${WHITE}51m`,
-        isActive: false,
+        selected: false,
         width: 0,
         height: 0
     },
@@ -40,7 +40,7 @@ ${GRAY}- ${DARK_PURPLE}Vanquisher${GRAY}: ${WHITE}8
 ${GRAY}- ${LIGHT_PURPLE}Lord Jawbus${GRAY}: ${WHITE}2 ${DARK_GRAY}| ${GRAY}DH: ${WHITE}1 ${GRAY}100%
 ${GRAY}- ${LIGHT_PURPLE}Ragnarok${GRAY}: ${WHITE}1 ${DARK_GRAY}| ${GRAY}DH: ${WHITE}0 ${GRAY}0%
 ${GRAY}Total: ${WHITE}21 ${GRAY}rare out of ${WHITE}1000`,
-        isActive: false,
+        selected: false,
         width: 0,
         height: 0
     },
@@ -48,7 +48,7 @@ ${GRAY}Total: ${WHITE}21 ${GRAY}rare out of ${WHITE}1000`,
         toggleSettingKey: 'seaCreaturesHpOverlay',
         guiSettings: overlayCoordsData.seaCreaturesHpOverlay,
         sampleText: `${AQUA}${BOLD}Sea creatures HP\n${RED}${BOLD}Lord Jawbus ${RESET}${GREEN}76m${WHITE}/${GREEN}100m${RED}❤`,
-        isActive: false,
+        selected: false,
         width: 0,
         height: 0
     },
@@ -56,7 +56,7 @@ ${GRAY}Total: ${WHITE}21 ${GRAY}rare out of ${WHITE}1000`,
         toggleSettingKey: 'seaCreaturesCountOverlay',
         guiSettings: overlayCoordsData.seaCreaturesCountOverlay,
         sampleText: `${GOLD}10 ${GRAY}sea creatures (${GOLD}03m 20s${GRAY})`,
-        isActive: false,
+        selected: false,
         width: 0,
         height: 0
     },
@@ -69,7 +69,7 @@ ${WHITE}1 000 ${GRAY}per hour (${WHITE}2 000 ${GRAY}total)
 
 ${AQUA}Elapsed time: ${WHITE}2:00:00
 `,
-        isActive: false,
+        selected: false,
         width: 0,
         height: 0
     },
@@ -77,7 +77,7 @@ ${AQUA}Elapsed time: ${WHITE}2:00:00
         toggleSettingKey: 'legionAndBobbingTimeOverlay',
         guiSettings: overlayCoordsData.legionAndBobbingTimeOverlay,
         sampleText: `${GOLD}Legion: ${WHITE}5 ${GRAY}players\n${GOLD}Bobbin' time: ${WHITE}3 hooks`,
-        isActive: false,
+        selected: false,
         width: 0,
         height: 0
     },
@@ -99,7 +99,7 @@ ${GRAY}Last on: ${WHITE}45m ${GRAY}(${WHITE}2024-11-30 11:30:00${GRAY})
 ${LIGHT_PURPLE}Radioactive Vials: ${WHITE}10
 ${GRAY}Last on: ${WHITE}1d 0h 0m ${GRAY}(${WHITE}2024-11-29 12:15:00${GRAY})
 ${GRAY}Last on: ${WHITE}6 Jawbuses ago`,
-        isActive: false,
+        selected: false,
         width: 0,
         height: 0
     },
@@ -112,7 +112,7 @@ ${GOLD}Yeti: ${WHITE}70 ${GRAY}catches ago ${DARK_GRAY}(${GRAY}avg: ${WHITE}85${
 ${GRAY}Last on: ${WHITE}2d 5h 8m ${GRAY}(${WHITE}2024-11-30 12:00:00${GRAY})
 ${LIGHT_PURPLE}Reindrake: ${WHITE}417 ${GRAY}catches ago ${DARK_GRAY}(${GRAY}avg: ${WHITE}654${DARK_GRAY})
 ${GRAY}Last on: ${WHITE}2d 9h 8m ${GRAY}(${WHITE}2024-11-30 08:00:00${GRAY})`,
-        isActive: false,
+        selected: false,
         width: 0,
         height: 0
     },
@@ -131,7 +131,7 @@ ${GRAY}Last on: ${WHITE}2d 5h 8m ${GRAY}(${WHITE}2024-11-30 12:00:00${GRAY})
 ${GOLD}Tiki Masks: ${WHITE}5
 ${GRAY}Last on: ${WHITE}1d 0h 0m ${GRAY}(${WHITE}2024-11-29 12:15:00${GRAY})
 ${GRAY}Last on: ${WHITE}6 Wiki Tikis ago`,
-        isActive: false,
+        selected: false,
         width: 0,
         height: 0
     },
@@ -151,7 +151,7 @@ ${GOLD}Coins/h (sell offer): ${WHITE}33.3m
 ${GOLD}Coins/h (insta-sell): ${WHITE}33m
 
 ${AQUA}Elapsed time: ${WHITE}3:17:26`,
-        isActive: false,
+        selected: false,
         width: 0,
         height: 0
     },
@@ -171,7 +171,7 @@ ${GOLD}Coins/h (sell offer): ${WHITE}33m
 ${GOLD}Coins/h (insta-sell): ${WHITE}28.8m
 
 ${AQUA}Elapsed time: ${WHITE}1:11:13`,
-        isActive: false,
+        selected: false,
         width: 0,
         height: 0
     },
@@ -188,7 +188,7 @@ ${GREEN}Mithril Grubbers caught/h: ${WHITE}238
 ${GREEN}Mithril Powder/h: ${WHITE}427 000
 
 ${AQUA}Elapsed time: ${WHITE}3:16`,
-        isActive: false,
+        selected: false,
         width: 0,
         height: 0
     },
@@ -207,7 +207,7 @@ ${WHITE}0${GRAY}x rolls | ${WHITE}0${GRAY}x ${DARK_PURPLE}6 ${GRAY}| ${WHITE}0${
 ${AQUA}Profit: ${GREEN}0
 
 ${AQUA}${BOLD}Total profit: ${GREEN}5M`,
-        isActive: false,
+        selected: false,
         width: 0,
         height: 0
     },
@@ -224,7 +224,7 @@ ${GRAY}Total Treasures: ${WHITE}22
 ${GOLD}Treasure Dyes: ${WHITE}2
 ${GRAY}Last on: ${WHITE}1d 0h 0m ${GRAY}(${WHITE}2025-09-10 12:15:00${GRAY})
 ${GRAY}Last on: ${WHITE}7 Treasures ago`,
-        isActive: false,
+        selected: false,
         width: 0,
         height: 0
     },
@@ -242,7 +242,7 @@ ${GRAY}Last on: ${WHITE}7 Treasures ago`,
 ${AQUA}Total: ${GOLD}${BOLD}220M ${RESET}${GRAY}(${GOLD}171M${GRAY}/h)
 
 ${AQUA}Elapsed time: ${WHITE}1:17:14`,
-        isActive: false,
+        selected: false,
         width: 0,
         height: 0
     },
@@ -363,11 +363,15 @@ function moveCurrentGui(selectedGui, x, y) {
 }
 
 function zoomInCurrentGui(selectedGui) {
+    const oldScale = selectedGui.guiSettings.scale;
     selectedGui.guiSettings.scale += 0.1;
+    adjustPositionOnRescale(selectedGui.guiSettings, oldScale);
     overlayCoordsData.save();
 }
 
 function zoomOutCurrentGui(selectedGui) {
+    const oldScale = selectedGui.guiSettings.scale;
     decreaseScaleOrSetToMinimal(selectedGui.guiSettings);
+    adjustPositionOnRescale(selectedGui.guiSettings, oldScale);
     overlayCoordsData.save();
 }

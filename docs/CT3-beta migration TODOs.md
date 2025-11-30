@@ -28,7 +28,6 @@ MC version required: 1.21.5 Fabric
 
 - Bayou - I noticed once that widget was not appearing until I open/close settings. Can't repro.
 - Martin NPC fishing hook is detected in Bobbing Time tracker (Galatea)
-- Overlay is moving when changing its scale in /feeshmoveallguis
 - Overlays position not preserved when copying coords json from 1.8.9
 - Clickable lines - sometimes clicks intersect between 2 lines, both lines are clicked
 - Black Hole timer sometimes getting stuck
@@ -38,7 +37,6 @@ MC version required: 1.21.5 Fabric
 
 - Lore functionality fully removed (Expertise kills, Item ID from developer section)
 - Odger UI looks ugly, I want to rework this feature
-- Moby Duck progress in 1st slot of Time Bag is not rendered
 
 ## Rendering
 
