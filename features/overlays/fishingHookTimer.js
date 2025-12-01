@@ -26,7 +26,7 @@ registerIf(
 );
 
 registerIf(
-    register("renderEntity", (entity, position, partialTick, event) => cancelHypixelFishingHookTimer(entity, event)),
+    register("renderEntity", (entity, partialTick, event) => cancelHypixelFishingHookTimer(entity, event)),
     () => settings.fishingHookTimerOverlay && isInSkyblock() && isInFishingWorld(getWorldName())
 );
 
@@ -47,15 +47,21 @@ function trackHypixelFishingHookTimer() {
             return;
         }
     
+        const fishingHookMc = fishingHook.toMC();
+
         fishingHookTimer = {
-            ticksExisted: fishingHook.getTicksExisted(),
+            ticksExisted: fishingHookMc.age,
             fishState: FISH_STATE_NONE
         };
-    
+
         const hypixelHookTimer = getHypixelFishingHookTimer(fishingHook);
         if (!hypixelHookTimer) return;
-    
-        fishingHookTimer = Object.assign(fishingHookTimer, { hypixelTimerUuid: hypixelHookTimer.uuid, fishState: hypixelHookTimer.fishState, hypixelTimerText: hypixelHookTimer.name });    
+
+        fishingHookTimer = Object.assign(fishingHookTimer, {
+            hypixelTimerUuid: hypixelHookTimer.uuid,
+            fishState: hypixelHookTimer.fishState,
+            hypixelTimerText: hypixelHookTimer.name,
+        });    
     } catch (e) {
         logError(e, 'Failed to track Hypixel\'s fishing hook timer.');
     }
