@@ -11,6 +11,7 @@ export const CHANGELOG_V1 = [
     {
         categoryDisplayName: `${RED}Bugfixes`,
         entries: [
+            'When auto-resetting is enabled, skip resetting the trackers on CT modules reloading.',
         ],     
     },
     {
