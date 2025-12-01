@@ -357,7 +357,7 @@ export class OverlayTextLine {
         const scaledY = this.text.y * this.text.scale;
         return (
             (x >= scaledX && x <= scaledX + this.width) &&
-            (y >= scaledY && y < scaledY + this.height/* 0.85*/) // Fix for case when I click top of a line, it thinks that previous line is hovered
+            (y >= scaledY && y < scaledY + this.height * 0.7) // Fix for case when I click top of a line, it thinks that previous line is hovered
         );
     }
 
