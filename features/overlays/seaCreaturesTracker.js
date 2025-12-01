@@ -35,7 +35,7 @@ registerIf(
 );
 
 register("gameUnload", () => {
-    if (settings.seaCreaturesTrackerOverlay && settings.resetSeaCreaturesTrackerOnGameClosed && persistentData.seaCreatures.session.totalCount > 0) {
+    if (!World.isLoaded() && settings.seaCreaturesTrackerOverlay && settings.resetSeaCreaturesTrackerOnGameClosed && persistentData.seaCreatures.session.totalCount > 0) {
         resetSeaCreaturesTracker(true, SESSION_VIEW_MODE);
     }
 });

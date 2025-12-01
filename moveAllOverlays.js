@@ -82,6 +82,15 @@ ${AQUA}Elapsed time: ${WHITE}2:00:00
         height: 0
     },
     {
+        toggleSettingKey: 'fishingHookTimerOverlay',
+        guiSettings: overlayCoordsData.fishingHookTimerOverlay,
+        sampleText: `${YELLOW}${BOLD}2.1s`,
+        align: 'CENTER',
+        isActive: false,
+        width: 0,
+        height: 0
+    },
+    {
         toggleSettingKey: 'crimsonIsleTrackerOverlay',
         guiSettings: overlayCoordsData.crimsonIsleTrackerOverlay,
         sampleText:
@@ -348,6 +357,7 @@ function renderSampleOverlays() {
     SAMPLE_GUIS.filter(sampleGui => settings[sampleGui.toggleSettingKey]).forEach(sampleGui => {
         const overlay = new Text(sampleGui.sampleText, sampleGui.guiSettings.x, sampleGui.guiSettings.y)
             .setShadow(true)
+            .setAlign(sampleGui.align || 'LEFT')
             .setScale(sampleGui.guiSettings.scale);
         overlay.draw();
 
