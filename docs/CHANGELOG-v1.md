@@ -7,6 +7,19 @@
 Released: ???
 
 Features:
+- Reworked Fishing Hook Timer to have stable position on player's screen. Moved from Rendering to Overlays section.
+
+Bugfixes:
+- When auto-resetting is enabled, skip resetting the trackers on CT modules reloading (e.g. /ct load).
+
+Other:
+-
+
+## v1.55.0
+
+Released: 2025-11-24
+
+Features:
 - Added separate "Hide cheap items" settings for [Session] and [Total] in Fishing profit tracker.
 - Added Meme mode sounds customization when you catch a rare sea creature or drop a rare item.
 - Added NPC Price mode for Fishing profit tracker (this does not count Level 100 pets tho, because it requires to add each ingame pet NPC price to the module).
