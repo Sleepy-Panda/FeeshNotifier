@@ -1,6 +1,6 @@
 import settings, { allOverlaysGui } from "../../settings";
 import { BOLD, RED, YELLOW } from "../../constants/formatting";
-import { getPlayerFishingHook, isInFishingWorld } from "../../utils/common";
+import { getPlayerFishingHook, isInFishingWorld, logError } from "../../utils/common";
 import { getWorldName, hasFishingRodInHotbar, isInSkyblock } from "../../utils/playerState";
 import { registerIf } from "../../utils/registers";
 import { overlayCoordsData } from "../../data/overlayCoords";
@@ -57,8 +57,7 @@ function trackHypixelFishingHookTimer() {
     
         fishingHookTimer = Object.assign(fishingHookTimer, { hypixelTimerUuid: hypixelHookTimer.uuid, fishState: hypixelHookTimer.fishState, hypixelTimerText: hypixelHookTimer.name });    
     } catch (e) {
-		console.error(e);
-		console.log(`[FeeshNotifier] Failed to track Hypixel's fishing hook.`);
+        logError(e, 'Failed to track Hypixel\'s fishing hook timer.');
     }
 }
 
@@ -80,8 +79,7 @@ function cancelHypixelFishingHookTimer(entity, event) {
             cancel(event);
         }
     } catch (e) {
-		console.error(e);
-		console.log(`[FeeshNotifier] Failed to cancel rendering of Hypixel's fishing hook.`);
+        logError(e, 'Failed to cancel rendering of Hypixel\'s fishing hook timer.');
     }
 }
 
