@@ -12,6 +12,7 @@ export const seaCreaturesHpOverlayGui = new Gui();
 export const seaCreaturesCountOverlayGui = new Gui();
 export const seaCreaturesPerHourTrackerOverlayGui = new Gui();
 export const legionAndBobbingTimeOverlayGui = new Gui();
+export const fishingHookTimerOverlayGui = new Gui();
 export const crimsonIsleTrackerOverlayGui = new Gui();
 export const jerryWorkshopTrackerOverlayGui = new Gui();
 export const waterHotspotsAndBayouTrackerOverlayGui = new Gui();
@@ -1338,6 +1339,67 @@ ${BOLD}Off ${RESET}-> no sounds.`,
 
 .addSwitch({
     category: "Overlays",
+    configName: "fishingHookTimerOverlay",
+    title: "Fishing hook timer",
+    description: `Displays the timer of your fishing hook, as well as the sign when a fish arrived and can be reeled in.\nYou need to enable ${YELLOW}Skyblock Settings -> Personal -> Fishing Settings -> Fishing Timer ${RESET}for this functionality to work!`,
+    subcategory: "Fishing Hook",
+    value: false
+})
+.addDropDown({
+    category: "Overlays",
+    configName: "fishingHookTimerMode",
+    title: "Fishing hook timer mode",
+    description: "'Until reel in' shows countdown while fish is swimming towards the fishing hook. 'Since casted' shows the timer while the fishing hook is casted.",
+    options: ["Until reel in", "Since casted"],
+    value: 0,
+    subcategory: "Fishing Hook",
+    shouldShow: data => data.fishingHookTimerOverlay
+})
+.addTextInput({
+    category: "Overlays",
+    configName: "fishingHookFishArrivedTemplate",
+    title: "Custom fish arrived template",
+    description: `Replace default ${RED}${BOLD}!!! ${RESET}with your custom text when a fish arrived to your hook. Leave empty to use default.`,
+    value: "&c&l!!!",
+    placeHolder: "e.g. &c&l!!!",
+    subcategory: "Fishing Hook",
+    shouldShow: data => data.fishingHookTimerOverlay
+})
+.addTextInput({
+    category: "Overlays",
+    configName: "fishingHookFishTimerTemplate",
+    title: "Custom timer format",
+    description: `Replace default ${YELLOW}${BOLD}{timer} ${RESET}with your custom timer text. Use {timer} to insert timer seconds into the template. Leave empty to use default.`,
+    value: "&e&l{timer}",
+    placeHolder: "e.g. &e&l{timer}s",
+    subcategory: "Fishing Hook",
+    shouldShow: data => data.fishingHookTimerOverlay
+})
+.addButton({
+    category: "Overlays",
+    configName: "colorCodes",
+    title: `Color codes`,
+    description: `For settings above with custom text templates, please explore color codes and formatting codes.`,
+    subcategory: "Fishing Hook",
+    shouldShow: data => data.fishingHookTimerOverlay,
+    onClick() {
+        java.awt.Desktop.getDesktop().browse(new java.net.URI("https://github.com/Sleepy-Panda/FeeshNotifier/blob/main/docs/Colors%20and%20formatting%20guide.md"));
+    }
+})
+.addButton({
+    category: "Overlays",
+    configName: "moveFishingHookTimerOverlay",
+    title: "Move Fishing hook timer",
+    description: "Allows to move and resize the overlay text.",
+    subcategory: "Fishing Hook",
+    shouldShow: data => data.fishingHookTimerOverlay,
+    onClick() {
+        moveOverlay(fishingHookTimerOverlayGui);
+    }
+})
+
+.addSwitch({
+    category: "Overlays",
     configName: "jerryWorkshopTrackerOverlay",
     title: "Jerry Workshop tracker",
     description: `Shows an overlay with Yeti / Reindrake catch statistics while in the Jerry Workshop.\nDo ${AQUA}/feeshResetJerryWorkshop${GRAY} to reset.`,
@@ -1894,60 +1956,6 @@ ${GRAY}Do ${AQUA}/feeshResetProfitTracker${GRAY} to reset.`,
     title: "Fishing rod expertise",
     description: "Render expertise kills in fishing rod's lore if it has Expertise enchant.",
     subcategory: "Item lore"
-})
-
-.addSwitch({
-    category: "Rendering",
-    configName: "renderFishingHookTimer",
-    title: "Render fishing hook timer",
-    description: `Displays the timer on your fishing hook, as well as the sign when a fish arrived and can be reeled in.\nYou need to enable ${YELLOW}Skyblock Settings -> Personal -> Fishing Settings -> Fishing Timer ${RESET}for this functionality to work!`,
-    subcategory: "Fishing Hook"
-})
-.addDropDown({
-    category: "Rendering",
-    configName: "renderFishingHookTimerMode",
-    title: "Fishing hook timer mode",
-    description: "'Until reel in' shows countdown while fish is swimming towards the fishing hook. 'Since casted' shows the timer while the fishing hook is casted.",
-    options: ["Until reel in", "Since casted"],
-    value: 0,
-    subcategory: "Fishing Hook"
-})
-.addSlider({
-    category: "Rendering",
-    configName: "renderFishingHookTimerSize",
-    title: "Fishing hook timer size",
-    description: "Text size for rendered fishing hook timer.",
-    options: [1, 25],
-    value: 5,
-    subcategory: "Fishing Hook"
-})
-.addTextInput({
-    category: "Rendering",
-    configName: "renderFishingHookFishArrivedTemplate",
-    title: "Custom fish arrived template",
-    description: `Replace default ${RED}${BOLD}!!! ${RESET}with your custom text when a fish arrived to your hook. Leave empty to use default.`,
-    value: "&c&l!!!",
-    placeHolder: "e.g. &c&l!!!",
-    subcategory: "Fishing Hook"
-})
-.addTextInput({
-    category: "Rendering",
-    configName: "renderFishingHookFishTimerTemplate",
-    title: "Custom timer format",
-    description: `Replace default ${YELLOW}${BOLD}{timer} ${RESET}with your custom timer text. Use {timer} to insert timer seconds into the template. Leave empty to use default.`,
-    value: "&e&l{timer}",
-    placeHolder: "e.g. &e&l{timer}",
-    subcategory: "Fishing Hook"
-})
-.addButton({
-    category: "Rendering",
-    configName: "colorCodes",
-    title: `Color codes`,
-    description: `For settings above with custom text templates, please explore color codes and formatting codes.`,
-    subcategory: "Fishing Hook",
-    onClick() {
-        java.awt.Desktop.getDesktop().browse(new java.net.URI("https://github.com/Sleepy-Panda/FeeshNotifier/blob/main/docs/Colors%20and%20formatting%20guide.md"));
-    }
 })
 
 .addTextParagraph({
