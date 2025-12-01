@@ -59,7 +59,7 @@ register("worldUnload", () => {
 });
 
 register("gameUnload", () => {
-    if (settings.jerryWorkshopTrackerOverlay && settings.resetJerryWorkshopTrackerOnGameClosed && hasAnyData()) {
+    if (!World.isLoaded() && settings.jerryWorkshopTrackerOverlay && settings.resetJerryWorkshopTrackerOnGameClosed && hasAnyData()) {
         resetJerryWorkshopTracker(true);
     }
 });

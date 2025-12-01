@@ -146,6 +146,7 @@ register("gameLoad", () => {
 
 register("gameUnload", () => {
     if (
+        !World.isLoaded() &&
         settings.fishingProfitTrackerOverlay && settings.resetFishingProfitTrackerOnGameClosed &&
         (Object.keys(persistentData.fishingProfit.session.profitTrackerItems).length || persistentData.fishingProfit.session.elapsedSeconds)
     ) {

@@ -69,7 +69,7 @@ registerIf(
 );
 
 register("gameUnload", () => {
-    if (settings.crimsonIsleTrackerOverlay && settings.resetCrimsonIsleTrackerOnGameClosed && hasAnyData()) {
+    if (!World.isLoaded() && settings.crimsonIsleTrackerOverlay && settings.resetCrimsonIsleTrackerOnGameClosed && hasAnyData()) {
         resetCrimsonIsleTracker(true);
     }
 });
