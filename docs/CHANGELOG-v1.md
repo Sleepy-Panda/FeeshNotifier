@@ -10,7 +10,7 @@ Features:
 - Reworked Fishing Hook Timer to have stable position on player's screen. Moved from Rendering to Overlays section.
 
 Bugfixes:
-- 
+- When auto-resetting is enabled, skip resetting the trackers on CT modules reloading (e.g. /ct load).
 
 Other:
 -
