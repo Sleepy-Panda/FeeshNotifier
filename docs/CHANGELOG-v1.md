@@ -7,7 +7,7 @@
 Released: ???
 
 Features:
-- Changed Fishing Hook Timer to have stable position on player's screen.
+- Reworked Fishing Hook Timer to have stable position on player's screen. Moved from Rendering to Overlays section.
 
 Bugfixes:
 - 

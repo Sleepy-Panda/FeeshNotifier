@@ -5,7 +5,7 @@ export const CHANGELOG_V1 = [
     {
         categoryDisplayName: `${GREEN}Features`,
         entries: [
-            'Changed Fishing Hook Timer to have stable position on player\'s screen. Re-enable in settings and move to proper position like other overlays!',
+            'Reworked Fishing Hook Timer to have stable position on player\'s screen. Re-enable in Settings -> Overlays -> Fishing Hook, and move to proper position like other overlays!',
         ],
     },
     {
