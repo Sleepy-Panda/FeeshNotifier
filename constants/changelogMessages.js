@@ -5,9 +5,8 @@ export const CHANGELOG_V1 = [
     {
         categoryDisplayName: `${GREEN}Features`,
         entries: [
-            'Added separate "Hide cheap items" settings for [Session] and [Total] in Fishing profit tracker.',
-            'Added Meme mode sounds customization when you catch a rare sea creature or drop a rare item.',
-            'Added NPC Price mode for Fishing profit tracker.',
+            'Reworked Fishing Hook Timer to have stable position on player\'s screen. Re-enable in Settings -> Overlays -> Fishing Hook, and move to proper position like other overlays!',
+            'Added Vanquisher to the HP tracker.'
         ],
     },
     {
