@@ -1,17 +1,28 @@
 Current CT artifact used: 1.21.5v3 from https://modrinth.com/mod/ctjs/versions?g=1.21.5
 CT3 migration guide: https://github.com/ChatTriggers/ctjs/blob/main/docs/MIGRATION.md
 
+https://github.com/Synnerz/ctjs/blob/1.21.5/src/main/kotlin/com/chattriggers/ctjs/api/entity
+https://maven.fabricmc.net/docs/yarn-1.21.5+build.1/net/minecraft/text/Text.html
+
 MC version required: 1.21.5 Fabric
 
 ## Reminders
 
-- Probably I will need to port Feesh to MC 1.21.9 or higher (depends on SB decision of supported version)
+- I will need to port Feesh to MC 1.21.9 or higher (depends on SB decision of supported version)
+  - CT does not let uploading different releases for 1.21.5, 1.21.8 etc, so single release must work for all CT versions.
 - Adjust github links in settings to point to correct branches.
 - Adjust CHANGELOG-v2 file, ingame changelog message and metadata version
   - Probably version should be 3+ to allow any minor 2+
 - Update settings to remove not supported features
 - Check that configs from 1.8.9 moved without issues
 - To test all overlays (e.g. Moby duck overlay not tested at all)
+
+## 1.21.8
+
+- guiRender does not provide DrawContext, have to use renderOverlay.
+- All overlays broken due to CT breaking change: Text.draw() must accept DrawContext now.
+- All inventory rendering broken due to mixins not working for HandledScreen.x & y.
+  - There is CT error on startup for Mixins.
 
 ## Chat
 
@@ -23,6 +34,7 @@ MC version required: 1.21.5 Fabric
 
 - Player name in alert has no formatting (CT issue)
   - Player.getDisplayName().toString() returns §r§8[§r§c469§r§8] §rMoonTheSadFisher§r §r§7α - no color code before nick
+  - Player.toMC().getDisplayName() to get from MC has styling (returns net.minecraft.text.Text) 
 
 ## Overlays
 
