@@ -375,3 +375,4 @@ function zoomOutCurrentGui(selectedGui) {
     adjustPositionOnRescale(selectedGui.guiSettings, oldScale);
     overlayCoordsData.save();
 }
+
