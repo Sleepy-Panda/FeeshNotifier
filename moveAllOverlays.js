@@ -3,6 +3,7 @@ import { overlayCoordsData } from "./data/overlayCoords";
 import { AQUA, BLUE, BOLD, DARK_GRAY, DARK_PURPLE, GOLD, GRAY, GREEN, LIGHT_PURPLE, RED, RESET, WHITE, YELLOW } from "./constants/formatting";
 import { isInSkyblock } from "./utils/playerState";
 import { adjustPositionOnRescale, decreaseScaleOrSetToMinimal } from "./moveOverlay";
+import { drawVersionSpecific } from "./utils/overlays";
 
 export function moveAllGuis() {
     if (!isInSkyblock()) {
@@ -248,7 +249,7 @@ ${AQUA}Elapsed time: ${WHITE}1:17:14`,
     },
 ];
 
-register('renderOverlay', () => renderSampleOverlays());
+register('renderOverlay', (ctx) => renderSampleOverlays(ctx));
 
 register("worldUnload", () => {
     if (allOverlaysGui.isOpen()) allOverlaysGui.close();
@@ -340,7 +341,7 @@ function isInOverlay(sampleGui, x, y) {
     }
 }
 
-function renderSampleOverlays() {
+function renderSampleOverlays(ctx) {
     if (!allOverlaysGui.isOpen()) {
         return;
     }
@@ -349,7 +350,7 @@ function renderSampleOverlays() {
         const overlay = new Text(sampleGui.sampleText, sampleGui.guiSettings.x, sampleGui.guiSettings.y)
             .setShadow(true)
             .setScale(sampleGui.guiSettings.scale);
-        overlay.draw();
+        drawVersionSpecific(overlay, ctx);
 
         sampleGui.width = overlay.getWidth();
         sampleGui.height = overlay.getHeight();

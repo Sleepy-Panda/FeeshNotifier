@@ -9,3 +9,4 @@ export const HandledScreen = Java.type("net.minecraft.client.gui.screen.ingame.H
 export const DataComponentTypes = Java.type("net.minecraft.component.DataComponentTypes");
 export const NbtOps = Java.type("net.minecraft.nbt.NbtOps");
 export const JsonOps = Java.type("com.mojang.serialization.JsonOps");
+export const DrawContext = Java.type("net.minecraft.client.gui.DrawContext");

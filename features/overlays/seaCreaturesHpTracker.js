@@ -8,6 +8,7 @@ import { registerIf } from "../../utils/registers";
 import { getSeaCreaturesInRange } from "../../utils/entityDetection";
 import { getMcEntityById } from "../../utils/common";
 import { playMcSound } from "../../utils/sound";
+import { drawVersionSpecific } from "../../utils/overlays";
 
 let mobs = [];
 
@@ -130,7 +131,7 @@ registerIf(
 );
 
 registerIf(
-    register('renderOverlay', () => renderHpOverlay()),
+    register('renderOverlay', (ctx) => renderHpOverlay(ctx)),
     () => settings.seaCreaturesHpOverlay && isInSkyblock() && TRACKED_WORLD_NAMES.includes(getWorldName())
 );
 
@@ -230,7 +231,7 @@ function trackSeaCreaturesHp() {
     }
 }
 
-function renderHpOverlay() {
+function renderHpOverlay(ctx) {
     if (!settings.seaCreaturesHpOverlay ||
         !isInSkyblock() ||
         !TRACKED_WORLD_NAMES.includes(getWorldName()) ||
@@ -241,7 +242,7 @@ function renderHpOverlay() {
 
     if (!mobs.length && seaCreaturesHpOverlayGui.isOpen()) {
         const overlayText = `${AQUA}${BOLD}Sea creatures HP`;
-        drawText(overlayText);
+        drawText(overlayText, ctx);
         return;
     }
     
@@ -251,13 +252,13 @@ function renderHpOverlay() {
             const immunityText = settings.seaCreaturesHpOverlay_immunity && mob.isImmune ? ` ${RED}${BOLD}[Immune]` : '';
             overlayText += `${mob.nametag}${immunityText}\n`;
         });
-        drawText(overlayText);
+        drawText(overlayText, ctx);
     }
 
-    function drawText(overlayText) {
+    function drawText(overlayText, ctx) {
         const overlay = new Text(overlayText, overlayCoordsData.seaCreaturesHpOverlay.x, overlayCoordsData.seaCreaturesHpOverlay.y)
             .setShadow(true)
             .setScale(overlayCoordsData.seaCreaturesHpOverlay.scale);
-        overlay.draw();
+        drawVersionSpecific(overlay, ctx);
     }
 }

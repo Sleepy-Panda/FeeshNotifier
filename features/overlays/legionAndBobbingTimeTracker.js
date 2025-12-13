@@ -6,6 +6,7 @@ import { getWorldName, hasFishingRodInHotbar, isInSkyblock } from "../../utils/p
 import { getPlayerNamesInRange } from "../../utils/entityDetection";
 import { registerIf } from "../../utils/registers";
 import { isInFishingWorld } from "../../utils/common";
+import { drawVersionSpecific } from "../../utils/overlays";
 
 let playersCount = 0;
 let fishingHooksCount = 0;
@@ -21,7 +22,7 @@ registerIf(
 );
 
 registerIf(
-    register('renderOverlay', () => renderLegionAndBobbingTimeOverlay()),
+    register('renderOverlay', (ctx) => renderLegionAndBobbingTimeOverlay(ctx)),
     () => settings.legionAndBobbingTimeOverlay && isInSkyblock() && isInFishingWorld(getWorldName())
 );
 
@@ -50,7 +51,7 @@ function trackPlayersAndFishingHooksNearby() {
     playersCount = players.length;
 }
 
-function renderLegionAndBobbingTimeOverlay() {
+function renderLegionAndBobbingTimeOverlay(ctx) {
     if (!settings.legionAndBobbingTimeOverlay ||
         !isInSkyblock() ||
         !hasFishingRodInHotbar() ||
@@ -67,5 +68,5 @@ function renderLegionAndBobbingTimeOverlay() {
     const overlay = new Text(`${playersText}\n${hooksText}`, overlayCoordsData.legionAndBobbingTimeOverlay.x, overlayCoordsData.legionAndBobbingTimeOverlay.y)
         .setShadow(true)
         .setScale(overlayCoordsData.legionAndBobbingTimeOverlay.scale);
-    overlay.draw();
+    drawVersionSpecific(overlay, ctx);
 }

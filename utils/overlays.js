@@ -5,7 +5,7 @@ import { allOverlaysGui } from "../settings";
 import { isInChatOrInventoryGui } from "./common";
 import { registerIf } from "./registers";
 import { SESSION_VIEW_MODE, TOTAL_VIEW_MODE } from "../constants/viewModes";
-import { GuiInventory } from "../constants/javaTypes";
+import { DrawContext, GuiInventory } from "../constants/javaTypes";
 
 export const LEFT_CLICK_TYPE = 'LEFT';
 export const CTRL_LEFT_CLICK_TYPE = 'CTRL+LEFT';
@@ -32,7 +32,7 @@ export class Overlay {
         this.registerIfFunc = registerIfFunc;
 
         registerIf(
-            register('renderOverlay', () => {
+            register('renderOverlay', (ctx) => {
                 if (!this.registerIfFunc()) {
                     this.clear();
                     return;
@@ -48,7 +48,7 @@ export class Overlay {
                     return;
                 }
 
-                this._draw();
+                this._draw(ctx);
             }),
             this.registerIfFunc
         );
@@ -236,7 +236,7 @@ export class Overlay {
         }
     }
 
-    _draw() {
+    _draw(ctx) {
         if (!this.textLines.length && !this.buttonLines.length) {
             return;
         }
@@ -247,7 +247,7 @@ export class Overlay {
 
         this.textLines.forEach((line) => {
             y += lastLineHeight;
-            line._setX(x)._setY(y)._setScale(this.positionData.scale)._draw();
+            line._setX(x)._setY(y)._setScale(this.positionData.scale)._draw(ctx);
             lastLineHeight = line.height;
         });
 
@@ -260,12 +260,13 @@ export class Overlay {
 
         if (settings.buttonsPosition === 0) { // At the bottom of Overlay
             y += lastLineHeight;
-            emptyLine?.setX(x)?.setY(y)?.draw();
+            emptyLine?.setX(x)?.setY(y);
+            drawVersionSpecific(line, ctx);
             lastLineHeight = emptyLineHeight;
 
             this.buttonLines.forEach((line) => {
                 y += lastLineHeight;
-                line._setX(x)._setY(y)._setScale(this.positionData.scale)._draw();
+                line._setX(x)._setY(y)._setScale(this.positionData.scale)._draw(ctx);
                 lastLineHeight = line.height;
             });
         }
@@ -274,14 +275,15 @@ export class Overlay {
             y = this.positionData.y;
             lastLineHeight = emptyLineHeight;
             y -= lastLineHeight;
-            emptyLine?.setX(x)?.setY(y)?.draw();
+            emptyLine?.setX(x)?.setY(y);
+            drawVersionSpecific(line, ctx);
 
             [...this.buttonLines].reverse().forEach((line) => {
                 line._setScale(this.positionData.scale);
                 lastLineHeight = line.text.getHeight();
                 y -= lastLineHeight;
                 line._setX(x)._setY(y);
-                line._draw();
+                line._draw(ctx);
             });         
         }
     }
@@ -346,8 +348,8 @@ export class OverlayTextLine {
         return this;
     }
 
-    _draw() {
-        this.text.setAlign('LEFT').setShadow(true).draw();
+    _draw(ctx) {
+        this.text.setAlign('LEFT').setShadow(true).draw(ctx);
         this.width = this.text.getWidth();
         this.height = this.text.getHeight();
     }
@@ -390,6 +392,12 @@ export class OverlayButtonLine extends OverlayTextLine {
     constructor() {
         super();
     }
+}
+
+export function drawVersionSpecific(overlay, ctx) {
+    if (!overlay) return;
+    if (ctx && ctx instanceof DrawContext) overlay.draw(ctx); // 1.21.6+ requires this parameter
+    else overlay.draw();
 }
 
 /**
