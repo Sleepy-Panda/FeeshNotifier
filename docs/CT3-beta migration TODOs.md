@@ -24,6 +24,10 @@ MC version required: 1.21.5 Fabric
 - All inventory rendering broken due to mixins not working for HandledScreen.x & y.
   - There is CT error on startup for Mixins.
 
+## 1.21.10
+
+- Crash on module load because of Amaterasu so can't proceed.
+
 ## Chat
 
 - Wiki Tiki catch message sometimes not compacted, and catch is not tracked in Bayou tracker
