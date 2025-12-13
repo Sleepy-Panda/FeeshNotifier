@@ -41,6 +41,11 @@ const TRACKED_MOBS = [
     },
     {
         worlds: [CRIMSON_ISLE],
+        baseMobName: 'Vanquisher',
+        hasImmunity: true,
+    },
+    {
+        worlds: [CRIMSON_ISLE],
         baseMobName: 'Ragnarok',
     },
     {
