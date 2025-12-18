@@ -44,6 +44,10 @@ const TRACKED_DROPS = [
 
 let lastTreasureCaughtAt = null;
 
+const overlay = new Overlay(() => settings.treasureFishingTrackerOverlay && isInSkyblock() && isInFishingWorld(getWorldName()))
+    .setPositionData(overlayCoordsData.treasureFishingTrackerOverlay)
+    .setIsClickable(true);
+
 TREASURE_CATCH_TRIGGERS.forEach(entry => {
     registerIf(
         register("Chat", (event) => {
@@ -74,10 +78,6 @@ register("gameUnload", () => {
         resetTreasureFishingTracker(true);
     }
 });
-
-const overlay = new Overlay(() => settings.treasureFishingTrackerOverlay && isInSkyblock() && isInFishingWorld(getWorldName()))
-    .setPositionData(overlayCoordsData.treasureFishingTrackerOverlay)
-    .setIsClickable(true);
 
 export function setTreasureDyes(count, lastOn) {
     try {

@@ -261,7 +261,7 @@ export class Overlay {
         if (settings.buttonsPosition === 0) { // At the bottom of Overlay
             y += lastLineHeight;
             emptyLine?.setX(x)?.setY(y);
-            drawVersionSpecific(line, ctx);
+            drawVersionSpecific(emptyLine, ctx);
             lastLineHeight = emptyLineHeight;
 
             this.buttonLines.forEach((line) => {
@@ -276,7 +276,7 @@ export class Overlay {
             lastLineHeight = emptyLineHeight;
             y -= lastLineHeight;
             emptyLine?.setX(x)?.setY(y);
-            drawVersionSpecific(line, ctx);
+            drawVersionSpecific(emptyLine, ctx);
 
             [...this.buttonLines].reverse().forEach((line) => {
                 line._setScale(this.positionData.scale);
