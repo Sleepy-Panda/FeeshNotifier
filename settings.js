@@ -421,6 +421,14 @@ ${BOLD}Off ${RESET}-> no sounds.`,
 })
 .addSwitch({
     category: "Chat",
+    configName: "messageOnBurntTextsDrop",
+    title: "Send a party chat message on BURNT TEXTS drop",
+    description: "Sends a party chat message when a rare item has dropped by you.",
+    subcategory: "Rare Drops",
+    value: true
+})
+.addSwitch({
+    category: "Chat",
     configName: "messageOnSquidPetDrop",
     title: "Send a party chat message on SQUID PET drop",
     description: "Sends a party chat message when a rare item has dropped by you.",
@@ -960,6 +968,14 @@ ${BOLD}Off ${RESET}-> no sounds.`,
     category: "Alerts",
     configName: "alertOnScuttlerShellDrop",
     title: "Alert on SCUTTLER SHELL drop",
+    description: "Shows a title and plays a sound when a rare item has dropped by you or your party members.",
+    subcategory: "Rare Drops",
+    value: true
+})
+.addSwitch({
+    category: "Alerts",
+    configName: "alertOnBurntTextsDrop",
+    title: "Alert on BURNT TEXTS drop",
     description: "Shows a title and plays a sound when a rare item has dropped by you or your party members.",
     subcategory: "Rare Drops",
     value: true
