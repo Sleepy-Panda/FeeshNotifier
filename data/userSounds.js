@@ -88,6 +88,9 @@ export const userDropSoundsData = new PogObject("FeeshNotifier", {
     [drops.SCUTTLER_SHELL_ID]: {
         source: sounds.OH_MY_GOD_SOUND
     },
+    [drops.BURNT_TEXTS_ID]: {
+        source: sounds.OH_MY_GOD_SOUND
+    },
     [drops.BABY_YETI_LEGENDARY_ID]: {
         source: sounds.SHEESH_SOUND
     },

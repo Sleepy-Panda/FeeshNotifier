@@ -1402,7 +1402,6 @@ export const FISHING_PROFIT_ITEMS = [
         itemName: 'Burnt Texts',
         itemDisplayName: `${LEGENDARY}Burnt Texts`,
         npcPrice: 1000000,
-        shouldAnnounceRareDrop: true
     },
     {
         itemId: 'CHAIN_END_TIMES',
@@ -1839,13 +1838,6 @@ export const FISHING_PROFIT_ITEMS = [
         itemName: 'Hunk of Blue Ice',
         itemDisplayName: `${RARE}Hunk of Blue Ice`,
         npcPrice: 25000,
-    },
-    {
-        itemId: 'HILT_OF_TRUE_ICE',
-        itemName: 'Hilt of True Ice',
-        itemDisplayName: `${LEGENDARY}Hilt of True Ice`,
-        npcPrice: 500000,
-        shouldAnnounceRareDrop: true,
     },
     {
         itemId: 'ENCHANTMENT_PROSPERITY_1',
