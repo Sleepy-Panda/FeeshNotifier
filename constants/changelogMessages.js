@@ -6,6 +6,7 @@ export const CHANGELOG_V1 = [
         categoryDisplayName: `${GREEN}Features`,
         entries: [
             'Reworked Fishing Hook Timer to have stable position on player\'s screen. Re-enable in Settings -> Overlays -> Fishing Hook, and move to proper position like other overlays!',
+            'Added Burnt Texts drop alert & party message.',
             'Added Vanquisher to the HP tracker.'
         ],
     },
