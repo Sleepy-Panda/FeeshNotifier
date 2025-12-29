@@ -70,7 +70,7 @@ register('worldUnload', () => {
 });
 
 register("gameUnload", () => {
-    if (settings.treasureFishingTrackerOverlay && settings.resetTreasureFishingTrackerOnGameClosed && persistentData.treasureFishing.total.totalCount > 0) {
+    if (!World.isLoaded() && settings.treasureFishingTrackerOverlay && settings.resetTreasureFishingTrackerOnGameClosed && persistentData.treasureFishing.total.totalCount > 0) {
         resetTreasureFishingTracker(true);
     }
 });

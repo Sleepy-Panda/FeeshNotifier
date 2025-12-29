@@ -2,9 +2,24 @@
 
 ! REMINDER TO SET changelogMessages.js FOR INGAME ANNOUNCEMENT !
 
-## v1.55.0
+## v1.56.0
 
 Released: ???
+
+Features:
+- Reworked Fishing Hook Timer to have stable position on player's screen. Moved from Rendering to Overlays section.
+- Added Burnt Texts drop alert & party message.
+- Added Vanquisher to the HP tracker.
+
+Bugfixes:
+- When auto-resetting is enabled, skip resetting the trackers on CT modules reloading (e.g. /ct load).
+
+Other:
+-
+
+## v1.55.0
+
+Released: 2025-11-24
 
 Features:
 - Added separate "Hide cheap items" settings for [Session] and [Total] in Fishing profit tracker.
@@ -13,8 +28,6 @@ Features:
 
 Bugfixes:
 - Fixed Rare Drop numbers - now they reset when migrating from 1.53.0 on download new version.
-
-Other:
 
 ## v1.54.0
 

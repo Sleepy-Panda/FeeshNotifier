@@ -59,7 +59,7 @@ registerIf(
 );
 
 register("gameUnload", () => {
-    if (settings.waterHotspotsAndBayouTrackerOverlay && settings.resetWaterHotspotsAndBayouTrackerOnGameClosed && hasAnyData()) {
+    if (!World.isLoaded() && settings.waterHotspotsAndBayouTrackerOverlay && settings.resetWaterHotspotsAndBayouTrackerOnGameClosed && hasAnyData()) {
         resetWaterHotspotsAndBayouTracker(true);
     }
 });
