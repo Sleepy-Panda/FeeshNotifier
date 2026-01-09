@@ -2,9 +2,15 @@
 
 ! REMINDER TO SET changelogMessages.js FOR INGAME ANNOUNCEMENT !
 
-## v1.56.0
+## v1.57.0
 
 Released: ???
+
+Features:
+
+## v1.56.0
+
+Released: 2025-12-29
 
 Features:
 - Reworked Fishing Hook Timer to have stable position on player's screen. Moved from Rendering to Overlays section.
