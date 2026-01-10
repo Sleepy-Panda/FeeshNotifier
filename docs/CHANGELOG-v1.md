@@ -7,6 +7,7 @@
 Released: ???
 
 Features:
+- Added a keybind to send Lootshare! message to the party chat, and added alert when such message appears.
 
 ## v1.56.0
 

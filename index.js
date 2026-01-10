@@ -22,6 +22,7 @@ import "./features/alerts/alertOnFishingBagDisabled";
 import "./features/alerts/alertOnHotspotGone";
 import "./features/alerts/alertOnPetLevelUp";
 import "./features/alerts/alertOnFishingFestivalEnded";
+import "./features/alerts/alertOnLootshareMessage";
 
 import "./features/overlays/seaCreaturesTracker";
 import "./features/overlays/deployablesTracker";
