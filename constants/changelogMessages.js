@@ -6,6 +6,7 @@ export const CHANGELOG_V1 = [
         categoryDisplayName: `${GREEN}Features`,
         entries: [
             "Added a keybind to send Lootshare! message to the party chat, and added alert when such message appears.",
+            "Added alert when a Salt has expired.",
         ],
     },
     {
