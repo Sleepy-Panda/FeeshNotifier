@@ -1,4 +1,5 @@
 import { Keybind } from "../KeybindFix";
+import { sendLootshareMessage } from "./features/alerts/alertOnLootshareMessage";
 import { sendMessageWithNearestHotspot } from "./features/chat/messageOnHotspotFound";
 import { pauseAbandonedQuarryTracker } from "./features/overlays/abandonedQuarryTracker";
 import { pauseFishingProfitTracker } from "./features/overlays/fishingProfitTracker";
@@ -28,4 +29,9 @@ shareNearestHotspotToPartyChatKeyBind.registerKeyRelease(() => {
 const shareNearestHotspotToAllChatKeyBind = new Keybind("Share nearest Hotspot to ALL chat", Keyboard.KEY_NONE, "FeeshNotifier");
 shareNearestHotspotToAllChatKeyBind.registerKeyRelease(() => {
     sendMessageWithNearestHotspot('ac');
+});
+
+const sendLootshareToPartyChatKeyBind = new Keybind("Send Lootshare message to PARTY chat", Keyboard.KEY_NONE, "FeeshNotifier");
+sendLootshareToPartyChatKeyBind.registerKeyRelease(() => {
+    sendLootshareMessage();
 });

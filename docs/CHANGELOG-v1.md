@@ -2,9 +2,16 @@
 
 ! REMINDER TO SET changelogMessages.js FOR INGAME ANNOUNCEMENT !
 
-## v1.55.0
+## v1.57.0
 
 Released: ???
+
+Features:
+- Added a keybind to send Lootshare! message to the party chat, and added alert when such message appears.
+
+## v1.56.0
+
+Released: 2025-12-29
 
 Features:
 - Reworked Fishing Hook Timer to have stable position on player's screen. Moved from Rendering to Overlays section.

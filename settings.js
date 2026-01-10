@@ -120,6 +120,14 @@ ${BOLD}Off ${RESET}-> no sounds.`,
 
 .addTextParagraph({
     category: "Chat",
+    configName: "lootshareKeybindInformationText",
+    title: "Lootshare button",
+    description: "Set a keybind in Minecraft's Controls menu to send 'Lootshare!' message to PARTY chat on button pressed. This triggers the alert for your party members.",
+    subcategory: "Lootshare"
+})
+
+.addTextParagraph({
+    category: "Chat",
     configName: "messageOnCatchInformationText",
     title: "Information",
     description: `You need to enable ${YELLOW}Skyblock Settings -> Personal -> Fishing Settings -> Sea Creature Chat ${RESET}for this functionality to work!`,
@@ -567,6 +575,14 @@ ${BOLD}Off ${RESET}-> no sounds.`,
     title: "Alert when a party member was killed by a Mythic lava creature",
     description: "Shows a title and plays a sound when your party member reports they are killed by Thunder / Lord Jawbus / Ragnarok, so the party can wait for them to come back.",
     subcategory: "Party member's death",
+    value: true
+})
+.addSwitch({
+    category: "Alerts",
+    configName: "alertOnLootshareMessage",
+    title: "Alert when 'Lootshare!' message appears in party chat",
+    description: "Shows a title and plays a sound when 'Lootshare!' message appears in party chat.",
+    subcategory: "Lootshare",
     value: true
 })
 .addSwitch({
