@@ -7,6 +7,7 @@ import { WHITE, RED, DARK_PURPLE, GOLD, BLUE } from "../../constants/formatting"
 import { isInSkyblock } from "../../utils/playerState";
 import { registerIf } from "../../utils/registers";
 import { getMcEntityId } from "../../utils/common";
+import { drawVersionSpecific } from "../../utils/overlays";
 
 const currentPlayer = Player.getName();
 const secondsBeforeExpiration = 10;
@@ -60,7 +61,7 @@ registerIf(
 );
 
 registerIf(
-    register('renderOverlay', () => renderOverlay()),
+    register('renderOverlay', (ctx) => renderOverlay(ctx)),
     () => isOverlayEnabled() && isInSkyblock()
 );
 
@@ -356,7 +357,7 @@ function formatTime(totalSeconds) {
     return text;
 }
 
-function renderOverlay() {
+function renderOverlay(ctx) {
     if (!settings.deployablesRemainingTimeOverlay || !isInSkyblock() || allOverlaysGui.isOpen()) {
         return;
     }
@@ -387,6 +388,6 @@ function renderOverlay() {
         const overlay = new Text(overlayText, overlayCoordsData.deployablesRemainingTimeOverlay.x, overlayCoordsData.deployablesRemainingTimeOverlay.y)
             .setShadow(true)
             .setScale(overlayCoordsData.deployablesRemainingTimeOverlay.scale);
-        overlay.draw();
+        drawVersionSpecific(overlay, ctx);
     }
 }
