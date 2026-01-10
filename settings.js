@@ -572,6 +572,14 @@ ${BOLD}Off ${RESET}-> no sounds.`,
 })
 .addSwitch({
     category: "Alerts",
+    configName: "alertOnSaltExpired",
+    title: "Alert when a Salt has expired",
+    description: "Shows a title and plays a sound when a Salt has expired.",
+    subcategory: "Consumables",
+    value: true
+})
+.addSwitch({
+    category: "Alerts",
     configName: "alertOnPartyMemberDeath",
     title: "Alert when a party member was killed by a Mythic lava creature",
     description: "Shows a title and plays a sound when your party member reports they are killed by Thunder / Lord Jawbus / Ragnarok, so the party can wait for them to come back.",
