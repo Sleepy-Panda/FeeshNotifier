@@ -232,6 +232,7 @@ export const ADDED_TO_SACKS_MESSAGE = `[Sacks] +`;
 
 // &r&d&lSALT&r&c: Your Lushlilac has expired!
 // &r&d&lSALT&r&c: Your Oceandy has expired!&r
+// &r&d&lSALT&r&c: Your Candycomb has expired!
 export const SALT_EXPIRED_MESSAGE = `${RESET}${LIGHT_PURPLE}${BOLD}SALT${RESET}${RED}: Your ` + "${saltName}" + ` has expired!`; 
 
 export const ALL_CATCHES_TRIGGERS = [
