@@ -7,7 +7,7 @@ import { playMcSound } from "../../utils/sound";
 import { RED } from "../../constants/formatting";
 
 registerIf(
-	register("Chat", (saltName, event) => playAlertOnSaltExpired(saltName)).setCriteria(triggers.SALT_EXPIRED_MESSAGE).setStart(),
+	register("Chat", (saltName, event) => playAlertOnSaltExpired(saltName)).setCriteria(triggers.SALT_EXPIRED_MESSAGE).setContains(),
 	() => settings.alertOnSaltExpired && isInSkyblock()
 );
 
