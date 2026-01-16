@@ -1,9 +1,8 @@
 import settings from "../../settings";
 import * as triggers from '../../constants/triggers';
-import { MC_RANDOM_SPLASH_SOUND, OFF_SOUND_MODE } from "../../constants/sounds";
+import { OFF_SOUND_MODE, TIMER_SOUND_SOURCE } from "../../constants/sounds";
 import { isInSkyblock } from "../../utils/playerState";
 import { registerIf } from "../../utils/registers";
-import { playMcSound } from "../../utils/sound";
 import { RED } from "../../constants/formatting";
 
 registerIf(
@@ -17,9 +16,10 @@ function playAlertOnSaltExpired(saltName) {
 		
 		Client.showTitle(`${RED}${saltName.removeFormatting()} ${RED}has expired`, '', 1, 30, 1);
 	
-		if (settings.soundMode !== OFF_SOUND_MODE) {
-            playMcSound(MC_RANDOM_SPLASH_SOUND);
-        }
+		if (settings.soundMode !== OFF_SOUND_MODE)
+		{
+			new Sound(TIMER_SOUND_SOURCE).play();
+		}
 	} catch (e) {
 		console.error(e);
 		console.log(`[FeeshNotifier] Failed to play alert on Salt expired.`);
