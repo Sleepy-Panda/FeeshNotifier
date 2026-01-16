@@ -1263,7 +1263,7 @@ ${BOLD}Off ${RESET}-> no sounds.`,
     category: "Overlays",
     configName: "seaCreaturesHpOverlay",
     title: "Sea creatures HP",
-    description: `Shows an overlay with the HP of nearby Legendary/Mythic sea creatures when they're in lootshare range.`,
+    description: `Shows an overlay with the HP of nearby rare sea creatures when they're in lootshare range.`,
     subcategory: "Sea creatures HP",
     value: true
 })

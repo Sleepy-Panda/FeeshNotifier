@@ -102,6 +102,11 @@ const TRACKED_MOBS = [
     },
     {
         worlds: WATER_FISHING_WORLDS,
+        baseMobName: 'Carrot King',
+        hasImmunity: false,
+    },
+    {
+        worlds: WATER_FISHING_WORLDS,
         baseMobName: 'Phantom Fisher',
         hasImmunity: true,
     },
