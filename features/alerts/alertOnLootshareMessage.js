@@ -1,7 +1,6 @@
 import settings from "../../settings";
-import { MC_RANDOM_ORB_SOUND, OFF_SOUND_MODE } from "../../constants/sounds";
+import { OFF_SOUND_MODE, TIMER_SOUND_SOURCE } from "../../constants/sounds";
 import { isInSkyblock } from "../../utils/playerState";
-import { playMcSound } from "../../utils/sound";
 import { getPartyChatMessage } from "../../utils/common";
 import { BOLD, GREEN } from "../../constants/formatting";
 import { registerIf } from "../../utils/registers";
@@ -25,8 +24,9 @@ function playAlertOnLootshareMessage(rankAndPlayer) {
         const title = `${GREEN}${BOLD}Lootshare!`;
         Client.showTitle(title, '', 1, 45, 1);
     
-        if (settings.soundMode !== OFF_SOUND_MODE) {
-            playMcSound(MC_RANDOM_ORB_SOUND);
+        if (settings.soundMode !== OFF_SOUND_MODE)
+        {
+            new Sound(TIMER_SOUND_SOURCE).play();
         }
     } catch (e) {
         console.error(e);
