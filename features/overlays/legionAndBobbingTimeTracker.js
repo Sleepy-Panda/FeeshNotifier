@@ -1,5 +1,5 @@
 import settings, { allOverlaysGui } from "../../settings";
-import { GOLD, GRAY, GREEN, WHITE } from "../../constants/formatting";
+import { BOLD, GRAY, GREEN, LIGHT_PURPLE, WHITE } from "../../constants/formatting";
 import { EntityFishHook } from "../../constants/javaTypes";
 import { overlayCoordsData } from "../../data/overlayCoords";
 import { getWorldName, hasFishingRodInHotbar, isInSkyblock } from "../../utils/playerState";
@@ -62,9 +62,9 @@ function renderLegionAndBobbingTimeOverlay(ctx) {
     }
 
     const playersColor = playersCount >= maxLegionCount ? GREEN : WHITE;
-    const playersText = `${GOLD}Legion: ${playersColor}${playersCount} ${GRAY}${playersCount === 1 ? 'player' : 'players'}`;
+    const playersText = `${LIGHT_PURPLE}${BOLD}Legion${GRAY}: ${playersColor}${playersCount} ${GRAY}${playersCount === 1 ? 'player' : 'players'}`;
     const hooksColor = fishingHooksCount >= maxBobbingTimeCount ? GREEN : WHITE;
-    const hooksText = `${GOLD}Bobbin' time: ${hooksColor}${fishingHooksCount} ${GRAY}${fishingHooksCount === 1 ? 'hook' : 'hooks'}`;
+    const hooksText = `${LIGHT_PURPLE}${BOLD}Bobbin' Time${GRAY}: ${hooksColor}${fishingHooksCount} ${GRAY}${fishingHooksCount === 1 ? 'hook' : 'hooks'}`;
     const overlay = new Text(`${playersText}\n${hooksText}`, overlayCoordsData.legionAndBobbingTimeOverlay.x, overlayCoordsData.legionAndBobbingTimeOverlay.y)
         .setShadow(true)
         .setScale(overlayCoordsData.legionAndBobbingTimeOverlay.scale);
