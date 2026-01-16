@@ -9,6 +9,7 @@ Released: ???
 Features:
 - Added a keybind to send Lootshare! message to the party chat, and added alert when such message appears.
 - Added alert when a Salt has expired.
+- Added Carrot King to rare sea creatures HP widget.
 
 ## v1.56.0
 
