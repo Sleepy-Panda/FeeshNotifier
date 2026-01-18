@@ -121,6 +121,14 @@ ${BOLD}Off ${RESET}-> no sounds.`,
 
 .addTextParagraph({
     category: "Chat",
+    configName: "lootshareKeybindInformationText",
+    title: "Lootshare button",
+    description: "Set a keybind in Minecraft's Controls menu to send 'Lootshare!' message to PARTY chat on button pressed. This triggers the alert for your party members.",
+    subcategory: "Lootshare"
+})
+
+.addTextParagraph({
+    category: "Chat",
     configName: "messageOnCatchInformationText",
     title: "Information",
     description: `You need to enable ${YELLOW}Skyblock Settings -> Personal -> Fishing Settings -> Sea Creature Chat ${RESET}for this functionality to work!`,
@@ -564,10 +572,26 @@ ${BOLD}Off ${RESET}-> no sounds.`,
 })
 .addSwitch({
     category: "Alerts",
+    configName: "alertOnSaltExpired",
+    title: "Alert when a Salt has expired",
+    description: "Shows a title and plays a sound when a Salt has expired.",
+    subcategory: "Consumables",
+    value: true
+})
+.addSwitch({
+    category: "Alerts",
     configName: "alertOnPartyMemberDeath",
     title: "Alert when a party member was killed by a Mythic lava creature",
     description: "Shows a title and plays a sound when your party member reports they are killed by Thunder / Lord Jawbus / Ragnarok, so the party can wait for them to come back.",
     subcategory: "Party member's death",
+    value: true
+})
+.addSwitch({
+    category: "Alerts",
+    configName: "alertOnLootshareMessage",
+    title: "Alert when 'Lootshare!' message appears in party chat",
+    description: "Shows a title and plays a sound when 'Lootshare!' message appears in party chat.",
+    subcategory: "Lootshare",
     value: true
 })
 .addSwitch({
@@ -1239,7 +1263,7 @@ ${BOLD}Off ${RESET}-> no sounds.`,
     category: "Overlays",
     configName: "seaCreaturesHpOverlay",
     title: "Sea creatures HP",
-    description: `Shows an overlay with the HP of nearby Legendary/Mythic sea creatures when they're in lootshare range.`,
+    description: `Shows an overlay with the HP of nearby rare sea creatures when they're in lootshare range.`,
     subcategory: "Sea creatures HP",
     value: true
 })

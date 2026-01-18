@@ -76,7 +76,7 @@ ${AQUA}Elapsed time: ${WHITE}2:00:00
     {
         toggleSettingKey: 'legionAndBobbingTimeOverlay',
         guiSettings: overlayCoordsData.legionAndBobbingTimeOverlay,
-        sampleText: `${GOLD}Legion: ${WHITE}5 ${GRAY}players\n${GOLD}Bobbin' time: ${WHITE}3 hooks`,
+        sampleText: `${LIGHT_PURPLE}${BOLD}Legion${GRAY}: ${WHITE}5 ${GRAY}players\n${LIGHT_PURPLE}${BOLD}Bobbin' Time${GRAY}: ${WHITE}3 ${GRAY}hooks`,
         selected: false,
         width: 0,
         height: 0
