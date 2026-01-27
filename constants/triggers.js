@@ -128,7 +128,7 @@ export const RADIOACTIVE_VIAL_MESSAGE = `RARE DROP! ${RESET}${LIGHT_PURPLE}Radio
 export const MAGMA_CORE_MESSAGE = `RARE DROP! ${RESET}${BLUE}Magma Core ${MAGIC_FIND_MESSAGE_PATTERN}`; // RARE DROP! &r&9Magma Core &r&b(+&r&b236 &r&b✯ Magic Find&r&b)
 export const TIKI_MASK_MESSAGE = `RARE DROP! ${RESET}${GOLD}Tiki Mask ${MAGIC_FIND_MESSAGE_PATTERN}`; // RARE DROP! &r&6Tiki Mask &r&b(+&r&b236 &r&b✯ Magic Find&r&b)
 export const TITANOBOA_SHED_MESSAGE = `RARE DROP! ${RESET}${GOLD}Titanoboa Shed ${MAGIC_FIND_MESSAGE_PATTERN}`; // RARE DROP! &r&6Titanoboa Shed &r&b(+&r&b236 &r&b✯ Magic Find&r&b)
-export const SCUTTLER_SHELL_MESSAGE = `RARE DROP! ${RESET}${GOLD}Scuttler Shell ${MAGIC_FIND_MESSAGE_PATTERN}`; // RARE DROP! &r&6Scuttler Shell &r&b(+&r&b236 &r&b✯ Magic Find&r&b)
+export const SCUTTLER_SHELL_MESSAGE = `RARE DROP! ${RESET}${MYTHIC}Scuttler Shell ${MAGIC_FIND_MESSAGE_PATTERN}`; // RARE DROP! &r&dScuttler Shell &r&b(+&r&b236 &r&b✯ Magic Find&r&b)
 export const BURNT_TEXTS_MESSAGE = `RARE DROP! ${RESET}${GOLD}Burnt Texts ${MAGIC_FIND_MESSAGE_PATTERN}`; // &r&6&lRARE DROP! &r&6Burnt Texts &r&b(+&r&b393 &r&b✯ Magic Find&r&b)&r
 
 export const PHOENIX_PET_MESSAGE = `${YELLOW}Wow! ` + '${playerNameAndRank}' + ` ${RESET}${YELLOW}found a ${RESET}${RED}Phoenix ${RESET}${YELLOW}pet!`; // &eWow! &r&b[MVP&r&c+&r&b] &bMoonTheSadFisher&r&r&f &r&efound a &r&cPhoenix &r&epet!
@@ -882,7 +882,7 @@ export const RARE_DROP_TRIGGERS = [
         itemName: drops.SCUTTLER_SHELL,
         isMessageEnabledSettingKey: 'messageOnScuttlerShellDrop',
         isAlertEnabledSettingKey: 'alertOnScuttlerShellDrop',
-        rarityColorCode: LEGENDARY,
+        rarityColorCode: MYTHIC,
         shouldTrackDropNumber: false,
     },
     {

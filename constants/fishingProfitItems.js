@@ -1381,7 +1381,7 @@ export const FISHING_PROFIT_ITEMS = [
     {
         itemId: 'SCUTTLER_SHELL',
         itemName: 'Scuttler Shell',
-        itemDisplayName: `${LEGENDARY}Scuttler Shell`,
+        itemDisplayName: `${MYTHIC}Scuttler Shell`,
         npcPrice: 1000000,
     },
     {
@@ -1712,7 +1712,7 @@ export const FISHING_PROFIT_ITEMS = [
         itemId: 'DEEP_SEA_ORB',
         itemName: 'Deep Sea Orb',
         itemDisplayName: `${EPIC}Deep Sea Orb`,
-        npcPrice: 0,
+        npcPrice: 1,
     },
     {
         itemId: 'SOUL_FRAGMENT',
@@ -1724,7 +1724,7 @@ export const FISHING_PROFIT_ITEMS = [
     {
         itemId: 'PET_ITEM_VAMPIRE_FANG',
         itemName: 'Vampire Fang',
-        itemDisplayName: `${LEGENDARY}Vampire Fang`,
+        itemDisplayName: `${MYTHIC}Vampire Fang`,
         npcPrice: 500000,
         shouldAnnounceRareDrop: true,
     },
