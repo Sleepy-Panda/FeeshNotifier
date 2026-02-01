@@ -27,12 +27,22 @@ const config = new DefaultConfig("FeeshNotifier", "config/settings.json")
 
 .addButton({
     category: "General",
-    configName: "discordLink",
+    configName: "feeshCt2Link",
     title: `FeeshNotifier on ChatTriggers`,
     description: `Find latest releases notes, contacts and README here. From ${AQUA}MoonTheSadFisher ${WHITE}with ${RED}❤`,
     subcategory: "Contacts",
     onClick() {
         java.awt.Desktop.getDesktop().browse(new java.net.URI("https://www.chattriggers.com/modules/v/FeeshNotifier"));
+    }
+})
+.addButton({
+    category: "General",
+    configName: "feeshModGithubLink",
+    title: `Feesh Mod on Github`,
+    description: `Ongoing mod development for Fabric 1.21.10! Follow the progress here. Again, from ${AQUA}MoonTheSadFisher ${WHITE}with ${RED}❤`,
+    subcategory: "Contacts",
+    onClick() {
+        java.awt.Desktop.getDesktop().browse(new java.net.URI("https://github.com/Sleepy-Panda/Feesh"));
     }
 })
 .addButton({
