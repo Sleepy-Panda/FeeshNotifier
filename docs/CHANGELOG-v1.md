@@ -2,9 +2,18 @@
 
 ! REMINDER TO SET changelogMessages.js FOR INGAME ANNOUNCEMENT !
 
+## v1.58.0
+
+Features:
+
+Bugfixes:
+
+- Changed rarity of Scuttler Shell and Vampire Fang to Mythic.
+- Fixed Obfuscated trophy fish not counted in the Fishing profit tracker.
+
 ## v1.57.0
 
-Released: ???
+Released: 2026-01-18
 
 Features:
 - Added a keybind to send Lootshare! message to the party chat, and added alert when such message appears.
