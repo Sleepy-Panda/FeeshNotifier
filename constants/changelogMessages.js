@@ -13,6 +13,8 @@ export const CHANGELOG_V1 = [
     {
         categoryDisplayName: `${RED}Bugfixes`,
         entries: [
+            'Changed rarity of Scuttler Shell and Vampire Fang',
+            'Fixed Obfuscated trophy fish not counted in the Fishing profit tracker.',
         ],     
     },
     {

@@ -2,6 +2,15 @@
 
 ! REMINDER TO SET changelogMessages.js FOR INGAME ANNOUNCEMENT !
 
+## v1.58.0
+
+Features:
+
+Bugfixes:
+
+- Changed rarity of Scuttler Shell and Vampire Fang to Mythic.
+- Fixed Obfuscated trophy fish not counted in the Fishing profit tracker.
+
 ## v1.57.0
 
 Released: ???
